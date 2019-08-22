@@ -35,21 +35,6 @@ Route::get('/update', 'HomeController@updateMigrate');
 //Homepage
 Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');
 
-
-// Tour
-Route::group(['prefix'=>config('tour.tour_route_prefix')],function(){
-    Route::get('/','\Modules\Tour\Controllers\TourController@index')->name('tour.search'); // Search
-    Route::get('/{slug}','\Modules\Tour\Controllers\TourController@detail');// Detail
-});
-
-// News
-Route::group(['prefix'=>config('news.news_route_prefix')],function(){
-    Route::get('/'.config('news.news_category_route_prefix').'/{slug}', '\Modules\News\Controllers\CategoryNewsController@index')->name('news.category.detail');
-    Route::get('/'.config('news.news_tag_route_prefix').'/{slug}', '\Modules\News\Controllers\TagNewsController@index')->name('news.tag.detail');
-    Route::get('/','\Modules\News\Controllers\NewsController@index')->name('news.index');// News Page
-    Route::get('/{slug}','\Modules\News\Controllers\NewsController@detail')->name('news.detail');// Detail
-});
-
 // Booking
 Route::group(['prefix'=>config('booking.booking_route_prefix')],function(){
     Route::post('/addToCart','\Modules\Booking\Controllers\BookingController@addToCart')->middleware('auth');// Detail

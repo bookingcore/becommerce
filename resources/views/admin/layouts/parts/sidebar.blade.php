@@ -41,13 +41,6 @@ $menus = [
         'title' => __("Page"),
         'icon'  => 'icon ion-ios-bookmarks',
     ],
-    'location'=>[
-        "position"=>30,
-        'url'        => 'admin/module/location',
-        'title'      => __("Location"),
-        'icon'       => 'icon ion-md-compass',
-        'permission' => 'location_view',
-    ],
 
     'review'=>[
         "position"=>50,
@@ -167,34 +160,7 @@ $menus = [
 
         ]
     ],
-//    [
-//        "position"=>120,
-//        'url'        => 'admin/module/vendor/plan',
-//        'title'      => __('Vendor'),
-//        'icon'       => 'icon ion-ios-paper',
-//        'permission' => 'report_view',
-//        'children'   => [
-//            [
-//                'url'        => 'admin/module/vendor/plan',
-//                'title'      => __('Vendor Plans'),
-//                'icon'       => 'icon ion-ios-paper',
-////                'permission' => 'vendor_plan_view',
-//            ],
-//        ]
-//    ],
 ];
-
-
-// Get All Plugins Menu
-if(class_exists('\Nwidart\Modules\Facades\Module')){
-    $plugins = \Nwidart\Modules\Facades\Module::allEnabled();
-    foreach ($plugins as $plugin){
-        $adminMenu = config($plugin->getLowerName().'.admin_menu');
-        if(!empty($adminMenu)){
-            $menus = array_merge($menus,$adminMenu);
-        }
-    }
-}
 
 // Modules
 $custom_modules = \Modules\ServiceProvider::getModules();

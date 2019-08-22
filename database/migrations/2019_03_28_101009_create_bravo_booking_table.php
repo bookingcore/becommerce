@@ -51,8 +51,8 @@ class CreateBravoBookingTable extends Migration
             $table->string('country',255)->nullable();
             $table->text('customer_notes')->nullable();
 
-//            $table->integer('vendor_commission_percent')->nullable();
-//            $table->integer('vendor_commission_amount')->nullable();
+            $table->string('payment_gateway',30)->nullable();
+            $table->integer('total_guests')->nullable();
 
 
             $table->integer('create_user')->nullable();

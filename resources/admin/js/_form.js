@@ -1,5 +1,3 @@
-import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
-
 (function ($) {
 
     function makeid(length) {

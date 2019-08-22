@@ -28,6 +28,22 @@ class CreateCoreLanguagesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('core_translations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->string('locale',10)->nullable();
+            $table->text('string')->nullable();
+            $table->bigInteger('parent_id')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->timestamp('last_build_at')->nullable();
+            $table->softDeletes();
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -38,5 +54,6 @@ class CreateCoreLanguagesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('core_languages');
+        Schema::dropIfExists('core_translations');
     }
 }
