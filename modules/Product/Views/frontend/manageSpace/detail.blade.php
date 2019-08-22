@@ -11,7 +11,7 @@
         @include('Language::admin.navigation')
     @endif
     <div class="lang-content-box">
-        <form action="{{route('space.vendor.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
+        <form action="{{route('product.vendor.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
             @csrf
             <div class="form-add-service">
                 <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
@@ -24,7 +24,7 @@
                 </div>
                 <div class="tab-content" id="nav-tabContent">
                     <div class="tab-pane fade show active" id="nav-tour-content">
-                        @include('Space::admin/space/content')
+                        @include('Product::admin/product/content')
                         @if(is_default_lang())
                             <div class="form-group">
                                 <label>{{__("Featured Image")}}</label>
@@ -33,14 +33,14 @@
                         @endif
                     </div>
                     <div class="tab-pane fade" id="nav-tour-location">
-                        @include('Space::admin/space/location')
+                        @include('Product::admin/product/location')
                     </div>
                     <div class="tab-pane fade" id="nav-tour-pricing">
-                        @include('Space::admin/space/pricing')
+                        @include('Product::admin/product/pricing')
                     </div>
                     @if(is_default_lang())
                         <div class="tab-pane fade" id="nav-attribute">
-                            @include('Space::admin/space/attributes')
+                            @include('Product::admin/product/attributes')
                         </div>
                     @endif
                 </div>

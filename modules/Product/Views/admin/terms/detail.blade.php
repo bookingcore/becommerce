@@ -20,7 +20,7 @@
                         <div class="panel">
                             <div class="panel-title"><strong>{{__("Term Content")}}</strong></div>
                             <div class="panel-body">
-                                @include('Space::admin.terms.form')
+                                @include('Product::admin.terms.form')
                             </div>
                         </div>
                     </div>

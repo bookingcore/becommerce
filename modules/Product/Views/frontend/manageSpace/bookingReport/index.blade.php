@@ -7,12 +7,12 @@
         <ul class="nav nav-tabs ht-nav-tabs">
             <?php $status_type = Request::query('status'); ?>
             <li class="@if(empty($status_type)) active @endif">
-                <a href="{{ route("space.vendor.booking_report") }}">{{__("All Booking")}}</a>
+                <a href="{{ route("product.vendor.booking_report") }}">{{__("All Booking")}}</a>
             </li>
             @if(!empty($statues))
                 @foreach($statues as $status)
                     <li class="@if(!empty($status_type) && $status_type == $status) active @endif">
-                        <a href="{{ route("space.vendor.booking_report",['status' => $status]) }}">{{ucfirst($status)}}</a>
+                        <a href="{{ route("product.vendor.booking_report",['status' => $status]) }}">{{ucfirst($status)}}</a>
                     </li>
                 @endforeach
             @endif
@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                         @foreach($bookings as $booking)
-                            @include('Space::frontend.manageSpace.bookingReport.loop')
+                            @include('Product::frontend.manageproduct.bookingReport.loop')
                         @endforeach
                         </tbody>
                     </table>

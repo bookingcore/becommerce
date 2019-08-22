@@ -4,7 +4,7 @@
         <div class="row">
             @foreach($space_related as $k=>$item)
                 <div class="col-md-3">
-                    @include('Space::frontend.layouts.search.loop-gird',['row'=>$item])
+                    @include('Product::frontend.layouts.search.loop-gird',['row'=>$item])
                 </div>
             @endforeach
         </div>

@@ -14,8 +14,8 @@ use Modules\Tour\Models\TourTerm;
 use Modules\Booking\Models\Booking;
 
 
-use Modules\Product\Models\SpaceTerm;
-use Modules\Product\Models\SpaceTranslation;
+use Modules\Product\Models\ProductTerm;
+use Modules\Product\Models\ProductTranslation;
 
 class ManageSpaceController extends FrontendController
 {
@@ -26,8 +26,8 @@ class ManageSpaceController extends FrontendController
     {
         parent::__construct();
         $this->space = Space::class;
-        $this->space_translation = SpaceTranslation::class;
-        $this->space_term = SpaceTerm::class;
+        $this->space_translation = ProductTranslation::class;
+        $this->space_term = ProductTerm::class;
     }
 
     public function manageSpace(Request $request)

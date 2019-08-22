@@ -43,10 +43,10 @@
             <div class="control-action">
                 <a href="{{$row->getDetailUrl()}}" target="_blank" class="btn btn-info">{{__("View")}}</a>
                 @if(Auth::user()->hasPermissionTo('space_update'))
-                    <a href="{{url(app_get_locale()."/user/space/edit/".$row->id)}}" class="btn btn-warning">{{__("Edit")}}</a>
+                    <a href="{{url(app_get_locale()."/user/product/edit/".$row->id)}}" class="btn btn-warning">{{__("Edit")}}</a>
                 @endif
                 @if(Auth::user()->hasPermissionTo('space_delete'))
-                    <a href="{{url(app_get_locale()."/user/space/del/".$row->id)}}" class="btn btn-danger" data-confirm="<?php echo e(__("Do you want to delete?")); ?>">{{__("Del")}}</a>
+                    <a href="{{url(app_get_locale()."/user/product/del/".$row->id)}}" class="btn btn-danger" data-confirm="<?php echo e(__("Do you want to delete?")); ?>">{{__("Del")}}</a>
                 @endif
             </div>
         </div>

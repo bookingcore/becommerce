@@ -138,7 +138,7 @@
 				eventLimit: true,
 				defaultView: 'dayGridMonth',
 				events:{
-                    	url:"{{route('space.vendor.availability.loadDates')}}",
+                    	url:"{{route('product.vendor.availability.loadDates')}}",
 						extraParams:{
 							id:lastId,
                         }
@@ -249,7 +249,7 @@
                     this.onSubmit = true;
                     this.form.person_types = Object.assign({},this.person_types);
                     $.ajax({
-                        url:'{{route('space.vendor.availability.store')}}',
+                        url:'{{route('product.vendor.availability.store')}}',
                         data:this.form,
                         dataType:'json',
                         method:'post',

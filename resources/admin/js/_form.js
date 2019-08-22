@@ -34,7 +34,7 @@
         // CKEDITOR.replace( id );
         tinymce.init({
             selector:'#'+id,
-            plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
+            plugins: 'searchreplace autolink image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
             toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
             image_advtab: true,
             image_caption: true,

@@ -4,25 +4,21 @@ namespace Modules\Product\Models;
 
 use App\BaseModel;
 
-class SpaceTranslation extends Space
+class ProductTranslation extends Product
 {
-    protected $table = 'bravo_space_translations';
+    protected $table = 'product_translations';
 
     protected $fillable = [
         'title',
         'content',
-        'faqs',
-        'address'
+        'short_desc'
     ];
 
     protected $slugField     = false;
-    protected $seo_type = 'space_translation';
+    protected $seo_type = 'product_translation';
 
     protected $cleanFields = [
         'content'
-    ];
-    protected $casts = [
-        'faqs'  => 'array',
     ];
 
     public function getSeoType(){

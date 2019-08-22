@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
 
         Schema::defaultStringLength(191);
 
-        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed')){
+        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed') and !app()->runningInConsole()){
 
             $locale = $request->segment(1);
             if(in_array($locale,['admin','_debugbar'])){

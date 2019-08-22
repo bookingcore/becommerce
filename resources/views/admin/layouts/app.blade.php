@@ -49,7 +49,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 copy-right" >
-                        {{date('Y')}} &copy; Booking Core by <a href="https://www.bookingcore.org" target="_blank">BookingCore Team</a>
+                        {{date('Y')}} &copy; BeCommerce by <a href="https://www.bookingcore.org" target="_blank">BookingCore Team</a>
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-right footer-links d-none d-sm-block">

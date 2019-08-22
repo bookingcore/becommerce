@@ -26,15 +26,17 @@ class RedirectForMultiLanguage
     public function handle($request, Closure $next, $guard = null)
     {
 
-        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed') && strtolower($request->method()) === 'get'){
+        if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed') && strtolower($request->method()) === 'get') {
 
             $locale = $request->segment(1);
-            if(in_array($locale,['admin','_debugbar'])){
+
+            if (in_array($locale, ['admin', '_debugbar'])) {
                 return $next($request);
             }
 
+
             // Check if the first segment matches a language code
-            if(setting_item('site_enable_multi_lang') && setting_item('site_locale')){
+            if (!app()->runningInConsole() && setting_item('site_enable_multi_lang') && setting_item('site_locale')) {
                 $lang = Language::findByLocale($locale);
 
                 if (empty($lang)) {
@@ -43,15 +45,15 @@ class RedirectForMultiLanguage
                     $segments = $request->segments();
 
                     // Set the default language code as the first segment
-                    $segments = Arr::prepend($segments, setting_item('site_locale',config('app.fallback_locale')));
+                    $segments = Arr::prepend($segments, setting_item('site_locale', config('app.fallback_locale')));
 
                     $url = implode('/', $segments);
-                    if(!empty($request->query())){
-                        $url.='?'.http_build_query($request->query());
+                    if (!empty($request->query())) {
+                        $url .= '?' . http_build_query($request->query());
                     }
 
                     // Redirect to the correct url
-                    return redirect()->to( $url );
+                    return redirect()->to($url);
                 }
             }
         }

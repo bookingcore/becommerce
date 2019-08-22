@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-    <form action="{{route('space.admin.attribute.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
+    <form action="{{route('product.admin.attribute.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
         @csrf
         <input type="hidden" name="id" value="{{$row->id}}">
         <div class="container">
@@ -22,7 +22,7 @@
                                 <strong>{{__("Attribute Content")}}</strong>
                             </div>
                             <div class="panel-body">
-                                @include('Space::admin/attribute/form')
+                                @include('Product::admin/attribute/form')
                             </div>
                         </div>
                     </div>

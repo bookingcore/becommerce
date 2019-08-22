@@ -5,7 +5,7 @@
                 <h1 class="text-heading text-center">{{$title}}</h1>
                 <div class="sub-heading text-center">{{$sub_title}}</div>
                 <div class="g-form-control">
-                    @include('Space::frontend.layouts.search.form-search')
+                    @include('Product::frontend.layouts.search.form-search')
                 </div>
             </div>
         </div>

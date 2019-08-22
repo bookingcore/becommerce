@@ -26,41 +26,29 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'space'=>[
                 "position"=>41,
-                'url'        => 'admin/module/space',
-                'title'      => __('Space'),
-                'icon'       => 'fa fa-building-o',
-                'permission' => 'space_view',
+                'url'        => 'admin/module/product',
+                'title'      => __('Products'),
+                'icon'       => 'icon ion-ios-cart',
+                'permission' => 'product_view',
                 'children'   => [
                     'add'=>[
-                        'url'        => 'admin/module/space',
-                        'title'      => __('All Spaces'),
-                        'permission' => 'space_view',
+                        'url'        => 'admin/module/product',
+                        'title'      => __('All Products'),
+                        'permission' => 'product_view',
                     ],
                     'create'=>[
-                        'url'        => 'admin/module/space/create',
-                        'title'      => __('Add new Space'),
-                        'permission' => 'space_create',
+                        'url'        => 'admin/module/product/create',
+                        'title'      => __('Add new Product'),
+                        'permission' => 'product_create',
                     ],
                     'attribute'=>[
-                        'url'        => 'admin/module/space/attribute',
+                        'url'        => 'admin/module/product/attribute',
                         'title'      => __('Attributes'),
-                        'permission' => 'space_manage_attributes',
-                    ],
-                    'availability'=>[
-                        'url'        => 'admin/module/space/availability',
-                        'title'      => __('Availability'),
-                        'permission' => 'space_create',
+                        'permission' => 'product_manage_attributes',
                     ],
 
                 ]
             ]
-        ];
-    }
-
-    public static function getBookableServices()
-    {
-        return [
-            'space'=>Space::class
         ];
     }
 
@@ -81,30 +69,20 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'space' => [
-                'url'        => app_get_locale() . '/user/space',
-                'title'      => __("Manage Space"),
+                'url'        => app_get_locale() . '/user/product',
+                'title'      => __("Manage Product"),
                 'icon'       => 'fa fa-building-o',
                 'position'   => 31,
-                'permission' => 'space_view',
+                'permission' => 'product_view',
                 'children' => [
                     [
-                        'url'    => app_get_locale() . '/user/space',
-                        'title'  => __("All Spaces"),
+                        'url'    => app_get_locale() . '/product/space',
+                        'title'  => __("All Products"),
                     ],
                     [
-                        'url'        => app_get_locale() . '/user/space/create',
-                        'title'      => __("Add Space"),
-                        'permission' => 'space_create',
-                    ],
-                    [
-                        'url'        => route('space.vendor.availability.index'),
-                        'title'      => __("Availability"),
-                        'permission' => 'space_create',
-                    ],
-                    [
-                        'url'        => app_get_locale() . '/user/space/booking-report',
-                        'title'      => __("Booking Report"),
-                        'permission' => 'space_view',
+                        'url'        => app_get_locale() . '/user/product/create',
+                        'title'      => __("Add Product"),
+                        'permission' => 'product_create',
                     ],
                 ]
             ],

@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-3 col-md-12">
-        @include('Space::frontend.layouts.search.filter-search')
+        @include('Product::frontend.layouts.search.filter-search')
     </div>
     <div class="col-lg-9 col-md-12">
         <div class="bravo-list-item">
@@ -17,7 +17,7 @@
                     @if($rows->total() > 0)
                         @foreach($rows as $row)
                             <div class="col-lg-4 col-md-6">
-                                @include('Space::frontend.layouts.search.loop-gird')
+                                @include('Product::frontend.layouts.search.loop-gird')
                             </div>
                         @endforeach
                     @else

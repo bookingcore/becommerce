@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBravoBookingTable extends Migration
+class CreateOrderTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,18 @@ class CreateBravoBookingTable extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_bookings', function (Blueprint $table) {
+        Schema::create('product_orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code',64)->nullable();
+            $table->string('code',64)->nullable()->unique();
 
-            $table->integer('vendor_id')->nullable();
-            $table->integer('customer_id')->nullable();
             $table->integer('payment_id')->nullable();
             $table->string('gateway',50)->nullable();
-            $table->integer('object_id')->nullable();
-            $table->string('object_model',255)->nullable();
-
-            $table->dateTime('start_date')->nullable();
-            $table->dateTime('end_date')->nullable();
-
 
             $table->decimal('total',10,2)->nullable();
-            $table->integer('total_guests')->nullable();
-            $table->string('currency',5)->nullable();
+            $table->string('currency',20)->nullable();
             $table->string('status',30)->nullable();
+
+            $table->decimal('total_before_fees',10,2)->nullable();
 
             $table->decimal('deposit',10,2)->nullable();
             $table->string('deposit_type',30)->nullable();
@@ -52,7 +45,6 @@ class CreateBravoBookingTable extends Migration
             $table->text('customer_notes')->nullable();
 
             $table->string('payment_gateway',30)->nullable();
-            $table->integer('total_guests')->nullable();
 
 
             $table->integer('create_user')->nullable();
@@ -62,14 +54,14 @@ class CreateBravoBookingTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_booking_payments', function (Blueprint $table) {
+        Schema::create('bravo_order_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->integer('booking_id')->nullable();
+            $table->integer('order_id')->nullable();
             $table->string('payment_gateway',50)->nullable();
 
             $table->decimal('amount',10,2)->nullable();
-            $table->string('currency',10)->nullable();
+            $table->string('currency',20)->nullable();
 
             $table->decimal('converted_amount',10,2)->nullable();
             $table->string('converted_currency',10)->nullable();
@@ -77,6 +69,46 @@ class CreateBravoBookingTable extends Migration
 
             $table->string('status',30)->nullable();
             $table->text('logs')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->timestamps();
+        });
+
+        Schema::create('bravo_order_items', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->integer('order_id')->nullable();
+            $table->integer('vendor_id')->nullable();
+            $table->integer('customer_id')->nullable();
+            $table->integer('product_id')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->timestamps();
+        });
+
+        Schema::create('bravo_order_item_meta', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->bigInteger('order_id')->nullable();
+            $table->bigInteger('order_item_id')->nullable();
+
+            $table->string('meta_key',100)->nullable();
+            $table->text('meta_value')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->timestamps();
+        });
+        Schema::create('bravo_order_meta', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('order_id')->nullable();
+            $table->string('meta_key',100)->nullable();
+            $table->text('meta_value')->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
@@ -92,7 +124,10 @@ class CreateBravoBookingTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_bookings');
-        Schema::dropIfExists('bravo_booking_payments');
+        Schema::dropIfExists('product_orders');
+        Schema::dropIfExists('product_order_meta');
+        Schema::dropIfExists('product_order_payments');
+        Schema::dropIfExists('product_order_items');
+        Schema::dropIfExists('product_order_item_meta');
     }
 }

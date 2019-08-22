@@ -12,8 +12,6 @@
 Route::get('/intro','LandingpageController@index');
 Route::get('/', 'HomeController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/a', 'Controller@a')->name('home2');
 
 //Login
 Auth::routes();

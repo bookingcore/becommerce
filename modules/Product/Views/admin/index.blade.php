@@ -2,16 +2,16 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{__("All Spaces")}}</h1>
+            <h1 class="title-bar">{{__("All Products")}}</h1>
             <div class="title-actions">
-                <a href="{{route('space.admin.create')}}" class="btn btn-primary">{{__("Add new space")}}</a>
+                <a href="{{route('product.admin.create')}}" class="btn btn-primary">{{__("Add new product")}}</a>
             </div>
         </div>
         @include('admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{route('space.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{route('product.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
@@ -25,8 +25,8 @@
                 @endif
             </div>
             <div class="col-left">
-                <form method="get" action="{{route('space.admin.index')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    @if(!empty($rows) and $space_manage_others)
+                <form method="get" action="{{route('product.admin.index')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
+                    @if(!empty($rows) and $product_manage_others)
                         <?php
                         $user = !empty(Request()->vendor_id) ? App\User::find(Request()->vendor_id) : false;
                         \App\Helpers\AdminForm::select2('vendor_id', [
@@ -61,7 +61,6 @@
                         <tr>
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th> {{ __('Name')}}</th>
-                            <th width="200px"> {{ __('Location')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
                             <th width="100px"> {{ __('Reviews')}}</th>
@@ -76,9 +75,8 @@
                                     <td><input type="checkbox" name="ids[]" class="check-item" value="{{$row->id}}">
                                     </td>
                                     <td class="title">
-                                        <a href="{{route('space.admin.edit',['id'=>$row->id])}}">{{$row->title}}</a>
+                                        <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title}}</a>
                                     </td>
-                                    <td>{{$row->location->name ?? ''}}</td>
                                     <td>
                                         @if(!empty($row->author))
                                             {{$row->author->getDisplayName()}}
@@ -94,14 +92,14 @@
                                     </td>
                                     <td>{{ display_date($row->updated_at)}}</td>
                                     <td>
-                                        <a href="{{route('space.admin.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}
+                                        <a href="{{route('product.admin.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}
                                         </a>
                                     </td>
                                 </tr>
                             @endforeach
                         @else
                             <tr>
-                                <td colspan="7">{{__("No space found")}}</td>
+                                <td colspan="7">{{__("No product found")}}</td>
                             </tr>
                         @endif
                         </tbody>

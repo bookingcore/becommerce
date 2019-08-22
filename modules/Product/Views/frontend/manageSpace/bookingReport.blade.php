@@ -3,7 +3,7 @@
 
 @endsection
 @section('content')
-    @include('Space::frontend.manageSpace.bookingReport.index')
+    @include('Product::frontend.manageproduct.bookingReport.index')
 @endsection
 @section('footer')
 

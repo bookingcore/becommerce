@@ -3,9 +3,9 @@ namespace Modules\Product\Models;
 
 use App\BaseModel;
 
-class SpaceTerm extends BaseModel
+class ProductTerm extends BaseModel
 {
-    protected $table = 'bravo_space_term';
+    protected $table = 'product_term';
     protected $fillable = [
         'term_id',
         'target_id'

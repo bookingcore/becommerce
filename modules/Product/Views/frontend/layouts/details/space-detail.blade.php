@@ -108,7 +108,7 @@
         </div>
     </div>
 @endif
-@include('Space::frontend.layouts.details.space-attributes')
+@include('Product::frontend.layouts.details.space-attributes')
 @if($translation->faqs)
 <div class="g-faq">
     <h3> {{__("FAQs")}} </h3>

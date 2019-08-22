@@ -11,79 +11,46 @@ use Modules\Booking\Models\Booking;
 use Modules\Core\Models\SEO;
 use Modules\Media\Helpers\FileHelper;
 use Modules\Review\Models\Review;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Product\Models\SpaceTranslation;
-use Modules\User\Models\UserWishList;
 
-class Space extends Bookable
+class Product extends Bookable
 {
-    use SoftDeletes;
-    protected $table = 'bravo_spaces';
-    public $type = 'space';
-    public $checkout_booking_detail_file       = 'Space::frontend/booking/detail';
-    public $checkout_booking_detail_modal_file = 'Space::frontend/booking/detail-modal';
-    public $email_new_booking_file             = 'Space::emails.new_booking_detail';
+    protected $table = 'products';
+    protected $type = 'product';
+    public $checkout_booking_detail_file       = 'Product::frontend/booking/detail';
+    public $checkout_booking_detail_modal_file = 'Product::frontend/booking/detail-modal';
+    public $email_new_booking_file             = 'Product::emails.new_booking_detail';
 
     protected $fillable = [
         'title',
         'content',
-        'status',
-        'faqs'
+        'short_desc',
+        'status'
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
-    protected $seo_type = 'space';
+    protected $seo_type = 'product';
 
-    protected $casts = [
-        'faqs'  => 'array',
-    ];
-    /**
-     * @var Booking
-     */
-    protected $bookingClass;
     /**
      * @var Review
      */
     protected $reviewClass;
 
-    /**
-     * @var SpaceDate
-     */
-    protected $spaceDateClass;
-
-    /**
-     * @var spaceTerm
-     */
-    protected $spaceTermClass;
-
-    /**
-     * @var spaceTerm
-     */
-    protected $spaceTranslationClass;
-    protected $userWishListClass;
-
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->bookingClass = Booking::class;
         $this->reviewClass = Review::class;
-        $this->spaceDateClass = SpaceDate::class;
-        $this->spaceTermClass = SpaceTerm::class;
-        $this->spaceTranslationClass = SpaceTranslation::class;
-        $this->userWishListClass = UserWishList::class;
     }
 
     public static function getModelName()
     {
-        return __("Space");
+        return __("Product");
     }
 
     public static function getTableName()
     {
         return with(new static)->table;
     }
-
 
     /**
      * Get SEO fop page list
@@ -92,37 +59,37 @@ class Space extends Bookable
      */
     static public function getSeoMetaForPageList()
     {
-        $meta['seo_title'] = __("Search for Spaces");
-        if (!empty($title = setting_item_with_lang("space_page_list_seo_title",false))) {
+        $meta['seo_title'] = __("Search for Products");
+        if (!empty($title = setting_item_with_lang("product_page_list_seo_title",false))) {
             $meta['seo_title'] = $title;
-        }else if(!empty($title = setting_item_with_lang("space_page_search_title"))) {
+        }else if(!empty($title = setting_item_with_lang("product_page_search_title"))) {
             $meta['seo_title'] = $title;
         }
         $meta['seo_image'] = null;
-        if (!empty($title = setting_item("space_page_list_seo_image"))) {
+        if (!empty($title = setting_item("product_page_list_seo_image"))) {
             $meta['seo_image'] = $title;
-        }else if(!empty($title = setting_item("space_page_search_banner"))) {
+        }else if(!empty($title = setting_item("product_page_search_banner"))) {
             $meta['seo_image'] = $title;
         }
-        $meta['seo_desc'] = setting_item_with_lang("space_page_list_seo_desc");
-        $meta['seo_share'] = setting_item_with_lang("space_page_list_seo_share");
-        $meta['full_url'] = url(config('space.space_route_prefix'));
+        $meta['seo_desc'] = setting_item_with_lang("product_page_list_seo_desc");
+        $meta['seo_share'] = setting_item_with_lang("product_page_list_seo_share");
+        $meta['full_url'] = route('space.index');
         return $meta;
     }
 
 
     public function terms(){
-        return $this->hasMany(SpaceTerm::class, "target_id");
+        return $this->hasMany(ProductTerm::class, "target_id");
     }
 
     public function getDetailUrl($locale = false)
     {
-        return url(app_get_locale(false , false , '/'). config('space.space_route_prefix')."/".$this->slug);
+        return url(app_get_locale(false , false , '/')."product/".$this->slug);
     }
 
     public static function getLinkForPageSearch( $locale = false , $param = [] ){
 
-        return url(app_get_locale(false , false , '/'). config('space.space_route_prefix')."?".http_build_query($param));
+        return url(app_get_locale(false , false , '/'). config('space.product_route_prefix')."?".http_build_query($param));
     }
 
     public function getGallery($featuredIncluded = false)
@@ -183,8 +150,11 @@ class Space extends Bookable
 
     public function addToCart(Request $request)
     {
-
+        $step = $request->input('step') ?? 1;
         $this->addToCartValidate($request);
+        //        if($step == 1){
+        //            return $this->calculateCartStep1($request);
+        //        }
         // Add Booking
         $total_guests = $request->input('adults') + $request->input('children');
         $discount = 0;
@@ -192,20 +162,6 @@ class Space extends Bookable
         $end_date = new \DateTime($request->input('end_date'));
 
         $total = $this->getPriceInRanges($request->input('start_date'),$request->input('end_date'));
-
-        //Buyer Fees
-        $total_before_fees = $total;
-        $list_fees = setting_item('space_booking_buyer_fees');
-        if(!empty($list_fees)){
-            $lists = json_decode($list_fees,true);
-            foreach ($lists as $item){
-                if(!empty($item['per_person']) and $item['per_person'] == "on"){
-                    $total += $item['price'] * $total_guests;
-                }else{
-                    $total += $item['price'];
-                }
-            }
-        }
 
         if (empty($start_date) or empty($end_date)) {
             $this->sendError(__("Your selected dates are not valid"));
@@ -220,15 +176,6 @@ class Space extends Bookable
         $booking->total_guests = $total_guests;
         $booking->start_date = $start_date->format('Y-m-d H:i:s');
         $booking->end_date = $end_date->format('Y-m-d H:i:s');
-        $booking->buyer_fees = $list_fees ?? '';
-        $booking->total_before_fees = $total_before_fees;
-
-        list('commission'=>$commission,'commission_type'=>$commission_type) = (new Booking())->getCommissionVendor($this->create_user,$total);
-        $booking->commission = $commission;
-        $booking->commission_type = $commission_type;
-
-
-
         $check = $booking->save();
         if ($check) {
 
@@ -282,6 +229,35 @@ class Space extends Bookable
         }
 
         return $totalPrice;
+    }
+
+    public function calculateCartStep1(Request $request)
+    {
+
+        $meta = $this->meta;
+        $start_date = $request->input('start_date');
+        $html = '';
+        $total = 0;
+        $total_guests = 0;
+        if ($meta) {
+
+            $data = [
+                'request'              => $request,
+                'row'                  => $this,
+                'meta'                 => $meta,
+                'guests'               => $request->input('guests'),
+                'extra_price'          => $request->input('extra_price'),
+                'extra_price_configs'  => $meta->extra_price,
+                'person_types'         => $request->input('person_types'),
+                'person_types_configs' => $meta->person_types
+            ];
+            $view = view('Product::frontend/booking/cart-total', $data);
+            $html = $view->render();
+        }
+        $this->sendSuccess([
+            'html' => $html,
+            'step' => 2
+        ]);
     }
 
     public function addToCartValidate(Request $request)
@@ -400,17 +376,17 @@ class Space extends Bookable
 
     public function getReviewEnable()
     {
-        return setting_item("space_enable_review", 0);
+        return setting_item("product_enable_review", 0);
     }
 
     public function getReviewApproved()
     {
-        return setting_item("space_review_approved", 0);
+        return setting_item("product_review_approved", 0);
     }
 
     public function check_enable_review_after_booking()
     {
-        $option = setting_item("space_enable_review_after_booking", 0);
+        $option = setting_item("product_enable_review_after_booking", 0);
         if ($option) {
             $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
             $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;
@@ -424,7 +400,7 @@ class Space extends Bookable
     public static function getReviewStats()
     {
         $reviewStats = [];
-        if (!empty($list = setting_item("space_review_stats", []))) {
+        if (!empty($list = setting_item("product_review_stats", []))) {
             $list = json_decode($list, true);
             foreach ($list as $item) {
                 $reviewStats[] = $item['title'];
@@ -437,7 +413,7 @@ class Space extends Bookable
     {
         $list_score = [
             'score_total'  => 0,
-            'score_text'   => __("Not rated"),
+            'score_text'   => __("Not Rate"),
             'total_review' => 0,
             'rate_score'   => [],
         ];
@@ -472,14 +448,14 @@ class Space extends Bookable
      */
     public function getScoreReview()
     {
-        $space_id = $this->id;
-        $list_score = Cache::rememberForever('review_'.$this->type.'_' . $space_id, function () use ($space_id) {
-            $dataReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $space_id)->where('object_model', "space")->where("status", "approved")->first();
+        $product_id = $this->id;
+        $list_score = Cache::rememberForever('review_'.$this->type.'_' . $product_id, function () use ($product_id) {
+            $dataReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $product_id)->where('object_model', "space")->where("status", "approved")->first();
             $score_total = !empty($dataReview->score_total) ? number_format($dataReview->score_total, 1) : 0;
             return [
                 'score_total'  => $score_total,
                 'total_review' => !empty($dataReview->total_review) ? $dataReview->total_review : 0,
-                'review_text'   => $score_total ? Review::getDisplayTextScoreByLever( round( $score_total )) : __("Not rated"),
+                'review_text'   => $score_total ? Review::getDisplayTextScoreByLever( round( $score_total )) : __("Not rate"),
             ];
         });
         return $list_score;
@@ -520,57 +496,5 @@ class Space extends Bookable
 
         return $query->orderBy('id','asc')->get();
 
-    }
-
-    public function saveCloneByID($clone_id){
-        $old = parent::find($clone_id);
-        if(empty($old)) return false;
-        $selected_terms = $old->terms->pluck('term_id');
-        $old->title = $old->title." - Copy";
-        $new = $old->replicate();
-        $new->save();
-        //Terms
-        foreach ($selected_terms as $term_id) {
-            $this->spaceTermClass::firstOrCreate([
-                'term_id' => $term_id,
-                'target_id' => $new->id
-            ]);
-        }
-        //Language
-        $langs = $this->spaceTranslationClass::where("origin_id",$old->id)->get();
-        if(!empty($langs)){
-            foreach ($langs as $lang){
-                $langNew = $lang->replicate();
-                $langNew->origin_id = $new->id;
-                $langNew->save();
-                $langSeo = SEO::where('object_id', $lang->id)->where('object_model', $lang->getSeoType()."_".$lang->locale)->first();
-                if(!empty($langSeo)){
-                    $langSeoNew = $langSeo->replicate();
-                    $langSeoNew->object_id = $langNew->id;
-                    $langSeoNew->save();
-                }
-            }
-        }
-        //SEO
-        $metaSeo = SEO::where('object_id', $old->id)->where('object_model', $this->seo_type)->first();
-        if(!empty($metaSeo)){
-            $metaSeoNew = $metaSeo->replicate();
-            $metaSeoNew->object_id = $new->id;
-            $metaSeoNew->save();
-        }
-    }
-
-    public function hasWishList(){
-        return $this->hasOne($this->userWishListClass, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
-    }
-
-    public function isWishList()
-    {
-        if(Auth::id()){
-            if(!empty($this->hasWishList) and !empty($this->hasWishList->id)){
-                return 'active';
-            }
-        }
-        return '';
     }
 }

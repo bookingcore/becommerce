@@ -6,7 +6,7 @@
     <h2 class="title-bar">
         {{__("Manage Spaces")}}
         @if(Auth::user()->hasPermissionTo('space_create'))
-            <a href="{{url(app_get_locale()."/user/space/create")}}" class="btn-change-password">{{__("Add Space")}}</a>
+            <a href="{{url(app_get_locale()."/user/product/create")}}" class="btn-change-password">{{__("Add Space")}}</a>
         @endif
     </h2>
     @if($rows->total() > 0)
@@ -19,7 +19,7 @@
                 <div class="row">
                     @foreach($rows as $row)
                         <div class="col-md-12">
-                            @include('Space::frontend.manageSpace.loop-list')
+                            @include('Product::frontend.manageproduct.loop-list')
                         </div>
                     @endforeach
                 </div>

@@ -1,4 +1,4 @@
-<form action="{{url(app_get_locale(false,false,'/').config('space.space_route_prefix'))}}" class="form bravo_form" method="get">
+<form action="{{url(app_get_locale(false,false,'/').config('product.space_route_prefix'))}}" class="form bravo_form" method="get">
     <div class="g-field-search">
         <div class="row">
             <div class="col-md-4 border-right">

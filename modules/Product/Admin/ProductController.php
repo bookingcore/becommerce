@@ -11,40 +11,38 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Models\Attributes;
-use Modules\Location\Models\Location;
-use Modules\Product\Models\Space;
-use Modules\Product\Models\SpaceTerm;
-use Modules\Product\Models\SpaceTranslation;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductTerm;
+use Modules\Product\Models\ProductTranslation;
 
-class SpaceController extends AdminController
+class ProductController extends AdminController
 {
-    protected $space;
-    protected $space_translation;
-    protected $space_term;
+    protected $product;
+    protected $product_translation;
+    protected $product_term;
     protected $attributes;
-    protected $location;
+
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/space');
-        $this->space = Space::class;
-        $this->space_translation = SpaceTranslation::class;
-        $this->space_term = SpaceTerm::class;
+        $this->setActiveMenu('admin/module/product');
+        $this->product = Product::class;
+        $this->product_translation = ProductTranslation::class;
+        $this->product_term = ProductTerm::class;
         $this->attributes = Attributes::class;
-        $this->location = Location::class;
     }
 
     public function index(Request $request)
     {
-        $this->checkPermission('space_view');
-        $query = $this->space::query() ;
+        $this->checkPermission('product_view');
+        $query = $this->product::query() ;
         $query->orderBy('id', 'desc');
-        if (!empty($space_name = $request->input('s'))) {
-            $query->where('title', 'LIKE', '%' . $space_name . '%');
+        if (!empty($product_name = $request->input('s'))) {
+            $query->where('title', 'LIKE', '%' . $product_name . '%');
             $query->orderBy('title', 'asc');
         }
 
-        if ($this->hasPermission('space_manage_others')) {
+        if ($this->hasPermission('product_manage_others')) {
             if (!empty($author = $request->input('vendor_id'))) {
                 $query->where('create_user', $author);
             }
@@ -53,131 +51,112 @@ class SpaceController extends AdminController
         }
         $data = [
             'rows'               => $query->with(['author'])->paginate(20),
-            'space_manage_others' => $this->hasPermission('space_manage_others'),
+            'product_manage_others' => $this->hasPermission('product_manage_others'),
             'breadcrumbs'        => [
                 [
-                    'name' => __('Spaces'),
-                    'url'  => 'admin/module/tour'
+                    'name' => __('Products'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
                     'name'  => __('All'),
                     'class' => 'active'
                 ],
             ],
-            'page_title'=>__("Space Management")
+            'page_title'=>__("Product Management")
         ];
-        return view('Space::admin.index', $data);
+        return view('Product::admin.index', $data);
     }
 
     public function create(Request $request)
     {
-        $this->checkPermission('space_create');
-        $row = new $this->space();
+        $this->checkPermission('product_create');
+        $row = new $this->product();
         $row->fill([
             'status' => 'publish'
         ]);
         $data = [
             'row'            => $row,
-            'attributes'     => $this->attributes::where('service', 'space')->get(),
-            'space_location' => $this->location::where('status', 'publish')->get()->toTree(),
-            'translation'    => new $this->space_translation(),
+            'attributes'     => $this->attributes::where('service', 'product')->get(),
+            'translation'    => new $this->product_translation(),
             'breadcrumbs'    => [
                 [
-                    'name' => __('Spaces'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Products'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
-                    'name'  => __('Add Space'),
+                    'name'  => __('Add Product'),
                     'class' => 'active'
                 ],
             ],
-            'page_title'     => __("Add new Space")
+            'page_title'     => __("Add new Product")
         ];
-        return view('Space::admin.detail', $data);
+        return view('Product::admin.detail', $data);
     }
 
     public function edit(Request $request, $id)
     {
-        $this->checkPermission('space_update');
-        $row = $this->space::find($id);
+        $this->checkPermission('product_update');
+        $row = $this->product::find($id);
         if (empty($row)) {
-            return redirect(route('space.admin.index'));
+            return redirect(route('product.admin.index'));
         }
         $translation = $row->translateOrOrigin($request->query('lang'));
-        if (!$this->hasPermission('space_manage_others')) {
+        if (!$this->hasPermission('product_manage_others')) {
             if ($row->create_user != Auth::id()) {
-                return redirect(route('space.admin.index'));
+                return redirect(route('product.admin.index'));
             }
         }
         $data = [
             'row'            => $row,
             'translation'    => $translation,
             "selected_terms" => $row->terms->pluck('term_id'),
-            'attributes'     => $this->attributes::where('service', 'space')->get(),
-            'space_location'  => $this->location::where('status', 'publish')->get()->toTree(),
+            'attributes'     => $this->attributes::where('service', 'product')->get(),
             'enable_multi_lang'=>true,
             'breadcrumbs'    => [
                 [
-                    'name' => __('Spaces'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Products'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
-                    'name'  => __('Edit Space'),
+                    'name'  => __('Edit Product'),
                     'class' => 'active'
                 ],
             ],
             'page_title'=>__("Edit: :name",['name'=>$row->title])
         ];
-        return view('Space::admin.detail', $data);
+        return view('Product::admin.detail', $data);
     }
 
     public function store( Request $request, $id ){
 
         if($id>0){
-            $this->checkPermission('space_update');
-            $row = $this->space::find($id);
+            $this->checkPermission('product_update');
+            $row = $this->product::find($id);
             if (empty($row)) {
-                return redirect(route('space.admin.index'));
+                return redirect(route('product.admin.index'));
             }
 
-            if($row->create_user != Auth::id() and !$this->hasPermission('space_manage_others'))
+            if($row->create_user != Auth::id() and !$this->hasPermission('product_manage_others'))
             {
-                return redirect(route('space.admin.index'));
+                return redirect(route('product.admin.index'));
             }
         }else{
-            $this->checkPermission('space_create');
-            $row = new $this->space();
+            $this->checkPermission('product_create');
+            $row = new $this->product();
             $row->status = "publish";
         }
         $dataKeys = [
             'title',
             'content',
             'slug',
-            'price',
-            'is_instant',
             'status',
-            'video',
-            'faqs',
             'image_id',
-            'banner_image_id',
             'gallery',
-            'bed',
-            'bathroom',
-            'square',
-            'location_id',
-            'address',
-            'map_lat',
-            'map_lng',
-            'map_zoom',
             'price',
             'sale_price',
-            'max_guests',
-            'enable_extra_price',
-            'extra_price',
             'is_featured',
-            'default_state'
         ];
-        if($this->hasPermission('space_manage_others')){
+        if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'create_user';
         }
 
@@ -191,27 +170,27 @@ class SpaceController extends AdminController
             }
 
             if($id > 0 ){
-                return back()->with('success',  __('Space updated') );
+                return back()->with('success',  __('Product updated') );
             }else{
-                return redirect(route('space.admin.edit',$row->id))->with('success', __('Space created') );
+                return redirect(route('product.admin.edit',$row->id))->with('success', __('Product created') );
             }
         }
     }
 
     public function saveTerms($row, $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         if (empty($request->input('terms'))) {
-            $this->space_term::where('target_id', $row->id)->delete();
+            $this->product_term::where('target_id', $row->id)->delete();
         } else {
             $term_ids = $request->input('terms');
             foreach ($term_ids as $term_id) {
-                $this->space_term::firstOrCreate([
+                $this->product_term::firstOrCreate([
                     'term_id' => $term_id,
                     'target_id' => $row->id
                 ]);
             }
-            $this->space_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
+            $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
         }
     }
 
@@ -230,29 +209,29 @@ class SpaceController extends AdminController
         switch ($action){
             case "delete":
                 foreach ($ids as $id) {
-                    $query = $this->space::where("id", $id);
-                    if (!$this->hasPermission('space_manage_others')) {
+                    $query = $this->product::where("id", $id);
+                    if (!$this->hasPermission('product_manage_others')) {
                         $query->where("create_user", Auth::id());
-                        $this->checkPermission('space_delete');
+                        $this->checkPermission('product_delete');
                     }
                     $query->first()->delete();
                 }
                 return redirect()->back()->with('success', __('Deleted success!'));
                 break;
             case "clone":
-                $this->checkPermission('space_create');
+                $this->checkPermission('product_create');
                 foreach ($ids as $id) {
-                    (new $this->space())->saveCloneByID($id);
+                    (new $this->product())->saveCloneByID($id);
                 }
                 return redirect()->back()->with('success', __('Clone success!'));
                 break;
             default:
                 // Change status
                 foreach ($ids as $id) {
-                    $query = $this->space::where("id", $id);
-                    if (!$this->hasPermission('space_manage_others')) {
+                    $query = $this->product::where("id", $id);
+                    if (!$this->hasPermission('product_manage_others')) {
                         $query->where("create_user", Auth::id());
-                        $this->checkPermission('space_update');
+                        $this->checkPermission('product_update');
                     }
                     $query->update(['status' => $action]);
                 }
