@@ -1,14 +1,16 @@
 <?php
 use \Illuminate\Support\Facades\Route;
 
+Route::group(['prefix'=>'cart'],function(){
+    Route::get('/','CartController@index')->name('product.cart.index'); // Search
+});
+
 Route::group(['prefix'=>'product'],function(){
-    Route::get('/','ProductController@index')->name('product.search'); // Search
+    Route::get('/','ProductController@index')->name('product.index'); // Search
     Route::get('/{slug}','ProductController@detail')->name('product.detail');// Detail
 });
 
-
 Route::group(['prefix'=>'user/product'],function(){
-
     Route::match(['get','post'],'/','ManageSpaceController@manageSpace')->name('product.vendor.list');
     Route::match(['get','post'],'/create','ManageSpaceController@createSpace')->name('product.vendor.create');
     Route::match(['get','post'],'/edit/{slug}','ManageSpaceController@editSpace')->name('product.vendor.edit');

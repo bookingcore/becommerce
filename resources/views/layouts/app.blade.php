@@ -22,14 +22,12 @@
     @include('layouts.parts.seo-meta')
     <link href="{{ asset('libs/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('libs/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('libs/icofont/icofont.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('libs/icons/css/set.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset("libs/daterange/daterangepicker.css") }}" >
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel='stylesheet' id='google-font-css-css'  href='https://fonts.googleapis.com/css?family=Poppins%3A300%2C400%2C500%2C600' type='text/css' media='all' />
+    <link rel='stylesheet' id='google-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800&display=swap' type='text/css' media='all' />
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
@@ -60,7 +58,6 @@
     {!! setting_item('body_scripts') !!}
     <div class="bravo_wrap">
 {{--        @include('layouts.parts.adminbar')--}}
-        @include('layouts.parts.topbar')
         @include('layouts.parts.header')
         @yield('content')
         @include('layouts.parts.footer')

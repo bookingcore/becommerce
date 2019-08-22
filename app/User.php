@@ -5,10 +5,12 @@
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Facades\Mail;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
 //    use Modules\Vendor\Models\VendorPlan;
+    use Modules\User\Models\UserWishList;
     use Modules\Vendor\Models\VendorRequest;
     use Spatie\Permission\Traits\HasRoles;
     use Illuminate\Support\Facades\DB;
@@ -219,6 +221,12 @@
         }
         public function vendorRequest(){
             return $this->hasOne(VendorRequest::class);
+        }
+
+        public function getWishlistCountAttribute(){
+            return Cache::rememberForever('user_wishlist_count_'.$this->id,function(){
+                return UserWishList::query()->where('user_id',$this->id)->count('id');
+            });
         }
     }
 

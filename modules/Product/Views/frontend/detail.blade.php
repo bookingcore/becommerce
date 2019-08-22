@@ -5,26 +5,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/fotorama/fotorama.css") }}"/>
 @endsection
 @section('content')
-    <div class="bravo_detail_space">
-        @include('Product::frontend.layouts.details.space-banner')
+    <div class="bravo_detail_product">
         <div class="bravo_content">
             <div class="container">
-                <div class="row">
-                    <div class="col-md-12 col-lg-9">
-                        @php $review_score = $row->review_data @endphp
-                        @include('Product::frontend.layouts.details.space-detail')
-                        @include('Product::frontend.layouts.details.space-review')
-                    </div>
-                    <div class="col-md-12 col-lg-3">
-                        @include('Tour::frontend.layouts.details.vendor')
-                        @include('Product::frontend.layouts.details.space-form-book')
-                    </div>
-                </div>
-                <div class="row end_tour_sticky">
-                    <div class="col-md-12">
-                        @include('Product::frontend.layouts.details.space-related')
-                    </div>
-                </div>
             </div>
         </div>
     </div>

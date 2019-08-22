@@ -203,3 +203,61 @@
         }
     }
 }
+
+body {
+    color: #1A2B48;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: normal;
+    line-height: 1.5;
+    overflow-x: hidden;
+}
+/* Prevents img without src to appear */
+//For Lazy Load
+img.lazy{
+    opacity: 0;
+    &:not(.initial) {
+        transition: opacity 1s;
+    }
+    &.initial,
+    &.loaded,
+    &.error{
+        opacity: 1;
+    }
+}
+img:not([src]) {
+    visibility: hidden;
+}
+img[data-src],
+img[data-srcset] {
+    display: block;
+    min-height: 1px;
+}
+
+ul, ol {
+    padding: 0;
+    margin: 0;
+}
+
+.clear{
+    &:before,
+    &:after
+    {
+        display: table;
+        content: "";
+        clear: both;
+    }
+}
+[v-cloak]{
+    display: none;
+}
+.bravo-effect-bg,.bravo-effect-user-bg{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 19;
+    left: 0;
+    top: 0;
+    opacity: 0.5;
+}

@@ -34,4 +34,8 @@ class ProductCategory extends BaseModel
         $a = $query->limit(10)->get();
         return $a;
     }
+
+    public static function getCachedTree(){
+        return parent::query()->where('status','publish')->get()->toTree();
+    }
 }
