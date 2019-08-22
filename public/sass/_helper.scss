@@ -261,3 +261,17 @@ ul, ol {
     top: 0;
     opacity: 0.5;
 }
+
+.container {
+    .container{
+        padding: 0px
+    }
+}
+body.full_width
+{
+    @media (min-width:1680px) {
+        .bravo-container{
+            max-width: 1650px;
+        }
+    }
+}

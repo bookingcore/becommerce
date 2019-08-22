@@ -1,25 +1,27 @@
 <ul class="bravo-extra-menu">
     <li  class="user-compare-list">
-        <i class="icon-chart-bars extra-icon"></i>
-        <span class="user-compare-count">0</span>
+        <a class="counter-wrap">
+            <i class="icon-chart-bars extra-icon"></i>
+            <span class="counter user-compare-count">0</span>
+        </a>
     </li>
     <li  class="user-wishlist">
         @if(Auth::id())
-            <a href="{{route('user.wishList.index')}}">
+            <a class="counter-wrap" href="{{route('user.wishList.index')}}">
                 <i class="icon-heart extra-icon"></i>
-                <span class="user-wish-list-count">{{Auth::user()->wishlist_count}}</span>
+                <span class="counter user-wish-list-count">{{Auth::user()->wishlist_count}}</span>
             </a>
         @else
-            <a href="#login" data-toggle="modal" data-target="#login">
+            <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
                 <i class="icon-heart extra-icon"></i>
-                <span class="user-wish-list-count">0</span>
+                <span class="counter user-wish-list-count">0</span>
             </a>
         @endif
     </li>
     <li  class="user-mini-cart dropdown">
-        <a href="{{route('product.cart.index')}}">
+        <a href="{{route('product.cart.index')}}" class="counter-wrap">
             <i class="icon-bag2 extra-icon"></i>
-            <span class="user-cart-count">0</span>
+            <span class="counter user-cart-count">0</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="cart_dropdown">
             @include('Product::frontend.cart.mini-cart')
@@ -44,7 +46,7 @@
             </div>
             <div class="u-right">
                 <div class="dropdown">
-                    <a href="#" data-toggle="dropdown" class="login">{{__("Hi, :Name",['name'=>Auth::user()->getDisplayName()])}}
+                    <a href="#" data-toggle="dropdown" class="login">{{__("Hi, :name",['name'=>Auth::user()->first_name])}}
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="dropdown-menu text-left">

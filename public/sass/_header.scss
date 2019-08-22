@@ -5,9 +5,56 @@
             padding: 25px 0px;
             .col-search-user{
                 display: flex;
+                align-items: center;
             }
             .bravo-main-search-box{
                 flex-grow: 1;
+                border-radius: 5px;
+                .input-group-prepend{
+                    position: relative;
+                    &:after{
+                        content: '\e93a';
+                        display: inline-block;
+                        font: normal normal normal 14px/1 linearicons;
+                        font-size: 10px;
+                        color: #000;
+                        position: absolute;
+                        top: 17px;
+                        right: 12px;
+                    }
+                }
+                select.category-select{
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    height: 42px;
+                    border:none;
+                    border-top-right-radius: 0px;
+                    border-bottom-right-radius: 0px;
+                    padding-right: 29px;
+                    padding-left: 20px;
+                    border-top-left-radius: 5px;
+                    border-bottom-left-radius: 5px;
+                }
+                input.form-control{
+                    padding-right: 20px;
+                    padding-left: 20px;
+                    height: 42px;
+                    color: #666;
+                    font-size: 14px;
+                    border:none;
+                    border-left: 1px solid rgb(169, 169, 169);;
+                }
+                .btn{
+                    background-color: #000;
+                    color: #fff;
+                    font-weight: 700;
+                    padding-right: 20px;
+                    padding-left: 20px;
+                    height: 42px;
+                    border-top-right-radius: 5px;
+                    border-bottom-right-radius: 5px;
+                }
             }
             .bravo-extra-menu{
                 flex-shrink: 0;
@@ -16,12 +63,143 @@
                 justify-content: flex-end;
                 margin: 0px;
                 padding: 0px;
+                margin-left: 40px;
                 li{
                     list-style: none;
+                    padding: 0 20px;
+                    position: relative;
+                    a{
+                        color: #000;
+                        text-decoration: none;
+                    }
+                    .extra-icon{
+                        font-size: 30px;
+                    }
+                    .counter-wrap{
+                        position: relative;
+                        display: block;
+                    }
+                    .counter{
+                        position: absolute;
+                        bottom: -3px;
+                        right: -4px;
+                        font-size: 12px;
+                        font-weight: 700;
+                        background-color: #fcb800;
+                        -webkit-border-radius: 50%;
+                        border-radius: 50%;
+                        min-width: 18px;
+                        padding: 0 5px;
+                        height: 18px;
+                        text-align: center;
+                        line-height: 18px;
+                        background-color: #000;
+                        color: #fff;
+                    }
+                    &.menu-user{
+                        display: flex;
+                    }
+                    .u-left{
+                        .avatar-text{
+                            width: 30px;
+                            height: 30px;
+                            border-radius: 50%;
+                            margin-right: 5px;
+                            background-color: #000;
+                            color: #fff;
+                            font-size: 16px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                        }
+                    }
+                    .u-right{
+                        >a{
+                            font-weight: 700;
+                        }
+                    }
                 }
+            }
+        }
+        .bravo-main-menu-wrap{
+            border-top: 1px solid rgba(0,0,0,.15);;
+        }
+        .bravo-main-menu{
+            display: flex;
+            .browse-category,
+            .main-menu-right{
+                flex-shrink: 0;
+            }
+            .browse-category-btn{
+                padding-top: 16px;
+                padding-bottom: 16px;
+                color: #000;
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0;
+                padding-left: 5px;
+                padding-right: 5px;
+                line-height: 1;
+                position: relative;
+                cursor: pointer;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -moz-box;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-box-align: center;
+                -webkit-align-items: center;
+                -moz-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -webkit-justify-content: center;
+                -moz-box-pack: center;
+                -ms-flex-pack: center;
+                justify-content: center;
+                >i{
+                    margin-right: 7px;
+                    font-size: 20px;
+                }
+                position: relative;
+                &:before{
+                    position: absolute;
+                    top: -1px;
+                    left: 50%;
+                    content: "";
+                    height: 2px;
+                    width: 0;
+                    background-color: #000;
+                    -webkit-transition: .5s;
+                    transition: .5s;
+                }
+                &:hover:before{
+                    width: 100%;
+                    left: 0;
+                    right: 0;
+                }
+            }
+            .main-menu{
+                flex-grow: 1;
+            }
+
+        }
+    }
+}
+body.full_width
+{
+    @media (min-width:1680px) {
+        .header-style-default{
+            .col-logo{
+                max-width: 300px;
+            }
+            .col-search-user{
+                max-width: none;
+                flex-grow: 1;
+            }
+            .browse-category{
+                width: 300px;
             }
         }
     }
 }
-
-

@@ -10,7 +10,6 @@
                     margin-bottom: 15px;
                 }
             }
-            @import "../module/tour/scss/loop";
             .owl-dots{
                 display: none;
             }
@@ -399,7 +398,6 @@
                 font-size: 14px;
                 margin-bottom: 15px;
             }
-            @import "../module/space/scss/loop";
             &.layout_normal{
                 margin: 30px 0;
                 @media(max-width: 1023px){

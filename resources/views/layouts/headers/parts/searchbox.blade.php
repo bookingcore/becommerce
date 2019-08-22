@@ -1,6 +1,6 @@
 <form class="bravo-main-search-box input-group" method="get" action="{{route('product.index')}}">
     <div class="input-group-prepend">
-        <select name="category_id" class="custom-select">
+        <select name="category_id" class="category-select form-control">
             <option value="">{{__("All")}}</option>
             @php
                 $category = \Modules\Product\Models\ProductCategory::getCachedTree();
@@ -22,7 +22,7 @@
             ?>
         </select>
     </div>
-    <input type="text" name="s" value="{{request()->query('s')}}" class="form-control" aria-label="{{__("I'm shopping for...")}}">
+    <input type="text" name="s" value="{{request()->query('s')}}" class="form-control" placeholder="{{__("I'm shopping for...")}}">
     <div class="input-group-append">
         <button class="btn">{{__('Search')}}</button>
     </div>
