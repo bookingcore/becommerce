@@ -1,6 +1,6 @@
 {
+    "/css/app.css": "/css/app.css",
     "/css/contact.css": "/css/contact.css",
     "/module/user/css/user.css": "/module/user/css/user.css",
-    "/module/media/css/browser.css": "/module/media/css/browser.css",
-    "/css/app.css": "/css/app.css"
+    "/module/media/css/browser.css": "/module/media/css/browser.css"
 }
