@@ -73,6 +73,41 @@ class Settings extends BaseModel
         $all = array_merge($all,\Modules\Email\SettingClass::getSettingPages());
         $all = array_merge($all,\Modules\Vendor\SettingClass::getSettingPages());
 
+        // Modules
+        $custom_modules = \Modules\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $menuConfig = call_user_func([$moduleClass,'getSettingPages']);
+
+                    if(!empty($menuConfig)){
+                        $all = array_merge($all,$menuConfig);
+                    }
+
+                }
+
+            }
+        }
+
+        $custom_modules = \Custom\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $menuConfig = call_user_func([$moduleClass,'getSettingPages']);
+
+                    if(!empty($menuConfig)){
+                        $all = array_merge($all,$menuConfig);
+                    }
+
+                }
+
+            }
+        }
+
 
         //@todo Sort items by Position
         $all = array_values(\Illuminate\Support\Arr::sort($all, function ($value) {

@@ -28,59 +28,99 @@
                         @include('Product::admin.product.content')
                         @include('Product::admin.product.pricing')
                         @include('Core::admin/seo-meta/seo-meta')
+                        @if(is_default_lang())
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Author Setting")}}</strong></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <?php
+                                        $user = !empty($row->create_user) ? App\User::find($row->create_user) : false;
+                                        \App\Helpers\AdminForm::select2('create_user', [
+                                            'configs' => [
+                                                'ajax'        => [
+                                                    'url' => url('/admin/module/user/getForSelect2'),
+                                                    'dataType' => 'json'
+                                                ],
+                                                'allowClear'  => true,
+                                                'placeholder' => __('-- Select User --')
+                                            ]
+                                        ], !empty($user->id) ? [
+                                            $user->id,
+                                            $user->getDisplayName() . ' (#' . $user->id . ')'
+                                        ] : false)
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                     </div>
                     <div class="col-md-3">
                         <div class="panel">
                             <div class="panel-title"><strong>{{__('Publish')}}</strong></div>
                             <div class="panel-body">
                                 @if(is_default_lang())
+                                    <div class="form-group">
                                     <div>
                                         <label><input @if($row->status=='publish') checked @endif type="radio" name="status" value="publish"> {{__("Publish")}}
                                         </label></div>
                                     <div>
                                         <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
                                         </label></div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><strong>{{__('Featured Status')}}</strong></label>
+                                        <br>
+                                        <label>
+                                            <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Is featured product ?")}}
+                                        </label>
+                                    </div>
                                 @endif
+                                    <hr>
                                 <div class="text-right">
                                     <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
                                 </div>
                             </div>
                         </div>
                         @if(is_default_lang())
-                        <div class="panel">
-                            <div class="panel-title"><strong>{{__("Author Setting")}}</strong></div>
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <?php
-                                    $user = !empty($row->create_user) ? App\User::find($row->create_user) : false;
-                                    \App\Helpers\AdminForm::select2('create_user', [
-                                        'configs' => [
-                                            'ajax'        => [
-                                                'url' => url('/admin/module/user/getForSelect2'),
-                                                'dataType' => 'json'
-                                            ],
-                                            'allowClear'  => true,
-                                            'placeholder' => __('-- Select User --')
-                                        ]
-                                    ], !empty($user->id) ? [
-                                        $user->id,
-                                        $user->getDisplayName() . ' (#' . $user->id . ')'
-                                    ] : false)
-                                    ?>
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-                        @if(is_default_lang())
                             <div class="panel">
-                                <div class="panel-title"><strong>{{__("Availability")}}</strong></div>
+                                <div class="panel-title"><strong>{{__("Categories")}}</strong></div>
                                 <div class="panel-body">
                                     <div class="form-group">
-                                        <label>{{__('Featured Status')}}</label>
-                                        <br>
-                                        <label>
-                                            <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Is featured product ?")}}
-                                        </label>
+                                        <div class="terms-scrollable">
+                                            <?php
+                                            $traverse = function ($categories, $prefix = '') use (&$traverse, $row) {
+                                                foreach ($categories as $category) {
+                                                    $selected = '';
+                                                    if ($row->cat_id == $category->id)
+                                                        $selected = 'selected';
+                                                    printf("<label class='term-item'><input type='checkbox' name='category_ids[]' value='%s' %s><span class='term-name'>%s</span></label>", $category->id, $selected, $prefix . ' ' . $category->name);
+                                                    $traverse($category->children, $prefix . '-');
+                                                }
+                                            };
+                                            $traverse($categories);
+                                            ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Tags")}}</strong></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <div class="">
+                                            <input type="text" data-role="tagsinput" autocomplete="off" value="{{$row->tag}}" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
+                                            <br>
+                                            <div class="show_tags">
+                                                @if(!empty($tags))
+                                                    @foreach($tags as $tag)
+                                                        <span class="tag_item">{{$tag->name}}<span data-role="remove"></span>
+                                                            <input type="hidden" name="tag_ids[]" value="{{$tag->id}}">
+                                                        </span>
+                                                    @endforeach
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

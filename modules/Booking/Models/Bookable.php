@@ -335,4 +335,5 @@ class Bookable extends BaseModel
         }
         return $percent;
     }
+
 }

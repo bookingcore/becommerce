@@ -97,6 +97,29 @@ class CreateProductTable extends Migration
             $table->timestamps();
 
         });
+        Schema::create('product_tag', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->integer('tag_id')->nullable();
+            $table->integer('target_id')->nullable();
+
+            $table->bigInteger('create_user')->nullable();
+            $table->bigInteger('update_user')->nullable();
+            $table->timestamps();
+
+        });
+
+        Schema::create('product_category_relations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+
+            $table->integer('cat_id')->nullable();
+            $table->integer('target_id')->nullable();
+
+            $table->bigInteger('create_user')->nullable();
+            $table->bigInteger('update_user')->nullable();
+            $table->timestamps();
+
+        });
     }
 
     /**
@@ -109,7 +132,9 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('products');
         Schema::dropIfExists('product_translations');
         Schema::dropIfExists('product_category');
+        Schema::dropIfExists('product_category_relations');
         Schema::dropIfExists('product_category_translations');
         Schema::dropIfExists('product_term');
+        Schema::dropIfExists('product_tag');
     }
 }

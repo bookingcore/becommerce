@@ -106,7 +106,14 @@ class ProductController extends Controller
             'booking_data' => $row->getBookingData(),
             'review_list'  => $review_list,
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
-            'body_class'=>'is_single full_width'
+            'body_class'=>'is_single full_width style_default',
+            'breadcrumbs'=>[
+                [
+                    'url'=>'',
+                    'class'=>'active',
+                    'name'=>$translation->title
+                ]
+            ]
         ];
         $this->setActiveMenu($row);
 

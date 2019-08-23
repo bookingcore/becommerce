@@ -3,7 +3,7 @@
     <div class="sidebar-title"><h4>{{ $item->title }}</h4></div>
     <div class="tagcloud">
         @php
-            $list_tags = \Modules\News\Models\NewsTag::getTags();
+            $list_tags = \Modules\News\Models\ProductTag::getTags();
         @endphp
         <ul>
             @if($list_tags)

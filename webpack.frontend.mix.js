@@ -4,11 +4,12 @@ const mix = require('laravel-mix');
 mix.webpackConfig({
     output: {
         path:__dirname+'/public',
-    }
+    },
+    devtool: 'inline-source-map'
 
 });
 
-mix.sass('public/sass/app.scss','css');
+mix.sass('public/sass/app.scss','css').sourceMaps();
 mix.sass('public/sass/contact.scss','css');
 // ----------------------------------------------------------------------------------------------------
 //Booking

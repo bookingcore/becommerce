@@ -29,16 +29,17 @@ class CategoryController extends AdminController
             'translation'    => new ProductCategoryTranslation(),
             'breadcrumbs' => [
                 [
-                    'name' => __('Tour'),
+                    'name' => __('Product'),
                     'url'  => 'admin/module/product'
                 ],
                 [
                     'name'  => __('Category'),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__("Add Category:")
         ];
-        return view('Tour::admin.category.index', $data);
+        return view('Product::admin.category.index', $data);
     }
 
     public function edit(Request $request, $id)
@@ -46,7 +47,7 @@ class CategoryController extends AdminController
         $this->checkPermission('product_manage_others');
         $row = ProductCategory::find($id);
         if (empty($row)) {
-            return redirect(route('tour.admin.category.index'));
+            return redirect(route('product.admin.category.index'));
         }
         $translation = $row->translateOrOrigin($request->query('lang'));
         $data = [
@@ -56,16 +57,17 @@ class CategoryController extends AdminController
             'parents'     => ProductCategory::get()->toTree(),
             'breadcrumbs' => [
                 [
-                    'name' => __('Tour'),
+                    'name' => __('Product'),
                     'url'  => 'admin/module/product'
                 ],
                 [
                     'name'  => __('Category'),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__("Edit Category: :name",['name'=>$translation->name])
         ];
-        return view('Tour::admin.category.detail', $data);
+        return view('Product::admin.category.detail', $data);
     }
 
     public function store(Request $request , $id)
@@ -77,14 +79,16 @@ class CategoryController extends AdminController
         if($id>0){
             $row = ProductCategory::find($id);
             if (empty($row)) {
-                return redirect(route('tour.admin.category.index'));
+                return redirect(route('product.admin.category.index'));
             }
         }else{
             $row = new ProductCategory();
             $row->status = "publish";
         }
 
-        $row->fill($request->input());
+        $row->fillByAttr([
+            'name','content','image_id','parent_id'
+        ],$request->input());
         $res = $row->saveOriginOrTranslation($request->input('lang'),true);
 
         if ($res) {

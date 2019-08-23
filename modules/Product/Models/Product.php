@@ -10,6 +10,8 @@ use Modules\Booking\Models\Bookable;
 use Modules\Booking\Models\Booking;
 use Modules\Core\Models\SEO;
 use Modules\Media\Helpers\FileHelper;
+use Modules\Product\Models\ProductTag;
+use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
 
 class Product extends Bookable
@@ -29,6 +31,10 @@ class Product extends Bookable
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $seo_type = 'product';
+
+    protected $cleanFields = [
+        'content','short_desc'
+    ];
 
     /**
      * @var Review
@@ -496,5 +502,64 @@ class Product extends Bookable
 
         return $query->orderBy('id','asc')->get();
 
+    }
+
+    public function getStockStatusCodeAttribute(){
+        if(!$this->manage_stock){
+            return 'in_stock';
+        }
+        switch ($this->stock_status){
+            case 1:
+                return 'in_stock';
+                break;
+            case 0:
+                return 'out_stock';
+                break;
+
+        }
+    }
+    public function getStockStatusTextAttribute(){
+        if(!$this->manage_stock){
+            return __('In Stock');
+        }
+        switch ($this->stock_status){
+            case 1:
+                return __('In Stock');
+                break;
+            case 0:
+                return __("Out Stock");
+                break;
+
+        }
+    }
+
+    /**
+     * Single Tabs
+     */
+    public function getTabsAttribute(){
+        $tabs =  [
+              [
+                  'id'=>'content',
+                  'name'=>__('description'),
+                  'position'=>10
+              ],
+              [
+                  'id'=>'review',
+                  'name'=>__('Review'),
+                  'position'=>20
+              ],
+        ];
+
+        return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
+            return $value['position'] ?? 10;
+        }));;
+    }
+
+
+    public function categories(){
+        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','cat_id');
+    }
+    public function tags(){
+        return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id','tag_id');
     }
 }

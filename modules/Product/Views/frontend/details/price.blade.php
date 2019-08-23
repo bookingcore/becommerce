@@ -1,0 +1,1 @@
+<div class="product-detail-price">{{format_money($row->price)}}</div>

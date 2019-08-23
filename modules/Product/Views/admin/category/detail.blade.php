@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-    <form action="{{route('tour.admin.category.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
+    <form action="{{route('product.admin.category.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
         @csrf
         <div class="container-fluid">
             <div class="d-flex justify-content-between mb20">
@@ -23,7 +23,7 @@
                         <div class="panel">
                             <div class="panel-body">
                                 <h3 class="panel-body-title">{{__("Category Content")}}</h3>
-                                @include('Tour::admin/category/form')
+                                @include('Product::admin/category/form')
                             </div>
                         </div>
                     </div>

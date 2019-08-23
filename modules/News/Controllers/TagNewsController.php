@@ -7,7 +7,7 @@ use Modules\FrontendController;
 use Modules\News\Models\NewsCategory;
 use Modules\News\Models\Tag;
 use Modules\News\Models\News;
-use Modules\News\Models\NewsTag;
+use Modules\News\Models\ProductTag;
 
 class TagNewsController extends FrontendController
 {

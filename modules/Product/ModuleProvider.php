@@ -41,6 +41,16 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Add new Product'),
                         'permission' => 'product_create',
                     ],
+                    'category'=>[
+                        'url'        => 'admin/module/product/category',
+                        'title'      => __('Categories'),
+                        'permission' => 'product_manage_others',
+                    ],
+                    'tag'=>[
+                        'url'        => 'admin/module/product/tag',
+                        'title'      => __('Tags'),
+                        'permission' => 'product_manage_others',
+                    ],
                     'attribute'=>[
                         'url'        => 'admin/module/product/attribute',
                         'title'      => __('Attributes'),

@@ -1,16 +1,13 @@
 @extends('layouts.app')
 @section('head')
-    <link href="{{ asset('module/product/css/product.css?_ver='.config('app.version')) }}" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{ asset("libs/ion_rangeslider/css/ion.rangeSlider.min.css") }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/fotorama/fotorama.css") }}"/>
 @endsection
 @section('content')
-    <div class="bravo_detail_product">
-        <div class="bravo_content">
-            <div class="container">
-            </div>
-        </div>
-    </div>
+    @if(!empty($product_style) and view()->exists('Product::frontend.styles.'.$product_style))
+        @include('Product::frontend.styles.'.$product_style)
+    @else
+        @include('Product::frontend.styles.default')
+    @endif
 @endsection
 
 @section('footer')
@@ -25,5 +22,4 @@
     <script type="text/javascript" src="{{ asset("libs/ion_rangeslider/js/ion.rangeSlider.min.js") }}"></script>
     <script type="text/javascript" src="{{ asset("libs/fotorama/fotorama.js") }}"></script>
     <script type="text/javascript" src="{{ asset("libs/sticky/jquery.sticky.js") }}"></script>
-    <script type="text/javascript" src="{{ asset('module/product/js/single-product.js?_ver='.config('app.version')) }}"></script>
 @endsection

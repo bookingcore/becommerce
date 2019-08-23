@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{__("Tour Categories")}}</h1>
+            <h1 class="title-bar">{{__("Product Categories")}}</h1>
         </div>
         @include('admin.message')
         <div class="row">
@@ -10,11 +10,12 @@
                 <div class="panel">
                     <div class="panel-title">{{__("Add Category")}}</div>
                     <div class="panel-body">
-                        <form action="{{route('tour.admin.category.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
+                        <form action="{{route('product.admin.category.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post">
                             @csrf
-                            @include('Tour::admin/category/form',['parents'=>$rows])
+                            @include('Product::admin/category/form',['parents'=>$rows])
+                            <hr>
                             <div class="">
-                                <button class="btn btn-primary" type="submit">{{__("Add new")}}</button>
+                                <button class="btn btn-success" type="submit">{{__("Add new")}}</button>
                             </div>
                         </form>
                     </div>
@@ -24,7 +25,7 @@
                 <div class="filter-div d-flex justify-content-between ">
                     <div class="col-left">
                         @if(!empty($rows))
-                            <form method="post" action="{{url('admin/module/tour/category/editBulk')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                            <form method="post" action="{{url('admin/module/product/category/editBulk')}}" class="filter-form filter-form-left d-flex justify-content-start">
                                 {{csrf_field()}}
                                 <select name="action" class="form-control">
                                     <option value="">{{__(" Bulk Action ")}}</option>
@@ -37,7 +38,7 @@
                         @endif
                     </div>
                     <div class="col-left">
-                        <form method="get" action="{{url('/admin/module/tour/category')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
+                        <form method="get" action="{{url('/admin/module/product/category')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
                             <input type="text" name="s" value="{{ Request()->s }}" class="form-control" placeholder="{{__("Search by name")}}">
                             <button class="btn-info btn btn-icon btn_search" id="search-submit" type="submit">{{__('Search')}}</button>
                         </form>
@@ -50,10 +51,11 @@
                                 <thead>
                                 <tr>
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
+                                    <th class="image" width="100px"></th>
                                     <th>{{__("Name")}}</th>
-                                    <th class="slug d-none d-md-block">{{__("Slug")}}</th>
+                                    <th class="slug d-none d-md-table-cell">{{__("Slug")}}</th>
                                     <th class="status">{{__("Status")}}</th>
-                                    <th class="date d-none d-md-block">{{__("Date")}}</th>
+                                    <th class="date d-none d-md-table-cell">{{__("Date")}}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -64,8 +66,13 @@
                                     ?>
                                     <tr>
                                         <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item">
+                                        <td>
+                                            @if($row->image_id)
+                                                <img style="max-width: 80px;" src="{{get_file_url($row->image_id)}}" alt="">
+                                            @endif
+                                        </td>
                                         <td class="title">
-                                            <a href="{{url('admin/module/tour/category/edit/'.$row->id)}}">{{$prefix.' '.$row->name}}</a>
+                                            <a href="{{url('admin/module/product/category/edit/'.$row->id)}}">{{$prefix.' '.$row->name}}</a>
                                         </td>
                                         <td class="d-none d-md-block">{{$row->slug}}</td>
                                         <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>

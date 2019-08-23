@@ -11,7 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Models\Attributes;
+use Modules\Product\Models\ProductTag;
+use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 
@@ -21,6 +25,14 @@ class ProductController extends AdminController
     protected $product_translation;
     protected $product_term;
     protected $attributes;
+    /**
+     * @var ProductCategoryRelation
+     */
+    protected $product_cat_relation;
+    /**
+     * @var ProductTag
+     */
+    protected $product_tag;
 
     public function __construct()
     {
@@ -30,6 +42,8 @@ class ProductController extends AdminController
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
         $this->attributes = Attributes::class;
+        $this->product_cat_relation = ProductCategoryRelation::class;
+        $this->product_tag = ProductTag::class;
     }
 
     public function index(Request $request)
@@ -88,6 +102,7 @@ class ProductController extends AdminController
                     'class' => 'active'
                 ],
             ],
+            'categories'  => ProductCategory::get()->toTree(),
             'page_title'     => __("Add new Product")
         ];
         return view('Product::admin.detail', $data);
@@ -122,6 +137,7 @@ class ProductController extends AdminController
                     'class' => 'active'
                 ],
             ],
+            'categories'  => ProductCategory::get()->toTree(),
             'page_title'=>__("Edit: :name",['name'=>$row->title])
         ];
         return view('Product::admin.detail', $data);
@@ -166,6 +182,8 @@ class ProductController extends AdminController
 
         if ($res) {
             if(!$request->input('lang') or is_default_lang($request->input('lang'))) {
+                $this->saveTags($row, $request->input('tag_name'), $request->input('tag_ids'));
+                $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
             }
 
@@ -177,9 +195,21 @@ class ProductController extends AdminController
         }
     }
 
+    public function saveTags($row, $tags_name, $tag_ids)
+    {
+        if (empty($tag_ids))
+            $tag_ids = [];
+        $tag_ids = array_merge(Tag::saveTagByName($tags_name), $tag_ids);
+        $tag_ids = array_filter(array_unique($tag_ids));
+        // Delete unused
+        $this->product_tag::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
+        //Add
+        $this->product_tag::addTag($tag_ids, $row->id);
+
+    }
+
     public function saveTerms($row, $request)
     {
-        $this->checkPermission('product_manage_attributes');
         if (empty($request->input('terms'))) {
             $this->product_term::where('target_id', $row->id)->delete();
         } else {
@@ -191,6 +221,21 @@ class ProductController extends AdminController
                 ]);
             }
             $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
+        }
+    }
+
+    public function saveCategory($row, $request){
+        if (empty($request->input('category_ids'))) {
+            $this->product_cat_relation::query()->where('target_id',$row->id)->delete();
+        } else {
+            $term_ids = $request->input('category_ids');
+            foreach ($term_ids as $term_id) {
+                $this->product_cat_relation::firstOrCreate([
+                    'cat_id' => $term_id,
+                    'target_id' => $row->id
+                ]);
+            }
+            $this->product_cat_relation::where('target_id', $row->id)->whereNotIn('cat_id', $term_ids)->delete();
         }
     }
 

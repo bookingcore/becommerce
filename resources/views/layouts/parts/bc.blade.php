@@ -1,14 +1,19 @@
 @if(!empty($breadcrumbs))
 <div class="blog-breadcrumb hidden-xs">
-    <div class="container">
+    <div class="bravo-container container">
         <ul>
-            <li><a href="{{url(app_get_locale())}}">{{__('Home')}}</a></li>
-            @foreach($breadcrumbs as $breadcrumb)
-                <li class=" {{$breadcrumb['class'] ?? ''}}">
+            <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="{{url(app_get_locale())}}"> <span itemprop="name">{{__('Home')}}</span></a>
+                <span class="sep">/</span></li>
+            @foreach($breadcrumbs as $k=>$breadcrumb)
+                <li class=" {{$breadcrumb['class'] ?? ''}}" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem">
                     @if(!empty($breadcrumb['url']))
-                        <a href="{{url($breadcrumb['url'])}}">{{$breadcrumb['name']}}</a>
+                        <a itemprop="item" href="{{url($breadcrumb['url'])}}"><span itemprop="name">{{$breadcrumb['name']}}</span></a>
                     @else
                         {{$breadcrumb['name']}}
+                    @endif
+
+                    @if($k < count($breadcrumbs) - 1)
+                        <span class="sep">/</span>
                     @endif
                 </li>
             @endforeach

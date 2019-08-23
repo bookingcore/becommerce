@@ -51,13 +51,20 @@
     font-size: 14px;
     font-weight: 500;
     &.btn-primary{
-        background: #5191FA;
+        background: $main_color;
+        &:hover{
+            background: black;
+            color:white;
+        }
     }
     &.btn-danger{
         background: #FA5636;
         &:hover{
             background: #E65335;
         }
+    }
+    &:focus{
+        box-shadow: none;
     }
 }
 .padding-content{
@@ -161,45 +168,36 @@
 
 
 .blog-breadcrumb {
-    padding: 20px 0;
-    border-bottom: 1px solid #EAEEF3;
+    background: #f1f1f1;
+    padding: 20px 0px;
+    color: #000;
     ul {
         list-style: none;
         display: block;
-        width: 100%;
         margin-bottom: 0;
         padding-left: 0;
-        background: #FFF;
         li {
             position: relative;
             display: inline-block;
-            padding-left: 20px;
-            padding-right: 20px;
             z-index: 0;
             a{
-                display: block;
-                font-weight: 500;
-                color: #1A2B48;
+                display: inline-block;
+                color: #09c;
                 text-decoration: none;
-                line-height: 21px;
+                transition: all 0.2s;
+                &:hover{
+                    color:$main_color;
+                }
             }
             &.active {
-                color: #5E6D77;
+                color: #000;
+            }
+            .step{
+                margin: 0 5px;
             }
         }
         li:first-child {
             padding-left: 0;
-        }
-        li:not(:last-child):after {
-            position: absolute;
-            content: '';
-            top: 50%;
-            right: -2px;
-            margin-top: -2px;
-            width: 4px;
-            height: 4px;
-            background: #EAEEF3;
-            z-index: 1;
         }
     }
 }

@@ -2,6 +2,7 @@
 @import "helper";
 @import "typo";
 @import "header";
+@import "footer";
 @import "review";
 @import "404";
 @import "block";
@@ -9,6 +10,8 @@
 @import "login_register";
 @import "adminbar";
 @import "inbox";
+@import "products";
+@import "product-detail";
 
 //Modules Media
 @import "../../resources/module/media/admin/scss/browser";

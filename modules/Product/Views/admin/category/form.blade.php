@@ -24,6 +24,10 @@
             ?>
         </select>
     </div>
+    <div class="form-group">
+        <label >{{__('Feature Image')}}</label>
+        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',$row->image_id) !!}
+    </div>
 @endif
 {{--<div class="form-group">--}}
     {{--<label class="control-label">{{__("Description")}}</label>--}}
