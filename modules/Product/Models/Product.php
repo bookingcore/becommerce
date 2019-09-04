@@ -556,6 +556,6 @@ class Product extends BaseProduct
         return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id');
     }
     public function tags(){
-        return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id','tag_id');
+        return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id','id');
     }
 }

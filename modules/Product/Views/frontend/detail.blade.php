@@ -16,7 +16,6 @@
         var bravo_booking_i18n = {
 			no_date_select:'{{__('Please select Start and End date')}}',
             no_guest_select:'{{__('Please select at lease one guest')}}',
-            load_dates_url:'{{route('product.vendor.availability.loadDates')}}'
         };
     </script>
     <script type="text/javascript" src="{{ asset("libs/ion_rangeslider/js/ion.rangeSlider.min.js") }}"></script>
