@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductTag extends BaseModel
 {
-    use SoftDeletes;
     protected $table = 'product_tag';
     protected $fillable = [
         'target_id',
