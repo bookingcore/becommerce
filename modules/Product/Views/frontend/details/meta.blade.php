@@ -36,8 +36,8 @@
     <hr>
     @include('Product::frontend.details.price')
     <div class="product-summary-header">
-        <span class="sold-by">{{__('Sold By:')}}<a href="{{route('user.profile',['id'=>$row->create_user])}}" target="_blank">{{$row->author->getDisplayName()}}}</a></span>
-        <span class="product-stock-status {{$row->stock_status_code}}">{{$row->stock_status_text}}</span>
+        <span class="sold-by">{{__('Sold By:')}} <a href="{{route('user.profile',['id'=>$row->create_user])}}" target="_blank">{{$row->author->getDisplayName()}}</a></span>
+        <span class="product-stock-status {{$row->stock_status_code}}">{{__('Status:')}} <span>{{$row->stock_status_text}}</span></span>
     </div>
     <div class="product-short-desc">
         {!! clean($row->short_desc) !!}

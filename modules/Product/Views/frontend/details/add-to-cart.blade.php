@@ -1,11 +1,11 @@
 <div class="product-detail-add-to-cart">
-    <div class="actions">
-        <div class="quantity-input">
+    <div class="actions clearfix">
+        <div class="quantity-input my-3">
             <label>{{__('Quantity')}}</label>
             <div class="quantity-input-group">
-                <span class="minus"><i class="icon_minus-06"></i></span>
+                <span class="minus"></span>
                 <input type="number" min="1" max="100">
-                <span class="plus"><i class="icon_plus"></i></span>
+                <span class="plus"></span>
             </div>
         </div>
         <a href="#" onclick="return false" class="add_to_cart btn btn-dark btn-action">{{__('Add to cart')}}</a>
