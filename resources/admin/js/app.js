@@ -38,6 +38,10 @@ import TemplateDetail from '../../module/template/admin/detail.js';
 if(document.getElementById('booking-core-template-detail')){
     TemplateDetail();
 }
+import variations from '../../module/product/js/variations.js';
+if(document.getElementById('product_variations')){
+    variations();
+}
 
 $(document).on('hidden.bs.modal', '.modal', function () {
     $('.modal:visible').length && $(document.body).addClass('modal-open');

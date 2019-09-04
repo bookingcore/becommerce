@@ -1,5 +1,5 @@
 <template>
-    <div class="dimensions-inputs form-inline">
+    <div class="dimensions-inputs form-inline" v-if="typeof value !='undefined'">
         <div class="form-group mx-sm-3 mb-2">
             <input type="number" class="form-control" v-model="value.length" :placeholder="schema.i18n.length">
         </div>
@@ -26,9 +26,27 @@
 
         },
         created: function () {
+            if(typeof this.value == 'undefined' || typeof this.value != 'Object')
+            {
+                this.value = {
+                    length:0,
+                    width:0,
+                    height:0,
+                };
+            }
         },
         watch: {
+            value:function (val) {
 
+                if(typeof val == 'undefined' || typeof val != 'Object')
+                {
+                    this.value = {
+                        length:0,
+                        width:0,
+                        height:0,
+                    };
+                }
+            }
         },
         destroyed: function () {
 

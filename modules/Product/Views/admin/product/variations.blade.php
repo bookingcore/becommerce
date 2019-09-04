@@ -1,7 +1,12 @@
 @if($row->id)
-    <div class="panel" id="product_variations">
+    <div class="panel" id="product_variations" v-cloak>
         <div class="panel-title">
-            <strong>{{__('Variations')}}</strong>
+            <div class="d-flex justify-content-between">
+                <strong>{{__('Variations')}}</strong>
+                <div class="panel-actions">
+                    <a href="#" @click="openEdit({},$event)" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> {{__("Add Variation")}}</a>
+                </div>
+            </div>
         </div>
         <div class="panel-body">
             <div class="table-responsive">
@@ -34,12 +39,14 @@
             </div>
         </div>
         @include('Product::admin.product.variation-form-vue')
-        <script>
-            var variationFormSchema  = {!! json_encode($row->variation_form_schema) !!};
-            var product_id = {{$row->id}}
-            var variationRoutes = {
-                'load':{{route('product.admin.variation.load')}}
-            };
-        </script>
     </div>
+
+    <script>
+        var variationFormSchema  = {!! json_encode($row->variation_form_schema) !!};
+        var product_id = {{$row->id}}
+        var variationRoutes = {
+                'load':'{{route('product.admin.variation.load')}}',
+                'store':'{{route('product.admin.variation.store')}}',
+            };
+    </script>
 @endif

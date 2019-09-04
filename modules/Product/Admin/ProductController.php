@@ -140,7 +140,6 @@ class ProductController extends AdminController
             'categories'  => ProductCategory::get()->toTree(),
             'page_title'=>__("Edit: :name",['name'=>$row->title])
         ];
-        $this->registerJs('module/product/admin/js/variations.js');
 
         return view('Product::admin.detail', $data);
     }

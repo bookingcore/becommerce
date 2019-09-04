@@ -381,3 +381,20 @@ th.slug{ width: 20%}
         }
     }
 }
+.variation_form_modal{
+    .form-group{
+        display: flex;
+        align-items: center;
+        >label{
+            width: 200px;
+            flex-shrink: 0;
+            font-weight: 600;
+            text-align: right;
+            margin-right: 15px;
+            margin-bottom: 0px;
+        }
+        .field-wrap{
+            flex-grow: 1;
+        }
+    }
+}

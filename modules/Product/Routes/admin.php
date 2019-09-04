@@ -34,5 +34,6 @@ Route::group(['prefix'=>'attribute'],function (){
 });
 Route::group(['prefix'=>'variations'],function (){
     Route::get('/load','VariationController@load')->name('product.admin.variation.load');
+    Route::post('/store','VariationController@store')->name('product.admin.variation.store');
 });
 

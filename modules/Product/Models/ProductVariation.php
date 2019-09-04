@@ -30,6 +30,10 @@ class ProductVariation extends BaseProduct
         'content','short_desc'
     ];
 
+    protected $casts = [
+        'dimensions'=>'array'
+    ];
+
     /**
      * @var Review
      */
