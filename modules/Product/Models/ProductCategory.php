@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductCategory extends BaseModel
 {
-    use SoftDeletes;
     use NodeTrait;
     protected $table = 'product_category';
     protected $fillable = [

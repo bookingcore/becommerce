@@ -73,7 +73,6 @@ class CreateProductTable extends Migration
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
-            $table->softDeletes();
 
             $table->timestamps();
         });

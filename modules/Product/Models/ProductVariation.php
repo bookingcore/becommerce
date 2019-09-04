@@ -10,10 +10,10 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
 
-class Product extends BaseProduct
+class ProductVariation extends BaseProduct
 {
-    protected $table = 'products';
-    protected $type = 'product';
+    protected $table = 'product_variations';
+    protected $type = 'product_variation';
     public $checkout_booking_detail_file       = 'Product::frontend/booking/detail';
     public $checkout_booking_detail_modal_file = 'Product::frontend/booking/detail-modal';
     public $email_new_booking_file             = 'Product::emails.new_booking_detail';
@@ -24,9 +24,7 @@ class Product extends BaseProduct
         'short_desc',
         'status'
     ];
-    protected $slugField     = 'slug';
-    protected $slugFromField = 'title';
-    protected $seo_type = 'product';
+    protected $seo_type = 'product_variation';
 
     protected $cleanFields = [
         'content','short_desc'
@@ -553,7 +551,7 @@ class Product extends BaseProduct
 
 
     public function categories(){
-        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id');
+        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','cat_id');
     }
     public function tags(){
         return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id','tag_id');

@@ -27,6 +27,7 @@
                     <div class="col-md-9">
                         @include('Product::admin.product.content')
                         @include('Product::admin.product.pricing')
+                        @include('Product::admin.product.variations')
                         @include('Core::admin/seo-meta/seo-meta')
                         @if(is_default_lang())
                             <div class="panel">

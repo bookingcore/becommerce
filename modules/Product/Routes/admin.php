@@ -32,3 +32,7 @@ Route::group(['prefix'=>'attribute'],function (){
 
     Route::get('getForSelect2','AttributeController@getForSelect2')->name('product.admin.attribute.term.getForSelect2');
 });
+Route::group(['prefix'=>'variations'],function (){
+    Route::get('/load','VariationController@load')->name('product.admin.variation.load');
+});
+

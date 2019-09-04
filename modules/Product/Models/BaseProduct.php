@@ -336,4 +336,82 @@ class BaseProduct extends BaseModel
         return $percent;
     }
 
+    public function variations(){
+        return $this->hasMany(ProductVariation::class,'product_id');
+    }
+
+
+    public function getVariationFormSchemaAttribute(){
+        return [
+            [
+                'id'        => 'sku',
+                'type'      => 'input',
+                'inputType' => 'text',
+                'label'     => __('SKU')
+            ],
+            [
+                'id'        => 'name',
+                'type'      => 'input',
+                'inputType' => 'text',
+                'label'     => __('Name')
+            ],
+            [
+                'id'    => 'image_id',
+                'type'  => 'uploader',
+                'label'     => __('Image')
+            ],
+            [
+                'id'        => 'price',
+                'type'      => 'input',
+                'inputType' => 'number',
+                'label'     => __('Price')
+            ],
+            [
+                'id'        => 'is_manage_stock',
+                'type'      => 'input',
+                'inputType' => 'checkbox',
+                'label'     => __('Manage Stock?')
+            ],
+            [
+                'id'        => 'quantity',
+                'type'      => 'input',
+                'inputType' => 'number',
+                'label'     => __('Quantity')
+            ],
+            [
+                'id'            => 'status',
+                'type'          => 'select',
+                'label'         => __('Status'),
+                'values'        => [
+                    [
+                        'id'   => 'draft',
+                        'name' => __("Draft")
+                    ],
+                    [
+                        'id'   => 'publish',
+                        'name' => __("Publish")
+                    ],
+                ],
+                "selectOptions"=> [
+                    'hideNoneSelectedText' => "true"
+                ]
+            ],
+            [
+                'id'        => 'weight',
+                'type'      => 'input',
+                'inputType' => 'number',
+                'label'     => __('Weight')
+            ],
+            [
+                'id'        => 'dimensions',
+                'type'      => 'dimensions',
+                'label'     => __('Dimensions'),
+                'i18n'=>[
+                    'width'=>__('Width'),
+                    'height'=>__('Height'),
+                    'length'=>__('Length'),
+                ]
+            ],
+        ];
+    }
 }
