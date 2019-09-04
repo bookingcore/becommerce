@@ -52,7 +52,6 @@
             <span class="val">{{$row->sku}}</span>
         </div>
         @endif
-
         @if(!empty($row->categories))
         <div class="other-item item-categories">
             <span class="label">{{__("Categories")}}</span>
