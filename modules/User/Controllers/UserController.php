@@ -24,7 +24,7 @@ class UserController extends FrontendController
 
     public function dashboard(Request $request)
     {
-        $this->checkPermission('tour_view');
+        $this->checkPermission('product_view');
         $user_id = Auth::id();
         $data = [
             'cards_report'       => Booking::getTopCardsReportForVendor($user_id),
