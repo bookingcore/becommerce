@@ -15,7 +15,7 @@ class CreateProductTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('sku',255)->nullable()->unique();
+            $table->string('sku',255)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('slug',255)->charset('utf8')->index();
             $table->text('content')->nullable();
@@ -35,10 +35,10 @@ class CreateProductTable extends Migration
             //Extra Info
             $table->string('status',50)->nullable();
 
-            $table->decimal('weight',5,2)->nullable()->unique();
-            $table->decimal('length',5,2)->nullable()->unique();
-            $table->decimal('width',5,2)->nullable()->unique();
-            $table->decimal('height',5,2)->nullable()->unique();
+            $table->decimal('weight',5,2)->nullable();
+            $table->decimal('length',5,2)->nullable();
+            $table->decimal('width',5,2)->nullable();
+            $table->decimal('height',5,2)->nullable();
 
 
             $table->bigInteger('create_user')->nullable();
@@ -109,17 +109,17 @@ class CreateProductTable extends Migration
             $table->integer('product_id')->nullable();
             $table->string('name',255)->nullable();
             $table->tinyInteger('position')->nullable();
-            $table->string('sku',255)->nullable()->unique();
+            $table->string('sku',255)->nullable();
             $table->integer('image_id')->nullable();
             $table->decimal('price',10,2)->nullable();
             $table->tinyInteger('quantity')->nullable();
             $table->tinyInteger('is_manage_stock')->nullable();
 
             // Extra
-            $table->decimal('weight',5,2)->nullable()->unique();
-            $table->decimal('length',5,2)->nullable()->unique();
-            $table->decimal('width',5,2)->nullable()->unique();
-            $table->decimal('height',5,2)->nullable()->unique();
+            $table->decimal('weight',5,2)->nullable();
+            $table->decimal('length',5,2)->nullable();
+            $table->decimal('width',5,2)->nullable();
+            $table->decimal('height',5,2)->nullable();
 
             $table->string('status',30)->nullable();
             $table->bigInteger('create_user')->nullable();
