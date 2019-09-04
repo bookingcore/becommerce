@@ -9,7 +9,7 @@ namespace Modules\Product\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Booking\Models\Booking;
+use Modules\Product\Models\Product;
 use Modules\FrontendController;
 use Modules\Product\Models\Space;
 use Modules\Product\Models\SpaceDate;

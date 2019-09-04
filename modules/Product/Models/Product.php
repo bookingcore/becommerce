@@ -6,15 +6,11 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
-use Modules\Booking\Models\Bookable;
-use Modules\Booking\Models\Booking;
-use Modules\Core\Models\SEO;
 use Modules\Media\Helpers\FileHelper;
-use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
 
-class Product extends Bookable
+class Product extends BaseProduct
 {
     protected $table = 'products';
     protected $type = 'product';

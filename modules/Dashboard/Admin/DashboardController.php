@@ -3,7 +3,7 @@ namespace Modules\Dashboard\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
-use Modules\Booking\Models\Booking;
+use Modules\Product\Models\Order;
 
 class DashboardController extends AdminController
 {
@@ -11,9 +11,9 @@ class DashboardController extends AdminController
     {
         $f = strtotime('monday this week');
         $data = [
-            'recent_bookings'    => Booking::getRecentBookings(),
-            'top_cards'          => Booking::getTopCardsReport(),
-            'earning_chart_data' => Booking::getDashboardChartData($f, time())
+            'recent_bookings'    => Order::getRecentBookings(),
+            'top_cards'          => Order::getTopCardsReport(),
+            'earning_chart_data' => Order::getDashboardChartData($f, time())
         ];
         return view('Dashboard::index', $data);
     }
@@ -26,7 +26,7 @@ class DashboardController extends AdminController
                 $from = $request->input('from');
                 $to = $request->input('to');
                 $this->sendSuccess([
-                    'data' => Booking::getDashboardChartData(strtotime($from), strtotime($to))
+                    'data' => Order::getDashboardChartData(strtotime($from), strtotime($to))
                 ]);
                 break;
         }

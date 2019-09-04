@@ -11,7 +11,7 @@ use Modules\Tour\Models\TourTranslation;
 use Modules\Location\Models\Location;
 use Modules\Core\Models\Attributes;
 use Modules\Tour\Models\TourTerm;
-use Modules\Booking\Models\Booking;
+use Modules\Product\Models\Product;
 
 
 use Modules\Product\Models\ProductTerm;

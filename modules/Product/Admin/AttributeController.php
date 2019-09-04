@@ -14,13 +14,13 @@ class AttributeController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/space');
+        $this->setActiveMenu('admin/module/product');
         parent::__construct();
     }
 
     public function index(Request $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $listAttr = Attributes::where("service", 'space');
         if (!empty($search = $request->query('s'))) {
             $listAttr->where('name', 'LIKE', '%' . $search . '%');
@@ -32,8 +32,8 @@ class AttributeController extends AdminController
             'translation'    => new AttributesTranslation(),
             'breadcrumbs' => [
                 [
-                    'name' => __('Space'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Product'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
                     'name'  => __('Attributes'),
@@ -41,7 +41,7 @@ class AttributeController extends AdminController
                 ],
             ]
         ];
-        return view('Space::admin.attribute.index', $data);
+        return view('Product::admin.attribute.index', $data);
     }
 
     public function edit(Request $request, $id)
@@ -51,7 +51,7 @@ class AttributeController extends AdminController
             abort(404);
         }
         $translation = $row->translateOrOrigin($request->query('lang'));
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
@@ -59,12 +59,12 @@ class AttributeController extends AdminController
             'row'         => $row,
             'breadcrumbs' => [
                 [
-                    'name' => __('Space'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Product'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
                     'name' => __('Attributes'),
-                    'url'  => 'admin/module/space/attribute'
+                    'url'  => 'admin/module/product/attribute'
                 ],
                 [
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
@@ -72,12 +72,12 @@ class AttributeController extends AdminController
                 ],
             ]
         ];
-        return view('Space::admin.attribute.detail', $data);
+        return view('Product::admin.attribute.detail', $data);
     }
 
     public function store(Request $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $this->validate($request, [
             'name' => 'required'
         ]);
@@ -100,7 +100,7 @@ class AttributeController extends AdminController
 
     public function editAttrBulk(Request $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids) or !is_array($ids)) {
@@ -120,7 +120,7 @@ class AttributeController extends AdminController
 
     public function terms(Request $request, $attr_id)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $row = Attributes::find($attr_id);
         if (empty($row)) {
             abort(404);
@@ -137,12 +137,12 @@ class AttributeController extends AdminController
             'translation'    => new TermsTranslation(),
             'breadcrumbs' => [
                 [
-                    'name' => __('Space'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Product'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
                     'name' => __('Attributes'),
-                    'url'  => 'admin/module/space/attribute'
+                    'url'  => 'admin/module/product/attribute'
                 ],
                 [
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
@@ -150,12 +150,12 @@ class AttributeController extends AdminController
                 ],
             ]
         ];
-        return view('Space::admin.terms.index', $data);
+        return view('Product::admin.terms.index', $data);
     }
 
     public function term_edit(Request $request, $id)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $row = Terms::find($id);
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
@@ -168,16 +168,16 @@ class AttributeController extends AdminController
             'enable_multi_lang'=>true,
             'breadcrumbs' => [
                 [
-                    'name' => __('Space'),
-                    'url'  => 'admin/module/space'
+                    'name' => __('Product'),
+                    'url'  => 'admin/module/product'
                 ],
                 [
                     'name' => __('Attributes'),
-                    'url'  => 'admin/module/space/attribute'
+                    'url'  => 'admin/module/product/attribute'
                 ],
                 [
                     'name' => $attr->name,
-                    'url'  => 'admin/module/space/attribute/terms/' . $row->attr_id
+                    'url'  => 'admin/module/product/attribute/terms/' . $row->attr_id
                 ],
                 [
                     'name'  => __('Term: :name', ['name' => $row->name]),
@@ -185,12 +185,12 @@ class AttributeController extends AdminController
                 ],
             ]
         ];
-        return view('Space::admin.terms.detail', $data);
+        return view('Product::admin.terms.detail', $data);
     }
 
     public function term_store(Request $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $this->validate($request, [
             'name' => 'required'
         ]);
@@ -214,7 +214,7 @@ class AttributeController extends AdminController
 
     public function editTermBulk(Request $request)
     {
-        $this->checkPermission('space_manage_attributes');
+        $this->checkPermission('product_manage_attributes');
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids) or !is_array($ids)) {
