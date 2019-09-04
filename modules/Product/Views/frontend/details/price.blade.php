@@ -1,1 +1,1 @@
-<div class="product-detail-price">{{format_money($row->price)}}</div>
+<div class="product-detail-price"><span class="product-detail-price-origin">{{format_money($row->price)}}</span> <span class="product-detail-price-sale">{{format_money($row->sale_price)}}</span></div>
