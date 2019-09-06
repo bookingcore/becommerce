@@ -1,3 +1,7 @@
+<?php
+use Modules\Product\Models\ProductBrand;
+;?>
+
 @extends('admin.layouts.app')
 
 @section('content')
@@ -35,7 +39,7 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <?php
-                                        $user = !empty($row->create_user) ? App\User::find($row->create_user) : false;
+	                                    $user = !empty($row->create_user) ? App\User::find($row->create_user) : false;
                                         \App\Helpers\AdminForm::select2('create_user', [
                                             'configs' => [
                                                 'ajax'        => [
@@ -90,11 +94,14 @@
                                     <div class="form-group">
                                         <div class="terms-scrollable">
                                             <?php
-                                            $traverse = function ($categories, $prefix = '') use (&$traverse, $row) {
+                                                $categoriesArray   = $row->categories->pluck("id")->toArray();
+
+                                            $traverse = function ($categories, $prefix = '') use (&$traverse, $categoriesArray) {
+
                                                 foreach ($categories as $category) {
                                                     $selected = '';
-                                                    if ($row->cat_id == $category->id)
-                                                        $selected = 'selected';
+                                                    if (in_array($category->id,$categoriesArray))
+                                                        $selected = 'checked';
                                                     printf("<label class='term-item'><input type='checkbox' name='category_ids[]' value='%s' %s><span class='term-name'>%s</span></label>", $category->id, $selected, $prefix . ' ' . $category->name);
                                                     $traverse($category->children, $prefix . '-');
                                                 }
@@ -110,11 +117,11 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <div class="">
-                                            <input type="text" data-role="tagsinput" autocomplete="off" value="{{$row->tag}}" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
+                                            <input type="text" data-role="tagsinput" autocomplete="off" value="" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
                                             <br>
                                             <div class="show_tags">
-                                                @if(!empty($tags))
-                                                    @foreach($tags as $tag)
+                                                @if(count($row->tags)>0)
+                                                    @foreach($row->tags as $tag)
                                                         <span class="tag_item">{{$tag->name}}<span data-role="remove"></span>
                                                             <input type="hidden" name="tag_ids[]" value="{{$tag->id}}">
                                                         </span>
@@ -122,6 +129,29 @@
                                                 @endif
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Brand")}}</strong></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+		                                <?php
+		                                $brand = !empty($row->brand_id) ? ProductBrand::find($row->brand_id) : false;
+		                                \App\Helpers\AdminForm::select2('brand_id', [
+			                                'configs' => [
+				                                'ajax'        => [
+					                                'url' => route('product.admin.brand.getForSelect2'),
+					                                'dataType' => 'json'
+				                                ],
+				                                'allowClear'  => true,
+				                                'placeholder' => __('-- Select Brand --')
+			                                ]
+		                                ], !empty($brand->id) ? [
+			                                $brand->id,
+			                                $brand->name . ' (#' . $brand->id . ')'
+		                                ] : false)
+		                                ?>
                                     </div>
                                 </div>
                             </div>

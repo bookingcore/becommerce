@@ -378,12 +378,12 @@ class Product extends BaseProduct
 
     public function getReviewEnable()
     {
-        return setting_item("product_enable_review", 0);
+        return setting_item("product_enable_review", 1);
     }
 
     public function getReviewApproved()
     {
-        return setting_item("product_review_approved", 0);
+        return setting_item("product_review_approved", 1);
     }
 
     public function check_enable_review_after_booking()
@@ -552,10 +552,19 @@ class Product extends BaseProduct
     }
 
 
+
+
     public function categories(){
         return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
     }
     public function tags(){
         return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id', 'id','id','tag_id');
     }
+    public function brand(){
+    	return $this->belongsTo(ProductBrand::class,'brand_id');
+    }
+
+	public function getSameBrandAttribute(){
+		return Product::where('id','!=',$this->id)->where("status", "publish")->where("brand_id", $this->brand_id)->take(3)->inRandomOrder()->get();
+	}
 }

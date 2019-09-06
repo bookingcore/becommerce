@@ -24,7 +24,7 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getAdminMenu()
     {
         return [
-            'space'=>[
+            'product'=>[
                 "position"=>41,
                 'url'        => 'admin/module/product',
                 'title'      => __('Products'),
@@ -51,6 +51,11 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Tags'),
                         'permission' => 'product_manage_others',
                     ],
+                    'brand'=>[
+	                    'url'        => route('product.admin.brand.index'),
+	                    'title'      => __('Brand'),
+	                    'permission' => 'product_manage_others',
+                    ],
                     'attribute'=>[
                         'url'        => 'admin/module/product/attribute',
                         'title'      => __('Attributes'),
@@ -65,12 +70,12 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getMenuBuilderTypes()
     {
         return [
-            'space'=>[
-                'class' => Space::class,
-                'name'  => __("Spaces"),
-                'items' => Space::searchForMenu(),
-                'position'=>41
-            ]
+//            'space'=>[
+//                'class' => Space::class,
+//                'name'  => __("Spaces"),
+//                'items' => Space::searchForMenu(),
+//                'position'=>41
+//            ]
         ];
     }
 
@@ -78,24 +83,24 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getUserMenu()
     {
         return [
-            'space' => [
-                'url'        => app_get_locale() . '/user/product',
-                'title'      => __("Manage Product"),
-                'icon'       => 'fa fa-building-o',
-                'position'   => 31,
-                'permission' => 'product_view',
-                'children' => [
-                    [
-                        'url'    => app_get_locale() . '/product/space',
-                        'title'  => __("All Products"),
-                    ],
-                    [
-                        'url'        => app_get_locale() . '/user/product/create',
-                        'title'      => __("Add Product"),
-                        'permission' => 'product_create',
-                    ],
-                ]
-            ],
+//            'space' => [
+//                'url'        => app_get_locale() . '/user/product',
+//                'title'      => __("Manage Product"),
+//                'icon'       => 'fa fa-building-o',
+//                'position'   => 31,
+//                'permission' => 'product_view',
+//                'children' => [
+//                    [
+//                        'url'    => app_get_locale() . '/product/space',
+//                        'title'  => __("All Products"),
+//                    ],
+//                    [
+//                        'url'        => app_get_locale() . '/user/product/create',
+//                        'title'      => __("Add Product"),
+//                        'permission' => 'product_create',
+//                    ],
+//                ]
+//            ],
         ];
     }
 }

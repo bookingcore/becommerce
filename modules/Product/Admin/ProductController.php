@@ -172,6 +172,7 @@ class ProductController extends AdminController
             'price',
             'sale_price',
             'is_featured',
+            'brand_id',
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'create_user';

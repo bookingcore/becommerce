@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('head')
-    <link rel="stylesheet" type="text/css" href="{{ asset("libs/fotorama/fotorama.css") }}"/>
-    <link rel="stylesheet" type="text/css" href="{{ asset("module/product/css/produc.css") }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset("libs/flexslider/flexslider.css") }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset("libs/flexslider/flexslider-rtl-min.css") }}"/>
+    <link rel="stylesheet" type="text/css" href="{{ asset("module/product/css/product.css") }}"/>
 @endsection
 @section('content')
     @if(!empty($product_style) and view()->exists('Product::frontend.styles.'.$product_style))
@@ -20,6 +21,7 @@
         };
     </script>
     <script type="text/javascript" src="{{ asset("libs/ion_rangeslider/js/ion.rangeSlider.min.js") }}"></script>
-    <script type="text/javascript" src="{{ asset("libs/fotorama/fotorama.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("libs/flexslider/jquery.flexslider-min.js") }}"></script>
     <script type="text/javascript" src="{{ asset("libs/sticky/jquery.sticky.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("module/product/js/product-detail.js") }}"></script>
 @endsection

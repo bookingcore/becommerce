@@ -14,7 +14,17 @@ Route::group(['prefix'=>'category'],function (){
     Route::get('/','CategoryController@index')->name('product.admin.category.index');
     Route::get('edit/{id}','CategoryController@edit')->name('product.admin.category.edit');
     Route::post('store/{id}','CategoryController@store')->name('product.admin.category.store');
+    Route::post('editBulk','CategoryController@editBulk')->name('product.admin.category.editBulk');
 });
+Route::group(['prefix'=>'brand'],function (){
+	Route::get('/','BrandController@index')->name('product.admin.brand.index');
+	Route::get('edit/{id}','BrandController@edit')->name('product.admin.brand.edit');
+	Route::post('store/{id}','BrandController@store')->name('product.admin.brand.store');
+	Route::post('editBulk','BrandController@editBulk')->name('product.admin.brand.editBulk');
+	Route::get('getForSelect2','BrandController@getForSelect2')->name('product.admin.brand.getForSelect2');
+
+});
+
 Route::group(['prefix'=>'tag'],function (){
     Route::get('/','TagController@index')->name('product.admin.tag.index');
     Route::get('edit/{id}','TagController@edit')->name('product.admin.tag.edit');

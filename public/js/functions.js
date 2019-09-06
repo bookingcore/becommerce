@@ -3,7 +3,9 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 window.bravo_format_money =  function($money) {
 
     if (!$money) {

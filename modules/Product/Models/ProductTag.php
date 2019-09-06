@@ -40,7 +40,7 @@ class ProductTag extends BaseModel
                 if (empty($find)) {
 
                     $a = new self();
-                    $a->news_id = $news_id;
+                    $a->target_id = $news_id;
                     $a->tag_id = $tag_id;
                     $a->save();
                 }

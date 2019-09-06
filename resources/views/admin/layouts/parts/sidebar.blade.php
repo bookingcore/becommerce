@@ -41,13 +41,6 @@ $menus = [
         'title' => __("Page"),
         'icon'  => 'icon ion-ios-bookmarks',
     ],
-
-    'review'=>[
-        "position"=>50,
-        'url'   => 'admin/module/review',
-        'title' => __("Reviews"),
-        'icon'  => 'icon ion-ios-text',
-    ],
     'menu'=>[
         "position"=>60,
         'url'        => 'admin/module/core/menu',

@@ -1,20 +1,21 @@
 <div class="product-detail-add-to-cart">
-    <div class="actions clearfix">
-        <div class="quantity-input my-3">
-            <label>{{__('Quantity')}}</label>
-            <div class="quantity-input-group">
-                <span class="minus"></span>
-                <input type="number" min="1" max="100">
-                <span class="plus"></span>
+        <form class="actions clearfix" action="#">
+            <div class="quantity-input">
+                <label>{{__('Quantity')}}</label>
+                <div class="quantity-input-group">
+                    <span class="minus decrease">
+                        <i class="icon-minus"></i></span>
+                    <input type="number" min="1" max="100">
+                    <span class="plus increase"><i class="icon-plus"></i></span>
+                </div>
             </div>
-        </div>
-        <a href="#" onclick="return false" class="add_to_cart btn btn-dark btn-action">{{__('Add to cart')}}</a>
-        <a href="#" onclick="return false" class="buy_now btn btn-primary btn-action">{{__('Buy now')}}</a>
-        <a href="#" onclick="return false" class="add_wishlist btn-action" data-tooltip="{{__('Add to Wishlist')}}">
-            <i class="icon-heart"></i>
-        </a>
-        <a href="#" onclick="return false" class="add_compare btn-action" data-tooltip="{{__('Compare')}}">
-            <i class="icon-chart-bars"></i>
-        </a>
-    </div>
+            <button  class="btn add_to_cart btn btn-dark btn-action">{{__('Add to cart')}}</button>
+            <button  class="btn buy_now btn btn-primary btn-action">{{__('Buy now')}}</button>
+            <a href="#" onclick="return false" class="btn add_wishlist btn-action" data-toggle="tooltip" title="{{__('Add to Wishlist')}}">
+                <i class="icon-heart"></i>
+            </a>
+            <a href="#" onclick="return false" class="btn add_compare btn-action" data-toggle="tooltip" title="{{__('Compare')}}">
+                <i class="icon-chart-bars"></i>
+            </a>
+        </form>
 </div>

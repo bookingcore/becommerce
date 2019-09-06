@@ -23,6 +23,7 @@ class CreateProductTable extends Migration
             $table->integer('banner_image_id')->nullable();
             $table->text('short_desc')->nullable();
             $table->integer('category_id')->nullable();
+            $table->integer('brand_id')->nullable();
             $table->tinyInteger('is_featured')->nullable();
 
             $table->string('gallery', 255)->nullable();
@@ -76,6 +77,7 @@ class CreateProductTable extends Migration
 
             $table->timestamps();
         });
+
 
         Schema::create('product_category_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
@@ -173,6 +175,36 @@ class CreateProductTable extends Migration
             $table->timestamps();
 
         });
+
+	    Schema::create('product_brand', function (Blueprint $table) {
+		    $table->bigIncrements('id');
+		    $table->string('name',255)->nullable();
+		    $table->text('content')->nullable();
+		    $table->string('slug',255)->nullable();
+		    $table->string('status',50)->nullable();
+		    $table->integer('image_id')->nullable();
+		    $table->string('icon',50)->nullable();
+
+		    $table->integer('create_user')->nullable();
+		    $table->integer('update_user')->nullable();
+
+		    $table->timestamps();
+	    });
+
+	    Schema::create('product_brand_translations', function (Blueprint $table) {
+		    $table->bigIncrements('id');
+		    $table->bigInteger('origin_id')->nullable();
+		    $table->string('locale',10)->nullable();
+
+		    $table->string('name',255)->nullable();
+		    $table->text('content')->nullable();
+
+		    $table->integer('create_user')->nullable();
+		    $table->integer('update_user')->nullable();
+		    $table->unique(['origin_id', 'locale']);
+		    $table->timestamps();
+	    });
+
     }
 
     /**
@@ -192,5 +224,7 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_variations');
         Schema::dropIfExists('product_variation_term');
         Schema::dropIfExists('product_variation_translations');
+        Schema::dropIfExists('product_brand');
+        Schema::dropIfExists('product_brand_translations');
     }
 }

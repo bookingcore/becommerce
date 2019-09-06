@@ -10,6 +10,7 @@ namespace Modules\News;
 use Illuminate\Support\ServiceProvider;
 use Modules\ModuleServiceProvider;
 use Modules\News\Providers\RouteServiceProvider;
+use Modules\Product\Models\Product;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -34,4 +35,11 @@ class ModuleProvider extends ModuleServiceProvider
 
         $this->app->register(RouteServiceProvider::class);
     }
+	public static function getBookableServices()
+	{
+		return [
+			'product' => Product::class,
+		];
+	}
+
 }

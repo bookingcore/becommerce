@@ -100,11 +100,13 @@ class ProductController extends Controller
         $translation = $row->translateOrOrigin(app()->getLocale());
         
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
+        $related = Product::get();
         $data = [
             'row'          => $row,
             'translation'       => $translation,
             'booking_data' => $row->getBookingData(),
             'review_list'  => $review_list,
+            'related_list'  => $related,
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
             'breadcrumbs'=>[

@@ -1,1 +1,14 @@
-<div class="product-detail-price"><span class="product-detail-price-origin">{{format_money($row->price)}}</span> <span class="product-detail-price-sale">{{format_money($row->sale_price)}}</span></div>
+@if(!empty($row->sale_price))
+    <p class="price has-sale">
+        <ins>
+            <span class="amount">{{format_money($row->sale_price)}}</span>
+        </ins>
+        <del>
+            <span class="amount">{{format_money($row->price)}}</span>
+        </del>
+    </p>
+@else
+    <p class="price">
+        <span class="amount">{{format_money($row->price)}}</span>
+    </p>
+@endif
