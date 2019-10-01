@@ -37,4 +37,8 @@ class ModuleServiceProvider extends \Illuminate\Support\ServiceProvider
     public static function getSettingPages(){
         return [];
     }
+
+    public static function getProductTypes(){
+        return [];
+    }
 }

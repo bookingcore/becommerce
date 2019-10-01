@@ -1,7 +1,9 @@
 <?php
 namespace Modules\Product;
 use Modules\ModuleServiceProvider;
+use Modules\Product\Models\Product;
 use Modules\Product\Models\Space;
+use Modules\Product\Models\VariableProduct;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -101,6 +103,14 @@ class ModuleProvider extends ModuleServiceProvider
 //                    ],
 //                ]
 //            ],
+        ];
+    }
+
+    public static function getProductTypes()
+    {
+        return [
+            'simple'=>Product::class,
+            'variable'=>VariableProduct::class,
         ];
     }
 }

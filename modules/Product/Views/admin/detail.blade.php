@@ -17,7 +17,7 @@ use Modules\Product\Models\ProductBrand;
                     @endif
                 </div>
                 <div class="">
-                    @if($row->id)
+                    @if($row->id && $row->type == 'variable')
                         <a class="btn btn-warning btn-sm" href="{{route('product.admin.variation.index',['id'=>$row->id])}}" target=""><i class="fa fa-sliders"></i> {{__("Manage Variations")}}</a>
                     @endif
                     @if($row->slug)
@@ -82,6 +82,16 @@ use Modules\Product\Models\ProductBrand;
                                         <label>
                                             <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Is featured product ?")}}
                                         </label>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label><strong>{{__('Product Type')}}</strong></label>
+                                        <br>
+                                        <select class="custom-select" name="type">
+                                            @foreach(get_product_types() as $type_id=>$type)
+                                                <option @if($row->type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 @endif
                                     <hr>

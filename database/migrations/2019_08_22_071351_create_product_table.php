@@ -43,6 +43,7 @@ class CreateProductTable extends Migration
             $table->decimal('height',5,2)->nullable();
 
 
+            $table->string('type',50)->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->softDeletes();

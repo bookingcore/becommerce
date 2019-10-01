@@ -6,7 +6,7 @@
         </a>
     </li>
     <li  class="user-wishlist">
-        @if(Auth::id())
+        @if(Auth::user())
             <a class="counter-wrap" href="{{route('user.wishList.index')}}">
                 <i class="icon-heart extra-icon"></i>
                 <span class="counter user-wish-list-count">{{Auth::user()->wishlist_count}}</span>
@@ -27,8 +27,8 @@
             @include('Product::frontend.cart.mini-cart')
         </div>
     </li>
-    <li class="menu-user @if(Auth::id()) logged-in @else no-logged-in @endif">
-        @if(!Auth::id())
+    <li class="menu-user @if(Auth::user()) logged-in @else no-logged-in @endif">
+        @if(!Auth::user())
             <div class="u-left">
                 <i class="extra-icon icon-user"></i>
             </div>

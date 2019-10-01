@@ -59,6 +59,10 @@ class Product extends BaseProduct
         return with(new static)->table;
     }
 
+    public static function getTypeName(){
+        return __('Simple Product');
+    }
+
     /**
      * Get SEO fop page list
      *
