@@ -398,3 +398,13 @@ th.slug{ width: 20%}
         }
     }
 }
+.bravo-form{
+    .fa-spinner{
+        display: none;
+    }
+    &.loading{
+        .fa-spinner{
+            display: inline-block;
+        }
+    }
+}

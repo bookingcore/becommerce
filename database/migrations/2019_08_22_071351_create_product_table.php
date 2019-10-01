@@ -35,6 +35,7 @@ class CreateProductTable extends Migration
 
             //Extra Info
             $table->string('status',50)->nullable();
+            $table->text('attributes_for_variation')->nullable();
 
             $table->decimal('weight',5,2)->nullable();
             $table->decimal('length',5,2)->nullable();

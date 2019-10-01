@@ -13,8 +13,9 @@ export default function() {
             options:{},
             variationRoutes:variationRoutes,
             onSavingVariation:false,
-            lastVariationResponse:{}
-
+            lastVariationResponse:{},
+            attributes:[],
+            attributes_for_variation:{},
         },
         methods:{
             openEdit:function(row,e){
@@ -68,12 +69,19 @@ export default function() {
             }
         },
         created:function () {
+            var me = this;
             this.$nextTick(function () {
                 $('#variation_form_modal').modal({
                     show:false,
                     backdrop:'static'
                 });
-            })
+            });
+            if(typeof productJsData !='undefined')
+            {
+                _.forEach(productJsData,function (v,k) {
+                    me.$set(k,me,v);
+                })
+            }
         },
         components: {
             "vue-form-generator": VueFormGenerator.component,

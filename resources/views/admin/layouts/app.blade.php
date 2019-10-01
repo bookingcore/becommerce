@@ -27,8 +27,11 @@
             url:'{{url('/')}}',
             map_provider:'{{setting_item('map_provider')}}',
             map_gmap_key:'{{setting_item('map_gmap_key')}}',
-            csrf:'{{csrf_token()}}'
+            csrf:'{{csrf_token()}}',
         };
+        var i18n = {
+                success:'{{__("Success")}}'
+            }
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     @yield('script.head')

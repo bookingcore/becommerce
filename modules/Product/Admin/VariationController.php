@@ -16,10 +16,71 @@ use Modules\Product\Models\ProductVariation;
 class VariationController extends AdminController
 {
     protected $product_variation;
+    protected $product;
+    protected $product_class;
+
     public function __construct()
     {
         parent::__construct();
         $this->product_variation = ProductVariation::class;
+        $this->product_class = Product::class;
+    }
+
+    protected function validateProductPermission($id){
+        if(empty($id)) return false;
+
+        $this->product = $this->product_class::find($id);
+
+        if(empty($this->product)) return false;
+
+        if(!$this->hasPermission('product_update')) return false;
+
+        if(!$this->hasPermission('product_manage_others') and $this->product->create_user != Auth::id()){
+            return false;
+        }
+
+        return true;
+    }
+
+    public function index($id){
+
+        if(!$this->validateProductPermission($id))
+        {
+            abort(403);
+        }
+        $data = [
+            'breadcrumbs'    => [
+                [
+                    'name' => __('Products'),
+                    'url'  => 'admin/module/product'
+                ],
+                [
+                    'name'  => __('Product: :name',['name'=>$this->product->title]),
+                    'url'  => 'admin/module/product',
+                ],
+                [
+                    'name'  => __('Variations'),
+                    'class' => 'active'
+                ],
+            ],
+            'page_title'=>__("Manage Variations for :name",['name'=>$this->product->title]),
+            'product'=>$this->product
+        ];
+        return view('Product::admin.product.variations',$data);
+
+    }
+
+    public function storeAttrs($id){
+        if(!$this->validateProductPermission($id))
+        {
+            abort(403);
+        }
+        $attributes_for_variation = \request()->input('attributes_for_variation',[]);
+        $attributes_for_variation = array_unique($attributes_for_variation);
+        $this->product->attributes_for_variation = $attributes_for_variation;
+        $this->product->save();
+
+        return $this->sendSuccess([],__("Product attribute for variations saved"));
     }
 
     public function load(){

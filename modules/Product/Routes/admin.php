@@ -38,12 +38,14 @@ Route::group(['prefix'=>'attribute'],function (){
 
     Route::get('terms/{id}','AttributeController@terms')->name('product.admin.attribute.term.index');
     Route::get('term_edit/{id}','AttributeController@term_edit')->name('product.admin.attribute.term.edit');
-    Route::get('term_store','AttributeController@term_store')->name('product.admin.attribute.term.store');
+    Route::post('term_store','AttributeController@term_store')->name('product.admin.attribute.term.store');
 
     Route::get('getForSelect2','AttributeController@getForSelect2')->name('product.admin.attribute.term.getForSelect2');
-});
-Route::group(['prefix'=>'variations'],function (){
-    Route::get('/load','VariationController@load')->name('product.admin.variation.load');
-    Route::post('/store','VariationController@store')->name('product.admin.variation.store');
+
+    Route::group(['prefix'=>'variations/{id}'],function (){
+        Route::get('/','VariationController@index')->name('product.admin.variation.index');
+        Route::post('/store_attrs','VariationController@storeAttrs')->name('product.admin.variation.store_attrs');
+        Route::post('/store','VariationController@store')->name('product.admin.variation.store');
+    });
 });
 

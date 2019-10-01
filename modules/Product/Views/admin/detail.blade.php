@@ -17,6 +17,9 @@ use Modules\Product\Models\ProductBrand;
                     @endif
                 </div>
                 <div class="">
+                    @if($row->id)
+                        <a class="btn btn-warning btn-sm" href="{{route('product.admin.variation.index',['id'=>$row->id])}}" target=""><i class="fa fa-sliders"></i> {{__("Manage Variations")}}</a>
+                    @endif
                     @if($row->slug)
                         <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{__("View Product")}}</a>
                     @endif
@@ -31,7 +34,7 @@ use Modules\Product\Models\ProductBrand;
                     <div class="col-md-9">
                         @include('Product::admin.product.content')
                         @include('Product::admin.product.pricing')
-                        @include('Product::admin.product.variations')
+                        {{--@include('Product::admin.product.variations')--}}
                         @include('Core::admin/seo-meta/seo-meta')
                         @if(is_default_lang())
                             <div class="panel">

@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Terms;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
@@ -13,7 +15,7 @@ use Modules\Review\Models\Review;
 class Product extends BaseProduct
 {
     protected $table = 'products';
-    protected $type = 'product';
+    public $type = 'product';
     public $checkout_booking_detail_file       = 'Product::frontend/booking/detail';
     public $checkout_booking_detail_modal_file = 'Product::frontend/booking/detail-modal';
     public $email_new_booking_file             = 'Product::emails.new_booking_detail';
@@ -27,6 +29,9 @@ class Product extends BaseProduct
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $seo_type = 'product';
+    protected $casts = [
+        'attributes_for_variation'=>'array'
+    ];
 
     protected $cleanFields = [
         'content','short_desc'
@@ -548,7 +553,7 @@ class Product extends BaseProduct
 
         return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
             return $value['position'] ?? 10;
-        }));;
+        }));
     }
 
 
@@ -567,4 +572,17 @@ class Product extends BaseProduct
 	public function getSameBrandAttribute(){
 		return Product::where('id','!=',$this->id)->where("status", "publish")->where("brand_id", $this->brand_id)->take(3)->inRandomOrder()->get();
 	}
+
+	public function getProductJsAdminDataAttribute(){
+        return [
+            'attributes'=>Attributes::query()->ofType($this->type)->get(),
+            'attributes_for_variation'=>$this->attributes_for_variation
+        ];
+    }
+
+    public function getTermsOfAttr($attr_id)
+    {
+         return Terms::query()->select('bravo_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','bravo_terms.id')->where('target_id',$this->id)->get();
+    }
+
 }

@@ -21,7 +21,7 @@ class AttributeController extends AdminController
     public function index(Request $request)
     {
         $this->checkPermission('product_manage_attributes');
-        $listAttr = Attributes::where("service", 'space');
+        $listAttr = Attributes::where("service", 'product');
         if (!empty($search = $request->query('s'))) {
             $listAttr->where('name', 'LIKE', '%' . $search . '%');
         }
@@ -55,7 +55,7 @@ class AttributeController extends AdminController
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
-            'rows'        => Attributes::where("service", 'space')->get(),
+            'rows'        => Attributes::where("service", 'product')->get(),
             'row'         => $row,
             'breadcrumbs' => [
                 [
@@ -89,7 +89,7 @@ class AttributeController extends AdminController
             }
         } else {
             $row = new Attributes($request->input());
-            $row->service = 'space';
+            $row->service = 'product';
         }
         $row->fill($request->input());
         $res = $row->saveOriginOrTranslation($request->input('lang'));
@@ -240,7 +240,7 @@ class AttributeController extends AdminController
         if($pre_selected && $selected){
             if(is_array($selected))
             {
-                $query = Terms::getForSelect2Query('space');
+                $query = Terms::getForSelect2Query('product');
                 $items = $query->whereIn('bravo_terms.id',$selected)->take(50)->get();
                 return response()->json([
                     'items'=>$items
@@ -258,7 +258,7 @@ class AttributeController extends AdminController
             }
         }
         $q = $request->query('q');
-        $query = Terms::getForSelect2Query('space',$q);
+        $query = Terms::getForSelect2Query('product',$q);
         $res = $query->orderBy('bravo_terms.id', 'desc')->limit(20)->get();
         return response()->json([
             'results' => $res

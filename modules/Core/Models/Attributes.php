@@ -16,4 +16,9 @@ class Attributes extends BaseModel
     {
         return $this->hasMany(Terms::class, 'attr_id', 'id');
     }
+
+    public function scopeOfType($query,$type)
+    {
+        return $query->where('service',$type);
+    }
 }
