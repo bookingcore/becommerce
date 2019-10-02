@@ -589,4 +589,21 @@ class Product extends BaseProduct
          return Terms::query()->select('bravo_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','bravo_terms.id')->where('target_id',$this->id)->get();
     }
 
+    public function getAttrsForVariationDataAttribute(){
+	    $res = [];
+	    if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
+        {
+            foreach ($this->attributes_for_variation as $attr_id) {
+                $attr = Attributes::find($attr_id);
+                if(empty($attr)) continue;
+
+                $res[$attr_id] = [
+                    'attr'=>$attr,
+                    'terms'=>$this->getTermsOfAttr($attr_id)
+                ];
+            }
+        }
+	    return $res;
+    }
+
 }

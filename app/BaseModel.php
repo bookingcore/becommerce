@@ -323,7 +323,7 @@ class BaseModel extends Model
     {
         if(!empty($attributes)){
             foreach ( $attributes as $item ){
-                $this->$item = $input[$item] ?? null;
+                $this->setAttribute($item,$input[$item] ?? null );
             }
         }
     }

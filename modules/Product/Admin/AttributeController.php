@@ -212,6 +212,25 @@ class AttributeController extends AdminController
         }
     }
 
+    public function ajaxAddTerm(Request $request){
+        $this->checkPermission('product_update');
+        $this->validate($request, [
+            'name' => 'required',
+            'attr_id'=>'required'
+        ]);
+        $row = new Terms($request->input());
+        $row->attr_id = $request->input('attr_id');
+        $row->fill($request->input());
+        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        if ($res) {
+            $this->sendSuccess([
+                'id'=>$row->id,
+                'name'=>$row->name
+            ]);
+        }
+        $this->sendError(__("Can not add term"));
+    }
+
     public function editTermBulk(Request $request)
     {
         $this->checkPermission('product_manage_attributes');

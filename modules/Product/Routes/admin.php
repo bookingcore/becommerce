@@ -9,6 +9,7 @@ Route::get('/edit/{id}','ProductController@edit')->name('product.admin.edit');
 Route::post('/store/{id}','ProductController@store')->name('product.admin.store');
 Route::post('/bulkEdit','ProductController@bulkEdit')->name('product.admin.bulkEdit');
 Route::post('/bulkEdit','ProductController@bulkEdit')->name('product.admin.bulkEdit');
+Route::get('/ajaxVariationList/{id}','ProductController@ajaxVariationList')->name('product.admin.ajaxVariationList');
 
 Route::group(['prefix'=>'category'],function (){
     Route::get('/','CategoryController@index')->name('product.admin.category.index');
@@ -49,3 +50,4 @@ Route::group(['prefix'=>'attribute'],function (){
     });
 });
 
+Route::post('/ajaxAddTerm','AttributeController@ajaxAddTerm')->name('product.admin.attribute.ajaxAddTerm');

@@ -336,10 +336,6 @@ class BaseProduct extends BaseModel
         return $percent;
     }
 
-    public function variations(){
-        return $this->hasMany(ProductVariation::class,'product_id');
-    }
-
 
     public function getVariationFormSchemaAttribute(){
         return [

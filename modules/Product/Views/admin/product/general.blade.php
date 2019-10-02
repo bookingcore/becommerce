@@ -37,7 +37,7 @@
         <label>{{__('Is Featured?')}}</label>
         <div class="controls">
             <label>
-                    <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("Is featured product ?")}}
+                    <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("This is a featured product")}}
                 </label>
         </div>
     </div>

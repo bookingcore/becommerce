@@ -32,14 +32,18 @@ $tabs = get_admin_product_tabs();
             @endif
             <div class="lang-content-box">
                 <div class="panel product-information-tabs">
-                    <div class="panel-title d-flex flex-start"><strong>{{__("Product Information")}}</strong>
-                        <select class="form-control" name="type">
-                            <optgroup label="{{__("Product Type")}}">
-                                @foreach(get_product_types() as $type_id=>$type)
-                                    <option @if($row->type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
-                                @endforeach
-                            </optgroup>
-                        </select>
+                    <div class="panel-title d-flex justify-content-between">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <strong>{{__("Product Information")}}</strong>
+                            <select class="form-control" name="product_type">
+                                <optgroup label="{{__("Product Type")}}">
+                                    @foreach(get_product_types() as $type_id=>$type)
+                                        <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
+                                    @endforeach
+                                </optgroup>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{__('Save changes')}} </button>
                     </div>
                     <div class="panel-body no-padding">
                         <div class="row">
@@ -47,7 +51,7 @@ $tabs = get_admin_product_tabs();
                                 <ul class="nav nav-tabs  flex-column vertical-nav">
                                     @php $i = 0 @endphp
                                     @foreach($tabs as $tab_id=>$tab)
-                                        <li class="nav-item"><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-toggle="tab">
+                                        <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-toggle="tab">
                                             @if(!empty($tab['icon']))
                                             <i class="nav-icon {{$tab['icon']}}"></i>
                                             @endif
@@ -61,13 +65,18 @@ $tabs = get_admin_product_tabs();
                                 <div class="tab-content">
                                 @php $i = 0 @endphp
                                 @foreach($tabs as $tab_id=>$tab)
-                                    <div class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
+                                    <div data-product-id="{{$row->id}}" class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
                                         @include($tab['view'],['product'=>$product])
                                     </div>
                                     @php $i++ @endphp
                                 @endforeach
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{__('Save changes')}} </button>
                         </div>
                     </div>
                 </div>
@@ -77,4 +86,5 @@ $tabs = get_admin_product_tabs();
 @endsection
 
 @section ('script.body')
+    <script src="{{asset('module/product/admin/js/product.js')}}"></script>
 @endsection

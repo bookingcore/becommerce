@@ -13,4 +13,8 @@ class VariableProduct extends Product
     {
         return __("Variable Product");
     }
+
+    public function variations(){
+        return $this->hasMany(ProductVariation::class,'product_id');
+    }
 }

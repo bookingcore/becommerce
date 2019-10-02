@@ -25,6 +25,7 @@ class CreateProductTable extends Migration
             $table->integer('category_id')->nullable();
             $table->integer('brand_id')->nullable();
             $table->tinyInteger('is_featured')->nullable();
+            $table->integer('shipping_class')->nullable();
 
             $table->string('gallery', 255)->nullable();
             $table->string('video', 255)->nullable();
@@ -43,7 +44,7 @@ class CreateProductTable extends Migration
             $table->decimal('height',5,2)->nullable();
 
 
-            $table->string('type',50)->nullable();
+            $table->string('product_type',50)->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->softDeletes();
@@ -110,6 +111,7 @@ class CreateProductTable extends Migration
             $table->bigIncrements('id');
 
             $table->integer('product_id')->nullable();
+            $table->integer('shipping_class')->nullable();
             $table->string('name',255)->nullable();
             $table->tinyInteger('position')->nullable();
             $table->string('sku',255)->nullable();
@@ -117,6 +119,7 @@ class CreateProductTable extends Migration
             $table->decimal('price',10,2)->nullable();
             $table->tinyInteger('quantity')->nullable();
             $table->tinyInteger('is_manage_stock')->nullable();
+            $table->string('stock_status',20)->nullable();
 
             // Extra
             $table->decimal('weight',5,2)->nullable();
@@ -124,7 +127,7 @@ class CreateProductTable extends Migration
             $table->decimal('width',5,2)->nullable();
             $table->decimal('height',5,2)->nullable();
 
-            $table->string('status',30)->nullable();
+            $table->tinyInteger('active')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->softDeletes();

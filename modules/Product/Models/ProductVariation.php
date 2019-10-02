@@ -235,34 +235,6 @@ class ProductVariation extends BaseProduct
         return $totalPrice;
     }
 
-    public function calculateCartStep1(Request $request)
-    {
-
-        $meta = $this->meta;
-        $start_date = $request->input('start_date');
-        $html = '';
-        $total = 0;
-        $total_guests = 0;
-        if ($meta) {
-
-            $data = [
-                'request'              => $request,
-                'row'                  => $this,
-                'meta'                 => $meta,
-                'guests'               => $request->input('guests'),
-                'extra_price'          => $request->input('extra_price'),
-                'extra_price_configs'  => $meta->extra_price,
-                'person_types'         => $request->input('person_types'),
-                'person_types_configs' => $meta->person_types
-            ];
-            $view = view('Product::frontend/booking/cart-total', $data);
-            $html = $view->render();
-        }
-        $this->sendSuccess([
-            'html' => $html,
-            'step' => 2
-        ]);
-    }
 
     public function addToCartValidate(Request $request)
     {
@@ -559,5 +531,9 @@ class ProductVariation extends BaseProduct
     }
     public function tags(){
         return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id','tag_id');
+    }
+
+    public function term_ids(){
+        return ProductVariationTerm::query()->where('variation_id',$this->id)->get()->pluck('term_id');
     }
 }

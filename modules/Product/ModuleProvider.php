@@ -128,20 +128,27 @@ class ModuleProvider extends ModuleServiceProvider
                 "title"=>__("Pricing"),
                 "view"=>"Product::admin.product.pricing"
             ],
-            "attributes"=>[
+            "categories"=>[
                 'position'=>30,
                 "icon"=>"fa fa-money",
-                "title"=>__("Attributes"),
+                "title"=>__("Categories"),
                 "view"=>"Product::admin.product.attributes"
             ],
+            "attributes"=>[
+                'position'=>40,
+                "icon"=>"fa fa-money",
+                "title"=>__("Attributes"),
+                "view"=>"Product::admin.product.attributes",
+            ],
             "variations"=>[
-                'position'=>30,
+                'position'=>50,
                 "icon"=>"fa fa-money",
                 "title"=>__("Variations"),
-                "view"=>"Product::admin.product.variations"
+                "view"=>"Product::admin.product.variations",
+                "condition"=>"product_type:is(variable)"
             ],
             "seo"=>[
-                'position'=>50,
+                'position'=>60,
                 "icon"=>"fa fa-money",
                 "title"=>__("SEO"),
                 "view"=>"Core::admin.seo-meta.seo-meta"

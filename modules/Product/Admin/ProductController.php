@@ -18,6 +18,7 @@ use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
+use Modules\Product\Models\VariableProduct;
 
 class ProductController extends AdminController
 {
@@ -25,6 +26,7 @@ class ProductController extends AdminController
     protected $product_translation;
     protected $product_term;
     protected $attributes;
+    protected $variable_product;
     /**
      * @var ProductCategoryRelation
      */
@@ -44,6 +46,7 @@ class ProductController extends AdminController
         $this->attributes = Attributes::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag = ProductTag::class;
+        $this->variable_product = VariableProduct::class;
     }
 
     public function index(Request $request)
@@ -174,7 +177,8 @@ class ProductController extends AdminController
             'sale_price',
             'is_featured',
             'brand_id',
-            'type'
+            'product_type',
+            'attributes_for_variation'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'create_user';
@@ -289,5 +293,20 @@ class ProductController extends AdminController
         }
 
 
+    }
+
+    public function ajaxVariationList($id){
+        $this->checkPermission('product_update');
+
+        $query = $this->variable_product::where("id", $id);
+        if (!$this->hasPermission('product_manage_others')) {
+            $query->where("create_user", Auth::id());
+        }
+
+        $product = $query->first();
+
+        if(empty($product)) return;
+
+        return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
     }
 }
