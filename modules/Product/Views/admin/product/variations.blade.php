@@ -1,9 +1,7 @@
 @php
 $attributes =  \Modules\Core\Models\Attributes::ofType($product->type)->get();
 @endphp
-@extends('admin.layouts.app')
 
-@section('content')
     <div class="container">
         <div class="d-flex justify-content-between mb20">
             <div class="">
@@ -107,7 +105,6 @@ $attributes =  \Modules\Core\Models\Attributes::ofType($product->type)->get();
         </div>
 
     </div>
-@endsection
 
 @section ('script.body')
     <script>

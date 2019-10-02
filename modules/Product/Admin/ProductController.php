@@ -138,7 +138,8 @@ class ProductController extends AdminController
                 ],
             ],
             'categories'  => ProductCategory::get()->toTree(),
-            'page_title'=>__("Edit: :name",['name'=>$row->title])
+            'page_title'=>__("Edit: :name",['name'=>$row->title]),
+            'product'=>$row
         ];
 
         return view('Product::admin.detail', $data);

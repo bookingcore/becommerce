@@ -113,4 +113,40 @@ class ModuleProvider extends ModuleServiceProvider
             'variable'=>VariableProduct::class,
         ];
     }
+
+    public static function getAdminProductTabs(){
+        return [
+            "general"=>[
+                'position'=>10,
+                "icon"=>"fa fa-home",
+                "title"=>__("General"),
+                "view"=>"Product::admin.product.general"
+            ],
+            "pricing"=>[
+                'position'=>20,
+                "icon"=>"fa fa-money",
+                "title"=>__("Pricing"),
+                "view"=>"Product::admin.product.pricing"
+            ],
+            "attributes"=>[
+                'position'=>30,
+                "icon"=>"fa fa-money",
+                "title"=>__("Attributes"),
+                "view"=>"Product::admin.product.attributes"
+            ],
+            "variations"=>[
+                'position'=>30,
+                "icon"=>"fa fa-money",
+                "title"=>__("Variations"),
+                "view"=>"Product::admin.product.variations"
+            ],
+            "seo"=>[
+                'position'=>50,
+                "icon"=>"fa fa-money",
+                "title"=>__("SEO"),
+                "view"=>"Core::admin.seo-meta.seo-meta"
+            ],
+            
+        ];
+    }
 }
