@@ -1,5 +1,5 @@
 <div class="form-group">
-    <label>{{__("Title")}}</label>
+    <label>{{__("Name")}}</label>
     <div class="controls">
         <input type="text" value="{{$translation->title}}" placeholder="{{__("Name of the product")}}" name="title" class="form-control">
     </div>
@@ -23,14 +23,11 @@
     <div class="form-group">
         <label class="control-label">{{__("Status")}}</label>
         <div class="controls">
-            <div>
-                <label><input @if($row->status=='publish') checked @endif type="radio" name="status" value="publish"> {{__("Publish")}}
-                </label>
-            </div>
-            <div>
-                <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
-                </label>
-            </div>
+            <select name="status" class="custom-select">
+                <option value="publish">{{__("Publish")}}</option>
+                <option @if($row->status=='pending') selected @endif value="pending">{{__("Pending")}}</option>
+                <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>
+            </select>
         </div>
     </div>
     <div class="form-group">

@@ -12,18 +12,23 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
+use Modules\Product\Models\VariableProduct;
+use Modules\Product\Models\ProductVariationTerm;
 
 class VariationController extends AdminController
 {
     protected $product_variation;
     protected $product;
     protected $product_class;
+    protected $variable_product;
 
     public function __construct()
     {
         parent::__construct();
         $this->product_variation = ProductVariation::class;
         $this->product_class = Product::class;
+        $this->variable_product = VariableProduct::class;
+        $this->product_variation_term = ProductVariationTerm::class;
     }
 
     protected function validateProductPermission($id){
@@ -81,6 +86,131 @@ class VariationController extends AdminController
         $this->product->save();
 
         return $this->sendSuccess([],__("Product attribute for variations saved"));
+    }
+    
+
+    public function ajaxVariationList($id){
+        $this->checkPermission('product_update');
+
+        $query = $this->variable_product::where("id", $id);
+        if (!$this->hasPermission('product_manage_others')) {
+            $query->where("create_user", Auth::id());
+        }
+
+        $product = $query->first();
+
+        if(empty($product)) return;
+
+        return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
+    }
+
+    public function ajaxAddVariation(){
+        
+        $product_id = request()->input('id');
+        if(empty($product_id))
+        {
+            $this->sendError(__("Product id is required"));
+        }
+        $query = Product::where('id',$product_id);
+        if(!$this->hasPermission('product_manage_others')){
+            $query->where('create_user',Auth::id());
+        }
+        $product = $query->first();
+
+        if(empty($product))
+        {
+            $this->sendError(__("Product not found"));
+        }
+
+        $variation = new $this->product_variation();
+        $variation->product_id = $product_id;
+        $variation->active = 1;
+        $variation->save();
+
+        $this->sendSuccess();
+
+    }
+
+    public function ajaxDeleteVariation(){
+        
+        $variation_id = request()->input('id');
+        if(empty($variation_id))
+        {
+            $this->sendError(__("Variation id is required"));
+        }
+        $query = ProductVariation::where('id',$variation_id);
+        if(!$this->hasPermission('product_manage_others')){
+            $query->where('create_user',Auth::id());
+        }
+        $variation = $query->first();
+
+        if(empty($variation))
+        {
+            $this->sendError(__("Variation not found"));
+        }
+
+        $variation->delete();
+
+        $this->sendSuccess();
+
+    }   
+    public function ajaxSaveVariations(){
+        
+        $product_id = request()->input('product_id');
+        if(empty($product_id))
+        {
+            $this->sendError(__("Product id is required"));
+        }
+        $query = Product::where('id',$product_id);
+        if(!$this->hasPermission('product_manage_others')){
+            $query->where('create_user',Auth::id());
+        }
+        $product = $query->first();
+
+        if(empty($product))
+        {
+            $this->sendError(__("Product not found"));
+        }
+
+        $variations = request()->input('variations');
+        if(empty($variations) or !\is_array($variations))
+        {
+            $this->sendError(__("Variations data is required"));
+        }
+
+        foreach($variations as $id=>$data)
+        {
+            if(empty($data)) continue;
+            $variation = $this->product_variation::find($id);
+            if(empty($variation) or $variation->product_id != $product_id) continue;
+         
+            $variation->fillByAttr([
+                'image_id','sku','price','is_manage_stock','quantity','stock_status','active'
+            ],$data);
+
+            $variation->save();
+
+            $this->saveTerms($variation,$data);
+        }
+
+        $this->sendSuccess([],__('Variations data saved'));
+    }
+
+    protected function saveTerms($variation, $data)
+    {
+        if (empty($data['terms'])) {
+            $this->product_variation_term::where('variation_id', $variation->id)->delete();
+        } else {
+            $term_ids = $data['terms'];
+            foreach ($term_ids as $term_id) {
+                $this->product_variation_term::firstOrCreate([
+                    'term_id' => $term_id,
+                    'variation_id' => $variation->id,
+                    'product_id' => $variation->product_id
+                ]);
+            }
+            $this->product_variation_term::where('variation_id', $variation->id)->whereNotIn('term_id', $term_ids)->delete();
+        }
     }
 
     public function load(){

@@ -15,6 +15,6 @@ class VariableProduct extends Product
     }
 
     public function variations(){
-        return $this->hasMany(ProductVariation::class,'product_id');
+        return $this->hasMany(ProductVariation::class,'product_id')->orderBy('id','desc');
     }
 }

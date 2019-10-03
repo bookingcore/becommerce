@@ -142,7 +142,8 @@
     });
 
     $('.open-edit-input').click(function () {
-        $(this).replaceWith('<input type="text" name="'+$(this).data('name')+'" value="'+$(this).html()+'">');
+        $(this).next('input').attr('type','text');
+        $(this).hide();
     })
 
     $(document).ready(function () {

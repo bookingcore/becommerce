@@ -35,78 +35,18 @@ class BaseProduct extends BaseModel
         die;
     }
 
-    public function addToCart(Request $request)
+    public function addToCartValidate(Request $request)
     {
+        return true;
+    }
 
+    public function cartExtraParams(Request $request){
+        return [];
     }
 
     public function createDraftBooking()
     {
 
-    }
-
-    public function getSubTotal(Booking $booking)
-    {
-        return 0;
-    }
-
-    /**
-     * Get Total Array Data
-     */
-    public function getTotalArray(Booking $booking)
-    {
-
-        $sub_total = $this->getSubTotal($booking);
-        if (!$sub_total or $sub_total < 0)
-            return 0;
-        $discountBeforeTax = $this->calDiscountFromTotal($this->getDiscountBeforeTax($booking), $sub_total);
-        $sub_total -= $discountBeforeTax;
-        $tax = $this->calTaxFromTotal($this->getTaxArray($booking), $sub_total);
-        if (!$this->isTaxIncluded()) {
-            $sub_total += $tax;
-        }
-        $discountAfterTax = $this->calDiscountFromTotal($this->getDiscountAfterTax($booking), $sub_total);
-        $sub_total -= $discountAfterTax;
-        if (!$sub_total or $sub_total < 0)
-            return 0;
-        return [
-            'total'             => $sub_total,
-            'tax'               => $tax,
-            'discountBeforeTax' => $discountBeforeTax,
-            'discountAfterTax'  => $discountAfterTax,
-        ];
-    }
-
-    /**
-     * Get total money
-     *
-     * @return float
-     */
-    public function getTotal(Booking $booking)
-    {
-
-        $sub_total = $this->getSubTotal($booking);
-        if (!$sub_total or $sub_total < 0)
-            return 0;
-        $sub_total -= $this->calDiscountFromTotal($this->getDiscountBeforeTax($booking), $sub_total);
-        if (!$this->isTaxIncluded()) {
-            $sub_total += $this->calTaxFromTotal($this->getTaxArray($booking), $sub_total);
-        }
-        $sub_total -= $this->calDiscountFromTotal($this->getDiscountAfterTax($booking), $sub_total);
-        if (!$sub_total or $sub_total < 0)
-            return 0;
-        return $sub_total;
-    }
-
-    /**
-     * Get Tax Array
-     * Example: ['type'=>'percent','amount'=>10,'order'=>1,'name'=>'VAT']
-     *
-     * @return array
-     */
-    public function getTaxArray(Booking $booking)
-    {
-        return [];
     }
 
     /**
@@ -117,110 +57,6 @@ class BaseProduct extends BaseModel
         return true;
     }
 
-    /**
-     * Get Discount included coupon
-     * Example: ['type'=>'percent','amount'=>10,'order'=>1,'name'=>'New year coupon']
-     */
-    public function getDiscountBeforeTax(Booking $booking, $sub_total = 0)
-    {
-        return [];
-    }
-
-    /**
-     * Get Discount after tax array
-     *
-     * Example: ['type'=>'percent','amount'=>10,'order'=>1,'name'=>'after tax coupon']
-     */
-    public function getDiscountAfterTax(Booking $booking, $sub_total = 0)
-    {
-        return [];
-    }
-
-    public function calDiscountFromTotal($discounts, $sub_total)
-    {
-        $t = 0;
-        $remainTotal = $sub_total;
-        // Sort by Priority
-        usort($discounts, function ($a, $b) {
-            if ($a['order'] == $b['order'])
-                return 0;
-            return $a['order'] < $b['order'] ? -1 : 1;
-        });
-        if (!empty($discounts)) {
-            foreach ($discounts as $item) {
-                if (!isset($item['on_total']))
-                    $item['on_total'] = false;
-                if (!isset($item['type']))
-                    $item['type'] = 'percent';
-                if (!isset($item['amount']))
-                    $item['amount'] = 0;
-                if (!is_array($item) or empty($item['type']) or !isset($item['on_total']))
-                    continue;
-                switch ($item['type']) {
-                    case "percent":
-                        $item['amount'] = max(0, $item['amount']);
-                        $item['amount'] = min(100, $item['amount']);
-                        if ($item['on_total']) {
-                            $t_tmp = ($sub_total / 100) * $item['amount'];
-                        } else {
-                            $t_tmp = ($remainTotal / 100) * $item['amount'];
-                            $remainTotal -= $t_tmp;
-                        }
-                        $t += $t_tmp;
-                        break;
-                    case "amount":
-                    default:
-                        $remainTotal -= $item['amount'];
-                        $t += $item['amount'];
-                        break;
-                }
-            }
-        }
-        return $t;
-    }
-
-    public function calTaxFromTotal($discounts, $sub_total)
-    {
-        $t = 0;
-        $remainTotal = $sub_total;
-        // Sort by Priority
-        usort($discounts, function ($a, $b) {
-            if ($a['order'] == $b['order'])
-                return 0;
-            return $a['order'] < $b['order'] ? -1 : 1;
-        });
-        if (!empty($discounts)) {
-            foreach ($discounts as $item) {
-                if (!isset($item['on_total']))
-                    $item['on_total'] = false;
-                if (!isset($item['type']))
-                    $item['type'] = 'percent';
-                if (!isset($item['amount']))
-                    $item['amount'] = 0;
-                if (!is_array($item) or empty($item['type']) or !isset($item['on_total']))
-                    continue;
-                switch ($item['type']) {
-                    case "percent":
-                        $item['amount'] = max(0, $item['amount']);
-                        $item['amount'] = min(100, $item['amount']);
-                        if ($item['on_total']) {
-                            $t_tmp = ($sub_total / 100) * $item['amount'];
-                        } else {
-                            $t_tmp = ($remainTotal / 100) * $item['amount'];
-                            $remainTotal += $t_tmp;
-                        }
-                        $t += $t_tmp;
-                        break;
-                    case "amount":
-                    default:
-                        $remainTotal += $item['amount'];
-                        $t += $item['amount'];
-                        break;
-                }
-            }
-        }
-        return $t;
-    }
 
     public function getImageUrlAttribute($size = "medium")
     {
@@ -259,10 +95,6 @@ class BaseProduct extends BaseModel
         return true;
     }
 
-    public function getBookingDetailHtml(Booking $booking)
-    {
-        return '';
-    }
 
     public function filterCheckoutValidate(Request $request, $rules = [])
     {
@@ -334,80 +166,5 @@ class BaseProduct extends BaseModel
             $percent = ( 100 / $dataTotalReview['total_review'] ) * $dataTotalReview['total_review_recommend'];
         }
         return $percent;
-    }
-
-
-    public function getVariationFormSchemaAttribute(){
-        return [
-            [
-                'id'        => 'sku',
-                'type'      => 'input',
-                'inputType' => 'text',
-                'label'     => __('SKU')
-            ],
-            [
-                'id'        => 'name',
-                'type'      => 'input',
-                'inputType' => 'text',
-                'label'     => __('Name')
-            ],
-            [
-                'id'    => 'image_id',
-                'type'  => 'uploader',
-                'label'     => __('Image')
-            ],
-            [
-                'id'        => 'price',
-                'type'      => 'input',
-                'inputType' => 'number',
-                'label'     => __('Price')
-            ],
-            [
-                'id'        => 'is_manage_stock',
-                'type'      => 'input',
-                'inputType' => 'checkbox',
-                'label'     => __('Manage Stock?')
-            ],
-            [
-                'id'        => 'quantity',
-                'type'      => 'input',
-                'inputType' => 'number',
-                'label'     => __('Quantity')
-            ],
-            [
-                'id'            => 'status',
-                'type'          => 'select',
-                'label'         => __('Status'),
-                'values'        => [
-                    [
-                        'id'   => 'draft',
-                        'name' => __("Draft")
-                    ],
-                    [
-                        'id'   => 'publish',
-                        'name' => __("Publish")
-                    ],
-                ],
-                "selectOptions"=> [
-                    'hideNoneSelectedText' => "true"
-                ]
-            ],
-            [
-                'id'        => 'weight',
-                'type'      => 'input',
-                'inputType' => 'number',
-                'label'     => __('Weight')
-            ],
-            [
-                'id'        => 'dimensions',
-                'type'      => 'dimensions',
-                'label'     => __('Dimensions'),
-                'i18n'=>[
-                    'width'=>__('Width'),
-                    'height'=>__('Height'),
-                    'length'=>__('Length'),
-                ]
-            ],
-        ];
     }
 }

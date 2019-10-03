@@ -30,7 +30,10 @@
             csrf:'{{csrf_token()}}',
         };
         var i18n = {
-                success:'{{__("Success")}}'
+                success:'{{__("Success")}}',
+                delete_confirm:'{{__('Do you want to delete?')}}',
+                confirm:'{{__("Confirm")}}',
+                cancel:'{{__("Cancel")}}',
             }
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>

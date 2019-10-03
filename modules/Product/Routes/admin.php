@@ -8,8 +8,10 @@ Route::get('/create','ProductController@create')->name('product.admin.create');
 Route::get('/edit/{id}','ProductController@edit')->name('product.admin.edit');
 Route::post('/store/{id}','ProductController@store')->name('product.admin.store');
 Route::post('/bulkEdit','ProductController@bulkEdit')->name('product.admin.bulkEdit');
-Route::post('/bulkEdit','ProductController@bulkEdit')->name('product.admin.bulkEdit');
-Route::get('/ajaxVariationList/{id}','ProductController@ajaxVariationList')->name('product.admin.ajaxVariationList');
+Route::get('/ajaxVariationList/{id}','VariationController@ajaxVariationList')->name('product.admin.ajaxVariationList');
+Route::post('/ajaxAddVariation','VariationController@ajaxAddVariation')->name('product.admin.variation.ajaxAddVariation');
+Route::post('/ajaxDeleteVariation','VariationController@ajaxDeleteVariation')->name('product.admin.variation.ajaxDeleteVariation');
+Route::post('/ajaxSaveVariations','VariationController@ajaxSaveVariations')->name('product.admin.variation.ajaxSaveVariations');
 
 Route::group(['prefix'=>'category'],function (){
     Route::get('/','CategoryController@index')->name('product.admin.category.index');

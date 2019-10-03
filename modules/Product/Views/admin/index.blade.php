@@ -60,6 +60,7 @@
                         <thead>
                         <tr>
                             <th width="60px"><input type="checkbox" class="check-all"></th>
+                            <th width="100px"> {{ __('Picture')}}</th>
                             <th> {{ __('Name')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
@@ -74,8 +75,13 @@
                                 <tr class="{{$row->status}}">
                                     <td><input type="checkbox" name="ids[]" class="check-item" value="{{$row->id}}">
                                     </td>
+                                    <td width="100px">
+                                        @if($row->image_id)
+                                            <img class="img-fluid" src="{{get_file_url($row->image_id,'thumb')}}" >
+                                        @endif
+                                    </td>
                                     <td class="title">
-                                        <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title}}</a>
+                                        <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
                                     </td>
                                     <td>
                                         @if(!empty($row->author))

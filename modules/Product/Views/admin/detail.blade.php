@@ -13,7 +13,8 @@ $tabs = get_admin_product_tabs();
                 <div class="">
                     <h1 class="title-bar">{{$row->id ? __('Edit: ').$row->title : __('Add new product')}}</h1>
                     @if($row->slug)
-                        <p class="item-url-demo">{{__("Permalink")}}: {{ url('product' ) }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
+                        <p class="item-url-demo mt-2">{{__("Permalink")}}: {{ url('product' ) }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
+                            <input type="hidden" name="slug" value="{{$row->slug}}">
                         </p>
                     @endif
                 </div>

@@ -25,7 +25,7 @@
         <label class="control-label">{{__("Tags")}}</label>
         <div class="controls">
             <div class="">
-                <input type="text" data-role="tagsinput" autocomplete="off" value="" placeholder="{{ __('Enter tag')}}" name="tag" class="form-group tag-input">
+                <input type="text" data-role="tagsinput" autocomplete="off" value="" placeholder="{{ __('Input tag name and press enter')}}" name="tag" class="form-control tag-input">
                 <br>
                 <div class="show_tags">
                     @if(count($row->tags)>0)
@@ -51,7 +51,8 @@
                             'dataType' => 'json'
                         ],
                         'allowClear'  => true,
-                        'placeholder' => __('-- Select Brand --')
+                        'placeholder' => __('-- Select Brand --'),
+                        'width'=>'100%'
                     ]
                 ], !empty($brand->id) ? [
                     $brand->id,

@@ -87,28 +87,13 @@ class ProductController extends AdminController
     public function create(Request $request)
     {
         $this->checkPermission('product_create');
+
         $row = new $this->product();
-        $row->fill([
-            'status' => 'publish'
-        ]);
-        $data = [
-            'row'            => $row,
-            'attributes'     => $this->attributes::where('service', 'product')->get(),
-            'translation'    => new $this->product_translation(),
-            'breadcrumbs'    => [
-                [
-                    'name' => __('Products'),
-                    'url'  => 'admin/module/product'
-                ],
-                [
-                    'name'  => __('Add Product'),
-                    'class' => 'active'
-                ],
-            ],
-            'categories'  => ProductCategory::get()->toTree(),
-            'page_title'     => __("Add new Product")
-        ];
-        return view('Product::admin.detail', $data);
+        $row->status = 'draft';
+        $row->save();
+        $row->create_user = Auth::id();
+        return \redirect()->to(route('product.admin.edit',['id'=>$row->id]));
+      
     }
 
     public function edit(Request $request, $id)
@@ -178,7 +163,12 @@ class ProductController extends AdminController
             'is_featured',
             'brand_id',
             'product_type',
-            'attributes_for_variation'
+            'attributes_for_variation',
+            'sku',
+            'is_manage_stock',
+            'stock_status',
+            'quantity',
+            'enable_review'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'create_user';
@@ -293,20 +283,5 @@ class ProductController extends AdminController
         }
 
 
-    }
-
-    public function ajaxVariationList($id){
-        $this->checkPermission('product_update');
-
-        $query = $this->variable_product::where("id", $id);
-        if (!$this->hasPermission('product_manage_others')) {
-            $query->where("create_user", Auth::id());
-        }
-
-        $product = $query->first();
-
-        if(empty($product)) return;
-
-        return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
     }
 }

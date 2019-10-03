@@ -37,17 +37,22 @@ class CreateProductTable extends Migration
             //Extra Info
             $table->string('status',50)->nullable();
             $table->text('attributes_for_variation')->nullable();
+//            $table->tinyInteger('enable_review')->nullable();
 
             $table->decimal('weight',5,2)->nullable();
             $table->decimal('length',5,2)->nullable();
             $table->decimal('width',5,2)->nullable();
             $table->decimal('height',5,2)->nullable();
 
+            // Stock
+            $table->tinyInteger('quantity')->nullable();
+            $table->tinyInteger('is_manage_stock')->nullable();
+            $table->string('stock_status',20)->nullable();
+
 
             $table->string('product_type',50)->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
 
@@ -130,7 +135,6 @@ class CreateProductTable extends Migration
             $table->tinyInteger('active')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
-            $table->softDeletes();
             $table->timestamps();
 
         });
