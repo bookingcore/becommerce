@@ -14,5 +14,21 @@ $(document).ready(function () {
             controlNav: "thumbnails"
         });
     }
+    
+    $('.add_to_cart').click(function (e) {
+        e.preventDefault();
+        var p = $(this).closest('.product-detail-add-to-cart');
+        $.ajax({
+            url:bookingCore.url+'/cart/add',
+            type:"post",
+            data:{
+                quantity:p.find('[name=quantity]').val(),
+				product_id:p.find('[name=product_id]').val(),
+            },
+            success:function () {
+
+			}
+        })
+	})
 
 })

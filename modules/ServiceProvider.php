@@ -16,6 +16,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
                 $this->loadViewsFrom(__DIR__ . '/' . $module . '/Views', $module);
             }
         }
+        if (is_dir(__DIR__ . '/Layout')) {
+            $this->loadViewsFrom(__DIR__ . '/Layout', 'Layout');
+        }
     }
 
     public function register()

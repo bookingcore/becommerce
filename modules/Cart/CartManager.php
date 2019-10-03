@@ -5,6 +5,7 @@
  * Date: 10/3/2019
  * Time: 5:00 PM
  */
+namespace Modules\Cart;
 
 class CartManager
 {
@@ -58,7 +59,7 @@ class CartManager
         if ($id && $this->cart) {
             return $this->cart;
         } elseif ($id) {
-            $this->cart = Modules\Cart\Models\Cart::find($id);
+            $this->cart = \Modules\Cart\Models\Cart::find($id);
             return $this->cart;
         }
         return null;
@@ -99,7 +100,7 @@ class CartManager
                 'user_id' => \Illuminate\Support\Facades\Auth::user()->id
             ];
         }
-        return $this->setCartModel(Modules\Cart\Models\Cart::create($attributes ?? []));
+        return $this->setCartModel(\Modules\Cart\Models\Cart::create($attributes ?? []));
     }
 
     protected function setCartModel($cart)

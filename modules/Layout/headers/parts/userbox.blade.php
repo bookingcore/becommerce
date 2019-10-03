@@ -19,9 +19,9 @@
         @endif
     </li>
     <li  class="user-mini-cart dropdown">
-        <a href="{{route('product.cart.index')}}" class="counter-wrap">
+        <a href="{{route('cart.index')}}" class="counter-wrap">
             <i class="icon-bag2 extra-icon"></i>
-            <span class="counter user-cart-count">0</span>
+            <span class="counter user-cart-count">{{\Modules\Cart\Facades\Cart::itemCount()}}</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="cart_dropdown">
             @include('Product::frontend.cart.mini-cart')

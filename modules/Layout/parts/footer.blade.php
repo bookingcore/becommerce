@@ -71,8 +71,8 @@
     </div>
 </div>
 
-@include('layouts/parts/login-register-modal')
-@include('layouts/parts/chat')
+@include('Layout::parts/login-register-modal')
+@include('Layout::parts/chat')
 @if(Auth::id())
     @include('Media::browser')
 @endif

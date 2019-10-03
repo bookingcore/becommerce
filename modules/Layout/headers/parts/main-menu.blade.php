@@ -5,7 +5,7 @@
             <span class="text">{{__('Shop By Department')}}</span>
         </div>
         <div class="dropdown-category">
-            @include('layouts.headers.parts.department')
+            @include('Layout::headers.parts.department')
         </div>
     </div>
     <div class="main-menu">

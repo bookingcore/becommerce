@@ -168,7 +168,6 @@ class ProductController extends AdminController
             'is_manage_stock',
             'stock_status',
             'quantity',
-            'enable_review'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'create_user';

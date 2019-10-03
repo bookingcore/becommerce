@@ -9,8 +9,8 @@
             </a>
         </div>
         <div class="col-md-9 col-search-user">
-            @include('layouts.headers.parts.searchbox')
-            @include('layouts.headers.parts.userbox')
+            @include('Layout::headers.parts.searchbox')
+            @include('Layout::headers.parts.userbox')
         </div>
     </div>
 </div>

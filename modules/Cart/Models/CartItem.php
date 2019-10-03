@@ -14,9 +14,15 @@ class CartItem extends BaseModel
 {
     protected $table = 'core_cart_items';
 
+    protected $fillable = [
+        'product_type',
+        'product_id'
+    ];
     public function product()
     {
-        return $this->morphTo();
+        $types = get_product_types();
+        if(!array_key_exists($this->product_type,$types)) return false;
+        return $this->hasOne($types[$this->product_type],'id','product_id');
     }
 
     /**
@@ -41,6 +47,10 @@ class CartItem extends BaseModel
     public function getTotalAttribute()
     {
         return $this->total();
+    }
+
+    public function getPriceHtmlAttribute(){
+        return format_money($this->price);
     }
 
     public function scopeOfCart($query, $cart)

@@ -1,7 +1,6 @@
 <?php
 namespace Modules\Cart;
 use Modules\ModuleServiceProvider;
-use Modules\User\Controllers\Vendors\PayoutController;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -18,7 +17,10 @@ class ModuleProvider extends ModuleServiceProvider
      */
     public function register()
     {
-
+        $this->app->register(RouterServiceProvider::class);
+        $this->app->singleton('becommerce.cart', function ($app) {
+            return $app->make(CartManager::class);
+        });
     }
 
 }

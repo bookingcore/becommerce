@@ -1,10 +1,6 @@
 <?php
 use \Illuminate\Support\Facades\Route;
 
-Route::group(['prefix'=>'cart'],function(){
-    Route::get('/','CartController@index')->name('product.cart.index'); // Search
-});
-
 Route::group(['prefix'=>'product'],function(){
     Route::get('/','ProductController@index')->name('product.index'); // Search
     Route::get('/{slug}','ProductController@detail')->name('product.detail');// Detail

@@ -53,7 +53,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_order_payments', function (Blueprint $table) {
+        Schema::create('product_order_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('order_id')->nullable();
@@ -75,7 +75,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_order_items', function (Blueprint $table) {
+        Schema::create('product_order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('order_id')->nullable();
@@ -89,7 +89,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_order_item_meta', function (Blueprint $table) {
+        Schema::create('product_order_item_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('order_id')->nullable();
@@ -103,7 +103,7 @@ class CreateOrderTable extends Migration
 
             $table->timestamps();
         });
-        Schema::create('bravo_order_meta', function (Blueprint $table) {
+        Schema::create('product_order_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('order_id')->nullable();
             $table->string('meta_key',100)->nullable();

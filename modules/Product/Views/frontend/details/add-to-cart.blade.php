@@ -1,11 +1,12 @@
 <div class="product-detail-add-to-cart">
         <form class="actions clearfix" action="#">
+            <input type="hidden" name="product_id" value="{{$row->id}}">
             <div class="quantity-input">
                 <label>{{__('Quantity')}}</label>
                 <div class="quantity-input-group">
                     <span class="minus decrease">
                         <i class="icon-minus"></i></span>
-                    <input type="number" min="1" max="100">
+                    <input name="quantity" type="number" min="1" max="100">
                     <span class="plus increase"><i class="icon-plus"></i></span>
                 </div>
             </div>

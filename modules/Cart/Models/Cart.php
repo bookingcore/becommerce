@@ -21,6 +21,10 @@ class Cart extends BaseModel
 
     const EXTRA_PRODUCT_MERGE_ATTRIBUTES_CONFIG_KEY = 'beecommerce_extra_product_attributes';
 
+    protected $fillable = [
+        'user_id',
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
