@@ -7,7 +7,7 @@
                 <a href="{{url('admin/module/user/permission/create')}}" class="btn btn-primary">{{ __('Add new permission')}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="panel">
             <div class="panel-title">{{ __('All Permission')}}</div>
             <div class="panel-body">

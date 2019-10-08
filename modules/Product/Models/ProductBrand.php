@@ -31,4 +31,7 @@ class ProductBrand extends BaseModel
         $a = $query->limit(10)->get();
         return $a;
     }
+    public function products(){
+		return $this->hasMany(Product::class,'brand_id');
+    }
 }

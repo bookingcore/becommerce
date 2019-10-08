@@ -82,10 +82,10 @@ class BaseProduct extends BaseModel
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function location()
-    {
-        return $this->hasOne("Modules\Location\Models\Location", "id", 'location_id');
-    }
+//    public function location()
+//    {
+//        return $this->hasOne("Modules\Location\Models\Location", "id", 'location_id');
+//    }
 
     /**
      * @todo Simple check before booking for status, etc

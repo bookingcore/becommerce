@@ -7,7 +7,7 @@
                 <a href="{{url('admin/module/core/menu/create')}}" class="btn btn-primary">{{__("Add new")}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="panel">
             <div class="panel-title">{{__('All Menus')}}</div>
             <div class="panel-body">

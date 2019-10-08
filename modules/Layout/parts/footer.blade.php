@@ -99,6 +99,7 @@
 </script>
 <script src="{{ asset('libs/lodash.min.js') }}"></script>
 <script src="{{ asset('libs/jquery-3.3.1.min.js') }}"></script>
+<script src="{{ asset('libs/jquery_ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('libs/vue/vue.js') }}"></script>
 <script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 @if(Auth::id())
@@ -106,6 +107,8 @@
 @endif
 <script src="{{ asset('libs/carousel-2/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
+<script src="{{ asset('libs/slimScroll/jquery.slimscroll.min.js') }}" ></script>
+<script src="{{ asset('libs/slick/slick.min.js') }}" ></script>
 <script src="{{ asset('js/functions.js?_ver='.config('app.version')) }}"></script>
 
 @if(setting_item('inbox_enable'))

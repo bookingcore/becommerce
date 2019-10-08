@@ -109,7 +109,7 @@
                 {{__("Write a review")}}
             </div>
             <div class="form-wrapper">
-                @include('admin.message')
+                @include('Layout::admin.message')
                 <form action="{{ url(app_get_locale()."/review") }}" class="needs-validation" novalidate method="post">
                     @csrf
                     <div class="row">

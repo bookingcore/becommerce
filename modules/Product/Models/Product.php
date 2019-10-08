@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
@@ -84,7 +85,7 @@ class Product extends BaseProduct
         }
         $meta['seo_desc'] = setting_item_with_lang("product_page_list_seo_desc");
         $meta['seo_share'] = setting_item_with_lang("product_page_list_seo_share");
-        $meta['full_url'] = route('space.index');
+        $meta['full_url'] = route('product.index');
         return $meta;
     }
 
@@ -380,7 +381,16 @@ class Product extends BaseProduct
     public function brand(){
     	return $this->belongsTo(ProductBrand::class,'brand_id');
     }
-
+    public function variations(){
+    	return $this->hasMany(ProductVariation::class);
+    }
+	public function getMinMaxPriceProductVariations(){
+    	if($this->product_type=='variable'){
+		    $array = $this->variations()->pluck('price')->toArray();
+		    $array= array_values(Arr::sort($array));
+		    return ['min'=>head($array),'max'=>last($array)];
+	    }
+	}
 	public function getSameBrandAttribute(){
 		return Product::where('id','!=',$this->id)->where("status", "publish")->where("brand_id", $this->brand_id)->take(3)->inRandomOrder()->get();
 	}

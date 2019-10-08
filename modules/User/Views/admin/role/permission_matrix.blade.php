@@ -8,7 +8,7 @@
                     <h1 class="title-bar">{{ __('Permission Matrix')}}</h1>
                 </div>
             </div>
-            @include('admin.message')
+            @include('Layout::admin.message')
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">

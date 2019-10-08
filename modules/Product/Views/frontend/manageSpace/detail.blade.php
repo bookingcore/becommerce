@@ -6,7 +6,7 @@
     <h2 class="title-bar no-border-bottom">
         {{$row->id ? 'Edit: '.$row->title : 'Add new space'}}
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     @if($row->id)
         @include('Language::admin.navigation')
     @endif

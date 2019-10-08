@@ -8,7 +8,7 @@
                 <a href="{{url('admin/module/news/create')}}" class="btn btn-primary">{{__("Add new Post")}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))

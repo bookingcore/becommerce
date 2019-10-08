@@ -3,6 +3,7 @@ namespace Modules\Product\Controllers;
 
 use App\Http\Controllers\Controller;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\Space;
 use Illuminate\Http\Request;
 use Modules\Location\Models\Location;
@@ -48,7 +49,7 @@ class ProductController extends Controller
             $query->where('max_guests','>=',$max_guests);
         }
 
-        $list = $query->with('location')->paginate(9);
+        $list = $query->paginate(9);
         $markers = [];
         if (!empty($list)) {
             foreach ($list as $row) {
@@ -58,7 +59,7 @@ class ProductController extends Controller
                     "lat"     => (float)$row->map_lat,
                     "lng"     => (float)$row->map_lng,
                     "gallery" => $row->getGallery(true),
-                    "infobox" => view('Product::frontend.layouts.search.loop-gird', ['row' => $row,'disable_lazyload'=>1,'wrap_class'=>'infobox-item'])->render(),
+//                    "infobox" => view('Product::frontend.layouts.search.loop-gird', ['row' => $row,'disable_lazyload'=>1,'wrap_class'=>'infobox-item'])->render(),
                     'marker'  => url('images/icons/png/pin.png'),
                 ];
             }
@@ -69,7 +70,8 @@ class ProductController extends Controller
             'product_min_max_price' => Product::getMinMaxPrice(),
             'markers'            => $markers,
             "blank"              => 1,
-            "seo_meta"           => Product::getSeoMetaForPageList()
+            'body_class'        => 'full_width ',
+	        "seo_meta"           => Product::getSeoMetaForPageList()
         ];
         $layout = setting_item("product_layout_search", 'normal');
         if ($request->query('_layout')) {
@@ -82,12 +84,16 @@ class ProductController extends Controller
             ]);
         }
         $data['attributes'] = Attributes::where('service', 'product')->get();
-
+        $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
+        	$item->count_product  = count($item->products);
+        	return $item;
+        });
         if ($layout == "map") {
             $data['body_class'] = 'has-search-map';
             $data['html_class'] = 'full-page';
             return view('Product::frontend.search-map', $data);
         }
+
         return view('Product::frontend.search', $data);
     }
 
@@ -98,7 +104,7 @@ class ProductController extends Controller
             return redirect('/');
         }
         $translation = $row->translateOrOrigin(app()->getLocale());
-        
+
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $related = Product::get();
         $data = [

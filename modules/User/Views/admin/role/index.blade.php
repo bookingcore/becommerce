@@ -8,7 +8,7 @@
                 <a href="{{url('admin/module/user/role/create')}}" class="btn btn-primary">{{ __('Add new role')}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="panel">
             <div class="panel-title">{{ __('All Roles')}}</div>
             <div class="panel-body">

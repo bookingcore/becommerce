@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.parts.bc')
+    @include('Layout::parts.bc')
     <div class="page-profile-content page-template-content">
         <div class="container">
             <div class="">

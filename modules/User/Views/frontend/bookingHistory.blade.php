@@ -6,7 +6,7 @@
     <h2 class="title-bar no-border-bottom">
         {{__("Booking History")}}
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     <div class="booking-history-manager">
         <div class="tabbable">
             <ul class="nav nav-tabs ht-nav-tabs">

@@ -1,4 +1,4 @@
-@include('layouts.parts.bc')
+@include('Layout::parts.bc')
 <div class="bravo_detail_product">
     <div class="bravo-container container">
         <div class="row">

@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("Translate Manager for: :name",['name'=>$lang->name])}}</h1>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="row">
             <div class="col-md-12">
                 <div class="filter-div d-flex justify-content-between">

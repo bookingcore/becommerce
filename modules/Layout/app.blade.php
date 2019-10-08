@@ -20,11 +20,13 @@
     @endif
 
     @include('Layout::parts.seo-meta')
+    <link href="{{ asset('libs/jquery_ui/jquery-ui.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/icons/css/set.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('libs/slick/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">

@@ -5,7 +5,7 @@
     <h2 class="title-bar no-border-bottom">
         {{__("Dashboard")}}
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     <div class="bravo-user-dashboard">
         <div class="row dashboard-price-info row-eq-height">
             @if(!empty($cards_report))

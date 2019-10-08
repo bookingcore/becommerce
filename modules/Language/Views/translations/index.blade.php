@@ -5,7 +5,7 @@
             <h1 class="title-bar">{{__("Translation Manager")}}</h1>
             <a class="btn btn-primary" href="{{url('admin/module/language/translations/loadStrings')}}"><i class="icon ion-ios-search"></i> {{__("Find Translations")}}</a>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="alert alert-warning">
             {{__("After translation. You must re-build language file to apply the change")}}
         </div>

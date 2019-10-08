@@ -27,7 +27,7 @@ $tabs = get_admin_product_tabs();
                     @endif
                 </div>
             </div>
-            @include('admin.message')
+            @include('Layout::admin.message')
             @if($row->id)
                 @include('Language::admin.navigation')
             @endif

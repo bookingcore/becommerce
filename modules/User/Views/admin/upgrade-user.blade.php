@@ -3,7 +3,7 @@
 @section('content')
     <div class="container-fluid">
 
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))

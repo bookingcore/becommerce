@@ -12,7 +12,7 @@
                             <h1 class="title-bar">{{$row->id ? __('Edit: ').$row->name : __('Add new term')}}</h1>
                         </div>
                     </div>
-                    @include('admin.message')
+                    @include('Layout::admin.message')
                     @if($row->id)
                         @include('Language::admin.navigation')
                     @endif

@@ -1,6 +1,7 @@
-<div class="product-detail-add-to-cart">
+<div class="product-detail-add-to-cart" id="product-detail-add-to-cart">
         <form class="actions clearfix" action="#">
             <input type="hidden" name="product_id" value="{{$row->id}}">
+            @include('Product::frontend.details.variations')
             <div class="quantity-input">
                 <label>{{__('Quantity')}}</label>
                 <div class="quantity-input-group">

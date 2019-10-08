@@ -90,3 +90,6 @@ var validation = Array.prototype.filter.call(forms, function(form) {
         form.classList.add('was-validated');
     }, false);
 });
+
+$('.bravo-custom-scroll').slimScroll({
+});

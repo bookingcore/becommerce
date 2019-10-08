@@ -6,7 +6,7 @@
     <h2 class="title-bar">
         {{__("WishList")}}
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     @if($rows->total() > 0)
         <div class="bravo-list-item">
             <div class="bravo-pagination">
