@@ -51,6 +51,7 @@ class CreateOrderTable extends Migration
             $table->integer('update_user')->nullable();
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('product_order_payments', function (Blueprint $table) {
