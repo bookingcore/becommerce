@@ -29,4 +29,10 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(RouterServiceProvider::class);
 
     }
+
+    public static function getTemplateBlocks(){
+        return [
+            'vendor_register_form'=>"\\Modules\\Vendor\\Blocks\\VendorRegisterForm",
+        ];
+    }
 }

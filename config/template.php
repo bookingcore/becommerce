@@ -10,12 +10,6 @@ return [
         'testimonial'=>"\\Modules\\Tour\\Blocks\\Testimonial",
         'call_to_action'=>"\\Modules\\Tour\\Blocks\\CallToAction",
         'list_locations'=>"\\Modules\\Location\\Blocks\\ListLocations",
-        //Space
-        'form_search_space'=>"\\Modules\\Space\\Blocks\\FormSearchSpace",
-        'list_space'=>"\\Modules\\Space\\Blocks\\ListSpace",
-        'space_term_featured_box'=>"\\Modules\\Space\\Blocks\\SpaceTermFeaturedBox",
-        //Vendor
-        'vendor_register_form'=>"\\Modules\\Vendor\\Blocks\\VendorRegisterForm",
 
     ]
 ];

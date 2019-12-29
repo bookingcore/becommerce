@@ -44,4 +44,9 @@ class ModuleServiceProvider extends \Illuminate\Support\ServiceProvider
     public static function getAdminProductTabs(){
         return [];
     }
+
+    public static function getTemplateBlocks(){
+        return [];
+    }
+
 }

@@ -82,6 +82,35 @@ class Template extends BaseModel
     public function getBlocks()
     {
         $blocks = config('template.blocks');
+        // Modules
+        $custom_modules = \Modules\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
+                    if(!empty($blockConfig)){
+                        $blocks = array_merge($blocks,$blockConfig);
+                    }
+                }
+            }
+        }
+        //Custom
+        $custom_modules = \Custom\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
+                    if(!empty($blockConfig)){
+                        $blocks = array_merge($blocks,$blockConfig);
+                    }
+                }
+            }
+        }
+
         $res = [];
         foreach ($blocks as $block => $class) {
 
@@ -135,6 +164,35 @@ class Template extends BaseModel
     public function getProcessedContent()
     {
         $blocks = config('template.blocks');
+        // Modules
+        $custom_modules = \Modules\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
+                    if(!empty($blockConfig)){
+                        $blocks = array_merge($blocks,$blockConfig);
+                    }
+                }
+            }
+        }
+        //Custom
+        $custom_modules = \Custom\ServiceProvider::getModules();
+        if(!empty($custom_modules)){
+            foreach($custom_modules as $module){
+                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
+                    if(!empty($blockConfig)){
+                        $blocks = array_merge($blocks,$blockConfig);
+                    }
+                }
+            }
+        }
+
         $items = json_decode($this->content, true);
         if (empty($items))
             return '';
