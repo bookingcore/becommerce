@@ -7,6 +7,8 @@
  */
 use Illuminate\Support\Facades\Route;
 
+Route::get('/', 'NewsController@index')->name('news.admin.index');
+
 Route::get('/edit/{id}', 'NewsController@edit')->name('news.admin.edit');
 
 Route::post('/store/{id}','NewsController@store')->name('news.admin.store');
