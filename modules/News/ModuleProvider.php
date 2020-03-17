@@ -1,16 +1,8 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: h2 gaming
- * Date: 7/3/2019
- * Time: 9:27 PM
- */
 namespace Modules\News;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\ModuleServiceProvider;
-use Modules\News\Providers\RouteServiceProvider;
-use Modules\Product\Models\Product;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -35,11 +27,45 @@ class ModuleProvider extends ModuleServiceProvider
 
         $this->app->register(RouteServiceProvider::class);
     }
-	public static function getBookableServices()
-	{
-		return [
-			'product' => Product::class,
-		];
-	}
 
+    public static function getAdminMenu()
+    {
+        return [
+            'news'=>[
+                "position"=>10,
+                'url'        => 'admin/module/news',
+                'title'      => __("News"),
+                'icon'       => 'ion-md-bookmarks',
+                'permission' => 'news_view',
+                'children'   => [
+                    'news_view'=>[
+                        'url'        => 'admin/module/news',
+                        'title'      => __("All News"),
+                        'permission' => 'news_view',
+                    ],
+                    'news_create'=>[
+                        'url'        => 'admin/module/news/create',
+                        'title'      => __("Add News"),
+                        'permission' => 'news_create',
+                    ],
+                    'news_categoty'=>[
+                        'url'        => 'admin/module/news/category',
+                        'title'      => __("Categories"),
+                        'permission' => 'news_create',
+                    ],
+                    'news_tag'=>[
+                        'url'        => 'admin/module/news/tag',
+                        'title'      => __("Tags"),
+                        'permission' => 'news_create',
+                    ],
+                ]
+            ],
+        ];
+    }
+
+    public static function getTemplateBlocks(){
+        return [
+            'list_news'=>"\\Modules\\News\\Blocks\\ListNews",
+        ];
+    }
 }

@@ -54,7 +54,7 @@ class News extends BaseModel
 
     public function getTags()
     {
-        $tags = ProductTag::where('news_id', $this->id)->get();
+        $tags = NewsTag::where('news_id', $this->id)->get();
         $tag_ids = [];
         if (!empty($tags)) {
             foreach ($tags as $key => $value) {

@@ -17,7 +17,7 @@
                     @endif
                 </div>
             </div>
-            @include('Layout::admin.message')
+            @include('admin.message')
             @include('Language::admin.navigation')
             <div class="lang-content-box">
                 <div class="row">

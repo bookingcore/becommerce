@@ -146,7 +146,10 @@ class NewsController extends AdminController
                     $query->where("create_user", Auth::id());
                     $this->checkPermission('news_delete');
                 }
-                $query->first()->delete();
+                $query->first();
+                if(!empty($query)){
+                    $query->delete();
+                }
             }
         } else {
             foreach ($ids as $id) {

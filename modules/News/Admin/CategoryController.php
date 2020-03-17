@@ -102,9 +102,40 @@ class CategoryController extends AdminController
         }
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                NewsCategory::where("id", $id)->first()->delete();
+                $query = NewsCategory::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->delete();
+                }
             }
         }
         return redirect()->back()->with('success', __('Update success!'));
+    }
+
+    public function getForSelect2(Request $request)
+    {
+        $pre_selected = $request->query('pre_selected');
+        $selected = $request->query('selected');
+
+        if($pre_selected && $selected){
+            $item = NewsCategory::find($selected);
+            if(empty($item)){
+                return response()->json([
+                    'text'=>''
+                ]);
+            }else{
+                return response()->json([
+                    'text'=>$item->name
+                ]);
+            }
+        }
+        $q = $request->query('q');
+        $query = NewsCategory::select('id', 'name as text')->where("status","publish");
+        if ($q) {
+            $query->where('name', 'like', '%' . $q . '%');
+        }
+        $res = $query->orderBy('id', 'desc')->limit(20)->get();
+        return response()->json([
+            'results' => $res
+        ]);
     }
 }

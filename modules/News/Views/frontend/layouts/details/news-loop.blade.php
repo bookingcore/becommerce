@@ -44,7 +44,7 @@
                     </ul>
                 </div>
                 <div class="post-desciption">
-                    {{ get_exceprt($translation->content) }}
+                    {!! get_exceprt($translation->content) !!}
                 </div>
                 <a class="btn-readmore" href="{{$row->getDetailUrl()}}">{{ __('Read More')}}</a>
             </div>
