@@ -61,6 +61,7 @@ class NewsController extends FrontendController
     public function detail(Request $request, $slug)
     {
         $row = News::where('slug', $slug)->where('status','publish')->first();
+        $related = News::where('cat_id',$row->cat_id)->limit(3)->get();
         if (empty($row)) {
             return redirect('/');
         }
@@ -68,6 +69,7 @@ class NewsController extends FrontendController
 
         $data = [
             'row'               => $row,
+            'related'           => $related,
             'translation'       => $translation,
             'model_category'    => NewsCategory::where("status", "publish"),
             'model_tag'         => Tag::query(),

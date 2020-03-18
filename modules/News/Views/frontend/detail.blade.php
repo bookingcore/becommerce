@@ -7,37 +7,29 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/fotorama/fotorama.css") }}" />
 @endsection
 @section('content')
-<div class="bravo-news">
-    @php
-        $title_page = setting_item("news_page_list_title");
-        if(!empty($custom_title_page)){
-            $title_page = $custom_title_page;
-        }
-    @endphp
-    @if(!empty($title_page))
-        <div class="bravo_banner" @if($bg = setting_item("news_page_list_banner")) style="background-image: url({{get_file_url($bg,'full')}})" @endif >
-            <div class="container">
-                <h1>
-                    {{ $title_page }}
-                </h1>
-            </div>
-        </div>
-    @endif
-    @include('News::frontend.layouts.details.news-breadcrumb')
-    <div class="bravo_content">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-9">
-                    @include('News::frontend.layouts.details.news-detail')
+    <div class="bravo-news">
+        @php
+            $title_page = setting_item("news_page_list_title");
+            if(!empty($custom_title_page)){
+                $title_page = $custom_title_page;
+            }
+        @endphp
+
+        <div class="blog-layout-content-sidebar">
+            <div class="bravo_content site-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="content-area col-md-9 col-sm-12 col-xs-12">
+                            @include('News::frontend.layouts.details.news-detail')
+                        </div>
+                        <div class="widgets-area primary-sidebar col-md-3 col-sm-12 col-xs-12  blog-sidebar">
+                            @include('News::frontend.layouts.details.news-sidebar')
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-3">
-                    @include('News::frontend.layouts.details.news-sidebar')
-                </div> 
             </div>
         </div>
     </div>
-</div>
 @endsection
 
- 
-  
+

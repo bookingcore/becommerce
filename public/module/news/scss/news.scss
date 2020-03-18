@@ -2,6 +2,9 @@
 
 	.bravo_content{
 		padding: 30px 0;
+        &.site-content{
+            padding: 90px 0 0!important;
+        }
 	}
 	.bravo_banner {
 		background-color: #1a2b48;
@@ -27,6 +30,7 @@
 	}
 	.article{
 		margin-bottom: 40px;
+
 		h2.title, h4.post-title {
 			line-height: 1.3;
 			font-weight: 500;
@@ -34,10 +38,12 @@
 			color: #1A2B48;
 			font-size: 28px;
 		}
-		.post-header{
-			max-height: 350px;
-			overflow: hidden;
-		}
+        .entry-header{
+            margin-bottom: 25px;
+            .entry-images{
+                margin-bottom: 80px;
+            }
+        }
 	}
 	.author-info {
 		margin-top: 40px;
@@ -59,37 +65,9 @@
 
 
 	}
-	.space-between{
-		justify-content: space-between;
-		-webkit-box-pack: justify;
-		display: -webkit-box;
-		margin: 30px 0;
-		.tags {
-			.tag-item {
-				color: #1A2B48;
-				font-size: 11px;
-				padding: 8px 20px;
-				background: #F7F6F6;
-				margin-right: 10px;
-				margin-bottom: 10px;
-				text-transform: uppercase;
-				font-weight: 500;
-				text-decoration: none;
-			}
-		}
-		.share {
-			font-size: 14px;
-			color: #1A2B48;
-			.share-item {
-				margin-left: 8px;
-				margin-right: 8px;
-				color: #5E6D77;
-			}
-		}
-	}
 	.post-content {
 		color: #5E6D77;
-		font-size: 15px;
+		font-size: 14px;
 		img{
 			max-width: 100%;
 			height: auto !important;
