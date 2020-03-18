@@ -23,7 +23,7 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'slider'=>"\\Modules\\Template\\Blocks\\Slider",
-            // 'vendor_register_form_test'=>"\\Modules\\Vendor\\Blocks\\VendorRegisterForm",
+            'callaction'=>"\\Modules\\Template\\Blocks\\CallAction",
         ];
     }
 
