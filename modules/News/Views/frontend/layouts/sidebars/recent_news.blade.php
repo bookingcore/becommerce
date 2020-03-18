@@ -1,3 +1,23 @@
+<div id="recent-posts-2" class="widget widget_recent_entries">
+    <h4 class="widget-title">{{ $item->title }}</h4>
+    <ul>
+        @php $list_blog = $model_news->with(['getCategory','translations'])->orderBy('id','desc')->paginate(5) @endphp
+        @if($list_blog)
+            @foreach($list_blog as $blog)
+                @php $translation = $blog->translateOrOrigin(app()->getLocale()) @endphp
+                <li>
+                    @if(!empty($blog->getCategory->name))
+                        <a href="{{$blog->getCategory->getDetailUrl()}}">
+                            @php $translation_cat = $blog->getCategory->translateOrOrigin(app()->getLocale()); @endphp
+                            {{$translation_cat->name ?? ''}}
+                        </a>
+                    @endif
+                </li>
+            @endforeach
+        @endif
+    </ul>
+</div>
+
 <div class="sidebar-widget widget_bloglist">
     <div class="sidebar-title">
         <h4>{{ $item->title }}</h4>

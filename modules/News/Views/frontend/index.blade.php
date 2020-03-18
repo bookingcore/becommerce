@@ -8,10 +8,21 @@
 @endsection
 @section('content')
     <div class="bravo-news">
-        <div>
-            Our Press
-        </div>
-        @include('News::frontend.layouts.details.news-breadcrumb')
+        @php
+            $title_page = setting_item_with_lang("news_page_list_title");
+            if(!empty($custom_title_page)){
+                $title_page = $custom_title_page;
+            }
+        @endphp
+        @if(!empty($title_page))
+            <div class="page-header text-center page-header-blog layout-1">
+                <div class="container">
+                    <h1 class="entry-title">{{ $title_page }}</h1>
+                    @include('News::frontend.layouts.details.news-breadcrumb')
+                </div>
+            </div>
+        @endif
+
         <div class="bravo_content">
             <div class="container">
                 <div class="row">
@@ -40,5 +51,4 @@
     </div>
 @endsection
 
- 
-  
+
