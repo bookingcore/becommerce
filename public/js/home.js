@@ -519,4 +519,27 @@ jQuery(function ($) {
     });
 });
 
+jQuery(function ($) {
+    $('.testimonial-list').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        prevArrow: '<div class="mf-left-arrow slick-arrow" style="display: block;"><i class="icon-chevron-left"></i></div>',
+        nextArrow: '<div class="mf-right-arrow slick-arrow" style="display: block;"><i class="icon-chevron-right"></i></div>',
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: true,
+                }
+            },
+        ]
+    });
+});
+
 

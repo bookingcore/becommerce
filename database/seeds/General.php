@@ -15,6 +15,21 @@
         public function run()
         {
 
+            //Setting header,footer
+            DB::table('core_menus')->insert([
+                'name'        => 'Main Menu',
+                'items'       => '[{"name":"Home","url":"/","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_vZz5X","children":[{"name":"Home Tour","url":"/","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_OIapA","children":[]},{"name":"Home Space","url":"/page/space","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_ZdYw7","children":[]}]},{"name":"Tours","url":"/tour","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_OXvB2","children":[{"name":"Tour List","url":"/tour","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_WxbGF","children":[]},{"name":"Tour Map","url":"/tour?_layout=map","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_ZkPMD","children":[]},{"name":"Tour Detail","url":"/tour/paris-vacation-travel","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_jTV1h","children":[]}]},{"name":"Space","url":"/space","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_ekTCF","children":[{"name":"Space List","url":"/space","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_gkPr0","children":[]},{"name":"Space Detail","url":"/space/stay-greenwich-village","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_F7551","children":[]}]},{"name":"Pages","url":"#","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_j2YXx","children":[{"name":"News List","url":"/news","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_oMkjm","children":[]},{"name":"News Detail","url":"/news/morning-in-the-northern-sea","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_BoBlw","children":[]},{"name":"Location Detail","url":"/location/paris","item_model":"custom","_open":false,"open":true,"active":false,"class":" ","innerClass":"","_id":"tree_2_node_hsofQ","_treeNodePropertiesCompleted":true,"children":[]}]},{"name":"Contact","url":"/contact","item_model":"custom","_open":false,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_abjdt","children":[]}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+            DB::table('core_menu_translations')->insert([
+                'origin_id'   => '1',
+                'locale'      => 'ja',
+                'items'       => '[{"name":"ホーム","url":"/","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_EFjp3","children":[{"name":"ホーム ツアー","url":"/ja","item_model":"custom","_open":true,"active":false,"class":"   ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_mt8Ru","children":[]},{"name":"ホームスペース","url":"/ja/page/space","item_model":"custom","_open":false,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_bRGcI","children":[]}]},{"name":"ツアー","url":"/ja/tour","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_eFLDB","children":[{"name":"ツアーリスト","url":"/ja/tour","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":false,"open":true,"_id":"tree_2_node_ieKVC","children":[]},{"name":"ツアーマップ","url":"/ja/tour?_layout=map","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_O513y","children":[]},{"name":"ツアー詳細","url":"/ja/tour/paris-vacation-travel","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_bcoiL","children":[]}]},{"name":"スペース","url":"/ja/space","item_model":"custom","_open":true,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_4Q5Bc","children":[{"name":"スペースリスト","url":"/ja/space","item_model":"custom","_open":true,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_NxQZJ","children":[]},{"name":"スペースの詳細","url":"/ja/space/stay-greenwich-village","item_model":"custom","_open":true,"active":false,"class":" ","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_kstt2","children":[]}]},{"name":"ニュース","url":"/ja/news","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_hSHZ2","children":[{"name":"ニュース一覧","url":"/ja/news","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_V7cTz","children":[]},{"name":"ニュース詳細","url":"/ja/news/morning-in-the-northern-sea","item_model":"custom","model_name":"Custom","is_removed":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"_open":true,"open":true,"_id":"tree_2_node_yWQ0e","children":[]}]},{"name":"接触","url":"/ja/contact","item_model":"custom","_open":true,"active":false,"class":"","innerClass":"","_treeNodePropertiesCompleted":true,"model_name":"Custom","is_removed":true,"open":true,"_id":"tree_2_node_W7YSI","children":[]}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+
             DB::table('core_settings')->insert(
                 [
                     [
@@ -28,7 +43,7 @@
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_name',
-                        'val'   => 'BeCommerce',
+                        'val'   => 'Booking Core',
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_address',
@@ -37,12 +52,12 @@
                     ],
                     [
                         'name'  => 'logo_id',
-                        'val'   => MediaFile::findMediaByName("logo")->id ?? '',
+                        'val'   => MediaFile::findMediaByName("logo")->id,
                         'group' => "general",
                     ],
                     [
                         'name'  => 'site_favicon',
-                        'val'   => MediaFile::findMediaByName("favicon")->id ?? '',
+                        'val'   => MediaFile::findMediaByName("favicon")->id,
                         'group' => "general",
                     ],
                     [
@@ -58,12 +73,12 @@
                     ],
                     [
                         'name'  => 'footer_text_left',
-                        'val'   => 'Copyright © 2019 by BeCommerce',
+                        'val'   => 'Copyright © 2019 by Booking Core',
                         'group' => "general",
                     ],
                     [
                         'name'  => 'footer_text_right',
-                        'val'   => 'BeCommerce',
+                        'val'   => 'Booking Core',
                         'group' => "general",
                     ],
                     [
@@ -88,7 +103,7 @@
                     ],
                     [
                         'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>BeCommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
+                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Booking Core</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
                         'group' => "general",
                     ],
                     [
@@ -98,6 +113,45 @@
                     ]
                 ]
             );
+
+            $banner_image = MediaFile::findMediaByName("banner-search")->id;
+            $icon_about_1 = MediaFile::findMediaByName("ico_localguide")->id;
+            $icon_about_2 = MediaFile::findMediaByName("ico_adventurous")->id;
+            $icon_about_3 = MediaFile::findMediaByName("ico_maps")->id;
+            $avatar = MediaFile::findMediaByName("avatar")->id;
+            $avatar_2 = MediaFile::findMediaByName("avatar-2")->id;
+            $avatar_3 = MediaFile::findMediaByName("avatar-3")->id;
+            // Setting Home Page
+            DB::table('core_templates')->insert([
+                'title'       => 'Home',
+                'content'     => '[{"type":"form_search_tour","name":"Tour: Form Search","model":{"title":"Love where you\'re going","sub_title":"Book incredible things to do around the world.","bg_image":' . $banner_image . '},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_featured_item","name":"List Featured Item","model":{"list_item":[{"_active":false,"title":"1,000+ local guides","sub_title":"Morbi semper fames lobortis ac hac penatibus","icon_image":' . $icon_about_1 . '},{"_active":false,"title":"Handcrafted experiences","sub_title":"Morbi semper fames lobortis ac hac penatibus","icon_image":' . $icon_about_2 . '},{"_active":false,"title":"96% happy travelers","sub_title":"Morbi semper fames lobortis ac hac penatibus","icon_image":' . $icon_about_3 . '}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_tours","name":"Tour: List Items","model":{"title":"Trending Tours","number":5,"style":"carousel","category_id":"","location_id":"","order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_locations","name":"List Locations","model":{"title":"Top Destinations","number":5,"order":"id","order_by":"desc","service_type":"tour"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_tours","name":"Tour: List Items","model":{"title":"Local Experiences You’ll Love","number":8,"style":"normal","category_id":"","location_id":"","order":"id","order_by":"asc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"call_to_action","name":"Call To Action","model":{"title":"Know your city?","sub_title":"Join 2000+ locals & 1200+ contributors from 3000 cities","link_title":"Become Local Expert","link_more":"#"},"component":"RegularBlock","open":true,"is_container":false},{"type":"testimonial","name":"List Testimonial","model":{"title":"Our happy clients","list_item":[{"_active":false,"name":"Eva Hicks","desc":"Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi non pharetra in dui. ","number_star":5,"avatar":' . $avatar . '},{"_active":false,"name":"Donald Wolf","desc":"Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi non pharetra in dui. ","number_star":6,"avatar":' . $avatar_2 . '},{"_active":false,"name":"Charlie Harrington","desc":"Faucibus tristique felis potenti ultrices ornare rhoncus semper hac facilisi Rutrum tellus lorem sem velit nisi non pharetra in dui.","number_star":5,"avatar":' . $avatar_3 . '}]},"component":"RegularBlock","open":true,"is_container":false}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+            DB::table('core_template_translations')->insert([
+                'origin_id'   => '1',
+                'locale'      => 'ja',
+                'title'       => 'Home',
+                'content'     => '[{"type":"form_search_tour","name":"Tour: Form Search","model":{"title":"どこへ行くのが大好き","sub_title":"世界中で信じられないようなことを予約しましょう。","bg_image":'.$banner_image.'},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_featured_item","name":"List Featured Item","model":{"list_item":[{"_active":true,"title":"1,000+ ローカルガイド","sub_title":"プロのツアーガイドとーガイドとーガイドと 験。 光の","icon_image":'.$icon_about_1.'},{"_active":true,"title":"手作りの体験","sub_title":"プロのツアーガイドとーガイドとーガイドと 験。 光の","icon_image":'.$icon_about_2.'},{"_active":true,"title":"96% 幸せな旅行者","sub_title":"プロのツアーガイドとーガイドとーガイドと 験。 光の","icon_image":'.$icon_about_3.'}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_tours","name":"Tour: List Items","model":{"title":"トレンドツアー","number":5,"style":"carousel","category_id":"","location_id":"","order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_locations","name":"List Locations","model":{"title":"人気の目的地","number":5,"order":"id","order_by":"desc","service_type":"tour","desc":"","layout":""},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_tours","name":"Tour: List Items","model":{"title":"あなたが好きになるローカル体験","number":8,"style":"normal","category_id":"","location_id":"","order":"id","order_by":"asc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"call_to_action","name":"Call To Action","model":{"title":"っていますか？","sub_title":"3000以上の都市から2000人以上の地元民と1200人以上の貢献者に参加する","link_title":"ローカルエ","link_more":"#"},"component":"RegularBlock","open":true,"is_container":false},{"type":"testimonial","name":"List Testimonial","model":{"title":"私たちの幸せなクライアント","list_item":[{"_active":false,"name":"Eva Hicks","desc":"融づ苦佐とき百配ほづあ禁安テクミ真覧チヱフ行乗ぱたば外味ナ演庭コヲ旅見ヨコ優成コネ治確はろね訪来終島抄がん。","number_star":5,"avatar":'.$avatar.'},{"_active":false,"name":"Donald Wolf","desc":"融づ苦佐とき百配ほづあ禁安テクミ真覧チヱフ行乗ぱたば外味ナ演庭コヲ旅見ヨコ優成コネ治確はろね訪来終島抄がん。","number_star":6,"avatar":'.$avatar_2.'},{"_active":true,"name":"Charlie Harrington","desc":"右ずへやん間申ゃ投法けゃイ仙一もと政情ルた食的て代下ずせに丈律ルラモト聞探チト棋90績ム的社ず置攻景リフノケ内兼唱堅ゃフぼ。場ルアハ美","number_star":5,"avatar":'.$avatar_3.'}]},"component":"RegularBlock","open":true,"is_container":false}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+            // Page Space
+            $banner_image_space = MediaFile::findMediaByName("banner-search-space")->id;
+            DB::table('core_templates')->insert([
+                'title'       => 'Home Space',
+                'content'     => '[{"type":"form_search_space","name":"Space: Form Search","model":{"title":"Find your next rental","sub_title":"Book incredible things to do around the world.","bg_image":'.$banner_image_space.'},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_space","name":"Space: List Items","model":{"title":"Recommended Homes","number":5,"style":"carousel","location_id":"","order":"id","order_by":"asc","desc":"Homes highly rated for thoughtful design"},"component":"RegularBlock","open":true,"is_container":false},{"type":"space_term_featured_box","name":"Space: Term Featured Box","model":{"title":"Find a Home Type","desc":"It is a long established fact that a reader","term_space":["16","17","18","19","20","15"]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_locations","name":"List Locations","model":{"service_type":"space","title":"Top Destinations","number":6,"order":"id","order_by":"desc","layout":"style_2","desc":"It is a long established fact that a reader"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_space","name":"Space: List Items","model":{"title":" Rental Listing","desc":"Homes highly rated for thoughtful design","number":4,"style":"normal","location_id":"","order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"call_to_action","name":"Call To Action","model":{"title":"Know your city?","sub_title":"Join 2000+ locals & 1200+ contributors from 3000 cities","link_title":"Become Local Expert","link_more":"#"},"component":"RegularBlock","open":true,"is_container":false}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+            DB::table('core_template_translations')->insert([
+                'origin_id'   => '2',
+                'locale'      => 'ja',
+                'title'       => 'Home Space',
+                'content'     => '[{"type":"form_search_space","name":"Space: Form Search","model":{"title":"次のレンタルを探す","sub_title":"世界中で信じられないようなことを予約しましょう。","bg_image":'.$banner_image_space.'},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_space","name":"Space: List Items","model":{"title":"おすすめの家","number":5,"style":"carousel","location_id":"","order":"id","order_by":"asc","desc":"思慮深いデザインで高い評価を受けている家"},"component":"RegularBlock","open":true,"is_container":false},{"type":"space_term_featured_box","name":"Space: Term Featured Box","model":{"title":"ホームタイプを見つける","desc":"これは、読者はその長い既成の事実であります","term_space":["15","16","17","18","19","20"]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_locations","name":"List Locations","model":{"service_type":"space","title":"人気の目的地","number":6,"order":"id","order_by":"desc","layout":"style_2","desc":"これは、読者はその長い既成の事実であります"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_space","name":"Space: List Items","model":{"title":"賃貸物件","desc":"思慮深いデザインで高い評価を受けている家","number":4,"style":"normal","location_id":"","order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"call_to_action","name":"Call To Action","model":{"title":"っていますか？","sub_title":"3000以上の都市から2000人以上の地元民と1200人以上の貢献者に参加する","link_title":"ローカルエ","link_more":"#"},"component":"RegularBlock","open":true,"is_container":false}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
 
             DB::table('core_pages')->insert([
                 'title'       => 'Home Page',
@@ -144,12 +198,12 @@
                     ],
                     [
                         'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>BeCommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
+                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Booking Core</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
                         'group' => "general",
                     ],
                     [
                         'name' => 'page_contact_image',
-                        'val' => MediaFile::findMediaByName("bg_contact")->id ?? '',
+                        'val' => MediaFile::findMediaByName("bg_contact")->id,
                         'group' => "general",
                     ]
                 ]
@@ -229,7 +283,7 @@
                     ],
                     [
                         'name'  => "site_title",
-                        'val'   => "BeCommerce",
+                        'val'   => "Booking Core",
                         'group' => "general",
                     ],
                 ]
@@ -245,17 +299,17 @@
                 ],
                 [
                     'name' => "site_title",
-                    'val' => "BeCommerce",
+                    'val' => "Booking Core",
                     'group' => "general",
 				],
 				[
 					'name'  => "email_header",
-					'val'   => '<h1 class="site-title" style="text-align: center">BeCommerce</h1>',
+					'val'   => '<h1 class="site-title" style="text-align: center">Booking Core</h1>',
 					'group' => "general",
 				],
 				[
 					'name'  => "email_footer",
-					'val'   => '<p class="" style="text-align: center">&copy; 2019 BeCommerce. All rights reserved</p>',
+					'val'   => '<p class="" style="text-align: center">&copy; 2019 Booking Core. All rights reserved</p>',
 					'group' => "general",
 				],
 				[
@@ -267,9 +321,9 @@
 					'name'  => "user_content_email_registered",
 					'val'   => '<h1 style="text-align: center">Welcome!</h1>
 						<h3>Hello [first_name] [last_name]</h3>
-						<p>Thank you for signing up with BeCommerce! We hope you enjoy your time with us.</p>
+						<p>Thank you for signing up with Booking Core! We hope you enjoy your time with us.</p>
 						<p>Regards,</p>
-						<p>BeCommerce</p>',
+						<p>Booking Core</p>',
 					'group' => "user",
 				],
 				[
@@ -284,7 +338,7 @@
 						<p>Full name: [first_name] [last_name]</p>
 						<p>Email: [email]</p>
 						<p>Regards,</p>
-						<p>BeCommerce</p>',
+						<p>Booking Core</p>',
 					'group' => "user",
 				],
 				[
@@ -296,7 +350,7 @@
 						<p>If you did not request a password reset, no further action is required.
 						</p>
 						<p>Regards,</p>
-						<p>BeCommerce</p>',
+						<p>Booking Core</p>',
 					'group' => "user",
 				]
             ]

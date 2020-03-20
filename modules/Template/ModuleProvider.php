@@ -24,6 +24,12 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'slider'=>"\\Modules\\Template\\Blocks\\Slider",
             'callaction'=>"\\Modules\\Template\\Blocks\\CallAction",
+            'pageBreadcrumbs' =>"\\Modules\\Template\\Blocks\\pageBreadcrumbs",
+            'WhySellOnMartfury' =>"\\Modules\\Template\\Blocks\\WhySellOnMartfury",
+            'HowItWorks' =>"\\Modules\\Template\\Blocks\\HowItWorks",
+            'BestFeesToStart' =>"\\Modules\\Template\\Blocks\\BestFeesToStart",
+            'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",
+            'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
         ];
     }
 

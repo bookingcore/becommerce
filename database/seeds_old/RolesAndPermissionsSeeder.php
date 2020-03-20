@@ -93,22 +93,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Media
         Permission::findOrCreate('media_upload');
         Permission::findOrCreate('media_manage');
-
-        // Tour
-        Permission::findOrCreate('tour_view');
-        Permission::findOrCreate('tour_create');
-        Permission::findOrCreate('tour_update');
-        Permission::findOrCreate('tour_delete');
-        Permission::findOrCreate('tour_manage_others');
-        Permission::findOrCreate('tour_manage_attributes');
-
-        // Location
-        Permission::findOrCreate('location_view');
-        Permission::findOrCreate('location_create');
-        Permission::findOrCreate('location_update');
-        Permission::findOrCreate('location_delete');
-        Permission::findOrCreate('location_manage_others');
-
+        
         //Review
         Permission::findOrCreate('review_manage_others');
 
@@ -118,12 +103,12 @@ class RolesAndPermissionsSeeder extends Seeder
 
 
         // Space
-        Permission::findOrCreate('space_view');
-        Permission::findOrCreate('space_create');
-        Permission::findOrCreate('space_update');
-        Permission::findOrCreate('space_delete');
-        Permission::findOrCreate('space_manage_others');
-        Permission::findOrCreate('space_manage_attributes');
+        Permission::findOrCreate('product_view');
+        Permission::findOrCreate('product_create');
+        Permission::findOrCreate('product_update');
+        Permission::findOrCreate('product_delete');
+        Permission::findOrCreate('product_manage_others');
+        Permission::findOrCreate('product_manage_attributes');
 
         // create roles and assign created permissions
 
@@ -145,16 +130,12 @@ class RolesAndPermissionsSeeder extends Seeder
         $vendor = Role::findOrCreate('vendor');
 
         $vendor->givePermissionTo('media_upload');
-        $vendor->givePermissionTo('tour_view');
-        $vendor->givePermissionTo('tour_create');
-        $vendor->givePermissionTo('tour_update');
-        $vendor->givePermissionTo('tour_delete');
         $vendor->givePermissionTo('dashboard_vendor_access');
 
-        $vendor->givePermissionTo('space_view');
-        $vendor->givePermissionTo('space_create');
-        $vendor->givePermissionTo('space_update');
-        $vendor->givePermissionTo('space_delete');
+        $vendor->givePermissionTo('product_view');
+        $vendor->givePermissionTo('product_create');
+        $vendor->givePermissionTo('product_update');
+        $vendor->givePermissionTo('product_delete');
 
 
     }
