@@ -19,6 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MediaFileSeeder::class);
         $this->call(General::class);
         $this->call(News::class);
+        //$this->call(TemplateSeeder::class);
     }
 }
- 
