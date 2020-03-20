@@ -540,6 +540,14 @@ jQuery(function ($) {
             },
         ]
     });
+
+    $('.bravo-home-sliders').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="icon-chevron-left"></i></button>',
+        nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
+    });
 });
 
 

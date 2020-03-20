@@ -30,6 +30,8 @@ class ModuleProvider extends ModuleServiceProvider
             'BestFeesToStart' =>"\\Modules\\Template\\Blocks\\BestFeesToStart",
             'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",
             'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
+            'BannerHome1' =>"\\Modules\\Template\\Blocks\\BannerHome1",
+            'HomeFee' =>"\\Modules\\Template\\Blocks\\HomeFee",
         ];
     }
 

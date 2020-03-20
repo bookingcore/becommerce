@@ -30,7 +30,7 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel='stylesheet' id='google-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700,800&display=swap' type='text/css' media='all' />
+    <link rel='stylesheet' id='google-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans%3A300%2C400%2C500%2C600%2C700&subset=latin%2Clatin-ext&ver=20170801' type='text/css' media='all' />
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>

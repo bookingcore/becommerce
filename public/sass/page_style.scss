@@ -23011,7 +23011,7 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 }
 
 .mf-banner-small .box-price .s-price {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 600;
     position: absolute;
     top: 50%;
@@ -30875,20 +30875,20 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
 }
 
 @media (max-width: 1460px) and (min-width: 1200px) {
-    .page-template-template-home-full-width .mf-banner-small .banner-content .desc {
+    .mf-banner-small .banner-content .desc {
         display: none
     }
-    .page-template-template-home-full-width .mf-banner-small .box-price .s-price {
+    .mf-banner-small .box-price .s-price {
         font-size: 14px
     }
-    .page-template-template-home-full-width .mf-banner-small .box-price {
+    .mf-banner-small .box-price {
         width: 50px;
         height: 50px
     }
-    .page-template-template-home-full-width .mf-banner-large .col-banner-content {
+    .mf-banner-large .col-banner-content {
         width: 35%
     }
-    .page-template-template-home-full-width .mf-banner-large.layout-2 .banner-content .box-title, .page-template-template-home-full-width .mf-banner-large.layout-3 .banner-content .box-title {
+    .mf-banner-large.layout-2 .banner-content .box-title, .page-template-template-home-full-width .mf-banner-large.layout-3 .banner-content .box-title {
         font-size: 24px
     }
     .single-product-layout-6.woocommerce div.product .tawc-deal .deal-expire-date .deal-expire-text {
