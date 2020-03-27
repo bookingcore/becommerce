@@ -11,6 +11,20 @@ class BannerHome1 extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'        => 'banner_big_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Banner big title')
+                ],
+                [
+                    'id'        => 'banner_big_desc',
+                    'type'      => 'input',
+                    'inputType' => 'textArea',
+                    'label'     => __('Banner big desc')
+                ],
+
+
+                [
                     'id'          => 'sliders',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),

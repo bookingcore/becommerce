@@ -7,11 +7,11 @@
 	 */
 ?>
 @if(!empty($related_list))
-	<h2 class="box-title">{{__('Related products')}}</h2>
     <div class="product-related">
-		<ul class="slides">
+        <h2 class="box-title">{{__('Related products')}}</h2>
+		<ul class="products list-unstyled">
         @foreach($related_list as $row)
-            <li>
+            <li class="product type-product">
 				@include('Product::frontend.loop.item')
 			</li>
         @endforeach

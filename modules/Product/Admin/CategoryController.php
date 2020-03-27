@@ -127,16 +127,15 @@ class CategoryController extends AdminController
         $selected = $request->query('selected');
 
         if($pre_selected && $selected){
-            $item = ProductCategory::find($selected);
-            if(empty($item)){
+            if(is_array($selected))
+            {
+                $query = ProductCategory::select('id', 'name as text');
+                $items = $query->whereIn('id',$selected)->take(50)->get();
                 return response()->json([
-                    'text'=>''
-                ]);
-            }else{
-                return response()->json([
-                    'text'=>$item->name
+                    'items'=>$items
                 ]);
             }
+
         }
         $q = $request->query('q');
         $query = ProductCategory::select('id', 'name as text')->where("status","publish");

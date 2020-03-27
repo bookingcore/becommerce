@@ -7,7 +7,6 @@
             <p class="price">
                 <span class="amount"></span>
             </p>
-            <div class="product-stock-status">{{__('Status:')}} <span></span></div>
         </div>
     </div>
 @endif

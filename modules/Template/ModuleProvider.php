@@ -32,6 +32,7 @@ class ModuleProvider extends ModuleServiceProvider
             'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
             'BannerHome1' =>"\\Modules\\Template\\Blocks\\BannerHome1",
             'HomeFee' =>"\\Modules\\Template\\Blocks\\HomeFee",
+            'Promotion' =>"\\Modules\\Template\\Blocks\\Promotion",
         ];
     }
 

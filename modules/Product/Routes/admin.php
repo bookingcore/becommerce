@@ -53,3 +53,9 @@ Route::group(['prefix'=>'attribute'],function (){
 });
 
 Route::post('/ajaxAddTerm','AttributeController@ajaxAddTerm')->name('product.admin.attribute.ajaxAddTerm');
+
+
+Route::group(['prefix'=>'category'],function (){
+    Route::get('getForSelect2','CategoryController@getForSelect2')->name('product.admin.category.getForSelect2');
+
+});

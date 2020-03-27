@@ -8014,9 +8014,8 @@ body.page .comments-area .comment-respond .comment-reply-title, body.page .comme
 }
 
 .woocommerce ul.products li.product .product-inner {
-    padding: 20px 20px 0;
+    padding: 20px;
     border: 1px solid transparent;
-    border-bottom: none;
     margin-bottom: 20px
 }
 
@@ -8044,7 +8043,7 @@ body.page .comments-area .comment-respond .comment-reply-title, body.page .comme
 }
 
 .woocommerce ul.products li.product a img {
-    margin: 0;
+    margin: 0 auto;
     width: auto
 }
 
@@ -21596,11 +21595,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
     right: -50px
 }
 
-.mf-products-tabs .slick-dots {
-    display: none !important;
-    margin-bottom: 0
-}
-
 .mf-products-tabs.header-style-2 .tabs-header {
     background-color: transparent;
     padding: 0 0 16px 0
@@ -22245,10 +22239,6 @@ input[type=text]:focus, input[type=email]:focus, textarea:focus {
 
 .mf-products-carousel .slick-next-arrow {
     right: -50px
-}
-
-.mf-products-carousel .slick-dots {
-    display: none !important
 }
 
 .mf-product-deals-day ul.products {
@@ -30826,7 +30816,7 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
 }
 
 @media (max-width: 1600px) and (min-width: 1300px) {
-    .page-template-template-home-full-width .mf-banner-medium.layout-5 .banner-content .title {
+    .mf-banner-medium.layout-5 .banner-content .title {
         font-size: 24px
     }
     .page-template-template-home-full-width .mf-banner-medium.layout-5 .banner-content .desc .price {
@@ -31003,12 +30993,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
     .single-product-layout-6.sidebar-content .product-sidebar, .single-product-layout-6.content-sidebar .product-sidebar {
         width: 19%
     }
-    .single-product-layout-6.sidebar-content .content-area {
-        padding-left: 50px
-    }
-    .single-product-layout-6.content-sidebar .content-area {
-        padding-right: 50px
-    }
 }
 
 @media (max-width: 1366px) {
@@ -31025,7 +31009,7 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
         display: block !important;
         margin-bottom: 0 !important
     }
-    .page-template-template-home-full-width .mf-banner-medium.layout-5 .banner-content .title {
+    .mf-banner-medium.layout-5 .banner-content .title {
         font-size: 18px
     }
     .page-template-template-home-full-width .mf-banner-medium.layout-5 .banner-content .desc .price {

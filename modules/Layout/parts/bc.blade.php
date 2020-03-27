@@ -1,6 +1,6 @@
 @if(!empty($breadcrumbs))
 <div class="blog-breadcrumb hidden-xs">
-    <div class="bravo-container container">
+    <div class="bravo-container martfury-container">
         <ul>
             <li itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"><a itemprop="item" href="{{url(app_get_locale())}}"> <span itemprop="name">{{__('Home')}}</span></a>
                 <span class="sep">/</span></li>

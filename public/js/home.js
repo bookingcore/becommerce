@@ -548,6 +548,14 @@ jQuery(function ($) {
         prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="icon-chevron-left"></i></button>',
         nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
     });
+
+    $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .products, .product-related .products').slick({
+        infinite: false,
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        arrows: false,
+        dots: true,
+    });
 });
 
 

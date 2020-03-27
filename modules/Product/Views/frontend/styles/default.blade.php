@@ -1,8 +1,8 @@
 @include('Layout::parts.bc')
 <div class="bravo_detail_product">
-    <div class="bravo-container container">
+    <div class="bravo-container martfury-container">
         <div class="row">
-            <div class="col-md-10 col-product-info" >
+            <div class="col-md-9 col-product-info">
                 <div class="row">
                     <div class="col-md-5 col-product-gallery">
                         @include('Product::frontend.details.gallery')
@@ -14,10 +14,10 @@
                 <div class="py-5"></div>
                 @include('Product::frontend.details.tabs')
             </div>
-            <div class="col-md-2 col-product-sidebar">
-                    @include('Product::frontend.details.sidebar.shipping')
-                    @include('Product::frontend.details.sidebar.custom-html')
-                    @include('Product::frontend.details.sidebar.same-brand')
+            <div class="col-md-3 col-product-sidebar">
+                @include('Product::frontend.details.sidebar.shipping')
+                @include('Product::frontend.details.sidebar.custom-html')
+                @include('Product::frontend.details.sidebar.same-brand')
             </div>
         </div>
         <div class="row">
