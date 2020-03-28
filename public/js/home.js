@@ -556,6 +556,18 @@ jQuery(function ($) {
         arrows: false,
         dots: true,
     });
+
+    $('.product-categories li .cat-menu-close').click(function () {
+        if ($(this).parent().hasClass('opened')){
+            $(this).next().stop().slideUp('normal').parent().removeClass('opened');
+        } else {
+            $(this).next().stop().slideDown('normal').parent().addClass('opened');
+        }
+    });
+    $('#mf-catalog-banners').slick({
+        prevArrow: '<span class="icon-chevron-left slick-prev-arrow slick-arrow"></span>',
+        nextArrow: '<span class="icon-chevron-right slick-next-arrow slick-arrow"></span>',
+    });
 });
 
 

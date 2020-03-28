@@ -15,27 +15,61 @@
                 </div>
                 @if(is_default_lang())
                 <div class="form-group">
-                    <label class="" >{{__("Banner Page")}}</label>
-                    <div class="form-controls form-group-image">
-                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('product_page_search_banner',$settings['product_page_search_banner'] ?? "") !!}
-                    </div>
-                </div>
-                <div class="form-group d-none">
-                    <label class="" >{{__("Layout Search")}}</label>
+                    <label class="" >{{__("Slider Page")}}</label>
                     <div class="form-controls">
-                        <select name="product_layout_search" class="form-control" >
-                            <option value="normal" {{ ($settings['product_layout_search'] ?? '') == 'normal' ? 'selected' : ''  }}>{{__("Normal Layout")}}</option>
-                            <option value="map" {{($settings['product_layout_search'] ?? '') == 'map' ? 'selected' : ''  }}>{{__('Map Layout')}}</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="" >{{__("Location Search Style")}}</label>
-                    <div class="form-controls">
-                        <select name="product_location_search_style" class="form-control">
-                            <option {{ ($settings['product_location_search_style'] ?? '') == 'normal' ? 'selected' : ''  }}      value="normal">{{__("Normal")}}</option>
-                            <option {{ ($settings['product_location_search_style'] ?? '') == 'autocomplete' ? 'selected' : '' }} value="autocomplete">{{__('Autocomplete from locations')}}</option>
-                        </select>
+                        <div class="form-group-item">
+                            <div class="g-items-header">
+                                <div class="row">
+                                    <div class="col-md-2">{{__('Image')}}</div>
+                                    <div class="col-md-7">{{__("Title/Content")}}</div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                            <div class="g-items">
+                                <?php
+                                $list_sliders = [];
+                                if(!empty($settings['list_sliders'])){
+                                $list_sliders  = $settings['list_sliders'];
+                                $list_sliders = json_decode(setting_item_with_lang('list_sliders',request()->query('lang'),$settings['list_sliders'] ?? "[]"));
+                                ?>
+                                @foreach($list_sliders as $key=>$item)
+                                    <div class="item" data-number="{{$key}}">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                {!! \Modules\Media\Helpers\FileHelper::fieldUpload('list_sliders['.$key.'][image_id]',$item->image_id) !!}
+                                            </div>
+                                            <div class="col-md-7">
+                                                <input type="text" name="list_sliders[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
+                                                <textarea name="list_sliders[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <?php } ?>
+                            </div>
+                            <div class="text-right">
+                                <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
+                            </div>
+                            <div class="g-more hide">
+                                <div class="item" data-number="__number__">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('list_sliders[__number__][image_id]','','__name__') !!}
+                                        </div>
+                                        <div class="col-md-7">
+                                            <input type="text" __name__="list_sliders[__number__][title]" class="form-control" placeholder="{{__('Title')}}">
+                                            <textarea __name__="list_sliders[__number__][content]" rows="3" class="form-control" placeholder="{{__("Content")}}"></textarea>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -238,7 +272,7 @@
                                             <div class="col-md-5">
                                                 @if(!empty($languages) && setting_item('site_enable_multi_lang') && setting_item('site_locale'))
                                                     @foreach($languages as $language)
-                                                        <?php $key_lang = setting_item('site_locale') != $language->locale ? "_".$language->locale : ""   ?>
+                                                        @php $key_lang = setting_item('site_locale') != $language->locale ? "_".$language->locale : ""  @endphp
                                                         <div class="g-lang">
                                                             <div class="title-lang">{{$language->name}}</div>
                                                             <input type="text" name="product_booking_buyer_fees[{{$key}}][name{{$key_lang}}]" class="form-control" value="{{$buyer_fee['name'.$key_lang] ?? ''}}" placeholder="{{__('Fee name')}}">
@@ -380,6 +414,5 @@
         </div>
     </div>
 </div>
-
 
 

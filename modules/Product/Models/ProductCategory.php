@@ -37,4 +37,8 @@ class ProductCategory extends BaseModel
     public static function getCachedTree(){
         return parent::query()->where('status','publish')->get()->toTree();
     }
+
+    public static function get_cats_parent(){
+        return static::select('*')->whereNull('parent_id')->get();
+    }
 }

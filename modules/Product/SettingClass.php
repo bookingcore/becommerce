@@ -35,7 +35,8 @@ class SettingClass extends BaseSettingsClass
                     'product_booking_buyer_fees',
 
                     'product_policies',
-                    'product_sidebar'
+                    'product_sidebar',
+                    'list_sliders'
                 ],
                 'html_keys'=>[
 

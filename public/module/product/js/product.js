@@ -6,6 +6,7 @@ jQuery(function ($) {
         var label_amount = $(this).find('.price_label');
         var min = input_min.data("min");
         var max = input_max.data("max");
+        console.log("xxx");
         input_price.slider({
             range: true,
             min: min,

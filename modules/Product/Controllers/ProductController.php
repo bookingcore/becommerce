@@ -4,6 +4,7 @@ namespace Modules\Product\Controllers;
 use App\Http\Controllers\Controller;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
+use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\Space;
 use Illuminate\Http\Request;
@@ -50,7 +51,7 @@ class ProductController extends Controller
             $query->where('max_guests','>=',$max_guests);
         }
 
-        $list = $query->paginate(9);
+        $list = $query->paginate(12);
         $markers = [];
         if (!empty($list)) {
             foreach ($list as $row) {
@@ -66,11 +67,38 @@ class ProductController extends Controller
             }
         }
 
+        $cats_parent = ProductCategory::get_cats_parent();
+        $categories = [];
+        if (!empty($cats_parent)){
+            foreach ($cats_parent as $parent){
+                $childs = [];
+                $cats_child = ProductCategory::where('parent_id',$parent['id'])->get();
+                if (!empty($cats_child)){
+                    foreach ($cats_child as $child){
+                        array_push($childs, $child['name']);
+                    }
+                }
+                array_push($categories, [
+                    'cats_parent'   =>  $parent['name'],
+                    'cats_child'    =>  $childs
+                ]);
+            }
+        }
+
         $data = [
             'rows'               => $list,
             'product_min_max_price' => Product::getMinMaxPrice(),
             'markers'            => $markers,
             "blank"              => 1,
+            'categories'         => $categories,
+
+            'breadcrumbs'=>[
+                [
+                    'url'=>'',
+                    'class'=>'active',
+                    'name'=>setting_item_with_lang('product_page_search_title',request()->query('lang'))
+                ]
+            ],
             'body_class'        => 'full_width ',
 	        "seo_meta"           => Product::getSeoMetaForPageList()
         ];
@@ -101,7 +129,6 @@ class ProductController extends Controller
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
-//        dd($row->id);
         if (empty($row)) {
             return redirect('/');
         }
