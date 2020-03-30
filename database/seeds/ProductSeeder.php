@@ -15,6 +15,17 @@ class ProductSeeder extends Seeder
      */
     public function run()
     {
+        //product search Sliders
+        $p_slider = [
+            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-1', 'file_path' => 'demo/templates/product-banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-2', 'file_path' => 'demo/templates/product-banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+        ];
+        DB::table('core_settings')->insertGetId([
+            'name'  =>  'list_sliders',
+            'group' =>  'product',
+            'val'   =>  '[{"image_id":"'.$p_slider['image-1'].'","title":"banner 1","content":null},{"image_id":"'.$p_slider['image-2'].'","title":"Banner 2","content":null}]'
+        ]);
+
         $list_brands = [];
         $list_brands["galaxy"] = DB::table('product_brand')->insertGetId([
             'name'       => "Galaxy",
@@ -236,6 +247,10 @@ class ProductSeeder extends Seeder
             'id'=>$id_6,
             "cats"=>"Clothing & Apparel"
         ];
+        $list_products[] = [
+            'id'=>$id_7,
+            "cats"=>"Clothing & Apparel"
+        ];
 
         $cat_image = [
             'image-1' => DB::table('media_files')->insertGetId( ['file_name' => 'cat-image-1', 'file_path' => 'demo/templates/cat-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
@@ -324,6 +339,60 @@ class ProductSeeder extends Seeder
         ];
 
         $list_categories = [];
+
+        //attr
+        $attr = [];
+        $attr['color'] = DB::table('bravo_attrs')->insertGetId([
+            'name'      =>      'Color',
+            'slug'      =>      'color',
+            'service'   =>      'product',
+            'create_user'=>     '1'
+        ]);
+        $attr['size'] = DB::table('bravo_attrs')->insertGetId([
+            'name'      =>      'Size',
+            'slug'      =>      'size',
+            'service'   =>      'product',
+            'create_user'=>     '1'
+        ]);
+
+        $term_list = [
+            [
+                'name'      =>      'Red',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'red'
+            ],
+            [
+                'name'      =>      'Black',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'black'
+            ],
+            [
+                'name'      =>      'S',
+                'attr_id'   =>      $attr['size'],
+                'slug'      =>      's'
+            ],
+            [
+                'name'      =>      'M',
+                'attr_id'   =>      $attr['size'],
+                'slug'      =>      'm'
+            ],
+            [
+                'name'      =>      'L',
+                'attr_id'   =>      $attr['size'],
+                'slug'      =>      'l'
+            ],
+            [
+                'name'      =>      'XL',
+                'attr_id'   =>      $attr['size'],
+                'slug'      =>      'xl'
+            ],
+            [
+                'name'      =>      'XXL',
+                'attr_id'   =>      $attr['size'],
+                'slug'      =>      'Xl'
+            ],
+        ];
+        DB::table('bravo_terms')->insert($term_list);
 
         foreach ($categories as $category){
             $childs = $category['child'] ?? "";
