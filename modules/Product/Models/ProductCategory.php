@@ -38,7 +38,8 @@ class ProductCategory extends BaseModel
         return parent::query()->where('status','publish')->get()->toTree();
     }
 
-    public static function get_cats_parent(){
-        return static::select('*')->whereNull('parent_id')->get();
+    public function getDetailUrl($locale = false)
+    {
+        return url(app_get_locale(false , false , '/')."category/".$this->slug);
     }
 }

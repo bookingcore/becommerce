@@ -21,9 +21,19 @@ class ProductSeeder extends Seeder
             'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-2', 'file_path' => 'demo/templates/product-banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         DB::table('core_settings')->insertGetId([
+            'name'  =>  'product_page_search_title',
+            'group' =>  'product',
+            'val'   =>  'Shop'
+        ]);
+        DB::table('core_settings')->insertGetId([
             'name'  =>  'list_sliders',
             'group' =>  'product',
             'val'   =>  '[{"image_id":"'.$p_slider['image-1'].'","title":"banner 1","content":null},{"image_id":"'.$p_slider['image-2'].'","title":"Banner 2","content":null}]'
+        ]);
+        DB::table('core_settings')->insertGetId([
+            'name'  =>  'product_policies',
+            'group' =>  'product',
+            'val'   =>  '[{"title":"Shipping Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."},{"title":"Refund Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."},{"title":"Cancellation \/ Return \/ Exchange Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."}]'
         ]);
 
         $list_brands = [];

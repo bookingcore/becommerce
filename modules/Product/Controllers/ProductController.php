@@ -27,7 +27,6 @@ class ProductController extends Controller
     public function index(Request $request)
     {
 
-        $is_ajax = $request->query('_ajax');
         $query = $this->product::query()->select("products.*");
         $query->where("products.status", "publish");
 
@@ -46,52 +45,16 @@ class ProductController extends Controller
         $query->orderBy("id", "desc");
         $query->groupBy("products.id");
 
-        $max_guests = (int)($request->query('adults') + $request->query('children'));
-        if($max_guests){
-            $query->where('max_guests','>=',$max_guests);
-        }
-
         $list = $query->paginate(12);
-        $markers = [];
-        if (!empty($list)) {
-            foreach ($list as $row) {
-                $markers[] = [
-                    "id"      => $row->id,
-                    "title"   => $row->title,
-                    "lat"     => (float)$row->map_lat,
-                    "lng"     => (float)$row->map_lng,
-                    "gallery" => $row->getGallery(true),
-//                    "infobox" => view('Product::frontend.layouts.search.loop-gird', ['row' => $row,'disable_lazyload'=>1,'wrap_class'=>'infobox-item'])->render(),
-                    'marker'  => url('images/icons/png/pin.png'),
-                ];
-            }
-        }
 
-        $cats_parent = ProductCategory::get_cats_parent();
-        $categories = [];
-        if (!empty($cats_parent)){
-            foreach ($cats_parent as $parent){
-                $childs = [];
-                $cats_child = ProductCategory::where('parent_id',$parent['id'])->get();
-                if (!empty($cats_child)){
-                    foreach ($cats_child as $child){
-                        array_push($childs, $child['name']);
-                    }
-                }
-                array_push($categories, [
-                    'cats_parent'   =>  $parent['name'],
-                    'cats_child'    =>  $childs
-                ]);
-            }
-        }
+        $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
+        dump($categories);
 
         $data = [
             'rows'               => $list,
             'product_min_max_price' => Product::getMinMaxPrice(),
-            'markers'            => $markers,
             "blank"              => 1,
             'categories'         => $categories,
-
             'breadcrumbs'=>[
                 [
                     'url'=>'',
@@ -99,29 +62,16 @@ class ProductController extends Controller
                     'name'=>setting_item_with_lang('product_page_search_title',request()->query('lang'))
                 ]
             ],
-            'body_class'        => 'full_width ',
+            'body_class'        => 'full_width',
 	        "seo_meta"           => Product::getSeoMetaForPageList()
         ];
-        $layout = setting_item("product_layout_search", 'normal');
-        if ($request->query('_layout')) {
-            $layout = $request->query('_layout');
-        }
-        if ($is_ajax) {
-            $this->sendSuccess([
-                'html'    => view('Product::frontend.layouts.search-map.list-item', $data)->render(),
-                "markers" => $data['markers']
-            ]);
-        }
+
         $data['attributes'] = Attributes::where('service', 'product')->get();
         $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
         	$item->count_product  = count($item->products);
         	return $item;
         });
-        if ($layout == "map") {
-            $data['body_class'] = 'has-search-map';
-            $data['html_class'] = 'full-page';
-            return view('Product::frontend.search-map', $data);
-        }
+
 
         return view('Product::frontend.search', $data);
     }
