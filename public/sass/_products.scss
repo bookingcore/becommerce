@@ -118,7 +118,7 @@
                         width: auto;
                         max-height: 140px;
                         li{
-                            padding: 7px 0 7px 24px;
+                            padding: 7px 0;
                             position: relative;
                             line-height: 1;
                             margin: 0;
@@ -177,6 +177,13 @@
                             padding-top: 16px;
                         }
                     }
+                    .bravo-price-submit{
+                        background: transparent;
+                        color: #000;
+                        border: 1px solid black;
+                        padding: 3px 10px;
+                        margin-top: 10px;
+                    }
                 }
                 ul{
                     li{
@@ -192,80 +199,10 @@
             }
             .bravo-filter-reviews{
                 ul{
-                    margin: 0;
-                    padding: 0;
-                    border: 0;
-                    list-style: none outside;
                     li{
-                        padding: 7px 0;
-                        position: relative;
-                        list-style: none;
-                        margin-bottom: 0;
-                        &:first-child{
-                            padding-top: 0;
-                        }
-                        &:before, &:after{
-                            content: '';
-                            display: table;
-                        }
-                        a{
-                            transition: 0.5s;
-                            padding: 1px 0;
-                            text-decoration: none;
-                            display: flex;
-                            align-items: center;
-                            color: #999;
-                            position: relative;
-                            &:before{
-                                width: 16px;
-                                height: 16px;
-                                border: 1px solid #d1d1d1;
-                                content: "";
-                                background-color: #fff;
-                                margin-top: 1px;
-                                margin-right: 0.618em;
-                            }
-                            .star-rating{
-                                overflow: hidden;
-                                position: relative;
-                                height: 1em;
-                                line-height: 1;
-                                font-size: 16px;
-                                width: 87px;
-                                float: none;
-                                display: inline-block;
-                                margin-right: 3px;
-                                &:before{
-                                    content: "";
-                                    color: #d3ced2;
-                                    float: left;
-                                    top: 0;
-                                    left: 0;
-                                    position: absolute;
-                                }
-                                span{
-                                    overflow: hidden;
-                                    float: left;
-                                    top: 0;
-                                    left: 0;
-                                    position: absolute;
-                                    padding-top: 1.5em;
-                                    &:before{
-                                        color: #f2b309;
-                                        position: absolute;
-                                        top: 0;
-                                    }
-                                }
-                            }
-                            .star-rating, .star-rating span{
-                                &:before{
-                                    font-family: FontAwesome, "sans-serif";
-                                    content: "\f005\f005\f005\f005\f005";
-                                    text-rendering: auto;
-                                    -webkit-font-smoothing: antialiased;
-                                    -moz-osx-font-smoothing: grayscale;
-                                    letter-spacing: 3px;
-                                }
+                        .bravo-checkbox{
+                            i{
+                                color: #f2b309;
                             }
                         }
                     }

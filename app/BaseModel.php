@@ -334,4 +334,11 @@ class BaseModel extends Model
     public function check_enable_review_after_booking(){
 
     }
+
+    public function update_service_rate(){
+        $rateData = $this->reviewClass::selectRaw("AVG(rate_number) as rate_total")->where('object_id', $this->id)->where('object_model',$this->type)->where("status", "approved")->first();
+        $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
+        $this->review_score = $rate_number;
+        $this->save();
+    }
 }

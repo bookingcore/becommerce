@@ -6,12 +6,11 @@ jQuery(function ($) {
         var label_amount = $(this).find('.price_label');
         var min = input_min.data("min");
         var max = input_max.data("max");
-        console.log("xxx");
         input_price.slider({
             range: true,
             min: min,
             max: max,
-            values: [ min, max ],
+            values: [ input_price.data('from'), input_price.data('to') ],
             slide: function( event, ui ) {
                 label_amount.find('.from').html(ui.values[0]);
                 label_amount.find('.to').html(ui.values[1]);
@@ -21,6 +20,7 @@ jQuery(function ($) {
         });
         $( "#amount" ).val( $( "#slider-range-max" ).slider( "value" ) );
     });
+
     $(".bravo-block-list-item-carousel").each(function () {
             currentSlick = $(this).find('.list-item').slick({
                 slidesToShow: 6,

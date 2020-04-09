@@ -5,11 +5,11 @@
         </div>
         <div class="header-link">
             @if(!empty($categories))
-                @foreach($categories as $item)
-                    <a href="#">{{$item['name']}}</a>
+                @foreach($categories as $cat)
+                    <li><a class="extra-link" href="{{$cat->getDetailUrl()}}">{{ $cat->name }}</a></li>
                 @endforeach
             @endif
-            <a href="{{$all_product ?? ''}}">{{__('View All')}}</a>
+            <a href="{{ route("product.index") }}">{{__('View All')}}</a>
         </div>
     </div>
     <div class="products-content">
@@ -18,7 +18,7 @@
                 <li class="product">
                     <div class="product-inner">
                         <div class="mf-product-thumbnail">
-                            <a href="{{$link.$item['slug']}}">
+                            <a href="#">
                                 <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title']}}">
                             </a>
                             <div class="footer-button">
@@ -56,7 +56,7 @@
                         </span>
 
                         <h2>
-                            <a href="{{$link.$item['slug']}}">{{$item['title'] ?? ''}}</a>
+                            <a href="{{$item->getDetailUrl()}}">{{$item['title'] ?? ''}}</a>
                         </h2>
                         @if($brand = $item->brand->name ?? "")
                             <div class="sold-by-meta">

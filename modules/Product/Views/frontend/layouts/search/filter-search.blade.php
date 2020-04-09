@@ -35,7 +35,7 @@
         </aside>
         @if(!empty($brands))
             @php
-                $selected = (array) Request::query('brand_is');
+                $selected = (array) Request::query('brand');
             @endphp
             <div class="g-filter-item">
                 <div class="item-title">
@@ -43,13 +43,16 @@
                 </div>
                 <div class="item-content">
                     <div class="bravo-filter-checkbox">
-                        <div class="search_layered_nav"><input type="text" class="mf-input-search-nav"></div>
                         <ul class="bravo-custom-scroll list-unstyled">
                             @foreach($brands as $item=>$brand)
-                                @php $translate= $brand->translateOrOrigin(app()->getLocale()) @endphp
+                                @php $translate = $brand->translateOrOrigin(app()->getLocale()) @endphp
                                 <li>
-                                    <a href="#">{{$translate->name}}</a>
-                                    <span class="count">({{$brand->count_product}})</span>
+                                <div class="bravo-checkbox">
+                                    <label>
+                                        <input @if(in_array($brand->id,$selected)) checked @endif type="checkbox" name="brand[]" value="{{$brand->id}}"> {!! $translate->name !!}
+                                            <span class="checkmark"></span>
+                                    </label>
+                                </div>
                                 </li>
                             @endforeach
                         </ul>
@@ -65,14 +68,16 @@
             <div class="item-content">
                 <div class="bravo-filter-price">
                     <?php
-                    $price_min = $pri_from = $product_min_max_price[0];
-                    $price_max = $pri_to = $product_min_max_price[1];
-                    if (!empty($price_range = Request::query('price_range'))) {
-                        $pri_from = explode(";", $price_range)[0];
-                        $pri_to = explode(";", $price_range)[1];
+                    $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
+                    $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );
+                    if (!empty($min_price = Request::query('min_price'))) {
+                        $pri_from = $min_price;
+                    }
+                    if (!empty($max_price = Request::query('max_price'))) {
+                        $pri_to = $max_price;
                     }
                     $currency = App\Currency::getCurrency(setting_item('currency_main'));?>
-                    <div class="price_slider"></div>
+                    <div class="price_slider"  data-from="{{$pri_from}}" data-to="{{$pri_to}}"></div>
                     <div class="bravo-filter-price-amount" data-step="10">
                         <input type="text" id="min_price" name="min_price" class="d-none" value="{{$price_min}}"
                                data-min="{{$price_min}}">
@@ -85,6 +90,7 @@
                         </div>
                         <div class="clear"></div>
                     </div>
+                    <input type="submit" class="bravo-price-submit" title="{{__('APPLY')}}" value="{{__('APPLY')}}">
                 </div>
             </div>
         </div>
@@ -93,32 +99,22 @@
                 <h4>{{__("BY REVIEW")}}</h4>
             </div>
             <div class="item-content">
+
                 <div class="bravo-filter-reviews">
-                    <ul>
-                        <li class="wc-layered-nav-rating">
-                            <a href="#">
-                                <span class="star-rating"><span style="width:100%">Rated <strong
-                                            class="rating">5</strong> out of 5</span></span>(2)
-                            </a>
-                        </li>
-                        <li class="wc-layered-nav-rating">
-                            <a href="#">
-                                <span class="star-rating"><span style="width:80%">Rated <strong
-                                            class="rating">4</strong> out of 5</span></span>(2)
-                            </a>
-                        </li>
-                        <li class="wc-layered-nav-rating">
-                            <a href="#">
-                                <span class="star-rating"><span style="width:60%">Rated <strong
-                                            class="rating">3</strong> out of 5</span></span>(1)
-                            </a>
-                        </li>
-                        <li class="wc-layered-nav-rating">
-                            <a href="http://demo2.drfuri.com/martfury3/product-category/garden-kitchen/?rating_filter=2">
-                                <span class="star-rating"><span style="width:40%">Rated <strong
-                                            class="rating">2</strong> out of 5</span></span>(1)
-                            </a>
-                        </li>
+                    <ul class="list-unstyled">
+                        @for ($number = 5 ;$number >= 1 ; $number--)
+                            <li>
+                                <div class="bravo-checkbox">
+                                    <label>
+                                        <input name="review_score[]" type="checkbox" value="{{$number}}" @if(  in_array($number , request()->query('review_score',[])) )  checked @endif>
+                                        <span class="checkmark"></span>
+                                        @for ($review_score = 1 ;$review_score <= $number ; $review_score++)
+                                            <i class="fa fa-star"></i>
+                                        @endfor
+                                    </label>
+                                </div>
+                            </li>
+                        @endfor
                     </ul>
                 </div>
             </div>

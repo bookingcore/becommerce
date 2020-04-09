@@ -6,12 +6,7 @@
                     <span class="cat-title">{{__($title)}}</span>
                 </h2>
                 <div class="tabs-header-nav">
-                    <ul class="tabs-nav">
-                        <li><a href="#" data-href="recent">{{__('New Arrivals')}}</a></li>
-                        <li><a href="#" data-href="best_selling">{{__('Best Seller')}}</a></li>
-                        <li><a href="#" data-href="top_rated">{{__('Most Popular')}}</a></li>
-                    </ul>
-                    <a class="link" href="#">{{__('View All')}}</a></div>
+                    <a class="link" href="{{ route("product.index") }}">{{__('View All')}}</a></div>
             </div>
             <div class="tabs-content">
                 <div class="woocommerce">
@@ -21,7 +16,7 @@
                                 <li class="product type-product">
                                     <div class="product-inner">
                                         <div class="mf-product-thumbnail">
-                                            <a href="#">
+                                            <a href="{{$item->getDetailUrl()}}">
                                                 @if($image = get_image_tag($item['image_id']))
                                                     <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title'] ?? ''}}">
                                                 @endif
@@ -64,11 +59,14 @@
                                                 <div class="mf-vendor-name">
                                                     <div class="sold-by-meta">
                                                         <span class="sold-by-label">{{__('Brand: ')}}</span>
-                                                        <a href="#">{{$item->brand->name}}</a>
+                                                        @php
+                                                            $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $item->brand_id] );
+                                                        @endphp
+                                                        <a href="{{$link_search_brand}}">{{$item->brand->name}}</a>
                                                     </div>
                                                 </div>
 
-                                                <h2><a href="#">{{__($item['title']) ?? ''}}</a></h2>
+                                                <h2><a href="{{$item->getDetailUrl()}}">{{__($item['title']) ?? ''}}</a></h2>
 
                                                 <?php
                                                 $reviewData = (!empty($item)) ? $item->getScoreReview() : [];

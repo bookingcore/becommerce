@@ -51,6 +51,10 @@ class CreateProductTable extends Migration
 
 
             $table->string('product_type',50)->nullable();
+
+            //review
+            $table->decimal('review_score',2,1)->nullable();
+
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->timestamps();

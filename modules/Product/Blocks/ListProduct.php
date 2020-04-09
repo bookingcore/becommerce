@@ -55,12 +55,6 @@ class ListProduct extends BaseBlock
                     'label'     => __('Number Item')
                 ],
                 [
-                    'id'        => 'link_product',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Product Link')
-                ],
-                [
                     'id'            => 'order',
                     'type'          => 'select',
                     'label'         => __('Order'),
@@ -124,7 +118,7 @@ class ListProduct extends BaseBlock
                 $join->on('products.id', '=', 'product_category_relations.target_id')
                     ->whereIn('product_category_relations.cat_id', $category_ids);
             });
-            $categories = ProductCategory::select('name','id')->whereIn('id', $category_ids)->get();
+            $categories = ProductCategory::select('name','id','slug')->whereIn('id', $category_ids)->get();
         }
 
         if(!empty($model['is_featured']))
@@ -136,14 +130,11 @@ class ListProduct extends BaseBlock
         $model_product->where("products.status", "publish");
         $model_product->groupBy("products.id");
         $list = $model_product->limit($model['number'])->get();
-        $product_url = Product::getLinkForPageSearch();
         $data = [
             'rows'       => $list,
             'style_list' => $model['style_list'],
             'title'      => $model['title'],
-            'all_product'=> $model['link_product'],
             'categories' => $categories,
-            'link'       => $product_url
         ];
         return view('Product::frontend.blocks.list-space.index', $data);
     }

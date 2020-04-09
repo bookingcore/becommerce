@@ -4,11 +4,11 @@
             <h2 class="cat-title">{{__($title ?? '')}}</h2>
             <ul class="extra-links">
                 @if(!empty($categories))
-                    @foreach($categories as $item)
-                        <li><a class="extra-link" href="#">{{__($item['name'])}}</a></li>
+                    @foreach($categories as $cat)
+                        <li><a class="extra-link" href="{{$cat->getDetailUrl()}}">{{ $cat->name }}</a></li>
                     @endforeach
                 @endif
-                <li><a class="extra-link " href="#">{{__('View All')}}</a></li>
+                <li><a class="extra-link " href="{{ route("product.index") }}">{{__('View All')}}</a></li>
             </ul>
         </div>
 
@@ -20,11 +20,11 @@
                             <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
                                 <div class="product-inner">
                                     <div class="mf-product-thumbnail">
-                                        <a href="#">{!! get_image_tag($item['image_id']) !!}</a>
+                                        <a href="{{$item->getDetailUrl()}}">{!! get_image_tag($item['image_id']) !!}</a>
                                     </div>
                                     <div class="mf-product-details">
                                         <div class="mf-product-content">
-                                            <h2><a href="#">{{$item['title']}}</a></h2>
+                                            <h2><a href="{{$item->getDetailUrl()}}">{{$item['title']}}</a></h2>
                                             <?php
                                             $reviewData = $item->getScoreReview();
                                             $score_total = $reviewData['score_total'];

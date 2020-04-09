@@ -433,6 +433,16 @@ class ProductSeeder extends Seeder
                     $rs->save();
                 }
             }
+
+            \Modules\Product\Models\ProductTerm::firstOrCreate([
+                'term_id' => rand(1,2),
+                'target_id' => $id
+            ]);
+            \Modules\Product\Models\ProductTerm::firstOrCreate([
+                'term_id' => rand(3,7),
+                'target_id' => $id
+            ]);
+
         }
 
     }

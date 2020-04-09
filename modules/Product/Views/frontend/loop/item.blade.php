@@ -1,6 +1,9 @@
+@php
+    $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] );
+    @endphp
 <div class="product-inner">
     <div class="mf-product-thumbnail">
-        <a href="#">
+        <a href="{{ $row->getDetailUrl() }}">
             @if($image = get_image_tag($row['image_id']))
                 <img src="{{get_file_url($row['image_id'],'thumb')}}" alt="{{$row['title'] ?? ''}}">
             @endif
@@ -43,11 +46,11 @@
             <div class="mf-vendor-name">
                 <div class="sold-by-meta">
                     <span class="sold-by-label">{{__('Brand: ')}}</span>
-                    <a href="#">{{$row->brand->name ?? ''}}</a>
+                    <a href="{{$link_search_brand}}">{{$row->brand->name ?? ''}}</a>
                 </div>
             </div>
 
-            <h2><a href="#">{{__($row['title']) ?? ''}}</a></h2>
+            <h2><a href="{{ $row->getDetailUrl() }}">{{__($row['title']) ?? ''}}</a></h2>
 
             <?php
             $reviewData = (!empty($row)) ? $row->getScoreReview() : [];
@@ -85,7 +88,7 @@
 
             <div class="sold-by-meta">
                 <span class="sold-by-label">{{__('Brand: ')}}</span>
-                <a href="#">{{$row->brand->name ?? ''}}</a></div>
+                <a href="{{$link_search_brand}}">{{$row->brand->name ?? ''}}</a></div>
         </div>
 
         <div class="mf-product-price-box">

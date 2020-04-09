@@ -130,7 +130,7 @@ class CategoryController extends AdminController
             if(is_array($selected))
             {
                 $query = ProductCategory::select('id', 'name as text');
-                $items = $query->whereIn('id',$selected)->take(50)->get();
+                $items = $query->whereIn('id',$selected)->take(30)->get();
                 return response()->json([
                     'items'=>$items
                 ]);
@@ -142,7 +142,7 @@ class CategoryController extends AdminController
         if ($q) {
             $query->where('name', 'like', '%' . $q . '%');
         }
-        $res = $query->orderBy('id', 'desc')->limit(20)->get();
+        $res = $query->orderBy('id', 'desc')->get();
         return response()->json([
             'results' => $res
         ]);

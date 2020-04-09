@@ -6,12 +6,12 @@
                 @foreach($rows as $item)
                     <div class="item">
                         <div class="mf-image-box style-2 title-s1">
-                            <a class="thumbnail" href="#">
+                            <a class="thumbnail" href="{{$item->getDetailUrl()}}">
                                 {!! get_image_tag($item['image_id'], 'full') !!}
                             </a>
                             <div class="image-content">
                                 <h2 class="box-title">
-                                    <a class="" href="#">{{$item['name']}}</a>
+                                    <a href="{{$item->getDetailUrl()}}">{{$item['name']}}</a>
                                 </h2>
                             </div>
                         </div>

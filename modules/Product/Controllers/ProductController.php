@@ -26,15 +26,14 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
         $query = $this->product::query()->select("products.*");
         $query->where("products.status", "publish");
 
-        if (!empty($price_range = $request->query('price_range'))) {
-            $pri_from = explode(";", $price_range)[0];
-            $pri_to = explode(";", $price_range)[1];
-            $raw_sql_min_max = "( (products.sale_price > 0 and products.sale_price >= ? ) OR (products.sale_price <= 0 and products.price >= ? ) )
-                            AND ( (products.sale_price > 0 and products.sale_price <= ? ) OR (products.sale_price <= 0 and products.price <= ? ) )";
+        if (!empty($min_price = $request->query('min_price')) and !empty($max_price = $request->query('max_price'))) {
+            $pri_from = $min_price;
+            $pri_to = $max_price;
+            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
+								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
             $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
         }
 
@@ -42,13 +41,28 @@ class ProductController extends Controller
         if (is_array($terms) && !empty($terms)) {
             $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $terms);
         }
+
+        $review_scores = $request->query('review_score');
+        if (is_array($review_scores) && !empty($review_scores)) {
+            $where_review_score = [];
+            foreach ($review_scores as $number){
+                $where_review_score[] = " ( products.review_score >= {$number} AND products.review_score <= {$number}.9 ) ";
+            }
+            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
+            $query->WhereRaw($sql_where_review_score);
+        }
+
+        $brand = $request->query('brand');
+        if (is_array($brand) && !empty($brand)){
+            $query->whereIn('products.brand_id', $brand);
+        }
+
         $query->orderBy("id", "desc");
         $query->groupBy("products.id");
 
         $list = $query->paginate(12);
 
         $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
-        dump($categories);
 
         $data = [
             'rows'               => $list,
