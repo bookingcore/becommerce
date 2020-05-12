@@ -30,7 +30,7 @@
                                     <option value="">{{__(" Bulk Action ")}}</option>
                                     <option value="delete">{{__(" Delete ")}}</option>
                                 </select>
-                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                             </form>
                         @endif
                     </div>

@@ -1,7 +1,4 @@
 <div class="row">
-    <div class="col-lg-3 col-md-12">
-        @include('Product::frontend.layouts.search.filter-search')
-    </div>
     <div class="col-lg-9 col-md-12">
         <div class="bravo-block-item bravo-block-list-item-carousel" >
             <div class="block-title">

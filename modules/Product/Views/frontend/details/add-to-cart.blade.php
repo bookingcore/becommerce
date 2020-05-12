@@ -7,7 +7,7 @@
                 <div class="quantity-input-group">
                     <span class="minus decrease">
                         <i class="icon-minus"></i></span>
-                    <input name="quantity" type="number" min="1" max="100">
+                    <input name="quantity" type="number" min="1" max="100" value="1">
                     <span class="plus increase"><i class="icon-plus"></i></span>
                 </div>
             </div>

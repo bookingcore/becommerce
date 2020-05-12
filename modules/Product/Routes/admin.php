@@ -36,12 +36,14 @@ Route::group(['prefix'=>'tag'],function (){
 
 Route::group(['prefix'=>'attribute'],function (){
     Route::get('/','AttributeController@index')->name('product.admin.attribute.index');
+    Route::post('/editAttrBulk','AttributeController@editAttrBulk')->name('product.admin.attribute.editattrbulk');
     Route::get('edit/{id}','AttributeController@edit')->name('product.admin.attribute.edit');
     Route::post('store/{id}','AttributeController@store')->name('product.admin.attribute.store');
 
     Route::get('terms/{id}','AttributeController@terms')->name('product.admin.attribute.term.index');
     Route::get('term_edit/{id}','AttributeController@term_edit')->name('product.admin.attribute.term.edit');
     Route::post('term_store','AttributeController@term_store')->name('product.admin.attribute.term.store');
+    Route::post('/editTermBulk','AttributeController@editTermBulk')->name('product.admin.attribute.term.editTermBulk');
 
     Route::get('getForSelect2','AttributeController@getForSelect2')->name('product.admin.attribute.term.getForSelect2');
 
@@ -53,3 +55,9 @@ Route::group(['prefix'=>'attribute'],function (){
 });
 
 Route::post('/ajaxAddTerm','AttributeController@ajaxAddTerm')->name('product.admin.attribute.ajaxAddTerm');
+
+
+Route::group(['prefix'=>'category'],function (){
+    Route::get('getForSelect2','CategoryController@getForSelect2')->name('product.admin.category.getForSelect2');
+
+});

@@ -1,53 +1,36 @@
 @foreach($rows as $row)
     @php
         $translation = $row->translateOrOrigin(app()->getLocale()); @endphp
-    <div class="post_item ">
-        <div class="header">
-            @if($image_tag = get_image_tag($row->image_id,'full'))
-                <header class="post-header">
-                    <a href="{{$row->getDetailUrl()}}">
-                        {!! $image_tag !!}
-                    </a>
+
+    <article class="col-md-6 col-sm-6 col-xs-6 blog-wapper">
+        @if($image_tag = get_image_tag($row->image_id,'full'))
+                <header class="entry-header">
+                    <div class="entry-format format-audio">
+                        <a class="entry-image" href="{{$row->getDetailUrl()}}">
+                            {!! $image_tag !!}
+                        </a>
+                    </div>
                 </header>
-                <div class="cate">
+        @endif
+        <!-- .entry-header -->
+        <div class="entry-content">
+            <div class="entry-content-top">
+                <div class="categories-links">
                     @php $category = $row->getCategory; @endphp
-                    @if(!empty($category))
-                        @php $t = $category->translateOrOrigin(app()->getLocale()); @endphp
-                        <ul>
-                            <li>
-                                <a href="{{$category->getDetailUrl(app()->getLocale())}}">
-                                    {{$t->name ?? ''}}
-                                </a>
-                            </li>
-                        </ul>
-                    @endif
+                    <a href="{{$category->getDetailUrl(app()->getLocale())}}">{{$category->name}}</a>
                 </div>
-            @endif
-            <div class="post-inner">
-                <h4 class="post-title">
-                    <a class="text-darken" href="{{$row->getDetailUrl()}}"> {{$translation->title}}</a>
-                </h4>
-                <div class="post-info">
-                    <ul>
-                        @if(!empty($row->getAuthor))
-                            <li>
-                                @if($avatar_url = $row->getAuthor->getAvatarUrl())
-                                    <img class="avatar" src="{{$avatar_url}}" alt="{{$row->getAuthor->getDisplayName()}}">
-                                @else
-                                    <span class="avatar-text">{{ucfirst($row->getAuthor->getDisplayName()[0])}}</span>
-                                @endif
-                                <span> {{ __('BY ')}} </span>
-                                {{$row->getAuthor->getDisplayName() ?? ''}}
-                            </li>
-                        @endif
-                        <li> {{__('DATE ')}}  {{ display_date($row->updated_at)}}  </li>
-                    </ul>
-                </div>
-                <div class="post-desciption">
-                    {{ get_exceprt($translation->content) }}
-                </div>
-                <a class="btn-readmore" href="{{$row->getDetailUrl()}}">{{ __('Read More')}}</a>
+                <h2 class="entry-title">
+                    <a href="{{$row->getDetailUrl()}}" rel="bookmark">{{$translation->title}}</a>
+                </h2>
+            </div>
+            <div class="entry-content-bottom">
+                <a class="entry-meta" rel="bookmark">{{__('DATE ')}}  {{ display_date($row->updated_at)}}</a>
+                <span class="entry-author entry-meta"> {{ __('by ')}}
+                    <a class="url fn n">{{$row->getAuthor->getDisplayName() ?? ''}}</a>
+                </span>
             </div>
         </div>
-    </div>
+        <!-- .entry-content -->
+
+    </article>
 @endforeach

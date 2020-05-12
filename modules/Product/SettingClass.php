@@ -11,28 +11,32 @@ class SettingClass extends BaseSettingsClass
     {
         return [
             [
-                'id'   => 'space',
-                'title' => __("Space Settings"),
+                'id'   => 'product',
+                'title' => __("Product Settings"),
                 'position'=>20,
-                'view'=>"Space::admin.settings.space",
+                'view'=>"Product::admin.settings.product",
                 "keys"=>[
-                    'space_page_search_title',
-                    'space_page_search_banner',
-                    'space_layout_search',
-                    'space_location_search_style',
+                    'product_page_search_title',
+                    'product_page_search_banner',
+                    'product_layout_search',
+                    'product_location_search_style',
 
-                    'space_enable_review',
-                    'space_review_approved',
-                    'space_enable_review_after_booking',
-                    'space_review_number_per_page',
-                    'space_review_stats',
+                    'product_enable_review',
+                    'product_review_approved',
+                    'product_enable_review_after_booking',
+                    'product_review_number_per_page',
+                    'product_review_stats',
 
-                    'space_page_list_seo_title',
-                    'space_page_list_seo_desc',
-                    'space_page_list_seo_image',
-                    'space_page_list_seo_share',
+                    'product_page_list_seo_title',
+                    'product_page_list_seo_desc',
+                    'product_page_list_seo_image',
+                    'product_page_list_seo_share',
 
-                    'space_booking_buyer_fees',
+                    'product_booking_buyer_fees',
+
+                    'product_policies',
+                    'product_sidebar',
+                    'list_sliders'
                 ],
                 'html_keys'=>[
 

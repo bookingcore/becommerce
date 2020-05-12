@@ -106,6 +106,12 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
+    public static function getBookableServices()
+    {
+        return [
+            'product' => Product::class,
+        ];
+    }
     public static function getProductTypes()
     {
         return [
@@ -159,7 +165,15 @@ class ModuleProvider extends ModuleServiceProvider
                 "title"=>__("SEO"),
                 "view"=>"Core::admin.seo-meta.seo-meta"
             ],
-            
+
+        ];
+    }
+
+    public static function getTemplateBlocks(){
+        return [
+            'ListProduct'=>"\\Modules\\Product\\Blocks\\ListProduct",
+            'ListCategories'=>"\\Modules\\Product\\Blocks\\ListCategories",
+            'ListProductInCategories'=>"\\Modules\\Product\\Blocks\\ListProductInCategories",
         ];
     }
 }

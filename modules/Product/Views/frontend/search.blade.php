@@ -4,25 +4,24 @@
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/ion_rangeslider/css/ion.rangeSlider.min.css") }}"/>
 @endsection
 @section('content')
+    <div class="bravo-breadcrumbs">
+        @include('Product::frontend.layouts.search.search-bc')
+    </div>
+
     <div class="bravo_search_product">
-        <div class="bravo_banner" @if($bg = setting_item("product_page_search_banner")) style="background-image: url({{get_file_url($bg,'full')}})" @endif >
-            <div class="bravo-container container">
-                <h1>
-                    {{setting_item_with_lang("product_page_search_title")}}
-                </h1>
-            </div>
-        </div>
-        <div class="bravo_form_search">
-            <div class="bravo-container container">
+
+        <div class="container">
+            <div class="search-header">
                 <div class="row">
-                    <div class="col-lg-12 col-md-12">
-                        @include('Product::frontend.layouts.search.form-search')
+                    <div class="col-md-3 col-sm-12 col-xs-12">
+                        @include('Product::frontend.layouts.search.filter-search')
+                    </div>
+                    <!-- #secondary -->
+                    <div id="primary" class="content-area col-md-9 col-sm-12 col-xs-12">
+                        @include('Product::frontend.layouts.search.content-search')
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bravo-container container">
-            @include('Product::frontend.layouts.search.list-item')
         </div>
     </div>
 @endsection

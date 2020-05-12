@@ -72,6 +72,7 @@ class Settings extends BaseModel
         $all = array_merge($all,\Modules\Booking\SettingClass::getSettingPages());
         $all = array_merge($all,\Modules\Email\SettingClass::getSettingPages());
         $all = array_merge($all,\Modules\Vendor\SettingClass::getSettingPages());
+        $all = array_merge($all,\Modules\Product\SettingClass::getSettingPages());
 
         // Modules
         $custom_modules = \Modules\ServiceProvider::getModules();

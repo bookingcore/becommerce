@@ -5,5 +5,18 @@
 .subscribe-form{
     padding-top: 65px;
     padding-bottom: 65px;
-    border-bottom: 1px solid #e1e1e1
+    border-bottom: 1px solid #e1e1e1;
+    .bravo-subscribe-form{
+        .email-input{
+            border: 1px solid #ccc;
+            height: 50px;
+            line-height: 50px;
+            padding: 0 25px;
+            border-radius: 4px 0 0 4px;
+            background-color: #fff;
+        }
+        button{
+
+        }
+    }
 }

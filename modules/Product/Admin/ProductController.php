@@ -93,7 +93,7 @@ class ProductController extends AdminController
         $row->save();
         $row->create_user = Auth::id();
         return \redirect()->to(route('product.admin.edit',['id'=>$row->id]));
-      
+
     }
 
     public function edit(Request $request, $id)
@@ -154,6 +154,7 @@ class ProductController extends AdminController
         $dataKeys = [
             'title',
             'content',
+            'short_desc',
             'slug',
             'status',
             'image_id',

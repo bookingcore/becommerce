@@ -37,7 +37,11 @@ class ReviewController extends Controller
         }
         $reviewEnableAfterBooking = $module->check_enable_review_after_booking();
         if (!$reviewEnableAfterBooking) {
-            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You need booking success before rating review'));
+            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You need booking before write a review'));
+        }else{
+            if (!$module->check_allow_review_after_making_completed_booking() ) {
+                return redirect()->to(url()->previous() . '#review-form')->with('error', __('You can review after making completed booking'));
+            }
         }
 
         if ($module->create_user == Auth::id()) {
@@ -103,7 +107,8 @@ class ReviewController extends Controller
             if ($module->getReviewApproved()) {
                 $msg = __("Review success! Please wait for admin approved!");
             }
-            return redirect()->to(url()->previous() . '#review-form')->with('success', $msg);
+            $module->update_service_rate();
+            return redirect()->to(url()->previous() . '#bravo-reviews')->with('success', $msg);
         }
         return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review error!'));
     }

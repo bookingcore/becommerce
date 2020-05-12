@@ -15,6 +15,9 @@
             <del>
                 <span class="amount">{{format_money($row->price)}}</span>
             </del>
+            @if(!empty($row->discount_percent))
+                <span class="sale">(-{{$row->discount_percent}})</span>
+            @endif
         </p>
     @else
         <p class="price">

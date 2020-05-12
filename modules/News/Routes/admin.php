@@ -7,12 +7,15 @@
  */
 use Illuminate\Support\Facades\Route;
 
-Route::get('/create', 'NewsController@create')->name('news.admin.create');
+Route::get('/', 'NewsController@index')->name('news.admin.index');
+
 Route::get('/edit/{id}', 'NewsController@edit')->name('news.admin.edit');
 
 Route::post('/store/{id}','NewsController@store')->name('news.admin.store');
 
 Route::get('/category','CategoryController@index')->name('news.admin.category.index');
+
+Route::get('category/getForSelect2','CategoryController@getForSelect2')->name('news.admin.category.getForSelect2');
 
 Route::get('/category/{id}','CategoryController@edit')->name('news.admin.category.edit');
 

@@ -1,65 +1,107 @@
-<div class="product-item clearfix">
-    <div class="product-thumbnail">
-        <a href="{{$row->getDetailUrl()}}" tabindex="0">
-            <img src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2013/06/14a-300x300.jpg" data-original="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2013/06/14a-300x300.jpg" alt="" class="" width="300" height="300" style="display: block;">
+@php
+    $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] );
+    @endphp
+<div class="product-inner">
+    <div class="mf-product-thumbnail">
+        <a href="{{ $row->getDetailUrl() }}">
+            @if($image = get_image_tag($row['image_id']))
+                <img src="{{get_file_url($row['image_id'],'thumb')}}" alt="{{$row['title'] ?? ''}}">
+            @endif
             @if(!empty($row->discount_percent))
-                <span class="ribbons"><span class="onsale ribbon"><span class="sep">-</span>{{$row->discount_percent}}</span></span>
+                <span class="ribbons">
+                    <span class="onsale ribbon">
+                        <span class="sep">-</span>{{$row->discount_percent}}
+                    </span>
+                </span>
             @endif
         </a>
+
         <div class="footer-button">
-            <a href="{{$row->getDetailUrl()}}" data-quantity="1" data-title="{{$row->title}}" class="button product_type_simple add_to_cart_button ajax_add_to_cart" data-product_id="{{$row->id}}" data-product_sku="{{$row->sku}}" aria-label="Add “{{$row->title}}” to your cart" rel="nofollow" tabindex="0"><i class="p-icon icon-bag2" data-toggle="tooltip" title="Add to cart"></i></a>
-            <a href="{{$row->getDetailUrl()}}" data-id="{{$row->id}}" class="product-quick-view" tabindex="0"><i class="p-icon icon-eye" title="Quick View" data-toggle="tooltip"></i></a>
-            <a href="#" class="wishlist" data-toggle="tooltip" title="Add To Wishlist" data-product_id="{{$row->id}}" tabindex="0"></a>
-            <a href="#" class="compare" data-toggle="tooltip" title="Compare" data-product_id="{{$row->id}}" tabindex="0"></a>
+            <a href="#">
+                <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to cart')}}"></i>
+                <span class="add-to-cart-text">{{__('Add to cart')}}</span>
+            </a>
+            <a href="#" class="mf-product-quick-view">
+                <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
+            </a>
+            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-31 wishlist-fragment on-first-load">
+                <!-- ADD TO WISHLIST -->
+
+                <div class="yith-wcwl-add-button">
+                    <a href="#" title="{{__('Add to Wishlist')}}" tabindex="0">
+                        <i class="yith-wcwl-icon fa fa-heart-o"></i>
+                        <span>{{__('Add to Wishlist')}}</span>
+                    </a>
+                </div>
+                <!-- COUNT TEXT -->
+
+            </div>
+            <div class="compare-button mf-compare-button">
+                <a href="#" class="compare" title="{{__('Compare')}}">{{__('Compare')}}</a>
+            </div>
         </div>
     </div>
-    <div class="product-item-inner">
-        <div class="product-content">
-            <div class="vendor-name">
-                <div class="sold-by-meta"><span class="sold-by-label"></span><a href="http://demo2.drfuri.com/martfury3/vendor/iclever/" tabindex="0">Robert’s Store</a></div>
-            </div>
-            <h2><a href="{{$row->getDetailUrl()}}" tabindex="0">{{$row->title}}</a></h2>
-            <div class="product-rating">
-                <div class="brand-review">
-					<?php
-					$reviewData = $row->review_data;
-					$score_total = $reviewData['score_total'];
-					?>
-                    <div class="service-review product-review-{{$score_total}}">
-                        <div class="list-star">
-                            <ul class="booking-item-rating-stars">
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                                <li><i class="fa fa-star-o"></i></li>
-                            </ul>
-                            <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
-                                <ul class="booking-item-rating-stars">
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                    <li><i class="fa fa-star"></i></li>
-                                </ul>
-                            </div>
-                        </div>
-                        @if(!empty($reviewData['total_review']))
-                            <span class="review">
-                                {{$reviewData['total_review']}}
-                            </span>
-                        @endif
-                    </div>
+    <div class="mf-product-details">
+        <div class="mf-product-content">
+            <div class="mf-vendor-name">
+                <div class="sold-by-meta">
+                    <span class="sold-by-label">{{__('Brand: ')}}</span>
+                    <a href="{{$link_search_brand}}">{{$row->brand->name ?? ''}}</a>
                 </div>
             </div>
+
+            <h2><a href="{{ $row->getDetailUrl() }}">{{__($row['title']) ?? ''}}</a></h2>
+
+            <?php
+            $reviewData = (!empty($row)) ? $row->getScoreReview() : [];
+            $score_total = $reviewData['score_total'];
+            ?>
+            <div class="service-review tour-review-{{$score_total}}">
+                <div class="list-star">
+                    <ul class="booking-item-rating-stars">
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                    </ul>
+                    <div class="booking-item-rating-stars-active"
+                         style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                        <ul class="booking-item-rating-stars">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="review">
+                    @if($reviewData['total_review'] > 1)
+                        {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
+                        @else
+                        {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
+                        @endif
+                </span>
+            </div>
+
+
+            <div class="sold-by-meta">
+                <span class="sold-by-label">{{__('Brand: ')}}</span>
+                <a href="{{$link_search_brand}}">{{$row->brand->name ?? ''}}</a></div>
         </div>
-        <div class="product-price-box">
-            @include('Product::frontend.details.price')
-        </div>
-        <div class="product-details-hover">
-            <div class="sold-by-meta"><span class="sold-by-label"></span><a href="http://demo2.drfuri.com/martfury3/vendor/iclever/" tabindex="0">Robert’s Store</a></div>
-            <h2><a href="{{$row->getDetailUrl()}}" tabindex="0">{{$row->title}}</a></h2>
-            @include('Product::frontend.details.price')
+
+        <div class="mf-product-price-box">
+            <span class="price">
+                <ins><span
+                        class="woocommerce-Price-amount amount">{{ $row->display_price }}</span></ins>
+                <del><span
+                        class="woocommerce-Price-amount amount">{{ $row->display_sale_price }}</span></del>
+                @if(!empty($row->discount_percent))
+                    <span
+                        class="sale"> {{ __(":discount off",["discount"=>$row->discount_percent]) }}</span>
+                @endif
+            </span>
         </div>
     </div>
 </div>

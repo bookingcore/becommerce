@@ -519,4 +519,55 @@ jQuery(function ($) {
     });
 });
 
+jQuery(function ($) {
+    $('.testimonial-list').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        slidesToShow: 2,
+        slidesToScroll: 1,
+        prevArrow: '<div class="mf-left-arrow slick-arrow" style="display: block;"><i class="icon-chevron-left"></i></div>',
+        nextArrow: '<div class="mf-right-arrow slick-arrow" style="display: block;"><i class="icon-chevron-right"></i></div>',
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                    arrows: false,
+                    slidesToShow: 1,
+                    slidesToScroll: 1,
+                    dots: true,
+                }
+            },
+        ]
+    });
+
+    $('.bravo-home-sliders').slick({
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 3000,
+        prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="icon-chevron-left"></i></button>',
+        nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
+    });
+
+    $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .products, .product-related .products').slick({
+        infinite: false,
+        slidesToShow: 6,
+        slidesToScroll: 6,
+        arrows: false,
+        dots: true,
+    });
+
+    $('.product-categories li .cat-menu-close').click(function () {
+        if ($(this).parent().hasClass('opened')){
+            $(this).next().stop().slideUp('normal').parent().removeClass('opened');
+        } else {
+            $(this).next().stop().slideDown('normal').parent().addClass('opened');
+        }
+    });
+    $('#mf-catalog-banners').slick({
+        prevArrow: '<span class="icon-chevron-left slick-prev-arrow slick-arrow"></span>',
+        nextArrow: '<span class="icon-chevron-right slick-next-arrow slick-arrow"></span>',
+    });
+});
+
 

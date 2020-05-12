@@ -107,14 +107,7 @@
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
-            DB::table('core_pages')->insert([
-                'title'       => 'Home Space',
-                'slug'        => 'space',
-                'template_id' => '2',
-                'create_user' => '1',
-                'status'      => 'publish',
-                'created_at'  => date("Y-m-d H:i:s")
-            ]);
+
             DB::table('core_settings')->insert(
                 [
                     [
@@ -171,17 +164,17 @@
                     ],
                     [
                         'name'  => "currency_decimal",
-                        'val'   => ",",
-                        'group' => "payment",
-                    ],
-                    [
-                        'name'  => "currency_thousand",
                         'val'   => ".",
                         'group' => "payment",
                     ],
                     [
+                        'name'  => "currency_thousand",
+                        'val'   => ",",
+                        'group' => "payment",
+                    ],
+                    [
                         'name'  => "currency_no_decimal",
-                        'val'   => "0",
+                        'val'   => "2",
                         'group' => "payment",
                     ]
                 ]

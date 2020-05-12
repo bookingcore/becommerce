@@ -56,20 +56,6 @@ class RouterServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->group(__DIR__ . '/Routes/web.php');
     }
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapLanguageRoutes()
-    {
-        Route::middleware('web')
-            ->namespace($this->moduleNamespace)
-            ->prefix(app()->getLocale())
-            ->group(__DIR__ . '/Routes/language.php');
-    }
 
     /**
      * Define the "admin" routes for the application.
@@ -84,6 +70,20 @@ class RouterServiceProvider extends ServiceProvider
             ->namespace($this->adminModuleNamespace)
             ->prefix('admin/module/review')
             ->group(__DIR__ . '/Routes/admin.php');
+    }
+    /**
+     * Define the "lang" routes for the application.
+     *
+     * These routes all receive session state, CSRF protection, etc.
+     *
+     * @return void
+     */
+    protected function mapLanguageRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->prefix(app()->getLocale())
+            ->group(__DIR__ . '/Routes/language.php');
     }
 
     /**

@@ -1,20 +1,20 @@
 $(document).ready(function () {
     console.log($('.product-related').length);
-    if($('.product-related').length>0){
+    /*if($('.product-related').length>0){
         $('.product-related').flexslider({
             animation: "slide",
             animationLoop: false,
             itemWidth: 255,
             rtl: true
         });
-    }
+    }*/
     if($('.product-detail-gallery').length>0){
         $('.product-detail-gallery').flexslider({
             animation: "slide",
-            controlNav: "thumbnails"
+            controlNav: "thumbnails",
         });
     }
-    
+
     $('.add_to_cart').click(function (e) {
         e.preventDefault();
         var p = $(this).closest('.product-detail-add-to-cart');

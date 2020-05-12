@@ -23,8 +23,19 @@ class Product extends BaseProduct
 
     protected $fillable = [
         'title',
+        'slug',
         'content',
+        'image_id',
+        'banner_image_id',
         'short_desc',
+        'category_id',
+        'brand_id',
+        'is_featured',
+        'shipping_class',
+        'gallery',
+        'video',
+        'price',
+        'sale_price',
         'status'
     ];
     protected $slugField     = 'slug';
@@ -101,7 +112,7 @@ class Product extends BaseProduct
 
     public static function getLinkForPageSearch( $locale = false , $param = [] ){
 
-        return url(app_get_locale(false , false , '/'). config('space.product_route_prefix')."?".http_build_query($param));
+        return url(app_get_locale(false , false , '/'). 'product'."?".http_build_query($param));
     }
 
     public function getGallery($featuredIncluded = false)
@@ -270,7 +281,7 @@ class Product extends BaseProduct
     {
         $product_id = $this->id;
         $list_score = Cache::rememberForever('review_'.$this->type.'_' . $product_id, function () use ($product_id) {
-            $dataReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $product_id)->where('object_model', "space")->where("status", "approved")->first();
+            $dataReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $product_id)->where('object_model', $this->type)->where("status", "approved")->first();
             $score_total = !empty($dataReview->score_total) ? number_format($dataReview->score_total, 1) : 0;
             return [
                 'score_total'  => $score_total,
@@ -278,6 +289,7 @@ class Product extends BaseProduct
                 'review_text'   => $score_total ? Review::getDisplayTextScoreByLever( round( $score_total )) : __("Not rate"),
             ];
         });
+
         return $list_score;
     }
 
@@ -352,16 +364,31 @@ class Product extends BaseProduct
      */
     public function getTabsAttribute(){
         $tabs =  [
-              [
-                  'id'=>'content',
-                  'name'=>__('description'),
-                  'position'=>10
-              ],
-              [
-                  'id'=>'review',
-                  'name'=>__('Review'),
-                  'position'=>20
-              ],
+            [
+                'id' => 'content',
+                'name' => __('description'),
+                'position' => 10
+            ],
+            [
+                'id' => 'specification',
+                'name' => __('Specification'),
+                'position' => 20
+            ],
+            [
+                'id' => 'vendor',
+                'name' => __('Vendor'),
+                'position' => 30
+            ],
+            [
+                'id' => 'review',
+                'name' => __('Review'),
+                'position' => 40
+            ],
+            [
+                'id' => 'policies',
+                'name' => __('Policies'),
+                'position' => 50
+            ],
         ];
 
         return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {

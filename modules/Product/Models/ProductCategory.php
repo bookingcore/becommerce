@@ -37,4 +37,9 @@ class ProductCategory extends BaseModel
     public static function getCachedTree(){
         return parent::query()->where('status','publish')->get()->toTree();
     }
+
+    public function getDetailUrl($locale = false)
+    {
+        return url(app_get_locale(false , false , '/')."category/".$this->slug);
+    }
 }

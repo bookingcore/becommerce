@@ -23,7 +23,16 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'slider'=>"\\Modules\\Template\\Blocks\\Slider",
-            // 'vendor_register_form_test'=>"\\Modules\\Vendor\\Blocks\\VendorRegisterForm",
+            'callaction'=>"\\Modules\\Template\\Blocks\\CallAction",
+            'pageBreadcrumbs' =>"\\Modules\\Template\\Blocks\\pageBreadcrumbs",
+            'WhySellOnMartfury' =>"\\Modules\\Template\\Blocks\\WhySellOnMartfury",
+            'HowItWorks' =>"\\Modules\\Template\\Blocks\\HowItWorks",
+            'BestFeesToStart' =>"\\Modules\\Template\\Blocks\\BestFeesToStart",
+            'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",
+            'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
+            'BannerHome1' =>"\\Modules\\Template\\Blocks\\BannerHome1",
+            'HomeFee' =>"\\Modules\\Template\\Blocks\\HomeFee",
+            'Promotion' =>"\\Modules\\Template\\Blocks\\Promotion",
         ];
     }
 

@@ -7,7 +7,7 @@ use Modules\FrontendController;
 use Modules\News\Models\NewsCategory;
 use Modules\News\Models\Tag;
 use Modules\News\Models\News;
-use Modules\News\Models\ProductTag;
+use Modules\News\Models\NewsTag;
 
 class TagNewsController extends FrontendController
 {
@@ -25,6 +25,7 @@ class TagNewsController extends FrontendController
         $listNews = News::query();
         $listNews->select(['core_news.*'])->join('core_news_tag', 'core_news_tag.news_id', '=', 'core_news.id')
             ->where('core_news_tag.tag_id', $tag->id)
+            ->where('core_news_tag.deleted_at', null)
             ->with(['getAuthor','translations'])->with("getCategory");
 
         $translation = $tag->translateOrOrigin(app()->getLocale());
