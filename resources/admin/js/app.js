@@ -21,6 +21,9 @@ try {
 } catch (e) {
     console.log(e);
 }
+import filePicker from './components/file-picker';
+
+Vue.component('filePicker',filePicker)
 
 //window.ClassicEditor = require('../../ckeditor');
 // window.ClassicEditor = require('@ckeditor/ckeditor5-build-classic');

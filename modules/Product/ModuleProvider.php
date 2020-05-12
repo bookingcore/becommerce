@@ -2,6 +2,8 @@
 namespace Modules\Product;
 use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductBrand;
+use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\Space;
 use Modules\Product\Models\VariableProduct;
 
@@ -72,12 +74,24 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getMenuBuilderTypes()
     {
         return [
-//            'space'=>[
-//                'class' => Space::class,
-//                'name'  => __("Spaces"),
-//                'items' => Space::searchForMenu(),
-//                'position'=>41
-//            ]
+            'product'=>[
+                'class' => Product::class,
+                'name'  => __("Products"),
+                'items' => Product::searchForMenu(),
+                'position'=>41
+            ],
+            'product_cat'=>[
+                'class' => ProductCategory::class,
+                'name'  => __("Product Categories"),
+                'items' => ProductCategory::searchForMenu(),
+                'position'=>42
+            ],
+            'product_brand'=>[
+                'class' => ProductBrand::class,
+                'name'  => __("Product Brands"),
+                'items' => ProductBrand::searchForMenu(),
+                'position'=>42
+            ],
         ];
     }
 

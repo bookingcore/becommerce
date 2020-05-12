@@ -28,12 +28,18 @@
             map_provider:'{{setting_item('map_provider')}}',
             map_gmap_key:'{{setting_item('map_gmap_key')}}',
             csrf:'{{csrf_token()}}',
+            media:{
+                get_file:'{{route('media.get_file')}}'
+            }
         };
         var i18n = {
                 success:'{{__("Success")}}',
                 delete_confirm:'{{__('Do you want to delete?')}}',
                 confirm:'{{__("Confirm")}}',
                 cancel:'{{__("Cancel")}}',
+                browse:'{{__("Browse")}}',
+                clear:'{{__("Clear")}}',
+                choose_file:"{{__("Choose file...")}}",
             }
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>

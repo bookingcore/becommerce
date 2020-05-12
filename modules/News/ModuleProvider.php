@@ -3,6 +3,8 @@ namespace Modules\News;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\ModuleServiceProvider;
+use Modules\News\Models\News;
+use Modules\News\Models\NewsCategory;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -66,6 +68,25 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'list_news'=>"\\Modules\\News\\Blocks\\ListNews",
+        ];
+    }
+
+    public static function getMenuBuilderTypes()
+    {
+        return [
+            'news'=>[
+                'class' => News::class,
+                'name'  => __("News"),
+                'items' => News::searchForMenu(),
+                'position'=>10
+            ],
+            'news_cat'=>
+            [
+                'class' => NewsCategory::class,
+                'name'  => __("News Category"),
+                'items' => NewsCategory::searchForMenu(),
+                'position'=>11
+            ],
         ];
     }
 }

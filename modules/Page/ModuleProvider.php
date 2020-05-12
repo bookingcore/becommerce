@@ -9,6 +9,7 @@ namespace Modules\Page;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\ModuleServiceProvider;
+use Modules\Page\Models\Page;
 use Modules\Page\Providers\RouterServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -33,5 +34,17 @@ class ModuleProvider extends ModuleServiceProvider
         );
 
         $this->app->register(RouterServiceProvider::class);
+    }
+
+    public static function getMenuBuilderTypes()
+    {
+        return [
+            'page'=>[
+                'class' => Page::class,
+                'name'  => __("Pages"),
+                'items' => Page::searchForMenu(),
+                'position'=>20
+            ],
+        ];
     }
 }

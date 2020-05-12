@@ -32,6 +32,7 @@ class MenuController extends AdminController
     {
         return [
             'primary' => __("Primary"),
+            'department' => __("Department"),
             'footer'  => __("Footer"),
         ];
     }
@@ -121,42 +122,6 @@ class MenuController extends AdminController
     public function getTypes()
     {
         $menuModels = [
-            [
-                'class' => \Modules\Page\Models\Page::class,
-                'name'  => __("Page"),
-                'items' => \Modules\Page\Models\Page::searchForMenu(),
-                'position'=>10
-            ],
-            [
-                'class' => \Modules\Tour\Models\Tour::class,
-                'name'  => __("Tour"),
-                'items' => \Modules\Tour\Models\Tour::searchForMenu(),
-                'position'=>20
-            ],
-            [
-                'class' => \Modules\Tour\Models\TourCategory::class,
-                'name'  => __("Tour Category"),
-                'items' => \Modules\Tour\Models\TourCategory::searchForMenu(),
-                'position'=>30
-            ],
-            [
-                'class' => \Modules\Location\Models\Location::class,
-                'name'  => __("Location"),
-                'items' => \Modules\Location\Models\Location::searchForMenu(),
-                'position'=>40
-            ],
-            [
-                'class' => \Modules\News\Models\News::class,
-                'name'  => __("News"),
-                'items' => \Modules\News\Models\News::searchForMenu(),
-                'position'=>50
-            ],
-            [
-                'class' => NewsCategory::class,
-                'name'  => __("News Category"),
-                'items' => NewsCategory::searchForMenu(),
-                'position'=>60
-            ],
         ];
 
         // Modules
