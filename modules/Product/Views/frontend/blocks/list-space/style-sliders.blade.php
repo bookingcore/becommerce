@@ -18,7 +18,7 @@
                 <li class="product">
                     <div class="product-inner">
                         <div class="mf-product-thumbnail">
-                            <a href="#">
+                            <a href="{{$item->getDetailUrl()}}">
                                 <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title']}}">
                             </a>
                             <div class="footer-button">
