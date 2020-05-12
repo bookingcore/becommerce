@@ -6,6 +6,10 @@ Route::group(['prefix'=>'product'],function(){
     Route::get('/{slug}','ProductController@detail')->name('product.detail');// Detail
 });
 
+Route::group(['prefix'=>'category'],function(){
+    Route::get('/{slug}','ProductController@categoryIndex')->name('product.category.index'); // Search
+});
+
 //Route::group(['prefix'=>'user/product'],function(){
 //    Route::match(['get','post'],'/','ManageSpaceController@manageSpace')->name('product.vendor.list');
 //    Route::match(['get','post'],'/create','ManageSpaceController@createSpace')->name('product.vendor.create');

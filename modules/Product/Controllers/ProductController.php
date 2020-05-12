@@ -26,6 +26,22 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+
+        $data = $this->_querySearch($request);
+
+        return view('Product::frontend.search', $data);
+    }
+
+    public function categoryIndex( $slug , Request $request){
+
+        // lay tat ca category theop slug bao gom ca id con.  laf dang. mang? laf ID
+        $getCats = ProductCategory::select('*')->where('slug',$slug)->first();
+        $categories = $getCats->id;
+        $data = $this->_querySearch($request , [$categories]);
+        return view('Product::frontend.categories', (isset($data)) ? $data : []);
+    }
+
+    private function _querySearch($request , $cats = false){
         $query = $this->product::query()->select("products.*");
         $query->where("products.status", "publish");
 
@@ -57,6 +73,10 @@ class ProductController extends Controller
             $query->whereIn('products.brand_id', $brand);
         }
 
+        if(!empty($cats)){
+            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cats);
+        }
+
         $query->orderBy("id", "desc");
         $query->groupBy("products.id");
 
@@ -77,17 +97,15 @@ class ProductController extends Controller
                 ]
             ],
             'body_class'        => 'full_width',
-	        "seo_meta"           => Product::getSeoMetaForPageList()
+            "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
         $data['attributes'] = Attributes::where('service', 'product')->get();
         $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
-        	$item->count_product  = count($item->products);
-        	return $item;
+            $item->count_product  = count($item->products);
+            return $item;
         });
-
-
-        return view('Product::frontend.search', $data);
+        return $data;
     }
 
     public function detail(Request $request, $slug)
