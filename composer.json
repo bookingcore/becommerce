@@ -48,7 +48,8 @@
         "psr-4": {
             "App\\": "app/",
             "Plugins\\": "plugins/",
-            "Custom\\": "custom/"
+            "Custom\\": "custom/",
+            "Modules\\": "modules/"
         },
         "classmap": [
             "database/seeds",
@@ -60,8 +61,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/",
-            "Modules\\": "modules/"
+            "Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",
