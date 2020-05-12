@@ -10,9 +10,20 @@ define( 'WEEK_IN_SECONDS', 7 * DAY_IN_SECONDS );
 define( 'MONTH_IN_SECONDS', 30 * DAY_IN_SECONDS );
 define( 'YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS );
 
-function setting_item($item,$default = ''){
+function setting_item($item,$default = '',$isArray = false){
 
-    return Settings::item($item,$default);
+    $res = Settings::item($item,$default);
+
+    if($isArray and !is_array($res)){
+        $res = (array) json_decode($res,true);
+    }
+
+    return $res;
+
+}
+function setting_item_array($item,$default = ''){
+
+    return setting_item($item,$default,true);
 
 }
 function setting_item_with_lang($item,$locale = '',$default = ''){
@@ -788,4 +799,178 @@ function get_admin_product_tabs(){
     });
 
     return $all;
+}
+
+
+
+function file_get_contents_curl($url,$isPost = false,$data = []) {
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+    if($isPost){
+        curl_setopt($ch, CURLOPT_POST, count($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    }
+
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    return $data;
+}
+
+function size_unit_format($number=''){
+    switch (setting_item('size_unit')){
+        case "m2":
+            return $number." m<sup>2</sup>";
+            break;
+        default:
+            return $number." ".__('sqft');
+            break;
+    }
+}
+
+function get_payment_gateways(){
+    //getBlocks
+    $gateways = config('booking.payment_gateways');
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+    //Custom
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+    //Plugin
+    $plugin_modules = \Plugins\ServiceProvider::getModules();
+    if(!empty($plugin_modules)){
+        foreach($plugin_modules as $module){
+            $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+    return $gateways;
+}
+
+function get_current_currency($need,$default = '')
+{
+    return Currency::getCurrent($need,$default);
+}
+
+function booking_status_to_text($status)
+{
+    switch ($status){
+        case "draft":
+            return __('Draft');
+            break;
+        case "unpaid":
+            return __('Unpaid');
+            break;
+        case "paid":
+            return __('Paid');
+            break;
+        case "processing":
+            return __('Processing');
+            break;
+        case "completed":
+            return __('Completed');
+            break;
+        case "confirmed":
+            return __('Confirmed');
+            break;
+        case "cancelled":
+            return __('Cancelled');
+        case "partial_payment":
+            return __('Partial Payment');
+            break;
+        default:
+            return ucfirst($status ?? '');
+            break;
+    }
+}
+function verify_type_to($type,$need = 'name')
+{
+    switch ($type){
+        case "phone":
+            return __("Phone");
+            break;
+        case "number":
+            return __("Number");
+            break;
+        case "email":
+            return __("Email");
+            break;
+        case "file":
+            return __("Attachment");
+            break;
+        case "multi_files":
+            return __("Multi Attachments");
+            break;
+        case "text":
+        default:
+            return __("Text");
+            break;
+    }
+}
+
+function get_all_verify_fields(){
+    return setting_item_array('role_verify_fields');
+}
+/*Hook Functions*/
+function add_action($hook, $callback, $priority = 20, $arguments = 1){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    $m->addAction($hook, $callback, $priority, $arguments);
+}
+function add_filter($hook, $callback, $priority = 20, $arguments = 1){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    $m->addFilter($hook, $callback, $priority, $arguments);
+}
+function do_action(){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    return call_user_func_array([$m,'action'],$args);
+}
+function apply_filters(){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    return call_user_func_array([$m,'filter'],$args);
+}
+function is_installed(){
+    return file_exists(storage_path('installed'));
+}
+function is_enable_multi_lang(){
+    return (bool) setting_item('site_enable_multi_lang');
 }

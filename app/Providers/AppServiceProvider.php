@@ -3,9 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\ServiceProvider; 
+use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,21 +28,21 @@ class AppServiceProvider extends ServiceProvider
     public function boot(Request $request)
     {
 
+        if(env('APP_HTTPS')) {
+            \URL::forceScheme('https');
+        }
+
         Schema::defaultStringLength(191);
 
-        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed') and !app()->runningInConsole()){
+        app()->setLocale('en');
+
+        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed')){
 
             $locale = $request->segment(1);
-            if(in_array($locale,['admin','_debugbar'])){
-                if(setting_item('site_locale')){
-                    app()->setLocale(setting_item('site_locale'));
-                }
-                return;
-            }
-
-            // Check if the first segment matches a language code
-            if(setting_item('site_enable_multi_lang')){
-                app()->setLocale($request->segment(1));
+            $languages = \Modules\Language\Models\Language::getActive();
+            $localeCodes = Arr::pluck($languages,'locale');
+            if(in_array($locale,$localeCodes)){
+                app()->setLocale($locale);
             }else{
                 app()->setLocale(setting_item('site_locale'));
             }
