@@ -231,6 +231,7 @@ class MenuController extends AdminController
                 $setting[$location] = $menu->id;
             }
         }
+
         setting_update_item('menu_locations', json_encode($setting));
         $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/core/menu/edit/' . $menu->id)
