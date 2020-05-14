@@ -19,7 +19,9 @@
                 border-radius: 5px;
                 .input-group-prepend{
                     position: relative;
-                    width: 67px;
+                    select.category-select{
+                        width: 70px;
+                    }
                     &:after{
                         content: '\e93a';
                         display: inline-block;
@@ -141,12 +143,12 @@
                             line-height: 16px;
                         }
                         .dropdown-menu{
-                            min-width: 16rem;
-                            padding: 10px;
+                            min-width: 14rem;
+                            padding: 5px;
                             li{
                                 padding: 0;
                                 a{
-                                    font-size: 1.3rem;
+                                    font-size: 1.2rem;
                                     &:hover{
                                         color: #fcb800;
                                     }

@@ -21,6 +21,9 @@
             $traverse($category);
             ?>
         </select>
+        <select id="select_change" style="display: none">
+            <option id="text_change"></option>
+        </select>
     </div>
     <input type="text" name="s" value="{{request()->query('s')}}" class="form-control" placeholder="{{__("I'm shopping for...")}}">
     <div class="input-group-append">

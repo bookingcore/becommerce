@@ -570,4 +570,11 @@ jQuery(function ($) {
     });
 });
 
+jQuery(function ($) {
+    $('.category-select').change(function(){
+        $("#text_change").html($('.category-select option:selected').text());
+        $(this).css('width', $("#select_change").width() + 30 + 'px');
+    });
+});
+
 
