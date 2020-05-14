@@ -2,16 +2,24 @@
     .header-style-default{
         background-color: #fcb800;
         .bravo-main-header{
-            padding: 25px 0px;
-            .col-search-user{
-                display: flex;
+            padding: 25px 0;
+            .row{
                 align-items: center;
+                .col-logo{
+                    width: 100%;
+                    max-width: 300px;
+                }
+                .col-search-user{
+                    display: flex;
+                    align-items: center;
+                }
             }
             .bravo-main-search-box{
                 flex-grow: 1;
                 border-radius: 5px;
                 .input-group-prepend{
                     position: relative;
+                    width: 67px;
                     &:after{
                         content: '\e93a';
                         display: inline-block;
@@ -108,6 +116,8 @@
                     }
                     &.menu-user{
                         display: flex;
+                        justify-content: center;
+                        align-items: center;
                     }
                     .u-left{
                         margin-right: 8px;
@@ -129,6 +139,19 @@
                             font-weight: 700;
                             display: block;
                             line-height: 16px;
+                        }
+                        .dropdown-menu{
+                            min-width: 16rem;
+                            padding: 10px;
+                            li{
+                                padding: 0;
+                                a{
+                                    font-size: 1.3rem;
+                                    &:hover{
+                                        color: #fcb800;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

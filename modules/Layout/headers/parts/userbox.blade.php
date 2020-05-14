@@ -51,15 +51,15 @@
                     </a>
                     <ul class="dropdown-menu text-left">
                         @if(Auth::user()->hasPermissionTo('dashboard_vendor_access'))
-                            <li><a href="{{url(app_get_locale().'/user/dashboard')}}"><i class="icon ion-md-analytics"></i> {{__("Vendor Dashboard")}}</a></li>
+                            <li><a href="{{url(app_get_locale().'/user/dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
                         @endif
                         <li class="@if(Auth::user()->hasPermissionTo('dashboard_vendor_access')) menu-hr @endif">
-                            <a href="{{url(app_get_locale().'/user/profile')}}"><i class="icon ion-md-construct"></i> {{__("My profile")}}</a>
+                            <a href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
                         </li>
                         <li class="menu-hr"><a href="{{url(app_get_locale().'/user/booking-history')}}"><i class="fa fa-clock-o"></i> {{__("Order History")}}</a></li>
                         <li class="menu-hr"><a href="{{url(app_get_locale().'/user/profile/change-password')}}"><i class="fa fa-lock"></i> {{__("Change password")}}</a></li>
                         @if(Auth::user()->hasPermissionTo('dashboard_access'))
-                            <li class="menu-hr"><a href="{{url('/admin')}}"><i class="icon ion-ios-ribbon"></i> {{__("Admin Dashboard")}}</a></li>
+                            <li class="menu-hr"><a href="{{url('/admin')}}"><i class="fa fa-tachometer"></i> {{__("Admin Dashboard")}}</a></li>
                         @endif
                         <li class="menu-hr">
                             <a  href="#" onclick="event.preventDefault(); document.getElementById('logout-form-topbar').submit();"><i class="fa fa-sign-out"></i> {{__('Logout')}}</a>
