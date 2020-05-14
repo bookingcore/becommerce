@@ -186,6 +186,11 @@
                         }
                     }
                 }
+                .header-bar{
+                    #lang_sel, #lang_sel > ul{
+                        height: initial;
+                    }
+                }
             }
             .browse-category-btn{
                 padding-top: 16px;
