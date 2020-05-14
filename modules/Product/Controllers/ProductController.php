@@ -26,9 +26,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-
         $data = $this->_querySearch($request);
-
         return view('Product::frontend.search', $data);
     }
 

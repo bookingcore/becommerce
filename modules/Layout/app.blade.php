@@ -63,6 +63,7 @@
     <div class="bravo_wrap">
 {{--        @include('Layout::parts.adminbar')--}}
         @include('Layout::parts.header')
+        @include('Layout::parts.bc')
         @yield('content')
         @include('Layout::parts.footer')
 

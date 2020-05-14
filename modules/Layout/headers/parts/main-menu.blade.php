@@ -13,8 +13,8 @@
             <?php generate_menu('primary')?>
         </div>
     </div>
-    <div class="main-menu-right">
+    <ul class="main-menu-right">
         <?php generate_menu('menu_right')?>
         @include('Language::frontend.switcher')
-    </div>
+    </ul>
 </div>

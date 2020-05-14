@@ -44,7 +44,10 @@ class HomeController extends Controller
             $seo_meta['full_url'] = url("/");
             $data = [
                 'row'=>$page,
-                "seo_meta"=> $seo_meta
+                "seo_meta"=> $seo_meta,
+                'breadcrumbs' => [
+                    ['name' => $page->title,'class' => 'active'],
+                ],
             ];
             return view('Page::frontend.detail',$data);
         }
