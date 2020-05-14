@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
@@ -50,7 +52,7 @@ function setting_update_item($item,$val){
     $s->val = $val;
 
     $s->save();
-
+    Cache::forget('setting_' . $item);
     return $s;
 
 }
@@ -82,7 +84,6 @@ function generate_menu($location = '',$options = [])
     $options['walker'] = $options['walker'] ?? '\\Modules\\Core\\Walkers\\MenuWalker';
 
     $setting = json_decode(setting_item('menu_locations'),true);
-
     if(!empty($setting))
     {
         foreach($setting as $l=>$menuId){

@@ -96,14 +96,14 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>{{__('Col Size')}}</label>
-                                                        <select v-model="node.col_size" class="input-sm form-control">
-                                                            <option v-for="n in 12" :value="n">@{{n}}/12</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
+{{--                                                <div class="col-md-6">--}}
+{{--                                                    <div class="form-group">--}}
+{{--                                                        <label>{{__('Col Size')}}</label>--}}
+{{--                                                        <select v-model="node.col_size" class="input-sm form-control">--}}
+{{--                                                            <option v-for="n in 12" :value="n">@{{n}}/12</option>--}}
+{{--                                                        </select>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label>{{__('CSS Class')}}</label>

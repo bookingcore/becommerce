@@ -3,9 +3,9 @@ const mix = require('laravel-mix');
 // Admin
 mix.webpackConfig({
     output: {
-        path:__dirname+'/public',
+        path:__dirname+'/public/dist/frontend',
     },
-    devtool: 'inline-source-map'
+    devtool: 'source-map'
 
 });
 

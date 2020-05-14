@@ -9,7 +9,9 @@
         </div>
     </div>
     <div class="main-menu">
-        <?php generate_menu('primary')?>
+        <div class="nav">
+            <?php generate_menu('primary')?>
+        </div>
     </div>
     <div class="main-menu-right">
         <?php generate_menu('menu_right')?>

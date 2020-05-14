@@ -97,10 +97,10 @@
 
 /***/ }),
 
-/***/ "./resources/module/booking/scss/booking.scss":
-/*!****************************************************!*\
-  !*** ./resources/module/booking/scss/booking.scss ***!
-  \****************************************************/
+/***/ "./public/module/media/scss/browser.scss":
+/*!***********************************************!*\
+  !*** ./public/module/media/scss/browser.scss ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -108,9 +108,31 @@
 
 /***/ }),
 
-/***/ "./resources/sass/base.scss":
+/***/ "./public/module/user/scss/user.scss":
+/*!*******************************************!*\
+  !*** ./public/module/user/scss/user.scss ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./public/sass/app.scss":
+/*!******************************!*\
+  !*** ./public/sass/app.scss ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./public/sass/contact.scss":
 /*!**********************************!*\
-  !*** ./resources/sass/base.scss ***!
+  !*** ./public/sass/contact.scss ***!
   \**********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -120,17 +142,20 @@
 /***/ }),
 
 /***/ 0:
-/*!******************************************************************************************************************************************!*\
-  !*** multi ./node_modules/laravel-mix/src/builder/mock-entry.js ./resources/sass/base.scss ./resources/module/booking/scss/booking.scss ***!
-  \******************************************************************************************************************************************/
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** multi ./node_modules/laravel-mix/src/builder/mock-entry.js ./public/sass/app.scss ./public/sass/contact.scss ./public/module/user/scss/user.scss ./public/module/media/scss/browser.scss ***!
+  \************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Dungdt\booking-core\node_modules\laravel-mix\src\builder\mock-entry.js */"./node_modules/laravel-mix/src/builder/mock-entry.js");
-__webpack_require__(/*! E:\Dungdt\booking-core\resources\sass\base.scss */"./resources/sass/base.scss");
-module.exports = __webpack_require__(/*! E:\Dungdt\booking-core\resources\module\booking\scss\booking.scss */"./resources/module/booking/scss/booking.scss");
+__webpack_require__(/*! E:\Dungdt\becommerce\node_modules\laravel-mix\src\builder\mock-entry.js */"./node_modules/laravel-mix/src/builder/mock-entry.js");
+__webpack_require__(/*! E:\Dungdt\becommerce\public\sass\app.scss */"./public/sass/app.scss");
+__webpack_require__(/*! E:\Dungdt\becommerce\public\sass\contact.scss */"./public/sass/contact.scss");
+__webpack_require__(/*! E:\Dungdt\becommerce\public\module\user\scss\user.scss */"./public/module/user/scss/user.scss");
+module.exports = __webpack_require__(/*! E:\Dungdt\becommerce\public\module\media\scss\browser.scss */"./public/module/media/scss/browser.scss");
 
 
 /***/ })
 
 /******/ });
+//# sourceMappingURL=mix.js.map
