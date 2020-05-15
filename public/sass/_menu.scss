@@ -1,6 +1,6 @@
 .bravo-header {
     .main-menu .nav {
-
+        position: relative;
         > ul > li {
             padding-top: 17px;
             padding-bottom: 17px;
@@ -83,7 +83,8 @@
 
             &:hover {
                 .dropdown-submenu {
-                    transform: translateX(-50%) scale(1);
+                    transform: scale(1);
+                    left: 0;
 
                     &.alignment {
                         transform: scale(1);
@@ -107,9 +108,9 @@
             }
 
             .dropdown-submenu {
-                left: 50%;
-                transform: translateX(-50%) scale(0);
-                width: 100%;
+                left: 0;
+                transform: scale(0);
+                width: auto;
                 padding: 0;
 
                 > li {
@@ -197,10 +198,21 @@
             .sub-menu {
                 transform: scaleX(1);
             }
+
+            .mega-menu-col{
+                min-width: 210px;
+            }
         }
     }
 
     .products-cats-menu {
+        position: relative;
+        padding-top: 14px;
+        padding-bottom: 14px;
+        min-height: 50px;
+        display: flex;
+        align-items: center;
+
         .cats-menu-title {
             color: #000;
             font-size: 16px;
@@ -369,6 +381,22 @@
             }
 
 
+        }
+        .bravo-department-list{
+            .menu{
+                >li{
+                    margin-top: 0px;
+                    >a{
+                        padding-top: 11px;
+                        padding-bottom: 11px;
+                    }
+                }
+                .is-mega-menu{
+                    >.dropdown-submenu{
+                        width: 530px;
+                    }
+                }
+            }
         }
     }
 }

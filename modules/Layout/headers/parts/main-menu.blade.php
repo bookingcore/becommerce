@@ -1,10 +1,10 @@
 <div class="bravo-main-menu">
-    <div class="browse-category">
+    <div class="browse-category products-cats-menu  mf-closed">
         <div class="browse-category-btn">
             <i class="icon-menu"><span class="s-space">&nbsp;</span></i>
             <span class="text">{{__('Shop By Department')}}</span>
         </div>
-        <div class="dropdown-category">
+        <div class="dropdown-category toggle-product-cats nav">
             @include('Layout::headers.parts.department')
         </div>
     </div>

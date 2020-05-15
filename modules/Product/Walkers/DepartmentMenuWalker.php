@@ -15,7 +15,7 @@ class DepartmentMenuWalker
     {
         $items = json_decode($this->menu->items, true);
         if (!empty($items)) {
-            echo '<ul class="main-menu menu-generated">';
+            echo '<ul class="menu">';
             $this->generateTree($items);
             echo '</ul>';
         }
@@ -41,18 +41,82 @@ class DepartmentMenuWalker
             }
             if ($this->checkCurrentMenu($item, $url))
                 $class .= ' active';
-            printf('<li class="%s">', $class);
-            if (!empty($item['children'])) {
-                $item['name'] .= ' <i class="fa fa-angle-down"></i>';
+            if(!empty($item['children']))
+            {
+                $class.=' menu-item-has-children';
             }
-            printf('<a  target="%s" href="%s" >%s</a>', $item['target'], $url, $item['name']);
+
+            if(!empty($item['layout']) and $item['layout'] == 'multi_row') {
+                $class.=' is-mega-menu';
+            }
+
+            printf('<li class="%s menu-item">', e($class));
+
+            if(!empty($item['icon']))
+            {
+                $item['name'] = '<i class="'.e($item['icon']).'"></i> '.$item['name'];
+            }
+
+            printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), $item['name']);
             if (!empty($item['children'])) {
-                echo '<ul class="children-menu menu-dropdown">';
-                $this->generateTree($item['children']);
+                echo '<ul class="dropdown-submenu">';
+                    if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
+                        $this->generateMultiRowTree($item['children']);
+                    }else{
+                        $this->generateTree($item['children']);
+                    }
                 echo "</ul>";
             }
             echo '</li>';
         }
+    }
+
+
+    public function generateMultiRowTree($items = [])
+    {
+        echo '<li>';
+        echo '<div class="mega-menu-content">';
+        echo '<div class="row flex-nowrap">';
+        foreach ($items as $item) {
+
+            $class = $item['class'] ?? '';
+            $url = $item['url'] ?? '';
+            $item['target'] = $item['target'] ?? '';
+            if (!isset($item['item_model']))
+                continue;
+            if (class_exists($item['item_model'])) {
+                $itemClass = $item['item_model'];
+                $itemObj = $itemClass::find($item['id']);
+                if (empty($itemObj)) {
+                    continue;
+                }
+                $url = $itemObj->getDetailUrl();
+            }
+            if ($this->checkCurrentMenu($item, $url))
+                $class .= ' active';
+
+
+            if (!empty($item['children'])) {
+                $class.=' menu-item-has-children';
+            }
+
+            printf('<div class="%s col-md-6">', $class);
+            echo '<div class="menu-item-mega">';
+            printf('<a  target="%s" href="%s" >%s</a>', $item['target'], $url, $item['name']);
+            if (!empty($item['children'])) {
+                echo '<div class="mega-menu-submenu">';
+                    echo '<ul class="sub-menu check">';
+                        $this->generateTree($item['children']);
+                    echo "</ul>";
+                echo "</div>";
+            }
+            echo '</div>';
+            echo '</div>';
+        }
+
+        echo '</div>';
+        echo '</div>';
+        echo '</li>';
     }
 
     protected function checkCurrentMenu($item, $url = '')
