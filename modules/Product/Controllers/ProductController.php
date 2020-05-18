@@ -26,6 +26,7 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+//        dump($_GET);
         $data = $this->_querySearch($request);
         return view('Product::frontend.search', $data);
     }
@@ -75,6 +76,16 @@ class ProductController extends Controller
             $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cats);
         }
 
+        $cat_id = $request->query('category_id');
+        $search = $request->query('s');
+        if (!empty($cat_id)){
+            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $cat_id);
+//            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cat_id);
+        }
+        if (!empty($search)){
+            $query->where('products.title','LIKE',"%$search%");
+        }
+
         $query->orderBy("id", "desc");
         $query->groupBy("products.id");
 
@@ -114,9 +125,33 @@ class ProductController extends Controller
         }
         $translation = $row->translateOrOrigin(app()->getLocale());
 
+
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
-        $related_products = '';
+
+        if (!empty($cats)){
+            $c_breadcrumbs = [
+                [
+                    'name' => $cats[0]->name,
+                    'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
+                ],
+                [
+                    'url'=>'',
+                    'class'=>'active',
+                    'name'=>$translation->title
+                ]
+            ];
+        } else {
+            $c_breadcrumbs = [
+                [
+                    'url'=>'',
+                    'class'=>'active',
+                    'name'=>$translation->title
+                ]
+            ];
+        }
+
+        /*$related_products = '';
         if(!empty($cats)){
             $list_cat = [];
             foreach ($cats as $cat){
@@ -128,25 +163,18 @@ class ProductController extends Controller
                 ->whereNotIn('products.id', [$row->id])
                 ->groupBy("products.id")
                 ->get();
-        }
+        }*/
 
-        //dump($cats);
         $related = Product::get();
         $data = [
             'row'          => $row,
             'translation'  => $translation,
             'booking_data' => $row->getBookingData(),
             'review_list'  => $review_list,
-            'related_list' => $related_products,
+            /*'related_list' => $related_products,*/
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
-            'breadcrumbs'=>[
-                [
-                    'url'=>'',
-                    'class'=>'active',
-                    'name'=>$translation->title
-                ]
-            ]
+            'breadcrumbs'=> $c_breadcrumbs
         ];
         $this->setActiveMenu($row);
 

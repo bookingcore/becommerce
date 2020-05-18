@@ -102,7 +102,7 @@
             DB::table('core_pages')->insert([
                 'title'       => 'Home Page',
                 'slug'        => 'home-page',
-                'template_id' => '1',
+                'template_id' => '2',
                 'create_user' => '1',
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
@@ -295,83 +295,83 @@
             ]
         );
 
-		// Email Setting
-		DB::table('core_settings')->insert(
-			[
-				[
-					'name'  => "email_driver",
-					'val'   => "sendmail",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_host",
-					'val'   => "smtp.mailgun.org",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_port",
-					'val'   => "587",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_encryption",
-					'val'   => "tls",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_username",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_password",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_mailgun_domain",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_mailgun_secret",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_mailgun_endpoint",
-					'val'   => "api.mailgun.net",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_postmark_token",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_ses_key",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_ses_secret",
-					'val'   => "",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_ses_region",
-					'val'   => "us-east-1",
-					'group' => "email",
-				],
-				[
-					'name'  => "email_sparkpost_secret",
-					'val'   => "",
-					'group' => "email",
-				],
-			]
-		);
+            // Email Setting
+            DB::table('core_settings')->insert(
+                [
+                    [
+                        'name'  => "email_driver",
+                        'val'   => "sendmail",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_host",
+                        'val'   => "smtp.mailgun.org",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_port",
+                        'val'   => "587",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_encryption",
+                        'val'   => "tls",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_username",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_password",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_mailgun_domain",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_mailgun_secret",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_mailgun_endpoint",
+                        'val'   => "api.mailgun.net",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_postmark_token",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_ses_key",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_ses_secret",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_ses_region",
+                        'val'   => "us-east-1",
+                        'group' => "email",
+                    ],
+                    [
+                        'name'  => "email_sparkpost_secret",
+                        'val'   => "",
+                        'group' => "email",
+                    ],
+                ]
+            );
 
-//		Vendor setting
+            //Vendor setting
             DB::table('core_settings')->insert(
                 [
                     [
@@ -398,5 +398,16 @@
                 ]
             );
 
+            //Menu
+            DB::table('core_menus')->insert(
+                [
+                    [
+                        'name'  => "Menu",
+                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"layout":"multi_row","origin_edit_url":"http://becommere.dv/admin/module/page/edit/1","children":[]},{"name":"Shop","url":"/en/product","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true},{"name":"Pages","url":"","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true,"layout":"","children":[{"id":3,"name":"Become a Vendor","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Become a Vendor","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/3"}]},{"name":"News","url":"/en/news","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true}]',
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ],
+                ]
+            );
         }
 }

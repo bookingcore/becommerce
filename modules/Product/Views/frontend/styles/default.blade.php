@@ -1,4 +1,3 @@
-@include('Layout::parts.bc')
 <div class="bravo_detail_product">
     <div class="bravo-container martfury-container">
         <div class="row">

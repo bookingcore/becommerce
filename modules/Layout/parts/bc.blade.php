@@ -1,5 +1,5 @@
 @if(!empty($breadcrumbs))
-    <div class="page-header page-header-page">
+    <div class="page-header page-header-page bravo-breadcrumb-top">
         <div class="page-breadcrumbs">
             <div class="container">
                 <ul class="breadcrumbs">
@@ -10,8 +10,7 @@
                     </li>
                     <span class="sep">/</span>
                     @foreach($breadcrumbs as $k=>$breadcrumb)
-                        <li class=" {{$breadcrumb['class'] ?? ''}}" itemprop="itemListElement" itemscope
-                            itemtype="http://schema.org/ListItem">
+                        <li class=" {{$breadcrumb['class'] ?? ''}}" itemprop="itemListElement" itemtype="http://schema.org/ListItem">
                             @if(!empty($breadcrumb['url']))
                                 <a itemprop="item" href="{{url($breadcrumb['url'])}}">
                                     <span itemprop="name">{{$breadcrumb['name']}}</span>
@@ -19,13 +18,11 @@
                             @else
                                 {{$breadcrumb['name']}}
                             @endif
-
-                            @if($k < count($breadcrumbs) - 1)
-                                <span class="sep">/</span>
-                            @endif
                         </li>
+                        @if($k <= count($breadcrumbs) - 1)
+                            <span class="sep">/</span>
+                        @endif
                     @endforeach
-
                 </ul>
             </div>
         </div>

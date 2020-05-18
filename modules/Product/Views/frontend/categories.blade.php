@@ -4,10 +4,6 @@
         <link rel="stylesheet" type="text/css" href="{{ asset("libs/ion_rangeslider/css/ion.rangeSlider.min.css") }}"/>
     @endsection
     @section('content')
-        <div class="bravo-breadcrumbs">
-            @include('Product::frontend.layouts.search.search-bc')
-        </div>
-
         <div class="bravo_search_product">
 
             <div class="container">
