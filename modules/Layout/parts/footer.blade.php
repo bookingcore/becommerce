@@ -422,6 +422,7 @@
 <script src="{{ asset('libs/jquery_ui/jquery-ui.min.js') }}"></script>
 <script src="{{ asset('libs/vue/vue.js') }}"></script>
 <script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
 @if(Auth::id())
     <script src="{{ asset('module/media/js/browser.js?_ver='.config('app.version')) }}"></script>
 @endif

@@ -40,6 +40,6 @@ class ProductCategory extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        return url(app_get_locale(false , false , '/')."category/".$this->slug);
+        return route('product.category.index',['slug'=>$this->slug]);
     }
 }

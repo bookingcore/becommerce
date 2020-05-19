@@ -1,19 +1,26 @@
-<?php use Gloudemans\Shoppingcart\Facades\Cart; ?>
-    @foreach(Cart::content() as $cartItem)
-    <li class="list_content" style="animation-delay: 0.1s;">
-        @if($cartItem->model)
-        <a href="{{$cartItem->model->getDetailUrl()}}">            
-            {!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left'])!!}
-            <p>{{$cartItem->model->title}}</p>
-            <small>{{$cartItem->qty}} × {{format_money($cartItem->model->price)}}</small>
-            <span class="close_icon float-right"><i class="fa fa-plus"></i></span>
-        </a>
-        @else
-        <a href="#">            
-            <p>{{$cartItem->name}}</p>
-            <small>{{$cartItem->qty}} × {{format_money($cartItem->price)}}</small>
-            <span class="close_icon float-right"><i class="fa fa-plus"></i></span>
-        </a>
-        @endif
-    </li>
-    @endforeach
+@if(Cart::count())
+    <div class="cart__items">
+        @foreach(Cart::content() as $cartItem)
+            <div class="ps-product--cart-mobile">
+                <div class="ps-product__thumbnail"><a href="{{$cartItem->model->getDetailUrl()}}">
+                        {!! get_image_tag($cartItem->model->image_id,'thumb')!!}</a></div>
+                <div class="ps-product__content"><a class="ps-product__remove bravo_cart_delete_ajax" data-id="{{$cartItem->id}}" href="#"><i class="icon-cross"></i></a><a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->model->title}}</a>
+                    <p>
+                        @if($author = $cartItem->model->author)
+                        <strong>{{__('Sold by')}}:</strong> {{$author->display_name}}</p>
+                        @endif
+                        <small>{{$cartItem->qty}} x {{format_money($cartItem->price)}}</small>
+                </div>
+            </div>
+        @endforeach
+    </div>
+    <div class="cart__footer">
+        <h3>{{__('Sub Total')}}:<strong>{{format_money(Cart::subtotal())}}</strong></h3>
+        <figure><a class="btn btn-primary" href="{{route('booking.cart')}}">{{__('View Cart')}}</a><a class="btn btn-primary" href="{{route('booking.checkout')}}">{{__('Checkout')}}</a></figure>
+    </div>
+@else
+        <div class="cart__items">
+            <div>{{__("Your cart is empty")}}</div>
+        </div>
+@endif
+

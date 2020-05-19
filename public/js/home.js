@@ -168,7 +168,7 @@ jQuery(function ($) {
             singleDatePicker: false,
             autoApply: true,
             disabledPast: true,
-            dateFormat: bookingCore.date_format,
+            dateFormat: Bravo.date_format,
             customClass: '',
             widthSingle: 300,
             onlyShowCurrentMonth: true,
@@ -178,10 +178,10 @@ jQuery(function ($) {
         }
         check_in_out.daterangepicker(options,
             function (start, end, label) {
-                check_in_input.val(start.format(bookingCore.date_format));
-                check_in_render.html(start.format(bookingCore.date_format));
-                check_out_input.val(end.format(bookingCore.date_format));
-                check_out_render.html(end.format(bookingCore.date_format));
+                check_in_input.val(start.format(Bravo.date_format));
+                check_in_render.html(start.format(Bravo.date_format));
+                check_out_input.val(end.format(Bravo.date_format));
+                check_out_render.html(end.format(Bravo.date_format));
                 check_in_out.trigger('daterangepicker_change', [start, end]);
                 if (window.matchMedia('(max-width: 767px)').matches) {
                     $('.render', parent).show();
@@ -198,7 +198,7 @@ jQuery(function ($) {
         $(this).daterangepicker({
             "singleDatePicker": true,
             locale: {
-                format: bookingCore.date_format
+                format: Bravo.date_format
             }
         });
     });
@@ -242,7 +242,7 @@ jQuery(function ($) {
             }
         });
         $.ajax({
-            'url': bookingCore.routes.login,
+            'url': Bravo.routes.login,
             'data': {
                 'email': form.find('input[name=email]').val(),
                 'password': form.find('input[name=password]').val(),
@@ -282,7 +282,7 @@ jQuery(function ($) {
             }
         });
         $.ajax({
-            'url':  bookingCore.routes.register,
+            'url':  Bravo.routes.register,
             'data': {
                 'email': form.find('input[name=email]').val(),
                 'password': form.find('input[name=password]').val(),
@@ -487,7 +487,7 @@ jQuery(function ($) {
             default_list = JSON.parse(string_list);
         }
         var options = {
-            url: bookingCore.url+'/location/search/searchForSelect2',
+            url: Bravo.url+'/location/search/searchForSelect2',
             dataDefault: default_list,
             textLoading: $this.attr("data-onLoad"),
         };
@@ -497,7 +497,7 @@ jQuery(function ($) {
     $(document).on("click",".service-wishlist",function(){
         var $this = $(this);
         $.ajax({
-            url:  bookingCore.url+'/user/wishlist',
+            url:  Bravo.url+'/user/wishlist',
             data: {
                 object_id: $this.attr("data-id"),
                 object_model: $this.attr("data-type"),

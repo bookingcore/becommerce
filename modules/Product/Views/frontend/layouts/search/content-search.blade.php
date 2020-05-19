@@ -16,7 +16,7 @@
 <div id="mf-catalog-toolbar" class="shop-toolbar multiple">
     <div class="products-found">{!! __('<strong>:count</strong> Products found',['count'=>$rows->total()]) !!}</div>
     <div class="shop-view">
-        <span>View</span>
+        <span>{{__('View')}}</span>
         <a href="#" class="grid-view mf-shop-view current" data-view="grid">
             <i class="icon-grid"></i>
         </a>
@@ -40,7 +40,7 @@
 </div>
 
 <div id="mf-shop-content" class="mf-shop-content">
-    <ul class="products list-unstyled">
+    <ul class="products list-unstyled row">
         @if($rows->total() > 0)
             @foreach($rows as $row)
                 <li class="product type-product col-md-3">

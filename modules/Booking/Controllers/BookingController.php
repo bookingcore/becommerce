@@ -233,7 +233,7 @@ class BookingController extends \App\Http\Controllers\Controller
         }
         $service_type = $request->input('type');
         $service_id = $request->input('id');
-        $allServices = get_bookable_services();
+        $allServices = get_product_types();
         if (empty($allServices[$service_type])) {
             $this->sendError(__('Service type not found'));
         }
@@ -241,18 +241,11 @@ class BookingController extends \App\Http\Controllers\Controller
         // \var_dump($module);
         $service = $module::find($service_id);
 
-        if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
+        if (empty($service)) {
             $this->sendError(__('Service not found'));
         }
-        if (!$service->isBookable()) {
-            $this->sendError(__('Service is not bookable'));
-        }
-        //        try{
+
         return $service->addToCart($request);
-        //
-        //        }catch(\Exception $ex){
-        //            $this->sendError($ex->getMessage(),['code'=>$ex->getCode()]);
-        //        }
     }
 
     protected function getGateways()

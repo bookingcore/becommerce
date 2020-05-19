@@ -1,6 +1,7 @@
 <div class="cart_page_form">
     <form action="#">
-        <table class="table table-responsive">
+        <div class="table-responsive">
+        <table class="table ">
               <thead>
                 <tr class="carttable_row">
                     <th class="cartm_title">{{__('Product')}}</th>
@@ -10,7 +11,7 @@
                 </tr>
               </thead>
               <tbody class="table_body">
-                
+
                 @foreach(Cart::content() as $cartItem)
                 <tr>
                     <th scope="row">
@@ -21,14 +22,14 @@
                                     {!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left img-120'])!!}
                                 </li>
                                 <li class="list-inline-item"><a class="cart_title" href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->name}}</li>
-                            </ul>                        
-                        @else     
+                            </ul>
+                        @else
                             <ul class="cart_list d-flex align-center">
                                 <li class="list-inline-item pr15"><a href="#"><img src="{{asset('dist/frontend/module/course/images/shop/close.png')}}" alt="close.png"></a></li>
                                 <li class="list-inline-item pr20">
                                 </li>
                                 <li class="list-inline-item"><a class="cart_title" >{{$cartItem->name}}</li>
-                            </ul>                 
+                            </ul>
                         @endif
                     </th>
                     <td>{{format_money($cartItem->price)}}</td>
@@ -38,14 +39,15 @@
                 @endforeach
               </tbody>
         </table>
+        </div>
     </form>
 </div>
 <div class="checkout_form">
     <div class="checkout_coupon ui_kit_button">
         <form class="form-inline">
             <input class="form-control" type="text" v-model="coupon" placeholder="{{__('Coupon Code')}}" aria-label="Search">
-            <button type="button" @click="applyCoupon" class="btn btn2">{{__('Apply Coupon')}}</button>
-            <button type="button" @click="updateCart" class="btn btn3">{{__('Update Cart')}}</button>
+            <button type="button" @click="applyCoupon" class="btn btn-sm btn-primary">{{__('Apply Coupon')}}</button>
+            <button type="button" @click="updateCart" class="btn btn-sm btn-primary">{{__('Update Cart')}}</button>
         </form>
     </div>
 </div>

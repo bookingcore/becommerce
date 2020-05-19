@@ -978,3 +978,16 @@ function is_enable_multi_lang(){
 function is_enable_language_route(){
     return (is_installed() and is_enable_multi_lang() and app()->getLocale() != setting_item('site_locale'));
 }
+function get_cart_fragments(){
+    return [
+        '.user-mini-cart .dropdown-menu'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.user-cart-count'=>Cart::count()
+    ];
+}
+
+/**
+ * @return Gloudemans\Shoppingcart\Facades\Cart
+ */
+function cart(){
+    return resolve('Cart');
+}

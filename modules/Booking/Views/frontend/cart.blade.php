@@ -3,21 +3,11 @@
     <link href="{{ asset('module/booking/css/checkout.css?_ver='.config('app.version')) }}" rel="stylesheet">
 @endsection
 @section('content')
-    <section class="inner_page_breadcrumb">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-6 offset-xl-3 text-center">
-                    <div class="breadcrumb_content">
-                        <h4 class="breadcrumb_title">{{__('Cart')}}</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
     <div class="bravo-booking-page padding-content " >
         <div class="container">
             <div id="bravo-cart-page" >
                 <div class="row">
+                    @if(Cart::count())
                     <div class="col-md-12 col-lg-8 col-xl-8">
                          <div class="booking-form">
                              @include ('Booking::frontend.cart.form')
@@ -31,6 +21,11 @@
                             </div>
                         </div>
                     </div>
+                    @else
+                        <div class="col-md-12">
+                            <div class="alert alert-warning">{{__("Your cart is empty")}}</div>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

@@ -18,13 +18,13 @@
             </a>
         @endif
     </li>
-    <li  class="user-mini-cart dropdown">
+    <li  class="user-mini-cart">
         <a href="{{route('booking.cart')}}" class="counter-wrap">
             <i class="icon-bag2 extra-icon"></i>
-            <span class="counter user-cart-count">{{count(Cart::content())}}</span>
+            <span class="counter user-cart-count">{{Cart::count()}}</span>
         </a>
-        <div class="dropdown-menu" aria-labelledby="cart_dropdown">
-            @include('Product::frontend.cart.mini-cart')
+        <div class="cart-content" aria-labelledby="cart_dropdown">
+            @include('Booking::frontend.cart.mini-cart')
         </div>
     </li>
     <li class="menu-user @if(Auth::user()) logged-in @else no-logged-in @endif">

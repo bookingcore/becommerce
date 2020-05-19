@@ -1,10 +1,9 @@
 @extends('layouts.app')
 @section('head')
-    <link href="{{ asset('module/product/css/product.css?_ver='.config('app.version')) }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/ion_rangeslider/css/ion.rangeSlider.min.css") }}"/>
 @endsection
 @section('content')
-    <div class="bravo_search_product">
+    <div class="bravo_search_product mb-4">
         <div class="container">
             <div class="search-header">
                 <div class="row">

@@ -2,11 +2,12 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
+use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Http\Request;
 use Modules\Media\Helpers\FileHelper;
 use Modules\Review\Models\Review;
 
-class BaseProduct extends BaseModel
+class BaseProduct extends BaseModel implements  Buyable
 {
     public $email_new_booking_file             = '';
     public $checkout_booking_detail_modal_file = '';
@@ -166,5 +167,21 @@ class BaseProduct extends BaseModel
             $percent = ( 100 / $dataTotalReview['total_review'] ) * $dataTotalReview['total_review_recommend'];
         }
         return $percent;
+    }
+
+    public function getBuyableIdentifier($options = NULL){
+        return $this->id;
+    }
+
+    public function getBuyableDescription($options = NULL){
+        return $this->title;
+    }
+
+    public function getBuyablePrice($options = NULL){
+
+        if($this->sale_price and $this->sale_price < $this->price){
+            return $this->sale_price;
+        }
+        return $this->price;
     }
 }

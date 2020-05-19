@@ -2640,6 +2640,108 @@ input.form-control {
   content: "";
 }
 
+.user-mini-cart .cart__items {
+  position: relative;
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #e1e1e1;
+  border-bottom: none;
+}
+
+.user-mini-cart .cart__items:before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  top: -8px;
+  right: 30px;
+  width: 16px;
+  height: 16px;
+  border-left: 1px solid #e1e1e1;
+  border-top: 1px solid #e1e1e1;
+  background-color: #ffffff;
+  transform: rotate(45deg);
+  transform-origin: 50% 50%;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile {
+  margin-bottom: 30px;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile .ps-product__content .ps-product__remove {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 18px;
+  color: #666;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile .ps-product__content a {
+  color: #06c;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile .ps-product__content a:hover {
+  color: #fcb800;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile .ps-product__content p strong {
+  color: #000;
+  font-weight: 500;
+}
+
+.user-mini-cart .cart__items .ps-product--cart-mobile .ps-product__content small {
+  font-size: 14px;
+  color: #000;
+}
+
+.user-mini-cart .cart-content {
+  position: absolute;
+  min-width: 370px;
+  right: 0px;
+  z-index: 30;
+  padding-top: 10px;
+  transform: translate(0 20px);
+  transition: all 0.4s ease;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.user-mini-cart .cart__footer {
+  padding: 10px 20px 20px;
+  background-color: #ffffff;
+  border: 1px solid #e1e1e1;
+  border-top: 0;
+}
+
+.user-mini-cart .cart__footer h3 {
+  display: block;
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.user-mini-cart .cart__footer h3 strong {
+  float: right;
+  color: red;
+}
+
+.user-mini-cart figure {
+  margin: 0px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-mini-cart figure .btn {
+  padding: 12px 25px;
+}
+
+.user-mini-cart:hover .cart-content {
+  transform: translate(0, 0px);
+  visibility: visible;
+  opacity: 1;
+}
+
 .service-review .review {
   position: relative;
   top: -2px;

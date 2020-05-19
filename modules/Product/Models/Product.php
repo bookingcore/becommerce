@@ -12,6 +12,7 @@ use Modules\Core\Models\Terms;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Product extends BaseProduct
 {
@@ -107,7 +108,7 @@ class Product extends BaseProduct
 
     public function getDetailUrl($locale = false)
     {
-        return url(app_get_locale(false , false , '/')."product/".$this->slug);
+        return route('product.detail',['slug'=>$this->slug]);
     }
 
     public static function getLinkForPageSearch( $locale = false , $param = [] ){
@@ -449,6 +450,25 @@ class Product extends BaseProduct
             }
         }
 	    return $res;
+    }
+
+    public function addToCart(Request $request)
+    {
+        // Only single litem
+        $cartproduct = Cart::content()->where('id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
+        if($cartproduct){
+            Cart::update($cartproduct->rowId, $this); // Will update the id, name and price
+            Cart::update($cartproduct->rowId, 1);
+        }else{
+            Cart::add($this,1);
+        }
+
+        $buy_now = $request->input('buy_now');
+
+        return $this->sendSuccess([
+            'fragments'=>get_cart_fragments(),
+            'url'=>$buy_now ? route('booking.checkout') : ''
+        ],__('":title" has been added to your cart.',['title'=>$this->title]));
     }
 
 }

@@ -421,3 +421,118 @@
         }
     }
 }
+.user-mini-cart {
+    .cart__items {
+        position: relative;
+        padding: 20px;
+        background-color: #fff;
+        border: 1px solid #e1e1e1;
+        border-bottom: none;
+
+        &:before {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: -8px;
+            right: 30px;
+            width: 16px;
+            height: 16px;
+            border-left: 1px solid #e1e1e1;
+            border-top: 1px solid #e1e1e1;
+            background-color: #ffffff;
+            -webkit-transform: rotate(45deg);
+            transform: rotate(45deg);
+            -webkit-transform-origin: 50% 50%;
+            transform-origin: 50% 50%;
+        }
+
+        .ps-product--cart-mobile {
+            margin-bottom: 30px;
+            .ps-product__content {
+                .ps-product__remove {
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    font-size: 18px;
+                    color: #666;
+                }
+
+                a {
+                    color: #06c;
+
+                    &:hover {
+                        color: #fcb800;
+                    }
+                }
+
+                p strong {
+                    color: #000;
+                    font-weight: 500;
+                }
+
+                small {
+                    font-size: 14px;
+                    color: #000;
+                }
+            }
+        }
+    }
+
+    .cart-content {
+        position: absolute;
+        min-width: 370px;
+        right: 0px;
+        z-index: 30;
+        padding-top: 10px;
+        -webkit-transform: translate(0 20px);
+        transform: translate(0 20px);
+        -webkit-transition: all .4s ease;
+        transition: all .4s ease;
+        visibility: hidden;
+        opacity: 0;
+    }
+
+    .cart__footer {
+        padding: 10px 20px 20px;
+        background-color: #ffffff;
+        border: 1px solid #e1e1e1;
+        border-top: 0;
+        h3 {
+            display: block;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 600;
+
+            strong {
+                float: right;
+                color: red;
+            }
+        }
+    }
+
+    figure {
+        margin: 0px;
+        display: -webkit-box;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-flow: row nowrap;
+        -webkit-box-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        align-items: center;
+
+        .btn {
+            padding: 12px 25px;
+        }
+    }
+
+    &:hover .cart-content {
+        -webkit-transform: translate(0, 0px);
+        transform: translate(0, 0px);
+        visibility: visible;
+        opacity: 1;
+    }
+
+}
+

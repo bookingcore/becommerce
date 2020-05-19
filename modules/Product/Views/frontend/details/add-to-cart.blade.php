@@ -11,7 +11,7 @@
                     <span class="plus increase"><i class="icon-plus"></i></span>
                 </div>
             </div>
-            <button  class="btn btn btn-dark btn-action bravo_add_to_cart" data-product='{!! json_encode(['id'=>$row->id,'type'=>'simple'])!!}'>{{__('Add to cart')}}</button>
+            <button  class="btn btn btn-dark btn-action add_to_cart bravo_add_to_cart" data-product='{!! json_encode(['id'=>$row->id,'type'=>'simple'])!!}'>{{__('Add to cart')}}</button>
             <button  class="btn buy_now btn btn-primary btn-action bravo_add_to_cart" data-product='{!! json_encode(['id'=>$row->id,'type'=>'simple','buy_now'=>1])!!}'>{{__('Buy now')}}</button>
             <a href="#" onclick="return false" class="btn add_wishlist btn-action" data-toggle="tooltip" title="{{__('Add to Wishlist')}}">
                 <i class="icon-heart"></i>
