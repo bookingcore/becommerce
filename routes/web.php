@@ -33,19 +33,6 @@ Route::get('/update', 'HomeController@updateMigrate');
 //Homepage
 Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');
 
-// Booking
-Route::group(['prefix'=>config('booking.booking_route_prefix')],function(){
-    Route::post('/addToCart','\Modules\Booking\Controllers\BookingController@addToCart')->middleware('auth');// Detail
-    Route::post('/doCheckout','\Modules\Booking\Controllers\BookingController@doCheckout')->middleware('auth');// Detail
-
-    Route::get('/confirm/{gateway}','\Modules\Booking\Controllers\BookingController@confirmPayment');// Detail
-    Route::get('/cancel/{gateway}','\Modules\Booking\Controllers\BookingController@cancelPayment');// Detail
-
-    Route::get('/{code}','\Modules\Booking\Controllers\BookingController@detail')->middleware('auth');// Detail
-    Route::get('/{code}/checkout','\Modules\Booking\Controllers\BookingController@checkout')->middleware('auth');// Detail
-    Route::get('/{code}/check-status','\Modules\Booking\Controllers\BookingController@checkStatusCheckout')->middleware('auth');// Detail
-});
-
 // Media
 Route::group(['prefix'=>'media'],function(){
     Route::get('/preview/{id}/{size?}','\Modules\Media\Controllers\MediaController@preview');//

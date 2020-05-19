@@ -1,4 +1,4 @@
 <?php
-if(is_installed()  and is_enable_multi_lang())  {
+if(is_enable_language_route())  {
     include 'web.php';
 }

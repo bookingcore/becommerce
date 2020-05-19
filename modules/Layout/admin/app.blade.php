@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Booking Core'}}</title>
+    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Martfury'}}</title>
     <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
 
     <meta name="robots" content="noindex, nofollow" />

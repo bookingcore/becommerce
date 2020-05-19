@@ -91,5 +91,32 @@ var validation = Array.prototype.filter.call(forms, function(form) {
     }, false);
 });
 
-$('.bravo-custom-scroll').slimScroll({
-});
+$(document).on('click','.bravo_add_to_cart',function(e){
+    e.preventDefault();
+    $(this).addClass('loading');
+    var me = $(this);
+    $.ajax({
+        url:Bravo.routes.add_to_cart,
+        data:$(this).data('product'),
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            me.removeClass('loading');
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.message){
+                BravoApp.showAjaxMessage(json);
+            }
+        },
+        error:function(err){
+            me.removeClass('loading');
+            console.log(err)
+        }
+    })
+})

@@ -1,13 +1,11 @@
 <?php
-namespace Modules\Cart;
+namespace Modules\Booking;
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
 {
 
     public function boot(){
-
-        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
 
     }
     /**
@@ -18,9 +16,6 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
-        $this->app->singleton('becommerce.cart', function ($app) {
-            return $app->make(CartManager::class);
-        });
     }
 
 }

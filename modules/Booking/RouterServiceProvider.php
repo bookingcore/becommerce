@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Cart;
+namespace Modules\Booking;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -11,9 +11,9 @@ class RouterServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Modules\Cart\Controllers';
+    protected $moduleNamespace = 'Modules\Booking\Controllers';
 
-    protected $adminModuleNamespace = 'Modules\Cart\Admin';
+    protected $adminModuleNamespace = 'Modules\Booking\Admin';
 
     /**
      * Called before routes are registered.
@@ -65,11 +65,10 @@ class RouterServiceProvider extends ServiceProvider
      */
     protected function mapLanguageRoutes()
     {
-        //dd(app()->getLocale());
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             ->prefix(app()->getLocale())
-            ->group(__DIR__ . '/Routes/language.php');
+            ->group(__DIR__ . '/Routes/web.php');
     }
 
     /**
@@ -83,7 +82,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         Route::middleware(['web','dashboard'])
             ->namespace($this->adminModuleNamespace)
-            ->prefix('admin/module/space')
+            ->prefix('admin/module/core')
             ->group(__DIR__ . '/Routes/admin.php');
     }
 

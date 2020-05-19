@@ -21,30 +21,34 @@ class BookingController extends \App\Http\Controllers\Controller
         $this->booking = Booking::class;
     }
 
-    public function checkout($code)
+
+    public function checkout()
     {
 
-        $booking = $this->booking::where('code', $code)->first();
-
-        if (empty($booking)) {
-            abort(404);
-        }
-        if ($booking->customer_id != Auth::id()) {
-            abort(404);
-        }
-
-        if($booking->status != 'draft'){
-            return redirect('/');
-        }
         $data = [
             'page_title' => __('Checkout'),
-            'booking'    => $booking,
-            'service'    => $booking->service,
             'gateways'   => $this->getGateways(),
-            'user'       => Auth::user()
+            'user'       => Auth::user(),
+            'breadcrumbs'=>[
+                ['name'=>__("Checkout"),'class'=>'active']
+            ]
         ];
-        return view('Booking::frontend/checkout', $data);
+        return view('Booking::frontend.checkout', $data);
     }
+
+    public function cart()
+    {
+
+        $data = [
+            'page_title' => __('Cart'),
+            'user'       => Auth::user(),
+            'breadcrumbs'=>[
+                ['name'=>__("Cart"),'class'=>'active']
+            ]
+        ];
+        return view('Booking::frontend.cart', $data);
+    }
+
 
     public function checkStatusCheckout($code)
     {
@@ -118,6 +122,7 @@ class BookingController extends \App\Http\Controllers\Controller
             'last_name'       => 'required|string|max:255',
             'email'           => 'required|string|email|max:255',
             'phone'           => 'required|string|max:255',
+            'country' => 'required',
             'payment_gateway' => 'required',
             'term_conditions' => 'required'
         ];
@@ -130,7 +135,7 @@ class BookingController extends \App\Http\Controllers\Controller
         }
         if (!empty($rules['payment_gateway'])) {
             $payment_gateway = $request->input('payment_gateway');
-            $gateways = config('booking.payment_gateways');
+            $gateways = get_payment_gateways();
             if (empty($gateways[$payment_gateway]) or !class_exists($gateways[$payment_gateway])) {
                 $this->sendError(__("Payment gateway not found"));
             }
@@ -158,15 +163,15 @@ class BookingController extends \App\Http\Controllers\Controller
 //        event(new VendorLogPayment($booking));
 
         $user = Auth::user();
-        $user->first_name = $request->input('first_name');
-        $user->last_name = $request->input('last_name');
-        $user->phone = $request->input('phone');
-        $user->address = $request->input('address_line_1');
-        $user->address2 = $request->input('address_line_2');
-        $user->city = $request->input('city');
-        $user->state = $request->input('state');
-        $user->zip_code = $request->input('zip_code');
-        $user->country = $request->input('country');
+        $user->billing_first_name = $request->input('first_name');
+        $user->billing_last_name = $request->input('last_name');
+        $user->billing_phone = $request->input('phone');
+        $user->billing_address = $request->input('address_line_1');
+        $user->billing_address2 = $request->input('address_line_2');
+        $user->billing_city = $request->input('city');
+        $user->billing_state = $request->input('state');
+        $user->billing_zip_code = $request->input('zip_code');
+        $user->billing_country = $request->input('country');
         $user->save();
 
         $booking->addMeta('locale',app()->getLocale());
@@ -179,6 +184,7 @@ class BookingController extends \App\Http\Controllers\Controller
             $this->sendError($exception->getMessage());
         }
     }
+
 
     public function confirmPayment(Request $request, $gateway)
     {
@@ -208,6 +214,7 @@ class BookingController extends \App\Http\Controllers\Controller
         return $gatewayObj->cancelPayment($request);
     }
 
+
     /**
      * @todo Handle Add To Cart Validate
      *
@@ -218,20 +225,22 @@ class BookingController extends \App\Http\Controllers\Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'service_id'   => 'required|integer',
-            'service_type' => 'required'
+            'id'   => 'required|integer',
+            'type' => 'required'
         ]);
         if ($validator->fails()) {
             $this->sendError('', ['errors' => $validator->errors()]);
         }
-        $service_type = $request->input('service_type');
-        $service_id = $request->input('service_id');
+        $service_type = $request->input('type');
+        $service_id = $request->input('id');
         $allServices = get_bookable_services();
         if (empty($allServices[$service_type])) {
             $this->sendError(__('Service type not found'));
         }
         $module = $allServices[$service_type];
+        // \var_dump($module);
         $service = $module::find($service_id);
+
         if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
             $this->sendError(__('Service not found'));
         }
@@ -239,7 +248,7 @@ class BookingController extends \App\Http\Controllers\Controller
             $this->sendError(__('Service is not bookable'));
         }
         //        try{
-        $service->addToCart($request);
+        return $service->addToCart($request);
         //
         //        }catch(\Exception $ex){
         //            $this->sendError($ex->getMessage(),['code'=>$ex->getCode()]);
