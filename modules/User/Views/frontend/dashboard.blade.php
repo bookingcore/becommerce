@@ -41,7 +41,7 @@
         </div>
         <canvas class="bravo-user-render-chart"></canvas>
         <script>
-            var earning_chart_data = {!! json_encode($earning_chart_data) !!};
+            {{--var earning_chart_data = {!! json_encode($earning_chart_data) !!};--}}
         </script>
     </div>
 @endsection

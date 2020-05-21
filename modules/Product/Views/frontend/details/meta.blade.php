@@ -45,9 +45,6 @@
     @include('Product::frontend.details.add-to-cart')
     <hr>
     <div class="product-other">
-        <div class="other-item item-report">
-            <span class="val"><a href="#report">{{__('Report Abuse')}}</a></span>
-        </div>
         @if($row->sku)
         <div class="other-item item-sku">
             <span class="label">{{__("SKU: ")}}</span>

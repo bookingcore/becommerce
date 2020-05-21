@@ -102,7 +102,7 @@ class ProductController extends Controller
                 [
                     'url'=>'',
                     'class'=>'active',
-                    'name'=>setting_item_with_lang('product_page_search_title',request()->query('lang'))
+                    'name'=>'Search Result For: "'.$search.'"',
                 ]
             ],
             'body_class'        => 'full_width',

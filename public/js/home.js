@@ -575,6 +575,14 @@ jQuery(function ($) {
         $("#text_change").html($('.category-select option:selected').text());
         $(this).css('width', $("#select_change").width() + 30 + 'px');
     });
+    $('.quantity-input-group span').click(function () {
+        let input = $(this).parent().find('input[name=quantity]');
+        if ($(this).hasClass('minus')){
+            input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
+        } else {
+            input.val( parseInt(input.val()) + 1 );
+        }
+    })
 });
 
 

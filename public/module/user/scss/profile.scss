@@ -1,93 +1,254 @@
-.profile-summary{
-    border: 1px solid #e4e4e4;
-    padding:24px;
-    @media (max-width: 992px) {
-        margin-bottom: 40px;
-    }
-    .profile-avatar{
-        text-align: center;
-        margin-bottom: 15px;
-        display: flex;
-        justify-content: center;
-        img{
-            border:1px solid #d8d8d8;
-            max-width: 116px;
-            border-radius: 50%;
-        }
-        .avatar-text{
-            width: 116px;
-            height: 116px;
-            border-radius: 50%;
-            font-size: 57px;
-            font-weight: bold;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: #1a2b47;
-            color: #fff;
-        }
-    }
-    .display-name{
-        font-size: 18px;
-        font-weight: 600;
-        text-align: center;
-    }
-    .profile-since{
-        text-align: center;
-    }
-    .meta-info{
-        padding: 0px;
-        margin: 0px;
-        list-style: none;
-        &.style1{
-            li{
-                position: relative;
-                padding-left: 12px;
-                &:before{
-                    content: "\f105";
-                    display: inline-block;
-                    font: normal normal normal 14px/1 FontAwesome;
-                    font-size: inherit;
-                    text-rendering: auto;
-                    -webkit-font-smoothing: antialiased;
-                    -moz-osx-font-smoothing: grayscale;
-                    position: absolute;
-                    top: 2px;
-                    left: 0px;
+.bravo_profile_sidebar{
+    .profile-summary{
+        border: 1px solid #e4e4e4;
+        margin-bottom: 30px;
+        .profile-header{
+            .profile-avatar{
+                text-align: center;
+                margin: 15px 0;
+                display: flex;
+                justify-content: center;
+                &.avatar-img{
+                    margin: 0 0 1.7em;
                 }
-                .label{
+                .avatar-text{
+                    width: 116px;
+                    height: 116px;
+                    border-radius: 50%;
+                    font-size: 57px;
+                    font-weight: bold;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background: #1a2b47;
+                    color: #fff;
+                }
+            }
+        }
+        .profile-content{
+            padding: 25px 25px 35px;
+            background-color: #f1f1f1;
+            .label{
+                color: #000;
+                font-weight: 500;
+            }
+            .profile-info{
+                border-bottom: 1px solid #d5d5d5;
+                padding-bottom: 18px;
+                margin-bottom: 18px;
+                .display-name{
+                    font-size: 20px;
+                    text-transform: uppercase;
+                    margin: 0 0 7px;
+                    line-height: 1;
+                    font-weight: 600;
+                }
+                .review_count{
+                    font-size: 16px;
+                    margin: 0;
+                }
+                .profile-desc{
+                    p{margin: 0}
+                }
+            }
+            .profile-address{
+                margin-bottom: 15px;
+                a{
+                    color: initial;
+                }
+            }
+            .store-socials{
+                .social-icons{
+                    margin: 10px 0 10px;
+                    padding: 0;
+                    display: flex;
+                    flex-wrap: wrap;
+                    li{
+                        list-style: none;
+                        display: inline-block;
+                        margin-bottom: 10px;
+                        margin-right: 10px;
+                        padding: 5px 0;
+                        a{
+                            width: 36px;
+                            height: 36px;
+                            text-align: center;
+                            line-height: 37px;
+                            font-size: 19px;
+                            color: #fff;
+                            background-color: #1b4e9b;
+                            display: block;
+                            border-radius: 3px;
+                            &.social-instagram{
+                                background: #521313;
+                            }
+                            &.social-twitter{
+                                background: #00aeef;
+                            }
+                            &.social-googleplus{
+                                background: #cc0000;
+                            }
+                            &.social-youtube{
+                                background: #cc181e;
+                            }
+                            &.social-linkedin{
+                                background: #0077b5;
+                            }
+                        }
+                    }
+                }
+            }
+            .store-phone{
+                .phone-number{
+                    display: block;
+                    font-size: 20px;
+                    font-weight: 600;
+                    color: #000;
+                }
+            }
+            .store-contact{
+                margin-top: 15px;
+                a{
+                    display: block;
+                    color: #000;
                     font-weight: 600;
                 }
             }
         }
-        &.style2{
-            li{
-                align-items: center;
-                display: flex;
-                font-size: 16px;
-                i{
-                    font-size: 24px;
-                    margin-right: 7px;
-                }
-                &.is_vendor{
-                    i{
-                        color: #fa5636;
+        .meta-info{
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            &.style1{
+                li{
+                    position: relative;
+                    padding-left: 12px;
+                    &:before{
+                        content: "\f105";
+                        display: inline-block;
+                        font: normal normal normal 14px/1 FontAwesome;
+                        font-size: inherit;
+                        text-rendering: auto;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        position: absolute;
+                        top: 2px;
+                        left: 0px;
+                    }
+                    .label{
+                        font-weight: 600;
                     }
                 }
-                &.review_count{
+            }
+            &.style2{
+                li{
+                    align-items: center;
+                    display: flex;
+                    font-size: 16px;
                     i{
-                        color:#5191fa;
+                        font-size: 24px;
+                        margin-right: 7px;
                     }
+                    &.is_vendor{
+                        i{
+                            color: #fa5636;
+                        }
+                    }
+                    &.review_count{
+                        i{
+                            color:#5191fa;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .quick_info{
+        background-color: #f5f5f5;
+        padding: 25px 20px;
+        margin-bottom: 0;
+        position: relative;
+        border: 1px solid #e4e4e4;
+        .title{
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 40px;
+            margin-top: 0;
+            color: #000;
+        }
+        .quick-info-wrapper{
+            input, textarea{
+                width: 100%;
+                margin-bottom: 10px;
+                &[type=submit]{
+                    padding: 0 25px;
+                    height: 50px;
+                    line-height: 50px;
+                    background-color: #fcb800;
+                    transition: all 0.5s;
+                    color: #000;
+                    font-size: 16px;
+                    font-weight: 600;
+                    text-align: center;
+                    border: none;
+                    border-radius: 0;
+                    margin: 0;
                 }
             }
         }
     }
 }
-.page-profile-content{
-    padding:70px 0px;
-    @media(max-width: 768px){
-        padding:40px 0px;
+.bravo_profile_content{
+    .shop-toolbar{
+        background-color: #f5f5f5;
+        padding: 0 15px;
+        overflow: hidden;
+        margin-bottom: 40px;
+        .products-found{
+            float: left;
+            min-height: 51px;
+            display: flex;
+            align-items: center;
+            strong{
+                color: #000;
+                font-weight: 600;
+                padding-right: 5px;
+            }
+        }
+        .shop-view{
+            float: right;
+            display: flex;
+            align-items: center;
+            min-height: 51px;
+            color: #000;
+            > span{
+                padding-right: 5px;
+            }
+            .mf-shop-view{
+                margin-left: 15px;
+                font-size: 24px;
+                color: #999;
+                line-height: 1;
+                margin-top: 3px;
+                display: block;
+                &.current{
+                    color: #000;
+                }
+            }
+        }
+        .mf-filter-mobile{
+            display: none;
+        }
     }
+    .mf-shop-content{
+        .products{
+            list-style: none;
+            padding: 0;
+        }
+    }
+}
+.page-profile-content{
+    padding:30px 0 90PX;
 }
 .bravo_wrap{
     .bravo-profile-list-services{

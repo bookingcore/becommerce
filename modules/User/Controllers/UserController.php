@@ -27,8 +27,8 @@ class UserController extends FrontendController
         $this->checkPermission('product_view');
         $user_id = Auth::id();
         $data = [
-            'cards_report'       => Booking::getTopCardsReportForVendor($user_id),
-            'earning_chart_data' => Booking::getEarningChartDataForVendor(strtotime('monday this week'), time(), $user_id),
+//            'cards_report'       => Booking::getTopCardsReportForVendor($user_id),
+//            'earning_chart_data' => Booking::getEarningChartDataForVendor(strtotime('monday this week'), time(), $user_id),
             'page_title'         => __("Vendor Dashboard"),
             'breadcrumbs'        => [
                 [
@@ -37,7 +37,7 @@ class UserController extends FrontendController
                 ]
             ]
         ];
-        return view('User::frontend.dashboard', $data);
+        return view('User::frontend.dashboard', compact('data'));
     }
 
     public function reloadChart(Request $request)

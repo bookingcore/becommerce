@@ -38,12 +38,12 @@
     <!-- Styles -->
     @yield('head')
     <style type="text/css">
-        .bravo_topbar, .bravo_header, .bravo_footer {
-            display: none;
-        }
         html, body, .bravo_wrap, .bravo_user_profile,
         .bravo_user_profile > .container-fluid > .row-eq-height > .col-md-3 {
             min-height: 100vh !important;
+        }
+        .bravo_topbar, .bravo-header, .bravo_footer{
+            display: none;
         }
     </style>
     {{--Custom Style--}}

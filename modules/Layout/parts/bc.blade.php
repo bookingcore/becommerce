@@ -1,7 +1,7 @@
 @if(!empty($breadcrumbs))
     <div class="page-header page-header-page bravo-breadcrumb-top">
         <div class="page-breadcrumbs">
-            <div class="container">
+            <div class="martfury-container">
                 <ul class="breadcrumbs">
                     <li itemprop="itemListElement" itemscope="" itemtype="http://schema.org/ListItem">
                         <a class="home" href="{{url(app_get_locale())}}" itemprop="item">

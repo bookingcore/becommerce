@@ -1,5 +1,30 @@
 <div class="bravo_footer site-footer">
-    <div class="footer-newsletter"><div class="martfury-container"><div class="row"><div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 col-newsletter-content"><div class="newsletter-content"><h3>Newsletter</h3> Subcribe to get information about products and coupons</div></div><div class="col-lg-7 col-md-12 col-sm-12 col-xs-12"><div class="newsletter-form"><form id="mc4wp-form-2" class="mc4wp-form mc4wp-form-436" method="post" data-id="436" data-name="Newsletter"><div class="mc4wp-form-fields"><input type="email" name="EMAIL" placeholder="Email Address" required=""> <input type="submit" value="Subscribe"></div><label style="display: none !important;">Leave this field empty if you're human: <input type="text" name="_mc4wp_honeypot" value="" tabindex="-1" autocomplete="off"></label><input type="hidden" name="_mc4wp_timestamp" value="1584439315"><input type="hidden" name="_mc4wp_form_id" value="436"><input type="hidden" name="_mc4wp_form_element_id" value="mc4wp-form-2"><div class="mc4wp-response"></div></form></div></div></div></div></div>
+    <div class="footer-newsletter">
+        <div class="martfury-container">
+            <div class="row">
+                <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 col-newsletter-content">
+                    <div class="newsletter-content">
+                        <h3>{{ __('Newsletter') }}</h3>
+                        {{__('Subcribe to get information about products and coupons')}}
+                    </div>
+                </div>
+                <div class="col-lg-7 col-md-12 col-sm-12 col-xs-12">
+                    <div class="newsletter-form">
+                        <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bravo-subscribe-form bravo-form">
+                            @csrf
+                            <div class="mc4wp-form-fields">
+                                <input type="email" name="email" placeholder="Email Address">
+                                <input type="submit" value="Subscribe">
+                            </div>
+                            <div class="form-mess"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <div class="martfury-container">
         <div class="footer-content">
             <div class="footer-widgets" id="footer-widgets">
@@ -38,138 +63,12 @@
                             <?php $stt++; ?>
                     @endforeach
                 @endif
-
-                <!--<div class="footer-sidebar footer-1">
-                    <div id="custom_html-6" class="widget_text widget widget_custom_html">
-                        <h4 class="widget-title">Contact Us</h4>
-                        <div class="textwidget custom-html-widget">Call us 24/7
-                            <h3 style="margin: 10px 0;font-weight: 600" class="primary-color">
-                                1800 97 97 69
-                            </h3>
-                            502 New Design Str, Melbourne, Australia
-                            <br>
-                            contact@martfury.co
-                        </div>
-                    </div>
-                    <div id="social-links-widget-2" class="widget social-links-widget social-links">
-                        <div class="social-links-list">
-                            <a href="#" class="share-facebook tooltip-enable share-social" rel="nofollow" title="Facebook" data-toggle="tooltip" data-placement="top" target="_blank">
-                                <i class="social social_facebook"></i>
-                            </a>
-                            <a href="#" class="share-twitter tooltip-enable share-social" rel="nofollow" title="Twitter" data-toggle="tooltip" data-placement="top" target="_blank">
-                                <i class="social social_twitter"></i>
-                            </a>
-                            <a href="#" class="share-googleplus tooltip-enable share-social" rel="nofollow" title="Google Plus" data-toggle="tooltip" data-placement="top" target="_blank">
-                                <i class="social social_googleplus"></i>
-                            </a>
-                            <a href="#" class="share-youtube tooltip-enable share-social" rel="nofollow" title="Youtube" data-toggle="tooltip" data-placement="top" target="_blank">
-                                <i class="social social_youtube"></i>
-                            </a>
-                            <a href="#" class="share-instagram tooltip-enable share-social" rel="nofollow" title="Instagram" data-toggle="tooltip" data-placement="top" target="_blank">
-                                <i class="social social_instagram"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-sidebar footer-2">
-                    <div id="nav_menu-2" class="widget widget_nav_menu"><h4 class="widget-title">Quick Links</h4>
-                        <div class="menu-footer-widget-1-container">
-                            <ul id="menu-footer-widget-1" class="menu">
-                                <li id="menu-item-464"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-464"><a
-                                        href="http://demo2.drfuri.com/martfury3/policy/">Policy</a></li>
-                                <li id="menu-item-463"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-463"><a
-                                        href="http://demo2.drfuri.com/martfury3/term-conditions/">Term &amp;
-                                        Conditions</a></li>
-                                <li id="menu-item-462"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-462"><a
-                                        href="http://demo2.drfuri.com/martfury3/shipping/">Shipping</a></li>
-                                <li id="menu-item-461"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-461"><a
-                                        href="http://demo2.drfuri.com/martfury3/return/">Return</a></li>
-                                <li id="menu-item-445"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-445"><a
-                                        href="http://demo2.drfuri.com/martfury3/faqs/">FAQs</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-sidebar footer-3">
-                    <div id="nav_menu-3" class="widget widget_nav_menu"><h4 class="widget-title">Company</h4>
-                        <div class="menu-footer-widget-2-container">
-                            <ul id="menu-footer-widget-2" class="menu">
-                                <li id="menu-item-465"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-465"><a
-                                        href="http://demo2.drfuri.com/martfury3/about-us/">About Us</a></li>
-                                <li id="menu-item-466"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-466"><a
-                                        href="http://demo2.drfuri.com/martfury3/affilate/">Affilate</a></li>
-                                <li id="menu-item-467"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-467"><a
-                                        href="http://demo2.drfuri.com/martfury3/carrer/">Carrer</a></li>
-                                <li id="menu-item-468"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-468"><a
-                                        href="http://demo2.drfuri.com/martfury3/contact/">Contact</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer-sidebar footer-4">
-                    <div id="nav_menu-4" class="widget widget_nav_menu"><h4 class="widget-title">Bussiness</h4>
-                        <div class="menu-footer-widget-3-container">
-                            <ul id="menu-footer-widget-3" class="menu">
-                                <li id="menu-item-469"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-469"><a
-                                        href="http://demo2.drfuri.com/martfury3/blog/">Our Press</a></li>
-                                <li id="menu-item-470"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-470"><a
-                                        href="http://demo2.drfuri.com/martfury3/checkout/">Checkout</a></li>
-                                <li id="menu-item-471"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page current-menu-item page_item page-item-7 current_page_item menu-item-471">
-                                    <a href="http://demo2.drfuri.com/martfury3/my-account/" aria-current="page">My
-                                        account</a></li>
-                                <li id="menu-item-472"
-                                    class="menu-item menu-item-type-post_type menu-item-object-page menu-item-472"><a
-                                        href="http://demo2.drfuri.com/martfury3/shop/">Shop</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>-->
             </div>
+
             <div class="footer-links" id="footer-links">
-                <div id="nav_menu-5" class="widget widget_nav_menu"><h4 class="widget-title">Consumer Electric:</h4>
-                    <div class="menu-footer-link-1-container">
-                        <ul id="menu-footer-link-1" class="menu">
-                            <li id="menu-item-477"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-477"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/air-conditioners/">Air
-                                    Conditioners</a></li>
-                            <li id="menu-item-478"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-478"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/audios-theaters/">Audios
-                                    &amp; Theaters</a></li>
-                            <li id="menu-item-479"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-479"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/car-electronics/">Car
-                                    Electronics</a></li>
-                            <li id="menu-item-480"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-480"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/office-electronics/">Office
-                                    Electronics</a></li>
-                            <li id="menu-item-481"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-481"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/tv-televisions/">TV
-                                    Televisions</a></li>
-                            <li id="menu-item-482"
-                                class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-482"><a
-                                    href="http://demo2.drfuri.com/martfury3/product-category/consumer-electrics/washing-machines/">Washing
-                                    Machines</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div id="nav_menu-6" class="widget widget_nav_menu"><h4 class="widget-title">Clothing &amp;
-                        Apparel:</h4>
+                {!! setting_item_with_lang('footer_categories') !!}
+                {{--<div id="nav_menu-6" class="widget widget_nav_menu">
+                    <h4 class="widget-title">Clothing &amp; Apparel:</h4>
                     <div class="menu-footer-link-2-container">
                         <ul id="menu-footer-link-2" class="menu">
                             <li id="menu-item-483"
@@ -203,8 +102,8 @@
                         </ul>
                     </div>
                 </div>
-                <div id="nav_menu-10" class="widget widget_nav_menu"><h4 class="widget-title">Home, Garden &amp;
-                        Kitchen:</h4>
+                <div id="nav_menu-10" class="widget widget_nav_menu">
+                    <h4 class="widget-title">Home, Garden &amp; Kitchen:</h4>
                     <div class="menu-footer-link-3-container">
                         <ul id="menu-footer-link-3" class="menu">
                             <li id="menu-item-2217"
@@ -238,7 +137,8 @@
                         </ul>
                     </div>
                 </div>
-                <div id="nav_menu-9" class="widget widget_nav_menu"><h4 class="widget-title">Health &amp; Beauty:</h4>
+                <div id="nav_menu-9" class="widget widget_nav_menu">
+                    <h4 class="widget-title">Health &amp; Beauty:</h4>
                     <div class="menu-footer-link-5-container">
                         <ul id="menu-footer-link-5" class="menu">
                             <li id="menu-item-2232"
@@ -302,8 +202,8 @@
                         </ul>
                     </div>
                 </div>
-                <div id="nav_menu-7" class="widget widget_nav_menu"><h4 class="widget-title">Computer &amp;
-                        Technologies:</h4>
+                <div id="nav_menu-7" class="widget widget_nav_menu">
+                    <h4 class="widget-title">Computer &amp; Technologies:</h4>
                     <div class="menu-footer-link-4-container">
                         <ul id="menu-footer-link-4" class="menu">
                             <li id="menu-item-2224"
@@ -340,7 +240,7 @@
                             </li>
                         </ul>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
         <div class="copy-right footer-bottom">

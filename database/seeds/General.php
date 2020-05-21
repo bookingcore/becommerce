@@ -403,7 +403,111 @@
                 [
                     [
                         'name'  => "Menu",
-                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"layout":"multi_row","origin_edit_url":"http://becommere.dv/admin/module/page/edit/1","children":[]},{"name":"Shop","url":"/en/product","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true},{"name":"Pages","url":"","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true,"layout":"","children":[{"id":3,"name":"Become a Vendor","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Become a Vendor","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/3"}]},{"name":"News","url":"/en/news","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true}]',
+//                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"layout":"multi_row","origin_edit_url":"http://becommere.dv/admin/module/page/edit/1","children":[]},{"name":"Shop","url":"/en/product","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true},{"name":"Pages","url":"","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true,"layout":"","children":[{"id":3,"name":"Become a Vendor","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Become a Vendor","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/3"}]},{"name":"News","url":"/en/news","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true}]',
+                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","open":false,"item_model":"Modules\\Page\\Models\\Page","origin_name":"Pages","model_name":"Page","_open":true}]',
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ],
+                ]
+            );
+            DB::table('core_menu_translations')->insert(
+                [
+                    [
+                        'origin_id'=>1,
+                        'locale'=>'ja',
+                        'items' =>'[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/1"}]',
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ],
+                ]
+            );
+            DB::table('core_settings')->insert(
+                [
+                    [
+                        'name'=>'footer_categories',
+                        'group'=>'general',
+                        'val' =>'<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Consumer Electric:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Air Conditioners</a></li>
+            <li><a href="#">Audios &amp; Theaters</a></li>
+            <li><a href="#">Car Electronics</a></li>
+            <li><a href="#">Office Electronics</a></li>
+            <li><a href="#">TV Televisions</a></li>
+            <li><a href="#">Washing Machines</a></li>
+        </ul>
+    </div>
+</div>
+<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Clothing & Apparel:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Printers</a></li>
+            <li><a href="#">Projectors</a></li>
+            <li><a href="#">Scanners</a></li>
+            <li><a href="#">Store & Business</a></li>
+            <li><a href="#">4K Ultra HD TVs</a></li>
+            <li><a href="#">LED TVs</a></li>
+            <li><a href="#">OLED TVs</a></li>
+        </ul>
+    </div>
+</div>
+<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Home, Garden & Kitchen:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Cookware</a></li>
+            <li><a href="#">Decoration</a></li>
+            <li><a href="#">Furniture</a></li>
+            <li><a href="#">Garden Tools</a></li>
+            <li><a href="#">Powers And Hand Tools</a></li>
+            <li><a href="#">Utensil & Gadget</a></li>
+        </ul>
+    </div>
+</div>
+<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Health & Beauty:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Hair Care</a></li>
+            <li><a href="#">Makeup</a></li>
+            <li><a href="#">Body Shower</a></li>
+            <li><a href="#">Skin Care</a></li>
+            <li><a href="#">Cologine</a></li>
+            <li><a href="#">Perfume</a></li>
+        </ul>
+    </div>
+</div>
+<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Jewelry & Watches:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Necklace</a></li>
+            <li><a href="#">Pendant</a></li>
+            <li><a href="#">Diamond Ring</a></li>
+            <li><a href="#">Sliver Earing</a></li>
+            <li><a href="#">Leather Watcher</a></li>
+            <li><a href="#">Rolex</a></li>
+            <li><a href="#">Gucci</a></li>
+        </ul>
+    </div>
+</div>
+<div class="widget widget_nav_menu">
+    <h4 class="widget-title">Computer & Technologies:</h4>
+    <div class="menu-footer">
+        <ul id="menu-footer-link" class="menu">
+            <li><a href="#">Desktop PC</a></li>
+            <li><a href="#">Laptop</a></li>
+            <li><a href="#">Smartphones</a></li>
+            <li><a href="#">Tablet</a></li>
+            <li><a href="#">Game Controller</a></li>
+            <li><a href="#">Audio & Video</a></li>
+            <li><a href="#">Wireless Speaker</a></li>
+            <li><a href="#">Drone</a></li>
+        </ul>
+    </div>
+</div>',
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
