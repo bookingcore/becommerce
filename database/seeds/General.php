@@ -397,14 +397,27 @@
 
                 ]
             );
-
+            $items = [
+                [
+                    "id"=>1,
+                    "name"=>"Home",
+                    "class"=>"",
+                    "target"=>"",
+                    "open"=>false,
+                    "item_model"=>"Modules\Page\Models\Page",
+                    "origin_name"=>"Pages",
+                    "model_name"=>"Page",
+                    "_open"=>true
+                ]
+            ];
             //Menu
             DB::table('core_menus')->insert(
                 [
                     [
                         'name'  => "Menu",
 //                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"layout":"multi_row","origin_edit_url":"http://becommere.dv/admin/module/page/edit/1","children":[]},{"name":"Shop","url":"/en/product","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true},{"name":"Pages","url":"","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true,"layout":"","children":[{"id":3,"name":"Become a Vendor","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Become a Vendor","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/3"}]},{"name":"News","url":"/en/news","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true}]',
-                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","open":false,"item_model":"Modules\\Page\\Models\\Page","origin_name":"Pages","model_name":"Page","_open":true}]',
+//                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","open":false,"item_model":"Modules\Page\Models\Page","origin_name":"Pages","model_name":"Page","_open":true}]',
+                        'items' =>  json_encode($items),
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
@@ -415,7 +428,7 @@
                     [
                         'origin_id'=>1,
                         'locale'=>'ja',
-                        'items' =>'[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/1"}]',
+                        'items' => json_encode($items),
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],

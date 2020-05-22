@@ -16,41 +16,43 @@
                                 <li class="product type-product">
                                     <div class="product-inner">
                                         <div class="mf-product-thumbnail">
-                                            <a href="{{$item->getDetailUrl()}}">
-                                                @if($image = get_image_tag($item['image_id']))
-                                                    <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title'] ?? ''}}">
-                                                @endif
-                                                @if(!empty($item->discount_percent))
-                                                    <span class="ribbons">
+                                            <div class="product-image">
+                                                <a href="{{$item->getDetailUrl()}}">
+                                                    @if($image = get_image_tag($item['image_id']))
+                                                        <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title'] ?? ''}}">
+                                                    @endif
+                                                    @if(!empty($item->discount_percent))
+                                                        <span class="ribbons">
                                                                 <span class="onsale ribbon">
                                                                     <span class="sep">-</span>{{$item->discount_percent}}
                                                                 </span>
                                                             </span>
-                                                @endif
-                                            </a>
-
-                                            <div class="footer-button">
-                                                <a href="#">
-                                                    <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to cart')}}"></i>
-                                                    <span class="add-to-cart-text">{{__('Add to cart')}}</span>
+                                                    @endif
                                                 </a>
-                                                <a href="#" class="mf-product-quick-view">
-                                                    <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
-                                                </a>
-                                                <div class="yith-wcwl-add-to-wishlist add-to-wishlist-31 wishlist-fragment on-first-load">
-                                                    <!-- ADD TO WISHLIST -->
 
-                                                    <div class="yith-wcwl-add-button">
-                                                        <a href="#" title="{{__('Add to Wishlist')}}" tabindex="0">
-                                                            <i class="yith-wcwl-icon fa fa-heart-o"></i>
-                                                            <span>{{__('Add to Wishlist')}}</span>
-                                                        </a>
+                                                <div class="footer-button">
+                                                    <a href="#">
+                                                        <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to cart')}}"></i>
+                                                        <span class="add-to-cart-text">{{__('Add to cart')}}</span>
+                                                    </a>
+                                                    <a href="#" class="mf-product-quick-view">
+                                                        <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
+                                                    </a>
+                                                    <div class="yith-wcwl-add-to-wishlist add-to-wishlist-31 wishlist-fragment on-first-load">
+                                                        <!-- ADD TO WISHLIST -->
+
+                                                        <div class="yith-wcwl-add-button">
+                                                            <a href="#" title="{{__('Add to Wishlist')}}" tabindex="0">
+                                                                <i class="yith-wcwl-icon fa fa-heart-o"></i>
+                                                                <span>{{__('Add to Wishlist')}}</span>
+                                                            </a>
+                                                        </div>
+                                                        <!-- COUNT TEXT -->
+
                                                     </div>
-                                                    <!-- COUNT TEXT -->
-
-                                                </div>
-                                                <div class="compare-button mf-compare-button">
-                                                    <a href="#" class="compare" title="{{__('Compare')}}">{{__('Compare')}}</a>
+                                                    <div class="compare-button mf-compare-button">
+                                                        <a href="#" class="compare" title="{{__('Compare')}}">{{__('Compare')}}</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

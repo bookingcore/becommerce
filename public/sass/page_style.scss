@@ -8673,6 +8673,10 @@ body.page .comments-area {
             .mf-product-thumbnail {
                 position: relative;
                 margin-bottom: 12px;
+				.product-image{
+					width: 100%;
+					height: 200px;
+				}
 
                 &.hover-swatch .footer-button {
                     opacity: 0;
@@ -22616,7 +22620,19 @@ textarea:focus {
             }
 
             .mf-product-thumbnail {
+                width: 100%;
+                min-height: 200px;
                 margin-bottom: 20px;
+                >a{
+                    display: block;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    -webkit-transform: translate(-50%, -50%);
+                    -moz-transform: translate(-50%, -50%);
+                    width: 100%;
+                }
             }
         }
     }

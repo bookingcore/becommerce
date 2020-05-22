@@ -160,6 +160,9 @@
     .bravo_BannerHome1{
         margin-top: 30px;
         .bravo-home-sliders{
+            img{
+                width: 100%;
+            }
             .slick-arrow{
                 z-index: 1;
                 background-color: rgba( 0,0,0,0.3 );

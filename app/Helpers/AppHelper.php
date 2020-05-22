@@ -84,6 +84,7 @@ function generate_menu($location = '',$options = [])
     $options['walker'] = $options['walker'] ?? '\\Modules\\Core\\Walkers\\MenuWalker';
 
     $setting = json_decode(setting_item('menu_locations'),true);
+
     if(!empty($setting))
     {
         foreach($setting as $l=>$menuId){

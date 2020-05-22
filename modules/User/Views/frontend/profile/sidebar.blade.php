@@ -50,15 +50,15 @@
                         </li>
                     </ul>
                 </div>
-                <div class="store-phone">
-                    <span>{{__('Call us directly')}}</span>
-                    <span class="phone-number">{{$user->phone}}</span>
-                </div>
-                <div class="store-contact">
-                    {{__('Or contact seller via email')}}
-                    <a href="mailto:{{$user->email}}">{{$user->email}}</a>
-                </div>
             @endif
+            <div class="store-phone">
+                <span>{{__('Call us directly')}}</span>
+                <span class="phone-number">{{$user->phone}}</span>
+            </div>
+            <div class="store-contact">
+                {{__('Or contact seller via email')}}
+                <a href="mailto:{{$user->email}}">{{$user->email}}</a>
+            </div>
         </div>
     </div>
     <div class="quick_info">
