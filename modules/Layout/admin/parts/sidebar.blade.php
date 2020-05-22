@@ -132,25 +132,12 @@ $menus = [
         'icon'       => 'icon ion-ios-pie',
         'permission' => 'report_view',
         'children'   => [
-            'booking'=>[
-                'url'        => 'admin/module/report/booking',
-                'title'      => __('Booking Reports'),
-                'icon'       => 'icon ion-ios-pricetags',
-                'permission' => 'report_view',
-            ],
-            'statistic'=>[
-                'url'        => 'admin/module/report/statistic',
-                'title'      => __('Booking Statistic'),
-                'icon'       => 'icon ion ion-md-podium',
-                'permission' => 'report_view',
-            ],
             'contact'=>[
                 'url'        => 'admin/module/contact',
                 'title'      => __('Contact Submissions'),
                 'icon'       => 'icon ion ion-md-mail',
                 'permission' => 'contact_manage',
             ],
-
         ]
     ],
 ];

@@ -26,7 +26,7 @@ return [
 
     'database' => [
         'connection' => 'mysql',
-        'table' => 'shopping_cart',
+        'table' => 'product_carts',
     ],
 
     /*

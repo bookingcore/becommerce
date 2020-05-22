@@ -25,6 +25,8 @@ class CreateOrderTable extends Migration
             $table->string('status',30)->nullable();
 
             $table->decimal('total_before_fees',10,2)->nullable();
+            $table->decimal('total_before_tax',10,2)->nullable();
+            $table->decimal('tax_amount',10,2)->nullable();
 
             $table->decimal('deposit',10,2)->nullable();
             $table->string('deposit_type',30)->nullable();
