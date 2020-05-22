@@ -58,9 +58,9 @@ function setting_update_item($item,$val){
 }
 
 function app_get_locale($locale = false , $before = false , $after = false){
-    if(setting_item('site_enable_multi_lang')){
-        return $locale ? $before.$locale.$after : $before.app()->getLocale().$after;
-    }
+//    if(setting_item('site_enable_multi_lang')){
+//        return $locale ? $before.$locale.$after : $before.app()->getLocale().$after;
+//    }
     return '';
 }
 
