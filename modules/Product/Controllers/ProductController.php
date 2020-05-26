@@ -102,9 +102,10 @@ class ProductController extends Controller
                 [
                     'url'=>'',
                     'class'=>'active',
-                    'name'=>'Search Result For: "'.$search.'"',
+                    'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
                 ]
             ],
+            'wishlist'      =>  wishlist(),
             'body_class'        => 'full_width',
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
@@ -174,7 +175,8 @@ class ProductController extends Controller
             /*'related_list' => $related_products,*/
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
-            'breadcrumbs'=> $c_breadcrumbs
+            'breadcrumbs'=> $c_breadcrumbs,
+            'wishlist'  => wishlist()
         ];
         $this->setActiveMenu($row);
 

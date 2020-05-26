@@ -1,6 +1,12 @@
 .bravo_footer{
-    border-top: 1px solid #e1e1e1
-
+    border-top: 1px solid #e1e1e1;
+    .footer-bottom{
+        padding: 35px 0;
+        .footer-row{
+            display: flex;
+            align-items: center;
+        }
+    }
 }
 .subscribe-form{
     padding-top: 65px;

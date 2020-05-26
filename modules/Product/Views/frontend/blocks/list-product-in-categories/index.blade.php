@@ -40,12 +40,12 @@
                                                     </a>
                                                     <div class="yith-wcwl-add-to-wishlist add-to-wishlist-31 wishlist-fragment on-first-load">
                                                         <!-- ADD TO WISHLIST -->
-
-                                                        <div class="yith-wcwl-add-button">
-                                                            <a href="#" title="{{__('Add to Wishlist')}}" tabindex="0">
-                                                                <i class="yith-wcwl-icon fa fa-heart-o"></i>
-                                                                <span>{{__('Add to Wishlist')}}</span>
-                                                            </a>
+                                                        <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($item->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" title="{{(in_array($item->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
+                                                            <div class="yith-wcwl-add-button">
+                                                                <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
+                                                                    <i class="yith-wcwl-icon fa fa-heart-o"></i>
+                                                                </a>
+                                                            </div>
                                                         </div>
                                                         <!-- COUNT TEXT -->
 

@@ -27,6 +27,7 @@ class ProfileController extends FrontendController
         $data['breadcrumbs'] = [
             ['name'=>$user->getDisplayName()],
         ];
+        $data['wishlist'] = wishlist();
 
         $this->registerCss('module/user/css/profile.css');
 

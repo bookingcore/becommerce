@@ -24,18 +24,15 @@
             <a href="#" class="mf-product-quick-view">
                 <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
             </a>
-            <div class="yith-wcwl-add-to-wishlist add-to-wishlist-31 wishlist-fragment on-first-load">
-                <!-- ADD TO WISHLIST -->
-
+            <!-- ADD TO WISHLIST -->
+            <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($row->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" title="{{(in_array($row->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                 <div class="yith-wcwl-add-button">
-                    <a href="#" title="{{__('Add to Wishlist')}}" tabindex="0">
+                    <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                         <i class="yith-wcwl-icon fa fa-heart-o"></i>
-                        <span>{{__('Add to Wishlist')}}</span>
                     </a>
                 </div>
-                <!-- COUNT TEXT -->
-
             </div>
+            <!-- COUNT TEXT -->
             <div class="compare-button mf-compare-button">
                 <a href="#" class="compare" title="{{__('Compare')}}">{{__('Compare')}}</a>
             </div>

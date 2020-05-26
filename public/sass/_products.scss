@@ -4,6 +4,34 @@
         vertical-align: middle;
     }
 }
+.service-wishlist{
+    position: relative!important;
+    a{
+        cursor: pointer;
+    }
+    &.loading{
+        &:after{
+            border-width: 1px;
+            border-color: #666 #666 #666 transparent;
+            border-radius: 50%;
+            border-style: solid;
+            animation: mf-spin-fast 1s linear infinite;
+            content: " ";
+            width: 14px;
+            height: 14px;
+            font-weight: 400;
+            display: block;
+            position: absolute;
+            top: 10px;
+            left: 9px;
+        }
+        .yith-wcwl-add-button{
+            .yith-wcwl-icon{
+                visibility: hidden;
+            }
+        }
+    }
+}
 .bravo_product-list{
     &.style-1{
         margin: 85px 0 76px;

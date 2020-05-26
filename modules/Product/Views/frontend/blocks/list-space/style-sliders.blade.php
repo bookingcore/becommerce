@@ -13,6 +13,7 @@
         </div>
     </div>
     <div class="products-content">
+<!--        --><?php //dump($rows) ?>
         <ul class="products">
             @foreach($rows as $item)
                 <li class="product">
@@ -30,14 +31,10 @@
                                 <a href="#" class="mf-product-quick-view">
                                     <i class="p-icon icon-eye" title="{{__('Quick View')}}"></i>
                                 </a>
-                                <div
-                                    class="yith-wcwl-add-to-wishlist add-to-wishlist-90 wishlist-fragment on-first-load"
-                                    title="{{__('Add to Wishlist')}}">
+                                <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($item->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" title="{{(in_array($item->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                                     <div class="yith-wcwl-add-button">
-                                        <a href="#" data-rel="tooltip"
-                                           class="add_to_wishlist single_add_to_wishlist">
+                                        <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                                             <i class="yith-wcwl-icon fa fa-heart-o"></i>
-                                            <span>{{__('Add to Wishlist')}}</span>
                                         </a>
                                     </div>
                                 </div>

@@ -1,85 +1,47 @@
 <?php
 $service = $row->getService;
 ?>
-<div class="item-list">
-    @if($service->discount_percent)
-        <div class="sale_info">{{$service->discount_percent}}</div>
-    @endif
-    <div class="row">
-        <div class="col-md-3">
-            @if($service->is_featured == "1")
-                <div class="featured">
-                    {{__("Featured")}}
-                </div>
+<tr>
+    <td class="product-remove">
+        <a href="{{route('user.wishList.remove')}}?id={{$service->id}}&type={{$service->type}}" class="remove remove_from_wishlist" title="Remove this product">×</a>
+    </td>
+    <td class="product-thumbnail">
+        <a href="{{route('product.detail',['slug'=>$service->slug])}}">
+            @if($service->image_url)
+                <img src="{{$service->image_url}}" class="img-responsive" alt="{{$service->title}}">
             @endif
-            <div class="thumb-image">
-                <a href="{{$service->getDetailUrl()}}" target="_blank">
-                    @if($service->image_url)
-                        <img src="{{$service->image_url}}" class="img-responsive" alt="">
-                    @endif
-                </a>
-            </div>
-        </div>
-        <div class="col-md-9">
-            <div class="item-title">
-                <a href="{{$service->getDetailUrl()}}" target="_blank">
-                    {{$service->title}}
-                </a>
-            </div>
-            <div class="location">
-                @if(!empty($service->location->name))
-                    <i class="icofont-license"></i>
-                    {{__("Service Type")}}: <span class="badge badge-info">{{$service->getModelName() ?? ''}}</span>
-                @endif
-            </div>
-            <div class="location">
-                @if(!empty($service->location->name))
-                    <i class="icofont-paper-plane"></i>
-                    {{__("Location")}}: {{$service->location->name ?? ''}}
-                @endif
-            </div>
-            <div class="location">
-                <i class="icofont-money"></i>
-                {{__("Price")}}: <span class="sale-price">{{ $service->display_sale_price }}</span> <span class="price">{{ $service->display_price }}</span>
-            </div>
-            <div class="rate">
-                <i class="icofont-badge"></i>
-                <?php
-                $reviewData = $service->getScoreReview();
-                $score_total = $reviewData['score_total'];
-                ?>
-                <div class="service-review tour-review-{{$score_total}}">
-                    <span class="review">
-                        @if($reviewData['total_review'] > 1)
-                            {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
-                        @else
-                            {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
-                        @endif
-                    </span>
-                    <div class="list-star">
-                        <ul class="booking-item-rating-stars">
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                        <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
-                            <ul class="booking-item-rating-stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
+        </a>
+    </td>
+    <td class="product-name">
+        <a href="{{route('product.detail',['slug'=>$service->slug])}}">{{$service->title}}</a>
+    </td>
+    <td class="product-price">
+        @if(!empty($service->sale_price))
+            <p class="price has-sale">
+                <ins>
+                    <span class="amount">{{format_money($service->sale_price)}}</span>
+                </ins>
+                <del>
+                    <span class="amount">{{format_money($service->price)}}</span>
+                </del>
+            </p>
+        @else
+            <p class="price">
+                <span class="amount">{{format_money($service->price)}}</span>
+            </p>
+        @endif
+    </td>
+    <td class="product-stock-status">
+        <span class="{{ ($service->stock_status == 'in') ? 'wishlist-in-stock' : 'wishlist-out-of-stock' }}">{{ ($service->stock_status == 'in') ? 'In Stock' : 'Out of stock' }}</span>
+    </td>
 
-                </div>
-            </div>
-            <div class="control-action">
-                <a href="{{ route('user.wishList.remove',['id'=>$service->id , 'type' => $service->type]) }}" class="btn btn-warning">{{__("Remove")}}</a>
-            </div>
-        </div>
-    </div>
-</div>
+    <td class="product-add-to-cart">
+        @if($service->stock_status == 'in')
+            <a href="#" class="button add_to_cart_button ajax_add_to_cart add_to_cart alt">
+                <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to Cart')}}"></i>
+                <span class="add-to-cart-text">{{__('Add to Cart')}}</span>
+            </a>
+        @endif
+    </td>
+
+</tr>

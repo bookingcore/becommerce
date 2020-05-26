@@ -494,28 +494,34 @@ jQuery(function ($) {
         $this.bravoAutocomplete(options);
     });
 
-    $(document).on("click",".service-wishlist",function(){
+    $(document).on("click",".service-wishlist",function(e){
         var $this = $(this);
-        $.ajax({
-            url:  Bravo.url+'/user/wishlist',
-            data: {
-                object_id: $this.attr("data-id"),
-                object_model: $this.attr("data-type"),
-            },
-            dataType: 'json',
-            type: 'POST',
-            beforeSend: function() {
-                $this.addClass("loading");
-            },
-            success: function (res) {
-                $this.attr('class',"service-wishlist "+res.class);
-            },
-            error:function (e) {
-                if(e.status === 401){
-                    $('#login').modal('show');
+        if (!$this.hasClass('active')){
+            e.preventDefault();
+            let w_class = $this.attr('class');
+            $.ajax({
+                url:  Bravo.url+'/user/wishlist',
+                data: {
+                    object_id: $this.attr("data-id"),
+                    object_model: $this.attr("data-type"),
+                },
+                dataType: 'json',
+                type: 'POST',
+                beforeSend: function() {
+                    $this.addClass("loading");
+                },
+                success: function (res) {
+                    $this.attr('class',w_class + ' ' + res.class).attr('title', res.title);
+                },
+                error:function (e) {
+                    if(e.status === 401){
+                        $('#login').modal('show');
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            return;
+        }
     });
 });
 

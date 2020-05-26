@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
+use Modules\User\Models\UserWishList;
 
 define( 'MINUTE_IN_SECONDS', 60 );
 define( 'HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS );
@@ -991,4 +992,15 @@ function get_cart_fragments(){
  */
 function cart(){
     return resolve('Cart');
+}
+
+function wishlist(){
+    $l_wishlist = UserWishList::select('object_id')->get();
+    $wishlist = [];
+    if (!empty($l_wishlist)){
+        foreach ($l_wishlist as $list){
+            array_push($wishlist, $list->object_id);
+        }
+    }
+    return $wishlist;
 }

@@ -533,6 +533,18 @@
             }
         }
     }
+    .product-detail-add-to-cart{
+        .service-wishlist{
+            &.loading{
+                .icon-heart{
+                    visibility: hidden;
+                }
+                &:after{
+                    top: 16px;
+                }
+            }
+        }
+    }
 }
 
 .product-related {

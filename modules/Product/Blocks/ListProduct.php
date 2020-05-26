@@ -4,6 +4,7 @@ namespace Modules\Product\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
+use Modules\User\Models\UserWishList;
 
 class ListProduct extends BaseBlock
 {
@@ -134,6 +135,7 @@ class ListProduct extends BaseBlock
             'rows'       => $list,
             'style_list' => $model['style_list'],
             'title'      => $model['title'],
+            'wishlist'   => wishlist(),
             'categories' => $categories,
         ];
         return view('Product::frontend.blocks.list-space.index', $data);
