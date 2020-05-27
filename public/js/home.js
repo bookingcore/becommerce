@@ -555,12 +555,40 @@ jQuery(function ($) {
         nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
     });
 
+    let w_width = $(window).width();
+    let w_item = function (item = 6) {
+        if (w_width <= 1199){
+            item = 4;
+        }
+        if (w_width <= 991){
+            item = 3
+        }
+        if (w_width < 767){
+            item = 2
+        }
+        return item;
+    };
     $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .products, .product-related .products').slick({
         infinite: false,
-        slidesToShow: 6,
-        slidesToScroll: 6,
         arrows: false,
         dots: true,
+        responsiveClass:true,
+        slidesToShow: w_item(),
+        slidesToScroll: w_item(),
+        responsive:{
+            0:{
+                items:2,
+            },
+            767:{
+                items:3,
+            },
+            992:{
+                items:4,
+            },
+            1200:{
+                items:6,
+            }
+        }
     });
 
     $('.product-categories li .cat-menu-close').click(function () {

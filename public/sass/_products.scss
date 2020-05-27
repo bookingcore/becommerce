@@ -42,16 +42,28 @@
         }
     }
     &.style-2{
-        margin-bottom: 50px;
         .cat-header{
             padding: 16px 20px;
             background-color: #f4f4f4;
             border-bottom-color: #e3e3e3;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 0 55px;
             .cat-title{
                 font-size: 20px;
                 font-weight: 600;
                 margin: 0;
                 line-height: 1;
+            }
+            .extra-links{
+                padding: 0;
+                margin: 0 -15px;
+                li{
+                    display: inline-block;
+                    margin-bottom: 0;
+                    padding: 0 15px;
+                }
             }
         }
         .products{

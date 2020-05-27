@@ -1,10 +1,28 @@
 .bravo_footer{
     border-top: 1px solid #e1e1e1;
+    .footer-newsletter{
+        .newsletter-content{
+            margin-bottom: 15px;
+        }
+    }
     .footer-bottom{
         padding: 35px 0;
         .footer-row{
             display: flex;
             align-items: center;
+            @media (max-width: 768px){
+                text-align: center;
+                .footer-copyright{
+                    margin-bottom: 15px;
+                }
+                .footer-payments{
+                    display: block;
+                    text-align: center;
+                    .text{
+                        margin-bottom: 10px;
+                    }
+                }
+            }
         }
     }
 }

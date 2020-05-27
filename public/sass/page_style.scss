@@ -8675,7 +8675,12 @@ body.page .comments-area {
                 margin-bottom: 12px;
 				.product-image{
 					width: 100%;
-					height: 200px;
+                    max-width: 250px;
+                    position: relative;
+                    padding-bottom: 100%;
+                    >a{
+                        position: absolute;
+                    }
 				}
 
                 &.hover-swatch .footer-button {
@@ -8784,6 +8789,7 @@ body.page .comments-area {
                         border-radius: 50%;
 
                         .p-icon {
+                            width: 34px;
                             height: 34px;
                             font-size: 18px;
                             display: flex;
@@ -8805,6 +8811,7 @@ body.page .comments-area {
                     }
 
                     > a .p-icon {
+                        width: 34px;
                         height: 34px;
                         font-size: 18px;
                         display: flex;
@@ -22621,17 +22628,11 @@ textarea:focus {
 
             .mf-product-thumbnail {
                 width: 100%;
-                min-height: 200px;
-                margin-bottom: 20px;
+                max-width: 250px;
+                margin: 0 auto 20px;
+                padding-bottom: 100%;
                 >a{
-                    display: block;
                     position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    -webkit-transform: translate(-50%, -50%);
-                    -moz-transform: translate(-50%, -50%);
-                    width: 100%;
                 }
             }
         }
@@ -32887,9 +32888,6 @@ body.navigation-mobile-active {
             }
 
             .product-inner {
-                .mf-product-content, .mf-product-price-box {
-                    display: none;
-                }
 
                 .mf-product-details-hover {
                     position: static;
