@@ -1,4 +1,5 @@
 <form class="bravo-form-login" method="POST" action="{{ route('login') }}">
+    <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
     @csrf
     <div class="form-group">
         <input type="text" class="form-control" name="email" autocomplete="off" placeholder="{{__('Email address')}}">

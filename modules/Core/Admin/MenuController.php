@@ -107,14 +107,14 @@ class MenuController extends AdminController
         $q = $request->input('q');
         if (class_exists($class) and method_exists($class, 'searchForMenu')) {
 
-            $this->sendSuccess([
+            return $this->sendSuccess([
                 'data' => call_user_func([
                     $class,
                     'searchForMenu'
                 ], $q)
             ]);
         }
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'data' => []
         ]);
     }
@@ -177,7 +177,7 @@ class MenuController extends AdminController
                 }
             }
         }
-        $this->sendSuccess(['data' => $menuModels]);
+        return $this->sendSuccess(['data' => $menuModels]);
     }
 
     public function getItems(Request $request)
@@ -185,8 +185,8 @@ class MenuController extends AdminController
 
         $menu = Menu::find($request->input('id'));
         if (empty($menu))
-            $this->sendError(__("Menu not found"));
-        $this->sendSuccess(['data' => json_decode($menu->items, true)]);
+            return $this->sendError(__("Menu not found"));
+        return $this->sendSuccess(['data' => json_decode($menu->items, true)]);
     }
 
     public function store(Request $request)
@@ -205,7 +205,7 @@ class MenuController extends AdminController
             $menu = new Menu();
         }
         if (empty($menu))
-            $this->sendError(__('Menu not found'));
+            return $this->sendError(__('Menu not found'));
 
 
         $menu->items = $request->input('items');
@@ -233,7 +233,7 @@ class MenuController extends AdminController
         }
 
         setting_update_item('menu_locations', json_encode($setting));
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/core/menu/edit/' . $menu->id)
         ], __('Your menu has been saved'));
     }

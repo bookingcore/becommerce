@@ -223,12 +223,12 @@ class AttributeController extends AdminController
         $row->fill($request->input());
         $res = $row->saveOriginOrTranslation($request->input('lang'));
         if ($res) {
-            $this->sendSuccess([
+            return $this->sendSuccess([
                 'id'=>$row->id,
                 'name'=>$row->name
             ]);
         }
-        $this->sendError(__("Can not add term"));
+        return $this->sendError(__("Can not add term"));
     }
 
     public function editTermBulk(Request $request)
@@ -265,7 +265,7 @@ class AttributeController extends AdminController
                     'items'=>$items
                 ]);
             }
-            
+
             if(empty($item)){
                 return response()->json([
                     'text'=>''

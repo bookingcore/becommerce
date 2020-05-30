@@ -248,6 +248,7 @@ jQuery(function ($) {
                 'password': form.find('input[name=password]').val(),
                 'remember': form.find('input[name=remember]').is(":checked") ? 1 : '',
                 'g-recaptcha-response': form.find('[name=g-recaptcha-response]').val(),
+                'redirect': form.find('input[name=redirect]').val(),
             },
             'type': 'POST',
             beforeSend: function () {

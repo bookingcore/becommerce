@@ -24,7 +24,7 @@ class BaseProduct extends BaseModel implements  Buyable
     public function sendError($message, $data = [])
     {
         $data['status'] = 0;
-        $this->sendSuccess($data, $message);
+        return $this->sendSuccess($data, $message);
     }
 
     public function sendSuccess($data = [], $message = '')
@@ -32,8 +32,7 @@ class BaseProduct extends BaseModel implements  Buyable
         if (!isset($data['status']))
             $data['status'] = 1;
         $data['message'] = $message;
-        response()->json($data)->send();
-        die;
+        return response()->json($data);
     }
 
     public function addToCartValidate(Request $request)
