@@ -5,6 +5,11 @@
         font-size: 13px;
         color: #768092;
         margin-left: 10px;
+        @media (max-width: 414px){
+            position: static;
+            display: block;
+            margin: 0;
+        }
     }
 
     .list-star {

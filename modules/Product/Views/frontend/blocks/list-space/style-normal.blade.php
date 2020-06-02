@@ -17,7 +17,7 @@
                 <ul class="products list-unstyled">
                     @if(!empty($rows))
                         @foreach($rows as $item)
-                            <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
+                            <li class="col-xs-12 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
                                 <div class="product-inner">
                                     <div class="mf-product-thumbnail">
                                         <a href="{{$item->getDetailUrl()}}">{!! get_image_tag($item['image_id']) !!}</a>

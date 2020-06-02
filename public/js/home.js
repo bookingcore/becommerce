@@ -617,6 +617,42 @@ jQuery(function ($) {
         } else {
             input.val( parseInt(input.val()) + 1 );
         }
+    });
+    let navigation_mobile = $('.mf-navigation-mobile .navigation-list > a').not($('.navigation-mobile_home'));
+    navigation_mobile.click(function (e) {
+        e.preventDefault();
+        let id = $(this).attr('data-id');
+        navigation_mobile.removeClass('active');
+        $('.mf-els-item').removeClass('current');
+        $(this).addClass('active');
+        $('.mf-els-modal-mobile').addClass('open');
+        $('#'+id).addClass('current');
+    });
+    $('.close-mobile-nav, .close-cart-mobile').click(function () {
+        $(this).closest('.mf-els-modal-mobile').removeClass('open');
+        $('.mf-navigation-mobile .navigation-list a').not($('.navigation-mobile_home')).removeClass('active');
+    });
+    $('.menu-item-has-children > a, .menu-item-has-children .menu-item-mega > a').click(function (e) {
+        e.preventDefault();
+        let p_item = $(this).closest('.menu-item-has-children');
+        let p_item_child = $(this).parent().attr('class');
+        if (p_item.hasClass('active')){
+            p_item.removeClass('active').find('.dropdown-submenu').stop().slideUp();
+        } else {
+            if (p_item_child !== 'menu-item-mega'){
+                $('.menu-item-has-children').removeClass('active');
+                $('.dropdown-submenu').stop().slideUp();
+                p_item.addClass('active').find('.dropdown-submenu').stop().slideDown();
+            } else {
+                if ($(this).hasClass('active')){
+                    $(this).removeClass('active').parent().find('.sub-menu').stop().slideUp();
+                } else {
+                    $(this).closest('.mega-menu-content').find('.menu-item-mega > a').removeClass('active');
+                    $(this).closest('.mega-menu-content').find('.menu-item-mega .mega-menu-submenu .sub-menu').stop().slideUp();
+                    $(this).addClass('active').parent().find('.mega-menu-submenu .sub-menu').stop().slideDown();
+                }
+            }
+        }
     })
 });
 

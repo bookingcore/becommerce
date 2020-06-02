@@ -25,6 +25,90 @@
             }
         }
     }
+    .bravo_footer_menu{
+        .mf-els-modal-mobile{
+            z-index: 999999;
+            display: block;
+            .primary-mobile-nav{
+                position: static;
+                transform: none;
+                width: 100%;
+                .mobile-nav-content{
+                    .mobile-nav-header{
+                        .close-mobile-nav{
+                            display: block;
+                        }
+                    }
+                    .bravo-department-list{
+                        .menu{
+                            >.menu-item-has-children{
+                                >a{
+                                    &:after{
+                                        content: "\e936";
+                                        font-family: 'Linearicons' !important;
+                                        position: absolute;
+                                        right: 0;
+                                    }
+                                }
+                                &.active{
+                                    >a{
+                                        &:after{
+                                            content: "\e937";
+                                        }
+                                    }
+                                }
+                                >ul.dropdown-submenu{
+                                    background: transparent!important;
+                                    >li{
+                                        padding: 0;
+                                        .mega-menu-content{
+                                            .flex-nowrap{
+                                                display: block;
+                                                margin: 0;
+                                                >.menu-item-has-children{
+                                                    padding: 5px 0;
+                                                    .menu-item-mega{
+                                                        a{
+                                                            color: #666;
+                                                        }
+                                                        >a{
+                                                            position: relative;
+                                                            &:after{
+                                                                content: "\e936";
+                                                                font-family: 'Linearicons' !important;
+                                                                position: absolute;
+                                                                right: 0;
+                                                            }
+                                                            &.active{
+                                                                &:after{
+                                                                    content: "\e937";
+                                                                }
+                                                            }
+                                                        }
+                                                        .mega-menu-submenu{
+                                                            .sub-menu{
+
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .mf-navigation-mobile{
+            display: none;
+            @media (max-width: 991px){
+                display: block;
+            }
+        }
+    }
 }
 .subscribe-form{
     padding-top: 65px;
