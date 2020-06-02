@@ -79,7 +79,7 @@ class TemplateController extends AdminController
     public function getBlocks()
     {
         $template = new Template();
-        $this->sendSuccess(['data' => $template->getBlocks()]);
+        return $this->sendSuccess(['data' => $template->getBlocks()]);
     }
 
     public function store(Request $request)
@@ -96,13 +96,13 @@ class TemplateController extends AdminController
             $template = new Template();
         }
         if (empty($template))
-            $this->sendError('Template not found');
+            return $this->sendError('Template not found');
         $template->content = $request->input('content');
         $template->title = $request->input('title');
 
         $template->saveOriginOrTranslation($request->input('lang'));
 
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/template/edit/' . $template->id)
         ], __('Your template has been saved'));
     }

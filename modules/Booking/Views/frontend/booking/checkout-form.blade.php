@@ -1,5 +1,4 @@
 <div class="form-checkout" id="form-checkout" >
-    <input type="hidden" name="code" value="{{$booking->code}}">
     <div class="form-section">
         <div class="row">
             <div class="col-md-6">
@@ -73,7 +72,7 @@
             </div>
         </div>
     </div>
-    @include ($service->checkout_form_payment_file ?? 'Booking::frontend/booking/checkout-payment')
+    @include ('Booking::frontend/booking/checkout-payment')
 
     @php
     $term_conditions = setting_item('booking_term_conditions');

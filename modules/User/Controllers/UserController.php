@@ -48,7 +48,7 @@ class UserController extends FrontendController
             case "earning":
                 $from = $request->input('from');
                 $to = $request->input('to');
-                $this->sendSuccess([
+                return $this->sendSuccess([
                     'data' => Booking::getEarningChartDataForVendor(strtotime($from), strtotime($to), $user_id)
                 ]);
                 break;
@@ -189,7 +189,7 @@ class UserController extends FrontendController
                 return response()->json([
                     'error'    => false,
                     'messages' => false,
-                    'redirect' => $request->headers->get('referer') ?? url(app_get_locale(false,'/'))
+                    'redirect' => $request->input('redirect') ?? url(app_get_locale(false,'/'))
                 ], 200);
             } else {
                 $errors = new MessageBag(['message_error' => __('Username or password incorrect')]);
@@ -290,16 +290,16 @@ class UserController extends FrontendController
         if ($check) {
             if ($check->trashed()) {
                 $check->restore();
-                $this->sendSuccess([], __('Thank you for subscribing'));
+                return $this->sendSuccess([], __('Thank you for subscribing'));
             }
-            $this->sendError(__('You are already subscribed'));
+            return $this->sendError(__('You are already subscribed'));
         } else {
             $a = new Subscriber();
             $a->email = $request->input('email');
             $a->first_name = $request->input('first_name');
             $a->last_name = $request->input('last_name');
             $a->save();
-            $this->sendSuccess([], __('Thank you for subscribing'));
+            return $this->sendSuccess([], __('Thank you for subscribing'));
         }
     }
 

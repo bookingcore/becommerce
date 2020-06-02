@@ -39,7 +39,7 @@ class StatisticController extends AdminController
         if ($user_type == 'vendor') {
             $vendor_id = $request->input('user_id');
         }
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'chart_data'  => Booking::getStatisticChartData(strtotime($from), strtotime($to), $status, $customer_id, $vendor_id)['chart'],
             'detail_data' => Booking::getStatisticChartData(strtotime($from), strtotime($to), $status, $customer_id, $vendor_id)['detail']
         ]);

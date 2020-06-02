@@ -982,7 +982,7 @@ function is_enable_language_route(){
 }
 function get_cart_fragments(){
     return [
-        '.user-mini-cart .dropdown-menu'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
         '.user-cart-count'=>Cart::count()
     ];
 }

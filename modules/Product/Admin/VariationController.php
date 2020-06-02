@@ -87,7 +87,7 @@ class VariationController extends AdminController
 
         return $this->sendSuccess([],__("Product attribute for variations saved"));
     }
-    
+
 
     public function ajaxVariationList($id){
         $this->checkPermission('product_update');
@@ -105,11 +105,11 @@ class VariationController extends AdminController
     }
 
     public function ajaxAddVariation(){
-        
+
         $product_id = request()->input('id');
         if(empty($product_id))
         {
-            $this->sendError(__("Product id is required"));
+            return $this->sendError(__("Product id is required"));
         }
         $query = Product::where('id',$product_id);
         if(!$this->hasPermission('product_manage_others')){
@@ -119,7 +119,7 @@ class VariationController extends AdminController
 
         if(empty($product))
         {
-            $this->sendError(__("Product not found"));
+            return $this->sendError(__("Product not found"));
         }
 
         $variation = new $this->product_variation();
@@ -127,16 +127,16 @@ class VariationController extends AdminController
         $variation->active = 1;
         $variation->save();
 
-        $this->sendSuccess();
+        return $this->sendSuccess();
 
     }
 
     public function ajaxDeleteVariation(){
-        
+
         $variation_id = request()->input('id');
         if(empty($variation_id))
         {
-            $this->sendError(__("Variation id is required"));
+            return $this->sendError(__("Variation id is required"));
         }
         $query = ProductVariation::where('id',$variation_id);
         if(!$this->hasPermission('product_manage_others')){
@@ -146,20 +146,20 @@ class VariationController extends AdminController
 
         if(empty($variation))
         {
-            $this->sendError(__("Variation not found"));
+            return $this->sendError(__("Variation not found"));
         }
 
         $variation->delete();
 
-        $this->sendSuccess();
+        return $this->sendSuccess();
 
-    }   
+    }
     public function ajaxSaveVariations(){
-        
+
         $product_id = request()->input('product_id');
         if(empty($product_id))
         {
-            $this->sendError(__("Product id is required"));
+            return $this->sendError(__("Product id is required"));
         }
         $query = Product::where('id',$product_id);
         if(!$this->hasPermission('product_manage_others')){
@@ -169,13 +169,13 @@ class VariationController extends AdminController
 
         if(empty($product))
         {
-            $this->sendError(__("Product not found"));
+            return $this->sendError(__("Product not found"));
         }
 
         $variations = request()->input('variations');
         if(empty($variations) or !\is_array($variations))
         {
-            $this->sendError(__("Variations data is required"));
+            return $this->sendError(__("Variations data is required"));
         }
 
         foreach($variations as $id=>$data)
@@ -183,7 +183,7 @@ class VariationController extends AdminController
             if(empty($data)) continue;
             $variation = $this->product_variation::find($id);
             if(empty($variation) or $variation->product_id != $product_id) continue;
-         
+
             $variation->fillByAttr([
                 'image_id','sku','price','is_manage_stock','quantity','stock_status','active'
             ],$data);
@@ -193,7 +193,7 @@ class VariationController extends AdminController
             $this->saveTerms($variation,$data);
         }
 
-        $this->sendSuccess([],__('Variations data saved'));
+        return $this->sendSuccess([],__('Variations data saved'));
     }
 
     protected function saveTerms($variation, $data)
@@ -217,7 +217,7 @@ class VariationController extends AdminController
         $product_id = request()->input('product_id');
         if(empty($product_id))
         {
-            $this->sendError(__("Product id is required"));
+            return $this->sendError(__("Product id is required"));
         }
         $query = Product::where('id',$product_id);
         if(!$this->hasPermission('product_manage_others')){
@@ -227,12 +227,12 @@ class VariationController extends AdminController
 
         if(empty($product))
         {
-            $this->sendError(__("Product not found"));
+            return $this->sendError(__("Product not found"));
         }
 
         $variations = $product->variations();
 
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'rows'=>$variations
         ]);
 
@@ -277,7 +277,7 @@ class VariationController extends AdminController
 
             if(empty($product))
             {
-                $this->sendError(__("Product not found"));
+                return $this->sendError(__("Product not found"));
             }
 
             $variation = new ProductVariation();
@@ -292,7 +292,7 @@ class VariationController extends AdminController
 
             if(empty($variation))
             {
-                $this->sendError(__("Variation not found"));
+                return $this->sendError(__("Variation not found"));
             }
         }
 
@@ -307,9 +307,9 @@ class VariationController extends AdminController
         $variation->save();
 
         if($id){
-            $this->sendSuccess([],"Variation saved");
+            return $this->sendSuccess([],"Variation saved");
         }else{
-            $this->sendSuccess([],"Variation created");
+            return $this->sendSuccess([],"Variation created");
         }
     }
 

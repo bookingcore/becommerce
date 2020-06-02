@@ -24,7 +24,6 @@ class BookingController extends \App\Http\Controllers\Controller
 
     public function checkout()
     {
-
         $data = [
             'page_title' => __('Checkout'),
             'gateways'   => $this->getGateways(),
@@ -89,7 +88,7 @@ class BookingController extends \App\Http\Controllers\Controller
             'code' => 'required',
         ]);
         if ($validator->fails()) {
-            $this->sendError('', ['errors' => $validator->errors()]);
+            return $this->sendError('', ['errors' => $validator->errors()]);
         }
         $code = $request->input('code');
         $booking = $this->booking::where('code', $code)->first();
@@ -106,7 +105,7 @@ class BookingController extends \App\Http\Controllers\Controller
         }
         $service = $booking->service;
         if (empty($service)) {
-            $this->sendError(__("Service not found"));
+            return $this->sendError(__("Service not found"));
         }
         /**
          * Google ReCapcha
@@ -114,7 +113,7 @@ class BookingController extends \App\Http\Controllers\Controller
         if(ReCaptchaEngine::isEnable() and setting_item("booking_enable_recaptcha")){
             $codeCapcha = $request->input('g-recaptcha-response');
             if(!$codeCapcha or !ReCaptchaEngine::verify($codeCapcha)){
-                $this->sendError(__("Please verify the captcha"));
+                return $this->sendError(__("Please verify the captcha"));
             }
         }
         $rules = [
@@ -130,18 +129,18 @@ class BookingController extends \App\Http\Controllers\Controller
         if (!empty($rules)) {
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
-                $this->sendError('', ['errors' => $validator->errors()]);
+                return $this->sendError('', ['errors' => $validator->errors()]);
             }
         }
         if (!empty($rules['payment_gateway'])) {
             $payment_gateway = $request->input('payment_gateway');
             $gateways = get_payment_gateways();
             if (empty($gateways[$payment_gateway]) or !class_exists($gateways[$payment_gateway])) {
-                $this->sendError(__("Payment gateway not found"));
+                return $this->sendError(__("Payment gateway not found"));
             }
             $gatewayObj = new $gateways[$payment_gateway]($payment_gateway);
             if (!$gatewayObj->isAvailable()) {
-                $this->sendError(__("Payment gateway is not available"));
+                return $this->sendError(__("Payment gateway is not available"));
             }
         }
         $service->beforeCheckout($request, $booking);
@@ -181,7 +180,7 @@ class BookingController extends \App\Http\Controllers\Controller
 
             $gatewayObj->process($request, $booking, $service);
         } catch (Exception $exception) {
-            $this->sendError($exception->getMessage());
+            return $this->sendError($exception->getMessage());
         }
     }
 
@@ -191,11 +190,11 @@ class BookingController extends \App\Http\Controllers\Controller
 
         $gateways = config('booking.payment_gateways');
         if (empty($gateways[$gateway]) or !class_exists($gateways[$gateway])) {
-            $this->sendError(__("Payment gateway not found"));
+            return $this->sendError(__("Payment gateway not found"));
         }
         $gatewayObj = new $gateways[$gateway]($gateway);
         if (!$gatewayObj->isAvailable()) {
-            $this->sendError(__("Payment gateway is not available"));
+            return $this->sendError(__("Payment gateway is not available"));
         }
         return $gatewayObj->confirmPayment($request);
     }
@@ -205,11 +204,11 @@ class BookingController extends \App\Http\Controllers\Controller
 
         $gateways = config('booking.payment_gateways');
         if (empty($gateways[$gateway]) or !class_exists($gateways[$gateway])) {
-            $this->sendError(__("Payment gateway not found"));
+            return $this->sendError(__("Payment gateway not found"));
         }
         $gatewayObj = new $gateways[$gateway]($gateway);
         if (!$gatewayObj->isAvailable()) {
-            $this->sendError(__("Payment gateway is not available"));
+            return $this->sendError(__("Payment gateway is not available"));
         }
         return $gatewayObj->cancelPayment($request);
     }
@@ -229,20 +228,20 @@ class BookingController extends \App\Http\Controllers\Controller
             'type' => 'required'
         ]);
         if ($validator->fails()) {
-            $this->sendError('', ['errors' => $validator->errors()]);
+            return $this->sendError('', ['errors' => $validator->errors()]);
         }
         $service_type = $request->input('type');
         $service_id = $request->input('id');
         $allServices = get_product_types();
         if (empty($allServices[$service_type])) {
-            $this->sendError(__('Service type not found'));
+            return $this->sendError(__('Service type not found'));
         }
         $module = $allServices[$service_type];
         // \var_dump($module);
         $service = $module::find($service_id);
 
         if (empty($service)) {
-            $this->sendError(__('Service not found'));
+            return $this->sendError(__('Service not found'));
         }
 
         return $service->addToCart($request);

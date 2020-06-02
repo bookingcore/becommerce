@@ -25,7 +25,7 @@ class DashboardController extends AdminController
             case "earning":
                 $from = $request->input('from');
                 $to = $request->input('to');
-                $this->sendSuccess([
+                return $this->sendSuccess([
                     'data' => Order::getDashboardChartData(strtotime($from), strtotime($to))
                 ]);
                 break;

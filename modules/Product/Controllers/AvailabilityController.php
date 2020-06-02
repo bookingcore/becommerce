@@ -89,7 +89,7 @@ class AvailabilityController extends FrontendController{
 
         $space = $this->spaceClass::find($request->query('id'));
         if(empty($space)){
-            $this->sendError(__('Space not found'));
+            return $this->sendError(__('Space not found'));
         }
 
         $query = $this->spaceDateClass::query();
@@ -184,12 +184,12 @@ class AvailabilityController extends FrontendController{
         $target_id = $request->input('target_id');
 
         if(empty($space)){
-            $this->sendError(__('Space not found'));
+            return $this->sendError(__('Space not found'));
         }
 
         if(!$this->hasPermission('space_manage_others')){
             if($space->create_user != Auth::id()){
-                $this->sendError("You do not have permission to access it");
+                return $this->sendError("You do not have permission to access it");
             }
         }
 
@@ -216,7 +216,7 @@ class AvailabilityController extends FrontendController{
             $date->save();
         }
 
-        $this->sendSuccess([],__("Update Success"));
+        return $this->sendSuccess([],__("Update Success"));
 
     }
 }
