@@ -19,7 +19,7 @@
                 [
                     [
                         'name'  => 'menu_locations',
-                        'val'   => '{"primary":1}',
+                        'val'   => '{"primary":1,"department":2}',
                         'group' => "general",
                     ],
                     [
@@ -397,7 +397,11 @@
 
                 ]
             );
-            $items = [
+            $m_background = [
+                'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-1', 'file_path' => 'demo/templates/menu-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+                'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-2', 'file_path' => 'demo/templates/menu-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            ];
+            $primary_menu = [
                 [
                     "id"=>1,
                     "name"=>"Home",
@@ -410,14 +414,346 @@
                     "_open"=>true
                 ]
             ];
+            $department_menu = [
+                [
+                    'name'          =>  'Hot Promotions',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-star',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Consumer Electrics',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-laundry',
+                    'layout'        =>  'multi_row',
+                    'bg'            =>  $m_background['image-1'],
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true,
+                    'children'      =>  [
+                        [
+                            'name'      =>  'Electronics',
+                            'url'       =>  '#',
+                            'item_model'=>  'custom',
+                            '_open'     =>  false,
+                            'layout'    =>  '',
+                            'model_name'=>  'Custom',
+                            'is_removed'=>  true,
+                            'children'  =>  [
+                                [
+                                    'name'      =>  'Home Audios & Theaters',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'TV & Videos',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Camera, Photos & Videos',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Cellphones & Accessories',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Headphones',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Videogames',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Wireless Speakers',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Office Electronics',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ]
+                            ]
+                        ],
+                        [
+                            'name'      =>  'Accessories & Parts',
+                            'url'       =>  '#',
+                            'item_model'=>  'custom',
+                            '_open'     =>  false,
+                            'layout'    =>  '',
+                            'model_name'=>  'Custom',
+                            'is_removed'=>  true,
+                            'children'  =>  [
+                                [
+                                    'name'      =>  'Digital Cables',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Audio & Video Cables',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Batteries',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Charger',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    'name'          =>  'Home, Garden & Kitchen',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-lampshade',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Health & Beauty',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-heart-pulse',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Jewelry & Watches',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-diamond2',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Computers & Technologies',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-desktop',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true,
+                    'layout'        =>  'multi_row',
+                    'bg'            =>  $m_background['image-2'],
+                    'children'      =>  [
+                        [
+                            'name'      =>  'Computer & Technologies',
+                            'url'       =>  '#',
+                            'item_model'=>  'custom',
+                            '_open'     =>  false,
+                            'icon'      =>  '',
+                            'model_name'=>  'Custom',
+                            'is_removed'=>  true,
+                            'children'  =>  [
+                                [
+                                    'name'      =>  'Computers & Tablets',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Laptop',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Monitors',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Networking',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Drive & Storages',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Computer Components',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Security & Protection',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Gaming Laptop',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                                [
+                                    'name'      =>  'Accesories',
+                                    'url'       =>  '#',
+                                    'item_model'=>  'custom',
+                                    '_open'     =>  false,
+                                    "model_name"=> 'Custom',
+                                    'is_removed'=>  true,
+                                ],
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    'name'          =>  'Babies & Moms',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-baby-bottle',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Sport & Outdoor',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-baseball',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Phones & Accessories',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-smartphone',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Books & Office',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-book2',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Cars & Motocycles',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-car-siren',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Home Improments',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-wrench',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Vouchers & Services',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'icon'          =>  'icon-tag',
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+            ];
             //Menu
             DB::table('core_menus')->insert(
                 [
                     [
                         'name'  => "Menu",
-//                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Home Page","model_name":"Page","_open":false,"layout":"multi_row","origin_edit_url":"http://becommere.dv/admin/module/page/edit/1","children":[]},{"name":"Shop","url":"/en/product","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true},{"name":"Pages","url":"","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true,"layout":"","children":[{"id":3,"name":"Become a Vendor","class":"","target":"","item_model":"Modules\\Page\\Models\\Page","origin_name":"Become a Vendor","model_name":"Page","_open":false,"origin_edit_url":"http://becommere.dv/admin/module/page/edit/3"}]},{"name":"News","url":"/en/news","item_model":"custom","_open":false,"model_name":"Custom","is_removed":true}]',
-//                        'items'   => '[{"id":1,"name":"Home","class":"","target":"","open":false,"item_model":"Modules\Page\Models\Page","origin_name":"Pages","model_name":"Page","_open":true}]',
-                        'items' =>  json_encode($items),
+                        'items' =>  json_encode($primary_menu),
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ],
+                    [
+                        'name'  => "department menu",
+                        'items' =>  json_encode($department_menu),
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
@@ -428,7 +764,14 @@
                     [
                         'origin_id'=>1,
                         'locale'=>'ja',
-                        'items' => json_encode($items),
+                        'items' => json_encode($primary_menu),
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ],
+                    [
+                        'origin_id'=>2,
+                        'locale'=>'ja',
+                        'items' => json_encode($department_menu),
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],

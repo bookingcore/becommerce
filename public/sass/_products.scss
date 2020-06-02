@@ -50,6 +50,9 @@
             align-items: center;
             justify-content: space-between;
             margin: 0 0 55px;
+            @media (max-width: 767px){
+                margin: 0 0 20px;
+            }
             .cat-title{
                 font-size: 20px;
                 font-weight: 600;
@@ -68,6 +71,19 @@
         }
         .products{
             overflow: hidden;
+        }
+        .bravo_style-normal{
+            .products{
+                li{
+                    @media (max-width: 991px){
+                        max-width: 50%;
+                    }
+                    @media (max-width: 767px){
+                        max-width: 100%;
+                        margin-bottom: 20px;
+                    }
+                }
+            }
         }
     }
 }
@@ -575,4 +591,3 @@
     }
 
 }
-
