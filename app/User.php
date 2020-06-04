@@ -28,6 +28,8 @@
          *
          * @var array
          */
+        protected $table = 'users';
+
         protected $fillable = [
             'name',
             'first_name',

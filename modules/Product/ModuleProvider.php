@@ -65,7 +65,16 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
-
+                    'coupon'=>[
+                        'url'        => 'admin/module/product/coupon',
+                        'title'      => __('All Coupon'),
+                        'permission' => 'product_manage_others',
+                    ],
+                    'coupon_create'=>[
+                        'url'        => 'admin/module/product/coupon/create',
+                        'title'      => __('Add New Coupon'),
+                        'permission' => 'product_manage_others',
+                    ],
                 ]
             ]
         ];

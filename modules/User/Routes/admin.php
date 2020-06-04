@@ -4,6 +4,7 @@ use \Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'/'],function (){
     Route::get('/','UserController@index')->name('user.admin.index');
     Route::get('/create','UserController@create')->name('user.admin.create');
+    Route::get('/getForSelect2','UserController@getForSelect2')->name('user.admin.getForSelect2');
     Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
     Route::post('/bulkEdit', 'UserController@bulkEdit')->name('user.bulkEdit');
     Route::post('/store/{id}', 'UserController@store')->name('user.store');

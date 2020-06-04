@@ -445,5 +445,45 @@ class ProductSeeder extends Seeder
 
         }
 
+        DB::table('bravo_coupon')->insert(
+            [
+                [
+                    'name'  =>  'QF645TY6',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>50,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+5 days")),
+                    'email'     => '[{"name":"email1@gmail.com"},{"name":"email2@gmail.com"}]',
+                    'customer_id'   =>  '["14","16"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+                [
+                    'name'  =>  '4F29N73F',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>10,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+2 days")),
+                    'email'     => '[{"name":"email3@gmail.com"},{"name":"email4@gmail.com"}]',
+                    'customer_id'   =>  '["11","12"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+                [
+                    'name'  =>  '26EF7JTB',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>20,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+1 days")),
+                    'email'     => '[{"name":"email5@gmail.com"},{"name":"email6@gmail.com"}]',
+                    'customer_id'   =>  '["11"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+            ]
+        );
     }
 }
