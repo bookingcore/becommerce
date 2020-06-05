@@ -1,7 +1,7 @@
 <?php
 use Modules\Product\Models\ProductBrand;
 $tabs = get_admin_product_tabs();
-;?>
+?>
 
 @extends('admin.layouts.app')
 

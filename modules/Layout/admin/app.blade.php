@@ -40,7 +40,39 @@
                 browse:'{{__("Browse")}}',
                 clear:'{{__("Clear")}}',
                 choose_file:"{{__("Choose file...")}}",
-            }
+            };
+        var daterangepickerLocale = {
+            "applyLabel": "Apply",
+            "cancelLabel": "Cancel",
+            "fromLabel": "From",
+            "toLabel": "To",
+            "customRangeLabel": "Custom",
+            "weekLabel": "W",
+            "first_day_of_week": 1,
+            "daysOfWeek": [
+                "Su",
+                "Mo",
+                "Tu",
+                "We",
+                "Th",
+                "Fr",
+                "Sa"
+            ],
+            "monthNames": [
+                "January",
+                "February",
+                "March",
+                "April",
+                "May",
+                "June",
+                "July",
+                "August",
+                "September",
+                "October",
+                "November",
+                "December"
+            ],
+        };
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     @yield('script.head')
@@ -81,13 +113,14 @@
 
 <!-- Scripts -->
 {!! \App\Helpers\Assets::css(true) !!}
-
+<script src="{{ asset('libs/jquery-3.3.1.min.js?_ver='.config('app.version')) }}" ></script>
 <script src="{{ asset('dist/admin/js/manifest.js?_ver='.config('app.version')) }}" ></script>
 <script src="{{ asset('dist/admin/js/vendor.js?_ver='.config('app.version')) }}" ></script>
 
 <script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.version')) }}" ></script>
 
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
+
 
 {!! \App\Helpers\Assets::js(true) !!}
 
