@@ -3808,9 +3808,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\js\app.js */"./resources/admin/js/app.js");
-__webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\scss\vendors.scss */"./resources/admin/scss/vendors.scss");
-module.exports = __webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\scss\app.scss */"./resources/admin/scss/app.scss");
+__webpack_require__(/*! C:\Users\Admin\Desktop\becommerce\resources\admin\js\app.js */"./resources/admin/js/app.js");
+__webpack_require__(/*! C:\Users\Admin\Desktop\becommerce\resources\admin\scss\vendors.scss */"./resources/admin/scss/vendors.scss");
+module.exports = __webpack_require__(/*! C:\Users\Admin\Desktop\becommerce\resources\admin\scss\app.scss */"./resources/admin/scss/app.scss");
 
 
 /***/ })

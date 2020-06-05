@@ -1,5 +1,4 @@
-<div class="cart_page_form">
-    <h1>Tien pham</h1>
+{{-- <div class="cart_page_form">
     <form action="#">
         <div class="table-responsive">
         <table class="table ">
@@ -51,7 +50,7 @@
             <button type="button" @click="updateCart" class="btn btn-sm btn-primary">{{__('Update Cart')}}</button>
         </form>
     </div>
-</div>
+</div> --}}
 
 <div class="ps-section--shopping ps-shopping-cart">
     <div class="container">

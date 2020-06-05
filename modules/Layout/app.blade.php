@@ -27,8 +27,8 @@
     <link href="{{ asset('libs/icons/css/set.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/slick/slick.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-{{--    <link href="{{ asset('dist/frontend/css/app.css') }}" rel="stylesheet">--}}
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+   <link href="{{ asset('dist/frontend/css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel='stylesheet' id='google-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans%3A300%2C400%2C500%2C600%2C700&subset=latin%2Clatin-ext&ver=20170801' type='text/css' media='all' />
