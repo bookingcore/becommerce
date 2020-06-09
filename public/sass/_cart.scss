@@ -1,0 +1,138 @@
+.ps-section--shopping {
+    .ps-section__header {
+        text-align: center;
+        padding-bottom: 100px;
+        h1 {
+            font-size: 48px;
+            font-weight: 600;
+        }
+    }
+    .ps-section__content {
+        .table {
+            width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent;
+            border: none;
+            border-collapse: collapse;
+        }
+        .ps-table--shopping-cart {
+            thead {
+                tr {
+                    th {
+                        padding: 15px 20px;
+                        text-transform: uppercase;
+                        color: #000;
+                        text-align: center;
+                        font-weight: 600;
+                        background-color: #f2f2f2;
+                        border: none;
+                        &:first-child {
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+            tbody {
+                tr {
+                    border-bottom: 1px solid #dee2e6;
+                    &:last-child {
+                        border-bottom: none;
+                    }
+                    td {
+                        padding: 20px 10px;
+                        vertical-align: middle;
+                        font-size: 16px;
+                        border: none;
+                    }
+                    .ps-product--cart {
+                        max-width: 500px;
+                        display: -webkit-box;
+                        display: flex;
+                        -webkit-box-orient: horizontal;
+                        -webkit-box-direction: normal;
+                        flex-flow: row nowrap;
+                        -webkit-box-align: center;
+                        align-items: center;
+                        .ps-product__thumbnail {
+                            max-width: 100px;
+                        }
+                        &>* {
+                            width: 100%;
+                        }
+                        .ps-product__content {
+                            padding-left: 30px;
+                            a {
+                                font-size: 16px;
+                                color: #0066cc;
+                                &:hover {
+                                    color: #fcb800;
+                                }
+                            }
+                        }
+                    }
+                    .form-group--number {
+                        max-width: 100px;
+                        display: inline-block;
+                        position: relative;
+                        button {
+                            background: none;
+                            border: none;
+                            background-color: transparent;
+                            position: absolute;
+                            top: 50%;
+                            -webkit-transform: translateY(-50%);
+                            transform: translateY(-50%);
+                            width: 20px;
+                            height: 20px;
+                            max-width: 20px;
+                            display: -webkit-box;
+                            display: flex;
+                            -webkit-box-orient: horizontal;
+                            -webkit-box-direction: normal;
+                            flex-flow: row nowrap;
+                            -webkit-box-pack: center;
+                            justify-content: center;
+                            -webkit-box-align: center;
+                            align-items: center;
+                            color: #000;
+                            font-size: 20px;
+                            line-height: 1em;
+                        }
+                        .up {
+                            right: 10px;
+                        }
+                        .down {
+                            left: 10px;
+                        }
+                        .form-control {
+                            border: 1px solid #ccc;
+                            height: 40px;
+                            padding: 0 25px;
+                            text-align: center;
+                            font-size: 14px;
+                            color: #000;
+                            border-radius: 50px;
+                            background-color: transparent;
+                            border-radius: 0;
+                        }
+                        input {
+                            border-radius: 0;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+p {
+    font-size: 1.4rem;
+    line-height: 1.6em;
+    color: #666;
+}
+
+button {
+    cursor: pointer;
+    -webkit-transition: all 0.4s ease;
+    transition: all 0.4s ease;
+}

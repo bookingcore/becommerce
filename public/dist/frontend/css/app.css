@@ -40103,6 +40103,141 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
   background-color: #f2f2f2;
 }
 
+.ps-section--shopping .ps-section__header {
+  text-align: center;
+  padding-bottom: 100px;
+}
+
+.ps-section--shopping .ps-section__header h1 {
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.ps-section--shopping .ps-section__content .table {
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: transparent;
+  border: none;
+  border-collapse: collapse;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart thead tr th {
+  padding: 15px 20px;
+  text-transform: uppercase;
+  color: #000;
+  text-align: center;
+  font-weight: 600;
+  background-color: #f2f2f2;
+  border: none;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart thead tr th:first-child {
+  text-align: left;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr:last-child {
+  border-bottom: none;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr td {
+  padding: 20px 10px;
+  vertical-align: middle;
+  font-size: 16px;
+  border: none;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart {
+  max-width: 500px;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart .ps-product__thumbnail {
+  max-width: 100px;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart > * {
+  width: 100%;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart .ps-product__content {
+  padding-left: 30px;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart .ps-product__content a {
+  font-size: 16px;
+  color: #0066cc;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart .ps-product__content a:hover {
+  color: #fcb800;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number {
+  max-width: 100px;
+  display: inline-block;
+  position: relative;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number button {
+  background: none;
+  border: none;
+  background-color: transparent;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  max-width: 20px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  color: #000;
+  font-size: 20px;
+  line-height: 1em;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number .up {
+  right: 10px;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number .down {
+  left: 10px;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number .form-control {
+  border: 1px solid #ccc;
+  height: 40px;
+  padding: 0 25px;
+  text-align: center;
+  font-size: 14px;
+  color: #000;
+  border-radius: 50px;
+  background-color: transparent;
+  border-radius: 0;
+}
+
+.ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .form-group--number input {
+  border-radius: 0;
+}
+
+p {
+  font-size: 1.4rem;
+  line-height: 1.6em;
+  color: #666;
+}
+
+button {
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+
 .cdn-full-page {
   height: 100%;
 }
