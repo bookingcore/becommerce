@@ -62,60 +62,73 @@
               <table class="table ps-table--shopping-cart">
                  <thead>
                     <tr>
-                       <th>Product name</th>
-                       <th>PRICE</th>
-                       <th>QUANTITY</th>
-                       <th>TOTAL</th>
+                       <th>{{__('PRODUCT NAME')}}</th>
+                       <th>{{__('PRICE')}}</th>
+                       <th>{{__('QUANTITY')}}</th>
+                       <th>{{__('TOTAL')}}</th>
                        <th></th>
                     </tr>
                  </thead>
                  <tbody>
-                    <tr>
-                       <td>
-                          <div class="ps-product--cart">
-                             <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/electronic/1.jpg" alt="" data-insta_upload_ext_elem="1"></a></div>
-                             <div class="ps-product__content">
-                                <a href="product-default.html">Marshall Kilburn Wireless Bluetooth Speaker, Black (A4819189)</a>
-                                <p>Sold By:<strong> YOUNG SHOP</strong></p>
-                             </div>
-                          </div>
-                       </td>
-                       <td class="price">$205.00</td>
-                       <td>
-                          <div class="form-group--number">
-                             <button class="up">+</button>
-                             <button class="down">-</button>
-                             <input class="form-control" type="text" placeholder="1" value="1">
-                          </div>
-                       </td>
-                       <td>$205.00</td>
-                       <td><a href="#"><i class="icon-cross"></i></a></td>
-                    </tr>
-                    <tr>
-                       <td>
-                          <div class="ps-product--cart">
-                             <div class="ps-product__thumbnail"><a href="product-default.html"><img src="img/products/clothing/2.jpg" alt="" data-insta_upload_ext_elem="1"></a></div>
-                             <div class="ps-product__content">
-                                <a href="product-default.html">Unero Military Classical Backpack</a>
-                                <p>Sold By:<strong> YOUNG SHOP</strong></p>
-                             </div>
-                          </div>
-                       </td>
-                       <td class="price">$205.00</td>
-                       <td>
-                          <div class="form-group--number">
-                             <button class="up">+</button>
-                             <button class="down">-</button>
-                             <input class="form-control" type="text" placeholder="1" value="1">
-                          </div>
-                       </td>
-                       <td>$205.00</td>
-                       <td><a href="#"><i class="icon-cross"></i></a></td>
-                    </tr>
+                  @foreach(Cart::content() as $cartItem)
+                     
+                        <tr>
+                           @if($cartItem->model)
+                              <td>
+                                 <div class="ps-product--cart">
+                                    <div class="ps-product__thumbnail">
+                                       <a href="{{$cartItem->model->getDetailUrl()}}">
+                                          {!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left img-120'])!!}
+                                       </a>
+                                    </div>
+                                    <div class="ps-product__content">
+                                       <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->name}}</a>
+                                       {{-- <p>Sold By:<strong> YOUNG SHOP</strong></p> --}}
+                                    </div>
+                                 </div>
+                              </td>
+                           @else
+                              <td>
+                                 <div class="ps-product--cart">
+                                    <div class="ps-product__thumbnail">
+                                       <a href="javascrit:void(0)">
+                                       </a>
+                                    </div>
+                                    <div class="ps-product__content">
+                                       <a href="javascript:void(0)">{{$cartItem->name}}</a>
+                                       {{-- <p>Sold By:<strong> YOUNG SHOP</strong></p> --}}
+                                    </div>
+                                 </div>
+                              </td>
+                           @endif
+                           <td class="price">{{format_money($cartItem->price)}}</td>
+                           <td>
+                              <div class="form-group--number">
+                                 <button class="up">+</button>
+                                 <button class="down">-</button>
+                                 <input class="form-control" type="text" placeholder="1" value="1">
+                              </div>
+                           </td>
+                           <td>{{format_money($cartItem->total)}}</td>
+                           @if($cartItem->model)
+                              <td><a href="#" @click.prevent="deleteCartItem($cartItem)"><i class="icon-cross"></i></a></td>
+                           @else
+                              <td><a href="#" ><i class="icon-cross"></i></a></td>
+                           @endif
+                        </tr>
+                  @endforeach
+                    
                  </tbody>
               </table>
            </div>
-           <div class="ps-section__cart-actions"><a class="ps-btn" href="shop-default.html"><i class="icon-arrow-left"></i> Back to Shop</a><a class="ps-btn ps-btn--outline" href="shop-default.html"><i class="icon-sync"></i> Update cart</a></div>
+           <div class="ps-section__cart-actions">
+              <a class="ps-btn" href="/">
+                 <i class="icon-arrow-left"></i> Back to Shop
+               </a>
+               <a class="ps-btn ps-btn--outline" @click="updateCart">
+                  <i class="icon-sync"></i> Update cart
+               </a>
+            </div>
         </div>
         <div class="ps-section__footer">
            <div class="row">
@@ -154,16 +167,23 @@
               </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                  <div class="ps-block--shopping-total">
-                    <div class="ps-block__header">
-                       <p>Subtotal <span> $683.49</span></p>
-                    </div>
-                    <div class="ps-block__content">
-                       <ul class="ps-block__product">
-                          <li><span class="ps-block__shop">YOUNG SHOP Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#"> MVMTH Classical Leather Watch In Black ×1</a></span></li>
-                          <li><span class="ps-block__shop">ROBERT’S STORE Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#">Apple Macbook Retina Display 12” ×1</a></span></li>
-                       </ul>
-                       <h3>Total <span>$683.49</span></h3>
-                    </div>
+                        <div class="ps-block__header">
+                           <p>{{__('Subtotal')}}<span> {{format_money(Cart::subtotal())}}</span></p>
+                        </div>
+                        <div class="ps-block__content">
+                           <ul class="ps-block__product">
+                              <li>
+                                 <span class="ps-block__estimate">Tax : <strong>{{format_money(Cart::tax())}}</strong></span>
+                                 <span class="ps-block__shop">YOUNG SHOP Shipping</span>
+                                 <span class="ps-block__shipping">Free Shipping</span>
+                                    <span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong>
+                                       <a href="#"> MVMTH Classical Leather Watch In Black ×1</a>
+                                    </span>
+                                 </li>
+                              {{-- <li><span class="ps-block__shop">ROBERT’S STORE Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#">Apple Macbook Retina Display 12” ×1</a></span></li> --}}
+                           </ul>
+                           <h3>{{__('Total')}} <span>{{format_money(Cart::total())}}</span></h3>
+                        </div>
                  </div>
                  <a class="ps-btn ps-btn--fullwidth" href="checkout.html">Proceed to checkout</a>
               </div>
