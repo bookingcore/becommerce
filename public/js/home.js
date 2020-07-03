@@ -509,13 +509,16 @@ jQuery(function ($) {
                 dataType: 'json',
                 type: 'POST',
                 beforeSend: function() {
-                    $this.addClass("loading");
+                    $this.addClass("loading").tooltip('hide');
                 },
                 success: function (res) {
-                    $this.attr('class',w_class + ' ' + res.class).attr('title', res.title);
+                    $this.attr('class',w_class + ' ' + res.class).attr('data-original-title', res.title).tooltip('show').find('.btn-text').text(res.title);
+                    let count = $('.user-wish-list-count');
+                    count.html(parseInt(count.text()) + 1);
                 },
                 error:function (e) {
                     if(e.status === 401){
+                        $this.removeClass("loading");
                         $('#login').modal('show');
                     }
                 }
@@ -608,16 +611,26 @@ jQuery(function ($) {
 jQuery(function ($) {
     $('.category-select').change(function(){
         $("#text_change").html($('.category-select option:selected').text());
-        $(this).css('width', $("#select_change").width() + 30 + 'px');
+        $(this).css('width', $(".select_change").width() + 10 + 'px');
     });
-    $('.quantity-input-group span').click(function () {
+
+    $(document).on('click','.quantity-input-group span',function () {
         let input = $(this).parent().find('input[name=quantity]');
+        let v_quantity = 0;
+        if (Object.keys(Bravo.currentVariation).length > 0){
+            v_quantity = Bravo.currentVariation.vProduct_attr.quantity;
+        }
         if ($(this).hasClass('minus')){
             input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
         } else {
-            input.val( parseInt(input.val()) + 1 );
+            if (v_quantity !== null){
+                input.val( parseInt(input.val()) >= v_quantity ? v_quantity : parseInt(input.val()) + 1 );
+            } else {
+                input.val( parseInt(input.val()) + 1 );
+            }
         }
     });
+
     let navigation_mobile = $('.mf-navigation-mobile .navigation-list > a').not($('.navigation-mobile_home'));
     navigation_mobile.click(function (e) {
         e.preventDefault();
@@ -653,7 +666,71 @@ jQuery(function ($) {
                 }
             }
         }
-    })
+    });
+});
+
+jQuery(function ($) {
+    $('.quantity-number button').click(function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let input = $this.parent().find('input');
+        let price = $this.closest('.cart-item').find('.price').attr('data-price');
+        let total = $this.closest('.cart-item').find('.total');
+        let stock = input.attr('data-stock');
+
+
+        if ($this.hasClass('down')){
+            input.val( parseInt(input.val()) <= 1 ? 1 : parseInt(input.val()) - 1  );
+        } else {
+            if (!isNaN(parseInt(stock))){
+                input.val( (parseInt(input.val()) >= parseInt(stock)) ? stock : parseInt(input.val()) + 1 );
+            } else {
+                input.val( parseInt(input.val()) + 1 );
+            }
+        }
+        total.html( window.bravo_format_money( parseFloat(price) * parseInt(input.val()) ) );
+    });
+
+    $('.quantity-number input').keyup(function () {
+        let $this = $(this);
+        let price = $this.closest('.cart-item').find('.price').attr('data-price');
+        let total = $this.closest('.cart-item').find('.total');
+        let stock = $this.attr('data-stock');
+        if ( parseInt($this.val()) <= 1 || $this.val() === '' ) $this.val(1);
+        if ( !isNaN(parseInt(stock)) && parseInt($this.val()) >= parseInt(stock) ) $this.val(stock);
+        if ($this.val() > 0){
+            total.html( window.bravo_format_money(parseFloat(price) * parseInt($this.val())) );
+        }
+    });
+    $(".ps-select").select2();
+    $('.mf-product-quick-view').click(function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let product = $(this).data('product');
+        let quickView = $('.mf-quick-view-modal');
+        $.ajax({
+            url: bookingCore.url + '/product/quick_view/' + product.id,
+            method:'POST',
+            beforeSend: function () {
+                $this.tooltip('hide');
+                quickView.addClass('loading').fadeIn();
+            },
+            success: function (data) {
+                quickView.removeClass('loading').addClass('loaded');
+                $('.product-modal-content').html(data).css('display','block');
+                $('.product-gallery').slick({
+                    prevArrow: '<span class="icon-chevron-left slick-prev-arrow"></span>',
+                    nextArrow: '<span class="icon-chevron-right slick-next-arrow"></span>',
+                });
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        })
+    });
+    $(document).on('click','.close-modal',function (e) {
+        e.preventDefault();
+        $('.mf-quick-view-modal').fadeOut();
+        $('.product-modal-content').html('');
+    });
 });
 
 

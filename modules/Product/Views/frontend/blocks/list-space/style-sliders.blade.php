@@ -12,26 +12,33 @@
             <a href="{{ route("product.index") }}">{{__('View All')}}</a>
         </div>
     </div>
+    @dump($rows)
     <div class="products-content">
-<!--        --><?php //dump($rows) ?>
         <ul class="products">
-            @foreach($rows as $item)
+            @foreach($rows as $row)
                 <li class="product">
                     <div class="product-inner">
                         <div class="mf-product-thumbnail">
-                            <a href="{{$item->getDetailUrl()}}">
-                                <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title']}}">
+                            <a href="{{$row->getDetailUrl()}}">
+                                <img src="{{get_file_url($row->image_id,'thumb')}}" alt="{{$row->title}}">
                             </a>
                             <div class="footer-button">
-                                <a href="#">
-                                    <i class="p-icon icon-bag2" data-rel="tooltip"
-                                       title="{{__("Add to cart")}}"></i>
-                                    <span class="add-to-cart-text">{{__("Add to cart")}}</span>
+                                @php $in_stock = $row->stock_status == 'in' @endphp
+                                @if($row->product_type == 'simple')
+                                    <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
+                                        <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
+                                    </a>
+                                @else
+                                    <a href="{{ $row->getDetailUrl() }}" class="add_to_cart">
+                                        <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ __('Select options') }}"></i>
+                                    </a>
+                                @endif
+
+                                <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$row->id}},"type":"{{$row->type}}"}>
+                                    <i class="p-icon icon-eye"></i>
                                 </a>
-                                <a href="#" class="mf-product-quick-view">
-                                    <i class="p-icon icon-eye" title="{{__('Quick View')}}"></i>
-                                </a>
-                                <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($item->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" title="{{(in_array($item->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
+                                @php $hasWishList = in_array($row->id, wishlist()); @endphp
+                                <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                                     <div class="yith-wcwl-add-button">
                                         <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                                             <i class="yith-wcwl-icon fa fa-heart-o"></i>
@@ -42,20 +49,19 @@
                                     <a href="#" class="compare">{{__('Compare')}}</a>
                                 </div>
                             </div>
+                            @if($row->stock_status == 'out')
+                            <span class="ribbons">
+                                <span class="out-of-stock ribbon">{{__('Out Of Stock')}}</span>
+                            </span>
+                            @endif
                         </div>
 
-                        <span class="price">
-                            <ins><span class="woocommerce-Price-amount amount">{{ $item->display_price }}</span></ins>
-                            <del><span class="woocommerce-Price-amount amount">{{ $item->display_sale_price }}</span></del>
-                            @if(!empty($item->discount_percent))
-                                <span class="sale"> {{ __(":discount off",["discount"=>$item->discount_percent]) }}</span>
-                            @endif
-                        </span>
+                        @include('Product::frontend.details.price')
 
                         <h2>
-                            <a href="{{$item->getDetailUrl()}}">{{$item['title'] ?? ''}}</a>
+                            <a href="{{$row->getDetailUrl()}}">{{$row->title ?? ''}}</a>
                         </h2>
-                        @if($brand = $item->brand->name ?? "")
+                        @if($brand = $row->brand->name ?? "")
                             <div class="sold-by-meta">
                                 <span class="sold-by-label">{{__('Brand: ')}}</span>
                                 <span>{{$brand}}</span>
@@ -63,7 +69,7 @@
                         @endif
 
                         <?php
-                        $reviewData = $item->getScoreReview();
+                        $reviewData = $row->getScoreReview();
                         $score_total = $reviewData['score_total'];
                         ?>
                         <div class="service-review tour-review-{{$score_total}}">

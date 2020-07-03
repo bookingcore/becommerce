@@ -48,6 +48,8 @@
             routes:{
                 login:'{{route('auth.login')}}',
                 register:'{{route('auth.register')}}',
+                remove_cart_item:'{{route('booking.remove_cart_item')}}',
+                view_cart:'{{route('booking.cart')}}'
             },
             currentUser:{{(int)Auth::id()}}
         };
@@ -68,11 +70,17 @@
                 register:'{{route('auth.register')}}',
                 add_to_cart:'{{route('booking.addToCart')}}'
             },
-            currentUser:{{(int)Auth::id()}}
+            currentUser:{{(int)Auth::id()}},
+            variations: [],
+            currentVariation: []
         };
         var i18n = {
             warning:"{{__("Warning")}}",
             success:"{{__("Success")}}",
+            in_stock: "{{__('In Stock')}}",
+            out_stock: "{{__('Out Of Stock')}}",
+            num_stock: "{{__('__num__ In Stock')}}",
+            delete_cart_item_confirm:"{{__("Do you want to delete this cart item?")}}"
         };
     </script>
     <!-- Styles -->
@@ -88,8 +96,8 @@
         @include('Layout::parts.header')
         @include('Layout::parts.bc')
         @yield('content')
+        @include('Layout::parts.quickView')
         @include('Layout::parts.footer')
-
     </div>
     {!! setting_item('footer_scripts') !!}
 </body>

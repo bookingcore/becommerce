@@ -132,7 +132,6 @@ class CouponController extends AdminController
     }
 
     public function store( Request $request, $id ){
-//        dd($request->input());
         if($id>0){
             $this->checkPermission('product_update');
             $row = $this->coupon::find($id);

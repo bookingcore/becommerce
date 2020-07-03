@@ -4,6 +4,7 @@ use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\Space;
 use Modules\Product\Models\VariableProduct;
 
@@ -139,7 +140,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'simple'=>Product::class,
-            'variable'=>VariableProduct::class,
+            'variable'=>ProductVariation::class,
         ];
     }
 

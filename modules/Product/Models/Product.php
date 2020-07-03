@@ -331,15 +331,34 @@ class Product extends BaseProduct
 
     }
 
+    public function getStockStatus(){
+        $stock = ''; $in_stock = true;
+        if ($this->is_manage_stock > 0){
+            if ($this->stock_status == 'in'){
+                $stock = __(':count in stock',['count'=>$this->quantity]);
+            }
+        } else {
+            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
+        }
+        if ($this->stock_status == 'out'){
+            $stock = __('Out Of Stock');
+            $in_stock = false;
+        }
+        return [
+            'stock'     =>  $stock,
+            'in_stock'  =>  $in_stock
+        ];
+    }
+
     public function getStockStatusCodeAttribute(){
-        if(!$this->manage_stock){
+        if(!$this->is_manage_stock){
             return 'in_stock';
         }
         switch ($this->stock_status){
-            case 1:
+            case 'in':
                 return 'in_stock';
                 break;
-            case 0:
+            case 'out':
                 return 'out_stock';
                 break;
 
@@ -454,14 +473,8 @@ class Product extends BaseProduct
 
     public function addToCart(Request $request)
     {
-        // Only single litem
-        $cartproduct = Cart::content()->where('id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
-        if($cartproduct){
-            Cart::update($cartproduct->rowId, $this); // Will update the id, name and price
-            Cart::update($cartproduct->rowId, 1);
-        }else{
-            Cart::add($this,1);
-        }
+        $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
+        Cart::add($this,$quantity);
 
         $buy_now = $request->input('buy_now');
 
@@ -471,4 +484,14 @@ class Product extends BaseProduct
         ],__('":title" has been added to your cart.',['title'=>$this->title]));
     }
 
+    public function list_attrs(){
+        return ProductAttrs::select('id','name','slug')->get();
+    }
+
+    public function get_variable($id){
+        return ProductVariationTerm::select('product_variation_term.*','bravo_terms.id as id_term','bravo_attrs.id as id_attrs')
+                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
+                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+                    ->where('product_variation_term.product_id',$id)->get();
+    }
 }

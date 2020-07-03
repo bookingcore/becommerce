@@ -17,15 +17,16 @@
         </a>
 
         <div class="footer-button">
-            <a href="#">
-                <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to cart')}}"></i>
-                <span class="add-to-cart-text">{{__('Add to cart')}}</span>
+            @php $in_stock = $row->stock_status == 'in' @endphp
+            <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
+                <i class="p-icon icon-bag2" data-toggle="tooltip" data-rel="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
             </a>
-            <a href="#" class="mf-product-quick-view">
-                <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
+            <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$row->id}},"type":"{{$row->type}}"}>
+                <i class="p-icon icon-eye"></i>
             </a>
             <!-- ADD TO WISHLIST -->
-            <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($row->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" title="{{(in_array($row->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
+            @php $hasWishList = in_array($row->id, wishlist()); @endphp
+            <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                 <div class="yith-wcwl-add-button">
                     <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                         <i class="yith-wcwl-icon fa fa-heart-o"></i>

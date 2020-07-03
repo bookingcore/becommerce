@@ -37,10 +37,6 @@ class UserWishListController extends FrontendController
             ->where("object_model",$request->input('object_model'))
             ->where("user_id",Auth::id())
             ->first();
-        /*if(!empty($meta)){
-            $meta->delete();
-            return $this->sendSuccess(['class'=>"",'title'=>__('Add to Wishlist'),'url'=>'xxx']);
-        }*/
         $meta = new $this->userWishListClass($request->input());
         $meta->user_id = Auth::id();
         $meta->save();

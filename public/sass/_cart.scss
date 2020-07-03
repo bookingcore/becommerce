@@ -1,16 +1,15 @@
 .booking-form {
     width: 100%;
 }
-
-.ps-section--shopping {
-    .ps-section__header {
-        text-align: center;
-        padding-bottom: 100px;
-        h1 {
-            font-size: 48px;
-            font-weight: 600;
-        }
+.ps-section__header {
+    text-align: center;
+    padding-bottom: 100px;
+    h1 {
+        font-size: 48px;
+        font-weight: 600;
     }
+}
+.ps-section--shopping {
     .ps-section__content {
         .table {
             width: 100%;
@@ -101,12 +100,15 @@
                             color: #000;
                             font-size: 20px;
                             line-height: 1em;
-                        }
-                        .up {
-                            right: 10px;
-                        }
-                        .down {
-                            left: 10px;
+                            &:focus{
+                                outline: none;
+                            }
+                            &.up {
+                                right: 10px;
+                            }
+                            &.down {
+                                left: 10px;
+                            }
                         }
                         .form-control {
                             border: 1px solid #ccc;
@@ -121,6 +123,9 @@
                         }
                         input {
                             border-radius: 0;
+                            &::-webkit-inner-spin-button, &::-webkit-outer-spin-button{
+                                display: none;
+                            }
                         }
                     }
                 }
@@ -296,10 +301,19 @@ button {
                 padding: 0;
                 list-style: none;
                 li   {
-                    margin-bottom: 10px;
                     border-bottom: 1px solid #d6d6d6;
                     padding-bottom: 20px;
                     margin-bottom: 20px;
+                    &.coupon{
+                        display: flex;
+                        justify-content: space-between;
+                        .coupon_text{
+                            >*{
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                        }
+                    }
                 }
                 span {
                     display: block;
@@ -359,5 +373,280 @@ button {
 .ps-btn--fullwidth, button.ps-btn--fullwidth {
     width: 100%;
     text-align: center;
+}
+
+.bravo-booking-page{
+    .bravo-notices-wrapper{
+        .bravo-message, .bravo-error{
+            padding: 1em 2em 1em 3.5em;
+            margin: 0 0 2em;
+            position: relative;
+            background-color: #f7f6f7;
+            color: #515151;
+            border-top: 3px solid #8fae1b;
+            list-style: none outside;
+            width: auto;
+            word-wrap: break-word;
+            &:before{
+                content: '\f058';
+                font-family: FontAwesome, "sans-serif";
+                display: inline-block;
+                position: absolute;
+                top: 1em;
+                left: 1.5em;
+                color: #8fae1b;
+            }
+        }
+        .bravo-error{
+            border-top-color: #b81c23;
+            &:before{
+                content: '\f06a';
+                color: #b81c23;
+            }
+        }
+    }
+    #bravo-cart-page{
+        .cart-empty{
+            padding: 1em 2em 1em 3.5em;
+            margin: 0 0 2em;
+            position: relative;
+            background-color: #f7f6f7;
+            color: #515151;
+            border-top: 3px solid #1e85be;
+            list-style: none outside;
+            width: auto;
+            word-wrap: break-word;
+            &:before{
+                font-family: FontAwesome, "sans-serif";
+                content: "\f2d0";
+                display: inline-block;
+                position: absolute;
+                top: 1em;
+                left: 1.5em;
+                color: #1e85be;
+            }
+            &:after{
+                content: ' ';
+                display: table;
+                clear:both;
+            }
+        }
+        .return-to-shop{
+            a.button{
+                padding: 0 25px;
+                height: 50px;
+                line-height: 50px;
+                background-color: #fcb800;
+                transition: all 0.5s;
+                color: #000;
+                font-size: 16px;
+                font-weight: 600;
+                text-align: center;
+                border: none;
+                border-radius: 0;
+                display: inline-block;
+            }
+        }
+    }
+}
+.inner_page_breadcrumb{
+    .breadcrumb_content{
+        .breadcrumb_title{
+            padding-top: 115px;
+            padding-bottom: 25px;
+            font-size: 48px;
+            font-weight: 600;
+            text-align: center;
+            margin: 0;
+            line-height: 1;
+        }
+    }
+}
+#bravo-checkout-page{
+    h3 {
+        font-size: 20px;
+        margin-bottom: 30px;
+        font-weight: 600;
+        margin-top: 0;
+    }
+    .booking-form{
+        .checkout-billing{
+            .form-row{
+                padding: 0;
+                display: block;
+                margin: 0 0 10px;
+                label{
+                    line-height: 2;
+                    margin-bottom: 5px;
+                    display: block;
+                    .required{
+                        color: red;
+                        font-weight: 700;
+                        border: 0!important;
+                        text-decoration: none;
+                    }
+                }
+                input[type=text], input[type=email], textarea{
+                    border: 1px solid #d9d9d9;
+                    background: #fff;
+                    padding: 10px;
+                }
+                .input-text{
+                    color: #000;
+                    min-width: inherit;
+                    border: 1px solid #ccc;
+                    padding: 16px!important;
+                }
+                input.input-text, textarea{
+                    box-sizing: border-box;
+                    width: 100%;
+                    margin: 0;
+                    outline: 0;
+                    line-height: normal;
+                }
+            }
+        }
+    }
+    .booking-detail{
+        .bravo-checkout-review-order{
+            table{
+                &.shop_table{
+                    border-radius: 0;
+                    padding: 0 30px;
+                    border: 1px solid #bfbfbf;
+                    border-bottom: none;
+                    background-color: #f6f6f6;
+                    margin: 0;
+                    text-align: left;
+                    width: 100%;
+                    border-collapse: separate;
+                    tr{
+                        th{
+                            background-color: transparent;
+                            color: #666;
+                            font-weight: 400;
+                            padding: 20px 0;
+                            border: none;
+                            font-size: 16px;
+                            text-transform: none;
+                            border-bottom: 1px solid #e1e1e1;
+                            &:last-child{
+                                text-align: right;
+                            }
+                        }
+                        td{
+                            border: none;
+                            color: #000;
+                            vertical-align: top;
+                            border-bottom: 1px solid #d6d6d6;
+                        }
+                    }
+                    th{
+                        font-weight: 700;
+                        padding: 9px 12px;
+                        line-height: 1.5em;
+                    }
+                    td{
+                        padding: 20px 0;
+                        border-top: none;
+                        vertical-align: middle;
+                        line-height: 1.5em;
+                        &:last-child{
+                            text-align:right;
+                        }
+                    }
+                    dl{
+                        list-style: none outside;
+                        margin-bottom: 0;
+                        dt.variation-SoldBy{
+                            font-weight: 400;
+                            color: #999;
+                            float: left;
+                            clear: both;
+                            margin-right: .25em;
+                            display: inline-block;
+                            list-style: none outside;
+                        }
+                        dd.variation-SoldBy, dd.variation-SoldBy p{
+                            margin: 0;
+                        }
+                    }
+                    thead{
+                        th{
+                            text-transform: uppercase;
+                            color: #000;
+                            padding-bottom: 10px;
+                            font-weight: 600;
+                        }
+                    }
+                    tbody{
+                        td{
+                            border: none;
+                            color: #000;
+                            vertical-align: top;
+                            border-bottom: 1px solid #d6d6d6;
+                        }
+                    }
+                    tfoot{
+                        tr{
+                            th{
+                                background-color: transparent;
+                                font-weight: 400;
+                                text-transform: none;
+                            }
+                        }
+                    }
+                    .cart_item{
+                        &:first-child{
+                            td{
+                                padding-top: 20px;
+                            }
+                        }
+                        td{
+                            padding: 5px 0;
+                            border-bottom: none;
+                        }
+                    }
+                    .cart-subtotal{
+                        >*{
+                            border-bottom: none;
+                            border-top: 1px solid #d6d6d6;
+                        }
+                        th{
+                            color: #000;
+                            font-weight: 600;
+                        }
+                        td{
+                            text-align: right;
+                            .bravo-Price-amount{
+                                color: #ff0000;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                    .order-total{
+                        font-size: 20px;
+                        th{
+                            color: #000;
+                            font-weight: 600;
+                            font-size: 20px;
+                        }
+                        td{
+                            text-align: right;
+                            .bravo-Price-amount{
+                                color: #ff0000;
+                                font-weight: 600;
+                            }
+                        }
+                    }
+                    .cart_coupon{
+                        td{
+                            border-top: 1px solid #e1e1e1;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 

@@ -139,8 +139,10 @@ class VariationController extends AdminController
             return $this->sendError(__("Variation id is required"));
         }
         $query = ProductVariation::where('id',$variation_id);
+        $var_term = ProductVariationTerm::where('variation_id',$variation_id);
         if(!$this->hasPermission('product_manage_others')){
             $query->where('create_user',Auth::id());
+            $var_term->where('create_user',Auth::id());
         }
         $variation = $query->first();
 
@@ -150,6 +152,7 @@ class VariationController extends AdminController
         }
 
         $variation->delete();
+        $var_term->delete();
 
         return $this->sendSuccess();
 

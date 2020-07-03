@@ -135,7 +135,6 @@ class ListProduct extends BaseBlock
             'rows'       => $list,
             'style_list' => $model['style_list'],
             'title'      => $model['title'],
-            'wishlist'   => wishlist(),
             'categories' => $categories,
         ];
         return view('Product::frontend.blocks.list-space.index', $data);

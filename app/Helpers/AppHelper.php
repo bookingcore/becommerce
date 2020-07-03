@@ -141,9 +141,9 @@ function get_file_url($file_id,$size="thumb"){
 }
 
 function get_image_tag($image_id,$size = 'thumb',$options = []){
-    $options = array_merge($options,[
+    $options = array_merge([
        'lazy'=>true
-    ]);
+    ],$options);
 
     $url = get_file_url($image_id,$size);
 
@@ -155,7 +155,7 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
         }else{
-            $attr.=" src='".e($url)."' ";
+            $attr.=" src=".e($url);
         }
         return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
     }
@@ -983,6 +983,7 @@ function is_enable_language_route(){
 function get_cart_fragments(){
     return [
         '.user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.ps-table--shopping-cart tbody'=>view('Booking::frontend.cart.list-cart')->render(),
         '.user-cart-count'=>Cart::count()
     ];
 }
@@ -1002,5 +1003,5 @@ function wishlist(){
             array_push($wishlist, $list->object_id);
         }
     }
-    return $wishlist;
+    return array_unique($wishlist);
 }

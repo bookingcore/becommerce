@@ -5,11 +5,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Mockery\Exception;
 //use Modules\Booking\Events\VendorLogPayment;
 use Modules\Tour\Models\TourDate;
+use Modules\User\Models\User;
 use Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\Booking\Models\Booking;
 use App\Helpers\ReCaptchaEngine;
+use Gloudemans\Shoppingcart\Facades\Cart;
+use Modules\Product\Models\Coupon;
 
 class BookingController extends \App\Http\Controllers\Controller
 {
@@ -35,15 +38,89 @@ class BookingController extends \App\Http\Controllers\Controller
         return view('Booking::frontend.checkout', $data);
     }
 
-    public function cart()
+    public function cart(Request $request)
     {
-
+        $message = [];
+        $s_coupon = (!empty(session('coupon'))) ? session('coupon') : [];
+        if ($request->isMethod('post')){
+            if (!empty($request->input('product'))){
+                foreach ($request->input('product') as $k => $val){
+                    $rowId = array_keys($val)[0];
+                    Cart::update($rowId, $val[$rowId]); // Will update the quantity
+                }
+                $message = ['class'=>'bravo-message','text'=>__('Cart updated.')];
+            }
+            if (!empty($request->input('coupon'))){
+                $coupon = Coupon::where('name',$request->input('coupon'))->where('status','publish')->first();
+                if (!empty($coupon)){
+                    $expiration = explode(' - ',$coupon->expiration);
+                    $today = date('Y-m-d');
+                    $error = false;
+                    $allow = true;
+                    if (strtotime($today) >= strtotime($expiration[0]) && strtotime($today) <= strtotime($expiration[1])){
+                        $get_coupon = [
+                            'id'    =>  $coupon->id,
+                            'name'  =>  $coupon->name,
+                            'type'  =>  $coupon->coupon_type,
+                            'discount'=>$coupon->discount,
+                            'status'=>  $coupon->status
+                        ];
+                        if (!empty($s_coupon)){
+                            foreach ($s_coupon as $itemCoupon){
+                                if ($request->input('coupon') == $itemCoupon['name']) $error = true;
+                            }
+                        }
+                        if ($error == true){
+                            $message = ['class'=>'bravo-error','text'=>__('Coupon ":coupon" already applied!',['coupon'=>$request->input('coupon')])];
+                        } else {
+                            if (!empty($email = json_decode($coupon->email)) || !empty($id = json_decode($coupon->customer_id))){
+                                if ( (!empty($email) && !in_array(Auth::user()->email, $email)) || (!empty($id) && !in_array(Auth::id(), $id)) ){
+                                    $allow = false;
+                                    $message = ['class'=>'bravo-error','text'=>__('Coupon ":coupon" not applied to this Email or Customer!',['coupon'=>$request->input('coupon')])];
+                                }
+                            }
+                            if ($allow == true){
+                                array_push($s_coupon, $get_coupon);
+                                $message = ['class'=>'bravo-message','text'=>__('Coupon ":coupon" applied successfully.',['coupon'=>$request->input('coupon')])];
+                            }
+                        }
+                        session(['coupon' => $s_coupon]);
+                    } else {
+                        $message = ['class'=>'bravo-error','text'=>__('Coupon ":coupon" expiration!',['coupon'=>$request->input('coupon')])];
+                    }
+                } else {
+                    $message = ['class'=>'bravo-error','text'=>__('Coupon ":coupon" does not exist!',['coupon'=>$request->input('coupon')])];
+                }
+            }
+            if (!empty($request->input('country')) || !empty($request->input('address')) || !empty($request->input('postcode'))){
+                $shipping = [
+                    'country'   =>  [
+                        'key'   =>  $request->input('country'),
+                        'value' =>  get_country_lists()[$request->input('country')]
+                    ],
+                    'address'   =>  $request->input('address'),
+                    'postcode'  =>  $request->input('postcode'),
+                ];
+                session(['shipping'=>$shipping]);
+            }
+        }
+        if (!empty($request->input('remove_coupon'))){
+            $re_coupon = [];
+            foreach ($s_coupon as $coupon){
+                if ($request->input('remove_coupon') == $coupon['name']) continue;
+                array_push($re_coupon, $coupon);
+            }
+            session(['coupon' => $re_coupon]);
+            $message = ['class'=>'bravo-message','text'=>__('Coupon ":coupon" has been removed.',['coupon'=>$request->input('remove_coupon')])];
+        }
         $data = [
             'page_title' => __('Cart'),
             'user'       => Auth::user(),
+            'message'  => $message,
             'breadcrumbs'=>[
                 ['name'=>__("Cart"),'class'=>'active']
-            ]
+            ],
+            'coupons' => (!empty(session('coupon'))) ? session('coupon') : '',
         ];
         return view('Booking::frontend.cart', $data);
     }
@@ -222,7 +299,6 @@ class BookingController extends \App\Http\Controllers\Controller
      */
     public function addToCart(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
             'id'   => 'required|integer',
             'type' => 'required'
@@ -232,13 +308,14 @@ class BookingController extends \App\Http\Controllers\Controller
         }
         $service_type = $request->input('type');
         $service_id = $request->input('id');
+        $variation_id = $request->input('variation_id');
+
         $allServices = get_product_types();
         if (empty($allServices[$service_type])) {
             return $this->sendError(__('Service type not found'));
         }
         $module = $allServices[$service_type];
-        // \var_dump($module);
-        $service = $module::find($service_id);
+        $service = ($service_type == 'simple') ? $module::find($service_id) : $module::find($variation_id);
 
         if (empty($service)) {
             return $this->sendError(__('Service not found'));
@@ -246,6 +323,22 @@ class BookingController extends \App\Http\Controllers\Controller
 
         return $service->addToCart($request);
     }
+    public function removeCartItem(Request $request){
+        $validator = Validator::make($request->all(), [
+            'id'   => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError('', ['errors' => $validator->errors()]);
+        }
+
+        Cart::remove($request->input('id'));
+
+        return $this->sendSuccess([
+            'fragments'=>get_cart_fragments(),
+            'reload'=>Cart::count()  ? false: true,
+        ],__("Item removed"));
+    }
+
 
     protected function getGateways()
     {

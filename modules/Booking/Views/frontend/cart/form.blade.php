@@ -1,169 +1,74 @@
-{{-- <div class="cart_page_form">
-    <form action="#">
-        <div class="table-responsive">
-        <table class="table ">
-              <thead>
-                <tr class="carttable_row">
-                    <th class="cartm_title">{{__('Product')}}</th>
-                    <th class="cartm_title">{{__('Price')}}</th>
-                    <th class="cartm_title">{{__('Quantity')}}</th>
-                    <th class="cartm_title">{{__('Total')}}</th>
-                </tr>
-              </thead>
-              <tbody class="table_body">
-
-                @foreach(Cart::content() as $cartItem)
-                <tr>
-                    <th scope="row">
-                        @if($cartItem->model)
-                            <ul class="cart_list d-flex align-center">
-                                <li class="list-inline-item pr15"><a href="#" @click.prevent="deleteCartItem($cartItem)"><img src="{{asset('dist/frontend/module/course/images/shop/close.png')}}" alt="close.png"></a></li>
-                                <li class="list-inline-item pr20">
-                                    {!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left img-120'])!!}
-                                </li>
-                                <li class="list-inline-item"><a class="cart_title" href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->name}}</li>
-                            </ul>
-                        @else
-                            <ul class="cart_list d-flex align-center">
-                                <li class="list-inline-item pr15"><a href="#"><img src="{{asset('dist/frontend/module/course/images/shop/close.png')}}" alt="close.png"></a></li>
-                                <li class="list-inline-item pr20">
-                                </li>
-                                <li class="list-inline-item"><a class="cart_title" >{{$cartItem->name}}</li>
-                            </ul>
-                        @endif
-                    </th>
-                    <td>{{format_money($cartItem->price)}}</td>
-                    <td>1</td>
-                    <td class="cart_total">{{format_money($cartItem->total)}}</td>
-                </tr>
-                @endforeach
-              </tbody>
-        </table>
-        </div>
-    </form>
-</div>
-<div class="checkout_form">
-    <div class="checkout_coupon ui_kit_button">
-        <form class="form-inline">
-            <input class="form-control" type="text" v-model="coupon" placeholder="{{__('Coupon Code')}}" aria-label="Search">
-            <button type="button" @click="applyCoupon" class="btn btn-sm btn-primary">{{__('Apply Coupon')}}</button>
-            <button type="button" @click="updateCart" class="btn btn-sm btn-primary">{{__('Update Cart')}}</button>
-        </form>
-    </div>
-</div> --}}
-
+@php $shipping = (!empty(session('shipping'))) ? session('shipping') : null @endphp
 <div class="ps-section--shopping ps-shopping-cart">
     <div class="container">
-        <div class="ps-section__header">
-           <h1>Shopping Cart</h1>
-        </div>
-        <div class="ps-section__content">
-           <div class="table-responsive">
-              <table class="table ps-table--shopping-cart">
-                 <thead>
-                    <tr>
-                       <th>{{__('PRODUCT NAME')}}</th>
-                       <th>{{__('PRICE')}}</th>
-                       <th>{{__('QUANTITY')}}</th>
-                       <th>{{__('TOTAL')}}</th>
-                       <th></th>
-                    </tr>
-                 </thead>
-                 <tbody>
-                  @foreach(Cart::content() as $cartItem)
-                     
+        <form action="{{route('booking.cart')}}" method="post" class="form-cart">
+            @csrf
+            <div class="ps-section__content">
+                <div class="table-responsive">
+                    <table class="table ps-table--shopping-cart">
+                        <thead>
                         <tr>
-                           @if($cartItem->model)
-                              <td>
-                                 <div class="ps-product--cart">
-                                    <div class="ps-product__thumbnail">
-                                       <a href="{{$cartItem->model->getDetailUrl()}}">
-                                          {!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left img-120'])!!}
-                                       </a>
-                                    </div>
-                                    <div class="ps-product__content">
-                                       <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->name}}</a>
-                                       {{-- <p>Sold By:<strong> YOUNG SHOP</strong></p> --}}
-                                    </div>
-                                 </div>
-                              </td>
-                           @else
-                              <td>
-                                 <div class="ps-product--cart">
-                                    <div class="ps-product__thumbnail">
-                                       <a href="javascrit:void(0)">
-                                       </a>
-                                    </div>
-                                    <div class="ps-product__content">
-                                       <a href="javascript:void(0)">{{$cartItem->name}}</a>
-                                       {{-- <p>Sold By:<strong> YOUNG SHOP</strong></p> --}}
-                                    </div>
-                                 </div>
-                              </td>
-                           @endif
-                           <td class="price">{{format_money($cartItem->price)}}</td>
-                           <td>
-                              <div class="form-group--number">
-                                 <button class="up">+</button>
-                                 <button class="down">-</button>
-                                 <input class="form-control" type="text" placeholder="1" value="1">
-                              </div>
-                           </td>
-                           <td>{{format_money($cartItem->total)}}</td>
-                           @if($cartItem->model)
-                              <td><a href="#" @click.prevent="deleteCartItem($cartItem)"><i class="icon-cross"></i></a></td>
-                           @else
-                              <td><a href="#" ><i class="icon-cross"></i></a></td>
-                           @endif
+                            <th>{{__('PRODUCT NAME')}}</th>
+                            <th>{{__('PRICE')}}</th>
+                            <th>{{__('QUANTITY')}}</th>
+                            <th>{{__('TOTAL')}}</th>
+                            <th></th>
                         </tr>
-                  @endforeach
-                    
-                 </tbody>
-              </table>
-           </div>
-           <div class="ps-section__cart-actions">
-              <a class="ps-btn" href="/">
-                 <i class="icon-arrow-left"></i> Back to Shop
-               </a>
-               <a class="ps-btn ps-btn--outline" @click="updateCart">
-                  <i class="icon-sync"></i> Update cart
-               </a>
+                        </thead>
+                        <tbody>
+                        @include('Booking::frontend.cart.list-cart')
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ps-section__cart-actions">
+                    <a class="ps-btn" href="/">
+                        <i class="icon-arrow-left"></i> Back to Shop
+                    </a>
+                    <button type="submit" class="ps-btn ps-btn--outline">
+                        <i class="icon-sync"></i> {{__('Update cart')}}
+                    </button>
+                </div>
             </div>
-        </div>
+        </form>
         <div class="ps-section__footer">
            <div class="row">
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                 <figure>
-                    <figcaption>Coupon Discount</figcaption>
-                    <div class="form-group">
-                       <input class="form-control" type="text" placeholder="">
-                    </div>
-                    <div class="form-group">
-                       <button class="ps-btn ps-btn--outline">Apply</button>
-                    </div>
-                 </figure>
+                  <form action="{{ route('booking.cart') }}" method="post" class="coupon-form">
+                      @csrf
+                      <figure>
+                          <figcaption>{{__('Coupon Discount')}}</figcaption>
+                          <div class="form-group">
+                              <input class="form-control" type="text" name="coupon" placeholder="" required>
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" class="ps-btn ps-btn--outline">{{__('Apply')}}</button>
+                          </div>
+                      </figure>
+                  </form>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                 <figure>
-                    <figcaption>Calculate shipping</figcaption>
-                    <div class="form-group">
-                       <select class="ps-select select2-hidden-accessible" data-select2-id="1" tabindex="-1" aria-hidden="true">
-                          <option value="1" data-select2-id="3">America</option>
-                          <option value="2">Italia</option>
-                          <option value="3">Vietnam</option>
-                       </select>
-                       <span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="2" style="width: 120px;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-wuzc-container"><span class="select2-selection__rendered" id="select2-wuzc-container" role="textbox" aria-readonly="true" title="America">America</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-                    </div>
-                    <div class="form-group">
-                       <input class="form-control" type="text" placeholder="Town/City">
-                    </div>
-                    <div class="form-group">
-                       <input class="form-control" type="text" placeholder="Postcode/Zip">
-                    </div>
-                    <div class="form-group">
-                       <button class="ps-btn ps-btn--outline">Update</button>
-                    </div>
-                 </figure>
+                  <form action="{{route('booking.cart')}}" method="post" class="coupon-form">
+                      @csrf
+                      <figure>
+                          <figcaption>{{ __('Calculate shipping') }}</figcaption>
+                          <div class="form-group">
+                              <select class="ps-select select2-hidden-accessible country_select" name="country">
+                                  @foreach(get_country_lists() as $key => $country)
+                                      <option value="{{$key}}" {{$shipping['country']['key'] == $key ? 'selected' : ''}}>{{$country}}</option>
+                                  @endforeach
+                              </select>
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" type="text" name="address" placeholder="{{ __('Town/City') }}" value="{{$shipping['address']}}">
+                          </div>
+                          <div class="form-group">
+                              <input class="form-control" type="text" name="postcode" placeholder="{{ __('Postcode/Zip') }}" value="{{$shipping['postcode']}}">
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" class="ps-btn ps-btn--outline">{{ __('Update') }}</button>
+                          </div>
+                      </figure>
+                  </form>
               </div>
               <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                  <div class="ps-block--shopping-total">
@@ -171,21 +76,38 @@
                            <p>{{__('Subtotal')}}<span> {{format_money(Cart::subtotal())}}</span></p>
                         </div>
                         <div class="ps-block__content">
-                           <ul class="ps-block__product">
-                              <li>
-                                 <span class="ps-block__estimate">Tax : <strong>{{format_money(Cart::tax())}}</strong></span>
-                                 <span class="ps-block__shop">YOUNG SHOP Shipping</span>
-                                 <span class="ps-block__shipping">Free Shipping</span>
-                                    <span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong>
-                                       <a href="#"> MVMTH Classical Leather Watch In Black ×1</a>
-                                    </span>
-                                 </li>
-                              {{-- <li><span class="ps-block__shop">ROBERT’S STORE Shipping</span><span class="ps-block__shipping">Free Shipping</span><span class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a href="#">Apple Macbook Retina Display 12” ×1</a></span></li> --}}
-                           </ul>
-                           <h3>{{__('Total')}} <span>{{format_money(Cart::total())}}</span></h3>
+                            <ul class="ps-block__product">
+                                @if(Cart::count())
+                                    @foreach(Cart::content() as $item)
+                                        <li>
+                                            <span class="ps-block__shop">{{__(':author Shipping',['author'=>mb_strtoupper($item->model->author->getDisplayName())])}}</span>
+                                            <span class="ps-block__estimate">
+                                                {{ __('Estimate for') }}
+                                                <strong style="color:#000">{{ (!empty($shipping['address'])) ? $shipping['address'].',' : ''}} {{ $shipping['country']['value'] ?? '' }}</strong>
+                                               <a href="{{$item->model->getDetailUrl()}}">{{$item->model->title}} ×{{$item->qty}}</a>
+                                            </span>
+                                        </li>
+                                    @endforeach
+                                @endif
+                                @if(!empty($coupons))
+                                    @foreach($coupons as $coupon)
+                                        <li class="coupon">
+                                            <div class="coupon_text">
+                                                <span class="c_text">{{__('Coupon: :code',['code'=>$coupon['name']])}}</span>
+                                                <a href="{{route('booking.cart')}}?remove_coupon={{$coupon['name']}}" class="c_close icon-cross2"></a>
+                                            </div>
+                                            <div class="coupon_discount">
+                                                @php $discount = ($coupon['type'] == 'percent') ? Cart::subtotal() * $coupon['discount']/100 : $coupon['discount'] @endphp
+                                                <span class="c_discount">-{{format_money($discount)}}</span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                @endif
+                            </ul>
+                           <h3>{{__('Total')}} <span>{{format_money(Cart::final_total())}}</span></h3>
                         </div>
                  </div>
-                 <a class="ps-btn ps-btn--fullwidth" href="checkout.html">Proceed to checkout</a>
+                 <a class="ps-btn ps-btn--fullwidth" href="{{route('booking.checkout')}}">{{ __('Proceed to checkout') }}</a>
               </div>
            </div>
         </div>

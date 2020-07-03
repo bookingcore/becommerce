@@ -35,6 +35,7 @@ class CreateTableCorePages extends Migration
             $table->bigIncrements('id');
 
             $table->string('name',255)->nullable();
+            $table->string('display_type',10)->nullable();
             $table->string('slug',255)->nullable();
             $table->string('service',50)->nullable();
 

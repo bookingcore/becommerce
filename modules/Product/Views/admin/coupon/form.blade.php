@@ -21,8 +21,9 @@
             <label class="control-label">{{ __('Expiration Date (Y-m-d)')}} </label>
             <div class="form-expiration">
                 @php
-                    $start = date('Y-m-d');
-                    $end = date('Y-m-d',strtotime(date('Y/m/d')."+1 days"));
+                    $expiration = (!empty($row->expiration)) ? explode(' - ',$row->expiration) : null;
+                    $start = (!empty($expiration)) ? date('Y-m-d',strtotime($expiration[0])) : date('Y-m-d');
+                    $end = (!empty($expiration)) ? date('Y-m-d',strtotime($expiration[1])) : date('Y-m-d',strtotime(date('Y/m/d')."+1 days"));
                 @endphp
                 <input type="hidden" class="check-in-input" value="{{ $start }}" name="start">
                 <input type="hidden" class="check-out-input" value="{{ $end }}" name="end">
@@ -42,7 +43,7 @@
                         @php $stt = 0; @endphp
                         @foreach(json_decode($row->email) as $email)
                             <div class="item" data-number="{{$stt}}" style="padding: 0; border: none">
-                                <input type="text" name="email[{{$stt}}][name]" class="form-control" value="{{$email->name}}" placeholder="Email" style="width: calc(100% - 33px); display: inline-block; height: 31px; vertical-align: top;">
+                                <input type="text" name="email[{{$stt}}]" class="form-control" value="{{$email}}" placeholder="Email" style="width: calc(100% - 33px); display: inline-block; height: 31px; vertical-align: top;">
                                 <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
                             </div>
                             @php $stt++; @endphp
@@ -54,7 +55,7 @@
                 </div>
                 <div class="g-more hide">
                     <div class="item" data-number="__number__" style="padding: 0; border: none">
-                        <input type="text" __name__="email[__number__][name]" class="form-control" placeholder="Email" style="width: calc(100% - 33px); display: inline-block; height: 31px; vertical-align: top;">
+                        <input type="text" __name__="email[__number__]" class="form-control" placeholder="Email" style="width: calc(100% - 33px); display: inline-block; height: 31px; vertical-align: top;">
                         <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
                     </div>
                 </div>

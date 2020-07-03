@@ -16,6 +16,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+        $this->app->bind('cart', BravoCart::class);
     }
 
     public static function getAdminMenu()

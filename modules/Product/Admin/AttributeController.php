@@ -79,7 +79,8 @@ class AttributeController extends AdminController
     {
         $this->checkPermission('product_manage_attributes');
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'display_type'  =>  'required'
         ]);
         $id = $request->input('id');
         if ($id) {
@@ -156,12 +157,12 @@ class AttributeController extends AdminController
     public function term_edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Terms::find($id);
+        $row = Attributes::select('bravo_terms.*','bravo_attrs.name as attr_name','bravo_attrs.display_type')->from('bravo_attrs')->join('bravo_terms','bravo_terms.attr_id','=','bravo_attrs.id')->where('bravo_terms.id',$id)->first();
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
         }
         $translation = $row->translateOrOrigin($request->query('lang'));
-        $attr = Attributes::find($row->attr_id);
+
         $data = [
             'row'         => $row,
             'translation'    => $translation,
@@ -176,7 +177,7 @@ class AttributeController extends AdminController
                     'url'  => 'admin/module/product/attribute'
                 ],
                 [
-                    'name' => $attr->name,
+                    'name' => $row->attr_name,
                     'url'  => 'admin/module/product/attribute/terms/' . $row->attr_id
                 ],
                 [

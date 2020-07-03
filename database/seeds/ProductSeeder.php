@@ -354,12 +354,14 @@ class ProductSeeder extends Seeder
         $attr = [];
         $attr['color'] = DB::table('bravo_attrs')->insertGetId([
             'name'      =>      'Color',
+            'display_type'=>    'color',
             'slug'      =>      'color',
             'service'   =>      'product',
             'create_user'=>     '1'
         ]);
         $attr['size'] = DB::table('bravo_attrs')->insertGetId([
             'name'      =>      'Size',
+            'display_type'=>    'text',
             'slug'      =>      'size',
             'service'   =>      'product',
             'create_user'=>     '1'
@@ -368,36 +370,49 @@ class ProductSeeder extends Seeder
         $term_list = [
             [
                 'name'      =>      'Red',
+                'content'   =>      '#FF0000',
                 'attr_id'   =>      $attr['color'],
                 'slug'      =>      'red'
             ],
             [
                 'name'      =>      'Black',
+                'content'   =>      '#000000',
                 'attr_id'   =>      $attr['color'],
                 'slug'      =>      'black'
             ],
             [
+                'name'      =>      'Blue',
+                'content'   =>      '#0000FF',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'blue'
+            ],
+            [
                 'name'      =>      'S',
+                'content'   =>      'S',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      's'
             ],
             [
                 'name'      =>      'M',
+                'content'   =>      'M',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'm'
             ],
             [
                 'name'      =>      'L',
+                'content'   =>      'L',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'l'
             ],
             [
                 'name'      =>      'XL',
+                'content'   =>      'XL',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'xl'
             ],
             [
                 'name'      =>      'XXL',
+                'content'   =>      'XXL',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'Xl'
             ],
@@ -452,7 +467,7 @@ class ProductSeeder extends Seeder
                     'coupon_type'  =>  'percent',
                     'discount'=>50,
                     'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+5 days")),
-                    'email'     => '[{"name":"email1@gmail.com"},{"name":"email2@gmail.com"}]',
+                    'email'     => '["admin@dev.com","vendor1@dev.com"]',
                     'customer_id'   =>  '["14","16"]',
                     'per_coupon'    =>  2,
                     'per_user'    =>  3,
@@ -464,7 +479,7 @@ class ProductSeeder extends Seeder
                     'coupon_type'  =>  'percent',
                     'discount'=>10,
                     'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+2 days")),
-                    'email'     => '[{"name":"email3@gmail.com"},{"name":"email4@gmail.com"}]',
+                    'email'     => '["vendor1@dev.com"]',
                     'customer_id'   =>  '["11","12"]',
                     'per_coupon'    =>  2,
                     'per_user'    =>  3,
@@ -476,7 +491,7 @@ class ProductSeeder extends Seeder
                     'coupon_type'  =>  'percent',
                     'discount'=>20,
                     'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+1 days")),
-                    'email'     => '[{"name":"email5@gmail.com"},{"name":"email6@gmail.com"}]',
+                    'email'     => '',
                     'customer_id'   =>  '["11"]',
                     'per_coupon'    =>  2,
                     'per_user'    =>  3,

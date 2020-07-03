@@ -9,7 +9,7 @@
         @if(Auth::user())
             <a class="counter-wrap" href="{{route('user.wishList.index')}}">
                 <i class="icon-heart extra-icon"></i>
-                <span class="counter user-wish-list-count">{{Auth::user()->wishlist_count}}</span>
+                <span class="counter user-wish-list-count">{{ count(wishlist()) }}</span>
             </a>
         @else
             <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">

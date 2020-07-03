@@ -21,7 +21,7 @@
             $traverse($category);
             ?>
         </select>
-        <select id="select_change" style="display: none">
+        <select class="select_change" style="display: none">
             <option id="text_change"></option>
         </select>
     </div>

@@ -1,9 +1,15 @@
 @if($row->product_type=='variable')
     @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
         <p class="price">
-            <span class="amount">{{format_money($priceRange['min'])}}</span>
-            -
-            <span class="amount">{{format_money($priceRange['max'])}}</span>
+            @if($priceRange['min'] == $priceRange['max'])
+                <ins><span class="amount">{{format_money($priceRange['max'])}}</span></ins>
+            @else
+                <ins>
+                    <span class="amount">{{format_money($priceRange['min'])}}</span>
+                    -
+                    <span class="amount">{{format_money($priceRange['max'])}}</span>
+                </ins>
+            @endif
         </p>
     @endif
 @else
@@ -20,8 +26,8 @@
             @endif
         </p>
     @else
-        <p class="price">
-            <span class="amount">{{format_money($row->price)}}</span>
+        <p class="price single-price">
+            <ins><span class="amount">{{format_money($row->price)}}</span></ins>
         </p>
     @endif
 @endif

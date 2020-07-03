@@ -2,9 +2,7 @@
     <div class="martfury-container">
         <div class="mf-products-tabs">
             <div class="tabs-header">
-                <h2>
-                    <span class="cat-title">{{__($title)}}</span>
-                </h2>
+                <h2><span class="cat-title">{{ $title }}</span></h2>
                 <div class="tabs-header-nav">
                     <a class="link" href="{{ route("product.index") }}">{{__('View All')}}</a></div>
             </div>
@@ -21,25 +19,34 @@
                                                     @if($image = get_image_tag($item['image_id']))
                                                         <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title'] ?? ''}}">
                                                     @endif
-                                                    @if(!empty($item->discount_percent))
-                                                        <span class="ribbons">
+                                                    <span class="ribbons">
+                                                        @if($item->stock_status == "in")
+                                                            @if(!empty($item->discount_percent))
                                                                 <span class="onsale ribbon">
                                                                     <span class="sep">-</span>{{$item->discount_percent}}
                                                                 </span>
+                                                            @endif
+                                                        @else
+                                                            <span class="ribbons">
+                                                                <span class="out-of-stock ribbon">{{__('Out Of Stock')}}</span>
                                                             </span>
-                                                    @endif
+                                                        @endif
+
+                                                    </span>
                                                 </a>
 
                                                 <div class="footer-button">
-                                                    <a href="#">
-                                                        <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to cart')}}"></i>
-                                                        <span class="add-to-cart-text">{{__('Add to cart')}}</span>
+                                                    @php $in_stock = $item->stock_status == 'in' @endphp
+                                                    <a href="{{ $in_stock ? '#' : $item->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$item->id}},"type":"simple"}'>
+                                                        <i class="p-icon icon-bag2" data-toggle="tooltip" data-rel="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
                                                     </a>
-                                                    <a href="#" class="mf-product-quick-view">
-                                                        <i class="p-icon icon-eye" title="{{__('Quick View')}}" data-rel="tooltip"></i>
+
+                                                    <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$item->id}},"type":"{{$item->type}}"}>
+                                                        <i class="p-icon icon-eye"></i>
                                                     </a>
                                                     <!-- ADD TO WISHLIST -->
-                                                    <div class="yith-wcwl-add-to-wishlist service-wishlist {{ (in_array($item->id, $wishlist)) ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" title="{{(in_array($item->id, $wishlist)) ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
+                                                    @php $hasWishList = in_array($item->id, wishlist()); @endphp
+                                                    <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                                                         <div class="yith-wcwl-add-button">
                                                             <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                                                                 <i class="yith-wcwl-icon fa fa-heart-o"></i>
@@ -92,12 +99,12 @@
                                                         </div>
                                                     </div>
                                                     <span class="review">
-                                                                @if($reviewData['total_review'] > 1)
-                                                            {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
-                                                        @else
-                                                            {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
-                                                        @endif
-                                                            </span>
+                                                    @if($reviewData['total_review'] > 1)
+                                                        {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
+                                                    @else
+                                                        {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
+                                                    @endif
+                                                    </span>
                                                 </div>
 
 
@@ -107,13 +114,13 @@
                                             </div>
 
                                             <div class="mf-product-price-box">
-                                                        <span class="price">
-                                                            <ins><span class="woocommerce-Price-amount amount">{{ $item->display_price }}</span></ins>
-                                                            <del><span class="woocommerce-Price-amount amount">{{ $item->display_sale_price }}</span></del>
-                                                            @if(!empty($item->discount_percent))
-                                                                <span class="sale"> {{ __(":discount off",["discount"=>$item->discount_percent]) }}</span>
-                                                            @endif
-                                                        </span>
+                                                <span class="price">
+                                                    <ins><span class="woocommerce-Price-amount amount">{{ $item->display_price }}</span></ins>
+                                                    <del><span class="woocommerce-Price-amount amount">{{ $item->display_sale_price }}</span></del>
+                                                    @if(!empty($item->discount_percent))
+                                                        <span class="sale"> {{ __(":discount off",["discount"=>$item->discount_percent]) }}</span>
+                                                    @endif
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

@@ -2,7 +2,7 @@
 $service = $row->getService;
 ?>
 <tr>
-    <td class="product-remove">
+    <td class="product-remove item_{{$service->id}}">
         <a href="{{route('user.wishList.remove')}}?id={{$service->id}}&type={{$service->type}}" class="remove remove_from_wishlist" title="Remove this product">×</a>
     </td>
     <td class="product-thumbnail">
@@ -37,7 +37,7 @@ $service = $row->getService;
 
     <td class="product-add-to-cart">
         @if($service->stock_status == 'in')
-            <a href="#" class="button add_to_cart_button ajax_add_to_cart add_to_cart alt">
+            <a href="#" class="button bravo_add_to_cart" data-product={"id":{{$service->id}},"type":"simple"}>
                 <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to Cart')}}"></i>
                 <span class="add-to-cart-text">{{__('Add to Cart')}}</span>
             </a>

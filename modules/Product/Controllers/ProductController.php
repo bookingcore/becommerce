@@ -2,16 +2,22 @@
 namespace Modules\Product\Controllers;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Modules\Product\Models\BravoTerms;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductAttrs;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductVariation;
+use Modules\Product\Models\ProductVariationTerm;
 use Modules\Product\Models\Space;
 use Illuminate\Http\Request;
 use Modules\Location\Models\Location;
 use Modules\Review\Models\Review;
 use Modules\Core\Models\Attributes;
 use DB;
+use Modules\User\Models\User;
 
 class ProductController extends Controller
 {
@@ -121,65 +127,95 @@ class ProductController extends Controller
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
-        if (empty($row)) {
-            return redirect('/');
+        $listAttrs = (!empty($row->attributes_for_variation)) ? ProductAttrs::whereIn('id',$row->attributes_for_variation)->get() : '';
+        $variable = ProductVariationTerm::select('*','bravo_attrs.id as attr_id','bravo_attrs.display_type','bravo_terms.name','bravo_terms.content')
+                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
+                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+                    ->where('product_variation_term.product_id',$row->id)->get();
+        $list_variable = [];
+        if (!empty($variable)){
+            foreach ($variable as $item){
+                array_push($list_variable, $item->variation_id);
+            }
         }
-        $translation = $row->translateOrOrigin(app()->getLocale());
+        $get_variation = [];
+        if (!empty($list_variable)){
+            foreach (array_unique($list_variable) as $item){
+                $term_id = [];
+                $terms = ProductVariationTerm::where('variation_id',$item)->get();
+                $vProduct = ProductVariation::where('id',$item)->first();
+                if (!empty($terms)){
+                    foreach ($terms as $term){
+                        array_push($term_id, $term->term_id);
+                    }
+                }
+                sort($term_id);
+                array_push($get_variation,[
+                    'variation_id'  =>  $item,
+                    'term_id'       =>  $term_id,
+                    'vProduct_attr' =>  $vProduct->getAttributes(),
+                ]);
+            }
+        }
 
+        $translation = $row->translateOrOrigin(app()->getLocale());
 
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
-
-        if (!empty($cats)){
+        $bc = [
+            'url'=>'',
+            'class'=>'active',
+            'name'=>$translation->title
+        ];
+        if ($cats->count()){
             $c_breadcrumbs = [
                 [
                     'name' => $cats[0]->name,
                     'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
                 ],
-                [
-                    'url'=>'',
-                    'class'=>'active',
-                    'name'=>$translation->title
-                ]
+                $bc
             ];
         } else {
-            $c_breadcrumbs = [
-                [
-                    'url'=>'',
-                    'class'=>'active',
-                    'name'=>$translation->title
-                ]
-            ];
+            $c_breadcrumbs = [$bc];
         }
-
-        /*$related_products = '';
-        if(!empty($cats)){
-            $list_cat = [];
-            foreach ($cats as $cat){
-                $list_cat[] =  $cat->id;
-            }
-            $related_products = Product::query()
-                ->join('product_category_relations', 'products.id', '=', 'product_category_relations.target_id')
-                ->whereIn('product_category_relations.cat_id', $list_cat)
-                ->whereNotIn('products.id', [$row->id])
-                ->groupBy("products.id")
-                ->get();
-        }*/
-
-        $related = Product::get();
         $data = [
             'row'          => $row,
             'translation'  => $translation,
             'booking_data' => $row->getBookingData(),
             'review_list'  => $review_list,
-            /*'related_list' => $related_products,*/
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
             'breadcrumbs'=> $c_breadcrumbs,
-            'wishlist'  => wishlist()
+            'listAttrs'  => $listAttrs,
+            'variable'  =>  $variable,
+            'variations_product'    =>  json_encode($get_variation)
         ];
         $this->setActiveMenu($row);
-
+//        dd($data);
         return view('Product::frontend.detail', $data);
+    }
+
+    public function quick_view(Request $request){
+        $id = (!empty($request->id)) ? $request->id : '';
+        $product = Product::where('id',$id)->first();
+        $brand = ProductBrand::where('id',$product->brand_id)->first();
+        $data = [
+            'row'   =>  $product,
+            'brand'     =>  $brand
+        ];
+        return view('Product::frontend.details.quick-view', $data)->render();
+    }
+
+    public function store_list(){
+        $data = [
+            'users'         =>  User::paginate(2),
+            'breadcrumbs'   =>  [
+                [
+                    'url'=>'',
+                    'name'=> __('Store List')
+                ]
+            ]
+        ];
+        return view('Product::frontend.storeList.index', $data);
     }
 }

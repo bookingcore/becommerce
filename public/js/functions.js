@@ -171,11 +171,18 @@ $(document).on('click','.bravo_add_to_cart',function(e){
     e.preventDefault();
     $(this).addClass('loading');
     var me = $(this);
+    var product = $(this).data('product');
+    var quantity = {qty: $('.quantity-input input[name=quantity]').val()};
+    var variations = Bravo.currentVariation;
+
     $.ajax({
         url:Bravo.routes.add_to_cart,
-        data:$(this).data('product'),
+        data: Object.assign(product, quantity, variations),
         type:'post',
         dataType:'json',
+        beforeSend:function(){
+            me.addClass('loading');
+        },
         success:function(json){
             me.removeClass('loading');
             if(json.fragments){
@@ -188,10 +195,53 @@ $(document).on('click','.bravo_add_to_cart',function(e){
             }
             if(json.message){
                 BravoApp.showAjaxMessage(json);
+                setTimeout(function () {
+                    let url = $(`.wishlist-items-wrapper .product-remove.item_${product.id} > a`).attr('href');
+                    if (url !== undefined) window.open(url,'_self');
+                },1000)
             }
         },
         error:function(err){
             me.removeClass('loading');
+            console.log(err)
+        }
+    })
+})
+
+$(document).on('click','.bravo_delete_cart_item',function(e){
+    e.preventDefault();
+
+    var c = confirm(i18n.delete_cart_item_confirm);
+    if(!c) return;
+
+    var me = $(this);
+    var id = $(this).data('id');
+    $.ajax({
+        url:bookingCore.routes.remove_cart_item,
+        data:{
+            id:id
+        },
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.reload){
+                window.location.reload();
+            }
+            if(json.message){
+                // bookingCoreApp.showAjaxMessage(json);
+            }
+
+        },
+        error:function(err){
+            bravo_handle_error_response(err);
             console.log(err)
         }
     })
