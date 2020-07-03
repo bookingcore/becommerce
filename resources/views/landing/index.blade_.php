@@ -4,7 +4,7 @@
 <!--<![endif]-->
 <head>
     <meta charset="UTF-8"/>
-    <title>Booking Core - Ultimate Booking System</title>
+    <title>martfury - Ultimate Booking System</title>
     <link rel="icon" type="image/png" href="{{url('icon/favicon.png')}}">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600" rel="stylesheet">
@@ -21,7 +21,7 @@
             <div class="row">
                 <div class="col-xs-3">
                     <h1><a href="{{url('intro')}}"><img src="{{url('images')}}/logo.svg"
-                                                                 alt="Booking Core Logo"/></a></h1>
+                                                                 alt="martfury Logo"/></a></h1>
                 </div>
                 <div class="col-xs-9">
                     <div class="dropdown dropdown-main-menu">
@@ -171,7 +171,7 @@
 <div class="footer">
 <!--<img src="<?php /*echo $url . '/img/footer-corrner.png'; */?>" class="footer-corrner"/>-->
     <div class="container">
-        <h3>Creating your own Booking<br />System with <span>Booking Core</span> is super<br />fast and easy <img src="{{url('landing/img/hand.svg')}}" /></h3>
+        <h3>Creating your own Booking<br />System with <span>martfury</span> is super<br />fast and easy <img src="{{url('landing/img/hand.svg')}}" /></h3>
         <a href="{{config('landing.item_url')}}"
            class="btn-buynow">BUY NOW</a>
         <div class="social">

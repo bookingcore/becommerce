@@ -274,7 +274,7 @@ a.purchase:after {
 }
 
 .site-banner {
-	background-image: url('images/slide.jpg');
+	background-image: url('../images/slide.jpg');
 	position: relative;
 	padding-top: 190px;
 	padding-bottom: 260px;
@@ -615,7 +615,7 @@ a.purchase:after {
 }
 
 .sticky-button .tf-text {
-	background-image: url(images/logoen.png);
+	background-image: url(../images/logoen.png);
 	width: 66px;
 	height: 12px;
 	display: inline-block;
@@ -660,7 +660,7 @@ a.purchase:after {
 	position: absolute;
 	bottom: -100%;
 	right: 68px;
-	background-image: url(images/line.png);
+	background-image: url(../images/line.png);
 	background-repeat: no-repeat;
 	content: "";
 	width: 210px;
@@ -701,7 +701,7 @@ a.purchase:after {
 	left: 50%;
 	transform: translateX(-50%);
 	right: 0;
-	background-image: url(images/bg_overlay.png);
+	background-image: url(../images/bg_overlay.png);
 	background-repeat: no-repeat;
 	content: "";
 	width: 670px;
