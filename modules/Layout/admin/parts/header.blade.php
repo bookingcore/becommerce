@@ -12,42 +12,11 @@ $locale = App::getLocale();
             <span class="btn-toggle-admin-menu btn btn-sm btn-link"><i class="icon ion-ios-menu"></i></span>
         </div>
         <div class="header-widget search-widget">
-            {{--<input type="text" class="input-search form-control">--}}
             <a href="{{url('/')}}" class="btn btn-link" target="_blank"><i class="fa fa-eye"></i> {{__('Home')}}
             </a>
         </div>
     </div>
     <div class="widgets-right flex-shrink-0 d-flex">
-        {{--@if(!empty($languages) && setting_item('site_enable_multi_lang'))--}}
-        {{--<div class="dropdown header-widget widget-user widget-language">--}}
-            {{--<div data-toggle="dropdown" class="user-dropdown d-flex align-items-center" aria-haspopup="true" aria-expanded="false">--}}
-                {{--@foreach($languages as $language)--}}
-                    {{--@if($locale == $language->locale)--}}
-                        {{--<div class="user-info flex-grow-1">--}}
-                            {{--@if($language->flag)--}}
-                                {{--<span class="flag-icon flag-icon-{{$language->flag}}"></span>--}}
-                            {{--@endif--}}
-                            {{--{{$language->name}}--}}
-                        {{--</div>--}}
-                    {{--@endif--}}
-                {{--@endforeach--}}
-                {{--<i class="fa fa-angle-down"></i>--}}
-            {{--</div>--}}
-            {{--<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">--}}
-                {{--@foreach($languages as $language)--}}
-                    {{--@php if($language->locale == $locale) continue; @endphp--}}
-
-                    {{--<a class="dropdown-item" href="{{add_query_arg(['lang'=>$language->locale])}}">--}}
-                        {{--@if($language->flag)--}}
-                            {{--<span class="flag-icon flag-icon-{{$language->flag}}"></span>--}}
-                        {{--@endif--}}
-                        {{--{{$language->name}}--}}
-                    {{--</a>--}}
-                {{--@endforeach--}}
-
-            {{--</div>--}}
-        {{--</div>--}}
-        {{--@endif--}}
         <div class="dropdown header-widget widget-user">
             <div data-toggle="dropdown" class="user-dropdown d-flex align-items-center" aria-haspopup="true" aria-expanded="false">
                 <span class="user-avatar flex-shrink-0">

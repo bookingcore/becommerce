@@ -2,7 +2,7 @@
     $languages = \Modules\Language\Models\Language::getActive();
     $locale = session('website_locale',app()->getLocale());
 @endphp
-{{--Multi Language--}}
+
 @if(!empty($languages) && setting_item('site_enable_multi_lang'))
     <div class="header-bar topbar">
         <div id="lang_sel">
@@ -37,4 +37,3 @@
         </div>
     </div>
 @endif
-{{--End Multi language--}}

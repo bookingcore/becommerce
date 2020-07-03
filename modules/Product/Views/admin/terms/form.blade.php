@@ -34,12 +34,3 @@
         <input type="{{ $row->display_type == 'color' ? 'color' : 'text' }}" value="{{$row->content}}" placeholder="{{__("Term content")}}" name="content" class="form-control">
     </div>
 @endif
-
-{{--@if(is_default_lang())
-@endif--}}
-{{--<div class="form-group">--}}
-    {{--<label class="control-label">{{__("Description")}}</label>--}}
-    {{--<div class="">--}}
-        {{--<textarea name="content" class="d-none has-ckeditor" cols="30" rows="10">{{$translation->content}}</textarea>--}}
-    {{--</div>--}}
-{{--</div>--}}

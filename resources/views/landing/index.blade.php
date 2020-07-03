@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Martfury - WooCommerce Marketplace WordPress Theme</title>
+    <title>Martfury - Marketplace Theme</title>
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" href="{{url('landing')}}/css/bootstrap.min.css"/>
@@ -26,10 +26,8 @@
                         <li><a href="#section-homepages">Demos</a></li>
                         <li><a href="#section-mobile-version">Mobile Version </a></li>
                         <li><a href="#section-shop">Shop Pages </a></li>
-{{--                        <li><a href="#section-vendor">Vendors Pages</a></li>--}}
                         <li><a href="#section-product">Product Layouts </a></li>
                         <li><a href="#section-features">Features</a></li>
-{{--                        <li><a target="_blank" href="http://docs.drfuri.com/martfury/">Documentation</a></li>--}}
 
                     </ul>
                     <a target="_blank" href="https://1.envato.market/541" class="purchase">Purchase theme $59</a>
@@ -451,45 +449,9 @@
             </div>
 
             <div class="features-wrapper row">
-                {{--<div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-1.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-2.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-3.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-4.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-5.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-6.jpg">
-                </div>--}}
                 <div class="features-item col-md-4 col-sm-6 col-xs-12">
                     <img src="{{url('landing')}}/images/fea-7.jpg">
                 </div>
-                {{--<div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-8.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-9.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-10.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-11.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-12.jpg">
-                </div>
-                <div class="features-item col-md-4 col-sm-6 col-xs-12">
-                    <img src="{{url('landing')}}/images/fea-13.jpg">
-                </div>--}}
             </div>
         </div>
     </section>
@@ -511,126 +473,9 @@
                         <span class="item-title">Shop Full Width</span>
                     </a>
                 </div>
-                {{--<div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/" target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/s-1.jpg" alt="Category 1">
-								</span>
-                        <span class="item-title">Shop Default</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/?shop_style=2" target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/s-2.jpg" alt="Category 2">
-								</span>
-                        <span class="item-title">Shop Categories</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/?shop_style=3" target="_blank">
-									<span class="img-item">
-										<img src="{{url('landing')}}/images/s-3.jpg" alt="Category 3">
-									</span>
-                        <span class="item-title">Shop With Sidebar</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/?shop_style=4" target="_blank">
-									<span class="img-item">
-										<img src="{{url('landing')}}/images/s-4.jpg" alt="Category 5">
-									</span>
-                        <span class="item-title">Shop Without Banner</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop-carousel/" target="_blank">
-									<span class="img-item">
-										<img src="{{url('landing')}}/images/s-5.jpg" alt="Category 5">
-									</span>
-                        <span class="item-title">Shop Carousel</span>
-                    </a>
-                </div>--}}
             </div>
         </div>
     </section>
-
-    {{--<section id="section-vendor" class="section vendor scrollto">
-        <div class="un-container">
-            <div class="row">
-                <div class="section-header col-md-12 text-center">
-                    <h2 class="section-title">Multi-Vendor Martketplace</h2>
-                    <p>Designed based on <strong>Dokan & WC Vendors & WC Marketplace</strong> plugin. </p>
-                    <p>Allow vendors to create individual stores, manager their inventories and shipping while you can
-                        earn commission on their sale.</p>
-                </div>
-                --}}{{--<div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/store-list/" target="_blank">
-                                <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v3.jpg" alt="Dokan Store List">
-                                    </span>
-                        <span class="item-title">Dokan Store List</span>
-                    </a>
-                </div>
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/store/logancee3/" target="_blank">
-                                <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v2.jpg" alt="Dokan Vendor Store">
-                                    </span>
-                        <span class="item-title">Dokan Vendor Store</span>
-                    </a>
-                </div>
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury2/vendors/global-office/" target="_blank">
-                                <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v1.jpg" alt="WC Vendor Store">
-                                    </span>
-                        <span class="item-title">WC Vendor Store</span>
-                    </a>
-                </div>
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury3/vendor/logancee3/" target="_blank">
-                                <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v4.jpg" alt="WC Marketplace Store">
-                                    </span>
-                        <span class="item-title">WC Marketplace Store</span>
-                    </a>
-                </div>
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury3/shop/apple-iphone-retina-6s-plus-64gb/" target="_blank">
-                                <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v5.jpg" alt="WC Marketplace More Vendors">
-                                    </span>
-                        <span class="item-title">WC Marketplace More Vendors</span>
-                    </a>
-                </div>--}}{{--
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury9/store-list/">
-                       <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v6.jpg" alt="WC Marketplace Store">
-                                    </span>
-                        <span class="item-title">WCFM Store List</span>
-                    </a>
-                </div>
-                --}}{{--<div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury9/store/gopro/">
-                        <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v7.jpg" alt="WC Marketplace Store">
-                                    </span>
-                        <span class="item-title">WCFM Vendor Store</span>
-                    </a>
-                </div>
-                <div class="item col-md-3 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury9/shop/dfs780-fuel-system-cold-weather-kit/">
-                       <span class="img-item">
-                                    <img src="{{url('landing')}}/images/v8.jpg" alt="WC Marketplace Store">
-                                    </span>
-                        <span class="item-title">WCFM More Stores</span>
-                    </a>
-                </div>--}}{{--
-            </div>
-        </div>
-    </section>--}}
 
     <section id="section-product" class="section section-product scrollto">
         <div class="un-container">
@@ -640,15 +485,6 @@
                     <p>MartFury is designed to make your life easier. Every product layout has been optimized to fit
                         perfectly with your needs.</p>
                 </div>
-                {{--<div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/unero-military-classical-backpack/?product_style=3"
-                       target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/p-1.jpg" alt="Product Default">
-									</span>
-                        <span class="item-title">Product Default</span>
-                    </a>
-                </div>--}}
                 <div class="item col-md-4 col-sm-6 col-xs-12">
                     <a href="http://demo2.drfuri.com/martfury3/shop/marshall-kilburn-portable-wireless-bluetooth-speaker-black/"
                        target="_blank">
@@ -658,42 +494,6 @@
                         <span class="item-title">Product Full Width</span>
                     </a>
                 </div>
-                {{--<div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/epsion-plaster-printer/?product_style=2"
-                       target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/p-2.jpg" alt="Product Extended">
-									</span>
-                        <span class="item-title">Product Extended</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/marshall-kilburn-portable-wireless-speaker/"
-                       target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/p-3.jpg" alt="Product Full Content">
-									</span>
-                        <span class="item-title">Product Full Width</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/marshall-kilburn-portable-wireless-bluetooth-speaker-black/?product_style=4"
-                       target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/p-4.jpg" alt="Product Boxed">
-									</span>
-                        <span class="item-title">Product Boxed</span>
-                    </a>
-                </div>
-                <div class="item col-md-4 col-sm-6 col-xs-12">
-                    <a href="http://demo2.drfuri.com/martfury/shop/unero-military-classical-backpack/?product_style=5"
-                       target="_blank">
-								<span class="img-item">
-									<img src="{{url('landing')}}/images/p-5.jpg" alt="Product With Sidebar">
-									</span>
-                        <span class="item-title">Product With Sidebar</span>
-                    </a>
-                </div>--}}
             </div>
         </div>
     </section>
@@ -708,21 +508,17 @@
                     That You Have Dreamed For!</h2>
                 <p>Beautifully designed, powerful, and easy to customize – MartFury the best theme for online
                     marketplace.</p>
-{{--                <a target="_blank" href="https://1.envato.market/541" class="purchase">Purchase Martfury $59</a>--}}
             </div>
         </div>
     </div>
 </footer>
 
-{{--<a class="sticky-button buy-button" target="_blank" href="https://1.envato.market/541">
-    <span>Buy on <span class="tf-text"></span> for $59</span>
-</a>--}}
 <script type="text/javascript" src="{{url('landing')}}/js/imagesloaded.min.js"></script>
 <script type="text/javascript" src="{{url('landing')}}/js/isotope.pkgd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/stickynavbar.js/1.3.4/jquery.stickyNavbar.min.js"></script>
 <script src="{{url('landing')}}/js/slick.min.js"></script>
 <script src="{{url('landing')}}/js/scripts.js"></script>
-<!-- BEGIN JIVOSITE CODE {literal} -->
+
 <script type='text/javascript'>
     (function () {
         var widget_id = '2FMKCC6PX6';
@@ -747,26 +543,8 @@
                 w.addEventListener('load', l, false);
             }
         }
-    })();</script>
-<!-- {/literal} END JIVOSITE CODE -->
-
-<!-- Google Code for Remarketing Tag -->
-<!--------------------------------------------------
-Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
---------------------------------------------------->
-<script type="text/javascript">
-    /* <![CDATA[ */
-    var google_conversion_id = 953145960;
-    var google_custom_params = window.google_tag_params;
-    var google_remarketing_only = true;
-    /* ]]> */
+    })();
 </script>
-<!-- <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script> -->
-<noscript>
-    <div style="display:inline;">
-        <img height="1" width="1" style="border-style:none;" alt=""
-             src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/953145960/?guid=ON&amp;script=0"/>
-    </div>
-</noscript>
+
 </body>
 </html>

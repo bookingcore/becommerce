@@ -29,7 +29,3 @@
     <input type="text" value="{{$row->slug}}" placeholder="Category slug" name="slug" class="form-control">
 </div>
 @endif
-{{--<div class="form-group">--}}
-    {{--<label class="control-label"> {{ __('Description')}}</label>--}}
-    {{--<textarea name="content" class="d-none has-ckeditor" cols="30" rows="10">{{$translation->content}}</textarea>--}}
-{{--</div>--}}

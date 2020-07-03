@@ -7,7 +7,6 @@
  */
 
 	$review_score= $row->review_data?>
-{{--@if(setting_item("product_enable_review",true))--}}
     <div class="bravo-reviews">
         <h3>{{__("Reviews")}}</h3>
         @if($review_score)
@@ -175,5 +174,4 @@
             </div>
         </div>
     </div>
-{{--@endif--}}
 

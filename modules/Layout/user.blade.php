@@ -46,7 +46,7 @@
             display: none;
         }
     </style>
-    {{--Custom Style--}}
+
     @include('Layout::parts.custom-css')
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>

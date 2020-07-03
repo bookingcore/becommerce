@@ -181,17 +181,14 @@
 
 {!! \App\Helpers\Assets::css(true) !!}
 
-{{--Lazy Load--}}
 <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
 <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
 <script>
-    // Set the options to make LazyLoad self-initialize
+
     window.lazyLoadOptions = {
         elements_selector: ".lazy",
-        // ... more custom settings?
     };
 
-    // Listen to the initialization event and get the instance of LazyLoad
     window.addEventListener('LazyLoad::Initialized', function (event) {
         window.lazyLoadInstance = event.detail.instance;
     }, false);

@@ -1,6 +1,5 @@
 @extends('Layout::app')
 @section('content')
-{{--    @dump($users)--}}
     <div class="ps-store-list">
         <h1 class="entry-title">{{ __('Store list') }}</h1>
         <div class="site-content">
