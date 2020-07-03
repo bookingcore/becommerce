@@ -12,7 +12,6 @@
             <a href="{{ route("product.index") }}">{{__('View All')}}</a>
         </div>
     </div>
-    @dump($rows)
     <div class="products-content">
         <ul class="products">
             @foreach($rows as $row)
