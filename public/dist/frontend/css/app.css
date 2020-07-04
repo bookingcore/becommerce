@@ -1740,10 +1740,6 @@ h6 {
   font-size: 13px;
 }
 
-.bravo_wrap .bravo_ProductInCategories {
-  margin-bottom: 50px;
-}
-
 input[type=checkbox],
 input[type=radio] {
   border: 1px solid #b4b9be;
@@ -2531,8 +2527,31 @@ input.form-control {
   margin-top: 5px;
 }
 
+@media (max-width: 414px) {
+  .service-review {
+    margin-bottom: 10px;
+  }
+}
+
 .service-review > * {
   vertical-align: middle;
+}
+
+.service-review .list-star ul li {
+  margin-bottom: 0;
+}
+
+@media (max-width: 462px) {
+  .service-review .review .review_text {
+    display: none;
+  }
+}
+
+@media (max-width: 414px) {
+  .service-review .review {
+    display: inline-block !important;
+    line-height: 15px;
+  }
 }
 
 .loading:after {
@@ -2570,6 +2589,10 @@ input.form-control {
 
 .bravo_product-list.style-1 .products li {
   list-style: none;
+}
+
+.bravo_product-list.style-1 .products li .mf-vendor-name {
+  display: none;
 }
 
 .bravo_product-list.style-2 .cat-header {
@@ -2621,6 +2644,20 @@ input.form-control {
     max-width: 100%;
     margin-bottom: 20px;
   }
+}
+
+.bravo_ProductInCategories {
+  margin-bottom: 50px;
+}
+
+.bravo_ProductInCategories .tabs-content .products .product-inner {
+  position: relative;
+  padding: 20px 20px 17% 20px !important;
+}
+
+.bravo_ProductInCategories .tabs-content .products .product-inner .product-price {
+  position: absolute;
+  bottom: 5%;
 }
 
 .bravo-breadcrumbs {
