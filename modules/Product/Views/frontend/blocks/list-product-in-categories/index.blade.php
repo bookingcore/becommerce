@@ -10,20 +10,20 @@
                 <div class="woocommerce">
                     <ul class="products list-unstyled">
                         @if(!empty($rows))
-                            @foreach($rows as $item)
+                            @foreach($rows as $row)
                                 <li class="product type-product">
                                     <div class="product-inner">
                                         <div class="mf-product-thumbnail">
                                             <div class="product-image">
-                                                <a href="{{$item->getDetailUrl()}}">
-                                                    @if($image = get_image_tag($item['image_id']))
-                                                        <img src="{{get_file_url($item['image_id'],'thumb')}}" alt="{{$item['title'] ?? ''}}">
+                                                <a href="{{$row->getDetailUrl()}}">
+                                                    @if($image = get_image_tag($row['image_id']))
+                                                        <img src="{{get_file_url($row['image_id'],'thumb')}}" alt="{{$row['title'] ?? ''}}">
                                                     @endif
                                                     <span class="ribbons">
-                                                        @if($item->stock_status == "in")
-                                                            @if(!empty($item->discount_percent))
+                                                        @if($row->stock_status == "in")
+                                                            @if(!empty($row->discount_percent))
                                                                 <span class="onsale ribbon">
-                                                                    <span class="sep">-</span>{{$item->discount_percent}}
+                                                                    <span class="sep">-</span>{{$row->discount_percent}}
                                                                 </span>
                                                             @endif
                                                         @else
@@ -36,17 +36,24 @@
                                                 </a>
 
                                                 <div class="footer-button">
-                                                    @php $in_stock = $item->stock_status == 'in' @endphp
-                                                    <a href="{{ $in_stock ? '#' : $item->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$item->id}},"type":"simple"}'>
-                                                        <i class="p-icon icon-bag2" data-toggle="tooltip" data-rel="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
-                                                    </a>
+                                                    @php $in_stock = $row->stock_status == 'in' @endphp
 
-                                                    <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$item->id}},"type":"{{$item->type}}"}>
+                                                    @if($row->product_type == 'simple')
+                                                        <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
+                                                            <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
+                                                        </a>
+                                                    @else
+                                                        <a href="{{ $row->getDetailUrl() }}" class="add_to_cart">
+                                                            <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ __('Select options') }}"></i>
+                                                        </a>
+                                                    @endif
+
+                                                    <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$row->id}},"type":"{{$row->type}}"}>
                                                         <i class="p-icon icon-eye"></i>
                                                     </a>
                                                     <!-- ADD TO WISHLIST -->
-                                                    @php $hasWishList = in_array($item->id, wishlist()); @endphp
-                                                    <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $item->id }}" data-type="{{ $item->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
+                                                    @php $hasWishList = in_array($row->id, wishlist()); @endphp
+                                                    <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                                                         <div class="yith-wcwl-add-button">
                                                             <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
                                                                 <i class="yith-wcwl-icon fa fa-heart-o"></i>
@@ -66,16 +73,16 @@
                                                     <div class="sold-by-meta">
                                                         <span class="sold-by-label">{{__('Brand: ')}}</span>
                                                         @php
-                                                            $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $item->brand_id] );
+                                                            $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] );
                                                         @endphp
-                                                        <a href="{{$link_search_brand}}">{{$item->brand->name}}</a>
+                                                        <a href="{{$link_search_brand}}">{{$row->brand->name}}</a>
                                                     </div>
                                                 </div>
 
-                                                <h2><a href="{{$item->getDetailUrl()}}">{{__($item['title']) ?? ''}}</a></h2>
+                                                <h2><a href="{{$row->getDetailUrl()}}">{{__($row['title']) ?? ''}}</a></h2>
 
                                                 <?php
-                                                $reviewData = (!empty($item)) ? $item->getScoreReview() : [];
+                                                $reviewData = (!empty($row)) ? $row->getScoreReview() : [];
                                                 $score_total = $reviewData['score_total'];
                                                 ?>
                                                 <div class="service-review tour-review-{{$score_total}}">
@@ -110,18 +117,9 @@
 
                                                 <div class="sold-by-meta">
                                                     <span class="sold-by-label">{{__('Brand: ')}}</span>
-                                                    <a href="#">{{$item->brand->name ?? ''}}</a></div>
+                                                    <a href="#">{{$row->brand->name ?? ''}}</a></div>
                                             </div>
-
-                                            <div class="mf-product-price-box">
-                                                <span class="price">
-                                                    <ins><span class="woocommerce-Price-amount amount">{{ $item->display_price }}</span></ins>
-                                                    <del><span class="woocommerce-Price-amount amount">{{ $item->display_sale_price }}</span></del>
-                                                    @if(!empty($item->discount_percent))
-                                                        <span class="sale"> {{ __(":discount off",["discount"=>$item->discount_percent]) }}</span>
-                                                    @endif
-                                                </span>
-                                            </div>
+                                            @include('Product::frontend.details.price')
                                         </div>
                                     </div>
                                 </li>

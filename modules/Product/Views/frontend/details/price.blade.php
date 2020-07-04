@@ -1,6 +1,6 @@
 @if($row->product_type=='variable')
     @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
-        <p class="price">
+        <p class="price variable-price">
             @if($priceRange['min'] == $priceRange['max'])
                 <ins><span class="amount">{{format_money($priceRange['max'])}}</span></ins>
             @else

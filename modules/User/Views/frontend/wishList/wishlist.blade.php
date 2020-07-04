@@ -27,7 +27,7 @@
 
                             <tbody class="wishlist-items-wrapper">
                                 @if($rows->total() > 0)
-                                    @foreach($rows as $row)
+                                    @foreach($rows as $item)
                                         @include('User::frontend.wishlist.loop-list')
                                     @endforeach
                                 @else

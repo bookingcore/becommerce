@@ -1,45 +1,31 @@
-<?php
-$service = $row->getService;
-?>
+<?php $row = (!empty($item)) ? $item->getService : ''; ?>
 <tr>
-    <td class="product-remove item_{{$service->id}}">
-        <a href="{{route('user.wishList.remove')}}?id={{$service->id}}&type={{$service->type}}" class="remove remove_from_wishlist" title="Remove this product">×</a>
+    <td class="product-remove item_{{$row->id}}">
+        <a href="{{route('user.wishList.remove')}}?id={{$row->id}}&type={{$row->type}}" class="remove remove_from_wishlist" title="Remove this product">×</a>
     </td>
     <td class="product-thumbnail">
-        <a href="{{route('product.detail',['slug'=>$service->slug])}}">
-            @if($service->image_url)
-                <img src="{{$service->image_url}}" class="img-responsive" alt="{{$service->title}}">
+        <a href="{{route('product.detail',['slug'=>$row->slug])}}">
+            @if($row->image_url)
+                <img src="{{$row->image_url}}" class="img-responsive" alt="{{$row->title}}">
             @endif
         </a>
     </td>
     <td class="product-name">
-        <a href="{{route('product.detail',['slug'=>$service->slug])}}">{{$service->title}}</a>
+        <a href="{{route('product.detail',['slug'=>$row->slug])}}">{{$row->title}}</a>
     </td>
     <td class="product-price">
-        @if(!empty($service->sale_price))
-            <p class="price has-sale">
-                <ins>
-                    <span class="amount">{{format_money($service->sale_price)}}</span>
-                </ins>
-                <del>
-                    <span class="amount">{{format_money($service->price)}}</span>
-                </del>
-            </p>
-        @else
-            <p class="price">
-                <span class="amount">{{format_money($service->price)}}</span>
-            </p>
-        @endif
+        @include('Product::frontend.details.price')
     </td>
     <td class="product-stock-status">
-        <span class="{{ ($service->stock_status == 'in') ? 'wishlist-in-stock' : 'wishlist-out-of-stock' }}">{{ ($service->stock_status == 'in') ? 'In Stock' : 'Out of stock' }}</span>
+        <span class="{{ ($row->stock_status == 'in') ? 'wishlist-in-stock' : 'wishlist-out-of-stock' }}">{{ ($row->stock_status == 'in') ? 'In Stock' : 'Out of stock' }}</span>
     </td>
 
     <td class="product-add-to-cart">
-        @if($service->stock_status == 'in')
-            <a href="#" class="button bravo_add_to_cart" data-product={"id":{{$service->id}},"type":"simple"}>
-                <i class="p-icon icon-bag2" data-rel="tooltip" title="{{__('Add to Cart')}}"></i>
-                <span class="add-to-cart-text">{{__('Add to Cart')}}</span>
+        @if($row->stock_status == 'in')
+            @php $is_variable = $row->product_type == 'variable' @endphp
+            <a href="{{ $is_variable ? $row->getDetailUrl() : '' }}" class="button {{ !$is_variable ? 'bravo_add_to_cart' : null }}" {{ $is_variable ? "data-product={'id':$row->id,'type':'$row->product_type'}" : '' }}>
+                <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ $is_variable ? __('Select options') : __('Add to Cart') }}"></i>
+                <span class="add-to-cart-text">{{ $is_variable ? __('Select options') : __('Add to Cart') }}</span>
             </a>
         @endif
     </td>

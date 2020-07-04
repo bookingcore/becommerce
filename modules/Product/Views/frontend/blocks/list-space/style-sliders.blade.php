@@ -48,11 +48,20 @@
                                     <a href="#" class="compare">{{__('Compare')}}</a>
                                 </div>
                             </div>
-                            @if($row->stock_status == 'out')
+
                             <span class="ribbons">
-                                <span class="out-of-stock ribbon">{{__('Out Of Stock')}}</span>
+                                @if($row->stock_status == "in")
+                                    @if(!empty($row->discount_percent))
+                                        <span class="onsale ribbon">
+                                            <span class="sep">-</span>{{$row->discount_percent}}
+                                        </span>
+                                    @endif
+                                @else
+                                    <span class="ribbons">
+                                        <span class="out-of-stock ribbon">{{__('Out Of Stock')}}</span>
+                                    </span>
+                                @endif
                             </span>
-                            @endif
                         </div>
 
                         @include('Product::frontend.details.price')

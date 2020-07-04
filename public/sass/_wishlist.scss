@@ -92,13 +92,26 @@
                         }
                         &.product-price{
                             width: 200px;
-                            ins{
-                                color: #cc0000;
-                                margin-right: 10px;
-                            }
-                            del{
-                                color: #999;
-                                font-size: 13px;
+                            .price{
+                                margin: 0;
+                                color: #000;
+                                font-size: 16px;
+                                ins{
+                                    text-decoration: none;
+                                }
+                                &.has-sale{
+                                    ins{
+                                        color: #cc0000;
+                                        margin-right: 10px;
+                                    }
+                                    del{
+                                        color: #999;
+                                        font-size: 13px;
+                                    }
+                                    .sale{
+                                        display: none;
+                                    }
+                                }
                             }
                         }
                         &.product-stock-status{

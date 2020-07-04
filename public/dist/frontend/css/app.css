@@ -40457,14 +40457,28 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
   width: 200px;
 }
 
-.wishList-page .site-content table.wishlist_table tr td.product-price ins {
+.wishList-page .site-content table.wishlist_table tr td.product-price .price {
+  margin: 0;
+  color: #000;
+  font-size: 16px;
+}
+
+.wishList-page .site-content table.wishlist_table tr td.product-price .price ins {
+  text-decoration: none;
+}
+
+.wishList-page .site-content table.wishlist_table tr td.product-price .price.has-sale ins {
   color: #cc0000;
   margin-right: 10px;
 }
 
-.wishList-page .site-content table.wishlist_table tr td.product-price del {
+.wishList-page .site-content table.wishlist_table tr td.product-price .price.has-sale del {
   color: #999;
   font-size: 13px;
+}
+
+.wishList-page .site-content table.wishlist_table tr td.product-price .price.has-sale .sale {
+  display: none;
 }
 
 .wishList-page .site-content table.wishlist_table tr td.product-stock-status .wishlist-out-of-stock {
