@@ -30,7 +30,7 @@ class UserWishListController extends FrontendController
             ],
             'page_title'         => __("Wishlist"),
         ];
-        return view('User::frontend.wishList.wishlist', $data);
+        return view('User::frontend.wishlist.wishlist', $data);
     }
     public function handleWishList(Request $request){
         $meta = $this->userWishListClass::where("object_id",$request->input('object_id'))
