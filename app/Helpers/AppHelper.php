@@ -1,9 +1,11 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
+use Modules\Product\Models\ProductVariation;
 use Modules\User\Models\UserWishList;
 
 define( 'MINUTE_IN_SECONDS', 60 );
@@ -996,12 +998,26 @@ function cart(){
 }
 
 function wishlist(){
-    $l_wishlist = UserWishList::select('object_id')->get();
+    $auth = \Illuminate\Support\Facades\Auth::id();
     $wishlist = [];
-    if (!empty($l_wishlist)){
-        foreach ($l_wishlist as $list){
-            array_push($wishlist, $list->object_id);
+    if (!empty($auth)){
+        $l_wishlist = UserWishList::select('object_id')->where('create_user', $auth)->get();
+        $wishlist = [];
+        if (!empty($l_wishlist)){
+            foreach ($l_wishlist as $list){
+                array_push($wishlist, $list->object_id);
+            }
         }
     }
     return array_unique($wishlist);
 }
+
+function getMinMaxPriceProductVariations($row){
+    if($row->product_type=='variable'){
+        $array = $row->hasMany(ProductVariation::class)->pluck('price')->toArray();
+        $array= array_values(Arr::sort($array));
+        return ['min'=>head($array),'max'=>last($array)];
+    }
+}
+
+

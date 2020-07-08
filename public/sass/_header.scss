@@ -100,6 +100,7 @@
                     list-style: none;
                     padding: 0 20px;
                     position: relative;
+                    cursor: pointer;
                     @media (max-width: 991px){
                         padding: 0 10px;
                         &.user-compare-list, &.user-wishlist{
@@ -228,7 +229,18 @@
                         }
                     }
                 }
+                .main-menu-ul{
+                    list-style: none;
+                    padding: 0;
+                    >li{
+                        display: inline-block;
+                        padding: 0 20px;
+                        line-height: 14px;
+                        border-right: 2px solid #654a00;
+                    }
+                }
                 .header-bar{
+                    padding-left: 20px;
                     #lang_sel, #lang_sel > ul{
                         height: initial;
                     }

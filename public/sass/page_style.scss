@@ -22595,6 +22595,9 @@ textarea:focus {
                     display: inline-block;
                     font-size: 14px;
                     color: #f14705;
+                    &.sale-1{
+                        display: none;
+                    }
                 }
             }
 
@@ -23305,7 +23308,7 @@ textarea:focus {
 
     &.has-img .banner-content {
         position: absolute;
-        margin: 25px 30px 25px;
+        padding: 25px 30px 25px;
         top: 0;
         left: 0;
         bottom: 0;
@@ -31873,9 +31876,6 @@ body.navigation-mobile-active {
 
 @media (max-width: 1460px) and (min-width: 1200px) {
     .mf-banner-small {
-        .banner-content .desc {
-            display: none;
-        }
 
         .box-price {
             .s-price {

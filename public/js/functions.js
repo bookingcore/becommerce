@@ -171,9 +171,11 @@ $(document).on('click','.bravo_add_to_cart',function(e){
     e.preventDefault();
     $(this).addClass('loading');
     var me = $(this);
-    var product = $(this).data('product');
-    var quantity = {qty: $('.quantity-input input[name=quantity]').val()};
+    var product = me.data('product');
+    var q_input =  $('.quantity-input input[name=quantity]');
+    var quantity = {qty: (!isNaN(parseInt(q_input.val()))) ? parseInt(q_input.val()) : 1};
     var variations = Bravo.currentVariation;
+    console.log(me.attr('data-product'));
 
     $.ajax({
         url:Bravo.routes.add_to_cart,

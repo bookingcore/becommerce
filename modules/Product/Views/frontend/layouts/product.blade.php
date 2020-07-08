@@ -27,7 +27,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="compare-button mf-compare-button" title="{{__('Compare')}}">
+                <div class="compare-button mf-compare-button" data-toggle="tooltip" title="{{__('Compare')}}" data-id="{{$row->id}}">
                     <a href="#" class="compare">{{__('Compare')}}</a>
                 </div>
             </div>

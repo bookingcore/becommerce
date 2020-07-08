@@ -19,7 +19,7 @@
                 [
                     [
                         'name'  => 'menu_locations',
-                        'val'   => '{"primary":1,"department":2}',
+                        'val'   => '{"primary":1,"department":2,"menu_right":3}',
                         'group' => "general",
                     ],
                     [
@@ -103,6 +103,15 @@
                 'title'       => 'Home Page',
                 'slug'        => 'home-page',
                 'template_id' => '2',
+                'create_user' => '1',
+                'status'      => 'publish',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+
+            DB::table('core_pages')->insert([
+                'title'       => 'Become a Vendor',
+                'slug'        => 'become-a-vendor',
+                'template_id' => '1',
                 'create_user' => '1',
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
@@ -403,15 +412,240 @@
             ];
             $primary_menu = [
                 [
-                    "id"=>1,
-                    "name"=>"Home",
-                    "class"=>"",
-                    "target"=>"",
-                    "open"=>false,
-                    "item_model"=>"Modules\Page\Models\Page",
-                    "origin_name"=>"Pages",
-                    "model_name"=>"Page",
-                    "_open"=>true
+                    "id"                => 1,
+                    "name"              => "Home",
+                    "class"             => "",
+                    "target"            => "",
+                    "item_model"        => "Modules\Page\Models\Page",
+                    "origin_name"       => "Home Page",
+                    "model_name"        => "Page",
+                    "_open"             => false,
+                    "origin_edit_url"   => "http://becommere.dv/admin/module/page/edit/1",
+                    "layout"            => "",
+                    "children"          => [
+                        [
+                            "id"            => 1,
+                            "name"          => "Marketplace Full Width",
+                            "class"         => "",
+                            "target"        => "",
+                            "item_model"    => "Modules\Page\Models\Page",
+                            "origin_name"   => "Home Page",
+                            "model_name"    => "Page",
+                            "_open"         => false,
+                            "origin_edit_url"=> ""
+                        ]
+                    ]
+                ],
+                [
+                    "name" =>"Shop",
+                    "url"  =>"",
+                    "item_model" => "custom",
+                    "_open" => false,
+                    "layout"=> "multi_row",
+                    "model_name"=> "Custom",
+                    "is_removed"=> true,
+                    "children"  =>  [
+                        [
+                            "name" => "Catalog Pages",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "model_name" => "Custom",
+                            "is_removed" => true,
+                            "children" => [
+                                [
+                                    "name" => "Shop Sidebar",
+                                    "url" => "http://becommere.dv/product",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "Category layout",
+                                    "url" => "http://becommere.dv/category/clothing-apparel",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "Products Of Category",
+                                    "url" => "http://becommere.dv/category/mens",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                            ]
+                        ],
+                        [
+                            "name" => "Product Layouts",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "model_name" => "Custom",
+                            "is_removed" => true,
+                            "children" => [
+                                [
+                                    "name" => "Full Width",
+                                    "url" => "http://becommere.dv/product/mens-sports-runnning-swim-board-shorts",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ]
+                            ]
+                        ],
+                        [
+                            "name" => "Product Types",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "model_name" => "Custom",
+                            "is_removed" => true,
+                            "children" => [
+                                [
+                                    "name" => "Simple",
+                                    "url" => "http://becommere.dv/product/herschel-leather-duffle-bag-in-brown-color",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "Color Swatches",
+                                    "url" => "http://becommere.dv/product/mens-sports-runnning-swim-board-shorts",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "Out of stock",
+                                    "url" => "http://becommere.dv/product/korea-long-sofa-fabric-in-blue-navy-color",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ]
+                            ]
+                        ],
+                        [
+                            "name" => "Martfury Pages",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "model_name" => "Custom",
+                            "is_removed" => true,
+                            "children" => [
+                                [
+                                    "name" => "Shopping Cart",
+                                    "url" => "http://becommere.dv/booking/cart",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "Wishlist",
+                                    "url" => "http://becommere.dv/user/wishlist",
+                                    "item_model" => "custom",
+                                    "_open" => false,
+                                    "model_name" => "Custom",
+                                    "is_removed" => true
+                                ],
+                                [
+                                    "name" => "My account",
+                                    "url" => "http://becommere.dv/login",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ]
+                            ]
+                        ],
+                    ]
+                ],
+                [
+                    "name" => "Pages",
+                    "url" => "",
+                    "item_model" => "custom",
+                    "_open" => false,
+                    "layout" => "multi_row",
+                    "target" => "",
+                    "children" => [
+                        [
+                            "name" => "Basic Pages",
+                            "url" => "",
+                            "item_model" => "",
+                            "_open" => false,
+                            "children" => [
+                                [
+                                    "name" => "404 Page",
+                                    "url" => "http://becommere.dv/404",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ]
+                            ]
+                        ],
+                        [
+                            "name" => "Vendor Pages",
+                            "url" => "",
+                            "item_model" => "",
+                            "_open" => false,
+                            "children" => [
+                                [
+                                    "name" => "Become a Vendor",
+                                    "url" => "http://becommere.dv/page/become-a-vendor",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ],
+                                [
+                                    "name" => "Vendor store",
+                                    "url" => "http://becommere.dv/profile/1",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    "name" => "Blog",
+                    "url" => "",
+                    "item_model" => "custom",
+                    "_open" => false,
+                    "layout" => "multi_row",
+                    "target" => "",
+                    "children" => [
+                        [
+                            "name" => "Blog Layout",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "children" => [
+                                [
+                                    "name" => "Right Sidebar",
+                                    "url" => "http://becommere.dv/news",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ]
+                            ]
+                        ],
+                        [
+                            "name" => "Single Blog",
+                            "url" => "",
+                            "item_model" => "custom",
+                            "_open" => false,
+                            "children" => [
+                                [
+                                    "name" => "Single",
+                                    "url" => "http://becommere.dv/news/morning-in-the-northern-sea",
+                                    "item_model" => "custom",
+                                    "_open" => false
+                                ]
+                            ]
+                        ]
+                    ]
                 ]
             ];
             $department_menu = [
@@ -742,6 +976,7 @@
                     'is_removed'    =>  true
                 ],
             ];
+
             //Menu
             DB::table('core_menus')->insert(
                 [

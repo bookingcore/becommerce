@@ -103,6 +103,20 @@
         .bravo_style-normal{
             .products{
                 li{
+                    .mf-product-details{
+                        .mf-product-content{
+                            .service-review{
+                                margin-top: 0;
+                                .list-star{
+                                    ul{
+                                        li{
+                                            margin-bottom: 0;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                     @media (max-width: 991px){
                         max-width: 50%;
                     }
@@ -702,44 +716,93 @@
                     margin-bottom: 0;
                     padding-left: 0;
                     padding-bottom: 0;
-                    .slick-arrow{
-                    }
                 }
-                .summary{
-                    .mf-entry-product-header{
-                        .service-review{
+                .product-detail-meta{
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    overflow: auto;
+                    padding: 30px;
+                    width: 57%;
+                    float: right;
+                    margin-bottom: 0;
+                    .product-name{
+                        font-size: 24px;
+                        font-weight: normal;
+                        margin: 0 0 6px;
+                    }
+                    .brand-review{
+                        display: flex;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        >*{
+                            padding: 0 15px;
+                            position: relative;
                             margin: 0;
-                            .list-star{
-                                margin-top: -5px;
-                                .booking-item-rating-stars{
-                                    li{
-                                        padding: 0;
-                                        &:after{
-                                            display:none;
-                                        }
-                                    }
-                                }
+                            &:after{
+                                position: absolute;
+                                top: 50%;
+                                transform: translateY(-50%);
+                                left: 0;
+                                width: 1px;
+                                background-color: #e8e8e8;
+                                height: 100%;
+                                max-height: 13px;
+                                content: "";
+                            }
+                        }
+                        .product-brand{
+                            padding-left: 0;
+                        }
+                    }
+                    .price{
+                        del{
+                            display: inline-block;
+                        }
+                        &.variable-price{
+                            ins{
+                                color: #000;
                             }
                         }
                     }
-                    .mf-summary-header{
-                        .mf-summary-meta{
-                            .stock{
-                                label{
-                                    margin: 0;
+                    .product-summary-header{
+                        .sold-by{
+                            a{
+                                text-transform: uppercase;
+                                font-weight: 600;
+                            }
+                        }
+                        .product-stock-status{
+                            font-size: 14px;
+                            color: #000;
+                            margin-bottom: 0;
+                            padding-left: 18px;
+                            span{
+                                font-weight: 600;
+                            }
+                            &.out-of-stock{
+                                span{
+                                    color: red;
+                                }
+                            }
+                            &.in_stock{
+                                span{
+                                    color: #8bc500;
                                 }
                             }
                         }
                     }
                     .product-detail-add-to-cart{
-                        margin-bottom: 30px;
                         form{
                             .quantity-input{
-                                margin: 0;
+                                margin-right: 20px;
                             }
-                            .btn{
+                            .add_to_cart{
+                                margin-right: 19px;
+                            }
+                            .buy_now{
                                 margin-right: 0;
-                                margin-left: 19px;
                             }
                             .btn-custom{
                                 .btn-text{
@@ -748,7 +811,7 @@
                             }
                         }
                     }
-                    >hr{
+                    hr.hr-product-other, .product-other{
                         display: none;
                     }
                 }

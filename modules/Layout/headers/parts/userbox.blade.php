@@ -2,7 +2,7 @@
     <li  class="user-compare-list">
         <a class="counter-wrap">
             <i class="icon-chart-bars extra-icon"></i>
-            <span class="counter user-compare-count">0</span>
+            <span class="counter user-compare-count">{{ (session('compare')) ? count(session('compare')) : 0 }}</span>
         </a>
     </li>
     <li  class="user-wishlist">

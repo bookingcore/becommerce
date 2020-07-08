@@ -124,20 +124,28 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function detail(Request $request, $slug)
-    {
-        $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
-        $listAttrs = (!empty($row->attributes_for_variation)) ? ProductAttrs::whereIn('id',$row->attributes_for_variation)->get() : '';
-        $variable = ProductVariationTerm::select('*','bravo_attrs.id as attr_id','bravo_attrs.display_type','bravo_terms.name','bravo_terms.content')
-                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
-                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
-                    ->where('product_variation_term.product_id',$row->id)->get();
+    public function listAttrs($row){
+        return ProductAttrs::whereIn('id',$row)->get();
+    }
+
+    public function ProductVariationTerm($row){
+        return ProductVariationTerm::select('*','bravo_attrs.id as attr_id','bravo_attrs.display_type','bravo_terms.name','bravo_terms.content')
+            ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
+            ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+            ->where('product_variation_term.product_id',$row)->get();
+    }
+
+    public function list_variable($variable){
         $list_variable = [];
         if (!empty($variable)){
             foreach ($variable as $item){
                 array_push($list_variable, $item->variation_id);
             }
         }
+        return $list_variable;
+    }
+
+    public function get_variable($list_variable){
         $get_variation = [];
         if (!empty($list_variable)){
             foreach (array_unique($list_variable) as $item){
@@ -157,6 +165,18 @@ class ProductController extends Controller
                 ]);
             }
         }
+        return $get_variation;
+    }
+
+
+
+    public function detail(Request $request, $slug)
+    {
+        $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
+        $listAttrs = (!empty($row->attributes_for_variation)) ? $this->listAttrs($row->attributes_for_variation) : '';
+        $variable = $this->ProductVariationTerm($row->id);
+        $list_variable = $this->list_variable($variable);
+        $get_variation = $this->get_variable($list_variable);
 
         $translation = $row->translateOrOrigin(app()->getLocale());
 
@@ -191,7 +211,6 @@ class ProductController extends Controller
             'variations_product'    =>  json_encode($get_variation)
         ];
         $this->setActiveMenu($row);
-//        dd($data);
         return view('Product::frontend.detail', $data);
     }
 
@@ -199,11 +218,96 @@ class ProductController extends Controller
         $id = (!empty($request->id)) ? $request->id : '';
         $product = Product::where('id',$id)->first();
         $brand = ProductBrand::where('id',$product->brand_id)->first();
+        $translation = $product->translateOrOrigin(app()->getLocale());
+        $listAttrs = (!empty($product->attributes_for_variation)) ? $this->listAttrs($product->attributes_for_variation) : '';
+        $variable = $this->ProductVariationTerm($product->id);
+        $list_variable = $this->list_variable($variable);
+        $get_variation = $this->get_variable($list_variable);
+
         $data = [
             'row'   =>  $product,
-            'brand'     =>  $brand
+            'translation'  => $translation,
+            'brand'     =>  $brand,
+            'listAttrs'  => $listAttrs,
+            'variable'  =>  $variable,
+            'variations_product'    =>  json_encode($get_variation)
         ];
         return view('Product::frontend.details.quick-view', $data)->render();
+    }
+
+    public function compare(Request $request){
+        $product = Product::find($request->post('id'));
+        $v_price = ($product->product_type == 'variable') ? getMinMaxPriceProductVariations($product) : [];
+        $compare = (!empty(session('compare'))) ? session('compare') : [];
+        $attrs = [];
+        $brand = ProductBrand::select('name')->where('id',$product->brand_id)->first();
+        if (!empty($product) && $product->product_type == 'variable'){
+            foreach ($product->attributes_for_variation as $attr){
+                $term_id = [];
+                $product_variable = ProductVariationTerm::select('product_variation_term.*','bravo_terms.name','bravo_terms.attr_id')->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')->where('product_id',$product->id)->get();
+                if (!empty($product_variable)){
+                    foreach ($product_variable as $item){
+                        if ($attr == $item->attr_id){
+                            array_push($term_id, [
+                                'id'    =>  $item->term_id,
+                                'name'  =>  $item->name
+                            ]);
+                        }
+                    }
+                }
+                array_push($attrs,[
+                    'id'    =>  $attr,
+                    'term_id'=> array_unique($term_id,SORT_REGULAR)
+                ]);
+            }
+        }
+        $error = false;
+        if ($compare){
+            foreach ($compare as $item){
+                if ($item['id'] == $product->id){
+                    $error = true;
+                }
+            }
+        }
+        if ($error == false){
+            $product = $product->getAttributes();
+            $product['v_price'] = $v_price;
+            $product['attrs'] = $attrs;
+            $product['brand_name']  = $brand->name;
+
+            array_push($compare, $product);
+            session(['compare' => $compare]);
+        }
+        $data = [
+            'compare'   =>  session('compare'),
+        ];
+        return [
+            'count' =>  count($compare),
+            'view'  =>  view('Product::frontend.layouts.compare', $data)->render()
+        ];
+    }
+
+    public function remove_compare(Request $request){
+        $compare = session('compare');
+        $n_compare = [];
+        $listAttr = Attributes::all();
+        if (!empty($compare)){
+            foreach ($compare as $row){
+                if ($row['id'] == $request->post('id')){
+                    continue;
+                }
+                array_push($n_compare, $row);
+            }
+        }
+        session(['compare' => $n_compare]);
+        $data = [
+            'compare'   =>  session('compare'),
+            'attributes'=>  $listAttr,
+        ];
+        return [
+            'count' =>  count($n_compare),
+            'view'  =>  view('Product::frontend.layouts.compare', $data)->render()
+        ];
     }
 
     public function store_list(){

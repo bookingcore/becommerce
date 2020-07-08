@@ -45,6 +45,7 @@ class HomeController extends Controller
             $data = [
                 'row'=>$page,
                 "seo_meta"=> $seo_meta,
+                'is_homepage'  => true,
                 'breadcrumbs' => [
                     ['name' => $page->title,'class' => 'active'],
                 ],

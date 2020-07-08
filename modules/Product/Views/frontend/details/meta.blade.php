@@ -36,18 +36,17 @@
     @include('Product::frontend.details.price')
     <div class="product-summary-header">
         <span class="sold-by">{{__('Sold By:')}} <a href="{{route('user.profile',['id'=>$row->create_user])}}" target="_blank">{{$row->author->getDisplayName()}}</a></span>
-
         @if($row->product_type == 'simple')
             @php $stock_status = $row->getStockStatus() @endphp
             <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span>{{$stock_status['stock']}}</span></span>
         @endif
-
     </div>
+    <hr>
     <div class="product-short-desc">
         {!! clean($row->short_desc) !!}
     </div>
     @include('Product::frontend.details.add-to-cart')
-    <hr>
+    <hr class="hr-product-other">
     <div class="product-other">
         @if($row->sku)
         <div class="other-item item-sku">

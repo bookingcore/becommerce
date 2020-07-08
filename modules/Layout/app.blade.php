@@ -72,7 +72,8 @@
             },
             currentUser:{{(int)Auth::id()}},
             variations: [],
-            currentVariation: []
+            currentVariation: [],
+            compare_count: ''
         };
         var i18n = {
             warning:"{{__("Warning")}}",
@@ -92,11 +93,13 @@
 <body class="{{$body_class ?? ''}}">
     {!! setting_item('body_scripts') !!}
     <div class="bravo_wrap">
-{{--        @include('Layout::parts.adminbar')--}}
         @include('Layout::parts.header')
-        @include('Layout::parts.bc')
+        @if(!isset($is_homepage))
+            @include('Layout::parts.bc')
+        @endif
         @yield('content')
         @include('Layout::parts.quickView')
+        @include('Layout::parts.compare')
         @include('Layout::parts.footer')
     </div>
     {!! setting_item('footer_scripts') !!}

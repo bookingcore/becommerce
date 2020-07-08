@@ -33,7 +33,7 @@ class MenuController extends AdminController
         return [
             'primary' => __("Primary"),
             'department' => __("Department"),
-            'footer'  => __("Footer"),
+            'menu_right' => __("Right menu")
         ];
     }
 
