@@ -48,12 +48,12 @@
                     [
                         'name'  => 'topbar_left_text',
                         'val'   => '<div class="socials">
-    <a href="#"><i class="fa fa-facebook"></i></a>
-    <a href="#"><i class="fa fa-linkedin"></i></a>
-    <a href="#"><i class="fa fa-google-plus"></i></a>
-</div>
-<span class="line"></span>
-<a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
+                                        <a href="#"><i class="fa fa-facebook"></i></a>
+                                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                                    </div>
+                                    <span class="line"></span>
+                                    <a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
                         'group' => "general",
                     ],
                     [
@@ -410,6 +410,7 @@
                 'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-1', 'file_path' => 'demo/templates/menu-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
                 'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-2', 'file_path' => 'demo/templates/menu-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             ];
+            $home_url = url('/');
             $primary_menu = [
                 [
                     "id"                => 1,
@@ -420,7 +421,7 @@
                     "origin_name"       => "Home Page",
                     "model_name"        => "Page",
                     "_open"             => false,
-                    "origin_edit_url"   => "http://becommere.dv/admin/module/page/edit/1",
+                    "origin_edit_url"   => "$home_url/admin/module/page/edit/1",
                     "layout"            => "",
                     "children"          => [
                         [
@@ -455,7 +456,7 @@
                             "children" => [
                                 [
                                     "name" => "Shop Sidebar",
-                                    "url" => "http://becommere.dv/product",
+                                    "url" => "$home_url/product",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -463,7 +464,7 @@
                                 ],
                                 [
                                     "name" => "Category layout",
-                                    "url" => "http://becommere.dv/category/clothing-apparel",
+                                    "url" => "$home_url/category/clothing-apparel",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -471,7 +472,7 @@
                                 ],
                                 [
                                     "name" => "Products Of Category",
-                                    "url" => "http://becommere.dv/category/mens",
+                                    "url" => "$home_url/category/mens",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -489,7 +490,7 @@
                             "children" => [
                                 [
                                     "name" => "Full Width",
-                                    "url" => "http://becommere.dv/product/mens-sports-runnning-swim-board-shorts",
+                                    "url" => "$home_url/product/mens-sports-runnning-swim-board-shorts",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -507,7 +508,7 @@
                             "children" => [
                                 [
                                     "name" => "Simple",
-                                    "url" => "http://becommere.dv/product/herschel-leather-duffle-bag-in-brown-color",
+                                    "url" => "$home_url/product/herschel-leather-duffle-bag-in-brown-color",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -515,7 +516,7 @@
                                 ],
                                 [
                                     "name" => "Color Swatches",
-                                    "url" => "http://becommere.dv/product/mens-sports-runnning-swim-board-shorts",
+                                    "url" => "$home_url/product/mens-sports-runnning-swim-board-shorts",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -523,7 +524,7 @@
                                 ],
                                 [
                                     "name" => "Out of stock",
-                                    "url" => "http://becommere.dv/product/korea-long-sofa-fabric-in-blue-navy-color",
+                                    "url" => "$home_url/product/korea-long-sofa-fabric-in-blue-navy-color",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -541,7 +542,7 @@
                             "children" => [
                                 [
                                     "name" => "Shopping Cart",
-                                    "url" => "http://becommere.dv/booking/cart",
+                                    "url" => "$home_url/booking/cart",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -549,7 +550,7 @@
                                 ],
                                 [
                                     "name" => "Wishlist",
-                                    "url" => "http://becommere.dv/user/wishlist",
+                                    "url" => "$home_url/user/wishlist",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -557,7 +558,7 @@
                                 ],
                                 [
                                     "name" => "My account",
-                                    "url" => "http://becommere.dv/login",
+                                    "url" => "$home_url/login",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -581,7 +582,7 @@
                             "children" => [
                                 [
                                     "name" => "404 Page",
-                                    "url" => "http://becommere.dv/404",
+                                    "url" => "$home_url/404",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -595,13 +596,13 @@
                             "children" => [
                                 [
                                     "name" => "Become a Vendor",
-                                    "url" => "http://becommere.dv/page/become-a-vendor",
+                                    "url" => "$home_url/page/become-a-vendor",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ],
                                 [
                                     "name" => "Vendor store",
-                                    "url" => "http://becommere.dv/profile/1",
+                                    "url" => "$home_url/profile/1",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -625,7 +626,7 @@
                             "children" => [
                                 [
                                     "name" => "Right Sidebar",
-                                    "url" => "http://becommere.dv/news",
+                                    "url" => "$home_url/news",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -639,7 +640,7 @@
                             "children" => [
                                 [
                                     "name" => "Single",
-                                    "url" => "http://becommere.dv/news/morning-in-the-northern-sea",
+                                    "url" => "$home_url/news/morning-in-the-northern-sea",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -976,6 +977,30 @@
                     'is_removed'    =>  true
                 ],
             ];
+            $right_menu = [
+                [
+                    "id" => 2,
+                    "name" => "Sell On Martfury",
+                    "class" => "",
+                    "target" => "",
+                    "open" => false,
+                    "item_model" => "Modules\Page\Models\Page",
+                    "origin_name" => "Pages",
+                    "model_name" => "Page",
+                    "_open" => true
+                ],
+                [
+                    "id" => 1,
+                    "name" => "Track Your Order",
+                    "class" => "",
+                    "target" => "",
+                    "item_model" => "Modules\News\Models\News",
+                    "origin_name" => "News",
+                    "model_name" => null,
+                    "_open" => true,
+                    "is_removed" => true
+                ]
+            ];
 
             //Menu
             DB::table('core_menus')->insert(
@@ -992,6 +1017,12 @@
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
+                    [
+                        'name'  => "Right menu",
+                        'items' =>  json_encode($right_menu),
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ]
                 ]
             );
             DB::table('core_menu_translations')->insert(

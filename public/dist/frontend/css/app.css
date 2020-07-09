@@ -326,6 +326,7 @@ h6 {
 .bravo-header .bravo-main-search-box {
   flex-grow: 1;
   border-radius: 5px;
+  margin-left: -55px;
 }
 
 @media (max-width: 991px) {
