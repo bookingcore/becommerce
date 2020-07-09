@@ -2,7 +2,6 @@
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 $compare = (!empty(session('compare'))) ? session('compare') : '';
-dump($compare);
 ?>
 
 <li class="product {{ $score_total > 0 ? 'is_review' : '' }}">
