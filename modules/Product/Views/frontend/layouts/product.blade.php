@@ -1,7 +1,6 @@
 <?php
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
-$compare = (!empty(session('compare'))) ? session('compare') : '';
 ?>
 
 <li class="product {{ $score_total > 0 ? 'is_review' : '' }}">
@@ -33,7 +32,7 @@ $compare = (!empty(session('compare'))) ? session('compare') : '';
                         </a>
                     </div>
                 </div>
-                <div class="compare-button mf-compare-button" data-toggle="tooltip" title="{{__('Compare')}}" data-id="{{$row->id}}">
+                <div class="compare-button mf-compare-button {{ in_array($row->id, list_compare_id()) ? 'browse' : '' }}" data-toggle="tooltip" title="{{ in_array($row->id, list_compare_id()) ? __('Browse Compare') : __('Compare') }}" data-id="{{$row->id}}">
                     <a href="#" class="compare">{{__('Compare')}}</a>
                 </div>
             </div>

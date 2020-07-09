@@ -40,7 +40,7 @@ class UserWishListController extends FrontendController
         $meta = new $this->userWishListClass($request->input());
         $meta->user_id = Auth::id();
         $meta->save();
-        return $this->sendSuccess(['class'=>"active",'title'=>__('Browse Wishlist'),'url'=>'xxx']);
+        return $this->sendSuccess(['class'=>"active",'title'=>__('Browse to Wishlist'),'url'=>'xxx']);
     }
     public function remove(Request $request){
         $meta = $this->userWishListClass::where("object_id",$request->input('id'))

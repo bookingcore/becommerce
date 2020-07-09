@@ -500,10 +500,11 @@ jQuery(function ($) {
         if (!$this.hasClass('active')){
             e.preventDefault();
             let w_class = $this.attr('class');
+            let id = $this.attr('data-id');
             $.ajax({
                 url:  Bravo.url+'/user/wishlist',
                 data: {
-                    object_id: $this.attr("data-id"),
+                    object_id: id,
                     object_model: $this.attr("data-type"),
                 },
                 dataType: 'json',
@@ -513,6 +514,7 @@ jQuery(function ($) {
                 },
                 success: function (res) {
                     $this.attr('class',w_class + ' ' + res.class).attr('data-original-title', res.title).tooltip('show').find('.btn-text').text(res.title);
+                    $(`.service-wishlist[data-id=${id}]`).attr('class',w_class + ' ' + res.class).attr('data-original-title', res.title);
                     let count = $('.user-wish-list-count');
                     count.html(parseInt(count.text()) + 1);
                 },
@@ -793,28 +795,39 @@ jQuery(function ($) {
             }
         }
     })
+});
+
+jQuery(function ($) {
     //Compare
+    let compare_box = $('.bravo_compare_box');
+    let compare_count = $('.user-compare-count');
+    let compare_button = function(id){return $(`.mf-compare-button[data-id=${id}]`);}
+
     $('.user-compare-list').click(function () {
-        $('.bravo_compare_box').addClass('active');
+        compare_box.addClass('active');
     });
     $(document).on('click','.mf-compare-button',function (e) {
         e.preventDefault();
         let $this = $(this);
-        $.ajax({
-            url: bookingCore.url + '/product/compare',
-            method: 'POST',
-            data: {
-                id: $this.attr('data-id')
-            },
-            beforeSend: function () {
-                $this.addClass('loading');
-            },
-            success:function (data) {
-                $this.tooltip('hide').removeClass('loading');
-                $('.user-compare-count').text(data.count);
-                $('.bravo_compare_box').addClass('active').find('.compare-list').html(data.view);
-            }
-        })
+        let id = $this.attr('data-id');
+        if ($this.hasClass('browse')){
+            $this.tooltip('hide');
+            compare_box.addClass('active');
+        } else {
+            $.ajax({
+                url: bookingCore.url + '/product/compare',
+                method: 'POST',
+                data: {id: id},
+                beforeSend: function () {
+                    $this.tooltip('hide').removeClass('browse').addClass('loading');
+                },
+                success:function (data) {
+                    compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse');
+                    compare_count.text(data.count);
+                    compare_box.addClass('active').find('.compare-list').html(data.view);
+                }
+            })
+        }
     })
     $('.compare_close, .compare_overlay').click(function () {
         $(this).closest('.bravo_compare_box').removeClass('active');
@@ -832,9 +845,10 @@ jQuery(function ($) {
             },
             success: function (data) {
                 $this.removeClass('loading');
-                $('.user-compare-count').text(data.count);
-                $('.bravo_compare_box').find('.compare-list').html(data.view);
+                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse')
+                compare_count.text(data.count);
+                compare_box.find('.compare-list').html(data.view);
             }
         })
     })
-});
+})

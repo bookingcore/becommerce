@@ -1020,4 +1020,13 @@ function getMinMaxPriceProductVariations($row){
     }
 }
 
-
+function list_compare_id(){
+    $compare = (!empty(session('compare'))) ? session('compare') : '';
+    $l_compare = [];
+    if (!empty($compare)){
+        foreach ($compare as $list){
+            array_push($l_compare, $list['id']);
+        }
+    }
+    return $l_compare;
+}
