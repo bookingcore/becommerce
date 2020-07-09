@@ -41,7 +41,7 @@
             <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span>{{$stock_status['stock']}}</span></span>
         @endif
     </div>
-    <hr>
+    <hr class="hr-price">
     <div class="product-short-desc">
         {!! clean($row->short_desc) !!}
     </div>

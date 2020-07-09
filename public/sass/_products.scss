@@ -139,6 +139,18 @@
                 .product-price{
                     position: absolute;
                     bottom: 5%;
+                    .price{
+                        &.single-price{
+                            .amount{
+                                color: #000;
+                            }
+                        }
+                        &.variable-price{
+                            ins{
+                                color: #000;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -483,50 +495,79 @@
                 clear: both
             }
         }
-        .mf-shop-content{
-            .woocommerce-pagination{
-                .pagination{
-                    justify-content: center;
-                    li{
+    }
+}
+.mf-shop-content, .bravo_profile_content{
+    .products{
+        >li{
+            width: calc(100%/4);
+            &.is_review{
+                .sold-by-meta{
+                    margin-bottom: 0!important;
+                }
+            }
+            .product-inner{
+                margin: 0;
+                position: relative;
+                .product-price{
+                    position: absolute;
+                    bottom: 15px;
+                    .price{
                         margin: 0;
-                        padding: 0 5px;
-                        &.active{
-                            .page-link{
-                                background: #fcb800;
+                        &:not(.has-sale){
+                            ins{
+                                color: #000;
                             }
                         }
-                        .page-link{
-                            min-width: 34px!important;
-                            height: 32px!important;
-                            color: #000;
-                            font-size: 14px;
-                            line-height: 32px;
-                            background-color: #f5f5f5;
-                            padding: 0;
-                            text-align: center;
-                            border: none;
-                            transition: 0.5s;
-                            overflow: hidden;
-                            &:hover{
-                                background: #fcb800;
-                            }
-                            &[rel=prev], &[rel=next]{
-                                text-indent: -9999px;
-                                &:before{
-                                    content: "\e93b";
-                                    font-family: 'Linearicons','sans-serif';
-                                    text-indent: 0;
-                                    position: absolute;
-                                    left: 0;
-                                    width: 100%;
-                                    color: #827f7f;
-                                }
-                            }
-                            &[rel=next]{
-                                &:before{
-                                    content: "\e93c";
-                                }
-                            }
+                    }
+                }
+                .sold-by-meta, .service-review{
+                    margin-bottom: 21px;
+                }
+            }
+        }
+    }
+    .woocommerce-pagination{
+        .pagination{
+            justify-content: center;
+            li{
+                margin: 0;
+                padding: 0 5px;
+                &.active{
+                    .page-link{
+                        background: #fcb800;
+                    }
+                }
+                .page-link{
+                    min-width: 34px!important;
+                    height: 32px!important;
+                    color: #000;
+                    font-size: 14px;
+                    line-height: 32px;
+                    background-color: #f5f5f5;
+                    padding: 0;
+                    text-align: center;
+                    border: none;
+                    transition: 0.5s;
+                    overflow: hidden;
+                    &:hover{
+                        background: #fcb800;
+                    }
+                    &[rel=prev], &[rel=next]{
+                        text-indent: -9999px;
+                        &:before{
+                            content: "\e93b";
+                            font-family: 'Linearicons','sans-serif';
+                            text-indent: 0;
+                            position: absolute;
+                            left: 0;
+                            width: 100%;
+                            color: #827f7f;
+                        }
+                    }
+                    &[rel=next]{
+                        &:before{
+                            content: "\e93c";
                         }
                     }
                 }
@@ -789,24 +830,6 @@
                             &.in_stock{
                                 span{
                                     color: #8bc500;
-                                }
-                            }
-                        }
-                    }
-                    .product-detail-add-to-cart{
-                        form{
-                            .quantity-input{
-                                margin-right: 20px;
-                            }
-                            .add_to_cart{
-                                margin-right: 19px;
-                            }
-                            .buy_now{
-                                margin-right: 0;
-                            }
-                            .btn-custom{
-                                .btn-text{
-                                    display: inline-block;
                                 }
                             }
                         }

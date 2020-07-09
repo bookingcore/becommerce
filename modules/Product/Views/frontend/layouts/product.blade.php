@@ -1,4 +1,11 @@
-<li class="product">
+<?php
+$reviewData = $row->getScoreReview();
+$score_total = $reviewData['score_total'];
+$compare = (!empty(session('compare'))) ? session('compare') : '';
+dump($compare);
+?>
+
+<li class="product {{ $score_total > 0 ? 'is_review' : '' }}">
     <div class="product-inner">
         <div class="mf-product-thumbnail">
             <a href="{{$row->getDetailUrl()}}">
@@ -69,11 +76,8 @@
             </div>
         @endif
 
-        <?php
-        $reviewData = $row->getScoreReview();
-        $score_total = $reviewData['score_total'];
-        ?>
-        <div class="service-review tour-review-{{$score_total}}">
+        @if($score_total > 0)
+            <div class="service-review tour-review-{{$score_total}}">
             <div class="list-star">
                 <ul class="booking-item-rating-stars">
                     <li><i class="fa fa-star-o"></i></li>
@@ -98,5 +102,6 @@
                 <span class="review_text">{{ $reviewData['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
             </span>
         </div>
+        @endif
     </div>
 </li>

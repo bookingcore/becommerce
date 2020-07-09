@@ -55,6 +55,12 @@
         content: ' ';
     }
 
+    .actions-cart{
+        @media (max-width: 1571px){
+            overflow: hidden;
+        }
+    }
+
     .quantity-input {
         float: left;
         margin: 0 30px 0 0;
@@ -80,9 +86,9 @@
                 border-width: 0;
                 width: 60px;
                 padding: 10px 0;
+                -webkit-appearance: textfield;
                 -moz-appearance: textfield;
                 appearance: textfield;
-                -webkit-appearance: textfield;
                 text-align: center;
                 font-weight: 600;
                 color: #000;
@@ -182,7 +188,7 @@
             &.add_compare{
                 .btn-text{
                     display: none;
-                    @media(max-width: 1466px){
+                    @media(max-width: 1571px){
                         display: inline-block;
                     }
                 }
@@ -452,6 +458,10 @@
                     font-size: 14px;
                     color: #000;
                     margin-bottom: 15px;
+                }
+
+                .hr-price{
+                    display: none;
                 }
 
                 .product-short-desc{
@@ -999,13 +1009,6 @@ ul.products{
             }
         }
         .price{
-            font-size: 16px;
-            color: #000;
-            line-height: 1;
-            display: block;
-            position: relative;
-            margin-top: 5px;
-            margin-bottom: 0;
             .amount {
                 + .amount{
                     padding-left: 5px;

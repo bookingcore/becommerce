@@ -81,7 +81,9 @@
             in_stock: "{{__('In Stock')}}",
             out_stock: "{{__('Out Of Stock')}}",
             num_stock: "{{__('__num__ In Stock')}}",
-            delete_cart_item_confirm:"{{__("Do you want to delete this cart item?")}}"
+            delete_cart_item_confirm:"{{__("Do you want to delete this cart item?")}}",
+            add_compare: "{{__('Compare')}}",
+            browse_compare: "{{__('Browse compare')}}"
         };
     </script>
     <!-- Styles -->

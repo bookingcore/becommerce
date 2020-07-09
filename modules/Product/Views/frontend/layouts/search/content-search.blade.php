@@ -43,9 +43,10 @@
     <ul class="products list-unstyled row">
         @if($rows->total() > 0)
             @foreach($rows as $row)
-                <li class="product type-product col-md-3">
+                @include('Product::frontend.layouts.product')
+                {{--<li class="product type-product col-md-3">
                     @include('Product::frontend.loop.item')
-                </li>
+                </li>--}}
             @endforeach
         @endif
     </ul>

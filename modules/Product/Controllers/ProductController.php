@@ -32,14 +32,11 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-//        dump($_GET);
         $data = $this->_querySearch($request);
         return view('Product::frontend.search', $data);
     }
 
     public function categoryIndex( $slug , Request $request){
-
-        // lay tat ca category theop slug bao gom ca id con.  laf dang. mang? laf ID
         $getCats = ProductCategory::select('*')->where('slug',$slug)->first();
         $categories = $getCats->id;
         $data = $this->_querySearch($request , [$categories]);
@@ -86,7 +83,6 @@ class ProductController extends Controller
         $search = $request->query('s');
         if (!empty($cat_id)){
             $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $cat_id);
-//            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cat_id);
         }
         if (!empty($search)){
             $query->where('products.title','LIKE',"%$search%");
@@ -167,8 +163,6 @@ class ProductController extends Controller
         }
         return $get_variation;
     }
-
-
 
     public function detail(Request $request, $slug)
     {

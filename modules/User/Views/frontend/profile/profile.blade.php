@@ -28,12 +28,10 @@
                                     <i class="icon-equalizer"></i><span>Filter</span>
                                 </a>
                             </div>
-                            <ul class="products list-unstyled">
+                            <ul class="products list-unstyled row">
                                 @if($products->total() > 0)
                                     @foreach($products as $row)
-                                        <li class="product type-product col-md-3">
-                                            @include('Product::frontend.loop.item')
-                                        </li>
+                                        @include('Product::frontend.layouts.product')
                                     @endforeach
                                 @endif
                             </ul>

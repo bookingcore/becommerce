@@ -58,12 +58,12 @@
                     ],
                     [
                         'name'  => 'footer_text_left',
-                        'val'   => 'Copyright © 2019 by Martfury',
+                        'val'   => '© '.date('Y').' Martfury. All Rights Reserved',
                         'group' => "general",
                     ],
                     [
                         'name'  => 'footer_text_right',
-                        'val'   => 'Martfury',
+                        'val'   => 'We Using Safe Payment For',
                         'group' => "general",
                     ],
                     [
