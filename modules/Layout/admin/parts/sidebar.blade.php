@@ -6,6 +6,13 @@ $menus = [
         'icon'  => 'icon ion-ios-desktop',
         "position"=>0
     ],
+    'review'=>[
+        "position"=>50,
+        'url'   => 'admin/module/review',
+        'title' => __("Reviews"),
+        'icon'  => 'icon ion-ios-text',
+        'permission' => 'review_manage_others',
+    ],
     'news'=>[
         "position"=>10,
         'url'        => 'admin/module/news',

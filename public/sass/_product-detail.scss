@@ -186,6 +186,17 @@
                 }
             }
             &.add_compare{
+                &.loading{
+                    position: relative;
+                    opacity: 0.25;
+                    i{
+                        visibility: hidden;
+                    }
+                    &:after{
+                        top: 7px;
+                        left: 4px;
+                    }
+                }
                 .btn-text{
                     display: none;
                     @media(max-width: 1571px){
@@ -331,6 +342,8 @@
     padding-bottom: 0;
 
     .col-product-info {
+        flex: 0 0 81%;
+        max-width: 81%;
         padding-right: 50px;
 
         .product-detail-gallery {
@@ -644,6 +657,9 @@
             }
         }
     }
+    .col-product-sidebar{
+        max-width: 19%;
+    }
     .product-tabs{
         .tab-content{
             .wcmp-product-policies{
@@ -723,7 +739,6 @@ ul.products{
         .product-inner{
             padding: 20px;
             border: 1px solid transparent;
-            margin-bottom: 20px;
             &:hover{
                 border-color: silver;
                 .mf-product-thumbnail{
@@ -770,23 +785,6 @@ ul.products{
                 min-height: inherit;
             }
         }
-        .mf-vendor-name{
-            .sold-by-meta{
-                display: block;
-                border-bottom: 1px solid #e1e1e1;
-                padding-bottom: 8px;
-                margin-bottom: 13px;
-                line-height: 1.2;
-                font-size: 12px;
-                a{
-                    color: #000;
-                    text-transform: uppercase;
-                }
-                .sold-by-label{
-                    display: none;
-                }
-            }
-        }
         .mf-product-details{
             position: relative;
         }
@@ -799,7 +797,14 @@ ul.products{
             .yith-wcwl-add-button{
                 position: relative;
                 >a{
+                    margin: 0 6px;
                     padding: 0;
+                    background-color: transparent;
+                    width: 34px;
+                    height: 34px;
+                    color: #000;
+                    border-radius: 50%;
+                    display: block;
                 }
                 .add_to_wishlist{
                     &.loading{
@@ -879,41 +884,6 @@ ul.products{
         .mf-product-thumbnail{
             position: relative;
             margin-bottom: 12px;
-            .yith-wcwl-add-to-wishlist{
-                margin: 0 6px;
-                position: static;
-                &.active{
-                    .yith-wcwl-add-button{
-                        >a{
-                            color: #fcb800!important;
-                            &:hover{
-                                color: #000!important;
-                            }
-                        }
-                    }
-                }
-                .yith-wcwl-add-button{
-                    >a{
-                        >span{
-                            display: none;
-                        }
-                        .fa-heart-o:before{
-                            content: '\e68c';
-                            display: inline-block;
-                            font: normal normal normal 14px/1 linearicons;
-                            font-size: 18px;
-                        }
-                        &:hover{
-                            background-color: #fcb800;
-                        }
-                    }
-                    .yith-wcwl-icon{
-                        margin-top: 2px;
-                        font-size: 14px;
-                        margin-right: 0;
-                    }
-                }
-            }
             .compare-button{
                 margin-left: 6px;
                 position: relative;
@@ -1199,39 +1169,6 @@ ul.products{
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .col-product-sidebar{
     .col-product-sidebar-item {
         .sidebar-item-title {

@@ -37,7 +37,7 @@ class ProductController extends Controller
     }
 
     public function categoryIndex( $slug , Request $request){
-        $getCats = ProductCategory::select('*')->where('slug',$slug)->first();
+        $getCats = ProductCategory::where('slug',$slug)->first();
         $categories = $getCats->id;
         $data = $this->_querySearch($request , [$categories]);
         return view('Product::frontend.categories', (isset($data)) ? $data : []);

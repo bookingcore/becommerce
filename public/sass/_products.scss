@@ -46,6 +46,11 @@
 }
 .service-wishlist{
     position: relative!important;
+    &.active{
+        a{
+            color: red!important;
+        }
+    }
     a{
         cursor: pointer;
     }
@@ -343,9 +348,6 @@
             text-transform: uppercase;
             margin: 0 0 20px;
         }
-        .mf-catalog-banners{
-
-        }
     }
 
     .content-area{
@@ -502,12 +504,12 @@
         >li{
             width: calc(100%/4);
             &.is_review{
-                .sold-by-meta{
-                    margin-bottom: 0!important;
+                h2{
+                    margin: 0!important;
                 }
             }
             .product-inner{
-                margin: 0;
+                margin: 0!important;
                 position: relative;
                 .product-price{
                     position: absolute;
@@ -520,6 +522,9 @@
                             }
                         }
                     }
+                }
+                h2{
+                    margin-bottom: 21px;
                 }
                 .sold-by-meta, .service-review{
                     margin-bottom: 21px;

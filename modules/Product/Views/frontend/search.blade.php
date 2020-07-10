@@ -12,7 +12,8 @@
                     </div>
                     <!-- #secondary -->
                     <div id="primary" class="content-area col-md-9 col-sm-12 col-xs-12">
-                        @include('Product::frontend.layouts.search.content-search')
+                        @include('Product::frontend.layouts.search.content-search_header')
+                        @include('Product::frontend.layouts.search.content-search_content')
                     </div>
                 </div>
             </div>

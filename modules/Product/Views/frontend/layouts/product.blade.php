@@ -74,32 +74,32 @@ $score_total = $reviewData['score_total'];
             </div>
         @endif
 
-        @if($score_total > 0)
+        @if($score_total)
             <div class="service-review tour-review-{{$score_total}}">
-            <div class="list-star">
-                <ul class="booking-item-rating-stars">
-                    <li><i class="fa fa-star-o"></i></li>
-                    <li><i class="fa fa-star-o"></i></li>
-                    <li><i class="fa fa-star-o"></i></li>
-                    <li><i class="fa fa-star-o"></i></li>
-                    <li><i class="fa fa-star-o"></i></li>
-                </ul>
-                <div class="booking-item-rating-stars-active"
-                     style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                <div class="list-star">
                     <ul class="booking-item-rating-stars">
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
+                        <li><i class="fa fa-star-o"></i></li>
                     </ul>
+                    <div class="booking-item-rating-stars-active"
+                         style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                        <ul class="booking-item-rating-stars">
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                            <li><i class="fa fa-star"></i></li>
+                        </ul>
+                    </div>
                 </div>
+                <span class="review">
+                    <span class="review_number">{{ $reviewData['total_review'] }}</span>
+                    <span class="review_text">{{ $reviewData['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
+                </span>
             </div>
-            <span class="review">
-                <span class="review_number">{{ $reviewData['total_review'] }}</span>
-                <span class="review_text">{{ $reviewData['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
-            </span>
-        </div>
         @endif
     </div>
 </li>

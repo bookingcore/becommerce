@@ -9,7 +9,7 @@
                     @include('User::frontend.profile.sidebar')
                 </div>
                 <div class="col-md-9">
-                    <div class="bravo_profile_content">
+                    <div class="bravo_profile_content woocommerce">
                         @if(!empty($products))
                             <div class="shop-toolbar">
                                 <div class="products-found">

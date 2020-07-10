@@ -822,7 +822,7 @@ jQuery(function ($) {
                     $this.tooltip('hide').removeClass('browse').addClass('loading');
                 },
                 success:function (data) {
-                    compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse');
+                    compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse').find('.btn-text').text(i18n.browse_compare);
                     compare_count.text(data.count);
                     compare_box.addClass('active').find('.compare-list').html(data.view);
                 }
@@ -845,7 +845,7 @@ jQuery(function ($) {
             },
             success: function (data) {
                 $this.removeClass('loading');
-                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse')
+                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse').find('.btn-text').text(i18n.add_compare);
                 compare_count.text(data.count);
                 compare_box.find('.compare-list').html(data.view);
             }

@@ -410,7 +410,8 @@
                 'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-1', 'file_path' => 'demo/templates/menu-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
                 'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-2', 'file_path' => 'demo/templates/menu-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             ];
-            $home_url = url('/');
+            $home_url = config('app.url');
+
             $primary_menu = [
                 [
                     "id"                => 1,

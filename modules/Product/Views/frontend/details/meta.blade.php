@@ -5,32 +5,34 @@
                 <div class="product-brand d-inline-block">{{__("Brand:")}} <a href="{{$row->brand->getDetailUrl()}}" target="_blank">{{$row->brand->name}}</a></div>
             @endif
             <?php
-            $reviewData = $row->review_data;
-            $score_total = $reviewData['score_total'];
+                $reviewData = $row->review_data;
+                $score_total = $reviewData['score_total'];
             ?>
-            <div class="service-review product-review-{{$score_total}} d-inline-block">
-                <div class="list-star">
-                    <ul class="booking-item-rating-stars">
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                    <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
-                        <ul class="booking-item-rating-stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-                <span class="review">
+            @if($score_total > 0)
+                <div class="service-review product-review-{{$score_total}} d-inline-block">
+                        <div class="list-star">
+                            <ul class="booking-item-rating-stars">
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                            </ul>
+                            <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                                <ul class="booking-item-rating-stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="review">
                 {{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}
                 </span>
-            </div>
+                    </div>
+            @endif
         </div>
     <hr>
     @include('Product::frontend.details.price')
