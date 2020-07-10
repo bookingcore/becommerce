@@ -175,6 +175,9 @@
                 .btn-text{
                     display: none;
                 }
+                &.active{
+                    color: red;
+                }
                 &.loading{
                     >i{
                         visibility: hidden;

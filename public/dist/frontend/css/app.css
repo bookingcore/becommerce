@@ -3655,6 +3655,10 @@ input.form-control {
   display: none;
 }
 
+.product-detail-add-to-cart .btn-custom > a.add_wishlist.active {
+  color: red;
+}
+
 .product-detail-add-to-cart .btn-custom > a.add_wishlist.loading > i {
   visibility: hidden;
 }

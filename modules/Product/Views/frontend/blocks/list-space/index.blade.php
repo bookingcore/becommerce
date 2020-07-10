@@ -4,7 +4,6 @@
             @if($style_list == 1)
                 @include('Product::frontend.blocks.list-space.style-sliders')
             @else
-                <!--Continue-->
                 @include('Product::frontend.blocks.list-space.style-normal')
             @endif
         </div>

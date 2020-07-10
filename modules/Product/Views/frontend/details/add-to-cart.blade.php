@@ -26,7 +26,7 @@
                     </a>
                 </div>
                 <div class="btn-custom">
-                    <a href="#" onclick="return false" class="add_compare btn-action mf-compare-button" data-toggle="tooltip" title="{{ in_array($row->id, list_compare_id()) ? __('Browse Compare') : __('Compare') }}" data-id="{{$row->id}}">
+                    <a href="#" onclick="return false" class="add_compare btn-action mf-compare-button {{ in_array($row->id, list_compare_id()) ? 'browse' : '' }}" data-toggle="tooltip" title="{{ in_array($row->id, list_compare_id()) ? __('Browse Compare') : __('Compare') }}" data-id="{{$row->id}}">
                         <i class="icon-chart-bars"></i>
                         <span class="btn-text">{{ in_array($row->id, list_compare_id()) ? __('Browse Compare') : __('Compare') }}</span>
                     </a>
