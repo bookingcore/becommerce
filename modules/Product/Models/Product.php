@@ -485,7 +485,7 @@ class Product extends BaseProduct
     }
 
     public function list_attrs(){
-        return ProductAttrs::select('id','name','slug')->get();
+        return Attributes::select('id','name','slug')->get();
     }
 
     public function get_variable($id){

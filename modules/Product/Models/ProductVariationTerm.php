@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
+use Modules\Core\Models\Attributes;
 
 class ProductVariationTerm extends BaseModel
 {
@@ -34,7 +35,7 @@ class ProductVariationTerm extends BaseModel
 
     public function get_attrs($product_id){
         $variations_attr = $this->get_term($product_id);
-        $attrs = ProductAttrs::select('id','name')->get();
+        $attrs = Attributes::select('id','name')->get();
         $newAttrs = [];
         if (!empty($attrs)){
             foreach ($attrs as $item){

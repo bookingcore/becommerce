@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\Product\Models\BravoTerms;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductAttrs;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
@@ -121,7 +120,7 @@ class ProductController extends Controller
     }
 
     public function listAttrs($row){
-        return ProductAttrs::whereIn('id',$row)->get();
+        return Attributes::whereIn('id',$row)->get();
     }
 
     public function ProductVariationTerm($row){

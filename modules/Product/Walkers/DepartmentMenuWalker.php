@@ -24,10 +24,6 @@ class DepartmentMenuWalker
     public function generateTree($items = [])
     {
         foreach ($items as $item) {
-//            dump($item);
-            /*if (!empty($item['bg'])){
-                dump(get_file_url($item['bg'],'full'));
-            }*/
             $class = $item['class'] ?? '';
             $url = $item['url'] ?? '';
             $item['target'] = $item['target'] ?? '';

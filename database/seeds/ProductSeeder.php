@@ -213,8 +213,9 @@ class ProductSeeder extends Seeder
             'price'       => '13.43',
             'sale_price'  => null,
             'status'      => 'publish',
+            'attributes_for_variation' => '["1","2"]',
             'stock_status'=> 'in',
-            'product_type'=> 'simple',
+            'product_type'=> 'variable',
             'create_user' => '1'
         ] );
         $id_7 = DB::table('products')->insertGetId([
@@ -386,6 +387,7 @@ class ProductSeeder extends Seeder
             'create_user'=>     '1'
         ]);
 
+        //create term
         $term_list = [
             [
                 'name'      =>      'Red',
@@ -436,7 +438,11 @@ class ProductSeeder extends Seeder
                 'slug'      =>      'Xl'
             ],
         ];
-        DB::table('bravo_terms')->insert($term_list);
+        $term = [];
+        foreach ($term_list as $k => $list){
+            $term[$k] = DB::table('bravo_terms')->insertGetId($list);
+        }
+        //end create term
 
         foreach ($categories as $category){
             $childs = $category['child'] ?? "";
@@ -468,16 +474,168 @@ class ProductSeeder extends Seeder
                 }
             }
 
-            \Modules\Product\Models\ProductTerm::firstOrCreate([
-                'term_id' => rand(1,2),
-                'target_id' => $id
-            ]);
-            \Modules\Product\Models\ProductTerm::firstOrCreate([
-                'term_id' => rand(3,7),
-                'target_id' => $id
-            ]);
-
+            if ($id != $id_6){
+                \Modules\Product\Models\ProductTerm::firstOrCreate([
+                    'term_id' => rand(1,2),
+                    'target_id' => $id
+                ]);
+                \Modules\Product\Models\ProductTerm::firstOrCreate([
+                    'term_id' => rand(3,7),
+                    'target_id' => $id
+                ]);
+            }
         }
+
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 1,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 2,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 4,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 5,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 6,
+            'target_id' => $id_6
+        ]);
+
+        //Create variable product
+        $variable_id_1 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_2 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_3 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_4 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_5 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_6 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        //End create variable product
+
+        //Create variable product term
+        DB::table('product_variation_term')->insert(
+            [
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_6,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_6,
+                    'term_id'       =>  $term[3],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_5,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_5,
+                    'term_id'       =>  $term[4],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_4,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_4,
+                    'term_id'       =>  $term[5],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_3,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_3,
+                    'term_id'       =>  $term[3],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_2,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_2,
+                    'term_id'       =>  $term[4],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_1,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_1,
+                    'term_id'       =>  $term[5],
+                    'create_user'   =>  1
+                ],
+            ]
+        );
+
 
         DB::table('bravo_coupon')->insert(
             [

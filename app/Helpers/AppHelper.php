@@ -1030,3 +1030,14 @@ function list_compare_id(){
     }
     return $l_compare;
 }
+
+function position_attributes(){
+    $attrs = \Modules\Core\Models\Attributes::all();
+    $test = [];
+    if (!empty($attrs)){
+        foreach ($attrs as $position){
+            array_push($test, $position->positon);
+        }
+    }
+    return $test;
+}
