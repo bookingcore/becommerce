@@ -29683,7 +29683,6 @@ body.navigation-mobile-active {
 
     .search-submit {
         height: 42px;
-        line-height: 42px;
         width: 50px;
         min-width: 42px;
         text-align: center;
@@ -29691,7 +29690,9 @@ body.navigation-mobile-active {
         border: none;
         font-weight: 700;
         color: #fff;
-        font-size: 20px;
+        i{
+            font-size: 20px;
+        }
     }
 
     .search-trending {

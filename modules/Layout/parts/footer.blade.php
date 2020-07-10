@@ -117,7 +117,7 @@
     <div class="bravo_footer_menu">
         <div class="mf-els-modal-mobile" id="mf-els-modal-mobile">
             <div class="mf-search-mobile-modal mf-els-item" id="mf-search-mobile">
-                <form class="products-search" method="get" action="http://demo2.drfuri.com/martfury3/">
+                <form class="products-search" method="get" action="{{route('product.index')}}">
                     <div class="search-wrapper">
                         <input type="text" name="s" class="search-field" autocomplete="off" placeholder="I'm shopping for...">
                         <input type="hidden" name="post_type" value="product">

@@ -3,6 +3,9 @@
         flex-grow: 1;
         border-radius: 5px;
         margin-left: -55px;
+        @media (max-width: 1199px){
+            margin-left: 0;
+        }
         @media (max-width: 991px){
             display: none;
         }
@@ -80,6 +83,9 @@
                             @media (max-width: 991px){
                                 max-width: initial;
                             }
+                            @media (max-width: 320px){
+                                width: 150%;
+                            }
                         }
                     }
                 }
@@ -88,6 +94,9 @@
                     align-items: center;
                     justify-content: flex-end;
                     color: #000;
+                    @media (max-width: 991px){
+                        width: 65.666667%;
+                    }
                 }
             }
             .bravo-extra-menu{
@@ -102,10 +111,20 @@
                     padding: 0 20px;
                     position: relative;
                     cursor: pointer;
-                    @media (max-width: 991px){
+                    @media (max-width: 1199px){
                         padding: 0 10px;
+                    }
+                    @media (max-width: 991px){
                         &.user-compare-list, &.user-wishlist{
                             display: none;
+                        }
+                        &.user-mini-cart{
+                            padding-right: 10px;
+                        }
+                        &.menu-user{
+                            .u-left{
+                                margin-right: 0;
+                            }
                         }
                     }
                     @media (max-width: 767px){
@@ -247,6 +266,11 @@
                     }
                 }
             }
+            .main-menu-right{
+                @media(max-width: 1024px){
+                    display: none;
+                }
+            }
             .browse-category-btn{
                 padding: 16px 5px;
                 color: #000;
@@ -271,6 +295,9 @@
                 -moz-box-pack: center;
                 -ms-flex-pack: center;
                 justify-content: center;
+                @media (max-width: 1024px){
+                    padding: 16px 24px;
+                }
                 >i{
                     margin-right: 7px;
                     font-size: 20px;
@@ -298,8 +325,10 @@
             }
             .browse-category{
                 width: 300px;
+                @media (max-width: 1024px){
+                    width: 260px;
+                }
             }
-
         }
         .mobile-menu{
             padding-bottom: 15px;

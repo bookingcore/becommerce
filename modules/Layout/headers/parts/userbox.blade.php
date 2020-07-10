@@ -29,7 +29,7 @@
     </li>
     <li class="menu-user @if(Auth::user()) logged-in @else no-logged-in @endif">
         @if(!Auth::user())
-            <div class="u-left">
+            <div class="u-left" onclick="window.open(bookingCore.routes.login,'_self')">
                 <i class="extra-icon icon-user"></i>
             </div>
             <div class="u-right">

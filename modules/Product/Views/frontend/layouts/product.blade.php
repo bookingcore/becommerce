@@ -96,8 +96,8 @@ $score_total = $reviewData['score_total'];
                     </div>
                 </div>
                 <span class="review">
-                    <span class="review_number">{{ $reviewData['total_review'] }}</span>
-                    <span class="review_text">{{ $reviewData['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
+                    @php $total_review = ($reviewData['total_review'] < 10) ? '0'.$reviewData['total_review'] : $reviewData['total_review'] @endphp
+                    <span class="review_number">{{ $total_review }}</span>
                 </span>
             </div>
         @endif

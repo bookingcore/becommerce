@@ -329,6 +329,12 @@ h6 {
   margin-left: -55px;
 }
 
+@media (max-width: 1199px) {
+  .bravo-header .bravo-main-search-box {
+    margin-left: 0;
+  }
+}
+
 @media (max-width: 991px) {
   .bravo-header .bravo-main-search-box {
     display: none;
@@ -426,11 +432,23 @@ h6 {
   }
 }
 
+@media (max-width: 320px) {
+  .bravo-header .header-style-default .bravo-main-header .row .col-logo .bravo-logo img {
+    width: 150%;
+  }
+}
+
 .bravo-header .header-style-default .bravo-main-header .row .col-search-user {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   color: #000;
+}
+
+@media (max-width: 991px) {
+  .bravo-header .header-style-default .bravo-main-header .row .col-search-user {
+    width: 65.666667%;
+  }
 }
 
 .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu {
@@ -449,14 +467,24 @@ h6 {
   cursor: pointer;
 }
 
-@media (max-width: 991px) {
+@media (max-width: 1199px) {
   .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li {
     padding: 0 10px;
   }
+}
 
+@media (max-width: 991px) {
   .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li.user-compare-list,
   .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li.user-wishlist {
     display: none;
+  }
+
+  .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li.user-mini-cart {
+    padding-right: 10px;
+  }
+
+  .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li.menu-user .u-left {
+    margin-right: 0;
   }
 }
 
@@ -639,6 +667,12 @@ h6 {
   height: initial;
 }
 
+@media (max-width: 1024px) {
+  .bravo-header .header-style-default .bravo-main-menu .main-menu-right {
+    display: none;
+  }
+}
+
 .bravo-header .header-style-default .bravo-main-menu .browse-category-btn {
   padding: 16px 5px;
   color: #000;
@@ -652,6 +686,12 @@ h6 {
   align-items: center;
   justify-content: center;
   position: relative;
+}
+
+@media (max-width: 1024px) {
+  .bravo-header .header-style-default .bravo-main-menu .browse-category-btn {
+    padding: 16px 24px;
+  }
 }
 
 .bravo-header .header-style-default .bravo-main-menu .browse-category-btn > i {
@@ -682,6 +722,12 @@ h6 {
 
 .bravo-header .header-style-default .bravo-main-menu .browse-category {
   width: 300px;
+}
+
+@media (max-width: 1024px) {
+  .bravo-header .header-style-default .bravo-main-menu .browse-category {
+    width: 260px;
+  }
 }
 
 .bravo-header .header-style-default .mobile-menu {
@@ -732,6 +778,12 @@ h6 {
 
 .bravo_footer {
   border-top: 1px solid #e1e1e1;
+}
+
+@media (max-width: 991px) {
+  .bravo_footer {
+    margin-bottom: 66px;
+  }
 }
 
 .bravo_footer .footer-newsletter .newsletter-content {
@@ -3542,6 +3594,12 @@ input.form-control {
   margin: 0 30px 0 0;
 }
 
+@media (max-width: 1200px) {
+  .product-detail-add-to-cart .quantity-input {
+    margin-right: 15px;
+  }
+}
+
 .product-detail-add-to-cart .quantity-input label {
   font-size: 12px;
   display: block;
@@ -3618,7 +3676,16 @@ input.form-control {
   float: left;
   white-space: nowrap;
   min-width: 180px;
+}
+
+.product-detail-add-to-cart .btn:not(.buy_now) {
   margin-right: 30px;
+}
+
+@media (max-width: 1200px) {
+  .product-detail-add-to-cart .btn:not(.buy_now) {
+    margin-right: 15px;
+  }
 }
 
 .product-detail-add-to-cart .btn.add_to_cart {
@@ -4475,12 +4542,10 @@ ul.products li.product .price .amount + .amount {
   padding-right: 0;
 }
 
-ul.products li.product .price del {
-  display: inline-block;
-  padding-left: 5px;
-  opacity: 1;
-  color: #999;
-  font-size: 14px;
+@media (max-width: 382px) {
+  ul.products li.product .price del {
+    font-size: 12px !important;
+  }
 }
 
 ul.products li.product .price del span {
@@ -4491,12 +4556,10 @@ ul.products li.product .price del .amount {
   padding-top: 0;
 }
 
-ul.products li.product .price ins {
-  text-decoration: none;
-  display: inline-block;
-  color: #f30;
-  font-size: 16px;
-  font-weight: 400;
+@media (max-width: 382px) {
+  ul.products li.product .price ins {
+    font-size: 14px !important;
+  }
 }
 
 ul.products li.product .price ins .amount {
@@ -34826,7 +34889,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
 
 .mf-els-modal-mobile .search-submit {
   height: 42px;
-  line-height: 42px;
   width: 50px;
   min-width: 42px;
   text-align: center;
@@ -34834,6 +34896,9 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
   border: none;
   font-weight: 700;
   color: #fff;
+}
+
+.mf-els-modal-mobile .search-submit i {
   font-size: 20px;
 }
 
