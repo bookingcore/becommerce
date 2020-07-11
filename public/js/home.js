@@ -618,7 +618,7 @@ jQuery(function ($) {
 
     $(document).on('click','.quantity-input-group span',function () {
         let input = $(this).parent().find('input[name=quantity]');
-        let v_quantity = ( Object.keys(Bravo.currentVariation).length > 0 ) ? Bravo.currentVariation.vProduct_attr.quantity : null;
+        let v_quantity = ( Object.keys(Bravo.currentVariation).length > 0 ) ? Bravo.currentVariation.variations.quantity : null;
         if ($(this).hasClass('minus')){
             input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
         } else {
@@ -732,6 +732,8 @@ jQuery(function ($) {
     });
     $(document).on('click','.tawcvs-swatches .swatch',function (e) {
         let $this = $(this);
+        let single_variation_wrap = $('.single_variation_wrap');
+        let add_to_cart = $('.bravo_add_to_cart');
         let attr_class = $this.attr('class').split(' ')[1];
         let name = $this.attr('data-name');
         let nameDefault = $this.closest('tr').find('.mf-attr-value').attr('data-default');
@@ -757,6 +759,7 @@ jQuery(function ($) {
         })
         if (Bravo.variations.length > 0){
             let variable_error = true;
+
             Bravo.variations.forEach(function (i) {
                 if (term_list.join() === i.term_id.join()){
                     variable_error = false;
@@ -776,22 +779,18 @@ jQuery(function ($) {
                     }
 
                     if (!isNaN(parseInt(i.variations.price)) && parseInt(i.variations.price) > 0){
-                        $('.single_variation_wrap').addClass('active');
-                        $('.single_variation_wrap .variation-price').attr('data-price',i.variations.price).html(window.bravo_format_money(i.variations.price));
-                        $('.single_variation_wrap .variation-stock').removeClass('out-of-stock in_stock').addClass( $in_stock ? 'in_stock' : 'out-of-stock' ).find('.stock-status').html($stock);
-                        if ($('.single_variation_wrap .variation-stock').hasClass('out-of-stock')){
-                            $('.bravo_add_to_cart').attr('disabled','disabled');
-                        } else {
-                            $('.bravo_add_to_cart').removeAttr('disabled');
-                        }
+                        single_variation_wrap.addClass('active');
+                        single_variation_wrap.find('.variation-price').attr('data-price',i.variations.price).html(window.bravo_format_money(i.variations.price));
+                        single_variation_wrap.find('.variation-stock').removeClass('out-of-stock in_stock').addClass( $in_stock ? 'in_stock' : 'out-of-stock' ).find('.stock-status').html($stock);
+                        (single_variation_wrap.find('.variation-stock').hasClass('out-of-stock')) ? add_to_cart.attr('disabled','disabled') : add_to_cart.removeAttr('disabled');
                     }
                 } else {
                     return false;
                 }
             })
             if (variable_error === true){
-                $('.single_variation_wrap').removeClass('active');
-                $('.bravo_add_to_cart').attr('disabled','disabled');
+                single_variation_wrap.removeClass('active');
+                add_to_cart.attr('disabled','disabled');
             }
         }
     })
