@@ -8937,6 +8937,11 @@ body.page .comments-area {
                 position: relative;
                 margin-top: 5px;
                 margin-bottom: 0;
+                &.single-price, &.variable-price{
+                    ins{
+                        color: #000;
+                    }
+                }
 
                 .amount + .amount {
                     padding-left: 5px;

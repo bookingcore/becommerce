@@ -14037,6 +14037,11 @@ body.page .comments-area .comment-respond .form-submit {
   margin-bottom: 0;
 }
 
+.woocommerce ul.products li.product .price.single-price ins,
+.woocommerce ul.products li.product .price.variable-price ins {
+  color: #000;
+}
+
 .woocommerce ul.products li.product .price .amount + .amount {
   padding-left: 5px;
   padding-right: 0;
