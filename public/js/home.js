@@ -759,7 +759,6 @@ jQuery(function ($) {
             let variable_error = true;
             Bravo.variations.forEach(function (i) {
                 if (term_list.join() === i.term_id.join()){
-                    console.log(i);
                     variable_error = false;
                     Bravo.currentVariation = i;
                     //check stock status
