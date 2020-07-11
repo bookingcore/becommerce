@@ -8,6 +8,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
 use Modules\Product\Models\Space;
@@ -119,60 +120,57 @@ class ProductController extends Controller
         return $data;
     }
 
-    public function listAttrs($row){
-        return Attributes::whereIn('id',$row)->get();
+    public function attrs($row){
+        return Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
     }
 
-    public function ProductVariationTerm($row){
-        return ProductVariationTerm::select('*','bravo_attrs.id as attr_id','bravo_attrs.display_type','bravo_terms.name','bravo_terms.content')
-            ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
-            ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
-            ->where('product_variation_term.product_id',$row)->get();
-    }
-
-    public function list_variable($variable){
-        $list_variable = [];
-        if (!empty($variable)){
-            foreach ($variable as $item){
-                array_push($list_variable, $item->variation_id);
-            }
-        }
-        return $list_variable;
-    }
-
-    public function get_variable($list_variable){
+    public function product_variations($row){
+        $attrs = (!empty($row->attributes_for_variation)) ? Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
+        $terms = ProductTerm::select('*','bravo_terms.attr_id as attr_id')->join('bravo_terms','product_term.term_id','=','bravo_terms.id')->where('target_id',$row->id)->get();
+        $product_variations = ProductVariation::where('product_id',$row->id)->get();
         $get_variation = [];
-        if (!empty($list_variable)){
-            foreach (array_unique($list_variable) as $item){
-                $term_id = [];
-                $terms = ProductVariationTerm::where('variation_id',$item)->get();
-                $vProduct = ProductVariation::where('id',$item)->first();
-                if (!empty($terms)){
-                    foreach ($terms as $term){
-                        array_push($term_id, $term->term_id);
-                    }
-                }
-                sort($term_id);
-                array_push($get_variation,[
-                    'variation_id'  =>  $item,
-                    'term_id'       =>  $term_id,
-                    'vProduct_attr' =>  $vProduct->getAttributes(),
+        if (!empty($product_variations)){
+            foreach ($product_variations as $item){
+                $product_variations_term = ProductVariationTerm::where('variation_id',$item->id)->pluck('term_id')->toArray();
+                sort($product_variations_term);
+                array_push($get_variation, [
+                    'variations'   =>  $item->getAttributes(),
+                    'term_id'       =>  $product_variations_term
                 ]);
             }
         }
-        return $get_variation;
+        $attrs_list = [];
+        if (!empty($attrs)){
+            foreach ($attrs as $attr){
+                $term_list = [];
+                foreach ($terms as $term){
+                    if ($attr->id == $term->attr_id){
+                        array_push($term_list, $term->getAttributes());
+                    }
+                }
+                array_push($attrs_list,[
+                    'attr'      =>  [
+                        'id'    =>  $attr->id,
+                        'name'  =>  $attr->name,
+                        'type'  =>  $attr->display_type
+                    ],
+                    'terms'     =>  $term_list
+                ]);
+            }
+        }
+        return [
+            'attr_list' => $attrs_list,
+            'variations_product' => $get_variation
+        ];
     }
+
+
 
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
-        $listAttrs = (!empty($row->attributes_for_variation)) ? $this->listAttrs($row->attributes_for_variation) : '';
-        $variable = $this->ProductVariationTerm($row->id);
-        $list_variable = $this->list_variable($variable);
-        $get_variation = $this->get_variable($list_variable);
-
+        $product_variations = $this->product_variations($row);
         $translation = $row->translateOrOrigin(app()->getLocale());
-
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
         $bc = [
@@ -199,31 +197,25 @@ class ProductController extends Controller
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
             'breadcrumbs'=> $c_breadcrumbs,
-            'listAttrs'  => $listAttrs,
-            'variable'  =>  $variable,
-            'variations_product'    =>  json_encode($get_variation)
+            'variations_product'    =>  json_encode($product_variations['variations_product']),
+            'attrs_list' =>  $product_variations['attr_list']
         ];
         $this->setActiveMenu($row);
         return view('Product::frontend.detail', $data);
     }
 
+    //tomorow fix
     public function quick_view(Request $request){
         $id = (!empty($request->id)) ? $request->id : '';
         $product = Product::where('id',$id)->first();
-        $brand = ProductBrand::where('id',$product->brand_id)->first();
         $translation = $product->translateOrOrigin(app()->getLocale());
-        $listAttrs = (!empty($product->attributes_for_variation)) ? $this->listAttrs($product->attributes_for_variation) : '';
-        $variable = $this->ProductVariationTerm($product->id);
-        $list_variable = $this->list_variable($variable);
-        $get_variation = $this->get_variable($list_variable);
+        $product_variations = $this->product_variations($product);
 
         $data = [
             'row'   =>  $product,
             'translation'  => $translation,
-            'brand'     =>  $brand,
-            'listAttrs'  => $listAttrs,
-            'variable'  =>  $variable,
-            'variations_product'    =>  json_encode($get_variation)
+            'variations_product'    =>  json_encode($product_variations['variations_product']),
+            'attrs_list' =>  $product_variations['attr_list']
         ];
         return view('Product::frontend.details.quick-view', $data)->render();
     }

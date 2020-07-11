@@ -1023,6 +1023,8 @@ ul.products{
 }
 .bravo_compare_box{
     display: none;
+    z-index: 100;
+    position: relative;
     &.active{
         display: block;
     }

@@ -984,7 +984,7 @@ function is_enable_language_route(){
 }
 function get_cart_fragments(){
     return [
-        '.user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.widget_shopping_cart_content, .user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
         '.ps-table--shopping-cart tbody'=>view('Booking::frontend.cart.list-cart')->render(),
         '.user-cart-count'=>Cart::count()
     ];

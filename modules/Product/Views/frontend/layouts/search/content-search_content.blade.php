@@ -5,11 +5,14 @@
         <a href="#" class="grid-view mf-shop-view current" data-view="grid">
             <i class="icon-grid"></i>
         </a>
-        <a href="#" class="list-view mf-shop-view " data-view="list">
+        <a href="#" class="list-view mf-shop-view" data-view="list">
             <i class="icon-list4"></i>
         </a>
     </div>
-    <a href="#" class="mf-filter-mobile" id="mf-filter-mobile"><i class="icon-equalizer"></i><span>Filter</span></a>
+    <a href="#" class="mf-filter-mobile" id="mf-filter-mobile">
+        <i class="icon-equalizer"></i>
+        <span>Filter</span>
+    </a>
     <ul class="woocommerce-ordering">
         <li class="current"><span>{{__('Sort by popularity')}}</span>
             <ul>

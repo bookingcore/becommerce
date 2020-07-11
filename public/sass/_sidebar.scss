@@ -76,6 +76,11 @@
             }
             .price{
                 margin: 0;
+                &.has-sale{
+                    ins{
+                        color: #ff3300;
+                    }
+                }
                 >*{
                     display: inline-block;
                 }

@@ -83,6 +83,9 @@
             align-items: center;
             justify-content: space-between;
             margin: 0 0 55px;
+            @media (max-width: 991px){
+                display: block;
+            }
             @media (max-width: 767px){
                 margin: 0 0 20px;
             }
@@ -91,6 +94,9 @@
                 font-weight: 600;
                 margin: 0;
                 line-height: 1;
+                @media (max-width: 991px){
+                    margin-bottom: 15px;
+                }
             }
             .extra-links{
                 padding: 0;
@@ -803,6 +809,11 @@
                         }
                     }
                     .price{
+                        &.has-sale{
+                            .sale-2{
+                                display: none;
+                            }
+                        }
                         del{
                             display: inline-block;
                         }
@@ -841,6 +852,16 @@
                     }
                     hr.hr-product-other, .product-other{
                         display: none;
+                    }
+                    .product-detail-add-to-cart{
+                        .quantity-input{
+                            margin: 0 20px 0 0;
+                        }
+                        .btn{
+                            &:not(.buy_now){
+                                margin-right: 19px;
+                            }
+                        }
                     }
                 }
             }

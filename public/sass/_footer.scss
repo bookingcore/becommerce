@@ -104,6 +104,105 @@
                     }
                 }
             }
+            .mf-cart-mobile{
+                .widget-canvas-content{
+                    height: calc(100vh - 117px);
+                    .widget_shopping_cart_content{
+                        height: 100%;
+                        .cart__items{
+                            height: 68%;
+                            overflow: auto;
+                            .ps-product--cart-mobile{
+                                position: relative;
+                                padding: 15px 25px 15px 15px;
+                                >*{
+                                    display: table-cell;
+                                    vertical-align: top;
+                                }
+                                .ps-product__thumbnail{
+                                    img{
+                                        width: 56px;
+                                    }
+                                }
+                                .ps-product__content{
+                                    padding-left: 15px;
+                                }
+                                .ps-product__remove{
+                                    position: absolute;
+                                    top: 10px;
+                                    right: 13px;
+                                    color: #ccc;
+                                    font-size: 20px;
+                                    font-weight: 400;
+                                }
+                                p{
+                                    margin: 0;
+                                    color: #aaa;
+                                    strong{
+                                        font-weight: 500;
+                                        color: #000;
+                                        margin-right: 4px;
+                                        padding-bottom: .25em;
+                                    }
+                                }
+                                small{
+                                    font-size: 14px;
+                                    color: #000;
+                                }
+                            }
+                            .cart__empty{
+                                padding: 20px;
+                            }
+                        }
+                        .cart__footer{
+                            position: absolute;
+                            bottom: 67px;
+                            left: 0;
+                            right: 0;
+                            border-top: 1px solid #e5e5e5;
+                            z-index: 10;
+                            background-color: #fff;
+                            h3{
+                                margin-top: 20px;
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                font-size: 18px;
+                                margin-bottom: 0;
+                                padding: 0 15px;
+                                color: #000;
+                                font-weight: 600;
+                                strong{
+                                    font-weight: 600;
+                                    color: #ff3300;
+                                }
+                            }
+                            figure{
+                                margin: 20px 0 1.7em;
+                                display: flex;
+                                justify-content: space-between;
+                                flex-wrap: wrap;
+                                padding-left: 15px;
+                                padding-right: 15px;
+                                a{
+                                    height: 45px;
+                                    line-height: 45px;
+                                    border-radius: 3px;
+                                    min-width: 150px;
+                                    margin-bottom: 10px;
+                                    white-space: nowrap;
+                                    &.checkout{
+                                        background: #e59c00;
+                                    }
+                                    @media (max-width: 370px){
+                                        min-width: inherit;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         .mf-navigation-mobile{
             display: none;

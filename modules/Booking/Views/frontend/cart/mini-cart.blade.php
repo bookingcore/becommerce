@@ -32,7 +32,7 @@
     </div>
 @else
         <div class="cart__items">
-            <div>{{__("Your cart is empty")}}</div>
+            <div class="cart__empty">{{__("Your cart is empty")}}</div>
         </div>
 @endif
 

@@ -100,8 +100,8 @@
             @include('Layout::parts.bc')
         @endif
         @yield('content')
-        @include('Layout::parts.quickView')
         @include('Layout::parts.compare')
+        @include('Layout::parts.quickView')
         @include('Layout::parts.footer')
     </div>
     {!! setting_item('footer_scripts') !!}

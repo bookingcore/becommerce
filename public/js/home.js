@@ -759,25 +759,26 @@ jQuery(function ($) {
             let variable_error = true;
             Bravo.variations.forEach(function (i) {
                 if (term_list.join() === i.term_id.join()){
+                    console.log(i);
                     variable_error = false;
                     Bravo.currentVariation = i;
                     //check stock status
                     let $stock = ''; let $in_stock = true;
-                    if (parseInt(i.vProduct_attr.is_manage_stock) > 0){
-                        if (i.vProduct_attr.stock_status === 'in'){
-                            $stock = i18n.num_stock.replace('__num__',i.vProduct_attr.quantity);
+                    if (parseInt(i.variations.is_manage_stock) > 0){
+                        if (i.variations.stock_status === 'in'){
+                            $stock = i18n.num_stock.replace('__num__',i.variations.quantity);
                         }
                     } else {
                         $stock = i18n.in_stock;
                     }
-                    if (i.vProduct_attr.stock_status === 'out'){
+                    if (i.variations.stock_status === 'out'){
                         $stock = i18n.out_stock;
                         $in_stock = false;
                     }
 
-                    if (!isNaN(parseInt(i.vProduct_attr.price)) && parseInt(i.vProduct_attr.price) > 0){
+                    if (!isNaN(parseInt(i.variations.price)) && parseInt(i.variations.price) > 0){
                         $('.single_variation_wrap').addClass('active');
-                        $('.single_variation_wrap .variation-price').attr('data-price',i.vProduct_attr.price).html(window.bravo_format_money(i.vProduct_attr.price));
+                        $('.single_variation_wrap .variation-price').attr('data-price',i.variations.price).html(window.bravo_format_money(i.variations.price));
                         $('.single_variation_wrap .variation-stock').removeClass('out-of-stock in_stock').addClass( $in_stock ? 'in_stock' : 'out-of-stock' ).find('.stock-status').html($stock);
                         if ($('.single_variation_wrap .variation-stock').hasClass('out-of-stock')){
                             $('.bravo_add_to_cart').attr('disabled','disabled');
