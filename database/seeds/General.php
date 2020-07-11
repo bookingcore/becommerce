@@ -410,7 +410,6 @@
                 'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-1', 'file_path' => 'demo/templates/menu-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
                 'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-2', 'file_path' => 'demo/templates/menu-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             ];
-            $home_url = config('app.url');
 
             $primary_menu = [
                 [
@@ -422,7 +421,7 @@
                     "origin_name"       => "Home Page",
                     "model_name"        => "Page",
                     "_open"             => false,
-                    "origin_edit_url"   => "$home_url/admin/module/page/edit/1",
+                    "origin_edit_url"   => "/admin/module/page/edit/1",
                     "layout"            => "",
                     "children"          => [
                         [
@@ -457,7 +456,7 @@
                             "children" => [
                                 [
                                     "name" => "Shop Sidebar",
-                                    "url" => "$home_url/product",
+                                    "url" => "/product",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -465,7 +464,7 @@
                                 ],
                                 [
                                     "name" => "Category layout",
-                                    "url" => "$home_url/category/clothing-apparel",
+                                    "url" => "/category/clothing-apparel",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -473,7 +472,7 @@
                                 ],
                                 [
                                     "name" => "Products Of Category",
-                                    "url" => "$home_url/category/mens",
+                                    "url" => "/category/mens",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -491,7 +490,7 @@
                             "children" => [
                                 [
                                     "name" => "Full Width",
-                                    "url" => "$home_url/product/mens-sports-runnning-swim-board-shorts",
+                                    "url" => "/product/mens-sports-runnning-swim-board-shorts",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -509,7 +508,7 @@
                             "children" => [
                                 [
                                     "name" => "Simple",
-                                    "url" => "$home_url/product/herschel-leather-duffle-bag-in-brown-color",
+                                    "url" => "/product/herschel-leather-duffle-bag-in-brown-color",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -517,7 +516,7 @@
                                 ],
                                 [
                                     "name" => "Color Swatches",
-                                    "url" => "$home_url/product/mens-sports-runnning-swim-board-shorts",
+                                    "url" => "/product/mens-sports-runnning-swim-board-shorts",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -525,7 +524,7 @@
                                 ],
                                 [
                                     "name" => "Out of stock",
-                                    "url" => "$home_url/product/korea-long-sofa-fabric-in-blue-navy-color",
+                                    "url" => "/product/korea-long-sofa-fabric-in-blue-navy-color",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -543,7 +542,7 @@
                             "children" => [
                                 [
                                     "name" => "Shopping Cart",
-                                    "url" => "$home_url/booking/cart",
+                                    "url" => "/booking/cart",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -551,7 +550,7 @@
                                 ],
                                 [
                                     "name" => "Wishlist",
-                                    "url" => "$home_url/user/wishlist",
+                                    "url" => "/user/wishlist",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",
@@ -559,7 +558,7 @@
                                 ],
                                 [
                                     "name" => "My account",
-                                    "url" => "$home_url/login",
+                                    "url" => "/login",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -583,7 +582,7 @@
                             "children" => [
                                 [
                                     "name" => "404 Page",
-                                    "url" => "$home_url/404",
+                                    "url" => "/404",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -597,13 +596,13 @@
                             "children" => [
                                 [
                                     "name" => "Become a Vendor",
-                                    "url" => "$home_url/page/become-a-vendor",
+                                    "url" => "/page/become-a-vendor",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ],
                                 [
                                     "name" => "Vendor store",
-                                    "url" => "$home_url/profile/1",
+                                    "url" => "/profile/1",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -627,7 +626,7 @@
                             "children" => [
                                 [
                                     "name" => "Right Sidebar",
-                                    "url" => "$home_url/news",
+                                    "url" => "/news",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
@@ -641,7 +640,7 @@
                             "children" => [
                                 [
                                     "name" => "Single",
-                                    "url" => "$home_url/news/morning-in-the-northern-sea",
+                                    "url" => "/news/morning-in-the-northern-sea",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]

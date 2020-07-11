@@ -2674,6 +2674,10 @@ input.form-control {
   display: none;
 }
 
+.bravo_product-list.style-1 .products li .product-price .price ins {
+  color: #690 !important;
+}
+
 .bravo_product-list.style-2 .cat-header {
   padding: 16px 20px;
   background-color: #f4f4f4;

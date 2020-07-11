@@ -71,6 +71,13 @@
                 .mf-vendor-name{
                     display: none;
                 }
+                .product-price{
+                    .price{
+                        ins{
+                            color: #690!important;
+                        }
+                    }
+                }
             }
         }
     }
