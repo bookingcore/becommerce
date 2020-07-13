@@ -174,7 +174,7 @@ $(document).on('click','.bravo_add_to_cart',function(e){
     var product = me.data('product');
     var q_input =  $('.quantity-input input[name=quantity]');
     var quantity = {qty: (!isNaN(parseInt(q_input.val()))) ? parseInt(q_input.val()) : 1};
-    var variations = {variation_id: Bravo.currentVariation.variations.id};
+    var variations = {variation_id: (Object.keys(Bravo.currentVariation).length > 0) ? Bravo.currentVariation.variations.id : null };
 
     $.ajax({
         url:Bravo.routes.add_to_cart,

@@ -115,6 +115,9 @@
                             .ps-product--cart-mobile{
                                 position: relative;
                                 padding: 15px 25px 15px 15px;
+                                &:not(:last-child){
+                                    border-bottom: 1px solid #e5e5e5;
+                                }
                                 >*{
                                     display: table-cell;
                                     vertical-align: top;

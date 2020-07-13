@@ -633,12 +633,17 @@ jQuery(function ($) {
     let navigation_mobile = $('.mf-navigation-mobile .navigation-list > a').not($('.navigation-mobile_home'));
     navigation_mobile.click(function (e) {
         e.preventDefault();
-        let id = $(this).attr('data-id');
-        navigation_mobile.removeClass('active');
-        $('.mf-els-item').removeClass('current');
-        $(this).addClass('active');
-        $('.mf-els-modal-mobile').addClass('open');
-        $('#'+id).addClass('current');
+        if ($(this).hasClass('active')){
+            $(this).removeClass('active');
+            $('.mf-els-modal-mobile').removeClass('open');
+        } else {
+            let id = $(this).attr('data-id');
+            navigation_mobile.removeClass('active');
+            $('.mf-els-item').removeClass('current');
+            $(this).addClass('active');
+            $('.mf-els-modal-mobile').addClass('open');
+            $('#'+id).addClass('current');
+        }
     });
     $('.close-mobile-nav, .close-cart-mobile').click(function () {
         $(this).closest('.mf-els-modal-mobile').removeClass('open');
@@ -794,6 +799,13 @@ jQuery(function ($) {
             }
         }
     })
+    $('.user-mini-cart').click(function (e) {
+        let width = $(window).width();
+        if (width <= 991){
+            e.preventDefault();
+            $('.navigation-mobile_cart').click();
+        }
+    });
 });
 
 jQuery(function ($) {

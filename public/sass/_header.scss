@@ -120,6 +120,11 @@
                         }
                         &.user-mini-cart{
                             padding-right: 10px;
+                            &:hover{
+                                .cart-content{
+                                    display: none;
+                                }
+                            }
                         }
                         &.menu-user{
                             .u-left{

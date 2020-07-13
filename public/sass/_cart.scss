@@ -271,7 +271,7 @@ button {
 
     .ps-block--shopping-total  {
         margin-bottom: 30px;
-        padding: 30px 35px;
+        padding: 20px 30px;
         background-color: #f1f1f1;
         border: 1px solid #bfbfbf;
         .ps-block__header {
@@ -279,6 +279,7 @@ button {
             margin-bottom: 20px;
             border-bottom: 1px solid #ccc;
             p {
+                margin-bottom: 20px;
                 font-size: 16px;
                 span {
                     float: right;
@@ -339,6 +340,9 @@ button {
                         }
                     }
                 }
+            }
+            h3{
+                font-size: 20px;
             }
         }
     }
