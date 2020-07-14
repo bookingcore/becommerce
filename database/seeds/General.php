@@ -472,7 +472,7 @@
                                 ],
                                 [
                                     "name" => "Products Of Category",
-                                    "url" => "/category/mens",
+                                    "url" => "/category/consumer-electrics",
                                     "item_model" => "custom",
                                     "_open" => false,
                                     "model_name" => "Custom",

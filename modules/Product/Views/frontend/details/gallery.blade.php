@@ -13,7 +13,7 @@
                 <li data-thumb="{{$item['thumb']}}">
                     <img src="{{$item['large']}}" />
                 </li>
-        @endforeach
+            @endforeach
         </ul>
     </div>
 @endif

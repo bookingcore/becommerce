@@ -806,6 +806,13 @@ jQuery(function ($) {
             $('.navigation-mobile_cart').click();
         }
     });
+    $('.mf-filter-mobile').click(function (e) {
+        e.preventDefault();
+        $('.col-bravo-filter, .bravo-filter').addClass('active');
+    })
+    $('.mf-catalog-close-sidebar').click(function () {
+        $('.col-bravo-filter, .bravo-filter').removeClass('active');
+    })
 });
 
 jQuery(function ($) {

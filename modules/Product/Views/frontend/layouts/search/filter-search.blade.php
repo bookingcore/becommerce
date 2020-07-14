@@ -1,4 +1,10 @@
 <div class="bravo-filter">
+    <div class="filter-header">
+        <div class="mf-catalog-close-sidebar" id="mf-catalog-close-sidebar">
+            <h2>{{ __('Filter Products') }}</h2>
+            <a class="close-sidebar"><i class="icon-cross"></i></a>
+        </div>
+    </div>
     <form action="{{ route("product.index") }}" class="bravo_form_filter">
         <aside id="primary-sidebar" class="widgets-area primary-sidebar catalog-sidebar">
             <div id="mf_product_categories-2" class="widget mf_widget_product_categories">

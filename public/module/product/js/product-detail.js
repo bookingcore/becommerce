@@ -4,7 +4,7 @@ $(document).ready(function () {
     if(gallery_box.length > 0){
         if (width < 768) {
             gallery_box.flexslider({
-                animation: "slide",
+                animation: "slide"
             });
         } else {
             gallery_box.flexslider({

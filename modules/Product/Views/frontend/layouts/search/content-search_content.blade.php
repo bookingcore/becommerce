@@ -14,7 +14,7 @@
         <span>Filter</span>
     </a>
     <ul class="woocommerce-ordering">
-        <li class="current"><span>{{__('Sort by popularity')}}</span>
+        <li class="current"><span>{{__('Sort by average rating')}}</span>
             <ul>
                 <li><a href="#" class="active">{{__('Sort by popularity')}}</a></li>
                 <li><a href="#" class="">{{__('Sort by average rating')}}</a></li>
