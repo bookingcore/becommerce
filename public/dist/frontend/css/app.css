@@ -3849,6 +3849,13 @@ input.form-control {
   color: #fff;
 }
 
+@media (max-width: 767px) {
+  .product-detail-add-to-cart .btn.add_to_cart {
+    margin-right: 0;
+    min-width: 173px;
+  }
+}
+
 .product-detail-add-to-cart .btn.add_to_cart:hover {
   color: #fff;
 }
@@ -3856,6 +3863,13 @@ input.form-control {
 .product-detail-add-to-cart .btn.buy_now {
   color: #000;
   background-color: #fcb800;
+}
+
+@media (max-width: 1024px) {
+  .product-detail-add-to-cart .btn.buy_now {
+    margin-top: 20px;
+    width: 100%;
+  }
 }
 
 .product-detail-add-to-cart .btn-custom:last-child > a {
@@ -4062,10 +4076,50 @@ input.form-control {
   padding-right: 50px;
 }
 
+@media (max-width: 1024px) {
+  .bravo_detail_product .col-product-info {
+    flex: inherit;
+    max-width: inherit;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .bravo_detail_product .col-product-info {
+    padding-right: 15px;
+  }
+
+  .bravo_detail_product .col-product-info .row > * {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
 .bravo_detail_product .col-product-info .product-detail-gallery {
   margin-bottom: 0;
   padding-left: 70px;
   position: relative;
+}
+
+@media (max-width: 1024px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery {
+    border: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery {
+    padding: 0;
+    height: auto;
+  }
 }
 
 .bravo_detail_product .col-product-info .product-detail-gallery .flex-direction-nav {
@@ -4079,12 +4133,43 @@ input.form-control {
   width: 70px;
 }
 
+@media (max-width: 767px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav {
+    top: initial;
+    width: 100%;
+  }
+}
+
 .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li {
   margin: 0;
   list-style: none;
   float: none;
   width: 55px;
   padding: 5px 0;
+}
+
+@media (max-width: 1024px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li {
+    padding: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li {
+    width: auto;
+    margin: 0 5px;
+  }
+
+  .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li a {
+    width: 8px;
+    height: 8px;
+    background: #dbdbdb;
+    box-shadow: none;
+  }
+
+  .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li a.flex-active {
+    background: #fcb800;
+  }
 }
 
 .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li img {
@@ -4109,6 +4194,12 @@ input.form-control {
   line-height: 1.2;
   margin-top: 0;
   margin-bottom: 6px;
+}
+
+@media (max-width: 768px) {
+  .bravo_detail_product .col-product-info .col-product-meta .product-detail-meta .product-name {
+    font-size: 20px;
+  }
 }
 
 .bravo_detail_product .col-product-info .col-product-meta .product-detail-meta .brand-review .product-brand {
@@ -4312,6 +4403,14 @@ input.form-control {
   background-color: #c8232c;
 }
 
+.bravo_detail_product .col-product-info .col-product-meta .product-detail-meta .social-links > a {
+  margin: 0 !important;
+}
+
+.bravo_detail_product .col-product-info .col-product-meta .product-detail-meta .social-links > a:not(:last-child) {
+  margin-right: 5px !important;
+}
+
 .bravo_detail_product .col-product-info .product-tabs .nav-tabs {
   text-align: center;
   margin-bottom: 50px;
@@ -4363,6 +4462,18 @@ input.form-control {
 
 .bravo_detail_product .col-product-sidebar {
   max-width: 19%;
+}
+
+@media (max-width: 1024px) {
+  .bravo_detail_product .col-product-sidebar {
+    max-width: inherit;
+  }
+}
+
+@media (max-width: 768px) {
+  .bravo_detail_product .col-product-sidebar {
+    display: none;
+  }
 }
 
 .bravo_detail_product .product-tabs .tab-content .wcmp-product-policies .wcmp_policies_heading {

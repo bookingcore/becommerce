@@ -80,32 +80,22 @@
                         </div>
                         <ul class="payments">
                             <li>
-                                <img width="45" height="22" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p1.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p1.jpg" data-was-processed="true"><noscript>
-                                 <img width="45" height="22" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p1.jpg" class="attachment-full size-full" alt="" />
-                                </noscript>
+                                <img src="{{asset('/images/p1.jpg')}}" alt="p1">
                             </li>
                             <li>
-                                <img width="44" height="27" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p2.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p2.jpg" data-was-processed="true">
-                                <noscript>
-                                <img width="44" height="27" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p2.jpg" class="attachment-full size-full" alt="" /></noscript>
+                                <img src="{{asset('/images/p2.jpg')}}" alt="p2">
                             </li>
                             <li>
-                                <img width="44" height="27" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p3.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p3.jpg" data-was-processed="true">
-                                <noscript>
-                                    <img width="44" height="27" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p3.jpg" class="attachment-full size-full" alt="" />
-                                </noscript></li><li><img width="46" height="15" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p4.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p4.jpg" data-was-processed="true">
-                                <noscript>
-                                    <img width="46" height="15" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p4.jpg" class="attachment-full size-full" alt="" />
-                                </noscript></li><li><img width="45" height="14" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p5.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p5.jpg" data-was-processed="true">
-                                <noscript>
-                                    <img width="45" height="14" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p5.jpg" class="attachment-full size-full" alt="" />
-                                </noscript>
+                                <img src="{{asset('/images/p3.jpg')}}" alt="p3">
                             </li>
                             <li>
-                                <img width="46" height="13" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p6.jpg" class="attachment-full size-full lazyloaded" alt="" data-lazy-src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p6.jpg" data-was-processed="true">
-                                <noscript>
-                                    <img width="46" height="13" src="http://demo2.drfuri.com/martfury3/wp-content/uploads/sites/38/2017/12/p6.jpg" class="attachment-full size-full" alt="" />
-                                </noscript>
+                                <img src="{{asset('/images/p4.jpg')}}" alt="p4">
+                            </li>
+                            <li>
+                                <img src="{{asset('/images/p5.jpg')}}" alt="p5">
+                            </li>
+                            <li>
+                                <img src="{{asset('/images/p6.jpg')}}" alt="p6">
                             </li>
                         </ul>
                     </div>
