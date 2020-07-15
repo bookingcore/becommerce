@@ -2,6 +2,7 @@
 namespace Modules\News\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\Contact\Models\Contact;
 use Modules\FrontendController;
 use Modules\Language\Models\Language;
 use Modules\News\Models\News;
