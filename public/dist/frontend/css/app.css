@@ -2813,6 +2813,20 @@ input.form-control {
   padding-top: 30px;
 }
 
+.bravo_search_product .col-bravo-filter-content .product-warring,
+.bravo_profile_content .col-bravo-filter-content .product-warring,
+.page-profile-content .col-bravo-filter-content .product-warring {
+  display: none;
+}
+
+@media (max-width: 991px) {
+  .bravo_search_product .col-bravo-filter-content .product-warring,
+  .bravo_profile_content .col-bravo-filter-content .product-warring,
+  .page-profile-content .col-bravo-filter-content .product-warring {
+    display: block;
+  }
+}
+
 @media (max-width: 991px) {
   .bravo_search_product .col-bravo-filter,
   .bravo_profile_content .col-bravo-filter,

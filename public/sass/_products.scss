@@ -197,6 +197,14 @@
 }
 .bravo_search_product, .bravo_profile_content, .page-profile-content{
     padding-top: 30px;
+    .col-bravo-filter-content{
+        .product-warring{
+            display: none;
+            @media (max-width: 991px){
+                display: block;
+            }
+        }
+    }
     @media (max-width: 991px){
         .col-bravo-filter{
             position: fixed;

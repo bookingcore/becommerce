@@ -32,6 +32,10 @@
             @foreach($rows as $row)
                 @include('Product::frontend.layouts.product')
             @endforeach
+        @else
+            <div class="alert alert-warning product-warring" role="alert" style="width: 100%">
+                {!! __('0 Product found') !!}
+            </div>
         @endif
     </ul>
     <div class="clearfix"></div>
