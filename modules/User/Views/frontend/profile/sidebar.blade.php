@@ -1,5 +1,11 @@
 <?php $avatar = $user->getAvatarUrl(); ?>
 <div class="bravo_profile_sidebar bravo-filter">
+    <div class="filter-header">
+        <div class="mf-catalog-close-sidebar" id="mf-catalog-close-sidebar">
+            <h2>{{ __('Filter Products') }}</h2>
+            <a class="close-sidebar"><i class="icon-cross"></i></a>
+        </div>
+    </div>
     <div class="profile-summary">
         <div class="profile-header">
             <div class="profile-avatar {{ !empty($avatar) ? 'avatar-img' : '' }}">
