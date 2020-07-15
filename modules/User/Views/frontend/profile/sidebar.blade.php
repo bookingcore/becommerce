@@ -1,5 +1,5 @@
 <?php $avatar = $user->getAvatarUrl(); ?>
-<div class="bravo_profile_sidebar">
+<div class="bravo_profile_sidebar bravo-filter">
     <div class="profile-summary">
         <div class="profile-header">
             <div class="profile-avatar {{ !empty($avatar) ? 'avatar-img' : '' }}">

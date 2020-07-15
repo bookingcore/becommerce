@@ -1,7 +1,6 @@
 @php
     $user = (!empty(\Illuminate\Support\Facades\Auth::user())) ? \Illuminate\Support\Facades\Auth::user() : null;
     $has_user = ($user) ? true : false;
-    dump($user);
 @endphp
 <div id="customer_details">
     <div class="checkout-billing">

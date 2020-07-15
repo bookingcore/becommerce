@@ -498,7 +498,6 @@ class Product extends BaseProduct
     public function update_service_rate(){
         $rateData = $this->reviewClass::selectRaw("AVG(rate_number) as rate_total")->where('object_id', $this->id)->where('object_model',$this->type)->where("status", "approved")->first();
         $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
-        dump($rate_number);
         $this->review_score = $rate_number;
         $this->save();
     }

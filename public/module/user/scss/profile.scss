@@ -199,47 +199,6 @@
     }
 }
 .bravo_profile_content{
-    .shop-toolbar{
-        background-color: #f5f5f5;
-        padding: 0 15px;
-        overflow: hidden;
-        margin-bottom: 40px;
-        .products-found{
-            float: left;
-            min-height: 51px;
-            display: flex;
-            align-items: center;
-            strong{
-                color: #000;
-                font-weight: 600;
-                padding-right: 5px;
-            }
-        }
-        .shop-view{
-            float: right;
-            display: flex;
-            align-items: center;
-            min-height: 51px;
-            color: #000;
-            > span{
-                padding-right: 5px;
-            }
-            .mf-shop-view{
-                margin-left: 15px;
-                font-size: 24px;
-                color: #999;
-                line-height: 1;
-                margin-top: 3px;
-                display: block;
-                &.current{
-                    color: #000;
-                }
-            }
-        }
-        .mf-filter-mobile{
-            display: none;
-        }
-    }
     .mf-shop-content{
         .products{
             list-style: none;

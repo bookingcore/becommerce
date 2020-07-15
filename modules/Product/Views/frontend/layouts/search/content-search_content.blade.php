@@ -1,5 +1,9 @@
 <div id="mf-catalog-toolbar" class="shop-toolbar multiple">
-    <div class="products-found">{!! __('<strong>:count</strong> Products found',['count'=>$rows->total()]) !!}</div>
+    <div class="products-found">{!! __('<strong>:count</strong> :product found',['count'=>$rows->total(),'product'=>($rows->total() > 0) ? 'Products' : 'Product']) !!}</div>
+    <a href="#" class="mf-filter-mobile" id="mf-filter-mobile">
+        <i class="icon-equalizer"></i>
+        <span>{{ __('Filter') }}</span>
+    </a>
     <div class="shop-view">
         <span>{{__('View')}}</span>
         <a href="#" class="grid-view mf-shop-view current" data-view="grid">
@@ -9,10 +13,6 @@
             <i class="icon-list4"></i>
         </a>
     </div>
-    <a href="#" class="mf-filter-mobile" id="mf-filter-mobile">
-        <i class="icon-equalizer"></i>
-        <span>Filter</span>
-    </a>
     <ul class="woocommerce-ordering">
         <li class="current"><span>{{__('Sort by average rating')}}</span>
             <ul>
