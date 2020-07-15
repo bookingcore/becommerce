@@ -4274,6 +4274,11 @@ input.form-control {
   position: relative;
 }
 
+.bravo_detail_product .col-product-info .product-detail-gallery .slides > li {
+  margin-left: -1px !important;
+  margin-right: 2px !important;
+}
+
 @media (max-width: 1024px) {
   .bravo_detail_product .col-product-info .product-detail-gallery {
     border: none;

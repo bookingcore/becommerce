@@ -383,6 +383,12 @@
             margin-bottom: 0;
             padding-left: 70px;
             position: relative;
+            .slides{
+                >li{
+                    margin-left: -1px!important;
+                    margin-right: 2px!important;
+                }
+            }
             @media (max-width: 1024px){
                 border: none;
             }
