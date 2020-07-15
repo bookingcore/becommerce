@@ -64,8 +64,8 @@ class ProductController extends Controller
         if (is_array($review_scores) && !empty($review_scores)) {
             $where_review_score = [];
             foreach ($review_scores as $number){
-                $test = $number - 1;
-                $where_review_score[] = " ( products.review_score >= {$test}.5 AND products.review_score <= {$number}.9 ) ";
+                $decrease_number = $number - 1;
+                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
             }
             $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
             $query->WhereRaw($sql_where_review_score);
