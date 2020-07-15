@@ -32557,9 +32557,6 @@ body.navigation-mobile-active {
     }
 
     .woocommerce ul.products li.product {
-        &:nth-child(3n+1) {
-            clear: both;
-        }
 
         &.un-4-cols {
             &:nth-child(3n+1) {
@@ -32867,10 +32864,6 @@ body.navigation-mobile-active {
                 border: none;
                 left: 0;
                 right: 0;
-            }
-
-            &:nth-child(3n+1) {
-                clear: both;
             }
 
             &.un-4-cols {
@@ -33739,16 +33732,6 @@ body.navigation-mobile-active {
 
     .mf-products-grid .cat-header .link {
         padding-left: 0;
-    }
-
-    .woocommerce ul.products:not(.slick-slider) li.product {
-        &:nth-child(3n+1) {
-            clear: none !important;
-        }
-
-        &:nth-child(2n+1) {
-            clear: both !important;
-        }
     }
 
     .mf-product-deals-day {

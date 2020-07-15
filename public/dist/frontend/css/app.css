@@ -3295,7 +3295,7 @@ input.form-control {
     width: calc(100%/3 - 2.5px);
     padding: 0 !important;
     border: 1px solid #dfdfdf;
-    margin-right: 2.5px;
+    margin-right: 1.5px;
     margin-bottom: 2.5px !important;
   }
 }
@@ -38078,10 +38078,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
     display: none;
   }
 
-  .woocommerce ul.products li.product:nth-child(3n+1) {
-    clear: both;
-  }
-
   .woocommerce ul.products li.product.un-4-cols:nth-child(3n+1) {
     clear: none;
   }
@@ -38372,10 +38368,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
     border: none;
     left: 0;
     right: 0;
-  }
-
-  .woocommerce ul.products li.product:nth-child(3n+1) {
-    clear: both;
   }
 
   .woocommerce ul.products li.product.un-4-cols:nth-child(4n+1) {
@@ -39205,14 +39197,6 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
 
   .mf-products-grid .cat-header .link {
     padding-left: 0;
-  }
-
-  .woocommerce ul.products:not(.slick-slider) li.product:nth-child(3n+1) {
-    clear: none !important;
-  }
-
-  .woocommerce ul.products:not(.slick-slider) li.product:nth-child(2n+1) {
-    clear: both !important;
   }
 
   .mf-product-deals-day .cat-header {
