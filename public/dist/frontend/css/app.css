@@ -34694,14 +34694,25 @@ code {
 
 .site-footer .footer-payments ul {
   margin: 0;
-  padding: 0;
+  padding: 0 0 0 27px;
   display: flex;
   align-items: center;
-  padding-left: 27px;
+}
+
+@media (max-width: 768px) {
+  .site-footer .footer-payments ul {
+    padding: 0;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+  }
 }
 
 .site-footer .footer-payments ul li {
   list-style: none;
+}
+
+.site-footer .footer-payments ul li:not(:first-child) {
   padding-left: 13px;
 }
 

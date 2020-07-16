@@ -28919,14 +28919,21 @@ code {
 
         ul {
             margin: 0;
-            padding: 0;
+            padding: 0 0 0 27px;
             display: flex;
             align-items: center;
-            padding-left: 27px;
+            @media(max-width: 768px){
+                padding: 0;
+                width: 100%;
+                max-width: 340px;
+                margin: 0 auto
+            }
 
             li {
                 list-style: none;
-                padding-left: 13px;
+                &:not(:first-child){
+                    padding-left: 13px;
+                }
             }
         }
     }
