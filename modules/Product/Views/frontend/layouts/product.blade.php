@@ -57,7 +57,7 @@ $score_total = $reviewData['score_total'];
                 @php
                     $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] );
                 @endphp
-                <a href="{{$link_search_brand}}">{{$row->brand->name}}</a>
+                <a href="{{$link_search_brand}}">{{$row->brand['name']}}</a>
             </div>
         </div>
         <div class="product-price">

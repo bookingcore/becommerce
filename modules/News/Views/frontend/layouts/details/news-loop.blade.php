@@ -2,15 +2,16 @@
     @php $translation = $row->translateOrOrigin(app()->getLocale()); @endphp
 
     <article class="col-md-6 col-sm-6 col-xs-6 blog-wapper">
-        @if($image_tag = get_image_tag($row->image_id,'full'))
-                <header class="entry-header">
-                    <div class="entry-format format-audio">
-                        <a class="entry-image" href="{{$row->getDetailUrl()}}">
-                            {!! $image_tag !!}
-                        </a>
-                    </div>
-                </header>
-        @endif
+        <header class="entry-header">
+            <div class="entry-format format-audio">
+                <a class="entry-image" href="{{$row->getDetailUrl()}}">
+                    @if($image_tag = get_image_tag($row->image_id,'full'))
+                        {!! $image_tag !!}
+                    @endif
+                </a>
+            </div>
+        </header>
+
         <!-- .entry-header -->
         <div class="entry-content">
             <div class="entry-content-top">
