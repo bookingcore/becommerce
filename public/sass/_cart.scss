@@ -602,6 +602,15 @@ button {
                     outline: 0;
                     line-height: normal;
                 }
+                .select2{
+                    width: 100% !important;
+                    .select2-selection{
+                        padding: 10px 16px;
+                        .select2-selection__arrow{
+                            top: 10px;
+                        }
+                    }
+                }
             }
         }
     }
