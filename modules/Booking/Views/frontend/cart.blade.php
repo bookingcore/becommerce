@@ -18,8 +18,11 @@
             <div id="bravo-cart-page">
                 <div class="row">
                     @if(Cart::count() > 0)
-                        <div class="booking-form">
-                            @include ('Booking::frontend.cart.form')
+                        <div class="col-md-12">
+                            <div class="booking-form">
+                                <h2 class="cart-title">{{ __('Your Cart Items') }}</h2>
+                                @include ('Booking::frontend.cart.form')
+                            </div>
                         </div>
                     @else
                         <div class="col-md-12">
@@ -35,7 +38,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('footer')
-{{--    <script src="{{ asset('module/booking/js/cart.js') }}"></script>--}}
 @endsection

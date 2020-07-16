@@ -12,15 +12,15 @@
                     <div class="ps-product__content">
                         <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->name}}</a>
                         @if($author = $cartItem->model->author)
-                            <p>{{__('Sold by:')}}<strong> {{$author->getDisplayName()}}</strong></p>
+                            <p>{{__('Sold by:')}} <span>{{$author->getDisplayName()}}</span></p>
                         @endif
                     </div>
                 </div>
             </td>
 
         @endif
-        <td class="price" data-price="{{$cartItem->price}}">{{format_money($cartItem->price)}}</td>
-        <td>
+        <td class="price" data-price="{{$cartItem->price}}" data-table="{{ __('Price:') }}"><span>{{format_money($cartItem->price)}}</span></td>
+        <td class="quantity_box">
             <div class="form-group--number quantity-number">
                 <button class="up">+</button>
                 <button class="down">-</button>
@@ -28,8 +28,8 @@
                 <input class="form-control" type="number" name="product[{{$stt}}][{{$cartItem->rowId}}]" data-stock="{{$stock_total}}" inputmode="numeric" min="0" value="{{ $cartItem->qty }}">
             </div>
         </td>
-        <td class="total">{{ format_money($cartItem->qty * $cartItem->price) }}</td>
-        <td><a href="#" class="bravo_delete_cart_item" data-id="{{$cartItem->rowId}}"><i class="icon-cross2"></i></a></td>
+        <td class="total" data-table="{{ __('Total:') }}"><span>{{ format_money($cartItem->qty * $cartItem->price) }}</span></td>
+        <td class="remove_cart"><a href="#" class="bravo_delete_cart_item" data-id="{{$cartItem->rowId}}"><i class="icon-cross2"></i></a></td>
     </tr>
     @php $stt++; @endphp
 @endforeach
