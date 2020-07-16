@@ -13,10 +13,10 @@
     <td class="product-name">
         <a href="{{route('product.detail',['slug'=>$row->slug])}}">{{$row->title}}</a>
     </td>
-    <td class="product-price">
+    <td class="product-price" data-table="{{ __('Price:') }}">
         @include('Product::frontend.details.price')
     </td>
-    <td class="product-stock-status">
+    <td class="product-stock-status" data-table="{{ __('Stock:') }}">
         <span class="{{ ($row->stock_status == 'in') ? 'wishlist-in-stock' : 'wishlist-out-of-stock' }}">{{ ($row->stock_status == 'in') ? 'In Stock' : 'Out of stock' }}</span>
     </td>
 

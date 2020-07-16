@@ -1,4 +1,9 @@
 .wishList-page{
+    .entry-title{
+        @media (max-width: 767px){
+            font-size: 24px;
+        }
+    }
     .wishlist-message{
         padding: 1em 2em 1em 3.5em;
         margin: 0 0 2em;
@@ -22,6 +27,9 @@
     }
     .site-content{
         padding: 90px 0;
+        @media (max-width: 767px) {
+            padding: 40px 0;
+        }
         table{
             a.remove{
                 display: block;
@@ -47,6 +55,9 @@
                     }
                 }
                 thead{
+                    @media (max-width: 767px){
+                        display: none;
+                    }
                     th{
                         border-color: #e7e7e7;
                     }
@@ -163,6 +174,56 @@
                     padding-bottom: 30px;
                     text-align: left;
                     font-size: 16px;
+                }
+                tbody{
+                    @media (max-width: 767px){
+                        tr{
+                            display: block;
+                            border-bottom: 1px solid #d6d6d6;
+                            margin-bottom: 30px;
+                            padding-bottom: 30px;
+                        }
+                        td{
+                            display: block;
+                            border: none!important;
+                            padding: 0;
+                            &:not(.product-thumbnail){
+                                padding-left: 70px;
+                                width: auto;
+                            }
+                            &.product-thumbnail{
+                                float: left;
+                                width: 60px;
+                                height: 60px;
+                                margin-right: 10px;
+                            }
+                            &.product-name{
+                                font-weight: 600;
+                            }
+                            &.product-price, &.product-stock-status{
+                                >*{
+                                    display: inline-block !important;
+                                }
+                                &:before{
+                                    content: attr(data-table);
+                                    color: #666;
+                                    font-size: 14px;
+                                }
+                            }
+                            &.product-remove{
+                                position: absolute;
+                                padding: 0;
+                                right: 15px;
+                                top: 4px;
+                            }
+                            &.product-add-to-cart{
+                                text-align: left;
+                                .button{
+                                    padding: 0 13px!important;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             &.shop_table{
