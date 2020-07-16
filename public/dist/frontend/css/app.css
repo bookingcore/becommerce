@@ -897,6 +897,12 @@ h6 {
   overflow: auto;
 }
 
+@media (max-width: 991px) {
+  .bravo_footer .bravo_footer_menu .mf-els-modal-mobile .mf-cart-mobile .widget-canvas-content .widget_shopping_cart_content .cart__items {
+    height: calc(100vh - 268px);
+  }
+}
+
 .bravo_footer .bravo_footer_menu .mf-els-modal-mobile .mf-cart-mobile .widget-canvas-content .widget_shopping_cart_content .cart__items .ps-product--cart-mobile {
   position: relative;
   padding: 15px 25px 15px 15px;
