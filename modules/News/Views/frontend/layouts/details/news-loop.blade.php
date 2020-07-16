@@ -7,6 +7,8 @@
                 <a class="entry-image" href="{{$row->getDetailUrl()}}">
                     @if($image_tag = get_image_tag($row->image_id,'full'))
                         {!! $image_tag !!}
+                    @else
+                        <img src="{{asset('images/image-error.jpg')}}" alt="Image empty">
                     @endif
                 </a>
             </div>

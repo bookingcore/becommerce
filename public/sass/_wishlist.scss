@@ -191,6 +191,9 @@
                                 padding-left: 70px;
                                 width: auto;
                             }
+                            &.wishlist-empty{
+                                padding-left: 0;
+                            }
                             &.product-thumbnail{
                                 float: left;
                                 width: 60px;

@@ -12760,14 +12760,6 @@ body.display-mobile-menu {
   margin-bottom: 25px;
 }
 
-.blog-wapper .entry-format > a {
-  position: relative;
-  display: block;
-  width: 100%;
-  min-height: 219px;
-  background: #ccc;
-}
-
 .blog-wapper .entry-format > a:hover {
   opacity: 0.7;
 }
@@ -41356,6 +41348,10 @@ body.navigation-mobile-active .martfury-off-canvas-layer {
   .wishList-page .site-content table.wishlist_table tbody td:not(.product-thumbnail) {
     padding-left: 70px;
     width: auto;
+  }
+
+  .wishList-page .site-content table.wishlist_table tbody td.wishlist-empty {
+    padding-left: 0;
   }
 
   .wishList-page .site-content table.wishlist_table tbody td.product-thumbnail {
