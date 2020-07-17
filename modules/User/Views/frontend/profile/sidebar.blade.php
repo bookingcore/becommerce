@@ -71,7 +71,7 @@
         <h4 class="title">Quick Info</h4>
         <div class="quick-info-wrapper">
             <p>Do you need more information? Write to us!</p>
-            <form action="" method="post" id="respond" style="padding: 0;">
+            <form action="{{ route('user.profile',['id'=>$user->id]) }}" method="post" id="respond" style="padding: 0;">
                 @csrf
                 <input type="text" class="input-text " name="quick_info[name]" value="" placeholder="Name">
                 <input type="text" class="input-text " name="quick_info[subject]" value="" placeholder="Subject">
