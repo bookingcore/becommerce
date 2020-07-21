@@ -62,7 +62,7 @@ class StripeGateway extends BaseGateway
         ];
     }
 
-    public function process(Request $request, $booking, $service)
+    public function process(Request $request, $booking)
     {
         if (in_array($booking->status, [
             $booking::PAID,
@@ -70,10 +70,10 @@ class StripeGateway extends BaseGateway
             $booking::CANCELLED
         ])) {
 
-            throw new Exception(__("Booking status does need to be paid"));
+            throw new Exception(__("Order does not need to be paid"));
         }
         if (!$booking->total) {
-            throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
         $rules = [
             'card_name'    => ['required'],
@@ -115,9 +115,9 @@ class StripeGateway extends BaseGateway
                 } catch(\Swift_TransportException $e){
                     Log::warning($e->getMessage());
                 }
-                response()->json([
+                return response()->json([
                     'url' => $booking->getDetailUrl()
-                ])->send();
+                ]);
             } else {
                 $payment->status = 'fail';
                 $payment->logs = \GuzzleHttp\json_encode($response->getData());

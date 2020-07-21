@@ -97,17 +97,6 @@
                                 </td>
                                 <td>{{display_datetime($row->updated_at)}}</td>
                                 <td>
-                                    @if($service = $row->service)
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{__('Actions')}}
-                                            </button>
-                                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-booking-{{$row->id}}">{{__('Detail')}}</a>
-                                                <a class="dropdown-item" href="{{url('admin/module/report/booking/email_preview/'.$row->id)}}">{{__('Email Preview')}}</a>
-                                            </div>
-                                        </div>
-                                        @include ($service->checkout_booking_detail_modal_file ?? '')
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach

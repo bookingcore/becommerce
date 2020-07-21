@@ -2,6 +2,7 @@
 namespace Modules\Booking\Gateways;
 
 use Illuminate\Http\Request;
+use Modules\Product\Models\Order;
 
 abstract class BaseGateway
 {
@@ -26,10 +27,9 @@ abstract class BaseGateway
 
     /**
      * @param Request $request
-     * @param \Modules\Booking\Models\Booking $booking
-     * @param \Modules\Booking\Models\Bookable $service
+     * @param Order
      */
-    public function process(Request $request, $booking, $service)
+    public function process(Request $request, $order)
     {
 
     }

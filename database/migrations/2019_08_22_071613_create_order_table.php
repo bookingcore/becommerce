@@ -19,6 +19,7 @@ class CreateOrderTable extends Migration
 
             $table->integer('payment_id')->nullable();
             $table->string('gateway',50)->nullable();
+            $table->bigInteger('customer_id')->nullable();
 
             $table->decimal('total',10,2)->nullable();
             $table->string('currency',20)->nullable();
@@ -28,12 +29,6 @@ class CreateOrderTable extends Migration
             $table->decimal('total_before_tax',10,2)->nullable();
             $table->decimal('tax_amount',10,2)->nullable();
 
-            $table->decimal('deposit',10,2)->nullable();
-            $table->string('deposit_type',30)->nullable();
-
-            $table->decimal('commission',10,2)->nullable();
-            $table->string('commission_type',30)->nullable();
-
             $table->string('email',255)->nullable();
             $table->string('first_name',255)->nullable();
             $table->string('last_name',255)->nullable();
@@ -42,8 +37,21 @@ class CreateOrderTable extends Migration
             $table->string('address2',255)->nullable();
             $table->string('city',255)->nullable();
             $table->string('state',255)->nullable();
-            $table->string('zip_code',255)->nullable();
+            $table->string('postcode',255)->nullable();
             $table->string('country',255)->nullable();
+            $table->string('company',255)->nullable();
+
+
+            $table->string('shipping_first_name',255)->nullable();
+            $table->string('shipping_last_name',255)->nullable();
+            $table->string('shipping_address',255)->nullable();
+            $table->string('shipping_address2',255)->nullable();
+            $table->string('shipping_city',255)->nullable();
+            $table->string('shipping_state',255)->nullable();
+            $table->string('shipping_postcode',255)->nullable();
+            $table->string('shipping_country',255)->nullable();
+            $table->string('shipping_company',255)->nullable();
+
             $table->text('customer_notes')->nullable();
 
             $table->string('payment_gateway',30)->nullable();
@@ -85,6 +93,14 @@ class CreateOrderTable extends Migration
             $table->integer('vendor_id')->nullable();
             $table->integer('customer_id')->nullable();
             $table->integer('product_id')->nullable();
+            $table->string('type',20)->nullable();
+            $table->integer('qty')->nullable();
+            $table->decimal('price')->nullable();
+            $table->decimal('subtotal')->nullable();
+
+            $table->decimal('commission',10,2)->nullable();
+            $table->string('commission_type',30)->nullable();
+
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();

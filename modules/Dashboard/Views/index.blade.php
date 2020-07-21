@@ -42,55 +42,6 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12 col-lg-6 ">
-                <div class="panel">
-                    <div class="panel-title d-flex justify-content-between">
-                        <strong>{{__('Recent Bookings')}}</strong>
-                        <a href="{{url('admin/module/report/booking')}}" class="btn-link">{{__("More")}}
-                            <i class="icon ion-ios-arrow-forward"></i></a>
-                    </div>
-                    <div class="panel-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
-                                <tr>
-                                    <th width="60px">#</th>
-                                    <th>{{__('Item')}}</th>
-                                    <th width="100px">{{__("Total")}}</th>
-                                    <th width="100px">{{__("Status")}}</th>
-                                    <th width="100px">{{__("Created At")}}</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @if(count($recent_bookings) > 0)
-                                    @foreach($recent_bookings as $booking)
-                                        <tr>
-                                            <td>#{{$booking->id}}</td>
-                                            <td>
-                                                @if($service = $booking->service)
-                                                    <a href="{{$service->getDetailUrl()}}" target="_blank">{{$service->title}}</a>
-                                                @else
-                                                    {{__("[Deleted]")}}
-                                                @endif
-                                            </td>
-                                            <td>{{format_money($booking->total)}}</td>
-                                            <td>
-                                                <span class="badge badge-{{$booking->status_class}}">{{$booking->status_name}}</span>
-                                            </td>
-                                            <td>{{display_datetime($booking->created_at)}}</td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="5">{{__("No data")}}</td>
-                                    </tr>
-                                @endif
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <br>
         <div class="row">
