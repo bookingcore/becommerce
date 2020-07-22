@@ -91,7 +91,7 @@
                                data-max="{{$price_max}}">
                         <button type="submit" class="button d-sm-block d-md-none">{{__('Filter')}}</button>
                         <div class="price_label">
-                            {{__('Price')}}: {{$currency['symbol']}}<span class="from">{{($price_min)}}</span> — <span
+                            {{__('Price')}}: {{$currency['symbol']}}<span class="from">{{($price_min)}}</span> — {{$currency['symbol']}}<span
                                 class="to">{{($price_max)}}</span>
                         </div>
                         <div class="clear"></div>
