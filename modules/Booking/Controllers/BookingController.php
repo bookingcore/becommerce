@@ -2,9 +2,14 @@
 namespace Modules\Booking\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 use Mockery\Exception;
 //use Modules\Booking\Events\VendorLogPayment;
+use Modules\Product\Models\Order;
 use Modules\Tour\Models\TourDate;
+use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\User;
 use Validator;
 use Illuminate\Http\Request;
@@ -158,31 +163,8 @@ class BookingController extends \App\Http\Controllers\Controller
     public function doCheckout(Request $request)
     {
 
-        /**
-         * @param Booking $booking
-         */
-        $validator = Validator::make($request->all(), [
-            'code' => 'required',
-        ]);
-        if ($validator->fails()) {
-            return $this->sendError('', ['errors' => $validator->errors()]);
-        }
-        $code = $request->input('code');
-        $booking = $this->booking::where('code', $code)->first();
-        if (empty($booking)) {
-            abort(404);
-        }
-        if ($booking->customer_id != Auth::id()) {
-            abort(404);
-        }
-        if ($booking->status != 'draft') {
-            return $this->sendError('',[
-                'url'=>$booking->getDetailUrl()
-            ]);
-        }
-        $service = $booking->service;
-        if (empty($service)) {
-            return $this->sendError(__("Service not found"));
+        if(!Cart::count()){
+            return $this->sendError(__("Your cart is empty"));
         }
         /**
          * Google ReCapcha
@@ -194,15 +176,28 @@ class BookingController extends \App\Http\Controllers\Controller
             }
         }
         $rules = [
-            'first_name'      => 'required|string|max:255',
-            'last_name'       => 'required|string|max:255',
-            'email'           => 'required|string|email|max:255',
-            'phone'           => 'required|string|max:255',
+            'billing_first_name'      => 'required|string|max:255',
+            'billing_last_name'       => 'required|string|max:255',
+            'billing_email'           => 'required|string|email|max:255',
+            'billing_phone'           => 'required|string|max:255',
+            'billing_address_1'           => 'required|string|max:255',
+            'billing_postcode'           => 'required|string|max:255',
             'country' => 'required',
             'payment_gateway' => 'required',
             'term_conditions' => 'required'
         ];
-        $rules = $service->filterCheckoutValidate($request, $rules);
+        if($request->input('createaccount')){
+            $rules['account_password'] = 'required';
+        }
+        if($request->input('ship_to_different_address')){
+            $rules = array_merge($rules,[
+                'shipping_first_name'      => 'required|string|max:255',
+                'shipping_last_name'       => 'required|string|max:255',
+                'shipping_address_1'           => 'required|string|max:255',
+                'shipping_postcode'           => 'required|string|max:255',
+                'shipping_country' => 'required',
+            ]);
+        }
         if (!empty($rules)) {
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -220,45 +215,123 @@ class BookingController extends \App\Http\Controllers\Controller
                 return $this->sendError(__("Payment gateway is not available"));
             }
         }
-        $service->beforeCheckout($request, $booking);
-        // Normal Checkout
-        $booking->first_name = $request->input('first_name');
-        $booking->last_name = $request->input('last_name');
-        $booking->email = $request->input('email');
-        $booking->phone = $request->input('phone');
-        $booking->address = $request->input('address_line_1');
-        $booking->address2 = $request->input('address_line_2');
-        $booking->city = $request->input('city');
-        $booking->state = $request->input('state');
-        $booking->zip_code = $request->input('zip_code');
-        $booking->country = $request->input('country');
-        $booking->customer_notes = $request->input('customer_notes');
-        $booking->gateway = $payment_gateway;
-        $booking->save();
-
-//        event(new VendorLogPayment($booking));
-
-        $user = Auth::user();
-        $user->billing_first_name = $request->input('first_name');
-        $user->billing_last_name = $request->input('last_name');
-        $user->billing_phone = $request->input('phone');
-        $user->billing_address = $request->input('address_line_1');
-        $user->billing_address2 = $request->input('address_line_2');
-        $user->billing_city = $request->input('city');
-        $user->billing_state = $request->input('state');
-        $user->billing_zip_code = $request->input('zip_code');
-        $user->billing_country = $request->input('country');
-        $user->save();
-
-        $booking->addMeta('locale',app()->getLocale());
-
-        $service->afterCheckout($request, $booking);
+        $ship_to_different_address = $request->input('ship_to_different_address');
         try {
+            $user  = $this->maybeCreateUser($request);
 
-            $gatewayObj->process($request, $booking, $service);
-        } catch (Exception $exception) {
+            $order = new Order();
+            // Normal Checkout
+            $order->status = 'draft';
+            $order->first_name = $request->input('billing_first_name');
+            $order->last_name = $request->input('billing_last_name');
+            $order->email = $request->input('billing_email');
+            $order->phone = $request->input('billing_phone');
+            $order->address = $request->input('billing_address_1');
+            $order->address2 = $request->input('billing_address_2');
+            $order->city = $request->input('billing_city');
+            $order->postcode = $request->input('billing_postcode');
+            $order->country = $request->input('country');
+            $order->company = $request->input('billing_company');
+            $order->gateway = $payment_gateway;
+            $order->total = Cart::total();
+            $order->customer_id = Auth::id();
+
+            if($ship_to_different_address){
+                $order->shipping_first_name = $request->input('shipping_first_name');
+                $order->shipping_last_name = $request->input('shipping_last_name');
+                $order->shipping_address = $request->input('shipping_address_line_1');
+                $order->shipping_address2 = $request->input('shipping_address_line_2');
+                $order->shipping_city = $request->input('shipping_city');
+                $order->shipping_postcode = $request->input('shipping_postcode');
+                $order->shipping_country = $request->input('shipping_country');
+                $order->shipping_company = $request->input('shipping_company');
+            }else{
+                $order->shipping_first_name = $request->input('billing_first_name');
+                $order->shipping_last_name = $request->input('billing_last_name');
+                $order->shipping_address = $request->input('billing_address_1');
+                $order->shipping_address2 = $request->input('billing_address_12');
+                $order->shipping_city = $request->input('billing_city');
+                $order->shipping_postcode = $request->input('billing_postcode');
+                $order->shipping_country = $request->input('country');
+                $order->shipping_company = $request->input('billing_company');
+            }
+
+            $order->save();
+            $order->saveItems();
+
+            $order->addMeta('locale', app()->getLocale());
+
+            if($user) {
+                $user->first_name = $request->input('billing_first_name');
+                $user->last_name = $request->input('billing_last_name');
+                $user->phone = $request->input('billing_phone');
+                $user->address = $request->input('billing_address_1');
+                $user->address2 = $request->input('billing_address_2');
+                $user->city = $request->input('billing_city');
+                $user->postcode = $request->input('billing_postcode');
+                $user->country = $request->input('country');
+                $user->company = $request->input('billing_company');
+
+
+                if($ship_to_different_address) {
+                    $user->shipping_first_name = $request->input('shipping_first_name');
+                    $user->shipping_last_name = $request->input('shipping_last_name');
+                    $user->shipping_address = $request->input('shipping_address_line_1');
+                    $user->shipping_address2 = $request->input('shipping_address_line_2');
+                    $user->shipping_city = $request->input('shipping_city');
+                    $user->shipping_postcode = $request->input('shipping_postcode');
+                    $user->shipping_country = $request->input('shipping_country');
+                    $user->shipping_company = $request->input('shipping_company');
+                }
+                $user->save();
+            }
+
+
+            Cart::destroy();
+
+            return $gatewayObj->process($request, $order);
+
+        }catch (\Exception $exception)
+        {
             return $this->sendError($exception->getMessage());
         }
+    }
+
+    public function maybeCreateUser(Request $request){
+        if(auth()->check()) return auth()->user();
+        if($request->input('createaccount'))
+        {
+            $email = $request->input('billing_email');
+            $userByEmail = \App\User::query()->where('email',$email)->first();
+            if(!empty($userByEmail)){
+                throw new \Exception(__('Email exists please login to continue'));
+            }
+            $user = new User();
+            $user->first_name = $request->input('billing_first_name');
+            $user->last_name = $request->input('billing_last_name');
+            $user->phone = $request->input('billing_phone');
+            $user->email = $request->input('billing_email');
+            $user->status = $request->input('publish');
+            $user->password = Hash::make($request->input('account_password'));
+
+            $user->save();
+            $user->assignRole('customer');
+            Auth::loginUsingId($user->id);
+
+            try {
+
+                event(new SendMailUserRegistered($user));
+
+            }catch (\Matrix\Exception $exception){
+
+                Log::warning("SendMailUserRegistered: ".$exception->getMessage());
+
+            }
+
+
+            return $user;
+        }
+        return false;
     }
 
 
@@ -359,7 +432,7 @@ class BookingController extends \App\Http\Controllers\Controller
     public function detail(Request $request, $code)
     {
 
-        $booking = Booking::where('code', $code)->first();
+        $booking = Order::where('code', $code)->first();
         if (empty($booking)) {
             abort(404);
         }
@@ -371,13 +444,12 @@ class BookingController extends \App\Http\Controllers\Controller
             abort(404);
         }
         $data = [
-            'page_title' => __('Booking Details'),
+            'page_title' => __('Order Details'),
             'booking'    => $booking,
-            'service'    => $booking->service,
         ];
         if ($booking->gateway) {
             $data['gateway'] = get_payment_gateway_obj($booking->gateway);
         }
-        return view('Booking::frontend/detail', $data);
+        return view('Booking::frontend.detail', $data);
     }
 }

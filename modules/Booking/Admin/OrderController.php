@@ -2,7 +2,6 @@
 namespace Modules\Booking\Admin;
 
 use Modules\AdminController;
-use Modules\Booking\Models\Order;
 
 class OrderController extends AdminController
 {
@@ -10,7 +9,7 @@ class OrderController extends AdminController
         $this->checkPermission('report_view');
 
         $data = [
-            'rows'=>Order::query()->paginate(20)
+            'rows'=>\Modules\Product\Models\Order::query()->paginate(20)
         ];
         return view('Booking::admin.orders.index',$data);
     }

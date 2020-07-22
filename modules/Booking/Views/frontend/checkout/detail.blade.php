@@ -1,5 +1,5 @@
 <h3 id="order_review_heading">{{ __('Your order') }}</h3>
-<div id="order_review" class="bravo-checkout-review-order">
+<div id="order_review" class="bravo-checkout-review-order mb-5">
     <table class="shop_table bravo-checkout-review-order-table">
         <thead>
             <tr>

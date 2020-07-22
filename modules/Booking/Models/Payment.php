@@ -7,5 +7,5 @@ use Modules\Tour\Models\Tour;
 
 class Payment extends BaseModel
 {
-    protected $table = 'bravo_booking_payments';
+    protected $table = 'product_order_payments';
 }

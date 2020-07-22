@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Booking\Models\Booking;
 use Modules\Booking\Models\Payment;
+use Modules\Product\Models\Order;
 use Omnipay\Omnipay;
 use Omnipay\PayPal\ExpressGateway;
 use Illuminate\Support\Facades\Log;
@@ -102,7 +103,7 @@ class PaypalGateway extends BaseGateway
         ];
     }
 
-    public function process(Request $request, $booking, $service)
+    public function process(Request $request, $booking)
     {
         if (in_array($booking->status, [
             $booking::PAID,
@@ -110,14 +111,14 @@ class PaypalGateway extends BaseGateway
             $booking::CANCELLED
         ])) {
 
-            throw new Exception(__("Booking status does need to be paid"));
+            throw new Exception(__("Order does not need to be paid"));
         }
         if (!$booking->total) {
-            throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
         $this->getGateway();
         $payment = new Payment();
-        $payment->booking_id = $booking->id;
+        $payment->order_id = $booking->id;
         $payment->payment_gateway = $this->id;
         $payment->status = 'draft';
         $data = $this->handlePurchaseData([
@@ -132,9 +133,9 @@ class PaypalGateway extends BaseGateway
             $booking->payment_id = $payment->id;
             $booking->save();
             // redirect to offsite payment gateway
-            response()->json([
+            return response()->json([
                 'url' => $response->getRedirectUrl()
-            ])->send();
+            ]);
         } else {
             throw new Exception('Paypal Gateway: ' . $response->getMessage());
         }
@@ -143,7 +144,7 @@ class PaypalGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $c = $request->query('c');
-        $booking = Booking::where('code', $c)->first();
+        $booking = Order::where('code', $c)->first();
         if (!empty($booking) and in_array($booking->status, [$booking::UNPAID])) {
             $this->getGateway();
             $data = $this->handlePurchaseData([
@@ -190,7 +191,7 @@ class PaypalGateway extends BaseGateway
     public function cancelPayment(Request $request)
     {
         $c = $request->query('c');
-        $booking = Booking::where('code', $c)->first();
+        $booking = Order::where('code', $c)->first();
         if (!empty($booking) and in_array($booking->status, [$booking::UNPAID])) {
             $payment = $booking->payment;
             if ($payment) {

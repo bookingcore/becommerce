@@ -14,3 +14,5 @@ Route::group(['prefix'=>env('BOOKING_ROUTE_PREFIX', 'booking')],function(){
     Route::get('/{code}/checkout','BookingController@checkout');
     Route::get('/{code}/check-status','BookingController@checkStatusCheckout');
 });
+
+Route::get('order/{code}','BookingController@detail')->name('order.detail');
