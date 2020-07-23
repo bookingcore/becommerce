@@ -7,15 +7,13 @@
                     <a class="link" href="{{ route("product.index") }}">{{__('View All')}}</a></div>
             </div>
             <div class="tabs-content">
-                <div class="woocommerce">
-                    <ul class="products list-unstyled">
-                        @if(!empty($rows))
-                            @foreach($rows as $row)
-                                @include('Product::frontend.layouts.product')
-                            @endforeach
-                        @endif
-                    </ul>
-                </div>
+                <ul class="products list-unstyled">
+                    @if(!empty($rows))
+                        @foreach($rows as $row)
+                            @include('Product::frontend.layouts.product')
+                        @endforeach
+                    @endif
+                </ul>
             </div>
         </div>
     </div>

@@ -137,6 +137,9 @@
                     a{
                         color: #000;
                         text-decoration: none;
+                        &:active{
+                            background: #fcb800;
+                        }
                     }
                     .extra-icon{
                         font-size: 30px;
@@ -203,13 +206,22 @@
                             line-height: 16px;
                         }
                         .dropdown-menu{
-                            min-width: 15rem;
-                            padding: 5px;
+                            min-width: 17.5rem;
+                            padding: 0;
                             left: -10px;
+                            -webkit-transform: translate3d(-43px, 19px, 0px) !important;
+                            -moz-transform: translate3d(-43px, 19px, 0px) !important;
+                            transform: translate3d(-43px, 19px, 0px) !important;
                             li{
                                 padding: 0;
+                                margin: 0;
+                                &:not(:last-child){
+                                    border-bottom: 1px solid #ccc;
+                                }
                                 a{
                                     font-size: 1.3rem;
+                                    display: block;
+                                    padding: 10px;
                                     &:hover{
                                         color: #fcb800;
                                     }

@@ -28,12 +28,14 @@ $score_total = $reviewData['score_total'];
                 <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                     <div class="yith-wcwl-add-button">
                         <a href="{{route('user.wishList.index')}}" class="wishlist_link">
-                            <i class="yith-wcwl-icon fa fa-heart-o"></i>
+                            <i class="p-icon icon-heart"></i>
                         </a>
                     </div>
                 </div>
                 <div class="compare-button mf-compare-button {{ in_array($row->id, list_compare_id()) ? 'browse' : '' }}" data-toggle="tooltip" title="{{ in_array($row->id, list_compare_id()) ? __('Browse Compare') : __('Compare') }}" data-id="{{$row->id}}">
-                    <a href="#" class="compare">{{__('Compare')}}</a>
+                    <a href="#" class="compare">
+                        <i class="p-icon icon-chart-bars"></i>
+                    </a>
                 </div>
             </div>
 
@@ -53,10 +55,7 @@ $score_total = $reviewData['score_total'];
 
         <div class="mf-vendor-name">
             <div class="sold-by-meta">
-                <span class="sold-by-label">{{__('Brand: ')}}</span>
-                @php
-                    $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] );
-                @endphp
+                @php $link_search_brand = Modules\Product\Models\Product::getLinkForPageSearch(false , [ 'brand[]' => $row->brand_id] ); @endphp
                 <a href="{{$link_search_brand}}">{{$row->brand['name']}}</a>
             </div>
         </div>

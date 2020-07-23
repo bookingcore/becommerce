@@ -11,7 +11,7 @@
                 <div class="form-group">
                     <label>{{__("Main color")}}</label>
                     <div class="form-controls">
-                        <input type="text" name="style_main_color" value="{{$settings['style_main_color'] ?? '#5191FA'}}" class="has-colorpicker d-none">
+                        <input type="text" name="style_main_color" value="{{$settings['style_main_color'] ?? '#fcb800'}}" class="has-colorpicker d-none">
                     </div>
                 </div>
                 @endif

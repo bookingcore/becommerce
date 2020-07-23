@@ -1,4 +1,4 @@
-@php $main_color =setting_item('style_main_color','#5191FA');
+@php $main_color =setting_item('style_main_color','#fcb800');
 $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
 @endphp
 <style id="custom-css">
@@ -9,50 +9,66 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
             @endforeach
         @endif
     }
-    a,
-    .bravo-news .btn-readmore,
-    .bravo_wrap .bravo_header .content .header-left .bravo-menu ul li:hover > a,
-    .bravo_wrap .bravo_search_tour .bravo_form_search .bravo_form .field-icon,
-    .bravo_wrap .bravo_search_tour .bravo_form_search .bravo_form .render,
-    .bravo_wrap .bravo_search_tour .bravo_form_search .bravo_form .field-detination #dropdown-destination .form-control,
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .btn-apply-price-range,
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .btn-more-item,
-    .input-number-group i,
-    .bravo_wrap .page-template-content .bravo-form-search-tour .bravo_form_search_tour .field-icon,
-    .bravo_wrap .page-template-content .bravo-form-search-tour .bravo_form_search_tour .field-detination #dropdown-destination .form-control,
-    .bravo_wrap .page-template-content .bravo-form-search-tour .bravo_form_search_tour .render
+
+    .bravo_footer .bravo_footer_menu .mf-els-modal-mobile .mf-cart-mobile .widget-canvas-content .widget_shopping_cart_content .cart__footer figure a.checkout,
+    .btn.btn-primary,
+    .mf-els-modal-mobile .mf-cart-mobile .mobile-cart-header,
+    .mf-els-modal-mobile .search-wrapper,
+    .primary-mobile-nav .mobile-nav-header,
+    .ps-shopping-cart .ps-btn--outline:hover,
+    .ps-shopping-cart .ps-btn:not(.ps-btn--outline),
+    .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li .cart__footer a,
+    .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li .cart__footer a:active,
+    .martfury-button.color-dark a,
+    .bravo_profile_sidebar .quick_info .quick-info-wrapper input[type=submit], .bravo_profile_sidebar .quick_info .quick-info-wrapper textarea[type=submit],
+    .bravo-reviews .review-box .mf-product-rating .review-form .comment-form .form-submit .btn,
+    .product-detail-add-to-cart .btn.buy_now,
+    .site-footer .footer-newsletter .newsletter-form .mc4wp-form-fields input[type=submit],
+    .mf-banner-large .banner-price .link,
+    .bravo-header .header-style-default,
+    .bravo-header .products-cats-menu .menu > li:hover,
+    ul.products li.product .product-inner .mf-product-thumbnail .footer-button a:hover,
+    .mf-banner-medium.layout-2 .banner-content .link, .mf-banner-medium.layout-3 .banner-content .link, .mf-banner-medium.layout-4 .banner-content .link, .mf-banner-medium.layout-5 .banner-content .link,
+    .slick-dots li:hover button, .slick-dots li.slick-active button
     {
-        color:{{$main_color}}
-    }
-    .bravo-pagination ul li.active a, .bravo-pagination ul li.active span
-    {
-        color:{{$main_color}}!important;
-    }
-    .bravo-news .widget_category ul li span,
-    .bravo_wrap .bravo_search_tour .bravo_form_search .bravo_form .g-button-submit button,
-    .bravo_wrap .bravo_search_tour .bravo_filter .filter-title:before,
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-bar,
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-from, .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to, .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single,
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-handle>i:first-child,
-    .bravo-news .header .cate ul li,
-    .bravo_wrap .page-template-content .bravo-form-search-tour .bravo_form_search_tour .g-button-submit button,
-    .bravo_wrap .page-template-content .bravo-list-locations .list-item .destination-item .image .content .desc
-    {
-        background: {{$main_color}};
-    }
-    .bravo-pagination ul li.active a, .bravo-pagination ul li.active span
-    {
-        border-color:{{$main_color}}!important;
-    }
-    .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-from:before, .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-to:before, .bravo_wrap .bravo_search_tour .bravo_filter .g-filter-item .item-content .bravo-filter-price .irs--flat .irs-single:before,
-    .bravo-reviews .review-form .form-wrapper,
-    .bravo_wrap .bravo_detail_tour .bravo_content .bravo_tour_book
-    {
-        border-top-color:{{$main_color}};
+        background-color: {{$main_color}};
     }
 
-    .bravo_wrap .bravo_footer .main-footer .nav-footer .context .contact{
-        border-left-color:{{$main_color}};
+
+    .bravo_detail_product .col-product-info .product-tabs .nav-tabs li a:hover,
+    .bravo_detail_product .col-product-info .product-tabs .nav-tabs li a.active{
+        border-bottom: 3px solid {{$main_color}};
+    }
+
+    .slick-dots li button,
+    .slick-dots li:hover button, .slick-dots li.slick-active button
+    {
+        border: 1px solid {{$main_color}};
+    }
+
+    .ps-shopping-cart .ps-btn--outline:hover,
+    .martfury-bubbles,
+    .mf-image-box:hover{
+        border-color: {{$main_color}};
+    }
+
+    .bravo_style-normal .extra-link:hover,
+    .mf-product-deals-day .header-link a:hover,
+    .ps-product__content a:hover,
+    .mf-navigation-mobile .navigation-icon.active,
+    .ps-section--shopping .ps-section__content .ps-table--shopping-cart tbody tr .ps-product--cart .ps-product__content a:hover,
+    .blog-wapper .entry-meta a:hover,
+    .blog-wapper .entry-title a:hover,
+    .martfury-testimonial-slides .testimonial-info > i,
+    .martfury-icon-box .box-url:hover,
+    .page-header-blog .breadcrumbs li.active a,
+    .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li .u-right .dropdown-menu li a:hover,
+    .bravo_wrap .bravo_categories .list-item .item .mf-image-box:hover a,
+    .nav li li .mega-menu-submenu a:hover,
+    .martfury-icon-box.icon_position-left .box-icon,
+    ul.products li.product h2:hover a
+    {
+        color: {{$main_color}} !important;
     }
 
     {!! setting_item_with_lang('style_custom_css') !!}

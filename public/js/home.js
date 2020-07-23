@@ -354,7 +354,7 @@ jQuery(function ($) {
                 }
 
                 if (json.status) {
-                    me.find('input').val('');
+                    me.find('input[name=email]').val('');
                 }
 
             },

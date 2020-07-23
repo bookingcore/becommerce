@@ -13,61 +13,59 @@
         </div>
 
         <div class="products-content">
-            <div class="woocommerce">
-                <ul class="products list-unstyled">
-                    @if(!empty($rows))
-                        @foreach($rows as $row)
-                            <li class="col-xs-12 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
-                                <div class="product-inner">
-                                    <div class="mf-product-thumbnail">
-                                        <a href="{{$row->getDetailUrl()}}">{!! get_image_tag($row['image_id']) !!}</a>
-                                    </div>
-                                    <div class="mf-product-details">
-                                        <div class="mf-product-content">
-                                            <h2><a href="{{$row->getDetailUrl()}}">{{$row['title']}}</a></h2>
-                                            <?php
-                                            $reviewData = $row->getScoreReview();
-                                            $score_total = $reviewData['score_total'];
-                                            ?>
-                                            @if($score_total > 0)
-                                                <div class="service-review tour-review-{{$score_total}}">
-                                                    <div class="list-star">
-                                                        <ul class="booking-item-rating-stars">
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                            <li><i class="fa fa-star-o"></i></li>
-                                                        </ul>
-                                                        <div class="booking-item-rating-stars-active"
-                                                             style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
-                                                            <ul class="booking-item-rating-stars">
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                                <li><i class="fa fa-star"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                    <span class="review">
-                                                    @if($reviewData['total_review'] > 1)
-                                                            {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
-                                                        @else
-                                                            {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
-                                                        @endif
-                                                </span>
-                                                </div>
-                                            @endif
-                                        </div>
-                                        @include('Product::frontend.details.price')
-                                    </div>
+            <ul class="products list-unstyled">
+                @if(!empty($rows))
+                    @foreach($rows as $row)
+                        <li class="col-xs-12 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
+                            <div class="product-inner">
+                                <div class="mf-product-thumbnail">
+                                    <a href="{{$row->getDetailUrl()}}">{!! get_image_tag($row['image_id']) !!}</a>
                                 </div>
-                            </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
+                                <div class="mf-product-details">
+                                    <div class="mf-product-content">
+                                        <h2><a href="{{$row->getDetailUrl()}}">{{$row['title']}}</a></h2>
+                                        <?php
+                                        $reviewData = $row->getScoreReview();
+                                        $score_total = $reviewData['score_total'];
+                                        ?>
+                                        @if($score_total > 0)
+                                            <div class="service-review tour-review-{{$score_total}}">
+                                                <div class="list-star">
+                                                    <ul class="booking-item-rating-stars">
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                        <li><i class="fa fa-star-o"></i></li>
+                                                    </ul>
+                                                    <div class="booking-item-rating-stars-active"
+                                                         style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                                                        <ul class="booking-item-rating-stars">
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                            <li><i class="fa fa-star"></i></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <span class="review">
+                                                    @if($reviewData['total_review'] > 1)
+                                                        {{ __(":number Reviews",["number"=>$reviewData['total_review'] ]) }}
+                                                    @else
+                                                        {{ __(":number Review",["number"=>$reviewData['total_review'] ]) }}
+                                                    @endif
+                                                </span>
+                                            </div>
+                                        @endif
+                                    </div>
+                                    @include('Product::frontend.details.price')
+                                </div>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
         </div>
     </div>
 </div>

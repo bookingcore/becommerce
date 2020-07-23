@@ -192,7 +192,6 @@
                                 padding-right: 15px;
                                 a{
                                     height: 45px;
-                                    line-height: 45px;
                                     border-radius: 3px;
                                     min-width: 150px;
                                     margin-bottom: 10px;
@@ -218,21 +217,16 @@
         }
     }
 }
-.subscribe-form{
-    padding-top: 65px;
-    padding-bottom: 65px;
-    border-bottom: 1px solid #e1e1e1;
-    .bravo-subscribe-form{
-        .email-input{
-            border: 1px solid #ccc;
-            height: 50px;
-            line-height: 50px;
-            padding: 0 25px;
-            border-radius: 4px 0 0 4px;
-            background-color: #fff;
+.subcribe-form{
+    &.loading{
+        &:after{
+            left: initial;
+            right: 44px;
+            top: 17px;
+            opacity: 0.25;
         }
-        button{
-
+        input[type=submit]{
+            opacity: 0.25;
         }
     }
 }

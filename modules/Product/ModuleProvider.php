@@ -105,31 +105,6 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-
-    public static function getUserMenu()
-    {
-        return [
-//            'space' => [
-//                'url'        => app_get_locale() . '/user/product',
-//                'title'      => __("Manage Product"),
-//                'icon'       => 'fa fa-building-o',
-//                'position'   => 31,
-//                'permission' => 'product_view',
-//                'children' => [
-//                    [
-//                        'url'    => app_get_locale() . '/product/space',
-//                        'title'  => __("All Products"),
-//                    ],
-//                    [
-//                        'url'        => app_get_locale() . '/user/product/create',
-//                        'title'      => __("Add Product"),
-//                        'permission' => 'product_create',
-//                    ],
-//                ]
-//            ],
-        ];
-    }
-
     public static function getBookableServices()
     {
         return [
