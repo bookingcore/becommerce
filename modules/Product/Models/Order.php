@@ -768,6 +768,7 @@ class Order extends BaseModel{
                 $itemObj = new OrderItem();
                 $itemObj->order_id = $this->id;
                 $itemObj->product_id = $item->model->id;
+                $itemObj->product_name = $item->name;
                 $itemObj->vendor_id = $item->model->create_user;
                 $itemObj->type = $item->model->type;
                 $itemObj->qty = $item->qty;
@@ -775,7 +776,6 @@ class Order extends BaseModel{
                 $itemObj->subtotal = $item->subtotal;
                 $itemObj->calculateCommission();
                 $itemObj->save();
-
             }
         }
     }

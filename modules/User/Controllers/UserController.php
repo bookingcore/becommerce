@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Matrix\Exception;
 use Modules\FrontendController;
+use Modules\Product\Models\Order;
+use Modules\Product\Models\OrderItem;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\Newsletter;
 use Modules\User\Models\Subscriber;
@@ -131,17 +133,32 @@ class UserController extends FrontendController
     {
         $user_id = Auth::id();
         $data = [
-            'bookings' => Booking::getBookingHistory($request->input('status'), $user_id),
+//            'bookings' => Booking::getBookingHistory($request->input('status'), $user_id),
+            'orders'   => Order::where('customer_id',$user_id)->where('status','processing')->get(),
+
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [
-                    'name' => __('Booking History'),
+                    'name' => __('Order History'),
                     'class' => 'active'
                 ]
             ],
             'page_title'         => __("Booking History"),
         ];
         return view('User::frontend.bookingHistory', $data);
+    }
+
+    public function view_order(Request $request, $id){
+        $is_suborder = $request->post('is_suborder');
+        $order = Order::where('id',$id)->first();
+        $suborder = OrderItem::where('order_id',$id)->whereIn('id',$request->post('suborder'))->get();
+        $data = [
+            'id' => $id,
+            'order' => $order,
+            'suborder' => $suborder,
+            'is_suborder' => $is_suborder
+        ];
+        return view('User::frontend.order.order-modal',$data)->render();
     }
 
     public function userLogin(Request $request)

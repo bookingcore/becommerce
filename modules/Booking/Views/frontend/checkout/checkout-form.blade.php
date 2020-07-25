@@ -75,7 +75,7 @@
                         {{__('Street address')}}&nbsp;<abbr class="required" title="required">*</abbr>
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" class="form-control " name="billing_address_1" placeholder="{{__('House number and street name')}}" value="{{$user->address}}" autocomplete="address-line1">
+                        <input type="text" class="form-control " name="billing_address_1" placeholder="{{__('House number and street name')}}" value="{{$shipping['address'] ?? $user->address ?? ''}}" autocomplete="address-line1">
                     </span>
                 </div>
 
@@ -85,7 +85,7 @@
                         <span class="optional">({{__('optional')}})</span>
                     </label>
                     <div class="input-wrapper">
-                        <input type="text" class="form-control " name="billing_address_2" placeholder="{{__('Apartment, suite, unit, etc. (optional)')}}" value="{{$user->address2}}" autocomplete="address-line2" >
+                        <input type="text" class="form-control " name="billing_address_2" placeholder="{{__('Apartment, suite, unit, etc. (optional)')}}" value="{{$user->address2 ?? ''}}" autocomplete="address-line2" >
                     </div>
                 </div>
 
@@ -121,16 +121,12 @@
 
             <div class="create-account mb-5" v-show="createaccount">
                 <div class=" validate-required" id="account_password_field" data-priority=""><label
-                        for="account_password" class="">{{__('Create account password')}}&nbsp;<abbr class="required"
-                                                                                           title="required">*</abbr></label>
-                    <div
-                        class="input-wrapper"><input type="password" class="form-control "
-                                                                 name="account_password" id="account_password"
-                                                                 placeholder="{{__('Password')}}" value="">
+                        for="account_password" class="">{{__('Create account password')}}&nbsp;<abbr class="required" title="required">*</abbr></label>
+                    <div class="input-wrapper">
+                        <input type="password" class="form-control " name="account_password" id="account_password" placeholder="{{__('Password')}}" value="">
                     </div>
                 </div>
             </div>
-
 
         </div>
         @endif
@@ -197,7 +193,7 @@
                         {{__('Street address')}}&nbsp;<abbr class="required" title="required">*</abbr>
                     </label>
                     <span class="input-wrapper">
-                        <input type="text" class="form-control " name="shipping_address_1" placeholder="{{__('House number and street name')}}" value="{{$user->shipping_address_1}}" autocomplete="address-line1">
+                        <input type="text" class="form-control " name="shipping_address_1" placeholder="{{__('House number and street name')}}" value="{{$user->shipping_address_1 ?? ''}}" autocomplete="address-line1">
                     </span>
                 </div>
 
@@ -207,7 +203,7 @@
                         <span class="optional">({{__('optional')}})</span>
                     </label>
                     <div class="input-wrapper">
-                        <input type="text" class="form-control " name="shipping_address_2" placeholder="{{__('Apartment, suite, unit, etc. (optional)')}}" value="{{$user->shipping_address_2}}" autocomplete="address-line2" >
+                        <input type="text" class="form-control " name="shipping_address_2" placeholder="{{__('Apartment, suite, unit, etc. (optional)')}}" value="{{$user->shipping_address_2 ?? ''}}" autocomplete="address-line2" >
                     </div>
                 </div>
                 <div class="row">

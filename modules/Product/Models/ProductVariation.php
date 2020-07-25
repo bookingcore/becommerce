@@ -93,9 +93,7 @@ class ProductVariation extends BaseProduct
             if (!empty($term)){
                 $product_name .= ' - ';
                 foreach ($term as $key => $item){
-                    if (mb_strtolower($item->attr_slug) != 'size'){
-                        $product_name .= "$item->term_name, ";
-                    }
+                    $product_name .= "$item->term_name, ";
                     $options[$item->attr_slug] = $item->term_name;
                 }
             }

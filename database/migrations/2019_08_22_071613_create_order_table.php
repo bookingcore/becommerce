@@ -22,6 +22,8 @@ class CreateOrderTable extends Migration
             $table->bigInteger('customer_id')->nullable();
 
             $table->decimal('total',10,2)->nullable();
+            $table->decimal('final_total',10,2)->nullable();
+            $table->text('coupons')->nullable();
             $table->string('currency',20)->nullable();
             $table->string('status',30)->nullable();
 
@@ -93,6 +95,7 @@ class CreateOrderTable extends Migration
             $table->integer('vendor_id')->nullable();
             $table->integer('customer_id')->nullable();
             $table->integer('product_id')->nullable();
+            $table->string('product_name',255)->nullable();
             $table->string('type',20)->nullable();
             $table->integer('qty')->nullable();
             $table->decimal('price')->nullable();

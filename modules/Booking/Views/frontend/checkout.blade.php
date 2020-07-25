@@ -42,7 +42,7 @@
                                 <p class="alert-text mt10" v-show=" message.content" v-html="message.content" :class="{'danger':!message.type,'success':message.type}"></p>
 
                                 <div class="form-actions">
-                                    <button class="btn btn-success" @click="doCheckout">{{__('Submit')}}
+                                    <button class="btn btn-success" @click="doCheckout">{{__('Place order')}}
                                         <i class="fa fa-spin fa-spinner" v-show="onSubmit"></i>
                                     </button>
                                 </div>

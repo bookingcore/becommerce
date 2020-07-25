@@ -1005,7 +1005,7 @@ ul.products {
         background-color: #fff;
         border: 1px solid #e1e1e1;
         border-bottom: none;
-        height: 363px;
+        max-height: 363px;
         overflow: auto;
 
         &:before {

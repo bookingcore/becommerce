@@ -502,10 +502,6 @@ h6 {
   text-decoration: none;
 }
 
-.bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li a:active {
-  background: #fcb800;
-}
-
 .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li .extra-icon {
   font-size: 30px;
 }
@@ -3846,7 +3842,7 @@ ul.products li.product .sold-by-meta a:hover {
   background-color: #fff;
   border: 1px solid #e1e1e1;
   border-bottom: none;
-  height: 363px;
+  max-height: 363px;
   overflow: auto;
 }
 
@@ -35952,12 +35948,15 @@ button.ps-btn--fullwidth {
   border-radius: 0;
   padding: 0 30px;
   border: 1px solid #bfbfbf;
-  border-bottom: none;
   background-color: #f6f6f6;
   margin: 0;
   text-align: left;
   width: 100%;
   border-collapse: separate;
+}
+
+#bravo-checkout-page .booking-detail .bravo-checkout-review-order table.shop_table tr.order-total > * {
+  border-bottom: none !important;
 }
 
 #bravo-checkout-page .booking-detail .bravo-checkout-review-order table.shop_table tr th {
@@ -36046,11 +36045,6 @@ button.ps-btn--fullwidth {
 #bravo-checkout-page .booking-detail .bravo-checkout-review-order table.shop_table .cart_item td {
   padding: 5px 0;
   border-bottom: none;
-}
-
-#bravo-checkout-page .booking-detail .bravo-checkout-review-order table.shop_table .cart-subtotal > * {
-  border-bottom: none;
-  border-top: 1px solid #d6d6d6;
 }
 
 #bravo-checkout-page .booking-detail .bravo-checkout-review-order table.shop_table .cart-subtotal th {

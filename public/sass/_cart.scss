@@ -621,13 +621,17 @@ button {
                     border-radius: 0;
                     padding: 0 30px;
                     border: 1px solid #bfbfbf;
-                    border-bottom: none;
                     background-color: #f6f6f6;
                     margin: 0;
                     text-align: left;
                     width: 100%;
                     border-collapse: separate;
                     tr{
+                        &.order-total{
+                            >*{
+                                border-bottom: none!important;
+                            }
+                        }
                         th{
                             background-color: transparent;
                             color: #666;
@@ -715,10 +719,6 @@ button {
                         }
                     }
                     .cart-subtotal{
-                        >*{
-                            border-bottom: none;
-                            border-top: 1px solid #d6d6d6;
-                        }
                         th{
                             color: #000;
                             font-weight: 600;

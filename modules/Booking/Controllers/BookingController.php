@@ -7,7 +7,10 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery\Exception;
 //use Modules\Booking\Events\VendorLogPayment;
+use Modules\Booking\BravoCart;
 use Modules\Product\Models\Order;
+use Modules\Product\Models\OrderItem;
+use Modules\Product\Models\Product;
 use Modules\Tour\Models\TourDate;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\User;
@@ -28,7 +31,6 @@ class BookingController extends \App\Http\Controllers\Controller
     {
         $this->booking = Booking::class;
     }
-
 
     public function checkout()
     {
@@ -130,7 +132,6 @@ class BookingController extends \App\Http\Controllers\Controller
         return view('Booking::frontend.cart', $data);
     }
 
-
     public function checkStatusCheckout($code)
     {
         $booking = $this->booking::where('code', $code)->first();
@@ -162,7 +163,6 @@ class BookingController extends \App\Http\Controllers\Controller
 
     public function doCheckout(Request $request)
     {
-
         if(!Cart::count()){
             return $this->sendError(__("Your cart is empty"));
         }
@@ -217,8 +217,14 @@ class BookingController extends \App\Http\Controllers\Controller
         }
         $ship_to_different_address = $request->input('ship_to_different_address');
         try {
-            $user  = $this->maybeCreateUser($request);
+            $coupons = [];
+            if (!empty(session('coupon'))){
+                foreach (session('coupon') as $coupon){
+                    array_push($coupons, $coupon);
+                }
+            }
 
+            $user  = $this->maybeCreateUser($request);
             $order = new Order();
             // Normal Checkout
             $order->status = 'draft';
@@ -234,6 +240,8 @@ class BookingController extends \App\Http\Controllers\Controller
             $order->company = $request->input('billing_company');
             $order->gateway = $payment_gateway;
             $order->total = Cart::total();
+            $order->final_total = Cart::final_total();
+            $order->coupons = json_encode($coupons);
             $order->customer_id = Auth::id();
 
             if($ship_to_different_address){
@@ -286,8 +294,8 @@ class BookingController extends \App\Http\Controllers\Controller
                 $user->save();
             }
 
-
             Cart::destroy();
+            session()->forget(['coupon','shipping']);
 
             return $gatewayObj->process($request, $order);
 
@@ -433,9 +441,7 @@ class BookingController extends \App\Http\Controllers\Controller
     {
 
         $booking = Order::where('code', $code)->first();
-        if (empty($booking)) {
-            abort(404);
-        }
+        $product_order = OrderItem::where('order_id',$booking->getAttributes()['id'])->get();
 
         if ($booking->status == 'draft') {
             return redirect($booking->getCheckoutUrl());
@@ -449,6 +455,8 @@ class BookingController extends \App\Http\Controllers\Controller
         ];
         if ($booking->gateway) {
             $data['gateway'] = get_payment_gateway_obj($booking->gateway);
+            $data['order']  = $booking;
+            $data['orders_list'] = $product_order;
         }
         return view('Booking::frontend.detail', $data);
     }

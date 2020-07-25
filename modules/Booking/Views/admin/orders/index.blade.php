@@ -60,7 +60,7 @@
                         <thead>
                         <tr>
                             <th width="80px"><input type="checkbox" class="check-all"></th>
-                            <th>{{__('Service')}}</th>
+                            <th>{{__('Orders')}}</th>
                             <th>{{__('Customer')}}</th>
 
                             <th>{{__('Total')}}</th>
@@ -74,10 +74,11 @@
                         @foreach($rows as $row)
                             @php  $booking = $row; @endphp
                             <tr>
-                                <td><input type="checkbox" class="check-item" name="ids[]" value="{{$row->id}}">
-                                    #{{$row->id}}</td>
                                 <td>
-
+                                    <input type="checkbox" class="check-item" name="ids[]" value="{{$row->id}}">#{{$row->id}}
+                                </td>
+                                <td>
+                                    
                                 </td>
                                 <td>
                                     <ul>
