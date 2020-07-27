@@ -11,6 +11,7 @@ use Modules\Booking\BravoCart;
 use Modules\Product\Models\Order;
 use Modules\Product\Models\OrderItem;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 use Modules\Tour\Models\TourDate;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\User;
@@ -84,6 +85,12 @@ class BookingController extends \App\Http\Controllers\Controller
                                 if ( (!empty($email) && !in_array(Auth::user()->email, $email)) || (!empty($id) && !in_array(Auth::id(), $id)) ){
                                     $allow = false;
                                     $message = ['class'=>'bravo-error','text'=>__('Coupon ":coupon" not applied to this Email or Customer!',['coupon'=>$request->input('coupon')])];
+                                }
+                            }
+                            if (!empty($coupon->per_coupon) && $coupon->per_coupon > 0){
+                                if ($coupon->usage >= $coupon->per_coupon){
+                                    $allow = false;
+                                    $message = ['class'=>'bravo-error','text'=>__('Coupon usage limit has been reached.')];
                                 }
                             }
                             if ($allow == true){
@@ -220,7 +227,28 @@ class BookingController extends \App\Http\Controllers\Controller
             $coupons = [];
             if (!empty(session('coupon'))){
                 foreach (session('coupon') as $coupon){
+                    $coupon_usage = Coupon::select('usage','per_coupon','per_user')->where('name',$coupon['name'])->first();
+                    $usage = (empty($coupon_usage->usage)) ? 0 : $coupon_usage->usage;
+                    $usage++;
+                    Coupon::where('name',$coupon['name'])->update(['usage'=>$usage]);
                     array_push($coupons, $coupon);
+                }
+            }
+            if (Cart::count()){
+                foreach (Cart::content() as $item){
+                    if ($item->options->has('variation_id')){
+                        $variation = ProductVariation::where('id',$item->options->variation_id)->first();
+                        $v_sold = (!empty($variation->sold)) ? $variation->sold : 0;
+                        $nv_sold = $v_sold + $item->qty;
+                        $v_in_stock = (!empty($variation->quantity) && $variation->quantity - $nv_sold <= 0) ? 'out' : 'in';
+                        ProductVariation::where('id',$item->options->variation_id)->update(['sold'=>$nv_sold,'stock_status'=>$v_in_stock]);
+                    } else {
+                        $product = Product::where('id',$item->id)->first();
+                        $sold = (!empty($product->sold)) ? $product->sold : 0;
+                        $n_sold = $sold + $item->qty;
+                        $in_stock = (!empty($product->quantity) && $product->quantity - $n_sold <= 0) ? 'out' : 'in';
+                        Product::where('id',$item->id)->update(['sold'=>$n_sold,'stock_status'=>$in_stock]);
+                    }
                 }
             }
 

@@ -68,7 +68,7 @@
                                         <td><span>{{ $type }}</span></td>
                                         <td>{{ $row->discount }}</td>
                                         <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
-                                        <td>0 / {!! (empty($row->per_coupon)) ? '&infin;' : $row->per_coupon !!}</td>
+                                        <td>{!! (empty($row->usage)) ? 0 : $row->usage !!} / {!! (empty($row->per_coupon)) ? '&infin;' : $row->per_coupon !!}</td>
                                         <td>{{ !empty($row->expiration) ? str_replace(' - ',__(' to '),$row->expiration) : '' }}</td>
                                         <td>
                                             <a href="{{route('product.coupon.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}

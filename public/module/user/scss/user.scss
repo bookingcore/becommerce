@@ -803,9 +803,14 @@
             }
             .tabbable{
                 .table-booking-history{
-                    .suborder{
-                        .btn-info-booking{
-                            color: #06c;
+                    .order-vendor{
+                        .media{
+                            .media-left{
+                                padding-right: 10px;
+                                .thumb{
+                                    width: 70px;
+                                }
+                            }
                         }
                     }
                 }

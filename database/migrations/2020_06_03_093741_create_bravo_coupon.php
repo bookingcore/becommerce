@@ -20,6 +20,7 @@ class CreateBravoCoupon extends Migration
             $table->integer('discount')->nullable();
             $table->string('expiration')->nullable();
             $table->text('email')->nullable();
+            $table->integer('usage')->nullable();
             $table->string('customer_id')->nullable();
             $table->integer('per_coupon')->nullable();
             $table->integer('per_user')->nullable();

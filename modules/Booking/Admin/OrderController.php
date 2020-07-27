@@ -12,7 +12,6 @@ class OrderController extends AdminController
         $data = [
             'rows'=>Order::query()->paginate(20)
         ];
-        dump($data['rows']);
         return view('Booking::admin.orders.index',$data);
     }
 }

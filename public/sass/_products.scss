@@ -161,30 +161,29 @@ ul.products {
                     }
                 }
                 .ribbons{
-                    .onsale{
+                    .ribbon{
+                        color: #fff;
+                        font-size: 14px;
+                        font-weight: 600;
+                        text-align: center;
+                        display: block;
                         margin: 0;
+                        position: absolute;
+                        background-color: #93be2b;
+                        z-index: 1;
                         top: 0;
                         right: 0;
-                        background-color: #f14705!important;
-                        left: auto;
-                        &.ribbon{
-                            color: #fff;
-                            font-size: 14px;
-                            font-weight: 600;
-                            text-align: center;
-                            display: block;
-                            margin: 0;
-                            position: absolute;
-                            background-color: #93be2b;
-                            z-index: 1;
-                            top: 0;
-                            right: 0;
-                            height: 27px;
-                            line-height: 27px;
-                            border-radius: 3px;
-                            padding: 0 13px;
-                            min-width: inherit;
-                            min-height: inherit;
+                        height: 27px;
+                        line-height: 27px;
+                        border-radius: 3px;
+                        padding: 0 13px;
+                        min-width: inherit;
+                        min-height: inherit;
+                        &.onsale{
+                            background-color: #f14705;
+                        }
+                        &.out-of-stock{
+                            background-color: #000000;
                         }
                     }
                 }

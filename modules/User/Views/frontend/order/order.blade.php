@@ -3,7 +3,6 @@
         <table class="table table-bordered table-striped table-booking-history">
             <thead>
             <tr>
-                <th width="2%">{{__("Order")}}</th>
                 <th>{{__("Suborders")}}</th>
                 <th>{{__("Gateway")}}</th>
                 <th>{{__("Date")}}</th>
@@ -16,20 +15,28 @@
             @foreach($orders as $order)
                 @php $data_order = []; $suborder = \Modules\Product\Models\OrderItem::where('order_id',$order->id)->get(); @endphp
                 <tr data-order="{{$order->id}}">
-                    <td><div class="order_id">#{{$order->id}}</div></td>
                     <td>
-                        <div class="suborder">
-                            <ul class="order-vendor list-unstyled">
-                                @foreach($suborder as $item)
-                                    @php $vendor = \App\User::find($item->vendor_id); array_push($data_order, $item->id); $a_item = [$item->id] @endphp
-                                    <li>
-                                        <strong><a href="#" class="btn-info-booking" data-is_suborder="true" data-toggle="modal" data-suborder="{{json_encode($a_item)}}">#{{$item->id}}</a></strong>
-                                        –
-                                        <small class="order-for-vendor">{{ __('for :vendor',['vendor'=>$vendor->getDisplayName()]) }}</small>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </div>
+                        <ul class="order-vendor list-unstyled">
+                            @foreach($suborder as $item)
+                                @php
+                                    $product = \Modules\Product\Models\Product::where('id',$item->product_id)->first();
+                                    array_push($data_order, $item->id);
+                                @endphp
+                                <li>
+                                    <div class="media">
+                                        <div class="media-left">
+                                            <div class="thumb">
+                                                {!! get_image_tag($product->image_id) !!}
+                                            </div>
+                                        </div>
+                                        <div class="media-body">
+                                            <a href="{{ route('product.detail',['slug'=>$product->slug]) }}">{{$item->product_name}}</a>
+                                            <div>{{ __('Quantity: :num',['num'=>$item->qty]) }}</div>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
                     </td>
                     <td>{{$order->gateway}}</td>
                     <td>{{display_date($order->created_at)}}</td>

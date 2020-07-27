@@ -45,6 +45,7 @@ class CreateProductTable extends Migration
             $table->decimal('height',5,2)->nullable();
 
             // Stock
+            $table->tinyInteger('sold')->nullable();
             $table->tinyInteger('quantity')->nullable();
             $table->tinyInteger('is_manage_stock')->nullable();
             $table->string('stock_status',20)->nullable();
@@ -126,6 +127,7 @@ class CreateProductTable extends Migration
             $table->string('sku',255)->nullable();
             $table->integer('image_id')->nullable();
             $table->decimal('price',10,2)->nullable();
+            $table->tinyInteger('sold')->nullable();
             $table->tinyInteger('quantity')->nullable();
             $table->tinyInteger('is_manage_stock')->nullable();
             $table->string('stock_status',20)->nullable();

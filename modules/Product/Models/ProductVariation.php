@@ -81,6 +81,7 @@ class ProductVariation extends BaseProduct
         $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
         $variation_id = $request->input('variation_id');
         $product_name = '';
+        $stock = $add = 0;
         if($variation_id){
             $variation = ProductVariation::find($variation_id);
             $product = Product::where('id',$variation->product_id)->first();
@@ -97,25 +98,58 @@ class ProductVariation extends BaseProduct
                     $options[$item->attr_slug] = $item->term_name;
                 }
             }
+            $options['variation_id'] = $variation_id;
 
             if ($product){
-                $product_variation = [
-                    'id'    =>  $product->id,
-                    'name'  =>  (!empty($term)) ? substr($product_name,0,-2) : $product_name,
-                    'qty'   =>  $quantity,
-                    'price' =>  $variation->price,
-                    'options'=> (count($options) > 0) ? $options : null,
-                ];
-                Cart::add($product_variation)->associate(Product::class);
+                $get_stock = function ($st, $pr){
+                    $sold = (!empty($pr->sold)) ? $pr->sold : 0;
+                    if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+                        $st = $pr->quantity - $sold;
+                    }
+                    return $st;
+                };
+                if (Cart::count() > 0){
+                    foreach (Cart::content() as $row){
+                        if ($row->options->variation_id == $variation_id){
+                            $stock = $get_stock($stock,$variation);
+                            if ($row->qty + $request->input('qty') > $stock){
+                                $add = 1;
+                            }
+                        }
+                    }
+                    if ($stock <= 0){$add = 0;}
+                } else {
+                    $stock = $get_stock($stock,$variation);
+                    if ($request->input('qty') > $stock){
+                        $add = 1;
+                    }
+                    if ($stock <= 0){$add = 0;}
+                }
+                if ($add == 0) {
+                    $product_variation = [
+                        'id'    =>  $product->id,
+                        'name'  =>  (!empty($term)) ? substr($product_name,0,-2) : $product_name,
+                        'qty'   =>  $quantity,
+                        'price' =>  $variation->price,
+                        'options'=> (count($options) > 0) ? $options : null,
+                    ];
+                    Cart::add($product_variation)->associate(Product::class);
+                }
             }
         }
 
         $buy_now = $request->input('buy_now');
+        if ($add == 0){
+            $message = __('":title" has been added to your cart.',['title'=>(!empty($term)) ? substr($product_name,0,-2) : $product_name]);
+        } else {
+            $message = __('Product ":title" has been out of stock.',['title'=>(!empty($term)) ? substr($product_name,0,-2) : $product_name]);
+        }
 
         return $this->sendSuccess([
+            'status'   => ($add == 0) ? 1 : 0,
             'fragments'=>get_cart_fragments(),
             'url'=>$buy_now ? route('booking.checkout') : ''
-        ],__('":title" has been added to your cart.',['title'=>(!empty($term)) ? substr($product_name,0,-2) : $product_name]));
+        ],$message);
     }
 
     public function getStockStatus(){

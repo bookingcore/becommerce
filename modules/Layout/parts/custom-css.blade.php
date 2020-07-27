@@ -64,6 +64,9 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
     .page-header-blog .breadcrumbs li.active a,
     .bravo-header .header-style-default .bravo-main-header .bravo-extra-menu li .u-right .dropdown-menu li a:hover,
     .bravo_wrap .bravo_categories .list-item .item .mf-image-box:hover a,
+    .breadcrumbs > li > a:hover,
+    .product-categories > li > a:hover,
+    .children-menu > li > a:hover,
     .nav li li .mega-menu-submenu a:hover,
     .martfury-icon-box.icon_position-left .box-icon,
     ul.products li.product h2:hover a

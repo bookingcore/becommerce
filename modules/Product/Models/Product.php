@@ -335,7 +335,7 @@ class Product extends BaseProduct
         $stock = ''; $in_stock = true;
         if ($this->is_manage_stock > 0){
             if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity]);
+                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
             }
         } else {
             $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
@@ -477,15 +477,41 @@ class Product extends BaseProduct
 
     public function addToCart(Request $request)
     {
+        $product = Product::where('id',$request->input('id'))->first();
         $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
-        Cart::add($this,$quantity);
+        $stock = $add = 0;
+        $get_stock = function ($st, $pr){
+            $sold = (!empty($pr->sold)) ? $pr->sold : 0;
+            if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+                $st = $pr->quantity - $sold;
+            }
+            return $st;
+        };
+        if (Cart::count() > 0){
+            foreach (Cart::content() as $row){
+                if ($row->id == $request->input('id')){
+                    $stock = $get_stock($stock,$product);
+                    if ($row->qty + $request->input('qty') > $stock){
+                        $add = 1;
+                    }
+                }
+            }
+            if ($stock <= 0){$add = 0;}
+        } else {
+            $add = 0;
+        }
+        if ($add == 0) {Cart::add($this,$quantity);}
 
         $buy_now = $request->input('buy_now');
+        $message = ($add == 0) ? __('":title" has been added to your cart.',['title'=>$this->title]) : __('Product ":title" has been out of stock.',['title'=>$this->title]);
 
-        return $this->sendSuccess([
-            'fragments'=>get_cart_fragments(),
-            'url'=>$buy_now ? route('booking.checkout') : ''
-        ],__('":title" has been added to your cart.',['title'=>$this->title]));
+        return $this->sendSuccess(
+            [
+                'status'   => ($add == 0) ? 1 : 0,
+                'fragments'=>get_cart_fragments(),
+                'url'=>$buy_now ? route('booking.checkout') : ''
+            ], $message
+        );
     }
 
     public function list_attrs(){

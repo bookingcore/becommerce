@@ -133,9 +133,7 @@ class UserController extends FrontendController
     {
         $user_id = Auth::id();
         $data = [
-//            'bookings' => Booking::getBookingHistory($request->input('status'), $user_id),
             'orders'   => Order::where('customer_id',$user_id)->where('status','processing')->get(),
-
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [

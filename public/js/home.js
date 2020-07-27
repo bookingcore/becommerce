@@ -618,7 +618,9 @@ jQuery(function ($) {
 
     $(document).on('click','.quantity-input-group span',function () {
         let input = $(this).parent().find('input[name=quantity]');
-        let v_quantity = ( Object.keys(Bravo.currentVariation).length > 0 ) ? Bravo.currentVariation.variations.quantity : null;
+        let max = input.attr('max');
+        let quantity = (Bravo.currentVariation.variations.quantity !== null) ? Bravo.currentVariation.variations.quantity - Bravo.currentVariation.variations.sold : null;
+        let v_quantity = ( Object.keys(Bravo.currentVariation).length > 0 ) ? quantity : max;
         if ($(this).hasClass('minus')){
             input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
         } else {
@@ -773,7 +775,8 @@ jQuery(function ($) {
                     let $stock = ''; let $in_stock = true;
                     if (parseInt(i.variations.is_manage_stock) > 0){
                         if (i.variations.stock_status === 'in'){
-                            $stock = i18n.num_stock.replace('__num__',i.variations.quantity);
+                            let quantity = (i.variations.sold) ? i.variations.quantity - i.variations.sold : i.variations.quantity;
+                            $stock = i18n.num_stock.replace('__num__',quantity);
                         }
                     } else {
                         $stock = i18n.in_stock;

@@ -2809,15 +2809,7 @@ ul.products li.product .product-inner .mf-product-thumbnail .footer-button .comp
   visibility: hidden;
 }
 
-ul.products li.product .product-inner .mf-product-thumbnail .ribbons .onsale {
-  margin: 0;
-  top: 0;
-  right: 0;
-  background-color: #f14705 !important;
-  left: auto;
-}
-
-ul.products li.product .product-inner .mf-product-thumbnail .ribbons .onsale.ribbon {
+ul.products li.product .product-inner .mf-product-thumbnail .ribbons .ribbon {
   color: #fff;
   font-size: 14px;
   font-weight: 600;
@@ -2835,6 +2827,14 @@ ul.products li.product .product-inner .mf-product-thumbnail .ribbons .onsale.rib
   padding: 0 13px;
   min-width: inherit;
   min-height: inherit;
+}
+
+ul.products li.product .product-inner .mf-product-thumbnail .ribbons .ribbon.onsale {
+  background-color: #f14705;
+}
+
+ul.products li.product .product-inner .mf-product-thumbnail .ribbons .ribbon.out-of-stock {
+  background-color: #000000;
 }
 
 ul.products li.product .product-inner .mf-vendor-name .sold-by-meta {
