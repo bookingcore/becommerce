@@ -31,9 +31,11 @@
             <div class="row booking-success-detail">
                 <div class="col-md-8">
                     @include ('Booking::frontend/booking/order-information')
-                    <div class="text-center">
-                        <a href="{{url(app_get_locale().'/user/booking-history')}}" class="btn btn-primary">{{__('Booking History')}}</a>
-                    </div>
+                    @if(\Illuminate\Support\Facades\Auth::id())
+                        <div class="text-center">
+                            <a href="{{url(app_get_locale().'/user/booking-history')}}" class="btn btn-primary">{{__('Order History')}}</a>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>
