@@ -619,8 +619,9 @@ jQuery(function ($) {
     $(document).on('click','.quantity-input-group span',function () {
         let input = $(this).parent().find('input[name=quantity]');
         let max = input.attr('max');
-        let quantity = (Bravo.currentVariation.variations.quantity !== null) ? Bravo.currentVariation.variations.quantity - Bravo.currentVariation.variations.sold : null;
-        let v_quantity = ( Object.keys(Bravo.currentVariation).length > 0 ) ? quantity : max;
+        let has_currentVariation = Object.keys(Bravo.currentVariation).length > 0;
+        let quantity = (has_currentVariation && Bravo.currentVariation.variations.quantity !== null) ? Bravo.currentVariation.variations.quantity - Bravo.currentVariation.variations.sold : null;
+        let v_quantity = (has_currentVariation) ? quantity : max;
         if ($(this).hasClass('minus')){
             input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
         } else {
