@@ -37,24 +37,32 @@ class News extends Seeder
         );
 
         $list_categories = [
-              ['name' => 'Adventure Travel', 'slug' => 'adventure-travel',  'status' => 'publish' ]
-            , ['name' => 'Ecotourism', 'slug' => 'ecotourism',  'status' => 'publish' ]
-            , ['name' => 'Sea Travel ', 'slug' => 'sea-travel',  'status' => 'publish' ]
-            , ['name' => 'Hosted Tour', 'slug' => 'hosted-tour',  'status' => 'publish' ]
-            , ['name' => 'City trips ', 'slug' => 'city-trips',  'status' => 'publish' ]
-            , ['name' => 'Escorted Tour ', 'slug' => 'escorted-tour',  'status' => 'publish' ]
+              ['name' => 'Entertaiment', 'slug' => 'entertaiment',  'status' => 'publish' ]
+            , ['name' => 'Technology', 'slug' => 'technology',  'status' => 'publish' ]
+            , ['name' => 'Life Style ', 'slug' => 'life-style',  'status' => 'publish' ]
+            , ['name' => 'Others', 'slug' => 'others',  'status' => 'publish' ]
+            , ['name' => 'Business', 'slug' => 'business',  'status' => 'publish' ]
+            , ['name' => 'Fashion', 'slug' => 'fashion',  'status' => 'publish' ]
         ];
         foreach ($list_categories as $category){
             $row = new NewsCategory( $category );
             $row->save();
         }
         $list_tags = [
-             ['name' => 'park', 'slug' => 'park' ],
-             ['name' => 'National park', 'slug' => 'national-park' ],
-             ['name' => 'Moutain', 'slug' => 'moutain' ],
-             ['name' => 'Travel', 'slug' => 'travel' ],
+             ['name' => 'Business', 'slug' => 'business' ],
+             ['name' => 'Clothings', 'slug' => 'clothings' ],
+             ['name' => 'Design', 'slug' => 'design' ],
+             ['name' => 'Entertaiment', 'slug' => 'entertaiment' ],
+             ['name' => 'Fashion', 'slug' => 'fashion'],
+             ['name' => 'Internet', 'slug' => 'internet'],
+             ['name' => 'Life Style', 'slug' => 'life-style'],
+             ['name' => 'Marketing', 'slug' => 'marketing'],
+             ['name' => 'Music', 'slug' => 'music'],
+             ['name' => 'New Style', 'slug' => 'new-style'],
+             ['name' => 'Print', 'slug' => 'print'],
+             ['name' => 'Spring', 'slug' => 'spring'],
              ['name' => 'Summer', 'slug' => 'summer'],
-             ['name' => 'Walking', 'slug' => 'walking'],
+             ['name' => 'Technology', 'slug' => 'technology']
         ];
         foreach ($list_tags as $tag) {
             $row = new Tag($tag);
@@ -63,8 +71,8 @@ class News extends Seeder
 
 
         DB::table('core_news')->insert([
-            'title' => 'The day on Paris',
-            'slug' => Str::slug('The day on Paris', '-'),
+            'title' => 'Experience Great Sound With Beats’s Headphone',
+            'slug' => Str::slug('Experience Great Sound With Beats’s Headphone', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -74,8 +82,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'Pure Luxe in Punta Mita',
-            'slug' => Str::slug('Pure Luxe in Punta Mita', '-'),
+            'title' => 'Products Necessery For Mom',
+            'slug' => Str::slug('Products Necessery For Mom', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -85,8 +93,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'All Aboard the Rocky Mountaineer',
-            'slug' => Str::slug('All Aboard the Rocky Mountaineer', '-'),
+            'title' => 'Home Interior: Modern Style 2017',
+            'slug' => Str::slug('Home Interior: Modern Style 2017', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -96,8 +104,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'City Spotlight: Philadelphia',
-            'slug' => Str::slug('City Spotlight: Philadelphia', '-'),
+            'title' => 'A New Look About Startup In Product Manufacture Field',
+            'slug' => Str::slug('A New Look About Startup In Product Manufacture Field', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -107,8 +115,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'Tiptoe through the Tulips of Washington',
-            'slug' => Str::slug('Tiptoe through the Tulips of Washington', '-'),
+            'title' => 'B&O Play – Best Headphone For You',
+            'slug' => Str::slug('B&O Play – Best Headphone For You', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -118,8 +126,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'A Seaside Reset in Laguna Beach',
-            'slug' => Str::slug('A Seaside Reset in Laguna Beach', '-'),
+            'title' => 'Unique Products For Your Kitchen From IKEA Design',
+            'slug' => Str::slug('Unique Products For Your Kitchen From IKEA Design', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -129,8 +137,8 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'America  National Parks with Denver',
-            'slug' => Str::slug('America  National Parks with Denver', '-'),
+            'title' => 'Explore Fashion Trending For Guys In Autumn 2017',
+            'slug' => Str::slug('Explore Fashion Trending For Guys In Autumn 2017', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
@@ -140,13 +148,13 @@ class News extends Seeder
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
-            'title' => 'Morning in the Northern sea',
-            'slug' => Str::slug('Morning in the Northern sea', '-'),
+            'title' => 'Compact & Powerful: Cannon Pentack Beside You Go To Anywhere',
+            'slug' => Str::slug('Compact & Powerful: Cannon Pentack Beside You Go To Anywhere', '-'),
             'content' => ' From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception  From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception <br/>From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception<br/>
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
             'cat_id' => rand(1, 4),
-            'image_id' => MediaFile::findMediaByName("news-2")->id,
+            'image_id' => MediaFile::findMediaByName("news-7")->id,
             'create_user' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
