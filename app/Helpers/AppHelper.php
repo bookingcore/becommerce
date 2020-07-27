@@ -150,6 +150,7 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
     $url = get_file_url($image_id,$size);
 
     if($url){
+        $style = $options['style'] ?? '';
         $alt = $options['alt'] ?? '';
         $attr = '';
         $class= $options['class'] ?? '';
@@ -159,7 +160,7 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
         }else{
             $attr.=" src=".e($url);
         }
-        return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
+        return sprintf("<img class='%s' %s alt='%s' style='%s'>",e($class),e($attr),e($alt),e($style));
     }
 }
 function get_date_format(){

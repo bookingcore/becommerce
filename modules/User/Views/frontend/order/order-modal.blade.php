@@ -39,7 +39,7 @@
                                                                 <div class="name">{{ $item->product_name }} x {{ $item->qty }}</div>
                                                                 <div class="sold-by"><span style="font-weight: 600">{{ __('Sold by:') }}</span> {{$user->getDisplayName()}}</div>
                                                             </div>
-                                                            <div class="val" style="color: red">{{format_money($item->price)}}</div>
+                                                            <div class="val" style="color: red">{{format_money($item->qty * $item->price)}}</div>
                                                         </li>
                                                     @endforeach
                                                 @endif

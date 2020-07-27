@@ -16,7 +16,7 @@
                                 <div class="label-name">{{$item->product_name}} x {{$item->qty}}</div>
                                 <div class="label-by"><span>{{__('Sold by:')}}</span> {{$name}}</div>
                             </div>
-                            <div class="val">{{format_money($item->price)}}</div>
+                            <div class="val">{{format_money($item->qty * $item->price)}}</div>
                         </div>
                     @endforeach
                 @endif

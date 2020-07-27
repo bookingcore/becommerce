@@ -7,13 +7,13 @@
     @include('Layout::admin.message')
     <div class="booking-history-manager">
         <div class="tabbable">
-            @if(!empty($orders))
+            @if(count($orders) > 0)
                 @include('User::frontend.order.order')
                 <div class="show-modal">
                     @include('User::frontend.order.order-modal')
                 </div>
             @else
-                {{__("No Booking History")}}
+                {{__("No Order History")}}
             @endif
         </div>
     </div>
