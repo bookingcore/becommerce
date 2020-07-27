@@ -1228,19 +1228,6 @@ ul.products {
                                 display: none;
                             }
                         }
-                        /*&.has-sale{
-                            .sale-2{
-                                display: none;
-                            }
-                        }
-                        del{
-                            display: inline-block;
-                        }
-                        &.variable-price{
-                            ins{
-                                color: #000;
-                            }
-                        }*/
                     }
                     .product-summary-header{
                         .sold-by{
@@ -1277,8 +1264,9 @@ ul.products {
                             margin: 0 20px 0 0;
                         }
                         .btn{
-                            &:not(.buy_now){
-                                margin-right: 19px;
+                            margin-right: 19px;
+                            &.buy_now{
+                                margin-right: 0;
                             }
                         }
                     }

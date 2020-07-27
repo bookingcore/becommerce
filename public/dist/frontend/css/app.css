@@ -4042,19 +4042,6 @@ ul.products li.product .sold-by-meta a:hover {
   margin-bottom: 10px;
   font-weight: 600;
   line-height: 1;
-  /*&.has-sale{
-      .sale-2{
-          display: none;
-      }
-  }
-  del{
-      display: inline-block;
-  }
-  &.variable-price{
-      ins{
-          color: #000;
-      }
-  }*/
 }
 
 .mf-quick-view-modal .modal-content .product-modal-content .mf-product-detail .product-detail-meta .price.has-sale ins {
@@ -4119,8 +4106,12 @@ ul.products li.product .sold-by-meta a:hover {
   margin: 0 20px 0 0;
 }
 
-.mf-quick-view-modal .modal-content .product-modal-content .mf-product-detail .product-detail-meta .product-detail-add-to-cart .btn:not(.buy_now) {
+.mf-quick-view-modal .modal-content .product-modal-content .mf-product-detail .product-detail-meta .product-detail-add-to-cart .btn {
   margin-right: 19px;
+}
+
+.mf-quick-view-modal .modal-content .product-modal-content .mf-product-detail .product-detail-meta .product-detail-add-to-cart .btn.buy_now {
+  margin-right: 0;
 }
 
 .ps-store-list .site-content {
@@ -4368,7 +4359,7 @@ ul.products li.product .sold-by-meta a:hover {
   margin: 0 30px 0 0;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1209px) {
   .product-detail-add-to-cart .quantity-input {
     margin-right: 15px;
   }
@@ -4450,14 +4441,11 @@ ul.products li.product .sold-by-meta a:hover {
   float: left;
   white-space: nowrap;
   min-width: 180px;
-}
-
-.product-detail-add-to-cart .btn:not(.buy_now) {
   margin-right: 30px;
 }
 
-@media (max-width: 1200px) {
-  .product-detail-add-to-cart .btn:not(.buy_now) {
+@media (max-width: 1240px) {
+  .product-detail-add-to-cart .btn {
     margin-right: 15px;
   }
 }
@@ -4481,6 +4469,12 @@ ul.products li.product .sold-by-meta a:hover {
 .product-detail-add-to-cart .btn.buy_now {
   color: #000;
   background-color: #fcb800;
+}
+
+@media (max-width: 1304px) {
+  .product-detail-add-to-cart .btn.buy_now {
+    margin-right: 0 !important;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -4731,11 +4725,6 @@ ul.products li.product .sold-by-meta a:hover {
   margin-bottom: 0;
   padding-left: 70px;
   position: relative;
-}
-
-.bravo_detail_product .col-product-info .product-detail-gallery .slides > li {
-  margin-left: -1px !important;
-  margin-right: 2px !important;
 }
 
 @media (max-width: 1024px) {

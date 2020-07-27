@@ -229,7 +229,7 @@ class ProductSeeder extends Seeder
             'price'       => '679.80',
             'sale_price'  => '567.99',
             'status'      => 'publish',
-            'stock_status'=> 'in',
+            'stock_status'=> 'out',
             'product_type'=> 'simple',
             'create_user' => '1'
         ] );

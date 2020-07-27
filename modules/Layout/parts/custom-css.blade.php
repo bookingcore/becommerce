@@ -10,6 +10,8 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
         @endif
     }
 
+    .bravo-booking-page .form-actions .btn,
+    .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li a.flex-active,
     .bravo_footer .bravo_footer_menu .mf-els-modal-mobile .mf-cart-mobile .widget-canvas-content .widget_shopping_cart_content .cart__footer figure a.checkout,
     .btn.btn-primary,
     .mf-els-modal-mobile .mf-cart-mobile .mobile-cart-header,
