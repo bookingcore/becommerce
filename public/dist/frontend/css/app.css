@@ -4490,6 +4490,20 @@ ul.products li.product .sold-by-meta a:hover {
   }
 }
 
+.product-detail-add-to-cart .btn.bravo_add_to_cart {
+  position: relative;
+}
+
+.product-detail-add-to-cart .btn.bravo_add_to_cart:after {
+  top: 19px;
+  left: initial;
+  right: 19px;
+}
+
+.product-detail-add-to-cart .btn.bravo_add_to_cart.loading {
+  opacity: 0.25;
+}
+
 .product-detail-add-to-cart .btn-custom:last-child > a {
   margin-left: 20px;
 }

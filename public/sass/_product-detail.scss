@@ -170,6 +170,17 @@
                 width: 100%;
             }
         }
+        &.bravo_add_to_cart{
+            position: relative;
+            &:after{
+                top: 19px;
+                left: initial;
+                right: 19px;
+            }
+            &.loading{
+                opacity: 0.25;
+            }
+        }
     }
 
     .btn-custom{

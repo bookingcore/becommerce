@@ -937,8 +937,12 @@
   padding: 8px 5px;
 }
 
-.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .suborder .btn-info-booking {
-  color: #06c;
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-left {
+  padding-right: 10px;
+}
+
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-left .thumb {
+  width: 70px;
 }
 
 .bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .booking-history-type {
