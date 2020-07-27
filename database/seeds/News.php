@@ -154,7 +154,7 @@ class News extends Seeder
     From the iconic to the unexpected, the city of San Francisco never ceases to surprise. Kick-start your effortlessly delivered Northern California holiday in the cosmopolitan hills of  The City . Join your Travel Director and fellow travellers for a Welcome Reception at your hotel.Welcome Reception',
             'status' => "publish",
             'cat_id' => rand(1, 4),
-            'image_id' => MediaFile::findMediaByName("news-7")->id,
+            'image_id' => MediaFile::findMediaByName("news-8")->id,
             'create_user' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
