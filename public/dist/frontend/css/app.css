@@ -4387,9 +4387,6 @@ ul.products li.product .sold-by-meta a:hover {
   border-width: 0;
   width: 60px;
   padding: 10px 0;
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
   text-align: center;
   font-weight: 600;
   color: #000;
@@ -4755,8 +4752,9 @@ ul.products li.product .sold-by-meta a:hover {
 .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav {
   position: absolute;
   top: -5px;
-  left: 0;
+  left: 1px;
   width: 70px;
+  background: #fff;
 }
 
 @media (max-width: 767px) {

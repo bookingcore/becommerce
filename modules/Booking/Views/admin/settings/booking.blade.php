@@ -19,7 +19,7 @@
                     <label >{{__("Terms & Conditions page")}}</label>
                     <div class="form-controls">
                         <?php
-                            $template = !empty($settings['booking_term_conditions']) ? \Modules\Page\Models\VendorPlan::find($settings['booking_term_conditions'] ) : false;
+                            $template = !empty($settings['booking_term_conditions']) ? \Modules\Page\Models\Page::find($settings['booking_term_conditions'] ) : false;
                             \App\Helpers\AdminForm::select2('booking_term_conditions',[
                             'configs'=>[
                                     'ajax'=>[
