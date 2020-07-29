@@ -3,6 +3,7 @@ namespace Modules\Product\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\News\Models\Tag;
 use Modules\Product\Models\BravoTerms;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
@@ -74,6 +75,12 @@ class ProductController extends Controller
         $brand = $request->query('brand');
         if (is_array($brand) && !empty($brand)){
             $query->whereIn('products.brand_id', $brand);
+        }
+
+        $tag = $request->query('tag');
+        if (!empty($tag)){
+            $tag_id = Tag::select('id')->where('slug',$tag)->first()->getAttribute('id');
+            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
         }
 
         if(!empty($cats)){

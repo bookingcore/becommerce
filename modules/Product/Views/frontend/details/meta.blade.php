@@ -76,7 +76,7 @@
                 @foreach($row->tags as $k=>$category)
                     @if($k) ,
                     @endif
-                    <a href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
+                    <a href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
                 @endforeach
             </span>
         </div>
