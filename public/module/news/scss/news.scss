@@ -255,6 +255,9 @@
 		margin-right: 10px;
 		text-transform: uppercase;
 		text-decoration: none;
+        &:after{
+            display: none;
+        }
 	}
 
 
