@@ -114,12 +114,6 @@ $menus = [
                 'permission' => 'role_view',
                 'icon'       => 'fa fa-lock',
             ],
-//            [
-//                'url'        => 'admin/module/user/permission',
-//                'title'      => __('Permission Manager'),
-//                'permission' => 'permission_view',
-//                'icon'       => 'fa fa-lock',
-//            ],
             'subscriber'=>[
                 'url'        => 'admin/module/user/subscriber',
                 'title'      => __('Subscribers'),

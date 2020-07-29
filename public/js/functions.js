@@ -252,12 +252,13 @@ $(document).on('click','.btn-info-booking',function () {
     let $this = $(this);
     let id = $this.closest('tr').data('order');
     let suborder = $this.data('suborder');
+    let products_order = $this.data('products_order');
     $.ajax({
         url: bookingCore.url + '/user/view-order/' + id,
         method: 'POST',
         data: {
             suborder: suborder,
-            is_suborder: $this.data('is_suborder')
+            products_order: (typeof products_order !== undefined) ? products_order : null
         },
         beforeSend:function(){
             $this.addClass('loading').attr('disabled','disabled');

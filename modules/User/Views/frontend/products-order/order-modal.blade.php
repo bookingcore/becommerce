@@ -30,10 +30,13 @@
                                                     <div class="label">{{ __('Product') }}</div>
                                                     <div class="val">{{ __('Total') }}</div>
                                                 </li>
-                                                @php $total_suborder = ''; @endphp
+                                                @php $total_suborder = 0; @endphp
                                                 @if(!empty($suborder))
                                                     @foreach($suborder as $item)
-                                                        @php $user = \App\User::find($item->vendor_id); $total_suborder = format_money($item->price); @endphp
+                                                        @php
+                                                            $user = \App\User::find($item->vendor_id);
+                                                            $total_suborder += $item->qty * $item->price;
+                                                        @endphp
                                                         <li class="info-content">
                                                             <div class="label">
                                                                 <div class="name">{{ $item->product_name }} x {{ $item->qty }}</div>
@@ -44,18 +47,9 @@
                                                     @endforeach
                                                 @endif
 
-                                                @if($order->coupons && is_array(json_decode($order->coupons)))
-                                                    @foreach(json_decode($order->coupons) as $coupon)
-                                                        @php $coupon_discount = ($coupon->type == 'percent') ? $coupon->discount/100 : $coupon->discount  @endphp
-                                                        <li class="info-content info-coupon">
-                                                            <div class="label text-uppercase">{{ __('Coupon: :coupon',['coupon'=>$coupon->name]) }}</div>
-                                                            <div class="val" style="color: red">-{{ ($coupon->type == 'percent') ? format_money($order->total * $coupon_discount) : format_money($coupon_discount) }}</div>
-                                                        </li>
-                                                    @endforeach
-                                                @endif
                                                 <li class="info-total">
                                                     <div class="label text-uppercase">{{__('Total')}}</div>
-                                                    <div class="val">{{ format_money($order->final_total) }}</div>
+                                                    <div class="val">{{ format_money($total_suborder) }}</div>
                                                 </li>
                                             </ul>
                                         </div>

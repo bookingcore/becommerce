@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Product\Models\Order;
+use Modules\Product\Models\OrderItem;
 
 class OrderController extends AdminController
 {
