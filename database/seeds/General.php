@@ -990,15 +990,10 @@
                     "_open" => true
                 ],
                 [
-                    "id" => 1,
-                    "name" => "Track Your Order",
-                    "class" => "",
-                    "target" => "",
-                    "item_model" => "Modules\News\Models\News",
-                    "origin_name" => "News",
-                    "model_name" => null,
-                    "_open" => true,
-                    "is_removed" => true
+                    "name" => 'Track Your Order',
+                    "url" => '/user/booking-history',
+                    "item_model" => 'custom',
+                    "_open" => true
                 ]
             ];
 

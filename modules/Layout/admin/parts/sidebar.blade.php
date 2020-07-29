@@ -125,22 +125,7 @@ $menus = [
                 'permission' => 'user_view',
             ],
         ]
-    ],
-    'booking'=>[
-        "position"=>110,
-        'url'        => 'admin/module/report/booking',
-        'title'      => __('Reports'),
-        'icon'       => 'icon ion-ios-pie',
-        'permission' => 'report_view',
-        'children'   => [
-            'contact'=>[
-                'url'        => 'admin/module/contact',
-                'title'      => __('Contact Submissions'),
-                'icon'       => 'icon ion ion-md-mail',
-                'permission' => 'contact_manage',
-            ],
-        ]
-    ],
+    ]
 ];
 
 // Modules
