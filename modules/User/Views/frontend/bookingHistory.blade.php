@@ -3,7 +3,7 @@
 
 @endsection
 @section('content')
-    <h2 class="title-bar no-border-bottom">{{__("Order History")}}</h2>
+    <h2 class="title-bar no-border-bottom">{{__("My Order")}}</h2>
     @include('Layout::admin.message')
     <div class="booking-history-manager">
         <div class="tabbable">

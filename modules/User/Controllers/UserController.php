@@ -137,11 +137,11 @@ class UserController extends FrontendController
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [
-                    'name' => __('Order History'),
+                    'name' => __('My Order'),
                     'class' => 'active'
                 ]
             ],
-            'page_title'         => __("Booking History"),
+            'page_title'         => __("My Order"),
         ];
         return view('User::frontend.bookingHistory', $data);
     }
@@ -155,11 +155,11 @@ class UserController extends FrontendController
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [
-                    'name' => __('Order History'),
+                    'name' => __('Product\'s Order'),
                     'class' => 'active'
                 ]
             ],
-            'page_title'         => __("Booking History"),
+            'page_title'         => __("Product's Order"),
         ];
         return view('User::frontend.products-order', $data);
     }
