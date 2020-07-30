@@ -22,8 +22,8 @@ Route::group(['prefix'=>'/role'], function (){
 });
 
 Route::group(['prefix'=>'subscriber'],function (){
-    Route::get('/','subscriberController@index')->name('user.subscriber.index');
-    Route::post('/store','subscriberController@store')->name('user.subscriber.store');
-    Route::post('/editBulk','subscriberController@editBulk')->name('user.subscriber.editBulk');
-    Route::get('/export','subscriberController@export')->name('user.subscriber.export');
+    Route::get('/','SubscriberController@index')->name('user.subscriber.index');
+    Route::post('/store','SubscriberController@store')->name('user.subscriber.store');
+    Route::post('/editBulk','SubscriberController@editBulk')->name('user.subscriber.editBulk');
+    Route::get('/export','SubscriberController@export')->name('user.subscriber.export');
 });
