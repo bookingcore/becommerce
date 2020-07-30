@@ -52,5 +52,7 @@
             </tbody>
         </table>
     </div>
-    <div class="bravo-pagination"></div>
+    <div class="bravo-pagination">
+        {!! $orders->links() !!}
+    </div>
 </div>
