@@ -1195,6 +1195,7 @@
 }
 
 .bravo_wrap .bravo_user_profile .bravo-pagination {
+  padding: 0;
   margin-bottom: 20px;
 }
 
@@ -1400,6 +1401,7 @@
 }
 
 .bravo_wrap .bravo_user_profile .dungdt-upload-box .attach-demo img {
+  width: 100%;
   max-width: 100%;
 }
 
