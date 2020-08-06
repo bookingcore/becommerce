@@ -858,20 +858,6 @@ function get_payment_gateways(){
             }
         }
     }
-    //Custom
-    $custom_modules = \Custom\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
-            {
-                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
-                if(!empty($gateway)){
-                    $gateways = array_merge($gateways,$gateway);
-                }
-            }
-        }
-    }
     //Plugin
     $plugin_modules = \Plugins\ServiceProvider::getModules();
     if(!empty($plugin_modules)){
@@ -886,6 +872,22 @@ function get_payment_gateways(){
             }
         }
     }
+
+    //Custom
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+
     return $gateways;
 }
 
