@@ -95,7 +95,7 @@ class StripeGateway extends BaseGateway
         }
         $this->getGateway();
         $payment = new Payment();
-        $payment->booking_id = $booking->id;
+        $payment->order_id = $booking->id;
         $payment->payment_gateway = $this->id;
         $data = $this->handlePurchaseData([
             'amount'        => (float)$booking->total,

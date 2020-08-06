@@ -72,7 +72,7 @@ class TwoCheckoutGateway extends \Modules\Booking\Gateways\BaseGateway
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
         $payment = new Payment();
-        $payment->booking_id = $booking->id;
+        $payment->order_id = $booking->id;
         $payment->payment_gateway = $this->id;
         $payment->status = 'draft';
         $payment->save();
