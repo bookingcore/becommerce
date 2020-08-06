@@ -133,7 +133,7 @@ class UserController extends FrontendController
     {
         $user_id = Auth::id();
         $data = [
-            'orders'   => Order::where('customer_id',$user_id)->where('status','processing')->orderBy('id','desc')->paginate(10),
+            'orders'   => Order::where('customer_id',$user_id)->where('status','<>','draft')->orderBy('id','desc')->paginate(10),
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [
@@ -148,7 +148,7 @@ class UserController extends FrontendController
 
     public function productsOrder(){
         $user_id = Auth::id();
-        $orders = Order::select('product_orders.*','product_order_items.vendor_id')->join('product_order_items','product_orders.id','=','product_order_items.order_id')->where('product_order_items.vendor_id',$user_id)->where('product_orders.status','processing')->groupBy('product_orders.id')->orderBy('product_orders.id','desc')->paginate(10);
+        $orders = Order::select('product_orders.*','product_order_items.vendor_id')->join('product_order_items','product_orders.id','=','product_order_items.order_id')->where('product_order_items.vendor_id',$user_id)->where('product_orders.status','<>','draft')->groupBy('product_orders.id')->orderBy('product_orders.id','desc')->paginate(10);
         $data = [
             'user_id' => $user_id,
             'orders'   => $orders,
