@@ -106,7 +106,7 @@ class Order extends BaseModel{
         ])->first();
         if (!empty($val)) {
             //$this->cachedMeta[$key]  = $val->val;
-            return $val->val;
+            return $val->meta_value;
         }
         return $default;
     }

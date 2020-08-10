@@ -10,6 +10,7 @@ use Modules\Product\Models\Order;
 use Omnipay\Omnipay;
 use Omnipay\PayPal\ExpressGateway;
 use Illuminate\Support\Facades\Log;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class PaypalGateway extends BaseGateway
 {
@@ -127,6 +128,10 @@ class PaypalGateway extends BaseGateway
         ], $booking, $payment);
         $response = $this->gateway->purchase($data)->send();
         if ($response->isRedirect()) {
+
+
+            Cart::destroy();
+            session()->forget(['coupon','shipping','tmp_order_id']);
 
             $payment->save();
             $booking->status = $booking::UNPAID;
