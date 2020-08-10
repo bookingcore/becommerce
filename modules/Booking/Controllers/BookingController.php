@@ -251,9 +251,17 @@ class BookingController extends \App\Http\Controllers\Controller
                     }
                 }
             }
-
-            $user  = $this->maybeCreateUser($request);
+            $is_tmp_order = false;            
             $order = new Order();
+            if($tmp_order_id = session('tmp_order_id')){
+                $tmpOrder = Order::find($tmp_order_id);
+                if(empty($tmpOrder)){
+                    $order = $tmpOrder;
+                    $is_tmp_order = true;
+                }
+            }
+            $user  = $this->maybeCreateUser($request,$is_tmp_order);
+            
             // Normal Checkout
             $order->status = 'draft';
             $order->first_name = $request->input('billing_first_name');
@@ -293,6 +301,7 @@ class BookingController extends \App\Http\Controllers\Controller
             }
 
             $order->save();
+            session(['tmp_order_id'=>$order->id]);
             $order->saveItems();
 
             $order->addMeta('locale', app()->getLocale());
@@ -322,9 +331,6 @@ class BookingController extends \App\Http\Controllers\Controller
                 $user->save();
             }
 
-            Cart::destroy();
-            session()->forget(['coupon','shipping']);
-
             return $gatewayObj->process($request, $order);
 
         }catch (\Exception $exception)
@@ -333,9 +339,9 @@ class BookingController extends \App\Http\Controllers\Controller
         }
     }
 
-    public function maybeCreateUser(Request $request){
+    public function maybeCreateUser(Request $request,$is_tmp_order = false){
         if(auth()->check()) return auth()->user();
-        if($request->input('createaccount'))
+        if($request->input('createaccount') and !$is_tmp_order)
         {
             $email = $request->input('billing_email');
             $userByEmail = \App\User::query()->where('email',$email)->first();

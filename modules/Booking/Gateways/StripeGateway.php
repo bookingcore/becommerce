@@ -11,6 +11,7 @@ use PHPUnit\Framework\Error\Warning;
 use Validator;
 use Omnipay\Common\Exception\InvalidCreditCardException;
 use Illuminate\Support\Facades\Log;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class StripeGateway extends BaseGateway
 {
@@ -115,6 +116,8 @@ class StripeGateway extends BaseGateway
                 } catch(\Swift_TransportException $e){
                     Log::warning($e->getMessage());
                 }
+                Cart::destroy();
+                session()->forget(['coupon','shipping','tmp_order_id']);
                 return response()->json([
                     'url' => $booking->getDetailUrl()
                 ]);
