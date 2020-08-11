@@ -12,7 +12,7 @@ class SettingClass extends BaseSettingsClass
         return [
             [
                 'id'   => 'product',
-                'title' => __("Product page settings"),
+                'title' => __("Product Settings"),
                 'position'=>20,
                 'view'=>"Product::admin.settings.product",
                 "keys"=>[

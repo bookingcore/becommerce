@@ -75,29 +75,7 @@
                 </div>
                 <div class="col-footer-payments col-lg-7 col-md-12 col-sm-12 col-xs-12">
                     <div class="footer-payments">
-                        <div class="text">
-                            {!! setting_item_with_lang("footer_text_right") ?? ''  !!}
-                        </div>
-                        <ul class="payments">
-                            <li>
-                                <img src="{{asset('/images/p1.jpg')}}" alt="p1">
-                            </li>
-                            <li>
-                                <img src="{{asset('/images/p2.jpg')}}" alt="p2">
-                            </li>
-                            <li>
-                                <img src="{{asset('/images/p3.jpg')}}" alt="p3">
-                            </li>
-                            <li>
-                                <img src="{{asset('/images/p4.jpg')}}" alt="p4">
-                            </li>
-                            <li>
-                                <img src="{{asset('/images/p5.jpg')}}" alt="p5">
-                            </li>
-                            <li>
-                                <img src="{{asset('/images/p6.jpg')}}" alt="p6">
-                            </li>
-                        </ul>
+                        {!! setting_item_with_lang("footer_text_right") ?? ''  !!}
                     </div>
                 </div>
             </div>

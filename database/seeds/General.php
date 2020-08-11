@@ -63,7 +63,29 @@
                     ],
                     [
                         'name'  => 'footer_text_right',
-                        'val'   => 'We Using Safe Payment For',
+                        'val'   => '<div class="text">
+    <p>We Using Safe Payment For</p>
+</div>
+<ul class="payments">
+    <li>
+        <img src="/images/p1.jpg" alt="p1">
+    </li>
+    <li>
+        <img src="/images/p2.jpg" alt="p2">
+    </li>
+    <li>
+        <img src="/images/p3.jpg" alt="p3">
+    </li>
+    <li>
+        <img src="/images/p4.jpg" alt="p4">
+    </li>
+    <li>
+        <img src="/images/p5.jpg" alt="p5">
+    </li>
+    <li>
+        <img src="/images/p6.jpg" alt="p6">
+    </li>
+</ul>',
                         'group' => "general",
                     ],
                     [
