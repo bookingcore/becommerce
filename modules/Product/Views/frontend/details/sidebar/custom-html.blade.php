@@ -1,10 +1,12 @@
 @if(!\Illuminate\Support\Facades\Auth::id())
     <div class="col-product-sidebar-item product-sidebar-custom-html">
         <i style="font-size: 18px" class="icon-store"></i>
-        <span style="color: #000; padding-left: 10px">Sell on Martfury? </span>
-        <a href="{{route('register')}}">{{__('Register Now!')}}</a>
+        <span style="color: #000; padding-left: 10px">{{ __('Sell on Martfury?') }} </span>
+        <a href="{{route('route.page',['slug'=>'become-a-vendor'])}}">{{__('Register Now!')}}</a>
     </div>
 @endif
 <div class="col-product-sidebar-item product-sidebar-custom-link">
-    <a href="#"><img style="width: 100%" src="http://demo2.drfuri.com/martfury/wp-content/uploads/sites/29/2017/12/w1.png" alt="mobile"></a>
+    <a href="{!! setting_item('ads_url') !!}">
+        {!! get_image_tag(setting_item('ads_image'),'medium',['lazy'=>false]) !!}
+    </a>
 </div>

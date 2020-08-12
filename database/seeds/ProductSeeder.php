@@ -20,6 +20,7 @@ class ProductSeeder extends Seeder
             'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-1', 'file_path' => 'demo/templates/product-banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-2', 'file_path' => 'demo/templates/product-banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
+        $ads_image = DB::table('media_files')->insertGetId( ['file_name' => 'ads-image', 'file_path' => 'demo/templates/ads-image.png', 'file_type' => 'image/png', 'file_extension' => 'png']);
         DB::table('core_settings')->insertGetId([
             'name'  =>  'product_page_search_title',
             'group' =>  'product',
@@ -34,6 +35,23 @@ class ProductSeeder extends Seeder
             'name'  =>  'product_policies',
             'group' =>  'product',
             'val'   =>  '[{"title":"Shipping Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."},{"title":"Refund Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."},{"title":"Cancellation \/ Return \/ Exchange Policy","content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla auctor aliquam tortor at suscipit. Etiam accumsan, est id vehicula cursus, eros ligula suscipit massa, sed auctor felis mi eu massa. Sed vulputate nisi nibh, vel maximus velit auctor nec. Integer consectetur elementum turpis, nec fermentum ipsum tempor quis. Praesent a quam congue, egestas erat sit amet, finibus justo. Quisque viverra neque vehicula eros gravida ultricies. Ut lacinia enim nec consequat tincidunt. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vivamus ultricies ornare feugiat. Donec vitae rhoncus sapien, ac aliquet nunc."}]'
+        ]);
+        DB::table('core_settings')->insertGetId([
+            'name'  =>  'shipping_information',
+            'group' =>  'product',
+            'val'   =>  '<div class="col-product-sidebar-item product-sidebar-shipping">
+    <ul class="product-sidebar-shipping-info">
+        <li><i class="icon-network"></i>Shipping worldwide</li>
+        <li><i class="icon-3d-rotate"></i>Free 7-day return if eligible, so easy </li>
+        <li><i class="icon-receipt"></i>Supplier give bills for this product.</li>
+        <li><i class="icon-credit-card"></i>Pay online or when receiving goods</li>
+    </ul>
+</div>'
+        ]);
+        DB::table('core_settings')->insertGetId([
+            'name'  =>  'ads_image',
+            'group' =>  'product',
+            'val'   =>  $ads_image
         ]);
 
         $list_brands = [];

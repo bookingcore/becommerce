@@ -414,5 +414,51 @@
         </div>
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Right column options")}}</h3>
+        <p class="form-group-desc">{{__('Config right column for product')}}</p>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>{{__("Shipping Information")}}</label>
+                    <div class="form-controls">
+                        <div id="shipping_information_editor" class="ace-editor" style="height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('shipping_information',request()->query('lang'))}}</div>
+                        <textarea class="d-none" name="shipping_information" > {{ setting_item_with_lang('shipping_information',request()->query('lang')) }} </textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Ads Image")}}</label>
+                    <div class="form-controls">
+                        <input type="text" name="ads_url" class="form-control" placeholder="{{__('Link')}}" value="{{ setting_item('ads_url') }}" style="margin-bottom: 10px">
+                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('ads_image',$settings['ads_image'] ?? '') !!}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section('script.body')
+    <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        (function ($) {
+            $('.ace-editor').each(function () {
+                var editor = ace.edit($(this).attr('id'));
+                editor.setTheme("ace/theme/"+$(this).data('theme'));
+                editor.session.setMode("ace/mode/"+$(this).data('mod'));
+                var me = $(this);
+
+                editor.session.on('change', function(delta) {
+                    // delta.start, delta.end, delta.lines, delta.action
+                    me.next('textarea').val(editor.getValue());
+                });
+            });
+        })(jQuery)
+    </script>
+@endsection
 
 
