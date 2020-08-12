@@ -177,7 +177,7 @@ class ProductController extends Controller
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->first();
-        if(empty($row) or (!empty($row) and  Auth::id() != $row->create_user)){
+        if(empty($row) or (!empty($row) and $row->status != 'publish' and  Auth::id() != $row->create_user)){
             abort(404);
             return;
         }
