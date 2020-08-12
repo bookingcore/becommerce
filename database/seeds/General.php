@@ -42,7 +42,7 @@
                     ],
                     [
                         'name'  => 'site_favicon',
-                        'val'   => MediaFile::findMediaByName("favicon")->id ?? '',
+                        'val'   => '',
                         'group' => "general",
                     ],
                     [

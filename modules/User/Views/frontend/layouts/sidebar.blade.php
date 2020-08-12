@@ -29,7 +29,7 @@ $menus = [
     'admin'           => [
         'url'        => 'admin',
         'title'      => __("Admin Dashboard"),
-        'icon'       => 'icon ion-ios-ribbon',
+        'icon'       => 'fa fa-building-o',
         'permission' => 'dashboard_access',
         'position'   => 60
     ]
