@@ -41,9 +41,9 @@
 @endsection
 
 @section ('script.body')
-    <script src="http://dev.bookingcore.org/libs/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="http://dev.bookingcore.org/libs/daterange/moment.min.js"></script>
-    <script type="text/javascript" src="http://dev.bookingcore.org/libs/daterange/daterangepicker.min.js"></script>
+    <script src="{{asset('/libs')}}/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="{{asset('/libs')}}/daterange/moment.min.js"></script>
+    <script type="text/javascript" src="{{asset('/libs')}}/daterange/daterangepicker.min.js"></script>
     <script type="text/javascript">
         jQuery(function ($) {
             $('.form-expiration').each(function () {
@@ -78,7 +78,7 @@
                         }
                         check_in_out.val( picker.startDate.format("YYYY-MM-DD") + " - "+  picker.endDate.format("YYYY-MM-DD") )
                     });
-                date_wrapper.click(function (e) {
+                date_wrapper.on('click',function (e) {
                     check_in_out.trigger('click');
                 });
             });

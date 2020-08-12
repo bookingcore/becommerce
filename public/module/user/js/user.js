@@ -64,7 +64,7 @@ jQuery(function ($) {
             $(this).attr("value", value);
         });
     });
-    $(".form-group-item .btn-add-item").click(function () {
+    $(".form-group-item .btn-add-item").on('click',function () {
         let number = $(this).closest(".form-group-item").find(".g-items .item:last-child").data("number");
         if (number === undefined) number = 0;
         else number++;
@@ -73,7 +73,7 @@ jQuery(function ($) {
         extra_html = extra_html.replace(/__number__/gi, number);
         $(this).closest(".form-group-item").find(".g-items").append(extra_html);
     });
-    $('.dungdt-upload-box').find('.btn-field-upload,.attach-demo').click(function () {
+    $('.dungdt-upload-box').find('.btn-field-upload,.attach-demo').on('click',function () {
         let p = $(this).closest('.dungdt-upload-box');
 
         uploaderModal.show({
@@ -87,13 +87,13 @@ jQuery(function ($) {
         });
 
     });
-    $('.dungdt-upload-box .delete').click(function (e) {
+    $('.dungdt-upload-box .delete').on('click',function (e) {
         e.preventDefault();
         let p = $(this).closest('.dungdt-upload-box');
         p.find("input").attr('value','')
         p.removeClass("active");
     });
-    $('.dungdt-upload-multiple').find('.btn-field-upload').click(function () {
+    $('.dungdt-upload-multiple').find('.btn-field-upload').on('click',function () {
         let p = $(this).closest('.dungdt-upload-multiple');
         uploaderModal.show({
             multiple: true,
@@ -124,11 +124,11 @@ jQuery(function ($) {
         p.find('input').val(ids.join(','));
         $(this).closest('.image-item').remove();
     });
-    $(".bravo_user_profile .sidebar-menu .caret").click(function () {
+    $(".bravo_user_profile .sidebar-menu .caret").on('click',function () {
         $(this).closest("li").toggleClass("active_child");
     });
 
-    $(".bravo_user_profile .bravo-list-item .item-tour-list .control-action .btn-danger").click(function () {
+    $(".bravo_user_profile .bravo-list-item .item-tour-list .control-action .btn-danger").on('click',function () {
         var c = confirm($(this).data('confirm'));
         if(!c){
             return false;

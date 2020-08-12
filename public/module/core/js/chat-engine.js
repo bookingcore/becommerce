@@ -398,7 +398,7 @@ window.bookingCoreChatBox = new Vue({
     created:function () {
         var me = this;
         this.$nextTick(function () {
-            $('.bc_start_chat').click(function () {
+            $('.bc_start_chat').on('click',function () {
                 me.initConversation($(this).data('id'),$(this).data('type'));
 			});
 

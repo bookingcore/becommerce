@@ -145,7 +145,7 @@ class HomeController extends Controller
     <a href="#"><i class="fa fa-google-plus"></i></a>
 </div>
 <span class="line"></span>
-<a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
+<a href="mailto:contact@bookingcore.org">contact@bookingcore.org</a>',
                     'group' => "general",
                 ]
             );

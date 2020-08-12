@@ -1,4 +1,4 @@
-$('.bravo-form-register-vendor [type=submit]').click(function (e) {
+$('.bravo-form-register-vendor [type=submit]').on('click',function (e) {
     e.preventDefault();
     let form = $(this).closest('.bravo-form-register-vendor');
     $.ajaxSetup({

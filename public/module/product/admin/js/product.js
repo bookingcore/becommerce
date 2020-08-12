@@ -16,7 +16,7 @@
 	}
 
 
-	$('.btn-save-variations').click(function(e){
+	$('.btn-save-variations').on('click',function(e){
 		e.preventDefault();
 		var p = $(this).closest('.tab-pane');
 		var gr = p.closest('.product-information-tabs');
@@ -79,7 +79,7 @@
 		});
 	})
 
-	$('.ajax-bulk-action-variations .btn').click(function () {
+	$('.ajax-bulk-action-variations .btn').on('click',function () {
 		var p = $(this).closest('.tab-pane');
 		var a = p.find('select').val();
 

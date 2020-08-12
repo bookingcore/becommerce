@@ -102,7 +102,7 @@
         p.removeClass("active");
     });
 
-    $('.dungdt-upload-multiple').find('.btn-field-upload').click(function () {
+    $('.dungdt-upload-multiple').find('.btn-field-upload').on('click',function () {
         let p = $(this).closest('.dungdt-upload-multiple');
 
         uploaderModal.show({
@@ -141,7 +141,7 @@
 
     });
 
-    $('.open-edit-input').click(function () {
+    $('.open-edit-input').on('click',function () {
         $(this).next('input').attr('type','text');
         $(this).hide();
     })
@@ -163,7 +163,7 @@
             $(this).attr("value",value);
         });
     });
-    $(".form-group-item .btn-add-item").click(function () {
+    $(".form-group-item .btn-add-item").on('click',function () {
         let number = $(this).closest(".form-group-item").find(".g-items .item:last-child").data("number");
         if(number === undefined) number = 0;
         else number++;
@@ -184,7 +184,7 @@
         }
     });
 
-    $('.dungdt-apply-form-btn').click(function () {
+    $('.dungdt-apply-form-btn').on('click',function () {
         var action = $(this).closest('form').find('[name=action]').val();
         if(action == 'delete')
         {

@@ -1,5 +1,5 @@
 (function ($) {
-    $('.main-menu .has-children .btn-toggle').click(function () {
+    $('.main-menu .has-children .btn-toggle').on('click',function () {
         var p = $(this).closest('.has-children');
         if(p.hasClass('active')){
             p.removeClass('active');
@@ -9,7 +9,7 @@
         }
     });
 
-    $('.btn-toggle-admin-menu,.backdrop-sidebar-mobile').click(function () {
+    $('.btn-toggle-admin-menu,.backdrop-sidebar-mobile').on('click',function () {
        $('body').toggleClass('sidebar-toggled');
     });
 

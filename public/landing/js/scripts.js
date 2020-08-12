@@ -5,7 +5,7 @@
 	martfury.init = function () {
 			martfury.$window = $(window),
 			martfury.$header = $('#site-header');
-		
+
 		this.stickyHeader();
 		this.navMenu();
 		this.featuresCarousel();
@@ -71,7 +71,7 @@
 	};
 
 	martfury.menuMobile = function () {
-		$('button').click(function(){
+		$('button').on('click',function(){
 		  if($('.two').css('width')=='40px'){
 		     $('.sidebar.three').addClass('turn1');
 		     $('.sidebar.two').animate({width:'0', left:'50%'},500);
@@ -123,7 +123,7 @@
 			 	if (tabNav.hasClass('.active')) {
 	                return;
 	            }
-	            
+
              	siblings.removeClass( 'active' );
 	            item.addClass( 'active' );
 	            contentFilter.addClass( 'active' );
@@ -132,7 +132,7 @@
 
 		});
 	};
-	
+
 	/**
 	 * Document ready
 	 */

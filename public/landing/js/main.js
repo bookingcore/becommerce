@@ -95,7 +95,7 @@ $(document).ready(function() {
         stickyNav();
     });
 
-    $('.full-demo .demo-tab a').click(function (e) {
+    $('.full-demo .demo-tab a').on('click',function (e) {
         e.preventDefault();
         $('.full-demo .demo-tab a').removeClass('active');
         $(this).addClass('active');
