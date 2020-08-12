@@ -148,11 +148,11 @@
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! E:\Dungdt\becommerce\node_modules\laravel-mix\src\builder\mock-entry.js */"./node_modules/laravel-mix/src/builder/mock-entry.js");
-__webpack_require__(/*! E:\Dungdt\becommerce\public\sass\app.scss */"./public/sass/app.scss");
-__webpack_require__(/*! E:\Dungdt\becommerce\public\sass\contact.scss */"./public/sass/contact.scss");
-__webpack_require__(/*! E:\Dungdt\becommerce\public\module\user\scss\user.scss */"./public/module/user/scss/user.scss");
-module.exports = __webpack_require__(/*! E:\Dungdt\becommerce\public\module\media\scss\browser.scss */"./public/module/media/scss/browser.scss");
+__webpack_require__(/*! D:\project\BeCommerce\node_modules\laravel-mix\src\builder\mock-entry.js */"./node_modules/laravel-mix/src/builder/mock-entry.js");
+__webpack_require__(/*! D:\project\BeCommerce\public\sass\app.scss */"./public/sass/app.scss");
+__webpack_require__(/*! D:\project\BeCommerce\public\sass\contact.scss */"./public/sass/contact.scss");
+__webpack_require__(/*! D:\project\BeCommerce\public\module\user\scss\user.scss */"./public/module/user/scss/user.scss");
+module.exports = __webpack_require__(/*! D:\project\BeCommerce\public\module\media\scss\browser.scss */"./public/module/media/scss/browser.scss");
 
 
 /***/ })

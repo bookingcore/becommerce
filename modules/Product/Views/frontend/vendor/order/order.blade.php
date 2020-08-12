@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($orders as $order)
+            @foreach($orders as $key => $order)
                 @php
                     $data_order = [];
                     $suborder = \Modules\Product\Models\OrderItem::where('order_id',$order->id)->where('vendor_id',$user_id)->get();
@@ -49,9 +49,12 @@
                     <td>{{$order->status}}</td>
                     <td>{{format_money($price)}}</td>
                     <td class="text-center">
-                        <button class="btn btn-xs btn-primary btn-info-booking" data-products_order="true" data-toggle="modal" data-is_suborder="false" data-suborder="{{json_encode($data_order)}}">
+                        <button class="btn btn-xs btn-primary btn-info-booking" data-toggle="modal" data-target="#order-modal-{{$key}}">
                             <span>{{ __('View') }}</span>
                         </button>
+                        <div class="modal fade" id="order-modal-{{$key}}" tabindex="-1" role="dialog" aria-hidden="true">
+                            @include('Product::frontend.vendor.order.order-modal')
+                        </div>
                     </td>
                 </tr>
             @endforeach
@@ -62,3 +65,4 @@
         {!! $orders->links() !!}
     </div>
 </div>
+

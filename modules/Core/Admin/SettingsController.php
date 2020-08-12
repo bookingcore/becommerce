@@ -83,7 +83,7 @@ class SettingsController extends AdminController
                     'page_contact_sub_title',
                     'page_contact_desc',
                     'page_contact_image',
-                    'footer_categories'
+                    'footer_categories',
                 ];
                 break;
             case 'style':

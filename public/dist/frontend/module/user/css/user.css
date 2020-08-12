@@ -1132,12 +1132,28 @@
   padding: 8px 5px;
 }
 
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor {
+  margin: 0;
+}
+
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor li:not(:last-child) .media {
+  margin-bottom: 10px;
+}
+
 .bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-left {
   padding-right: 10px;
 }
 
 .bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-left .thumb {
   width: 70px;
+}
+
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-left .thumb img {
+  max-width: 100%;
+}
+
+.bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .table-booking-history .order-vendor .media .media-body {
+  font-size: 14px;
 }
 
 .bravo_wrap .bravo_user_profile .booking-history-manager .tabbable .booking-history-type {

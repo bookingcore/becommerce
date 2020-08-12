@@ -1013,7 +1013,7 @@
                 ],
                 [
                     "name" => 'Track Your Order',
-                    "url" => '/user/booking-history',
+                    "url" => '/user/orders',
                     "item_model" => 'custom',
                     "_open" => true
                 ]

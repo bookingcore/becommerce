@@ -1034,6 +1034,14 @@ function list_compare_id(){
     return $l_compare;
 }
 
+function list_homepage_style(){
+    $list = [
+        'd'     =>  '-- Homepage Default --',
+        'style_1'=> 'Style 1'
+    ];
+    return $list;
+}
+
 function position_attributes(){
     $attrs = \Modules\Core\Models\Attributes::all();
     $test = [];

@@ -3,12 +3,12 @@
 
 @endsection
 @section('content')
-    <h2 class="title-bar no-border-bottom">{{__("My Order")}}</h2>
+    <h2 class="title-bar no-border-bottom">{{__("Product's Order")}}</h2>
     @include('Layout::admin.message')
     <div class="booking-history-manager">
         <div class="tabbable">
             @if(count($orders) > 0)
-                @include('User::frontend.order.order')
+                @include('Product::frontend.vendor.order.order')
             @else
                 {{__("No Order History")}}
             @endif

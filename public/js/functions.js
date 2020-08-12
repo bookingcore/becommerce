@@ -247,26 +247,3 @@ $(document).on('click','.bravo_delete_cart_item',function(e){
         }
     })
 })
-
-$(document).on('click','.btn-info-booking',function () {
-    let $this = $(this);
-    let id = $this.closest('tr').data('order');
-    let suborder = $this.data('suborder');
-    let products_order = $this.data('products_order');
-    $.ajax({
-        url: bookingCore.url + '/user/view-order/' + id,
-        method: 'POST',
-        data: {
-            suborder: suborder,
-            products_order: (typeof products_order !== undefined) ? products_order : null
-        },
-        beforeSend:function(){
-            $this.addClass('loading').attr('disabled','disabled');
-        },
-        success:function (data) {
-            $this.removeClass('loading').removeAttr('disabled');
-            $('.show-modal').html(data);
-            $('#order-modal').modal('show');
-        }
-    })
-});

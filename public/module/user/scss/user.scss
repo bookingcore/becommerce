@@ -786,12 +786,26 @@
             .tabbable{
                 .table-booking-history{
                     .order-vendor{
+                        margin: 0;
+                        li{
+                            &:not(:last-child){
+                                .media{
+                                    margin-bottom: 10px;
+                                }
+                            }
+                        }
                         .media{
                             .media-left{
                                 padding-right: 10px;
                                 .thumb{
                                     width: 70px;
+                                    img{
+                                        max-width: 100%;
+                                    }
                                 }
+                            }
+                            .media-body{
+                                font-size: 14px;
                             }
                         }
                     }
