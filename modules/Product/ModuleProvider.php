@@ -131,32 +131,37 @@ class ModuleProvider extends ModuleServiceProvider
                 'position'=>20,
                 "icon"=>"fa fa-money",
                 "title"=>__("Pricing"),
-                "view"=>"Product::admin.product.pricing"
+                "view"=>"Product::admin.product.pricing",
+                "hide_in_sub_language"=>1
             ],
             "inventory"=>[
                 'position'=>30,
                 "icon"=>"fa fa-money",
                 "title"=>__("Inventory"),
-                "view"=>"Product::admin.product.inventory"
+                "view"=>"Product::admin.product.inventory",
+                "hide_in_sub_language"=>1
             ],
             "categories"=>[
                 'position'=>40,
                 "icon"=>"fa fa-money",
                 "title"=>__("Categories"),
-                "view"=>"Product::admin.product.categories"
+                "view"=>"Product::admin.product.categories",
+                "hide_in_sub_language"=>1
             ],
             "attributes"=>[
                 'position'=>50,
                 "icon"=>"fa fa-money",
                 "title"=>__("Attributes"),
                 "view"=>"Product::admin.product.attributes",
+                "hide_in_sub_language"=>1
             ],
             "variations"=>[
                 'position'=>60,
                 "icon"=>"fa fa-money",
                 "title"=>__("Variations"),
                 "view"=>"Product::admin.product.variations",
-                "condition"=>"product_type:is(variable)"
+                "condition"=>"product_type:is(variable)",
+                "hide_in_sub_language"=>1
             ],
             "seo"=>[
                 'position'=>70,
@@ -174,5 +179,41 @@ class ModuleProvider extends ModuleServiceProvider
             'ListCategories'=>"\\Modules\\Product\\Blocks\\ListCategories",
             'ListProductInCategories'=>"\\Modules\\Product\\Blocks\\ListProductInCategories",
         ];
+    }
+    public static function getUserMenu()
+    {
+        $res = [];
+
+        $res['orders'] = [
+            'url'   => route('user.orders.index'),
+            'title'      => __("Manage Orders"),
+            'position'   => 30,
+            'icon'=>'fa fa-shopping-bag'
+        ];
+        $res['product'] = [
+            'url'   => route('product.vendor.index'),
+            'title'      => __("Manage Products"),
+            'position'   => 33,
+            'permission' => 'product_view',
+            'icon'=>'fa fa-cubes',
+            'children' => [
+                [
+                    'url'   => route('product.vendor.index'),
+                    'title'  => __("All Products"),
+                ],
+                [
+                    'url'   => route('product.vendor.create'),
+                    'title'      => __("Add Product"),
+                    'permission' => 'product_create',
+                ],
+                'products_order' => [
+                    'url'      => route('product.vendor.orders'),
+                    'title'    => __("Orders"),
+                    'permission' => 'product_create',
+                    'position' => 21
+                ],
+            ]
+        ];
+        return $res;
     }
 }

@@ -10,3 +10,4 @@ Route::group(['prefix'=>'inbox','middleware'=>'auth'],function(){
     Route::post('/read','InboxController@markRead')->middleware('throttle:60,1')->name('inbox.read');
 });
 
+Route::get('/custom-css','StyleController@customCss')->name('core.style.customCss');

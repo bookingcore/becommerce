@@ -71,6 +71,8 @@ class CreateProductTable extends Migration
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+            $table->bigInteger('origin_id')->nullable();
+            $table->string('locale',10)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -14,3 +14,15 @@ Route::group(['prefix'=>'category'],function(){
 });
 
 Route::get('/store-list', 'ProductController@store_list')->name('product.vendor.store');
+
+Route::group(['prefix'=>'vendor/product','middleware' => ['auth','verified']],function(){
+    Route::match(['get','post'],'/','VendorController@manage')->name('product.vendor.index');
+    Route::match(['get','post'],'/create','VendorController@create')->name('product.vendor.create');
+    Route::match(['get','post'],'/edit/{slug}','VendorController@edit')->name('product.vendor.edit');
+    Route::match(['get','post'],'/del/{slug}','VendorController@delete')->name('product.vendor.delete');
+    Route::match(['post'],'/store/{slug}','VendorController@store')->name('product.vendor.store');
+    Route::get('bulkEdit/{id}','VendorController@bulkEdit')->name("product.vendor.bulk_edit");
+    Route::get('/orders','VendorController@orders')->name("product.vendor.orders");
+    Route::get('/order/{id}','VendorController@orderDetail')->name("product.vendor.order_detail");
+});
+

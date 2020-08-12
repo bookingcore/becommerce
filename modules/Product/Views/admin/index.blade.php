@@ -53,7 +53,7 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-                <form action="" class="bravo-form-item">
+                <div class="bravo-form-item">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -110,7 +110,7 @@
                         </tbody>
                     </table>
                     </div>
-                </form>
+                </div>
                 {{$rows->appends(request()->query())->links()}}
             </div>
         </div>

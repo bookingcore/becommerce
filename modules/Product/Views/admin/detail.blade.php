@@ -36,7 +36,7 @@ $tabs = get_admin_product_tabs();
                     <div class="panel-title d-flex justify-content-between">
                         <div class="d-flex justify-content-center align-items-center">
                             <strong>{{__("Product Information")}}</strong>
-                            <select class="form-control" name="product_type">
+                            <select @if(!is_default_lang()) readonly="" disabled @endif class="form-control" name="product_type">
                                 <optgroup label="{{__("Product Type")}}">
                                     @foreach(get_product_types() as $type_id=>$type)
                                         <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>

@@ -10,13 +10,11 @@
     @include('Layout::parts.seo-meta')
     <link href="{{ asset('libs/bootstrap/css/bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
-    <link href="{{ asset('libs/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('libs/icofont/icofont.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/daterange/daterangepicker.css") }}" >
+    <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link rel='stylesheet' id='google-font-css-css'  href='https://fonts.googleapis.com/css?family=Poppins%3A400%2C500%2C600' type='text/css' media='all' />
+    <link rel='stylesheet' id='google-font-css' href='https://fonts.googleapis.com/css?family=Work+Sans%3A300%2C400%2C500%2C600%2C700&subset=latin%2Clatin-ext&ver=20170801' type='text/css' media='all' />
     <script>
         var bookingCore = {
             url:'{{url( app_get_locale() )}}',
@@ -56,7 +54,7 @@
             compare_count: ''
         };
     </script>
-    <link href="{{ asset('module/user/css/user.css') }}" rel="stylesheet">
+    <link href="{{ asset('dist/frontend/module/user/css/user.css') }}" rel="stylesheet">
     <!-- Styles -->
     @yield('head')
     <style type="text/css">
@@ -69,7 +67,7 @@
         }
     </style>
 
-    @include('Layout::parts.custom-css')
+    <link href="{{ route('core.style.customCss') }}" rel="stylesheet">
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">

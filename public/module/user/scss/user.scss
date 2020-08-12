@@ -1,3 +1,6 @@
+
+@import "../../../../resources/module/media/admin/scss/browser";
+
 .bravo_wrap {
     .bravo_user_profile{
         background: #f5f7f9;
@@ -418,26 +421,6 @@
                             margin-right: 10px;
                             background: #fff;
                         }
-                    }
-                }
-            }
-            .terms-scrollable{
-                display: flex;
-                flex-wrap: wrap;
-                label{
-                    flex: 0 0 20%;
-                    max-width: 20%;
-                    @media(max-width: 1024px){
-                        flex: 0 0 25%;
-                        max-width: 25%;
-                    }
-                    @media(max-width: 768px){
-                        flex: 0 0 50%;
-                        max-width: 50%;
-                    }
-                    @media(max-width: 420px){
-                        flex: 0 0 100%;
-                        max-width: 100%;
                     }
                 }
             }
@@ -1186,19 +1169,20 @@
             padding: 5px;
             border-radius: 0;
         }
-        .btn{
-            border-radius: 0;
-            transition: all 0.3s;
-            padding: 7px 12px;
-            &:hover{
-                border-radius: 5px;
-            }
 
-        }
-        .btn-primary{
-            background: #1a2b47;
-            color: #fff;
-        }
+        //.btn{
+        //    border-radius: 0;
+        //    transition: all 0.3s;
+        //    padding: 7px 12px;
+        //    &:hover{
+        //        border-radius: 5px;
+        //    }
+        //
+        //}
+        //.btn-primary{
+        //    background: #1a2b47;
+        //    color: #fff;
+        //}
         .dungdt-upload-box{
             max-width: 250px;
             /*margin: 0px auto;*/
@@ -1402,6 +1386,7 @@
         }
     }
 }
+@import "product";
 
 
 .user-panel {
@@ -1523,4 +1508,13 @@
 .modal-dialog-scrollable .modal-body {
     overflow-y: auto;
     overflow-x: hidden;
+}
+.product-information-tabs.panel>.panel-body {
+    background: #f4f6f8;
+    padding: 0 15px;
+}
+.input-group-append{
+    .btn{
+        font-size: 14px;
+    }
 }

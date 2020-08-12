@@ -8,19 +8,6 @@ $menus = [
         'permission' => 'dashboard_vendor_access',
         'position'   => 10
     ],
-    'booking-history' => [
-        'url'      => app_get_locale() . '/user/booking-history',
-        'title'    => __("My Order"),
-        'icon'     => 'fa fa-clock-o',
-        'position' => 20
-    ],
-    'products-order' => [
-        'url'      => app_get_locale() . '/user/products-order',
-        'title'    => __("Product's Order"),
-        'icon'     => 'fa fa-clock-o',
-        'permission' => 'dashboard_vendor_access',
-        'position' => 21
-    ],
     [
         'url'   => app_get_locale() . '/user/wishlist',
         'title' => __("Wishlist"),

@@ -251,7 +251,7 @@ class BookingController extends \App\Http\Controllers\Controller
                     }
                 }
             }
-            $is_tmp_order = false;            
+            $is_tmp_order = false;
             $order = new Order();
             if($tmp_order_id = session('tmp_order_id')){
                 $tmpOrder = Order::find($tmp_order_id);
@@ -261,7 +261,7 @@ class BookingController extends \App\Http\Controllers\Controller
                 }
             }
             $user  = $this->maybeCreateUser($request,$is_tmp_order);
-            
+
             // Normal Checkout
             $order->status = 'draft';
             $order->first_name = $request->input('billing_first_name');
@@ -427,13 +427,13 @@ class BookingController extends \App\Http\Controllers\Controller
 
         $allServices = get_product_types();
         if (empty($allServices[$service_type])) {
-            return $this->sendError(__('Service type not found'));
+            return $this->sendError(__('Product type not found'));
         }
         $module = $allServices[$service_type];
         $service = ($service_type == 'simple') ? $module::find($service_id) : $module::find($variation_id);
 
-        if (empty($service)) {
-            return $this->sendError(__('Service not found'));
+        if (empty($service) or $service->status != 'publish') {
+            return $this->sendError(__('Product not found'));
         }
 
         return $service->addToCart($request);

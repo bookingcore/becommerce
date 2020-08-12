@@ -474,23 +474,23 @@ class Product extends BaseProduct
         }
 	    return $res;
     }
-
+    protected function get_stock($st, $pr){
+        $sold = (!empty($pr->sold)) ? $pr->sold : 0;
+        if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+            $st = $pr->quantity - $sold;
+        }
+        return $st;
+    }
     public function addToCart(Request $request)
     {
         $product = Product::where('id',$request->input('id'))->first();
         $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
         $stock = $add = 0;
-        $get_stock = function ($st, $pr){
-            $sold = (!empty($pr->sold)) ? $pr->sold : 0;
-            if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
-                $st = $pr->quantity - $sold;
-            }
-            return $st;
-        };
+
         if (Cart::count() > 0){
             foreach (Cart::content() as $row){
                 if ($row->id == $request->input('id')){
-                    $stock = $get_stock($stock,$product);
+                    $stock = $this->get_stock($stock,$product);
                     if ($row->qty + $request->input('qty') > $stock){
                         $add = 1;
                     }

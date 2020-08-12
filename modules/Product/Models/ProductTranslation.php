@@ -21,6 +21,8 @@ class ProductTranslation extends Product
         'content'
     ];
 
+    protected $casts = [];
+
     public function getSeoType(){
         return $this->seo_type;
     }

@@ -146,40 +146,6 @@ class UserController extends FrontendController
         return view('User::frontend.bookingHistory', $data);
     }
 
-    public function productsOrder(){
-        $user_id = Auth::id();
-        $orders = Order::select('product_orders.*','product_order_items.vendor_id')->join('product_order_items','product_orders.id','=','product_order_items.order_id')->where('product_order_items.vendor_id',$user_id)->where('product_orders.status','<>','draft')->groupBy('product_orders.id')->orderBy('product_orders.id','desc')->paginate(10);
-        $data = [
-            'user_id' => $user_id,
-            'orders'   => $orders,
-            'statues'  => config('booking.statuses'),
-            'breadcrumbs'        => [
-                [
-                    'name' => __('Product\'s Order'),
-                    'class' => 'active'
-                ]
-            ],
-            'page_title'         => __("Product's Order"),
-        ];
-        return view('User::frontend.products-order', $data);
-    }
-
-    public function view_order(Request $request, $id){
-        $order = Order::where('id',$id)->first();
-        $suborder = OrderItem::where('order_id',$id)->whereIn('id',$request->post('suborder'))->get();
-        $data = [
-            'id' => $id,
-            'order' => $order,
-            'suborder' => $suborder,
-        ];
-        if (boolval($request->post('products_order')) != true){
-            return view('User::frontend.order.order-modal',$data)->render();
-        } else {
-            return view('User::frontend.products-order.order-modal',$data)->render();
-        }
-
-    }
-
     public function userLogin(Request $request)
     {
         $rules = [

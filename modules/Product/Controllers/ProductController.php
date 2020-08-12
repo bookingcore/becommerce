@@ -176,7 +176,12 @@ class ProductController extends Controller
 
     public function detail(Request $request, $slug)
     {
-        $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
+        $row = $this->product::where('slug', $slug)->first();
+        if(empty($row) or (!empty($row) and  Auth::id() != $row->create_user)){
+            abort(404);
+            return;
+        }
+
         $product_variations = $this->product_variations($row);
         $translation = $row->translateOrOrigin(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
@@ -197,6 +202,13 @@ class ProductController extends Controller
         } else {
             $c_breadcrumbs = [$bc];
         }
+        $is_preview_mode = false;
+        if($row->status != 'publish'){
+            $is_preview_mode = true;
+            $row->title = '[Preview mode] '.$row->title;
+            $translation->title = '[Preview mode] '.$translation->title;
+        }
+
         $data = [
             'row'          => $row,
             'translation'  => $translation,
@@ -206,7 +218,8 @@ class ProductController extends Controller
             'body_class'=>'is_single full_width style_default',
             'breadcrumbs'=> $c_breadcrumbs,
             'variations_product'    =>  json_encode($product_variations['variations_product']),
-            'attrs_list' =>  $product_variations['attr_list']
+            'attrs_list' =>  $product_variations['attr_list'],
+            'is_preview_mode'=>$is_preview_mode
         ];
         $this->setActiveMenu($row);
         return view('Product::frontend.detail', $data);

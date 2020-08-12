@@ -89,7 +89,7 @@
     <!-- Styles -->
     @yield('head')
     {{--Custom Style--}}
-    @include('Layout::parts.custom-css')
+    <link href="{{ route('core.style.customCss') }}" rel="stylesheet">
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">

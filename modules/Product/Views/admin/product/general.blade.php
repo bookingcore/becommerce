@@ -36,6 +36,7 @@
             </select>
         </div>
     </div>
+    @if(is_admin())
     <div class="form-group">
         <label>{{__('Is Featured?')}}</label>
         <div class="controls">
@@ -44,4 +45,5 @@
                 </label>
         </div>
     </div>
+    @endif
 @endif

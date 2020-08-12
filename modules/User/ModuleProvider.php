@@ -28,7 +28,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'        => route('vendor.payout.index'),
                 'title'      => __("Payout"),
                 'icon'       => 'fa fa-building-o',
-                'position'   => 31,
+                'position'   => 40,
                 'permission' => 'dashboard_vendor_access',
             ]
         ];

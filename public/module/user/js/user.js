@@ -54,6 +54,13 @@ jQuery(function ($) {
             }
         });
     });
+    $(document).ready(function () {
+        $('.dungdt-select2-field').each(function () {
+            var configs = $(this).data('options');
+            $(this).select2(configs);
+        })
+    });
+
     $(".form-group-item").each(function () {
         let container = $(this);
         $(this).on('click', '.btn-remove-item', function () {
