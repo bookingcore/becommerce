@@ -1,4 +1,4 @@
-@if(!empty($row->same_brand))
+@if(count($row->same_brand) > 0)
     <div class="col-product-sidebar-item product-sidebar-same-brand">
         <h4 class="sidebar-item-title">{{__('Same Brand')}}</h4>
         <ul class="product_list_sidebar">

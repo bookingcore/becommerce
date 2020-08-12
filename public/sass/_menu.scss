@@ -21,10 +21,6 @@
                     font-size: 18px;
                     line-height: 1;
                 }
-
-                &:hover {
-                    color: #999;
-                }
             }
 
             &.menu-item-has-children {
@@ -265,13 +261,11 @@
                 padding: 0 17px 0 20px;
                 position: relative;
                 display: block;
-
-                &:first-child {
-                    padding-top: 10px;
-                }
-
-                &:last-child {
-                    padding-bottom: 10px;
+                &:hover{
+                    background: #fcb800;
+                    >a {
+                        color: initial!important;
+                    }
                 }
 
                 > a {
@@ -298,7 +292,7 @@
                     font: normal normal normal 14px/1 linearicons;
                     position: absolute;
                     top: 50%;
-                    right: 0;
+                    right: -14px;
                     transform: translateY(-50%);
                     color: #999;
                     font-size: 11px;

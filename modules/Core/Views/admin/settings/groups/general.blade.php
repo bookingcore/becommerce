@@ -261,9 +261,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Footer Text Left")}}</label>
+                    <label>{{__("Footer Text Right")}}</label>
                     <div class="form-controls">
-                        <textarea name="footer_text_right" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('footer_text_right',request()->query('lang')) }}</textarea>
+                        <div id="footer_text_right_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_text_right',request()->query('lang'))}}</div>
+                        <textarea class="d-none" name="footer_text_right" > {{ setting_item_with_lang('footer_text_right',request()->query('lang')) }} </textarea>
                     </div>
                 </div>
                 <div class="form-group">

@@ -13,22 +13,22 @@
         </div>
 
         <div class="products-content">
-            <div class="woocommerce">
-                <ul class="products list-unstyled">
-                    @if(!empty($rows))
-                        @foreach($rows as $item)
-                            <li class="col-xs-6 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
-                                <div class="product-inner">
-                                    <div class="mf-product-thumbnail">
-                                        <a href="{{$item->getDetailUrl()}}">{!! get_image_tag($item['image_id']) !!}</a>
-                                    </div>
-                                    <div class="mf-product-details">
-                                        <div class="mf-product-content">
-                                            <h2><a href="{{$item->getDetailUrl()}}">{{$item['title']}}</a></h2>
-                                            <?php
-                                            $reviewData = $item->getScoreReview();
-                                            $score_total = $reviewData['score_total'];
-                                            ?>
+            <ul class="products list-unstyled">
+                @if(!empty($rows))
+                    @foreach($rows as $row)
+                        <li class="col-xs-12 col-sm-4 col-md-3 col-lg-3 un-4-cols product">
+                            <div class="product-inner">
+                                <div class="mf-product-thumbnail">
+                                    <a href="{{$row->getDetailUrl()}}">{!! get_image_tag($row['image_id']) !!}</a>
+                                </div>
+                                <div class="mf-product-details">
+                                    <div class="mf-product-content">
+                                        <h2><a href="{{$row->getDetailUrl()}}">{{$row['title']}}</a></h2>
+                                        <?php
+                                        $reviewData = $row->getScoreReview();
+                                        $score_total = $reviewData['score_total'];
+                                        ?>
+                                        @if($score_total > 0)
                                             <div class="service-review tour-review-{{$score_total}}">
                                                 <div class="list-star">
                                                     <ul class="booking-item-rating-stars">
@@ -57,23 +57,15 @@
                                                     @endif
                                                 </span>
                                             </div>
-                                        </div>
-                                        <div class="mf-product-price-box">
-                                            <span class="price">
-                                                <ins><span class="woocommerce-Price-amount amount">{{ $item->display_price }}</span></ins>
-                                                <del><span class="woocommerce-Price-amount amount">{{ $item->display_sale_price }}</span></del>
-                                                @if(!empty($item->discount_percent))
-                                                    <span class="sale"> {{ __(":discount off",["discount"=>$item->discount_percent]) }}</span>
-                                                @endif
-                                            </span>
-                                        </div>
+                                        @endif
                                     </div>
+                                    @include('Product::frontend.details.price')
                                 </div>
-                            </li>
-                        @endforeach
-                    @endif
-                </ul>
-            </div>
+                            </div>
+                        </li>
+                    @endforeach
+                @endif
+            </ul>
         </div>
     </div>
 </div>

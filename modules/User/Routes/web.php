@@ -7,16 +7,17 @@ Route::group(['prefix'=>'user','middleware' => ['auth']],function(){
     Route::match(['get','post'],'/profile','UserController@profile')->name("vendor.profile");
     Route::match(['get','post'],'/profile/change-password','UserController@changePassword');
     Route::get('/booking-history','UserController@bookingHistory')->name("vendor.booking_history");
+    Route::get('/products-order','UserController@productsOrder')->name("vendor.products_order");
+    Route::post('/view-order/{id}','UserController@view_order')->name('vendor.view_order');
 
     Route::post('/wishlist','UserWishListController@handleWishList')->name("user.wishList.handle");
     Route::get('/wishlist','UserWishListController@index')->name("user.wishList.index");
     Route::get('/wishlist/remove','UserWishListController@remove')->name("user.wishList.remove");
-
 });
 
 
 Route::group(['prefix'=>'profile'],function(){
-    Route::match(['get'],'/{id}','ProfileController@profile')->name("user.profile");
+    Route::match(['get','post'],'/{id}','ProfileController@profile')->name("user.profile");
     Route::match(['get'],'/{id}/reviews','ProfileController@allReviews')->name("user.profile.reviews");
     Route::match(['get'],'/{id}/services','ProfileController@allServices')->name("user.profile.services");
 

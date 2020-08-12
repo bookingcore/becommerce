@@ -4,6 +4,7 @@ namespace Modules\Product\Emails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Modules\Product\Models\Order;
 use Modules\Product\Models\Product;
 
 class NewBookingEmail extends Mailable
@@ -12,7 +13,7 @@ class NewBookingEmail extends Mailable
     public $booking;
     protected $email_type;
 
-    public function __construct(Booking $booking,$to = 'admin')
+    public function __construct(Order $booking,$to = 'admin')
     {
         $this->booking = $booking;
         $this->email_type = $to;
@@ -24,7 +25,7 @@ class NewBookingEmail extends Mailable
         $subject = '';
         switch ($this->email_type){
             case "admin":
-                $subject = __('[:site_name] New booking has been made',['site_name'=>setting_item('site_title')]);
+                $subject = __('[:site_name] New order has been made',['site_name'=>setting_item('site_title')]);
             break;
 
             case "vendor":
@@ -33,7 +34,7 @@ class NewBookingEmail extends Mailable
             break;
 
             case "customer":
-                $subject = __('Thank you for booking with us',['site_name'=>setting_item('site_title')]);
+                $subject = __('Thank you for your order',['site_name'=>setting_item('site_title')]);
             break;
 
         }

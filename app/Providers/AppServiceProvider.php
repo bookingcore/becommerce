@@ -46,6 +46,16 @@ class AppServiceProvider extends ServiceProvider
             }else{
                 app()->setLocale(setting_item('site_locale'));
             }
+
+            if(!empty($locale) and $locale == setting_item('site_locale'))
+            {
+                $segments = $request->segments();
+                if(!empty($segments) and count($segments) > 1) {
+                    array_shift($segments);
+                    return redirect()->to(implode('/', $segments))->send();
+                }
+            }
+
         }
     }
 }

@@ -7,11 +7,6 @@
                 <div class="">
                     <h1 class="title-bar">{{$row->id ? __('Edit: ').$row->name : __('Add new category')}}</h1>
                 </div>
-                <div class="">
-                    @if($row->slug)
-                        {{--<a class="btn btn-primary btn-sm" href="{{$row->detail_url}}" target="_blank">{{__("View")}}</a>--}}
-                    @endif
-                </div>
             </div>
             @include('Layout::admin.message')
             @if($row->id)

@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Page Search")}}</h3>
-        <p class="form-group-desc">{{__('Config page search of your website')}}</p>
+        <h3 class="form-group-title">{{__("Product page settings")}}</h3>
+        <p class="form-group-desc">{{__('Config product page settings of your website')}}</p>
     </div>
     <div class="col-sm-8">
         <div class="panel">

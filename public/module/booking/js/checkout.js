@@ -3,6 +3,8 @@
     new Vue({
         el:'#bravo-checkout-page',
         data:{
+            createaccount:0,
+            ship_to_different_address:0,
             onSubmit:false,
             message:{
                 content:'',
@@ -21,7 +23,7 @@
 
                 $.ajax({
                     url:bookingCore.url+'/booking/doCheckout',
-                    data:$('.booking-form').find('input,textarea,select').serialize(),
+                    data:$('#bravo-checkout-page').find('input,textarea,select').serialize(),
                     method:"post",
                     success:function (res) {
                         if(!res.status && !res.url){

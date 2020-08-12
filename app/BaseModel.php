@@ -142,41 +142,6 @@ class BaseModel extends Model
         return $res;
     }
 
-
-//    public static function findWithLang($id,$lang = '')
-//    {
-//        if(!$lang) $lang = request()->query('lang');
-//
-//        if(empty($lang) || is_default_lang($lang)) return parent::find($id);
-//
-//        $item = parent::where('origin_id',$id)->where('lang',$lang)->first();
-//
-//        if(empty($item)){
-//            $origin = parent::find($id);
-//
-//            $clone = $origin->replicate();
-//            $clone->lang = $lang;
-//            $clone->origin_id = $id;
-//            $clone->save();
-//
-//            return $clone;
-//        }
-//
-//        return $item;
-//    }
-//
-//    public static function findByWithLang($key,$value,$lang = '')
-//    {
-//        if(!$lang) $lang = request()->query('lang');
-//        if(!$lang) $lang = request()->route('lang');
-//
-//        if(empty($lang) || is_default_lang($lang)) return parent::where($key,$value)->first();
-//
-//        $item = parent::where($key,$value)->where('lang',$lang)->first();
-//
-//        return $item;
-//    }
-
     public function getIsPublishedAttribute(){
 
         if($this->is_translation){

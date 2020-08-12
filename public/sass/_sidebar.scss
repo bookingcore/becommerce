@@ -67,6 +67,7 @@
             .product-item-inner{
                 .product-content{
                     a{
+                        display: block;
                         font-size: 14px;
                         line-height: 1.2;
                         margin: 15px 0 8px;
@@ -74,18 +75,27 @@
                 }
             }
             .price{
+                margin: 0;
+                &.has-sale{
+                    ins{
+                        color: #ff3300;
+                    }
+                }
                 >*{
                     display: inline-block;
                 }
                 font-size: 14px;
                 ins{
-                    font-size: 20px;
+                    font-size: 16px;
                     color: #000;
                     font-weight: 400;
                     text-decoration: none;
                 }
                 .sale{
                     color: #ff0000;
+                    &.sale-1{
+                        display: none;
+                    }
                 }
             }
         }

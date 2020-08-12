@@ -17,7 +17,7 @@ class ProfileController extends FrontendController
     public function profile(Request $request,$id){
 
         $user = User::find($id);
-        $data['products'] = Product::where('create_user', $id)->paginate(12);
+        $data['rows'] = Product::where('create_user', $id)->paginate(12);
         if(empty($user)){
             abort(404);
         }
@@ -27,6 +27,7 @@ class ProfileController extends FrontendController
         $data['breadcrumbs'] = [
             ['name'=>$user->getDisplayName()],
         ];
+        $data['wishlist'] = wishlist();
 
         $this->registerCss('module/user/css/profile.css');
 

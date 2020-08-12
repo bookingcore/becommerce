@@ -4,6 +4,7 @@ use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\Space;
 use Modules\Product\Models\VariableProduct;
 
@@ -65,7 +66,16 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
-
+                    'coupon'=>[
+                        'url'        => 'admin/module/product/coupon',
+                        'title'      => __('All Coupon'),
+                        'permission' => 'product_manage_others',
+                    ],
+                    'coupon_create'=>[
+                        'url'        => 'admin/module/product/coupon/create',
+                        'title'      => __('Add New Coupon'),
+                        'permission' => 'product_manage_others',
+                    ],
                 ]
             ]
         ];
@@ -95,31 +105,6 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-
-    public static function getUserMenu()
-    {
-        return [
-//            'space' => [
-//                'url'        => app_get_locale() . '/user/product',
-//                'title'      => __("Manage Product"),
-//                'icon'       => 'fa fa-building-o',
-//                'position'   => 31,
-//                'permission' => 'product_view',
-//                'children' => [
-//                    [
-//                        'url'    => app_get_locale() . '/product/space',
-//                        'title'  => __("All Products"),
-//                    ],
-//                    [
-//                        'url'        => app_get_locale() . '/user/product/create',
-//                        'title'      => __("Add Product"),
-//                        'permission' => 'product_create',
-//                    ],
-//                ]
-//            ],
-        ];
-    }
-
     public static function getBookableServices()
     {
         return [
@@ -130,7 +115,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'simple'=>Product::class,
-            'variable'=>VariableProduct::class,
+            'variable'=>ProductVariation::class,
         ];
     }
 

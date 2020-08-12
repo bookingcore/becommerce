@@ -2,6 +2,7 @@
 namespace Modules\News\Controllers;
 
 use Illuminate\Http\Request;
+use Modules\Contact\Models\Contact;
 use Modules\FrontendController;
 use Modules\Language\Models\Language;
 use Modules\News\Models\News;
@@ -39,7 +40,7 @@ class NewsController extends FrontendController
             $title_page = __('Search results : ":s"', ["s" => $search]);
         }
         $data = [
-            'rows'              => $model_News->with("getAuthor")->with('translations')->with("getCategory")->paginate(5),
+            'rows'              => $model_News->with("getAuthor")->with('translations')->with("getCategory")->paginate(6),
             'model_category'    => NewsCategory::query()->where("status", "publish"),
             'model_tag'         => Tag::query(),
             'model_news'        => News::query()->where("status", "publish"),

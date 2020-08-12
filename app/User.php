@@ -28,6 +28,8 @@
          *
          * @var array
          */
+        protected $table = 'users';
+
         protected $fillable = [
             'name',
             'first_name',
@@ -158,7 +160,7 @@
             if (empty($this->avatar_id)) {
                 return false;
             }
-            $avatar_url = get_file_url($this->avatar_id, 'thumb');
+            $avatar_url = get_file_url($this->avatar_id,'full');
             return $avatar_url;
         }
 

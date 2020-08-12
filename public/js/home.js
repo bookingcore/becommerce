@@ -248,6 +248,7 @@ jQuery(function ($) {
                 'password': form.find('input[name=password]').val(),
                 'remember': form.find('input[name=remember]').is(":checked") ? 1 : '',
                 'g-recaptcha-response': form.find('[name=g-recaptcha-response]').val(),
+                'redirect': form.find('input[name=redirect]').val(),
             },
             'type': 'POST',
             beforeSend: function () {
@@ -353,7 +354,7 @@ jQuery(function ($) {
                 }
 
                 if (json.status) {
-                    me.find('input').val('');
+                    me.find('input[name=email]').val('');
                 }
 
             },
@@ -494,28 +495,39 @@ jQuery(function ($) {
         $this.bravoAutocomplete(options);
     });
 
-    $(document).on("click",".service-wishlist",function(){
+    $(document).on("click",".service-wishlist",function(e){
         var $this = $(this);
-        $.ajax({
-            url:  Bravo.url+'/user/wishlist',
-            data: {
-                object_id: $this.attr("data-id"),
-                object_model: $this.attr("data-type"),
-            },
-            dataType: 'json',
-            type: 'POST',
-            beforeSend: function() {
-                $this.addClass("loading");
-            },
-            success: function (res) {
-                $this.attr('class',"service-wishlist "+res.class);
-            },
-            error:function (e) {
-                if(e.status === 401){
-                    $('#login').modal('show');
+        if (!$this.hasClass('active')){
+            e.preventDefault();
+            let w_class = $this.attr('class');
+            let id = $this.attr('data-id');
+            $.ajax({
+                url:  Bravo.url+'/user/wishlist',
+                data: {
+                    object_id: id,
+                    object_model: $this.attr("data-type"),
+                },
+                dataType: 'json',
+                type: 'POST',
+                beforeSend: function() {
+                    $this.addClass("loading").tooltip('hide');
+                },
+                success: function (res) {
+                    $this.attr('class',w_class + ' ' + res.class).attr('data-original-title', res.title).tooltip('show').find('.btn-text').text(res.title);
+                    $(`.service-wishlist[data-id=${id}]`).attr('class',w_class + ' ' + res.class).attr('data-original-title', res.title);
+                    let count = $('.user-wish-list-count');
+                    count.html(parseInt(count.text()) + 1);
+                },
+                error:function (e) {
+                    if(e.status === 401){
+                        $this.removeClass("loading");
+                        $('#login').modal('show');
+                    }
                 }
-            }
-        })
+            })
+        } else {
+            return;
+        }
     });
 });
 
@@ -549,12 +561,40 @@ jQuery(function ($) {
         nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
     });
 
+    let w_width = $(window).width();
+    let w_item = function (item = 6) {
+        if (w_width <= 1199){
+            item = 4;
+        }
+        if (w_width <= 991){
+            item = 3
+        }
+        if (w_width < 767){
+            item = 2
+        }
+        return item;
+    };
     $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .products, .product-related .products').slick({
         infinite: false,
-        slidesToShow: 6,
-        slidesToScroll: 6,
         arrows: false,
         dots: true,
+        responsiveClass:true,
+        slidesToShow: w_item(),
+        slidesToScroll: w_item(),
+        responsive:{
+            0:{
+                items:2,
+            },
+            767:{
+                items:3,
+            },
+            992:{
+                items:4,
+            },
+            1200:{
+                items:6,
+            }
+        }
     });
 
     $('.product-categories li .cat-menu-close').click(function () {
@@ -573,16 +613,264 @@ jQuery(function ($) {
 jQuery(function ($) {
     $('.category-select').change(function(){
         $("#text_change").html($('.category-select option:selected').text());
-        $(this).css('width', $("#select_change").width() + 30 + 'px');
+        $(this).css('width', $(".select_change").width() + 10 + 'px');
     });
-    $('.quantity-input-group span').click(function () {
+
+    $(document).on('click','.quantity-input-group span',function () {
         let input = $(this).parent().find('input[name=quantity]');
+        let max = input.attr('max');
+        let has_currentVariation = Object.keys(Bravo.currentVariation).length > 0;
+        let quantity = (has_currentVariation && Bravo.currentVariation.variations.quantity !== null) ? Bravo.currentVariation.variations.quantity - Bravo.currentVariation.variations.sold : null;
+        let v_quantity = (has_currentVariation) ? quantity : max;
         if ($(this).hasClass('minus')){
             input.val( (parseInt(input.val()) <= 1) ? 1 : parseInt(input.val()) - 1 );
         } else {
-            input.val( parseInt(input.val()) + 1 );
+            if (v_quantity !== null){
+                input.val( parseInt(input.val()) >= v_quantity ? v_quantity : parseInt(input.val()) + 1 );
+            } else {
+                input.val( parseInt(input.val()) + 1 );
+            }
         }
+    });
+
+    let navigation_mobile = $('.mf-navigation-mobile .navigation-list > a').not($('.navigation-mobile_home'));
+    navigation_mobile.click(function (e) {
+        e.preventDefault();
+        if ($(this).hasClass('active')){
+            $(this).removeClass('active');
+            $('.mf-els-modal-mobile').removeClass('open');
+        } else {
+            let id = $(this).attr('data-id');
+            navigation_mobile.removeClass('active');
+            $('.mf-els-item').removeClass('current');
+            $(this).addClass('active');
+            $('.mf-els-modal-mobile').addClass('open');
+            $('#'+id).addClass('current');
+        }
+    });
+    $('.close-mobile-nav, .close-cart-mobile').click(function () {
+        $(this).closest('.mf-els-modal-mobile').removeClass('open');
+        $('.mf-navigation-mobile .navigation-list a').not($('.navigation-mobile_home')).removeClass('active');
+    });
+    $('.menu-item-has-children > a, .menu-item-has-children .menu-item-mega > a').click(function (e) {
+        e.preventDefault();
+        let p_item = $(this).closest('.menu-item-has-children');
+        let p_item_child = $(this).parent().attr('class');
+        if (p_item.hasClass('active')){
+            p_item.removeClass('active').find('.dropdown-submenu').stop().slideUp();
+        } else {
+            if (p_item_child !== 'menu-item-mega'){
+                $('.menu-item-has-children').removeClass('active');
+                $('.dropdown-submenu').stop().slideUp();
+                p_item.addClass('active').find('.dropdown-submenu').stop().slideDown();
+            } else {
+                if ($(this).hasClass('active')){
+                    $(this).removeClass('active').parent().find('.sub-menu').stop().slideUp();
+                } else {
+                    $(this).closest('.mega-menu-content').find('.menu-item-mega > a').removeClass('active');
+                    $(this).closest('.mega-menu-content').find('.menu-item-mega .mega-menu-submenu .sub-menu').stop().slideUp();
+                    $(this).addClass('active').parent().find('.mega-menu-submenu .sub-menu').stop().slideDown();
+                }
+            }
+        }
+    });
+});
+
+jQuery(function ($) {
+    $('.quantity-number button').click(function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let input = $this.parent().find('input');
+        let price = $this.closest('.cart-item').find('.price').attr('data-price');
+        let total = $this.closest('.cart-item').find('.total');
+        let stock = input.attr('data-stock');
+
+
+        if ($this.hasClass('down')){
+            input.val( parseInt(input.val()) <= 1 ? 1 : parseInt(input.val()) - 1  );
+        } else {
+            if (!isNaN(parseInt(stock))){
+                input.val( (parseInt(input.val()) >= parseInt(stock)) ? stock : parseInt(input.val()) + 1 );
+            } else {
+                input.val( parseInt(input.val()) + 1 );
+            }
+        }
+        total.html( window.bravo_format_money( parseFloat(price) * parseInt(input.val()) ) );
+    });
+
+    $('.quantity-number input').keyup(function () {
+        let $this = $(this);
+        let price = $this.closest('.cart-item').find('.price').attr('data-price');
+        let total = $this.closest('.cart-item').find('.total');
+        let stock = $this.attr('data-stock');
+        if ( parseInt($this.val()) <= 1 || $this.val() === '' ) $this.val(1);
+        if ( !isNaN(parseInt(stock)) && parseInt($this.val()) >= parseInt(stock) ) $this.val(stock);
+        if ($this.val() > 0){
+            total.html( window.bravo_format_money(parseFloat(price) * parseInt($this.val())) );
+        }
+    });
+    $(".ps-select").select2();
+    $('.mf-product-quick-view').click(function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let product = $(this).data('product');
+        let quickView = $('.mf-quick-view-modal');
+        $.ajax({
+            url: bookingCore.url + '/product/quick_view/' + product.id,
+            method:'POST',
+            beforeSend: function () {
+                $this.tooltip('hide');
+                quickView.addClass('loading').fadeIn();
+            },
+            success: function (data) {
+                quickView.removeClass('loading').addClass('loaded');
+                $('.product-modal-content').html(data).css('display','block');
+                $('.product-gallery').slick({
+                    prevArrow: '<span class="icon-chevron-left slick-prev-arrow"></span>',
+                    nextArrow: '<span class="icon-chevron-right slick-next-arrow"></span>',
+                });
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        })
+    });
+    $(document).on('click','.close-modal, .mf-modal-overlay',function (e) {
+        e.preventDefault();
+        $('.mf-quick-view-modal').fadeOut();
+        $('.product-modal-content').html('');
+    });
+    $(document).on('click','.tawcvs-swatches .swatch',function (e) {
+        let $this = $(this);
+        let single_variation_wrap = $('.single_variation_wrap');
+        let add_to_cart = $('.bravo_add_to_cart');
+        let attr_class = $this.attr('class').split(' ')[1];
+        let name = $this.attr('data-name');
+        let nameDefault = $this.closest('tr').find('.mf-attr-value').attr('data-default');
+        let term_id = $this.attr('data-get_term');
+        if ($this.hasClass('selected')){
+            $this.removeClass('selected');
+            $this.closest('tr').find('.mf-attr-value').attr('data-term','0').html(nameDefault);
+        } else {
+            $this.parent().find('.'+attr_class).removeClass('selected');
+            $this.addClass('selected');
+            $this.closest('tr').find('.mf-attr-value').attr('data-term',term_id).html(name);
+        }
+
+        let term_list = [];
+        $('.variations .mf-attr-value').each(function () {
+            if (parseInt($(this).attr('data-term')) > 0){
+                term_list.push(parseInt($(this).attr('data-term')));
+                term_list.sort(function (a, b) {
+                    return a - b;
+                });
+                return term_list;
+            }
+        })
+        if (Bravo.variations.length > 0){
+            let variable_error = true;
+
+            Bravo.variations.forEach(function (i) {
+                if (term_list.join() === i.term_id.join()){
+                    variable_error = false;
+                    Bravo.currentVariation = i;
+                    //check stock status
+                    let $stock = ''; let $in_stock = true;
+                    if (parseInt(i.variations.is_manage_stock) > 0){
+                        if (i.variations.stock_status === 'in'){
+                            let quantity = (i.variations.sold) ? i.variations.quantity - i.variations.sold : i.variations.quantity;
+                            $stock = i18n.num_stock.replace('__num__',quantity);
+                        }
+                    } else {
+                        $stock = i18n.in_stock;
+                    }
+                    if (i.variations.stock_status === 'out'){
+                        $stock = i18n.out_stock;
+                        $in_stock = false;
+                    }
+
+                    if (!isNaN(parseInt(i.variations.price)) && parseInt(i.variations.price) > 0){
+                        single_variation_wrap.addClass('active');
+                        single_variation_wrap.find('.variation-price').attr('data-price',i.variations.price).html(window.bravo_format_money(i.variations.price));
+                        single_variation_wrap.find('.variation-stock').removeClass('out-of-stock in_stock').addClass( $in_stock ? 'in_stock' : 'out-of-stock' ).find('.stock-status').html($stock);
+                        (single_variation_wrap.find('.variation-stock').hasClass('out-of-stock')) ? add_to_cart.attr('disabled','disabled') : add_to_cart.removeAttr('disabled');
+                    }
+                } else {
+                    return false;
+                }
+            })
+            if (variable_error === true){
+                single_variation_wrap.removeClass('active');
+                add_to_cart.attr('disabled','disabled');
+            }
+        }
+    })
+    $('.user-mini-cart').click(function (e) {
+        let width = $(window).width();
+        if (width <= 991){
+            e.preventDefault();
+            $('.navigation-mobile_cart').click();
+        }
+    });
+    $('.mf-filter-mobile').click(function (e) {
+        e.preventDefault();
+        $('.col-bravo-filter, .bravo-filter').addClass('active');
+    })
+    $('.mf-catalog-close-sidebar').click(function () {
+        $('.col-bravo-filter, .bravo-filter').removeClass('active');
     })
 });
 
+jQuery(function ($) {
+    //Compare
+    let compare_box = $('.bravo_compare_box');
+    let compare_count = $('.user-compare-count');
+    let compare_button = function(id){return $(`.mf-compare-button[data-id=${id}]`);}
 
+    $('.user-compare-list').click(function () {
+        compare_box.addClass('active');
+    });
+    $(document).on('click','.mf-compare-button',function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let id = $this.attr('data-id');
+        if ($this.hasClass('browse')){
+            $this.tooltip('hide');
+            compare_box.addClass('active');
+        } else {
+            $.ajax({
+                url: bookingCore.url + '/product/compare',
+                method: 'POST',
+                data: {id: id},
+                beforeSend: function () {
+                    $this.tooltip('hide').removeClass('browse').addClass('loading');
+                },
+                success:function (data) {
+                    compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse').find('.btn-text').text(i18n.browse_compare);
+                    compare_count.text(data.count);
+                    compare_box.addClass('active').find('.compare-list').html(data.view);
+                }
+            })
+        }
+    })
+    $('.compare_close, .compare_overlay').click(function () {
+        $(this).closest('.bravo_compare_box').removeClass('active');
+    })
+    $(document).on('click','.remove_compare',function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let id = $this.attr('data-id');
+        $.ajax({
+            url: bookingCore.url + '/product/remove_compare',
+            method:'POST',
+            data: {id: id},
+            beforeSend: function () {
+                $this.addClass('loading');
+            },
+            success: function (data) {
+                $this.removeClass('loading');
+                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse').find('.btn-text').text(i18n.add_compare);
+                compare_count.text(data.count);
+                compare_box.find('.compare-list').html(data.view);
+            }
+        })
+    })
+})

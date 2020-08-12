@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\Rule;
 use Matrix\Exception;
 use Modules\FrontendController;
+use Modules\Product\Models\Order;
+use Modules\Product\Models\OrderItem;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\Newsletter;
 use Modules\User\Models\Subscriber;
@@ -48,7 +50,7 @@ class UserController extends FrontendController
             case "earning":
                 $from = $request->input('from');
                 $to = $request->input('to');
-                $this->sendSuccess([
+                return $this->sendSuccess([
                     'data' => Booking::getEarningChartDataForVendor(strtotime($from), strtotime($to), $user_id)
                 ]);
                 break;
@@ -131,17 +133,51 @@ class UserController extends FrontendController
     {
         $user_id = Auth::id();
         $data = [
-            'bookings' => Booking::getBookingHistory($request->input('status'), $user_id),
+            'orders'   => Order::where('customer_id',$user_id)->where('status','<>','draft')->orderBy('id','desc')->paginate(10),
             'statues'  => config('booking.statuses'),
             'breadcrumbs'        => [
                 [
-                    'name' => __('Booking History'),
+                    'name' => __('My Order'),
                     'class' => 'active'
                 ]
             ],
-            'page_title'         => __("Booking History"),
+            'page_title'         => __("My Order"),
         ];
         return view('User::frontend.bookingHistory', $data);
+    }
+
+    public function productsOrder(){
+        $user_id = Auth::id();
+        $orders = Order::select('product_orders.*','product_order_items.vendor_id')->join('product_order_items','product_orders.id','=','product_order_items.order_id')->where('product_order_items.vendor_id',$user_id)->where('product_orders.status','<>','draft')->groupBy('product_orders.id')->orderBy('product_orders.id','desc')->paginate(10);
+        $data = [
+            'user_id' => $user_id,
+            'orders'   => $orders,
+            'statues'  => config('booking.statuses'),
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Product\'s Order'),
+                    'class' => 'active'
+                ]
+            ],
+            'page_title'         => __("Product's Order"),
+        ];
+        return view('User::frontend.products-order', $data);
+    }
+
+    public function view_order(Request $request, $id){
+        $order = Order::where('id',$id)->first();
+        $suborder = OrderItem::where('order_id',$id)->whereIn('id',$request->post('suborder'))->get();
+        $data = [
+            'id' => $id,
+            'order' => $order,
+            'suborder' => $suborder,
+        ];
+        if (boolval($request->post('products_order')) != true){
+            return view('User::frontend.order.order-modal',$data)->render();
+        } else {
+            return view('User::frontend.products-order.order-modal',$data)->render();
+        }
+
     }
 
     public function userLogin(Request $request)
@@ -189,7 +225,7 @@ class UserController extends FrontendController
                 return response()->json([
                     'error'    => false,
                     'messages' => false,
-                    'redirect' => $request->headers->get('referer') ?? url(app_get_locale(false,'/'))
+                    'redirect' => $request->input('redirect') ?? url(app_get_locale(false,'/'))
                 ], 200);
             } else {
                 $errors = new MessageBag(['message_error' => __('Username or password incorrect')]);
@@ -290,16 +326,16 @@ class UserController extends FrontendController
         if ($check) {
             if ($check->trashed()) {
                 $check->restore();
-                $this->sendSuccess([], __('Thank you for subscribing'));
+                return $this->sendSuccess([], __('Thank you for subscribing'));
             }
-            $this->sendError(__('You are already subscribed'));
+            return $this->sendError(__('You are already subscribed'));
         } else {
             $a = new Subscriber();
             $a->email = $request->input('email');
             $a->first_name = $request->input('first_name');
             $a->last_name = $request->input('last_name');
             $a->save();
-            $this->sendSuccess([], __('Thank you for subscribing'));
+            return $this->sendSuccess([], __('Thank you for subscribing'));
         }
     }
 

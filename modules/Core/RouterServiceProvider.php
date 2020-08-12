@@ -68,7 +68,7 @@ class RouterServiceProvider extends ServiceProvider
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             ->prefix(app()->getLocale())
-            ->group(__DIR__ . '/Routes/web.php');
+            ->group(__DIR__ . '/Routes/language.php');
     }
 
     /**

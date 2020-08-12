@@ -27,7 +27,8 @@
     <link href="{{ asset('libs/icons/css/set.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/slick/slick.css') }}" rel="stylesheet">
-    <link href="{{ asset('dist/frontend/css/app.css') }}" rel="stylesheet">
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+   <link href="{{ asset('dist/frontend/css/app.css') }}" rel="stylesheet">
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link rel='stylesheet' id='google-font-css'  href='https://fonts.googleapis.com/css?family=Work+Sans%3A300%2C400%2C500%2C600%2C700&subset=latin%2Clatin-ext&ver=20170801' type='text/css' media='all' />
@@ -47,6 +48,8 @@
             routes:{
                 login:'{{route('auth.login')}}',
                 register:'{{route('auth.register')}}',
+                remove_cart_item:'{{route('booking.remove_cart_item')}}',
+                view_cart:'{{route('booking.cart')}}'
             },
             currentUser:{{(int)Auth::id()}}
         };
@@ -67,11 +70,20 @@
                 register:'{{route('auth.register')}}',
                 add_to_cart:'{{route('booking.addToCart')}}'
             },
-            currentUser:{{(int)Auth::id()}}
+            currentUser:{{(int)Auth::id()}},
+            variations: [],
+            currentVariation: [],
+            compare_count: ''
         };
         var i18n = {
             warning:"{{__("Warning")}}",
             success:"{{__("Success")}}",
+            in_stock: "{{__('In Stock')}}",
+            out_stock: "{{__('Out Of Stock')}}",
+            num_stock: "{{__('__num__ In Stock')}}",
+            delete_cart_item_confirm:"{{__("Do you want to delete this cart item?")}}",
+            add_compare: "{{__('Compare')}}",
+            browse_compare: "{{__('Browse compare')}}"
         };
     </script>
     <!-- Styles -->
@@ -83,12 +95,14 @@
 <body class="{{$body_class ?? ''}}">
     {!! setting_item('body_scripts') !!}
     <div class="bravo_wrap">
-{{--        @include('Layout::parts.adminbar')--}}
         @include('Layout::parts.header')
-        @include('Layout::parts.bc')
+        @if(!isset($is_homepage))
+            @include('Layout::parts.bc')
+        @endif
         @yield('content')
+        @include('Layout::parts.compare')
+        @include('Layout::parts.quickView')
         @include('Layout::parts.footer')
-
     </div>
     {!! setting_item('footer_scripts') !!}
 </body>

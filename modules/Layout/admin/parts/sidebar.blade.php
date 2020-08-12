@@ -6,6 +6,13 @@ $menus = [
         'icon'  => 'icon ion-ios-desktop',
         "position"=>0
     ],
+    'review'=>[
+        "position"=>50,
+        'url'   => 'admin/module/review',
+        'title' => __("Reviews"),
+        'icon'  => 'icon ion-ios-text',
+        'permission' => 'review_manage_others',
+    ],
     'news'=>[
         "position"=>10,
         'url'        => 'admin/module/news',
@@ -107,12 +114,6 @@ $menus = [
                 'permission' => 'role_view',
                 'icon'       => 'fa fa-lock',
             ],
-//            [
-//                'url'        => 'admin/module/user/permission',
-//                'title'      => __('Permission Manager'),
-//                'permission' => 'permission_view',
-//                'icon'       => 'fa fa-lock',
-//            ],
             'subscriber'=>[
                 'url'        => 'admin/module/user/subscriber',
                 'title'      => __('Subscribers'),
@@ -124,22 +125,7 @@ $menus = [
                 'permission' => 'user_view',
             ],
         ]
-    ],
-    'booking'=>[
-        "position"=>110,
-        'url'        => 'admin/module/report/booking',
-        'title'      => __('Reports'),
-        'icon'       => 'icon ion-ios-pie',
-        'permission' => 'report_view',
-        'children'   => [
-            'contact'=>[
-                'url'        => 'admin/module/contact',
-                'title'      => __('Contact Submissions'),
-                'icon'       => 'icon ion ion-md-mail',
-                'permission' => 'contact_manage',
-            ],
-        ]
-    ],
+    ]
 ];
 
 // Modules

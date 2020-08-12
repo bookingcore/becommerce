@@ -93,7 +93,7 @@ class RolesAndPermissionsSeeder extends Seeder
         // Media
         Permission::findOrCreate('media_upload');
         Permission::findOrCreate('media_manage');
-        
+
         //Review
         Permission::findOrCreate('review_manage_others');
 

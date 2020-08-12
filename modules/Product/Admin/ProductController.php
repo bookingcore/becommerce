@@ -109,6 +109,7 @@ class ProductController extends AdminController
                 return redirect(route('product.admin.index'));
             }
         }
+
         $data = [
             'row'            => $row,
             'translation'    => $translation,

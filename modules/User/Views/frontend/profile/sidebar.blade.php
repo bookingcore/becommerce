@@ -1,5 +1,11 @@
 <?php $avatar = $user->getAvatarUrl(); ?>
-<div class="bravo_profile_sidebar">
+<div class="bravo_profile_sidebar bravo-filter">
+    <div class="filter-header">
+        <div class="mf-catalog-close-sidebar" id="mf-catalog-close-sidebar">
+            <h2>{{ __('Filter Products') }}</h2>
+            <a class="close-sidebar"><i class="icon-cross"></i></a>
+        </div>
+    </div>
     <div class="profile-summary">
         <div class="profile-header">
             <div class="profile-avatar {{ !empty($avatar) ? 'avatar-img' : '' }}">
@@ -50,22 +56,22 @@
                         </li>
                     </ul>
                 </div>
-                <div class="store-phone">
-                    <span>{{__('Call us directly')}}</span>
-                    <span class="phone-number">{{$user->phone}}</span>
-                </div>
-                <div class="store-contact">
-                    {{__('Or contact seller via email')}}
-                    <a href="mailto:{{$user->email}}">{{$user->email}}</a>
-                </div>
             @endif
+            <div class="store-phone">
+                <span>{{__('Call us directly')}}</span>
+                <span class="phone-number">{{$user->phone}}</span>
+            </div>
+            <div class="store-contact">
+                {{__('Or contact seller via email')}}
+                <a href="mailto:{{$user->email}}">{{$user->email}}</a>
+            </div>
         </div>
     </div>
     <div class="quick_info">
         <h4 class="title">Quick Info</h4>
         <div class="quick-info-wrapper">
             <p>Do you need more information? Write to us!</p>
-            <form action="" method="post" id="respond" style="padding: 0;">
+            <form action="{{ route('user.profile',['id'=>$user->id]) }}" method="post" id="respond" style="padding: 0;">
                 @csrf
                 <input type="text" class="input-text " name="quick_info[name]" value="" placeholder="Name">
                 <input type="text" class="input-text " name="quick_info[subject]" value="" placeholder="Subject">

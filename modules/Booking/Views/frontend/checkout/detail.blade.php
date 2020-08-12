@@ -1,22 +1,56 @@
-<div class="order_sidebar_widget mb30">
-    <h4 class="title">{{__('Your Order')}}</h4>
-    <ul>
-        @if(empty($hide_list))
-            <li class="subtitle"><p>{{__('Product')}} <span class="float-right">{{__('Total')}}</span></p></li>
-            @foreach(Cart::content() as $cartItem)
-            <li >
-                @if($cartItem->model)
-                    <p > <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->model->title}}</a> × {{$cartItem->qty}} <span class="float-right">{{format_money($cartItem->model->price)}}</span>
-                    </p>
-                @else
-                    <p > {{$cartItem->name}} × {{$cartItem->qty}} <span class="float-right">{{format_money($cartItem->price)}}</span>
-                    </p>
-                @endif
-            </li>
-            @endforeach
-        @endif
-        <li class="subtitle"><p>{{__('Subtotal')}} <span class="float-right">{{format_money(Cart::subtotal())}}</span></p></li>
-        <li class="subtitle"><p>{{__('Tax')}} <span class="float-right">{{format_money(Cart::tax())}}</span></p></li>
-        <li class="subtitle"><p>{{__('Total')}} <span class="float-right totals color-orose">{{format_money(Cart::total())}}</span></p></li>
-    </ul>
+<h3 id="order_review_heading">{{ __('Your order') }}</h3>
+<div id="order_review" class="bravo-checkout-review-order mb-5">
+    <table class="shop_table bravo-checkout-review-order-table">
+        <thead>
+            <tr>
+                <th class="product-name">{{ __('Product') }}</th>
+                <th class="product-total">{{ __('Subtotal') }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if(Cart::count())
+                @foreach(Cart::content() as $cartItem)
+                    <tr class="cart_item">
+                        <td class="product-name">
+                            {{ $cartItem->name }} <span class="product-quantity">× {{$cartItem->qty}}</span>
+                            <dl class="variation">
+                                <dt class="variation-SoldBy">{{ __('Sold By:') }}</dt>
+                                <dd class="variation-SoldBy"><p>{{ mb_strtoupper($cartItem->model->author->getDisplayName()) }}</p>
+                                </dd>
+                            </dl>
+                        </td>
+                        <td class="product-total">
+                            <span class="bravo-Price-amount amount">{{ format_money($cartItem->price) }}</span>
+                        </td>
+                    </tr>
+                @endforeach
+            @endif
+        </tbody>
+        <tfoot>
+            <tr class="cart-subtotal">
+                <th>{{ __('Subtotal') }}</th>
+                <td>
+                    <span class="bravo-Price-amount amount">
+                        {{ format_money(Cart::subtotal()) }}
+                    </span>
+                </td>
+            </tr>
+            @if($coupons = session('coupon'))
+                @foreach($coupons as $coupon)
+                    <tr class="cart_coupon">
+                        <td class="coupon_text text-left">{{ __('Coupon: :code',['code'=>$coupon['name']]) }}</td>
+                        @php $discount = ($coupon['type'] == 'percent') ? Cart::subtotal() * $coupon['discount']/100 : $coupon['discount'] @endphp
+                        <td class="coupon_discount text-right">-{{ format_money($discount) }}</td>
+                    </tr>
+                @endforeach
+            @endif
+
+            <tr class="order-total">
+                <th>{{ __('Total') }}</th>
+                <td>
+                    <strong class="bravo-Price-amount">{{format_money(Cart::final_total())}}</strong>
+                </td>
+            </tr>
+        </tfoot>
+    </table>
 </div>

@@ -106,7 +106,8 @@ class ListProductInCategories extends BaseBlock
             'rows'       => $list,
             'title'      => $model['title'],
             'all_product'=> $model['link_product'],
-            'link'       => $product_url
+            'link'       => $product_url,
+            'blocks'     => 'product_in_cats'
         ];
         return view('Product::frontend.blocks.list-product-in-categories.index', $data);
     }

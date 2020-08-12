@@ -4,6 +4,7 @@ use \Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'/'],function (){
     Route::get('/','UserController@index')->name('user.admin.index');
     Route::get('/create','UserController@create')->name('user.admin.create');
+    Route::get('/getForSelect2','UserController@getForSelect2')->name('user.admin.getForSelect2');
     Route::get('/edit/{id}', 'UserController@edit')->name('user.edit');
     Route::post('/bulkEdit', 'UserController@bulkEdit')->name('user.bulkEdit');
     Route::post('/store/{id}', 'UserController@store')->name('user.store');
@@ -21,8 +22,8 @@ Route::group(['prefix'=>'/role'], function (){
 });
 
 Route::group(['prefix'=>'subscriber'],function (){
-    Route::get('/','subscriberController@index')->name('user.subscriber.index');
-    Route::post('/store','subscriberController@store')->name('user.subscriber.store');
-    Route::post('/editBulk','subscriberController@editBulk')->name('user.subscriber.editBulk');
-    Route::get('/export','subscriberController@export')->name('user.subscriber.export');
+    Route::get('/','SubscriberController@index')->name('user.subscriber.index');
+    Route::post('/store','SubscriberController@store')->name('user.subscriber.store');
+    Route::post('/editBulk','SubscriberController@editBulk')->name('user.subscriber.editBulk');
+    Route::get('/export','SubscriberController@export')->name('user.subscriber.export');
 });

@@ -1,58 +1,111 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Admin
- * Date: 8/23/2019
- * Time: 11:17 AM
- */
+$review_score= $row->review_data;
+$reviewData = $row->getScoreReview();
+$score_total = $reviewData['score_total'];
+?>
 
-	$review_score= $row->review_data?>
-{{--@if(setting_item("product_enable_review",true))--}}
-    <div class="bravo-reviews">
-        <h3>{{__("Reviews")}}</h3>
-        @if($review_score)
-            <div class="review-box">
-                <div class="row">
-                    <div class="col-lg-5">
-                        <div class="review-box-score">
-                            <div class="review-score">
-                                {{$review_score['score_total']}}<span class="per-total">/5</span>
+@include('Layout::admin.message')
+<div class="bravo-reviews">
+    <div class="review-box">
+        <div class="mf-product-rating row">
+            @if($score_total > 0)
+                <div class="col-md-5 col-sm-12 col-xs-12 col-average-rating">
+                    <div class="average-rating">
+                        <h6 class="average-label">{{ __('Average Rating') }}</h6>
+                        <h3 class="average-value">{{$review_score['score_total']}}</h3>
+                        <div class="service-review tour-review-{{$score_total}}">
+                            <div class="list-star">
+                                <ul class="booking-item-rating-stars">
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                    <li><i class="fa fa-star-o"></i></li>
+                                </ul>
+                                <div class="booking-item-rating-stars-active"
+                                     style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                                    <ul class="booking-item-rating-stars">
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                        <li><i class="fa fa-star"></i></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="review-score-text">
-                                {{$review_score['score_text']}}
-                            </div>
-                            <div class="review-score-base">
-                                {{__("Based on")}} <span>
-                                @if($review_score['total_review'] > 1)
-                                    {{ __(":number reviews",["number"=>$review_score['total_review'] ]) }}
-                                @else
-                                    {{ __(":number review",["number"=>$review_score['total_review'] ]) }}
-                                @endif
-                            </div>
+                            <span class="review">
+                    <span class="review_number">{{ $reviewData['total_review'] }}</span>
+                    <span class="review_text">{{ $reviewData['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
+                </span>
                         </div>
-                    </div>
-                    <div class="col-lg-7">
                         <div class="review-sumary">
                             @if($review_score['rate_score'])
+                                @php $star = 5 @endphp
                                 @foreach($review_score['rate_score'] as $item)
                                     <div class="item">
                                         <div class="label">
-                                            {{$item['title']}}
+                                            {{__(':num star',['num'=>$star])}}
                                         </div>
                                         <div class="progress">
                                             <div class="percent green" style="width: {{$item['percent']}}%"></div>
                                         </div>
-                                        <div class="number">{{$item['total']}}</div>
+                                        <div class="number">{{$item['percent']}}%</div>
                                     </div>
+                                    @php $star-- @endphp
                                 @endforeach
                             @endif
                         </div>
                     </div>
                 </div>
+            @endif
+            <div class="col-md-{{ $score_total > 0 ? '7' : '12' }} col-sm-12 col-xs-12 col-review_form">
+                <div class="review-form form-wrapper">
+                    <span class="comment-reply-title">{{ $score_total > 0 ? __('Add a review') : __('Be the first to review "'.$row->title.'"') }}</span>
+                    <form action="{{ url(app_get_locale()."/review") }}" method="post" class="comment-form needs-validation" novalidate>
+                        @csrf
+                        <p class="comment-notes">
+                            <span id="email-notes">{{ __('Your email address will not be published.') }}</span>{{__('Required fields are marked')}}
+                            <span class="required">*</span>
+                        </p>
+                        <div class="comment-notes comment-form-rating">
+                            <div class="form-group review-items">
+                                <div class="item">
+                                    <label>{{__("Your rating of this product")}}</label>
+                                    <input class="review_stats" type="hidden" name="review_rate">
+                                    <div class="rates">
+                                        <i class="fa fa-star-o grey"></i>
+                                        <i class="fa fa-star-o grey"></i>
+                                        <i class="fa fa-star-o grey"></i>
+                                        <i class="fa fa-star-o grey"></i>
+                                        <i class="fa fa-star-o grey"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" required class="form-control" name="review_title" placeholder="{{__("Title")}}">
+                            <div class="invalid-feedback">{{__('Review title is required')}}</div>
+                        </div>
+                        <div class="form-group">
+                            <textarea name="review_content" required class="form-control" placeholder="{{__("Review content")}}" minlength="10"></textarea>
+                            <div class="invalid-feedback">
+                                {{__('Review content has at least 10 character')}}
+                            </div>
+                        </div>
+                        <p class="form-submit">
+                            <input type="hidden" name="review_service_id" value="{{$row->id}}">
+                            <input type="hidden" name="review_service_type" value="product">
+                            <input id="submit" type="submit" name="submit" class="btn" value="{{__("Submit")}}">
+                        </p>
+                    </form>
+                </div>
             </div>
-        @endif
+        </div>
+    </div>
+    <div class="comments">
+        <h2 class="reviews-title">{{ ($review_list) ? __('Reviews') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}</h2>
         <div class="review-list">
-            @if($review_list)
+            @if($review_list->total() > 0)
                 @foreach($review_list as $item)
                     @php $userInfo = $item->author; @endphp
                     <div class="review-item">
@@ -90,90 +143,11 @@
                         </div>
                     </div>
                 @endforeach
-            @endif
-        </div>
-        <div class="review-pag-wrapper">
-            @if($review_list->total() > 0)
-                <div class="bravo-pagination">
-                    {{$review_list->appends(request()->query())->fragment('review-list')->links()}}
-                </div>
-                <div class="review-pag-text">
-                    {{ __("Showing :from - :to of :total total",["from"=>$review_list->firstItem(),"to"=>$review_list->lastItem(),"total"=>$review_list->total()]) }}
-                </div>
             @else
-                <div class="review-pag-text">{{__("No Review")}}</div>
+                <p class="noreviews">{{__('There are no reviews yet.')}}</p>
             @endif
-        </div>
-        <div class="review-form">
-            <div class="title-form">
-                {{__("Write a review")}}
-            </div>
-            <div class="form-wrapper">
-                @include('Layout::admin.message')
-                <form action="{{ url(app_get_locale()."/review") }}" class="needs-validation" novalidate method="post">
-                    @csrf
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <input type="text" required class="form-control" name="review_title" placeholder="{{__("Title")}}">
-                                <div class="invalid-feedback">{{__('Review title is required')}}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-md-8">
-                            <div class="form-group">
-                                <textarea name="review_content" required class="form-control" placeholder="{{__("Review content")}}" minlength="10"></textarea>
-                                <div class="invalid-feedback">
-                                    {{__('Review content has at least 10 character')}}
-                                </div>
-                            </div>
-                        </div>
-                        @if($tour_review_stats = setting_item("tour_review_stats"))
-                            @php $tour_review_stats = json_decode($tour_review_stats) @endphp
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group review-items">
-                                    @foreach($tour_review_stats as $item)
-                                        <div class="item">
-                                            <label>{{$item->title}}</label>
-                                            <input class="review_stats" type="hidden" name="review_stats[{{$item->title}}]">
-                                            <div class="rates">
-                                                <i class="fa fa-star-o grey"></i>
-                                                <i class="fa fa-star-o grey"></i>
-                                                <i class="fa fa-star-o grey"></i>
-                                                <i class="fa fa-star-o grey"></i>
-                                                <i class="fa fa-star-o grey"></i>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @else
-                            <div class="col-xs-12 col-md-4">
-                                <div class="form-group review-items">
-                                    <div class="item">
-                                        <label>{{__("Review rate")}}</label>
-                                        <input class="review_stats" type="hidden" name="review_rate">
-                                        <div class="rates">
-                                            <i class="fa fa-star-o grey"></i>
-                                            <i class="fa fa-star-o grey"></i>
-                                            <i class="fa fa-star-o grey"></i>
-                                            <i class="fa fa-star-o grey"></i>
-                                            <i class="fa fa-star-o grey"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    </div>
-                    <div class="text-center">
-                        <input type="hidden" name="review_service_id" value="{{$row->id}}">
-                        <input type="hidden" name="review_service_type" value="product">
-                        <input id="submit" type="submit" name="submit" class="btn" value="{{__("Leave a Review")}}">
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
-{{--@endif--}}
+</div>
+
 

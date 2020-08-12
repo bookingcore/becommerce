@@ -124,6 +124,10 @@
   background: #fafbfc;
 }
 
+.dungdt-upload-multiple .attach-demo .image-item .inner img {
+  max-width: 100%;
+}
+
 .dropdown-menu {
   border-radius: 3px;
 }

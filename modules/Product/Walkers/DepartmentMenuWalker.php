@@ -23,9 +23,7 @@ class DepartmentMenuWalker
 
     public function generateTree($items = [])
     {
-
         foreach ($items as $item) {
-
             $class = $item['class'] ?? '';
             $url = $item['url'] ?? '';
             $item['target'] = $item['target'] ?? '';
@@ -59,7 +57,8 @@ class DepartmentMenuWalker
 
             printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), $item['name']);
             if (!empty($item['children'])) {
-                echo '<ul class="dropdown-submenu">';
+                $bg = (!empty($item['bg'])) ? 'style="background: white url('.get_file_url($item['bg'],'full').') center center no-repeat"' : 'style="background: white"';
+                echo '<ul class="dropdown-submenu" '.$bg.'>';
                     if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
                         $this->generateMultiRowTree($item['children']);
                     }else{

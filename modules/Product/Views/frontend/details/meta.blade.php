@@ -5,45 +5,50 @@
                 <div class="product-brand d-inline-block">{{__("Brand:")}} <a href="{{$row->brand->getDetailUrl()}}" target="_blank">{{$row->brand->name}}</a></div>
             @endif
             <?php
-            $reviewData = $row->review_data;
-            $score_total = $reviewData['score_total'];
+                $reviewData = $row->review_data;
+                $score_total = $reviewData['score_total'];
             ?>
-            <div class="service-review product-review-{{$score_total}} d-inline-block">
-                <div class="list-star">
-                    <ul class="booking-item-rating-stars">
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                        <li><i class="fa fa-star-o"></i></li>
-                    </ul>
-                    <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
-                        <ul class="booking-item-rating-stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                        </ul>
-                    </div>
-                </div>
-                <span class="review">
+            @if($score_total > 0)
+                <div class="service-review product-review-{{$score_total}} d-inline-block">
+                        <div class="list-star">
+                            <ul class="booking-item-rating-stars">
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                                <li><i class="fa fa-star-o"></i></li>
+                            </ul>
+                            <div class="booking-item-rating-stars-active" style="width: {{  $score_total * 2 * 10 ?? 0  }}%">
+                                <ul class="booking-item-rating-stars">
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                    <li><i class="fa fa-star"></i></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="review">
                 {{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}
                 </span>
-            </div>
+                    </div>
+            @endif
         </div>
     <hr>
     @include('Product::frontend.details.price')
     <div class="product-summary-header">
         <span class="sold-by">{{__('Sold By:')}} <a href="{{route('user.profile',['id'=>$row->create_user])}}" target="_blank">{{$row->author->getDisplayName()}}</a></span>
-        <span class="product-stock-status {{$row->stock_status_code}}">{{__('Status:')}} <span>{{$row->stock_status_text}}</span></span>
+        @if($row->product_type == 'simple')
+            @php $stock_status = $row->getStockStatus() @endphp
+            <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span>{{$stock_status['stock']}}</span></span>
+        @endif
     </div>
+    <hr class="hr-price">
     <div class="product-short-desc">
         {!! clean($row->short_desc) !!}
     </div>
-    <hr>
     @include('Product::frontend.details.add-to-cart')
-    <hr>
+    <hr class="hr-product-other">
     <div class="product-other">
         @if($row->sku)
         <div class="other-item item-sku">
@@ -71,7 +76,7 @@
                 @foreach($row->tags as $k=>$category)
                     @if($k) ,
                     @endif
-                    <a href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
+                    <a href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
                 @endforeach
             </span>
         </div>

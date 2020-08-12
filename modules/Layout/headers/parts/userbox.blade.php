@@ -2,14 +2,14 @@
     <li  class="user-compare-list">
         <a class="counter-wrap">
             <i class="icon-chart-bars extra-icon"></i>
-            <span class="counter user-compare-count">0</span>
+            <span class="counter user-compare-count">{{ (session('compare')) ? count(session('compare')) : 0 }}</span>
         </a>
     </li>
     <li  class="user-wishlist">
         @if(Auth::user())
             <a class="counter-wrap" href="{{route('user.wishList.index')}}">
                 <i class="icon-heart extra-icon"></i>
-                <span class="counter user-wish-list-count">{{Auth::user()->wishlist_count}}</span>
+                <span class="counter user-wish-list-count">{{ count(wishlist()) }}</span>
             </a>
         @else
             <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
@@ -29,7 +29,7 @@
     </li>
     <li class="menu-user @if(Auth::user()) logged-in @else no-logged-in @endif">
         @if(!Auth::user())
-            <div class="u-left">
+            <div class="u-left" onclick="window.open(bookingCore.routes.login,'_self')">
                 <i class="extra-icon icon-user"></i>
             </div>
             <div class="u-right">

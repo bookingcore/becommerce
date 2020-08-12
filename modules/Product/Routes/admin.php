@@ -59,5 +59,12 @@ Route::post('/ajaxAddTerm','AttributeController@ajaxAddTerm')->name('product.adm
 
 Route::group(['prefix'=>'category'],function (){
     Route::get('getForSelect2','CategoryController@getForSelect2')->name('product.admin.category.getForSelect2');
+});
 
+Route::group(['prefix'=>'coupon'],function (){
+    Route::get('/','CouponController@index')->name('product.coupon.index');
+    Route::get('/create','CouponController@create')->name('product.coupon.create');
+    Route::get('/edit/{id}','CouponController@edit')->name('product.coupon.edit');
+    Route::post('/store/{id}','CouponController@store')->name('product.coupon.store');
+    Route::post('/bulkEdit','CouponController@bulkEdit')->name('product.coupon.bulkEdit');
 });

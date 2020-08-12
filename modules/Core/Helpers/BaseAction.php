@@ -67,7 +67,6 @@ abstract class BaseAction
                 });
             }
         } else {
-            // no hook was specified, so clear entire collection
             $this->listeners = collect([]);
         }
     }
@@ -78,11 +77,6 @@ abstract class BaseAction
      */
     public function getListeners()
     {
-        // $listeners = $this->listeners->values();
-        // sort by priority
-        // uksort($values, function ($a, $b) {
-        //     return strnatcmp($a, $b);
-        // });
         return $this->listeners->sortBy('priority');
     }
     /**

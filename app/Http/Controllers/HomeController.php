@@ -45,6 +45,8 @@ class HomeController extends Controller
             $data = [
                 'row'=>$page,
                 "seo_meta"=> $seo_meta,
+                'is_homepage'  => true,
+                'compare'      => (session('compare')) ? session('compare') : '',
                 'breadcrumbs' => [
                     ['name' => $page->title,'class' => 'active'],
                 ],
@@ -214,12 +216,12 @@ class HomeController extends Controller
         try {
             DB::connection()->getPdo();
             if(DB::connection()->getDatabaseName()){
-                $this->sendSuccess(false , __("Yes! Successfully connected to the DB: ".DB::connection()->getDatabaseName()));
+                return $this->sendSuccess(false , __("Yes! Successfully connected to the DB: ".DB::connection()->getDatabaseName()));
             }else{
-                $this->sendSuccess(false , __("Could not find the database. Please check your configuration."));
+                return $this->sendSuccess(false , __("Could not find the database. Please check your configuration."));
             }
         } catch (\Exception $e) {
-            $this->sendError( $e->getMessage() );
+            return $this->sendError( $e->getMessage() );
         }
     }
 }

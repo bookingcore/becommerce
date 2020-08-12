@@ -4,6 +4,7 @@ namespace Modules\Product\Emails;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Modules\Product\Models\Order;
 use Modules\Product\Models\Product;
 
 class StatusUpdatedEmail extends Mailable
@@ -13,7 +14,7 @@ class StatusUpdatedEmail extends Mailable
     public $oldStatus;
     protected $email_type;
 
-    public function __construct(Booking $booking,$to = 'admin')
+    public function __construct(Order $booking,$to = 'admin')
     {
         $this->booking = $booking;
         $this->email_type = $to;
@@ -25,11 +26,11 @@ class StatusUpdatedEmail extends Mailable
         switch ($this->email_type){
             case "admin":
             case "vendor":
-                $subject = __('[:site_name] The booking status has been updated',['site_name'=>setting_item('site_title')]);
+                $subject = __('[:site_name] The order status has been updated',['site_name'=>setting_item('site_title')]);
                 break;
 
             case "customer":
-                $subject = __('Your booking status has been updated',['site_name'=>setting_item('site_title')]);
+                $subject = __('Your order status has been updated',['site_name'=>setting_item('site_title')]);
                 break;
 
         }

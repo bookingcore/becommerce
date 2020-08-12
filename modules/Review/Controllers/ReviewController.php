@@ -35,14 +35,6 @@ class ReviewController extends Controller
         if (!$reviewEnable) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review not enable'));
         }
-        $reviewEnableAfterBooking = $module->check_enable_review_after_booking();
-        if (!$reviewEnableAfterBooking) {
-            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You need booking before write a review'));
-        }else{
-            if (!$module->check_allow_review_after_making_completed_booking() ) {
-                return redirect()->to(url()->previous() . '#review-form')->with('error', __('You can review after making completed booking'));
-            }
-        }
 
         if ($module->create_user == Auth::id()) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('You cannot review your service'));

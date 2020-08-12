@@ -1,9 +1,12 @@
 <?php
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
+use Modules\Product\Models\ProductVariation;
+use Modules\User\Models\UserWishList;
 
 define( 'MINUTE_IN_SECONDS', 60 );
 define( 'HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS );
@@ -84,6 +87,7 @@ function generate_menu($location = '',$options = [])
     $options['walker'] = $options['walker'] ?? '\\Modules\\Core\\Walkers\\MenuWalker';
 
     $setting = json_decode(setting_item('menu_locations'),true);
+
     if(!empty($setting))
     {
         foreach($setting as $l=>$menuId){
@@ -139,13 +143,14 @@ function get_file_url($file_id,$size="thumb"){
 }
 
 function get_image_tag($image_id,$size = 'thumb',$options = []){
-    $options = array_merge($options,[
+    $options = array_merge([
        'lazy'=>true
-    ]);
+    ],$options);
 
     $url = get_file_url($image_id,$size);
 
     if($url){
+        $style = $options['style'] ?? '';
         $alt = $options['alt'] ?? '';
         $attr = '';
         $class= $options['class'] ?? '';
@@ -153,9 +158,9 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
         }else{
-            $attr.=" src='".e($url)."' ";
+            $attr.=" src=".e($url);
         }
-        return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
+        return sprintf("<img class='%s' %s alt='%s' style='%s'>",e($class),e($attr),e($alt),e($style));
     }
 }
 function get_date_format(){
@@ -844,21 +849,7 @@ function get_payment_gateways(){
     if(!empty($custom_modules)){
         foreach($custom_modules as $module){
             $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
-                if(!empty($gateway)){
-                    $gateways = array_merge($gateways,$gateway);
-                }
-            }
-        }
-    }
-    //Custom
-    $custom_modules = \Custom\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
+            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
             {
                 $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
                 if(!empty($gateway)){
@@ -881,6 +872,22 @@ function get_payment_gateways(){
             }
         }
     }
+
+    //Custom
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+
     return $gateways;
 }
 
@@ -980,7 +987,8 @@ function is_enable_language_route(){
 }
 function get_cart_fragments(){
     return [
-        '.user-mini-cart .dropdown-menu'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.widget_shopping_cart_content, .user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.ps-table--shopping-cart tbody'=>view('Booking::frontend.cart.list-cart')->render(),
         '.user-cart-count'=>Cart::count()
     ];
 }
@@ -990,4 +998,49 @@ function get_cart_fragments(){
  */
 function cart(){
     return resolve('Cart');
+}
+
+function wishlist(){
+    $auth = \Illuminate\Support\Facades\Auth::id();
+    $wishlist = [];
+    if (!empty($auth)){
+        $l_wishlist = UserWishList::select('object_id')->where('create_user', $auth)->get();
+        $wishlist = [];
+        if (!empty($l_wishlist)){
+            foreach ($l_wishlist as $list){
+                array_push($wishlist, $list->object_id);
+            }
+        }
+    }
+    return array_unique($wishlist);
+}
+
+function getMinMaxPriceProductVariations($row){
+    if($row->product_type=='variable'){
+        $array = $row->hasMany(ProductVariation::class)->pluck('price')->toArray();
+        $array= array_values(Arr::sort($array));
+        return ['min'=>head($array),'max'=>last($array)];
+    }
+}
+
+function list_compare_id(){
+    $compare = (!empty(session('compare'))) ? session('compare') : '';
+    $l_compare = [];
+    if (!empty($compare)){
+        foreach ($compare as $list){
+            array_push($l_compare, $list['id']);
+        }
+    }
+    return $l_compare;
+}
+
+function position_attributes(){
+    $attrs = \Modules\Core\Models\Attributes::all();
+    $test = [];
+    if (!empty($attrs)){
+        foreach ($attrs as $position){
+            array_push($test, $position->positon);
+        }
+    }
+    return $test;
 }

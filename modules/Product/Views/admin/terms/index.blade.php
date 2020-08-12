@@ -50,6 +50,7 @@
                                 <tr>
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
                                     <th>{{__("Name")}}</th>
+                                    <th>{{__("Content")}}</th>
                                     <th class="date">{{__("Date")}}</th>
                                     <th class="date"></th>
                                 </tr>
@@ -61,6 +62,9 @@
                                             <td><input type="checkbox" class="check-item" name="ids[]" value="{{$row->id}}"></td>
                                             <td class="title">
                                                 <a href="{{route('product.admin.attribute.term.edit',['id'=>$row->id])}}">{{$row->name}}</a>
+                                            </td>
+                                            <td class="content">
+                                                {{$row->content}}
                                             </td>
                                             <td>{{ display_date($row->updated_at)}}</td>
                                             <td><a class="btn btn-primary btn-sm" href="{{route('product.admin.attribute.term.edit',['id'=>$row->id])}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a></td>

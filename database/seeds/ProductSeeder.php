@@ -213,8 +213,9 @@ class ProductSeeder extends Seeder
             'price'       => '13.43',
             'sale_price'  => null,
             'status'      => 'publish',
+            'attributes_for_variation' => '["1","2"]',
             'stock_status'=> 'in',
-            'product_type'=> 'simple',
+            'product_type'=> 'variable',
             'create_user' => '1'
         ] );
         $id_7 = DB::table('products')->insertGetId([
@@ -228,9 +229,24 @@ class ProductSeeder extends Seeder
             'price'       => '679.80',
             'sale_price'  => '567.99',
             'status'      => 'publish',
-            'stock_status'=> 'in',
+            'stock_status'=> 'out',
             'product_type'=> 'simple',
             'create_user' => '1'
+        ] );
+        $id_8 = DB::table('products')->insertGetId([
+            'title'       => "LG White Front Load Steam Washer",
+            'slug'        => "lg-white-front-load-steam-washer",
+            'content'     => '<p><strong>Embodying the Raw, Wayward Spirit of Rock \'N\' Roll</strong></p><p>Embodying the raw, wayward spirit of rock ‘n’ roll, the Kilburn portable active stereo speaker takes the unmistakable look and sound of Marshall, unplugs the chords, and takes the show on the road.</p><p> </p><p>Weighing in under 7 pounds, the Kilburn is a lightweight piece of vintage styled engineering. Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound that is both articulate and pronounced. The analogue knobs allow you to fine tune the controls to your personal preferences while the guitar-influenced leather strap enables easy and stylish travel.</p><p><img src="/uploads/demo/templates/post-image.jpg" alt="Embodying the Raw, Wayward Spirit of Rock \'N\' Roll" width="654" height="205" /></p><p>What do you get</p><p>Sound of Marshall, unplugs the chords, and takes the show on the road.</p><p>Weighing in under 7 pounds, the Kilburn is a lightweight piece of vintage styled engineering. Setting the bar as one of the loudest speakers in its class, the Kilburn is a compact, stout-hearted hero with a well-balanced audio which boasts a clear midrange and extended highs for a sound that is both articulate and pronounced. The analogue knobs allow you to fine tune the controls to your personal preferences while the guitar-influenced leather strap enables easy and stylish travel.</p><p> </p><p>The FM radio is perhaps gone for good, the assumption apparently being that the jury has ruled in favor of streaming over the internet. The IR blaster is another feature due for retirement – the S6 had it, then the Note5 didn’t, and now with the S7 the trend is clear.</p><p> </p><p>Perfectly Done</p><p>Meanwhile, the IP68 water resistance has improved from the S5, allowing submersion of up to five feet for 30 minutes, plus there’s no annoying flap covering the charging port</p><p> </p><ul><li>No FM radio (except for T-Mobile units in the US, so far)</li><li>No IR blaster</li><li>No stereo speakers</li></ul><p>If you’ve taken the phone for a plunge in the bath, you’ll need to dry the charging port before plugging in. Samsung hasn’t reinvented the wheel with the design of the Galaxy S7, but it didn’t need to. The Gala S6 was an excellently styled device, and the S7 has managed to improve on that.</p><div><div class="gtx-trans-icon"> </div></div>',
+            'image_id'    => $product_image['image-8'],
+            'short_desc'  => '<ul><li>Unrestrained and portable active stereo speaker</li><li>Free from the confines of wires and chords</li><li>20 hours of portable capabilities</li><li>Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li><li>3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>',
+            'brand_id'    => $list_brands["electrolux"],
+            'gallery'     => implode(',',$gallery_image),
+            'price'       => '1422,70',
+            'sale_price'  => '1025,50',
+            'status'      => 'publish',
+            'stock_status'=> 'in',
+            'product_type'=> 'simple',
+            'create_user' => '2'
         ] );
 
         $list_products[] = [
@@ -260,6 +276,10 @@ class ProductSeeder extends Seeder
         $list_products[] = [
             'id'=>$id_7,
             "cats"=>"Clothing & Apparel"
+        ];
+        $list_products[] = [
+            'id'=>$id_8,
+            "cats"=>"Consumer Electrics"
         ];
 
         $cat_image = [
@@ -354,55 +374,75 @@ class ProductSeeder extends Seeder
         $attr = [];
         $attr['color'] = DB::table('bravo_attrs')->insertGetId([
             'name'      =>      'Color',
+            'display_type'=>    'color',
             'slug'      =>      'color',
             'service'   =>      'product',
             'create_user'=>     '1'
         ]);
         $attr['size'] = DB::table('bravo_attrs')->insertGetId([
             'name'      =>      'Size',
+            'display_type'=>    'text',
             'slug'      =>      'size',
             'service'   =>      'product',
             'create_user'=>     '1'
         ]);
 
+        //create term
         $term_list = [
             [
                 'name'      =>      'Red',
+                'content'   =>      '#FF0000',
                 'attr_id'   =>      $attr['color'],
                 'slug'      =>      'red'
             ],
             [
                 'name'      =>      'Black',
+                'content'   =>      '#000000',
                 'attr_id'   =>      $attr['color'],
                 'slug'      =>      'black'
             ],
             [
+                'name'      =>      'Blue',
+                'content'   =>      '#0000FF',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'blue'
+            ],
+            [
                 'name'      =>      'S',
+                'content'   =>      'S',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      's'
             ],
             [
                 'name'      =>      'M',
+                'content'   =>      'M',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'm'
             ],
             [
                 'name'      =>      'L',
+                'content'   =>      'L',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'l'
             ],
             [
                 'name'      =>      'XL',
+                'content'   =>      'XL',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'xl'
             ],
             [
                 'name'      =>      'XXL',
+                'content'   =>      'XXL',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'Xl'
             ],
         ];
-        DB::table('bravo_terms')->insert($term_list);
+        $term = [];
+        foreach ($term_list as $k => $list){
+            $term[$k] = DB::table('bravo_terms')->insertGetId($list);
+        }
+        //end create term
 
         foreach ($categories as $category){
             $childs = $category['child'] ?? "";
@@ -434,16 +474,251 @@ class ProductSeeder extends Seeder
                 }
             }
 
-            \Modules\Product\Models\ProductTerm::firstOrCreate([
-                'term_id' => rand(1,2),
-                'target_id' => $id
-            ]);
-            \Modules\Product\Models\ProductTerm::firstOrCreate([
-                'term_id' => rand(3,7),
-                'target_id' => $id
-            ]);
-
+            if ($id != $id_6){
+                \Modules\Product\Models\ProductTerm::firstOrCreate([
+                    'term_id' => rand(1,2),
+                    'target_id' => $id
+                ]);
+                \Modules\Product\Models\ProductTerm::firstOrCreate([
+                    'term_id' => rand(3,7),
+                    'target_id' => $id
+                ]);
+            }
         }
 
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 1,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 2,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 4,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 5,
+            'target_id' => $id_6
+        ]);
+        \Modules\Product\Models\ProductTerm::firstOrCreate([
+            'term_id' => 6,
+            'target_id' => $id_6
+        ]);
+
+        //Create variable product
+        $variable_id_1 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_2 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_3 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '22',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_4 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_5 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        $variable_id_6 = DB::table('product_variations')->insertGetId(
+            [
+                'product_id'    =>  $id_6,
+                'price'         =>  '20',
+                'stock_status'  =>  'in',
+                'active'        =>  '1',
+            ]
+        );
+        //End create variable product
+
+        //Create variable product term
+        DB::table('product_variation_term')->insert(
+            [
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_6,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_6,
+                    'term_id'       =>  $term[3],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_5,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_5,
+                    'term_id'       =>  $term[4],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_4,
+                    'term_id'       =>  $term[0],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_4,
+                    'term_id'       =>  $term[5],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_3,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_3,
+                    'term_id'       =>  $term[3],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_2,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_2,
+                    'term_id'       =>  $term[4],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_1,
+                    'term_id'       =>  $term[1],
+                    'create_user'   =>  1
+                ],
+                [
+                    'product_id'    =>  $id_6,
+                    'variation_id'  =>  $variable_id_1,
+                    'term_id'       =>  $term[5],
+                    'create_user'   =>  1
+                ],
+            ]
+        );
+
+
+        DB::table('bravo_coupon')->insert(
+            [
+                [
+                    'name'  =>  'QF645TY6',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>50,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+5 days")),
+                    'email'     => '["admin@dev.com","vendor1@dev.com"]',
+                    'customer_id'   =>  '["14","16"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+                [
+                    'name'  =>  '4F29N73F',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>10,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+2 days")),
+                    'email'     => '["vendor1@dev.com"]',
+                    'customer_id'   =>  '["11","12"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+                [
+                    'name'  =>  '26EF7JTB',
+                    'coupon_type'  =>  'percent',
+                    'discount'=>20,
+                    'expiration'=> date('Y-m-d').' - '.date('Y-m-d',strtotime(date('Y/m/d')."+1 days")),
+                    'email'     => '',
+                    'customer_id'   =>  '["11"]',
+                    'per_coupon'    =>  2,
+                    'per_user'    =>  3,
+                    'status'    =>  'publish',
+                    'create_user'   =>  1
+                ],
+            ]
+        );
+
+        //comments
+        $ip = $_SERVER['REDIS_HOST'];
+        DB::table('bravo_review')->insert(
+        [
+            [
+                'object_id'     =>  $id_8,
+                'object_model'  =>  'product',
+                'title'         =>  'This great',
+                'content'       =>  'This will go great with my Hoodie that I ordered a few weeks ago.',
+                'rate_number'   =>  '5',
+                'author_ip'     =>  $ip,
+                'status'        =>  'approved',
+                'create_user'   =>  1,
+                'update_user'   =>  1,
+                'vendor_id'     =>  2
+            ],
+            [
+                'object_id'     =>  $id_8,
+                'object_model'  =>  'product',
+                'title'         =>  'I love it',
+                'content'       =>  'Love this shirt! The ninja near and dear to my heart. <3',
+                'rate_number'   =>  '5',
+                'author_ip'     =>  $ip,
+                'status'        =>  'approved',
+                'create_user'   =>  1,
+                'update_user'   =>  1,
+                'vendor_id'     =>  2
+            ],
+            [
+                'object_id'     =>  $id_8,
+                'object_model'  =>  'product',
+                'title'         =>  'Bad!!',
+                'content'       =>  'This is bad',
+                'rate_number'   =>  '1',
+                'author_ip'     =>  $ip,
+                'status'        =>  'approved',
+                'create_user'   =>  1,
+                'update_user'   =>  1,
+                'vendor_id'     =>  2
+            ]
+        ]
+    );
     }
 }

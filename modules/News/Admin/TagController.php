@@ -73,7 +73,6 @@ class TagController extends AdminController
             }
         }else{
             $row = new Tag();
-//            $row->status = "publish";
         }
 
         $row->fill($request->input());

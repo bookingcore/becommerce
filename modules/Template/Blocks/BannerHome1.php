@@ -72,6 +72,12 @@ class BannerHome1 extends BaseBlock
                             'inputType' => 'text',
                             'label'     => __('Link sale Off')
                         ],
+                        [
+                            'id'        => 'color',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Background sale Off')
+                        ],
                     ]
                 ]
             ]

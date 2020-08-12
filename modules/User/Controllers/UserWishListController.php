@@ -16,6 +16,7 @@ class UserWishListController extends FrontendController
     }
 
     public function index(Request $request){
+
         $wishlist = $this->userWishListClass::query()
             ->where("user_id",Auth::id())
             ->orderBy('id', 'desc');
@@ -29,21 +30,17 @@ class UserWishListController extends FrontendController
             ],
             'page_title'         => __("Wishlist"),
         ];
-        return view('User::frontend.wishList.index', $data);
+        return view('User::frontend.wishlist.wishlist', $data);
     }
     public function handleWishList(Request $request){
         $meta = $this->userWishListClass::where("object_id",$request->input('object_id'))
             ->where("object_model",$request->input('object_model'))
             ->where("user_id",Auth::id())
             ->first();
-        if(!empty($meta)){
-            $meta->delete();
-            $this->sendSuccess(['class'=>""]);
-        }
         $meta = new $this->userWishListClass($request->input());
         $meta->user_id = Auth::id();
         $meta->save();
-        $this->sendSuccess(['class'=>"active"]);
+        return $this->sendSuccess(['class'=>"active",'title'=>__('Browse to Wishlist'),'url'=>'xxx']);
     }
     public function remove(Request $request){
         $meta = $this->userWishListClass::where("object_id",$request->input('id'))

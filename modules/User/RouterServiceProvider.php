@@ -65,7 +65,6 @@ class RouterServiceProvider extends ServiceProvider
      */
     protected function mapLanguageRoutes()
     {
-        //dd(app()->getLocale());
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             ->prefix(app()->getLocale())

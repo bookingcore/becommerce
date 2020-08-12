@@ -33,6 +33,28 @@
                 register:'{{route('auth.register')}}',
             }
         };
+        var Bravo = {
+            url:'{{url( app_get_locale() )}}',
+            url_root:'{{ url('') }}',
+            booking_decimals:{{(int)get_current_currency('currency_no_decimal',2)}},
+            thousand_separator:'{{get_current_currency('currency_thousand')}}',
+            decimal_separator:'{{get_current_currency('currency_decimal')}}',
+            currency_position:'{{get_current_currency('currency_format')}}',
+            currency_symbol:'{{currency_symbol()}}',
+            currency_rate:'{{get_current_currency('rate',1)}}',
+            date_format:'{{get_moment_date_format()}}',
+            map_provider:'{{setting_item('map_provider')}}',
+            map_gmap_key:'{{setting_item('map_gmap_key')}}',
+            routes:{
+                login:'{{route('auth.login')}}',
+                register:'{{route('auth.register')}}',
+                add_to_cart:'{{route('booking.addToCart')}}'
+            },
+            currentUser:{{(int)Auth::id()}},
+            variations: [],
+            currentVariation: [],
+            compare_count: ''
+        };
     </script>
     <link href="{{ asset('module/user/css/user.css') }}" rel="stylesheet">
     <!-- Styles -->
@@ -46,7 +68,7 @@
             display: none;
         }
     </style>
-    {{--Custom Style--}}
+
     @include('Layout::parts.custom-css')
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>

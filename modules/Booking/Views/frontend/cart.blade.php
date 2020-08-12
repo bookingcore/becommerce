@@ -5,32 +5,37 @@
 @section('content')
     <div class="bravo-booking-page padding-content " >
         <div class="container">
-            <div id="bravo-cart-page" >
+            <div class="ps-section__header">
+                <h1>{{__('Shopping Cart')}}</h1>
+            </div>
+
+            <div class="bravo-notices-wrapper">
+                <div class="{{ $message['class'] ?? '' }}" role="alert">
+                    {{ $message['text'] ?? '' }}
+                </div>
+            </div>
+
+            <div id="bravo-cart-page">
                 <div class="row">
-                    @if(Cart::count())
-                    <div class="col-md-12 col-lg-8 col-xl-8">
-                         <div class="booking-form">
-                             @include ('Booking::frontend.cart.form')
-                         </div>
-                    </div>
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="booking-detail">
-                            @include ('Booking::frontend.checkout.detail',['hide_list'=>true])
-                            <div class="ui_kit_button payment_widget_btn">
-                                <a href="{{route('booking.cart')}}" class="btn dbxshad btn-lg btn-thm3 circle btn-block">{{__('Proceed To Checkout') }}</a>
+                    @if(Cart::count() > 0)
+                        <div class="col-md-12">
+                            <div class="booking-form">
+                                <h2 class="cart-title">{{ __('Your Cart Items') }}</h2>
+                                @include ('Booking::frontend.cart.form')
                             </div>
                         </div>
-                    </div>
                     @else
                         <div class="col-md-12">
-                            <div class="alert alert-warning">{{__("Your cart is empty")}}</div>
+                            <p class="cart-empty">{{__('Your cart is currently empty.')}}</p>
+                            <p class="return-to-shop">
+                                <a class="button wc-backward" href="{{url('/')}}">
+                                    {{ __('Return to shop') }}
+                                </a>
+                            </p>
                         </div>
                     @endif
                 </div>
             </div>
         </div>
     </div>
-@endsection
-@section('footer')
-    <script src="{{ asset('module/booking/js/cart.js') }}"></script>
 @endsection

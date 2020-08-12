@@ -171,11 +171,19 @@ $(document).on('click','.bravo_add_to_cart',function(e){
     e.preventDefault();
     $(this).addClass('loading');
     var me = $(this);
+    var product = me.data('product');
+    var q_input =  $('.quantity-input input[name=quantity]');
+    var quantity = {qty: (!isNaN(parseInt(q_input.val()))) ? parseInt(q_input.val()) : 1};
+    var variations = {variation_id: (Object.keys(Bravo.currentVariation).length > 0) ? Bravo.currentVariation.variations.id : null };
+
     $.ajax({
         url:Bravo.routes.add_to_cart,
-        data:$(this).data('product'),
+        data: Object.assign(product, quantity, variations),
         type:'post',
         dataType:'json',
+        beforeSend:function(){
+            me.addClass('loading');
+        },
         success:function(json){
             me.removeClass('loading');
             if(json.fragments){
@@ -188,6 +196,10 @@ $(document).on('click','.bravo_add_to_cart',function(e){
             }
             if(json.message){
                 BravoApp.showAjaxMessage(json);
+                setTimeout(function () {
+                    let url = $(`.wishlist-items-wrapper .product-remove.item_${product.id} > a`).attr('href');
+                    if (url !== undefined) window.open(url,'_self');
+                },1000)
             }
         },
         error:function(err){
@@ -196,3 +208,65 @@ $(document).on('click','.bravo_add_to_cart',function(e){
         }
     })
 })
+
+$(document).on('click','.bravo_delete_cart_item',function(e){
+    e.preventDefault();
+
+    var c = confirm(i18n.delete_cart_item_confirm);
+    if(!c) return;
+
+    var me = $(this);
+    var id = $(this).data('id');
+    $.ajax({
+        url:bookingCore.routes.remove_cart_item,
+        data:{
+            id:id
+        },
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.reload){
+                window.location.reload();
+            }
+            if(json.message){
+                // bookingCoreApp.showAjaxMessage(json);
+            }
+
+        },
+        error:function(err){
+            bravo_handle_error_response(err);
+            console.log(err)
+        }
+    })
+})
+
+$(document).on('click','.btn-info-booking',function () {
+    let $this = $(this);
+    let id = $this.closest('tr').data('order');
+    let suborder = $this.data('suborder');
+    let products_order = $this.data('products_order');
+    $.ajax({
+        url: bookingCore.url + '/user/view-order/' + id,
+        method: 'POST',
+        data: {
+            suborder: suborder,
+            products_order: (typeof products_order !== undefined) ? products_order : null
+        },
+        beforeSend:function(){
+            $this.addClass('loading').attr('disabled','disabled');
+        },
+        success:function (data) {
+            $this.removeClass('loading').removeAttr('disabled');
+            $('.show-modal').html(data);
+            $('#order-modal').modal('show');
+        }
+    })
+});

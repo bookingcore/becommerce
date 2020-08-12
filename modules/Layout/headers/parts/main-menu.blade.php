@@ -18,3 +18,6 @@
         @include('Language::frontend.switcher')
     </div>
 </div>
+<div class="mobile-menu hidden-lg hidden-md">
+    @include('Layout::headers.parts.searchbox')
+</div>

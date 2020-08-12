@@ -77,20 +77,3 @@
         </div>
     </div>
 @endsection
-
-{{--@section('script.body')--}}
-{{--    <script>--}}
-{{--        $(document).ready(function () {--}}
-{{--            $('.approve-user').click(function (e) {--}}
-{{--                e.preventDefault();--}}
-{{--                if(confirm('Are you sure approve?')){--}}
-{{--                    ids = '<input type="hidden" name="ids[]" value="'+$(this).data('id')+'">';--}}
-{{--                    form = $('.dungdt-apply-form-btn').closest('form');--}}
-{{--                    form.append(ids);--}}
-{{--                    form.find('select').val('approved');--}}
-{{--                    form.submit();--}}
-{{--                }--}}
-{{--            })--}}
-{{--        })--}}
-{{--    </script>--}}
-{{--@endsection--}}

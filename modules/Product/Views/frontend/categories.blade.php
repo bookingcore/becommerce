@@ -8,12 +8,12 @@
             <div class="container">
                 <div class="search-header">
                     <div class="row">
-                        <div class="col-md-3 col-sm-12 col-xs-12">
+                        <div class="col-md-3 col-sm-12 col-xs-12 col-bravo-filter">
                             @include('Product::frontend.layouts.search.filter-search')
                         </div>
                         <!-- #secondary -->
-                        <div id="primary" class="content-area col-md-9 col-sm-12 col-xs-12">
-                            @include('Product::frontend.layouts.search.content-categories')
+                        <div id="primary" class="content-area col-md-9 col-sm-12 col-xs-12 col-bravo-filter-content">
+                            @include('Product::frontend.layouts.search.content-search_content')
                         </div>
                     </div>
                 </div>

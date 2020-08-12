@@ -32,7 +32,6 @@ class ManageSpaceController extends FrontendController
 
     public function manageSpace(Request $request)
     {
-//        $this->checkPermission('space_view');
         $user_id = Auth::id();
         $list_tour = $this->space::where("create_user", $user_id)->orderBy('id', 'desc');
         $data = [

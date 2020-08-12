@@ -38,11 +38,6 @@ if(!setting_item('inbox_enable')) return;
                 <bravo-messages-box :key="currentConversation.id" @click-load-more="doLoadMore" :messages="currentConversation.messages" :current="currentConversation" ref="messageDisplay"></bravo-messages-box>
 
                 <div class="chat-add-new">
-                    {{--<div class="chat-actions-left">--}}
-                        {{--<div class="chat-form-action">--}}
-                            {{--<i class="icon ion-ios-attach"></i>--}}
-                        {{--</div>--}}
-                    {{--</div>--}}
                     <div class="chat-input">
                         <textarea ref="inputMessage" v-on:keyup.enter="sendMessage($event)" :style="inputMessageStyle" rows="1" v-model="content" class="form-control"></textarea>
                     </div>

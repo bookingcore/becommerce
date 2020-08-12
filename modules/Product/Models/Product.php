@@ -331,15 +331,34 @@ class Product extends BaseProduct
 
     }
 
+    public function getStockStatus(){
+        $stock = ''; $in_stock = true;
+        if ($this->is_manage_stock > 0){
+            if ($this->stock_status == 'in'){
+                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
+            }
+        } else {
+            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
+        }
+        if ($this->stock_status == 'out'){
+            $stock = __('Out Of Stock');
+            $in_stock = false;
+        }
+        return [
+            'stock'     =>  $stock,
+            'in_stock'  =>  $in_stock
+        ];
+    }
+
     public function getStockStatusCodeAttribute(){
-        if(!$this->manage_stock){
+        if(!$this->is_manage_stock){
             return 'in_stock';
         }
         switch ($this->stock_status){
-            case 1:
+            case 'in':
                 return 'in_stock';
                 break;
-            case 0:
+            case 'out':
                 return 'out_stock';
                 break;
 
@@ -364,7 +383,7 @@ class Product extends BaseProduct
      * Single Tabs
      */
     public function getTabsAttribute(){
-        $tabs =  [
+        $getTabs = [
             [
                 'id' => 'content',
                 'name' => __('description'),
@@ -389,8 +408,12 @@ class Product extends BaseProduct
                 'id' => 'policies',
                 'name' => __('Policies'),
                 'position' => 50
-            ],
+            ]
         ];
+        if (empty(setting_item('product_enable_review'))){
+            unset($getTabs[3]);
+        }
+        $tabs = $getTabs;
 
         return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
             return $value['position'] ?? 10;
@@ -454,21 +477,58 @@ class Product extends BaseProduct
 
     public function addToCart(Request $request)
     {
-        // Only single litem
-        $cartproduct = Cart::content()->where('id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
-        if($cartproduct){
-            Cart::update($cartproduct->rowId, $this); // Will update the id, name and price
-            Cart::update($cartproduct->rowId, 1);
-        }else{
-            Cart::add($this,1);
+        $product = Product::where('id',$request->input('id'))->first();
+        $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
+        $stock = $add = 0;
+        $get_stock = function ($st, $pr){
+            $sold = (!empty($pr->sold)) ? $pr->sold : 0;
+            if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+                $st = $pr->quantity - $sold;
+            }
+            return $st;
+        };
+        if (Cart::count() > 0){
+            foreach (Cart::content() as $row){
+                if ($row->id == $request->input('id')){
+                    $stock = $get_stock($stock,$product);
+                    if ($row->qty + $request->input('qty') > $stock){
+                        $add = 1;
+                    }
+                }
+            }
+            if ($stock <= 0){$add = 0;}
+        } else {
+            $add = 0;
         }
+        if ($add == 0) {Cart::add($this,$quantity);}
 
         $buy_now = $request->input('buy_now');
+        $message = ($add == 0) ? __('":title" has been added to your cart.',['title'=>$this->title]) : __('Product ":title" has been out of stock.',['title'=>$this->title]);
 
-        return $this->sendSuccess([
-            'fragments'=>get_cart_fragments(),
-            'url'=>$buy_now ? route('booking.checkout') : ''
-        ],__('":title" has been added to your cart.',['title'=>$this->title]));
+        return $this->sendSuccess(
+            [
+                'status'   => ($add == 0) ? 1 : 0,
+                'fragments'=>get_cart_fragments(),
+                'url'=>$buy_now ? route('booking.checkout') : ''
+            ], $message
+        );
     }
 
+    public function list_attrs(){
+        return Attributes::select('id','name','slug')->get();
+    }
+
+    public function get_variable($id){
+        return ProductVariationTerm::select('product_variation_term.*','bravo_terms.id as id_term','bravo_attrs.id as id_attrs')
+                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
+                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+                    ->where('product_variation_term.product_id',$id)->get();
+    }
+
+    public function update_service_rate(){
+        $rateData = $this->reviewClass::selectRaw("AVG(rate_number) as rate_total")->where('object_id', $this->id)->where('object_model',$this->type)->where("status", "approved")->first();
+        $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
+        $this->review_score = $rate_number;
+        $this->save();
+    }
 }

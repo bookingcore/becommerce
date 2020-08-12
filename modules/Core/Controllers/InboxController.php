@@ -29,17 +29,17 @@ class InboxController extends Controller
 
         $allServices = get_bookable_services();
         if (empty($allServices[$service_type])) {
-            $this->sendError(__('Service type not found'));
+            return $this->sendError(__('Service type not found'));
         }
 
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
         if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
-            $this->sendError(__('Service not found'));
+            return $this->sendError(__('Service not found'));
         }
 
         if($service->create_user == Auth::id()){
-            $this->sendError(__("You can not send message to yourself"));
+            return $this->sendError(__("You can not send message to yourself"));
         }
 
         $inbox = Inbox::query()->where(
@@ -69,7 +69,7 @@ class InboxController extends Controller
             $inbox->save();
         }
 
-        $this->sendSuccess($inbox->jsData());
+        return $this->sendSuccess($inbox->jsData());
     }
 
     public function send(Request $request){
@@ -83,7 +83,7 @@ class InboxController extends Controller
 
         if(empty($inbox) or !in_array(Auth::id(),[$inbox->from_user,$inbox->to_user]))
         {
-            $this->sendError(__("Conversation does not exists"));
+            return $this->sendError(__("Conversation does not exists"));
         }
 
         $message = new InboxMessage();
@@ -97,7 +97,7 @@ class InboxController extends Controller
 
         $message->save();
 
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'row'=>$message->jsData()
         ]);
 
@@ -112,7 +112,7 @@ class InboxController extends Controller
 
         if(empty($inbox) or !in_array(Auth::id(),[$inbox->from_user,$inbox->to_user]))
         {
-            $this->sendError(__("Conversation does not exists"));
+            return $this->sendError(__("Conversation does not exists"));
         }
 
         $q = InboxMessage::query()->where([
@@ -137,7 +137,7 @@ class InboxController extends Controller
             }
         }
 
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'messages'=>$messages
         ]);
 
@@ -196,7 +196,7 @@ class InboxController extends Controller
             }
         }
 
-        $this->sendSuccess($data);
+        return $this->sendSuccess($data);
     }
 
     public function markRead(Request $request){
