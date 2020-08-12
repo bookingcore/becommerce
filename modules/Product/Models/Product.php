@@ -483,14 +483,13 @@ class Product extends BaseProduct
     }
     public function addToCart(Request $request)
     {
-        $product = Product::where('id',$request->input('id'))->first();
         $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
         $stock = $add = 0;
 
         if (Cart::count() > 0){
             foreach (Cart::content() as $row){
                 if ($row->id == $request->input('id')){
-                    $stock = $this->get_stock($stock,$product);
+                    $stock = $this->get_stock($stock,$this);
                     if ($row->qty + $request->input('qty') > $stock){
                         $add = 1;
                     }

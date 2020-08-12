@@ -432,7 +432,7 @@ class BookingController extends \App\Http\Controllers\Controller
         $module = $allServices[$service_type];
         $service = ($service_type == 'simple') ? $module::find($service_id) : $module::find($variation_id);
 
-        if (empty($service) or $service->status != 'publish') {
+        if (empty($service) && $service->status != 'publish') {
             return $this->sendError(__('Product not found'));
         }
 
