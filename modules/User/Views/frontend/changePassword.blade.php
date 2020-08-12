@@ -5,7 +5,7 @@
     <h2 class="title-bar">
         {{__("Change Password")}}
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     <form action="{{url(app_get_locale()."/user/profile/change-password")}}" method="post">
         @csrf
         <div class="row">

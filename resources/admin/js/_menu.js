@@ -1,5 +1,6 @@
 // import {VueNestableHandle, VueNestable} from 'vue-nestable'
-import {DraggableTree} from 'vue-draggable-nested-tree'
+// import {DraggableTree} from 'vue-draggable-nested-tree'
+import {Tree,Draggable} from 'he-tree-vue'
 // import draggable from 'vuedraggable'
 // import NestedDraggable from './components/nested-draggable.vue'
 
@@ -15,7 +16,7 @@ import {DraggableTree} from 'vue-draggable-nested-tree'
         components: {
             // VueNestable,
             // VueNestableHandle,
-            DraggableTree,
+            DraggableTree:Tree.mixPlugins([Draggable]),
             // draggable,
             // NestedDraggable
         },
@@ -31,7 +32,8 @@ import {DraggableTree} from 'vue-draggable-nested-tree'
             },
             custom_show: false,
             locations: current_menu_locations,
-            currentIndex: current_items_index + 1
+            currentIndex: current_items_index + 1,
+            triggerClass: { default: "drag-trigger" }
         },
         mounted() {
             this.reloadTypes();
@@ -205,9 +207,9 @@ import {DraggableTree} from 'vue-draggable-nested-tree'
                     }
                 })
             },
-            deleteMenuItem(e, item,tree) {
+            deleteMenuItem(e, item,tree,path) {
                 e.preventDefault();
-                tree.deleteNode(item);
+                tree.removeNodeByPath(path);
             }
         }
     })

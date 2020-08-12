@@ -35,10 +35,6 @@ class ReviewController extends Controller
         if (!$reviewEnable) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review not enable'));
         }
-        $reviewEnableAfterBooking = $module->check_enable_review_after_booking();
-        if (!$reviewEnableAfterBooking) {
-            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You need booking success before rating review'));
-        }
 
         if ($module->create_user == Auth::id()) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('You cannot review your service'));
@@ -103,7 +99,8 @@ class ReviewController extends Controller
             if ($module->getReviewApproved()) {
                 $msg = __("Review success! Please wait for admin approved!");
             }
-            return redirect()->to(url()->previous() . '#review-form')->with('success', $msg);
+            $module->update_service_rate();
+            return redirect()->to(url()->previous() . '#bravo-reviews')->with('success', $msg);
         }
         return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review error!'));
     }

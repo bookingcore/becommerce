@@ -26,34 +26,33 @@ class RedirectForMultiLanguage
     public function handle($request, Closure $next, $guard = null)
     {
 
-        if(strpos($request->path(),'install') === false  && file_exists(storage_path().'/installed') && strtolower($request->method()) === 'get'){
+        if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed') && strtolower($request->method()) === 'get' and $request->query('set_lang')) {
 
-            $locale = $request->segment(1);
-            if(in_array($locale,['admin','_debugbar'])){
-                return $next($request);
-            }
+            $locale = $request->query('set_lang');
+            $firstSegment = $request->segment(1);
+            $languages = \Modules\Language\Models\Language::getActive();
+            $localeCodes = Arr::pluck($languages, 'locale');
+            $data = $request->query();
+            unset($data['set_lang']);
 
-            // Check if the first segment matches a language code
-            if(setting_item('site_enable_multi_lang') && setting_item('site_locale')){
-                $lang = Language::findByLocale($locale);
+            if($locale != $firstSegment and in_array($locale,$localeCodes)){
 
-                if (empty($lang)) {
+                $segments = $request->segments();
+                if(!$firstSegment || in_array($firstSegment,$localeCodes)){
+                    if($locale != setting_item('site_locale')){
+                        $segments[0] = $locale;
+                    }else{ unset($segments[0]);}
 
-                    // Store segments in array
-                    $segments = $request->segments();
-
-                    // Set the default language code as the first segment
-                    $segments = Arr::prepend($segments, setting_item('site_locale',config('app.fallback_locale')));
-
-                    $url = implode('/', $segments);
-                    if(!empty($request->query())){
-                        $url.='?'.http_build_query($request->query());
-                    }
-
-                    // Redirect to the correct url
-                    return redirect()->to( $url );
+                }else{
+                    $segments = Arr::prepend($segments, $locale);
                 }
+                $url = implode('/', $segments);
+                if (!empty($data)) {
+                    $url .= '?' . http_build_query($data);
+                }
+                return redirect()->to($url);
             }
+
         }
         return $next($request);
     }

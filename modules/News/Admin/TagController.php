@@ -7,6 +7,7 @@ use Modules\AdminController;
 use Modules\News\Models\Tag;
 use Illuminate\Support\Str;
 use Modules\News\Models\TagTranslation;
+use Modules\News\Models\NewsTag;
 
 class TagController extends AdminController
 {
@@ -72,7 +73,6 @@ class TagController extends AdminController
             }
         }else{
             $row = new Tag();
-//            $row->status = "publish";
         }
 
         $row->fill($request->input());
@@ -100,7 +100,11 @@ class TagController extends AdminController
         }
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                Tag::where("id", $id)->first()->delete();
+                $query = Tag::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->delete();
+                }
+                NewsTag::where('tag_id', $id)->delete();
             }
         }
         return redirect()->back()->with('success', __('Update success!'));

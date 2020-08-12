@@ -5,10 +5,12 @@
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Facades\Mail;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
 //    use Modules\Vendor\Models\VendorPlan;
+    use Modules\User\Models\UserWishList;
     use Modules\Vendor\Models\VendorRequest;
     use Spatie\Permission\Traits\HasRoles;
     use Illuminate\Support\Facades\DB;
@@ -26,6 +28,8 @@
          *
          * @var array
          */
+        protected $table = 'users';
+
         protected $fillable = [
             'name',
             'first_name',
@@ -156,7 +160,7 @@
             if (empty($this->avatar_id)) {
                 return false;
             }
-            $avatar_url = get_file_url($this->avatar_id, 'thumb');
+            $avatar_url = get_file_url($this->avatar_id,'full');
             return $avatar_url;
         }
 
@@ -219,6 +223,12 @@
         }
         public function vendorRequest(){
             return $this->hasOne(VendorRequest::class);
+        }
+
+        public function getWishlistCountAttribute(){
+            return Cache::rememberForever('user_wishlist_count_'.$this->id,function(){
+                return UserWishList::query()->where('user_id',$this->id)->count('id');
+            });
         }
     }
 

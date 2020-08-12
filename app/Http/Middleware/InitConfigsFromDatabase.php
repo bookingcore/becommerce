@@ -23,7 +23,7 @@
          */
         public function handle($request, Closure $next, $guard = null)
         {
-            if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed')) {
+            if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed') and !app()->runningInConsole()) {
 
                 // Load Config from Database
                 if (!empty(setting_item('email_from_address'))) {

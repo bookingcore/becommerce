@@ -1,5 +1,4 @@
 .bravo_wrap {
-    // User Profile
     .bravo_user_profile{
         background: #f5f7f9;
         padding: 0 100px;
@@ -311,6 +310,7 @@
                     padding: 8px;
                     >li {
                         display: inline-block;
+                        margin-bottom: 0;
                         a{
                             color: #1a2b47;
                         }
@@ -801,6 +801,18 @@
                 padding: 8px 5px;
             }
             .tabbable{
+                .table-booking-history{
+                    .order-vendor{
+                        .media{
+                            .media-left{
+                                padding-right: 10px;
+                                .thumb{
+                                    width: 70px;
+                                }
+                            }
+                        }
+                    }
+                }
                 .booking-history-type {
                     text-align: center;
                     i{
@@ -853,16 +865,56 @@
                 width: 80px;
                 padding: 2px 0;
                 font-size: 13px;
+                position: relative;
+                &.loading{
+                    span{
+                        visibility: hidden;
+                    }
+                    &:after{
+                        top: 4px;
+                        left: initial;
+                        right: 33px;
+                        border-color: #fff #fff #fff transparent;
+                    }
+                }
+                &:hover{
+                    border-radius: 0;
+                }
                 .fa {
                     margin-right: 5px;
                 }
             }
             .modal{
-                .modal-footer{
-                    border: none;
-                    padding: 20px 0 0 0;
-                    @media (max-width: 766px) {
-                        padding: 10px 0;
+                .modal-content{
+                    padding: 0;
+                    .modal-header{
+                        padding: 1rem 1rem;
+                        border-bottom: 1px solid #dee2e6;
+                    }
+                    .modal-body{
+                        padding: 1rem;
+                        .nav-tabs{
+                            .nav-item{
+                                padding: 0;
+                            }
+                        }
+                        .tab-content{
+                            .booking-review{
+                                .info-form{
+                                    .info-total{
+                                        font-weight: bold;
+                                        font-size: 16px;
+                                        .val{
+                                            color: red;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    .modal-footer{
+                        border: none;
+                        padding: 1rem;
                     }
                 }
             }
@@ -996,6 +1048,7 @@
         }
 
         .bravo-pagination{
+            padding: 0;
             &:before,&:after{
                 content: "";
                 display: table;
@@ -1176,6 +1229,7 @@
                 overflow: hidden;
                 position: relative;
                 img{
+                    width: 100%;
                     max-width: 100%;
                 }
             }

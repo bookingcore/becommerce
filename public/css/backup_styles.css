@@ -1,0 +1,17 @@
+/* Error: Expected identifier.
+ *       ,
+ * 12946 | .elementor-widget-wp-widget-yith-wcwl-items ul.product_list_widget li .image-thumb img. .widget_yith-wcwl-items ul.product_list_widget li .image-thumb img{
+ *       |                                                                                        ^
+ *       '
+ *   backup_styles.scss 12946:88  root stylesheet */
+
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Expected identifier.\a       \2577 \a 12946 \2502  .elementor-widget-wp-widget-yith-wcwl-items ul.product_list_widget li .image-thumb img. .widget_yith-wcwl-items ul.product_list_widget li .image-thumb img{\d\a       \2502                                                                                         ^\a       \2575 \a   backup_styles.scss 12946:88  root stylesheet";
+}

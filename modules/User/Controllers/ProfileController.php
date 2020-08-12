@@ -10,18 +10,24 @@ namespace Modules\User\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Modules\FrontendController;
+use Modules\Product\Models\Product;
 
 class ProfileController extends FrontendController
 {
     public function profile(Request $request,$id){
 
         $user = User::find($id);
+        $data['rows'] = Product::where('create_user', $id)->paginate(12);
         if(empty($user)){
             abort(404);
         }
 
         $data['user'] = $user;
         $data['page_title'] = $user->getDisplayName();
+        $data['breadcrumbs'] = [
+            ['name'=>$user->getDisplayName()],
+        ];
+        $data['wishlist'] = wishlist();
 
         $this->registerCss('module/user/css/profile.css');
 

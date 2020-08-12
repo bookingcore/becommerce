@@ -8,7 +8,7 @@
                 <a href="{{url('admin/module/user/create')}}" class="btn btn-primary">{{ __('Add new user')}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
@@ -16,8 +16,6 @@
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
-                            {{--<option value="publish">{{__(" Publish ")}}</option>--}}
-                            {{--<option value="draft">{{__(" Move to Draft ")}}</option>--}}
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
@@ -53,7 +51,6 @@
                             <th>{{__('Phone')}}</th>
                             <th>{{__('Role')}}</th>
                             <th class="date">{{ __('Date')}}</th>
-{{--                            <th class="status">{{__('Status')}}</th>--}}
                             <th></th>
                         </tr>
                         </thead>
@@ -74,7 +71,6 @@
                                     @endphp
                                 </td>
                                 <td>{{ display_date($row->created_at)}}</td>
-                                {{--<td class="status">{{$row->status}}</td>--}}
                                 <td>
                                     <a class="btn btn-sm btn-primary" href="{{url('admin/module/user/edit/'.$row->id)}}">{{__('Edit')}}</a>
                                     <a class="btn btn-sm btn-info" href="{{url('admin/module/user/password/'.$row->id)}}">{{__('Change Password')}}</a>

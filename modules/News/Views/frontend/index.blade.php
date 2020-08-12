@@ -15,36 +15,40 @@
             }
         @endphp
         @if(!empty($title_page))
-            <div class="bravo_banner" @if($bg = setting_item("news_page_list_banner")) style="background-image: url({{get_file_url($bg,'full')}})" @endif >
+            <div class="page-header text-center page-header-blog layout-1">
                 <div class="container">
-                    <h1>
-                        {{ $title_page }}
-                    </h1>
+                    <h1 class="entry-title">{{ $title_page }}</h1>
+                    @include('News::frontend.layouts.details.news-breadcrumb')
                 </div>
             </div>
         @endif
-        @include('News::frontend.layouts.details.news-breadcrumb')
-        <div class="bravo_content">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-9">
-                        @if($rows->count() > 0)
-                            <div class="list-news">
-                                @include('News::frontend.layouts.details.news-loop')
-                                <hr>
-                                <div class="bravo-pagination">
-                                    {{$rows->appends(request()->query())->links()}}
-                                    <span class="count-string">{{ __("Showing :from - :to of :total posts",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]) }}</span>
+
+        <div class="blog-layout-content-sidebar">
+            <div class="bravo_content">
+                <div class="container">
+                    <div class="row">
+                        <div class="content-area col-md-9 col-sm-12 col-xs-12">
+                            @if($rows->count() > 0)
+                                <main id="main" class="site-main">
+                                    <div class="row">
+                                        <div class="mf-post-list">
+                                            @include('News::frontend.layouts.details.news-loop')
+                                        </div>
+                                        <div class="bravo-pagination">
+                                            {{$rows->appends(request()->query())->links()}}
+                                            <span class="count-string">{{ __("Showing :from - :to of :total posts",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]) }}</span>
+                                        </div>
+                                    </div>
+                                </main>
+                            @else
+                                <div class="alert alert-danger">
+                                    {{__("Sorry, but nothing matched your search terms. Please try again with some different keywords.")}}
                                 </div>
-                            </div>
-                        @else
-                            <div class="alert alert-danger">
-                                {{__("Sorry, but nothing matched your search terms. Please try again with some different keywords.")}}
-                            </div>
-                        @endif
-                    </div>
-                    <div class="col-md-3">
-                        @include('News::frontend.layouts.details.news-sidebar')
+                            @endif
+                        </div>
+                        <div class="widgets-area primary-sidebar col-md-3 col-sm-12 col-xs-12  blog-sidebar">
+                            @include('News::frontend.layouts.details.news-sidebar')
+                        </div>
                     </div>
                 </div>
             </div>
@@ -52,5 +56,4 @@
     </div>
 @endsection
 
- 
-  
+

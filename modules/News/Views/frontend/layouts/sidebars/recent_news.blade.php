@@ -1,33 +1,14 @@
-<div class="sidebar-widget widget_bloglist">
-    <div class="sidebar-title">
-        <h4>{{ $item->title }}</h4>
-    </div>
-    <ul class="thumb-list">
+<div id="recent-posts-2" class="widget widget_recent_entries">
+    <h4 class="widget-title">{{ $item->title }}</h4>
+    <ul>
         @php $list_blog = $model_news->with(['getCategory','translations'])->orderBy('id','desc')->paginate(5) @endphp
         @if($list_blog)
             @foreach($list_blog as $blog)
                 @php $translation = $blog->translateOrOrigin(app()->getLocale()) @endphp
                 <li>
-                    @if($image_url = get_file_url($blog->image_id, 'thumb'))
-                        <div class="thumb">
-                            <a href="{{ $blog->getDetailUrl(app()->getLocale()) }}">
-                                {!! get_image_tag($blog->image_id,'thumb',['class'=>'','alt'=>$blog->title]) !!}
-                            </a>
-                        </div>
+                    @if(!empty($blog->getCategory->name))
+                        <a href="{{ $blog->getDetailUrl(app()->getLocale()) }}">{{$translation->title}}</a>
                     @endif
-                    <div class="content">
-                        @if(!empty($blog->getCategory->name))
-                            <div class="cate">
-                                <a href="{{$blog->getCategory->getDetailUrl()}}">
-                                    @php $translation_cat = $blog->getCategory->translateOrOrigin(app()->getLocale()); @endphp
-                                    {{$translation_cat->name ?? ''}}
-                                </a>
-                            </div>
-                        @endif
-                        <h5 class="thumb-list-item-title">
-                            <a href="{{ $blog->getDetailUrl(app()->getLocale()) }}">{{$translation->title}}</a>
-                        </h5>
-                    </div>
                 </li>
             @endforeach
         @endif

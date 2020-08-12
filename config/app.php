@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Booking Core'),
+    'name' => env('APP_NAME', 'martfury'),
 
     /*
     |--------------------------------------------------------------------------
@@ -237,7 +237,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
     ],
 
     'debug_blacklist' => [
@@ -265,6 +265,6 @@ return [
         ],
     ],
 
-    'version'=>"1.3.0"
+    'version'=>"1.0.0",
 
 ];

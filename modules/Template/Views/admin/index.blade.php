@@ -7,7 +7,7 @@
                 <a href="{{url('admin/module/template/create')}}" class="btn btn-primary">{{__('Add new Template')}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="panel">
             <div class="panel-title">{{__('All templates')}}</div>
             <div class="panel-body">

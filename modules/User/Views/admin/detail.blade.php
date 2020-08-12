@@ -9,7 +9,7 @@
                     <h1 class="title-bar">{{$row->id ? 'Edit: '.$row->getDisplayName() : 'Add new user'}}</h1>
                 </div>
             </div>
-            @include('admin.message')
+            @include('Layout::admin.message')
             <div class="row">
                 <div class="col-md-9">
                     <div class="panel">

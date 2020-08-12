@@ -3,21 +3,24 @@ namespace Modules\Booking\Gateways;
 
 use Illuminate\Http\Request;
 use Modules\Booking\Models\Booking;
+use Gloudemans\Shoppingcart\Facades\Cart;
 
 class OfflinePaymentGateway extends BaseGateway
 {
     public $name = 'Offline Payment';
 
-    public function process(Request $request, $booking, $service)
+    public function process(Request $request, $order)
     {
-        $service->beforePaymentProcess($booking, $this);
         // Simple change status to processing
-        $booking->markAsProcessing($this, $service);
-        $booking->sendNewBookingEmails();
-        $service->afterPaymentProcess($booking, $this);
+        $order->markAsProcessing($this);
+        $order->sendNewBookingEmails();
+
+        Cart::destroy();
+        session()->forget(['coupon','shipping','tmp_order_id']);
+
         return response()->json([
-            'url' => $booking->getDetailUrl()
-        ])->send();
+            'url' => $order->getDetailUrl()
+        ]);
     }
 
     public function getOptionsConfigs()

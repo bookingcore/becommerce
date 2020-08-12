@@ -7,7 +7,7 @@
             </div>
             <hr>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="row">
             <div class="col-md-3 d-none">
                 <div class="panel">

@@ -3,21 +3,23 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
-
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})
 window.bravo_format_money =  function($money) {
 
     if (!$money) {
-        //return bookingCore.free_text;
+        //return Bravo.free_text;
     }
-    //if (typeof bookingCore.booking_currency_precision && bookingCore.booking_currency_precision) {
-    //    $money = Math.round($money).toFixed(bookingCore.booking_currency_precision);
+    //if (typeof Bravo.booking_currency_precision && Bravo.booking_currency_precision) {
+    //    $money = Math.round($money).toFixed(Bravo.booking_currency_precision);
     //}
 
-    $money            = bravo_number_format($money, bookingCore.booking_decimals, bookingCore.decimal_separator, bookingCore.thousand_separator);
-    var $symbol       = bookingCore.currency_symbol;
+    $money            = bravo_number_format($money, Bravo.booking_decimals, Bravo.decimal_separator, Bravo.thousand_separator);
+    var $symbol       = Bravo.currency_symbol;
     var $money_string = '';
 
-    switch (bookingCore.currency_position) {
+    switch (Bravo.currency_position) {
         case "right":
             $money_string = $money + $symbol;
             break;
@@ -87,4 +89,184 @@ var validation = Array.prototype.filter.call(forms, function(form) {
         }
         form.classList.add('was-validated');
     }, false);
+});
+
+var BravoApp ={
+    showSuccess:function (configs){
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }else{
+            args.message = configs;
+        }
+        if(!args.title){
+            args.title = i18n.success;
+        }
+        args.centerVertical = true;
+        bootbox.alert(args);
+    },
+    showError:function (configs) {
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }else{
+            args.message = configs;
+        }
+        if(!args.title){
+            args.title = i18n.warning;
+        }
+        args.centerVertical = true;
+        bootbox.alert(args);
+    },
+    showAjaxError:function (e) {
+        var json = e.responseJSON;
+        if(typeof json !='undefined'){
+            if(typeof json.errors !='undefined'){
+                var html = '';
+                _.forEach(json.errors,function (val) {
+                    html+=val+'<br>';
+                });
+
+                return this.showError(html);
+            }
+            if(json.message){
+                return this.showError(json.message);
+            }
+        }
+        if(e.responseText){
+            return this.showError(e.responseText);
+        }
+    },
+    showAjaxMessage:function (json) {
+        if(json.message)
+        {
+            if(json.status){
+                this.showSuccess(json);
+            }else{
+                this.showError(json);
+            }
+        }
+    },
+    showConfirm:function (configs) {
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }
+        args.buttons = {
+            confirm: {
+                label: '<i class="fa fa-check"></i> '+i18n.confirm,
+            },
+            cancel: {
+                label: '<i class="fa fa-times"></i> '+i18n.cancel,
+            }
+        };
+        args.centerVertical = true;
+        bootbox.confirm(args);
+    }
+};
+$(document).on('click','.bravo_add_to_cart',function(e){
+    e.preventDefault();
+    $(this).addClass('loading');
+    var me = $(this);
+    var product = me.data('product');
+    var q_input =  $('.quantity-input input[name=quantity]');
+    var quantity = {qty: (!isNaN(parseInt(q_input.val()))) ? parseInt(q_input.val()) : 1};
+    var variations = {variation_id: (Object.keys(Bravo.currentVariation).length > 0) ? Bravo.currentVariation.variations.id : null };
+
+    $.ajax({
+        url:Bravo.routes.add_to_cart,
+        data: Object.assign(product, quantity, variations),
+        type:'post',
+        dataType:'json',
+        beforeSend:function(){
+            me.addClass('loading');
+        },
+        success:function(json){
+            me.removeClass('loading');
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.message){
+                BravoApp.showAjaxMessage(json);
+                setTimeout(function () {
+                    let url = $(`.wishlist-items-wrapper .product-remove.item_${product.id} > a`).attr('href');
+                    if (url !== undefined) window.open(url,'_self');
+                },1000)
+            }
+        },
+        error:function(err){
+            me.removeClass('loading');
+            console.log(err)
+        }
+    })
+})
+
+$(document).on('click','.bravo_delete_cart_item',function(e){
+    e.preventDefault();
+
+    var c = confirm(i18n.delete_cart_item_confirm);
+    if(!c) return;
+
+    var me = $(this);
+    var id = $(this).data('id');
+    $.ajax({
+        url:bookingCore.routes.remove_cart_item,
+        data:{
+            id:id
+        },
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.reload){
+                window.location.reload();
+            }
+            if(json.message){
+                // bookingCoreApp.showAjaxMessage(json);
+            }
+
+        },
+        error:function(err){
+            bravo_handle_error_response(err);
+            console.log(err)
+        }
+    })
+})
+
+$(document).on('click','.btn-info-booking',function () {
+    let $this = $(this);
+    let id = $this.closest('tr').data('order');
+    let suborder = $this.data('suborder');
+    let products_order = $this.data('products_order');
+    $.ajax({
+        url: bookingCore.url + '/user/view-order/' + id,
+        method: 'POST',
+        data: {
+            suborder: suborder,
+            products_order: (typeof products_order !== undefined) ? products_order : null
+        },
+        beforeSend:function(){
+            $this.addClass('loading').attr('disabled','disabled');
+        },
+        success:function (data) {
+            $this.removeClass('loading').removeAttr('disabled');
+            $('.show-modal').html(data);
+            $('#order-modal').modal('show');
+        }
+    })
 });

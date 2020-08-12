@@ -7,7 +7,7 @@
         {{__("Settings")}}
         <a href="{{url(app_get_locale()."/user/profile/change-password")}}" class="btn-change-password">{{__("Change Password")}}</a>
     </h2>
-    @include('admin.message')
+    @include('Layout::admin.message')
     <form action="{{url(app_get_locale()."/user/profile")}}" method="post" class="input-has-icon">
         @csrf
         <div class="row">

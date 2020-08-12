@@ -8,7 +8,7 @@
                 <a href="{{route('page.admin.create')}}" class="btn btn-primary">{{ __('Add new page')}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left"> 
                 @if(!empty($rows))

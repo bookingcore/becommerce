@@ -1,7 +1,12 @@
 <?php
+
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
+use Modules\Product\Models\ProductVariation;
+use Modules\User\Models\UserWishList;
 
 define( 'MINUTE_IN_SECONDS', 60 );
 define( 'HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS );
@@ -10,9 +15,20 @@ define( 'WEEK_IN_SECONDS', 7 * DAY_IN_SECONDS );
 define( 'MONTH_IN_SECONDS', 30 * DAY_IN_SECONDS );
 define( 'YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS );
 
-function setting_item($item,$default = ''){
+function setting_item($item,$default = '',$isArray = false){
 
-    return Settings::item($item,$default);
+    $res = Settings::item($item,$default);
+
+    if($isArray and !is_array($res)){
+        $res = (array) json_decode($res,true);
+    }
+
+    return $res;
+
+}
+function setting_item_array($item,$default = ''){
+
+    return setting_item($item,$default,true);
 
 }
 function setting_item_with_lang($item,$locale = '',$default = ''){
@@ -39,15 +55,15 @@ function setting_update_item($item,$val){
     $s->val = $val;
 
     $s->save();
-
+    Cache::forget('setting_' . $item);
     return $s;
 
 }
 
 function app_get_locale($locale = false , $before = false , $after = false){
-    if(setting_item('site_enable_multi_lang')){
-        return $locale ? $before.$locale.$after : $before.app()->getLocale().$after;
-    }
+//    if(setting_item('site_enable_multi_lang')){
+//        return $locale ? $before.$locale.$after : $before.app()->getLocale().$after;
+//    }
     return '';
 }
 
@@ -77,12 +93,16 @@ function generate_menu($location = '',$options = [])
         foreach($setting as $l=>$menuId){
             if($l == $location and $menuId){
                 $menu = (new \Modules\Core\Models\Menu())->findById($menuId);
-                $translation = $menu->translateOrOrigin(app()->getLocale());
+                if(!empty($menu)) {
+                    $translation = $menu->translateOrOrigin(app()->getLocale());
 
-                $walker = new $options['walker']($translation);
+                    if (!empty($translation)) {
+                        $walker = new $options['walker']($translation);
 
-                if(!empty($translation)){
-                    $walker->generate();
+                        if (!empty($translation)) {
+                            $walker->generate();
+                        }
+                    }
                 }
             }
         }
@@ -123,13 +143,14 @@ function get_file_url($file_id,$size="thumb"){
 }
 
 function get_image_tag($image_id,$size = 'thumb',$options = []){
-    $options = array_merge($options,[
+    $options = array_merge([
        'lazy'=>true
-    ]);
+    ],$options);
 
     $url = get_file_url($image_id,$size);
 
     if($url){
+        $style = $options['style'] ?? '';
         $alt = $options['alt'] ?? '';
         $attr = '';
         $class= $options['class'] ?? '';
@@ -137,9 +158,9 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
         }else{
-            $attr.=" src='".e($url)."' ";
+            $attr.=" src=".e($url);
         }
-        return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
+        return sprintf("<img class='%s' %s alt='%s' style='%s'>",e($class),e($attr),e($alt),e($style));
     }
 }
 function get_date_format(){
@@ -718,4 +739,308 @@ function get_bookable_services(){
     }
 
     return $all;
+}
+
+
+function get_product_types(){
+    $all = [];
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getProductTypes']);
+                $all = array_merge($all,$services);
+            }
+
+        }
+    }
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getProductTypes']);
+                $all = array_merge($all,$services);
+            }
+        }
+    }
+
+    return $all;
+}
+
+function get_admin_product_tabs(){
+    $all = [];
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                $all = array_merge($all,$services);
+            }
+
+        }
+    }
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                $all = array_merge($all,$services);
+            }
+        }
+    }
+
+    //@todo Sort Menu by Position
+    $all = \Illuminate\Support\Arr::sort($all, function ($value) {
+        return $value['position'] ?? 10;
+    });
+
+    return $all;
+}
+
+
+
+function file_get_contents_curl($url,$isPost = false,$data = []) {
+
+    $ch = curl_init();
+
+    curl_setopt($ch, CURLOPT_AUTOREFERER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+
+    if($isPost){
+        curl_setopt($ch, CURLOPT_POST, count($data));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+    }
+
+    $data = curl_exec($ch);
+    curl_close($ch);
+
+    return $data;
+}
+
+function size_unit_format($number=''){
+    switch (setting_item('size_unit')){
+        case "m2":
+            return $number." m<sup>2</sup>";
+            break;
+        default:
+            return $number." ".__('sqft');
+            break;
+    }
+}
+
+function get_payment_gateways(){
+    //getBlocks
+    $gateways = config('booking.payment_gateways');
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+    //Plugin
+    $plugin_modules = \Plugins\ServiceProvider::getModules();
+    if(!empty($plugin_modules)){
+        foreach($plugin_modules as $module){
+            $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+
+    //Custom
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass) and is_callable([$moduleClass,'getPaymentGateway']))
+            {
+                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
+                if(!empty($gateway)){
+                    $gateways = array_merge($gateways,$gateway);
+                }
+            }
+        }
+    }
+
+    return $gateways;
+}
+
+function get_current_currency($need,$default = '')
+{
+    return Currency::getCurrent($need,$default);
+}
+
+function booking_status_to_text($status)
+{
+    switch ($status){
+        case "draft":
+            return __('Draft');
+            break;
+        case "unpaid":
+            return __('Unpaid');
+            break;
+        case "paid":
+            return __('Paid');
+            break;
+        case "processing":
+            return __('Processing');
+            break;
+        case "completed":
+            return __('Completed');
+            break;
+        case "confirmed":
+            return __('Confirmed');
+            break;
+        case "cancelled":
+            return __('Cancelled');
+        case "partial_payment":
+            return __('Partial Payment');
+            break;
+        default:
+            return ucfirst($status ?? '');
+            break;
+    }
+}
+function verify_type_to($type,$need = 'name')
+{
+    switch ($type){
+        case "phone":
+            return __("Phone");
+            break;
+        case "number":
+            return __("Number");
+            break;
+        case "email":
+            return __("Email");
+            break;
+        case "file":
+            return __("Attachment");
+            break;
+        case "multi_files":
+            return __("Multi Attachments");
+            break;
+        case "text":
+        default:
+            return __("Text");
+            break;
+    }
+}
+
+function get_all_verify_fields(){
+    return setting_item_array('role_verify_fields');
+}
+/*Hook Functions*/
+function add_action($hook, $callback, $priority = 20, $arguments = 1){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    $m->addAction($hook, $callback, $priority, $arguments);
+}
+function add_filter($hook, $callback, $priority = 20, $arguments = 1){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    $m->addFilter($hook, $callback, $priority, $arguments);
+}
+function do_action(){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    return call_user_func_array([$m,'action'],$args);
+}
+function apply_filters(){
+    $args = func_get_args();
+    $m = \Modules\Core\Helpers\HookManager::inst();
+    return call_user_func_array([$m,'filter'],$args);
+}
+function is_installed(){
+    return file_exists(storage_path('installed'));
+}
+function is_enable_multi_lang(){
+    return (bool) setting_item('site_enable_multi_lang');
+}
+function is_enable_language_route(){
+    return (is_installed() and is_enable_multi_lang() and app()->getLocale() != setting_item('site_locale'));
+}
+function get_cart_fragments(){
+    return [
+        '.widget_shopping_cart_content, .user-mini-cart .cart-content'=>view('Booking::frontend.cart.mini-cart')->render(),
+        '.ps-table--shopping-cart tbody'=>view('Booking::frontend.cart.list-cart')->render(),
+        '.user-cart-count'=>Cart::count()
+    ];
+}
+
+/**
+ * @return Gloudemans\Shoppingcart\Facades\Cart
+ */
+function cart(){
+    return resolve('Cart');
+}
+
+function wishlist(){
+    $auth = \Illuminate\Support\Facades\Auth::id();
+    $wishlist = [];
+    if (!empty($auth)){
+        $l_wishlist = UserWishList::select('object_id')->where('create_user', $auth)->get();
+        $wishlist = [];
+        if (!empty($l_wishlist)){
+            foreach ($l_wishlist as $list){
+                array_push($wishlist, $list->object_id);
+            }
+        }
+    }
+    return array_unique($wishlist);
+}
+
+function getMinMaxPriceProductVariations($row){
+    if($row->product_type=='variable'){
+        $array = $row->hasMany(ProductVariation::class)->pluck('price')->toArray();
+        $array= array_values(Arr::sort($array));
+        return ['min'=>head($array),'max'=>last($array)];
+    }
+}
+
+function list_compare_id(){
+    $compare = (!empty(session('compare'))) ? session('compare') : '';
+    $l_compare = [];
+    if (!empty($compare)){
+        foreach ($compare as $list){
+            array_push($l_compare, $list['id']);
+        }
+    }
+    return $l_compare;
+}
+
+function position_attributes(){
+    $attrs = \Modules\Core\Models\Attributes::all();
+    $test = [];
+    if (!empty($attrs)){
+        foreach ($attrs as $position){
+            array_push($test, $position->positon);
+        }
+    }
+    return $test;
 }

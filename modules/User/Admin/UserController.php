@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
-//use Modules\Vendor\Models\VendorPlan;
 use Modules\Vendor\Models\VendorRequest;
 use Spatie\Permission\Models\Role;
 
@@ -76,7 +75,6 @@ class UserController extends AdminController
         $data = [
             'row'   => $row,
             'roles' => Role::all(),
-//            'vendorPlans' =>VendorPlan::where('status','publish')->get(),
             'breadcrumbs'=>[
                 [
                     'name'=>__("Users"),
@@ -213,10 +211,6 @@ class UserController extends AdminController
         $row->email = $request->input('email');
         $row->vendor_commission_type = $request->input('vendor_commission_type');
         $row->vendor_commission_amount = $request->input('vendor_commission_amount');
-//        if($row->vendor_plan_enable==1){
-//            $row->vendor_plan_start_date = time();
-//        }
-//        $row->vendor_plan_end_date = $request->input('vendor_plan_end_date');
         if ($row->save()) {
 
             if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {

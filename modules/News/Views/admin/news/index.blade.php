@@ -8,12 +8,11 @@
                 <a href="{{url('admin/module/news/create')}}" class="btn btn-primary">{{__("Add new Post")}}</a>
             </div>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{url('admin/module/news/bulkEdit')}}"
-                          class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{route('news.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>

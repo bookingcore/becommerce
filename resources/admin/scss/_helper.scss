@@ -103,6 +103,9 @@
             .inner{
                 border: 1px solid rgba(195, 207, 216, 0.3);
                 background: #fafbfc;
+                img{
+                    max-width: 100%;
+                }
             }
         }
     }
@@ -241,4 +244,19 @@
         width: 16px;
         text-align: center;
     }
+}
+
+.he-tree--hidden{
+    display: none;
+}
+.he-tree .tree-placeholder{
+}
+.he-tree .tree-placeholder-node{
+    background: #ddf2f9;
+    border: 1px dashed #00d9ff;
+    height: 40px;
+    margin-top: 10px;
+}
+.he-tree .dragging .tree-node-back:hover{
+    background-color: inherit;
 }

@@ -1,5 +1,3 @@
-import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
-
 (function ($) {
 
     function makeid(length) {
@@ -36,7 +34,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         // CKEDITOR.replace( id );
         tinymce.init({
             selector:'#'+id,
-            plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
+            plugins: 'searchreplace autolink image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
             toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat',
             image_advtab: true,
             image_caption: true,
@@ -144,7 +142,8 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
     });
 
     $('.open-edit-input').click(function () {
-        $(this).replaceWith('<input type="text" name="'+$(this).data('name')+'" value="'+$(this).html()+'">');
+        $(this).next('input').attr('type','text');
+        $(this).hide();
     })
 
     $(document).ready(function () {
@@ -248,5 +247,38 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
             form.classList.add('was-validated');
         }, false);
     });
+
+    $('.ajax-add-term input').on('keypress',function (e) {
+		var code = e.keyCode || e.which;
+		if (code == 13) {
+			e.preventDefault();
+			ajaxAddTerm($(this).closest('.ajax-add-term'));
+			return false;
+		}
+	});
+    $('.ajax-add-term .btn').on('click',function (e) {
+        ajaxAddTerm($(this).closest('.ajax-add-term'));
+	});
+
+    function ajaxAddTerm(p) {
+        if(p.find('input').val().trim() && p.data('attr-id')){
+            $.ajax({
+                url:bookingCore.url+'/admin/module/product/ajaxAddTerm',
+                data:{
+                    name:p.find('input').val().trim(),
+                    attr_id:p.data('attr-id')
+                },
+                type:'post',
+                success:function (json) {
+                    if(json.status){
+						var newOption = new Option(json.name, json.id, true, true);
+						p.closest('.controls').find('.dungdt-select2-field').append(newOption).trigger('change');
+						p.find('input').val('');
+                    }
+				}
+            })
+        }
+	}
+
 
 })(jQuery);

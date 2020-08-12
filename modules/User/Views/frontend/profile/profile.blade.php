@@ -5,14 +5,14 @@
     <div class="container">
         <div class="">
             <div class="row">
-                <div class="col-md-3">
+                <div class="col-md-3 col-bravo-filter">
                     @include('User::frontend.profile.sidebar')
                 </div>
                 <div class="col-md-9">
-                    <h3 class="profile-name">{{__("Hi, I'm :name",['name'=>$user->getDisplayName()])}}</h3>
-                    <div class="profile-bio">{!! $user->bio !!}</div>
-                    <div class="div" style="margin-top: 40px;">
-                        @include('User::frontend.profile.reviews')
+                    <div class="bravo_profile_content woocommerce">
+                        @if(!empty($rows))
+                            @include('Product::frontend.layouts.search.content-search_content')
+                        @endif
                     </div>
                 </div>
             </div>

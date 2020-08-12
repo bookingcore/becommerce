@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Mail;
 use Mockery\Exception;
 use Modules\Booking\Emails\NewBookingEmail;
 use Modules\Booking\Emails\StatusUpdatedEmail;
-use Modules\Tour\Models\Tour;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 

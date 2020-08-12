@@ -33,4 +33,20 @@ class ModuleServiceProvider extends \Illuminate\Support\ServiceProvider
     public static function getUserSubMenu(){
         return [];
     }
+
+    public static function getSettingPages(){
+        return [];
+    }
+
+    public static function getProductTypes(){
+        return [];
+    }
+    public static function getAdminProductTabs(){
+        return [];
+    }
+
+    public static function getTemplateBlocks(){
+        return [];
+    }
+
 }

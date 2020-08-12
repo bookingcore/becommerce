@@ -20,7 +20,7 @@ class Controller extends BaseController
 
         $data['status'] = 0;
 
-        $this->sendSuccess($data,$message);
+        return $this->sendSuccess($data,$message);
 
     }
 
@@ -30,8 +30,7 @@ class Controller extends BaseController
 
         $data['message'] = $message;
 
-        response()->json($data)->send();
-        die;
+        return response()->json($data);
     }
 
 

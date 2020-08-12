@@ -45,6 +45,9 @@ class PageController extends Controller
             'translation' => $translation,
             'seo_meta'  => $page->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'  => "page",
+            'breadcrumbs' => [
+                ['name' => $page->title,'class' => 'active'],
+            ],
         ];
         return view('Page::frontend.detail', $data);
     }

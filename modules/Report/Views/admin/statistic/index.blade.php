@@ -11,7 +11,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__('Bookings Statistic')}}</h1>
         </div>
-        @include('admin.message')
+        @include('Layout::admin.message')
         <div class="bravo-statistic">
             <div class="row">
                 <div class="col-md-12">

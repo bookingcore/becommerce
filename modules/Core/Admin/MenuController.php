@@ -32,7 +32,8 @@ class MenuController extends AdminController
     {
         return [
             'primary' => __("Primary"),
-            'footer'  => __("Footer"),
+            'department' => __("Department"),
+            'menu_right' => __("Right menu")
         ];
     }
 
@@ -106,14 +107,14 @@ class MenuController extends AdminController
         $q = $request->input('q');
         if (class_exists($class) and method_exists($class, 'searchForMenu')) {
 
-            $this->sendSuccess([
+            return $this->sendSuccess([
                 'data' => call_user_func([
                     $class,
                     'searchForMenu'
                 ], $q)
             ]);
         }
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'data' => []
         ]);
     }
@@ -121,42 +122,6 @@ class MenuController extends AdminController
     public function getTypes()
     {
         $menuModels = [
-            [
-                'class' => \Modules\Page\Models\Page::class,
-                'name'  => __("Page"),
-                'items' => \Modules\Page\Models\Page::searchForMenu(),
-                'position'=>10
-            ],
-            [
-                'class' => \Modules\Tour\Models\Tour::class,
-                'name'  => __("Tour"),
-                'items' => \Modules\Tour\Models\Tour::searchForMenu(),
-                'position'=>20
-            ],
-            [
-                'class' => \Modules\Tour\Models\TourCategory::class,
-                'name'  => __("Tour Category"),
-                'items' => \Modules\Tour\Models\TourCategory::searchForMenu(),
-                'position'=>30
-            ],
-            [
-                'class' => \Modules\Location\Models\Location::class,
-                'name'  => __("Location"),
-                'items' => \Modules\Location\Models\Location::searchForMenu(),
-                'position'=>40
-            ],
-            [
-                'class' => \Modules\News\Models\News::class,
-                'name'  => __("News"),
-                'items' => \Modules\News\Models\News::searchForMenu(),
-                'position'=>50
-            ],
-            [
-                'class' => NewsCategory::class,
-                'name'  => __("News Category"),
-                'items' => NewsCategory::searchForMenu(),
-                'position'=>60
-            ],
         ];
 
         // Modules
@@ -212,7 +177,7 @@ class MenuController extends AdminController
                 }
             }
         }
-        $this->sendSuccess(['data' => $menuModels]);
+        return $this->sendSuccess(['data' => $menuModels]);
     }
 
     public function getItems(Request $request)
@@ -220,8 +185,8 @@ class MenuController extends AdminController
 
         $menu = Menu::find($request->input('id'));
         if (empty($menu))
-            $this->sendError(__("Menu not found"));
-        $this->sendSuccess(['data' => json_decode($menu->items, true)]);
+            return $this->sendError(__("Menu not found"));
+        return $this->sendSuccess(['data' => json_decode($menu->items, true)]);
     }
 
     public function store(Request $request)
@@ -240,7 +205,7 @@ class MenuController extends AdminController
             $menu = new Menu();
         }
         if (empty($menu))
-            $this->sendError(__('Menu not found'));
+            return $this->sendError(__('Menu not found'));
 
 
         $menu->items = $request->input('items');
@@ -266,8 +231,9 @@ class MenuController extends AdminController
                 $setting[$location] = $menu->id;
             }
         }
+
         setting_update_item('menu_locations', json_encode($setting));
-        $this->sendSuccess([
+        return $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/core/menu/edit/' . $menu->id)
         ], __('Your menu has been saved'));
     }
