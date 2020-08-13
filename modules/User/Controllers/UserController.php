@@ -146,22 +146,6 @@ class UserController extends FrontendController
         return view('User::frontend.bookingHistory', $data);
     }
 
-    public function view_order(Request $request, $id){
-        $order = Order::where('id',$id)->first();
-        $suborder = OrderItem::where('order_id',$id)->whereIn('id',$request->post('suborder'))->get();
-        $data = [
-            'id' => $id,
-            'order' => $order,
-            'suborder' => $suborder,
-        ];
-        if (boolval($request->post('products_order')) != true){
-            return view('User::frontend.order.order-modal',$data)->render();
-        } else {
-            return view('User::frontend.products-order.order-modal',$data)->render();
-        }
-
-    }
-
     public function userLogin(Request $request)
     {
         $rules = [

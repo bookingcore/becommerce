@@ -96,7 +96,6 @@ class PageController extends AdminController
     }
 
     public function store(Request $request, $id){
-
         if($id>0){
             $this->checkPermission('page_update');
             $row = Page::find($id);

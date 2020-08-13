@@ -43,10 +43,10 @@
                     <td>{{$order->status}}</td>
                     <td>{{format_money($order->final_total)}}</td>
                     <td class="text-center">
-                        <button class="btn btn-xs btn-primary btn-info-booking" data-toggle="modal" data-target="#order-modal-{{$key}}" data-is_suborder="false" data-suborder="{{json_encode($data_order)}}">
+                        <button class="btn btn-xs btn-primary btn-info-booking" data-toggle="modal" data-target="#order-modal-{{$order->id}}">
                             <span>{{ __('View') }}</span>
                         </button>
-                        <div class="modal fade" id="order-modal-{{$key}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal fade" id="order-modal-{{$order->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                             @include('User::frontend.order.order-modal')
                         </div>
                     </td>

@@ -12,7 +12,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach($orders as $key => $order)
+            @foreach($orders as $order)
                 @php
                     $data_order = [];
                     $suborder = \Modules\Product\Models\OrderItem::where('order_id',$order->id)->where('vendor_id',$user_id)->get();
@@ -49,10 +49,10 @@
                     <td>{{$order->status}}</td>
                     <td>{{format_money($price)}}</td>
                     <td class="text-center">
-                        <button class="btn btn-xs btn-primary btn-info-booking" data-toggle="modal" data-target="#order-modal-{{$key}}">
+                        <button class="btn btn-xs btn-primary btn-info-booking" data-toggle="modal" data-target="#order-modal-{{$order->id}}">
                             <span>{{ __('View') }}</span>
                         </button>
-                        <div class="modal fade" id="order-modal-{{$key}}" tabindex="-1" role="dialog" aria-hidden="true">
+                        <div class="modal fade" id="order-modal-{{$order->id}}" tabindex="-1" role="dialog" aria-hidden="true">
                             @include('Product::frontend.vendor.order.order-modal')
                         </div>
                     </td>

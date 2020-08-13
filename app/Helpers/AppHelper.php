@@ -1035,11 +1035,10 @@ function list_compare_id(){
 }
 
 function list_homepage_style(){
-    $list = [
-        'd'     =>  '-- Homepage Default --',
-        'style_1'=> 'Style 1'
+    return [
+        '0'     =>  '-- Homepage Default --',
+        '1'=> 'Style 1'
     ];
-    return $list;
 }
 
 function position_attributes(){

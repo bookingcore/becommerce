@@ -7,7 +7,6 @@ Route::group(['prefix'=>'user','middleware' => ['auth']],function(){
     Route::match(['get','post'],'/profile','UserController@profile')->name("vendor.profile");
     Route::match(['get','post'],'/profile/change-password','UserController@changePassword');
     Route::get('/orders','UserController@bookingHistory')->name("user.orders.index");
-    Route::post('/view-order/{id}','UserController@view_order')->name('vendor.view_order');
 
     Route::post('/wishlist','UserWishListController@handleWishList')->name("user.wishList.handle");
     Route::get('/wishlist','UserWishListController@index')->name("user.wishList.index");

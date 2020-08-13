@@ -8,17 +8,17 @@
             <div class="modal-body">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#booking-detail">{{ __('Order Detail') }}</a>
+                        <a class="nav-link active" data-toggle="tab" href="#booking-detail-{{$order->id}}">{{ __('Order Detail') }}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#booking-customer">{{__('Billing address')}}</a>
+                        <a class="nav-link" data-toggle="tab" href="#booking-customer-{{$order->id}}">{{__('Billing address')}}</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#shipping-address">{{__('Shipping address')}}</a>
+                        <a class="nav-link" data-toggle="tab" href="#shipping-address-{{$order->id}}">{{__('Shipping address')}}</a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div id="booking-detail" class="tab-pane fade active show">
+                    <div id="booking-detail-{{$order->id}}" class="tab-pane fade active show">
                         <br>
                         <div class="booking-review">
                             <div class="booking-review-content">
@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="booking-customer" class="tab-pane">
+                    <div id="booking-customer-{{$order->id}}" class="tab-pane">
                         <br>
                         <div class="booking-review">
                             <div class="booking-review-content">
@@ -113,7 +113,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="shipping-address" class="tab-pane">
+                    <div id="shipping-address-{{$order->id}}" class="tab-pane">
                         <br>
                         <div class="booking-review">
                             <div class="booking-review-content">
