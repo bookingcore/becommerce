@@ -74,6 +74,14 @@
                                             @endforeach
                                         @endif
                                     </select>
+                                    <label style="margin-top: 10px">{{ __('Page Style') }}</label>
+                                    <select name="page_style" class="form-control">
+                                        @if(list_homepage_style())
+                                            @foreach(list_homepage_style() as $key => $item)
+                                                <option @if($row->page_style === $key) selected @endif value="{{$key}}">{{$item}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                             </div>
                             <div class="panel">
