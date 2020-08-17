@@ -7,15 +7,15 @@ var clean = require('gulp-clean');
 
 function compressPackage() {
 	return gulp.src([
-		'../builds/booking-core/**',
-		'../builds/booking-core/**/.**',
+		'../builds/martfury/**',
+		'../builds/martfury/**/.**',
 	])
-		.pipe(zip('booking-core.zip'))
+		.pipe(zip('martfury.zip'))
 		.pipe(gulp.dest('../builds/'));
 
 }
 function copyPackage() {
-	//del('../builds/booking-core/*/**',{force:true});
+	//del('../builds/martfury/*/**',{force:true});
 
 	return gulp.src([
 		'**',
@@ -26,19 +26,23 @@ function copyPackage() {
 		'!.idea/**',
 		'!storage/installed',
 		'!storage/app/public/**',
+		'!storage/app/0000/**',
+		'!storage/app/uploads/**',
 		'!public/storage/**',
 		'!storage/debugbar/**/*.json',
 		'!storage/logs/**/*.log',
-		'!storage/framework/cache/data/**'
+		'!storage/framework/cache/data/**',
+		'!storage/framework/views/*.php',
+		'!public/uploads/0000/**',
 	])
-		.pipe(gulp.dest('../builds/booking-core'));
+		.pipe(gulp.dest('../builds/martfury'));
 }
 function makeEnv() {
 	return gulp.src([
 		'.env.example',
 	])
 		.pipe(rename('.env'))
-		.pipe(gulp.dest('../builds/booking-core'));
+		.pipe(gulp.dest('../builds/martfury'));
 }
 
 function backend(cb) {
@@ -49,9 +53,9 @@ function frontend(cb) {
 }
 
 function cleanBuildFolder(){
-	return gulp.src('../builds/booking-core', {read: false})
+	return gulp.src('../builds/martfury', {read: false, allowEmpty: true })
 .pipe(clean({force: true}));
 }
-exports.default = series(parallel(backend,frontend),cleanBuildFolder,copyPackage,compressPackage);
+exports.default = series(parallel(backend,frontend),cleanBuildFolder,copyPackage);
 exports.test = series(parallel(backend,frontend),cleanBuildFolder,copyPackage);
 exports.zip = series(compressPackage);

@@ -1,6 +1,6 @@
 <template>
     <div class="">
-        <tinymce-editor v-model="value" :init="init" toolbar="formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent"></tinymce-editor>
+        <tinymce-editor v-model="value" :init="init" toolbar="formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent code "></tinymce-editor>
     </div>
 </template>
 
@@ -14,7 +14,8 @@
 			return {
 				id:'',
 				init:{
-					plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
+					plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help code',
+                    toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | pagebreak codesample code | removeformat',
 					image_advtab: true,
 					image_caption: true,
 					height:400,
