@@ -99,7 +99,7 @@ class ProductController extends Controller
         $query->orderBy("id", "desc");
         $query->groupBy("products.id");
 
-        $list = $query->paginate(12);
+        $list = $query->with(['hasWishList','brand'])->paginate(12);
 
         $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
 
@@ -120,7 +120,7 @@ class ProductController extends Controller
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->get();
+        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translations')->get();
         $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
             $item->count_product  = count($item->products);
             return $item;

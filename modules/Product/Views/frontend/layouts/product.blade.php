@@ -24,7 +24,7 @@ $score_total = $reviewData['score_total'];
                 <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$row->id}},"type":"{{$row->type}}"}>
                     <i class="p-icon icon-eye"></i>
                 </a>
-                @php $hasWishList = in_array($row->id, wishlist()); @endphp
+                @php $hasWishList = $row->hasWishList; @endphp
                 <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                     <div class="yith-wcwl-add-button">
                         <a href="{{route('user.wishList.index')}}" class="wishlist_link">

@@ -130,7 +130,7 @@ class ListProduct extends BaseBlock
         $model_product->orderBy("products.".$model['order'], $model['order_by']);
         $model_product->where("products.status", "publish");
         $model_product->groupBy("products.id");
-        $list = $model_product->limit($model['number'])->get();
+        $list = $model_product->with(['brand','hasWishList'])->limit($model['number'])->get();
         $data = [
             'rows'       => $list,
             'style_list' => $model['style_list'],
