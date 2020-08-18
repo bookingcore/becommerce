@@ -322,7 +322,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       id: '',
       init: {
-        plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help',
+        plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help code',
+        toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | pagebreak codesample code | removeformat',
         image_advtab: true,
         image_caption: true,
         height: 400,
@@ -664,6 +665,7 @@ __webpack_require__.r(__webpack_exports__);
         multiple: false,
         file_type: 'image',
         onSelect: function onSelect(files) {
+          console.log(files);
           me.value = files[0].id;
         }
       });
@@ -1145,7 +1147,7 @@ var render = function() {
         attrs: {
           init: _vm.init,
           toolbar:
-            "formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent"
+            "formatselect | bold italic strikethrough forecolor backcolor | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent code "
         },
         model: {
           value: _vm.value,
@@ -1345,7 +1347,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "dungdt-upload-box ",
+      staticClass: "dungdt-upload-box dungdt-upload-box-vue ",
       class: { active: _vm.value },
       staticStyle: { width: "200px" }
     },
@@ -3808,9 +3810,9 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\project\BeCommerce\resources\admin\js\app.js */"./resources/admin/js/app.js");
-__webpack_require__(/*! D:\project\BeCommerce\resources\admin\scss\vendors.scss */"./resources/admin/scss/vendors.scss");
-module.exports = __webpack_require__(/*! D:\project\BeCommerce\resources\admin\scss\app.scss */"./resources/admin/scss/app.scss");
+__webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\js\app.js */"./resources/admin/js/app.js");
+__webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\scss\vendors.scss */"./resources/admin/scss/vendors.scss");
+module.exports = __webpack_require__(/*! E:\Dungdt\becommerce\resources\admin\scss\app.scss */"./resources/admin/scss/app.scss");
 
 
 /***/ })

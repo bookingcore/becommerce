@@ -1,5 +1,5 @@
 <template>
-    <div class="dungdt-upload-box " :class="{'active':value}" style="width:200px" >
+    <div class="dungdt-upload-box dungdt-upload-box-vue " :class="{'active':value}" style="width:200px" >
         <div class="upload-box" v-show="!value" >
             <div class="text-center">
                 <svg id="next-dropzone" width="100%" height="100%">
@@ -83,6 +83,7 @@
                   multiple:false,
                   file_type:'image',
                   onSelect:function (files) {
+                      console.log(files);
                       me.value = files[0].id
                   },
               });

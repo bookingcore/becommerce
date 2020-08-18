@@ -14,6 +14,10 @@ Route::group(['prefix'=>'plugins'],function (){
     Route::post('/','PluginsController@bulkEdit')->name('core.admin.plugins.bulkEdit');
 });
 
+Route::group(['prefix'=>'tools'],function (){
+    Route::get('/','ToolsController@index')->name('core.admin.tools.index');
+});
+
 Route::group(['prefix'=>'settings'],function (){
     Route::get('/index/{group}','SettingsController@index')->name('core.admin.setting.index');
     Route::post('/store/{group}','SettingsController@store')->name('core.admin.setting.store');

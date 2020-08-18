@@ -13,6 +13,7 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Review\Models\Review;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Modules\User\Models\UserWishList;
 
 class Product extends BaseProduct
 {
@@ -430,7 +431,7 @@ class Product extends BaseProduct
         return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id', 'id','id','tag_id');
     }
     public function brand(){
-    	return $this->belongsTo(ProductBrand::class,'brand_id');
+    	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
     }
     public function variations(){
     	return $this->hasMany(ProductVariation::class);
@@ -529,5 +530,8 @@ class Product extends BaseProduct
         $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
         $this->review_score = $rate_number;
         $this->save();
+    }
+    public function hasWishList(){
+        return $this->hasOne(UserWishList::class, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
     }
 }

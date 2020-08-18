@@ -2,6 +2,7 @@
 namespace Modules\Review\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Modules\AdminController;
 use Modules\Review\Models\Review;
 
@@ -75,6 +76,7 @@ class ReviewController extends AdminController
                     if(!empty($module_class)){
                         $model_serivce = $module_class::find($review->object_id);
                         if(!empty($model_serivce)){
+                            Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
                             $model_serivce->update_service_rate();
                         }
                     }
@@ -89,6 +91,7 @@ class ReviewController extends AdminController
                 if(!empty($module_class)){
                     $model_serivce = $module_class::find($review->object_id);
                     if(!empty($model_serivce)){
+                        Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
                         $model_serivce->update_service_rate();
                     }
                 }

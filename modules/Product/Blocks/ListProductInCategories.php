@@ -100,7 +100,7 @@ class ListProductInCategories extends BaseBlock
         $model_product->orderBy("products.".$model['order'], $model['order_by']);
         $model_product->where("products.status", "publish");
         $model_product->groupBy("products.id");
-        $list = $model_product->limit($model['number'])->get();
+        $list = $model_product->with(['brand','hasWishList'])->limit($model['number'])->get();
         $product_url = Product::getLinkForPageSearch();
         $data = [
             'rows'       => $list,
