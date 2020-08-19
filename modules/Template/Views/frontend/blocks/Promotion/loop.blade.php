@@ -2,7 +2,7 @@
     <a class="link-all" href="{{$list['link'] ?? '#'}}"></a>
     <div class="banner-content">
         <div class="s-content">
-            <h2 class="title">{!! $list['title'] ?? '' !!}</h2>
+            <h2 class="title">{!! clean($list['title'] ?? '') !!}</h2>
             @if(empty($list['discount']))
                 <div class="desc">
                     {{__('Discount')}}<br>
@@ -19,7 +19,7 @@
             @endif
         </div>
         <div class="link-box">
-            <a class="link" href="{{$list['link'] ?? '#'}}">Shop Now</a>
+            <a class="link" href="{{$list['link'] ?? '#'}}">{{__('Shop Now')}}</a>
         </div>
     </div>
     <div class="banner-image">

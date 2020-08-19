@@ -93,7 +93,7 @@
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">
-    {!! setting_item('body_scripts') !!}
+    {!! clean(setting_item('body_scripts')) !!}
     <div class="bravo_wrap">
         @include('Layout::parts.header')
         @if(!isset($is_homepage))
@@ -104,6 +104,6 @@
         @include('Layout::parts.quickView')
         @include('Layout::parts.footer')
     </div>
-    {!! setting_item('footer_scripts') !!}
+    {!! clean(setting_item('footer_scripts')) !!}
 </body>
 </html>

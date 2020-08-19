@@ -157,6 +157,7 @@ function get_image_tag($image_id,$size = 'thumb',$options = []){
         if(!empty($options['lazy'])){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
+            $attr.=" src ";
         }else{
             $attr.=" src=".e($url);
         }

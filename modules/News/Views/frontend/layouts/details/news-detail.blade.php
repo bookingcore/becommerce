@@ -31,7 +31,7 @@
             <li> {{__('DATE ')}}  {{ display_date($row->updated_at)}}  </li>
         </ul>
     </div>
-    <div class="post-content"> {!! $translation->content !!}</div>
+    <div class="post-content"> {!! clean($translation->content) !!}</div>
     <div class="entry-footer">
         @if (!empty($tags = $row->getTags()) and count($tags) > 0)
             <span class="tags-links"><strong>{{__("Tags:")}} </strong>

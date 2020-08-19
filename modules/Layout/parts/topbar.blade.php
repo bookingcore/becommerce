@@ -3,7 +3,7 @@
         <div class="content">
             <div class="topbar-left">
 
-                {!! setting_item_with_lang("topbar_left_text") !!}
+                {!! clean(setting_item_with_lang("topbar_left_text")) !!}
 
 
             </div>

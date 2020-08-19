@@ -26,7 +26,7 @@
                 </div>
                 <div class="profile-info">
                     <div class="profile-desc">
-                        {!! $user->bio !!}
+                        {!! clean($user->bio) !!}
                     </div>
                 </div>
                 <p class="profile-address">

@@ -25,10 +25,10 @@
                                     </div>
                                     <div class="banner-content">
                                         <h2 class="box-title">
-                                            {!! $item['title'] ?? '' !!}
+                                            {!! clean($item['title'] ?? '') !!}
                                         </h2>
                                         <p class="desc">
-                                            {!! $item['sub_title'] ?? '' !!}
+                                            {!! clean($item['sub_title'] ?? '') !!}
                                         </p>
                                     </div>
                                 </div>

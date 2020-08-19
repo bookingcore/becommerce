@@ -19,7 +19,7 @@
                             <div class="col-md-5 process-desc">
                                 <h3>{{$item['title']}}</h3>
                                 <div class="desc">
-                                    {!! $item['content'] !!}
+                                    {!! clean($item['content']) !!}
                                 </div>
                             </div>
                         </div>

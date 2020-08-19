@@ -1,7 +1,7 @@
 <div class="bravo_SellerStories">
     <div class="container">
-        <h4 class="bravo-header-title mf-semi-bold">{!! $title !!}</h4>
-        <h2 class="bravo-sub-title mf-regular">{!! $sub_title !!}</h2>
+        <h4 class="bravo-header-title mf-semi-bold">{{$title}}</h4>
+        <h2 class="bravo-sub-title mf-regular">{{$sub_title}}</h2>
 
         <div class="martfury-testimonial-slides">
             <div class="testimonial-list">

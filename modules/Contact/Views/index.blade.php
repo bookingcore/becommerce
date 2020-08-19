@@ -47,7 +47,7 @@
 						</div>
 						<div class="info-content">
 							<div class="sub">
-								<p>{!! setting_item_with_lang("page_contact_desc") !!}</p>
+								<p>{!! clean(setting_item_with_lang("page_contact_desc")) !!}</p>
 							</div>
 						</div>
 					</div>

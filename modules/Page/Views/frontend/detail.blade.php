@@ -2,13 +2,13 @@
 @section ('content')
     @if($row->template_id)
         <div class="page-template-content">
-            {!! $row->getProcessedContent() !!}
+            {!! clean($row->getProcessedContent()) !!}
         </div>
     @else
         <div class="container " style="padding-top: 40px;padding-bottom: 40px;">
             <h1>{{$row->title}}</h1>
             <div class="blog-content">
-                {!! $row->content !!}
+                {!! clean($row->content) !!}
             </div>
         </div>
     @endif

@@ -1,8 +1,8 @@
 <div class="bravo_BestFeesToStart">
     <div class="container">
-        <h4 class="bravo-header-title mf-semi-bold">{!! $title !!}</h4>
-        <h2 class="bravo-sub-title mf-regular">{!! $sub_title !!}</h2>
-        <div class="text-center bravo-sub-content">{!! $sub_content !!}</div>
+        <h4 class="bravo-header-title mf-semi-bold">{!! clean($title) !!}</h4>
+        <h2 class="bravo-sub-title mf-regular">{!! clean($sub_title) !!}</h2>
+        <div class="text-center bravo-sub-content">{!! clean($sub_content) !!}</div>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6">
@@ -13,8 +13,8 @@
                                 <div class="wpb_wrapper">
                                     <div class="martfury-bubbles">
                                         <div class="bubble">
-                                            <div class="value">{!! $item['number'] !!}</div>
-                                            <h5>{!! $item['title'] !!}</h5>
+                                            <div class="value">{!! clean($item['number']) !!}</div>
+                                            <h5>{!! clean($item['title']) !!}</h5>
                                         </div>
                                     </div>
                                 </div>
@@ -22,9 +22,9 @@
                         @endforeach
                     </div>
                 </div>
-                <h4 class="text-center mf-semi-bold title_list">{!! $title_list !!}</h4>
+                <h4 class="text-center mf-semi-bold title_list">{!! clean($title_list) !!}</h4>
                 <div class="title-list-content">
-                    {!! $title_list_content !!}
+                    {!! clean($title_list_content) !!}
                 </div>
             </div>
             <div class="col-md-3"></div>
@@ -42,12 +42,12 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="mf-single-content">
-                            {!! $payment_content !!}
+                            {!! clean($payment_content) !!}
                         </div>
                     </div>
                 </div>
                 <div class="title-footer">
-                    <p class="text-center">{!! $title_footer !!}</p>
+                    <p class="text-center">{!! clean($title_footer) !!}</p>
                 </div>
             </div>
             <div class="col-md-2"></div>

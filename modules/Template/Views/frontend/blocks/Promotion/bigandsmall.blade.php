@@ -8,7 +8,7 @@
                     {{$list['title']}}<br>
                     {{__('DISCOUNT')}} <strong class="r-price">{{__(':discount% OFF',['discount'=>$list['discount']])}}</strong>
                 </h2>
-                <p class="desc">{!! __($list['desc']) !!}</p>
+                <p class="desc">{!! clean($list['desc']) !!}</p>
             </div>
         </div>
         <div class="col-md-3 col-sm-6 col-xs-12 col-banner-price">

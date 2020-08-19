@@ -1,1 +1,1 @@
-{!! setting_item('shipping_information') !!}
+{!! clean(setting_item('shipping_information')) !!}

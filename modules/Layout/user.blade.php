@@ -71,7 +71,7 @@
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
 <body class="{{$body_class ?? ''}}">
-    {!! setting_item('body_scripts') !!}
+    {!! clean(setting_item('body_scripts')) !!}
     <div class="bravo_wrap">
         @include('Layout::parts.topbar')
         @include('Layout::parts.header')
@@ -93,6 +93,6 @@
         </div>
         @include('Layout::parts.footer',['is_user_page'=>1])
     </div>
-    {!! setting_item('footer_scripts') !!}
+    {!! clean(setting_item('footer_scripts')) !!}
 </body>
 </html>

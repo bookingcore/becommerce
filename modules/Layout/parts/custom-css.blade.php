@@ -79,4 +79,4 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
         border-color:{{$main_color}}
     }
 
-    {!! setting_item_with_lang('style_custom_css') !!}
+    {!! clean(setting_item_with_lang('style_custom_css')) !!}

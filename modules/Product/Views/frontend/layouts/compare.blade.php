@@ -38,7 +38,7 @@
                 } else {
                     $c_add .= "<td><a href=".route('product.detail',['slug'=>$row['slug']])." class='btn-add-to-cart out-of-stock'>".__('Read more')."</a></td>";
                 }
-                $c_desc .= "<td>".$row['short_desc']."</td>";
+                $c_desc .= "<td>".clean($row['short_desc'])."</td>";
                 $stock_status = ($row['stock_status'] == 'in' ? __('In stock') : __('Out of stock'));
                 $stock .= "<td class='text-center'><span>$stock_status</span></td>";
                 $brand .= "<td class='text-center'>".$row['brand_name']."</td>";

@@ -145,7 +145,7 @@
                                 <div class="bravo-checkbox">
                                     <label>
                                         <input @if(in_array($term->id,$selected)) checked @endif type="checkbox"
-                                               name="terms[]" value="{{$term->id}}"> {!! $translate->name !!}
+                                               name="terms[]" value="{{$term->id}}"> {!! clean($translate->name) !!}
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

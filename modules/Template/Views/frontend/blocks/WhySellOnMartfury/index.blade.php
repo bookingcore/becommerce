@@ -1,8 +1,8 @@
 <div class="bravo_whySellOnMartfury">
     <div class="container">
-        <h4 class="bravo-header-title mf-semi-bold">{!! $title !!}</h4>
+        <h4 class="bravo-header-title mf-semi-bold">{{$title}}</h4>
 
-        <h2 class="mf-regular bravo-sub-title">{!! $content !!}</h2>
+        <h2 class="mf-regular bravo-sub-title">{{$content}}</h2>
 
         <div class="row">
             @if(!empty($item))
@@ -18,9 +18,9 @@
                                         <a href="{{$value['sub_link']}}" title="Learn More">{{$value['title']}}</a>
                                     </h3>
                                     <div class="desc">
-                                        {!! $value['sub_title'] !!}
+                                        {!! clean($value['sub_title']) !!}
                                     </div>
-                                    <a href="{{$value['sub_link']}}" title="Learn More" class="box-url">{!! $value['link_title'] !!}</a>
+                                    <a href="{{$value['sub_link']}}" title="Learn More" class="box-url">{{$value['link_title']}}</a>
                                 </div>
                             </div>
                         </div>

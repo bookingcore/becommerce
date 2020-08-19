@@ -34,7 +34,7 @@
             @endforeach
         @else
             <div class="alert alert-warning product-warring" role="alert" style="width: 100%">
-                {!! __('0 Product found') !!}
+                {{__('0 Product found') }}
             </div>
         @endif
     </ul>
