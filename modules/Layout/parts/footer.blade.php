@@ -13,8 +13,8 @@
                         <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bravo-subscribe-form bravo-form">
                             @csrf
                             <div class="mc4wp-form-fields">
-                                <input type="email" name="email" placeholder="Email Address">
-                                <input type="submit" value="Subscribe">
+                                <input type="email" name="email" placeholder="{{__('Email Address')}}">
+                                <input type="submit" value="{{__('Subscribe')}}">
                             </div>
                             <div class="form-mess"></div>
                         </form>

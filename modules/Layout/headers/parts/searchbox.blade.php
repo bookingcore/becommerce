@@ -20,7 +20,7 @@
             <option id="text_change"></option>
         </select>
     </div>
-    <input type="text" name="s" value="{{request()->query('s')}}" class="form-control" placeholder="{{__("I'm shopping for...")}}">
+    <input type="text" name="s" value="{{strip_tags(request()->query('s'))}}" class="form-control" placeholder="{{__("I'm shopping for...")}}">
     <div class="input-group-append">
         <button class="btn">{{__('Search')}}</button>
     </div>
