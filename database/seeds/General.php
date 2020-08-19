@@ -662,7 +662,7 @@
                             "children" => [
                                 [
                                     "name" => "Single",
-                                    "url" => "/news/morning-in-the-northern-sea",
+                                    "url" => "/news/explore-fashion-trending-for-guys-in-autumn-2017",
                                     "item_model" => "custom",
                                     "_open" => false
                                 ]
