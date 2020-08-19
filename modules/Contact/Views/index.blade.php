@@ -19,7 +19,7 @@
 									<h3>{{ setting_item_with_lang("page_contact_title") }}</h3>
 									<p>{{ setting_item_with_lang("page_contact_sub_title") }}</p>
                                 </div>
-								@include('admin.message')
+								@include('Layout::admin.message')
 								<div class="contact-form">
 									<div class="form-group">
 										<input type="text" value="" placeholder=" {{ __('Name') }} " name="name" class="form-control">
