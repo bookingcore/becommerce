@@ -178,6 +178,7 @@ class ModuleProvider extends ModuleServiceProvider
             'ListProduct'=>"\\Modules\\Product\\Blocks\\ListProduct",
             'ListCategories'=>"\\Modules\\Product\\Blocks\\ListCategories",
             'ListProductInCategories'=>"\\Modules\\Product\\Blocks\\ListProductInCategories",
+            'RecentlyViewedProducts'=>"\\Modules\\Product\\Blocks\\RecentlyViewedProducts",
         ];
     }
     public static function getUserMenu()

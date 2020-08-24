@@ -1032,9 +1032,15 @@ function list_compare_id(){
 
 function list_homepage_style(){
     return [
-        '0'     =>  '-- Homepage Default --',
-        '1'=> 'Style 1'
+        '0'=> '-- Style Default --',
+        '1'=> 'Style 1',
+        '2'=> 'Style 2'
     ];
+}
+
+function page_style(){
+    $page = \Modules\Page\Models\Page::select('page_style')->where('id',setting_item('home_page_id'))->first();
+    return (!empty($page)) ? $page->page_style : null;
 }
 
 function position_attributes(){

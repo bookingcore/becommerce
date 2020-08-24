@@ -45,8 +45,9 @@ class HomeController extends Controller
             $data = [
                 'row'=>$page,
                 "seo_meta"=> $seo_meta,
+                'p_style' => $page->page_style,
+                'show_breadcrumb'  => $page->show_breadcrumb,
                 'is_homepage'  => true,
-                'page_style' => $page->page_style,
                 'compare'      => (session('compare')) ? session('compare') : '',
                 'breadcrumbs' => [
                     ['name' => $page->title,'class' => 'active'],

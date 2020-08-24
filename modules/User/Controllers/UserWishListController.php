@@ -22,6 +22,7 @@ class UserWishListController extends FrontendController
             ->orderBy('id', 'desc');
         $data = [
             'rows' => $wishlist->paginate(5),
+            'show_breadcrumb' => 0,
             'breadcrumbs'        => [
                 [
                     'name'  => __('Wishlist'),

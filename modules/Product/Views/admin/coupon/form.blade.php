@@ -18,12 +18,12 @@
             <input type="text" name="discount" title="{{__('Coupon amount')}}" value="{{$row->discount}}" class="form-control">
         </div>
         <div class="form-group">
-            <label class="control-label">{{ __('Expiration Date (Y-m-d)')}} </label>
+            <label class="control-label">{{ __('Expiration Date (m/d/Y)')}} </label>
             <div class="form-expiration">
                 @php
                     $expiration = (!empty($row->expiration)) ? explode(' - ',$row->expiration) : null;
-                    $start = (!empty($expiration)) ? date('Y-m-d',strtotime($expiration[0])) : date('Y-m-d');
-                    $end = (!empty($expiration)) ? date('Y-m-d',strtotime($expiration[1])) : date('Y-m-d',strtotime(date('Y/m/d')."+1 days"));
+                    $start = (!empty($expiration)) ? date('m/d/Y',strtotime($expiration[0])) : date('m/d/Y');
+                    $end = (!empty($expiration)) ? date('m/d/Y',strtotime($expiration[1])) : date('m/d/Y',strtotime(date('Y/m/d')."+1 days"));
                 @endphp
                 <input type="hidden" class="check-in-input" value="{{ $start }}" name="start">
                 <input type="hidden" class="check-out-input" value="{{ $end }}" name="end">

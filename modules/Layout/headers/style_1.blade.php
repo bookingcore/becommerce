@@ -1,4 +1,4 @@
-<div class="header-style-default header-style-1">
+<div class="header-style-1 header-style-default">
     <div class="bravo-container container">
         @include('Layout::headers.parts.main-header')
     </div>

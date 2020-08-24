@@ -555,11 +555,49 @@ jQuery(function ($) {
 
     $('.bravo-home-sliders').slick({
         infinite: true,
-        autoplay: true,
+        autoplay: false,
         autoplaySpeed: 3000,
+        dots: true,
         prevArrow: '<button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><i class="icon-chevron-left"></i></button>',
         nextArrow: '<button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><i class="icon-chevron-right"></i></button>',
     });
+    $('.martfury-tabs .tabs-nav, .product-list').slick({
+        infinite: false,
+        slidesToShow: 8,
+        slidesToScroll: 1,
+        prevArrow: '<span class="icon-chevron-left slick-prev-arrow"></span>',
+        nextArrow: '<span class="icon-chevron-right slick-next-arrow"></span>',
+        responsive: [
+            {
+                breakpoint: 992,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                }
+            },
+            {
+                breakpoint: 768,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                }
+            },
+        ]
+    });
+    $('.mf-products-of-category .images-list').slick({
+        infinite: true,
+        dots: true,
+        prevArrow: '<span class="icon-chevron-left slick-prev-arrow"></span>',
+        nextArrow: '<span class="icon-chevron-right slick-next-arrow"></span>',
+    });
+    $('.martfury-tabs .tabs-nav li').click(function (e) {
+        e.preventDefault();
+        let tab = $(this).data('tab');
+        $('.martfury-tabs .tabs-nav li, .martfury-tabs .tabs-nav li a, .martfury-tabs .tabs-content .tabs-panel').removeClass('active');
+        $(this).addClass('active');
+        $(this).find('a').addClass('active');
+        $(`#${tab}`).addClass('active')
+    })
 
     let w_width = $(window).width();
     let w_item = function (item = 6) {
@@ -574,7 +612,7 @@ jQuery(function ($) {
         }
         return item;
     };
-    $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .products, .product-related .products').slick({
+    $('.bravo_product-list.style-1 .products, .bravo_ProductInCategories .mf-products-tabs .products, .product-related .products').slick({
         infinite: false,
         arrows: false,
         dots: true,
@@ -652,7 +690,7 @@ jQuery(function ($) {
         $(this).closest('.mf-els-modal-mobile').removeClass('open');
         $('.mf-navigation-mobile .navigation-list a').not($('.navigation-mobile_home')).removeClass('active');
     });
-    $('.menu-item-has-children > a, .menu-item-has-children .menu-item-mega > a').on('click',function (e) {
+    $('.mobile-nav-content .menu-item-has-children > a, .mobile-nav-content .menu-item-has-children .menu-item-mega > a').on('click',function (e) {
         e.preventDefault();
         let p_item = $(this).closest('.menu-item-has-children');
         let p_item_child = $(this).parent().attr('class');

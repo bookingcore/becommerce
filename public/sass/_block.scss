@@ -11,7 +11,6 @@
         text-align: center;
         margin-bottom: 100px;
     }
-
     .bravo_callAaction{
         padding: 165px 0;
         h2{
@@ -185,6 +184,9 @@
                     right: 0;
                 }
             }
+            .slick-dots{
+                display: none!important;
+            }
         }
         .banner-big{
             @media (max-width: 1199px){
@@ -332,6 +334,70 @@
             }
         }
     }
+    .bravo-promotion-style-1{
+        margin-bottom: 20px;
+        @media (max-width: 991px) {
+            margin-bottom: 0;
+        }
+        .mf-banner-medium{
+            @media (max-width: 991px) {
+                margin-bottom: 30px;
+            }
+            .banner-content{
+                padding: 20px;
+                .s-content{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    position: relative;
+                    height: 100%;
+                    .title{
+                        font-weight: 400;
+                        line-height: 1em;
+                    }
+                    .desc-content{
+                        line-height: 1.2em;
+                    }
+                    .banner-price{
+                        display: block;
+                        top: 29%;
+                        left: 58%;
+                        position: absolute;
+                        transform: translate(-50%, -50%);
+                        border-radius: 50%;
+                        width: 60px;
+                        height: 60px;
+                        overflow: hidden;
+                        background-color: #f14705;
+                        color: #fff;
+                        text-align: center;
+                        line-height: 1;
+                        &.bottom{
+                            top: 62%;
+                            left: 48%;
+                        }
+                        .s-price{
+                            font-weight: 600;
+                            position: absolute;
+                            top: 50%;
+                            left: 0;
+                            right: 0;
+                            transform: translateY(-50%);
+                            text-align: center;
+                            line-height: 1;
+                            display: block;
+                            font-size: 16px;
+                        }
+                    }
+                }
+            }
+            .banner-image{
+                img{
+                    width: 100%;
+                }
+            }
+        }
+    }
     .bravo_categories{
         margin-bottom: 80px;
         @media (max-width: 1199px){
@@ -389,6 +455,315 @@
                     .box-title{
                         a{
                             font-size: 13px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .bravo_BannerHome2{
+        .ps-home-banner{
+            margin-top: 30px;
+            display: flex;
+            flex-flow: row nowrap;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            position: relative;
+            @media (max-width: 1199px){
+                justify-content: flex-start;
+            }
+            @media (max-width: 767px){
+                display: block;
+            }
+            >*{
+                width: 100%;
+                @media (max-width: 1199px){
+                    max-width: 50% !important;
+                }
+            }
+            .mf-banner-small{
+                position: relative;
+                .banner-featured-image{
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-size: cover;
+                    background-position: left top;
+                    background-color: #f8f8f8;
+                    background-repeat: no-repeat;
+                }
+                .banner-content{
+                    height: 187px;
+                    padding: 20px;
+                    text-align: left;
+                    border-style: solid;
+                    border-width: 0 1px 1px 0;
+                    border-color: #d9d9d9;
+                    position: relative;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    margin: 0;
+                    @media (max-width: 1199px){
+                        height: 175px;
+                    }
+                    @media (max-width: 991px){
+                        height: 152px;
+                    }
+                    @media (max-width: 767px){
+                        height: 187px;
+                    }
+                    &.bottom{
+                        justify-content: space-between;
+                    }
+                    .banner-title{
+                        color: #3078a6;
+                        font-size: 24px;
+                        font-weight: 300;
+                        line-height: 1.2em;
+                    }
+                }
+                .banner-desc{
+                    p{
+                        margin: 0;
+                    }
+                    .price{
+                        color: #669900;
+                        font-size: 24px;
+                        font-weight: 600;
+                        line-height: 1;
+                    }
+                }
+            }
+            .ps-section__left{
+                max-width: 270px;
+                background-color: #ffffff;
+                border: 1px solid #d3d3d3;
+                @media (max-width: 1199px){
+                    display: none;
+                }
+                .bravo-department-list .menu{
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    >li{
+                        padding: 0 20px;
+                        -webkit-transition: all .4s ease;
+                        transition: all .4s ease;
+                        margin: 0;
+                        .dropdown-submenu{
+                            display: none!important;
+                        }
+                        &:hover{
+                            background-color: #fcb800;
+                        }
+                        >a{
+                            display: block;
+                            padding: 10px 0;
+                            color: #000;
+                            line-height: 16px;
+                            i{
+                                margin-right: 10px;
+                                font-size: 18px;
+                                color: #3e81ac;
+                            }
+                        }
+                    }
+                }
+            }
+            .ps-section__center{
+                max-width: calc(100% - 640px);
+                @media (max-width: 991px){
+                    max-width: 60% !important;
+                }
+                @media (max-width: 767px){
+                    max-width: 100% !important;
+                }
+                .bravo-home-sliders{
+                    overflow: hidden;
+                    max-height: 375px;
+                    border-width: 1px 1px 1px 0;
+                    border-color: #d3d3d3;
+                    border-style: solid;
+                    @media (max-width: 1199px){
+                        max-height: 350px;
+                    }
+                    @media (max-width: 991px){
+                        max-height: 305px;
+                    }
+                    @media (max-width: 767px){
+                        border-width: 1px;
+                    }
+                    .slick-arrow{
+                        display: none!important;
+                    }
+                    .slick-dots{
+                        margin: 0;
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        bottom: 13px;
+                        li{
+                            &.slick-active{
+                                button{
+                                    background: #fcb800;
+                                    border: 1px solid #fcb800;
+                                }
+                            }
+                            button{
+                                border: 1px solid transparent;
+                                background-color: rgba(255,255,255,0.5);
+                                &:focus{
+                                    outline: none;
+                                }
+                            }
+                        }
+                    }
+                }
+                img{
+                    width: 100%;
+                    display: inline-block;
+                }
+            }
+            .ps-section__right{
+                max-width: 382px;
+                display: flex;
+                flex-flow: row wrap;
+                align-items: flex-start;
+                justify-content: flex-start;
+                @media (max-width: 767px){
+                    max-width: 100% !important;
+                }
+                .mf-banner-small{
+                    width: 50%;
+                    &:nth-child(3){
+                        width: 100%;
+                    }
+                    .banner-content{
+                        padding: 15px;
+                        .banner-title{
+                            color: #3078a6;
+                            font-size: 14px;
+                            font-weight: 600;
+                            line-height: 1.2em;
+                        }
+                        .banner-desc{
+                            .price, .sub_price{
+                                font-size: 14px;
+                                display: block;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .bravo_promotion2{
+        margin-bottom: 20px;
+    }
+    .BestSellerBrands{
+        margin-bottom: 50px;
+        .best_seller__header{
+            h3{
+                font-size: 20px;
+                font-weight: 600;
+                margin: 30px 0 24px;
+                line-height: 1;
+                color: #000;
+                text-align: left;
+            }
+        }
+        .best_seller__content{
+            background-color: #ffffff;
+            display: flex;
+            align-items: stretch;
+            flex-wrap: wrap;
+            .image-item{
+                display: flex;
+                margin-bottom: 0;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                flex: 0 0 20%;
+                max-width: 20%;
+                @media (max-width: 767px){
+                    flex: 0 0 50%;
+                    max-width: 50%;
+                    &:nth-child(-n+2){
+                        .image-item__wrapper{
+                            border-top-width: 1px;
+                        }
+                    }
+                    &:nth-child(2n+1){
+                        .image-item__wrapper{
+                            border-left-width: 1px;
+                        }
+                    }
+                }
+                @media (min-width: 768px){
+                    &:nth-child(-n+5){
+                        .image-item__wrapper{
+                            border-top-width: 1px;
+                        }
+                    }
+                    &:nth-child(5n+1){
+                        .image-item__wrapper{
+                            border-left-width: 1px;
+                        }
+                    }
+                }
+
+                .image-item__wrapper{
+                    padding: 10px;
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100%;
+                    border-width: 0 1px 1px 0;
+                    border-color: #c6c6c6;
+                    border-style: solid;
+                }
+            }
+        }
+    }
+    .SearchTrending{
+        margin-bottom: 70px;
+        .mf-category-tabs{
+            .tabs-title{
+                h2{
+                    color: #000000;
+                    font-size: 20px;
+                    font-weight: 600;
+                }
+            }
+            .martfury-tabs{
+                .tabs-header {
+                    ul{
+                        li{
+                            a{
+                                &.active{
+                                    .mf-icon{
+                                        color: #fcb800;
+                                    }
+                                }
+                                .mf-icon{
+                                    color: #3078a6;
+                                }
+                            }
+                        }
+                    }
+                }
+                .tabs-content{
+                    .tabs-panel{
+                        ul{
+                            li{
+                                @media (max-width: 767px){
+                                    width: 50%;
+                                }
+                            }
                         }
                     }
                 }

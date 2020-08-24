@@ -8,7 +8,6 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
             @endforeach
         @endif
     }
-
     .bravo-booking-page .form-actions .btn,
     .bravo_detail_product .col-product-info .product-detail-gallery .flex-control-nav li a.flex-active,
     .bravo_footer .bravo_footer_menu .mf-els-modal-mobile .mf-cart-mobile .widget-canvas-content .widget_shopping_cart_content .cart__footer figure a.checkout,
@@ -26,7 +25,6 @@ $style_typo = json_decode(setting_item_with_lang('style_typo',false,"{}"),true);
     .product-detail-add-to-cart .btn.buy_now,
     .site-footer .footer-newsletter .newsletter-form .mc4wp-form-fields input[type=submit],
     .mf-banner-large .banner-price .link,
-    .bravo-header .header-style-default,
     .bravo-header .products-cats-menu .menu > li:hover,
     ul.products li.product .product-inner .mf-product-thumbnail .footer-button a:hover,
     .mf-banner-medium.layout-2 .banner-content .link, .mf-banner-medium.layout-3 .banner-content .link, .mf-banner-medium.layout-4 .banner-content .link, .mf-banner-medium.layout-5 .banner-content .link,

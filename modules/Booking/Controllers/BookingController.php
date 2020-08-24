@@ -39,6 +39,7 @@ class BookingController extends \App\Http\Controllers\Controller
             'page_title' => __('Checkout'),
             'gateways'   => $this->getGateways(),
             'user'       => Auth::user(),
+            'show_breadcrumb'   =>  0,
             'breadcrumbs'=>[
                 ['name'=>__("Checkout"),'class'=>'active']
             ]
@@ -131,6 +132,7 @@ class BookingController extends \App\Http\Controllers\Controller
             'page_title' => __('Cart'),
             'user'       => Auth::user(),
             'message'  => $message,
+            'show_breadcrumb'   => 0,
             'breadcrumbs'=>[
                 ['name'=>__("Cart"),'class'=>'active']
             ],

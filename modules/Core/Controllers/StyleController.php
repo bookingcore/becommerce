@@ -7,9 +7,11 @@ use Modules\Core\Models\Settings;
 class StyleController extends Controller
 {
     public function customCss(){
+//        Cache::forget('custom_css_' . app()->getLocale());
         $value = Cache::rememberForever('custom_css_' . app()->getLocale(), function (){
             return view('Layout::parts.custom-css')->render();
         });
+
         return response($value,200,[
             'Content-Type'=>'text/css; charset=UTF-8'
         ]);

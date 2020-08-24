@@ -14,7 +14,7 @@
          */
         public function run()
         {
-
+            $c_background = DB::table('media_files')->insertGetId( ['file_name' => 'homepage-2-background', 'file_path' => 'demo/templates/homepage-2-background.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']);
             DB::table('core_settings')->insert(
                 [
                     [
@@ -134,6 +134,17 @@
                 'title'       => 'Become a Vendor',
                 'slug'        => 'become-a-vendor',
                 'template_id' => '1',
+                'create_user' => '1',
+                'status'      => 'publish',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+
+            DB::table('core_pages')->insert([
+                'title'       => 'Home page 2',
+                'slug'        => 'home-page-2',
+                'c_background'=> $c_background,
+                'template_id' => '3',
+                'page_style'  => '{"header":"1","footer":"1"}',
                 'create_user' => '1',
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")

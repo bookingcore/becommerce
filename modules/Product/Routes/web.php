@@ -13,6 +13,7 @@ Route::group(['prefix'=>'category'],function(){
     Route::get('/{slug}','ProductController@categoryIndex')->name('product.category.index'); // Search
 });
 
+Route::get('/your-recent-viewed','ProductController@recent_viewed')->name('product.recent.viewed');
 Route::get('/store-list', 'ProductController@store_list')->name('product.vendor.store');
 
 Route::group(['prefix'=>'vendor/product','middleware' => ['auth','verified']],function(){

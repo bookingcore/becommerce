@@ -150,6 +150,9 @@ class Template extends BaseModel
                 $setting['model'] = $setting['id'];
                 $val = $setting['std'] ?? '';
                 switch ($setting['type']) {
+                    case "listItem":
+                        $val = [];
+                        break;
                     default:
                         break;
                 }

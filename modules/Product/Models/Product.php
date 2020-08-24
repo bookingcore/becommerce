@@ -421,9 +421,6 @@ class Product extends BaseProduct
         }));
     }
 
-
-
-
     public function categories(){
         return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
     }

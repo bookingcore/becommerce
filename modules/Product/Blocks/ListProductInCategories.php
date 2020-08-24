@@ -12,6 +12,21 @@ class ListProductInCategories extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'            => 'style_list',
+                    'type'          => 'radios',
+                    'label'         => __('Style Item'),
+                    'values'        => [
+                        [
+                            'value'   => '0',
+                            'name' => __("Default"),
+                        ],
+                        [
+                            'value'   => '1',
+                            'name' => __("Style 1")
+                        ]
+                    ]
+                ],
+                [
                     'id'        => 'title',
                     'type'      => 'input',
                     'inputType' => 'text',
@@ -75,6 +90,57 @@ class ListProductInCategories extends BaseBlock
                         'hideNoneSelectedText' => "true"
                     ]
                 ],
+                [
+                    'id'        => 'link_all',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Link view all')
+                ],
+                [
+                    'id'          => 'sliders',
+                    'type'        => 'listItem',
+                    'label'       => __('Slider (Don\'t use sliders for the default theme)'),
+                    'title_field' => 'title',
+                    'settings'    => [
+                        [
+                            'id'        => 'title',
+                            'type'      => 'input',
+                            'inputType' => 'textArea',
+                            'label'     => __('Title')
+                        ],
+                        [
+                            'id'        => 'link',
+                            'type'      => 'input',
+                            'inputType' => 'textArea',
+                            'label'     => __('Link')
+                        ],
+                        [
+                            'id'    => 'image',
+                            'type'  => 'uploader',
+                            'label' => __('Image Slider')
+                        ],
+                    ]
+                ],
+                [
+                    'id'          => 'custom_link',
+                    'type'        => 'listItem',
+                    'label'       => __('Custom Link (Don\'t use custom link for the default theme)'),
+                    'title_field' => 'title',
+                    'settings'    => [
+                        [
+                            'id'        => 'title',
+                            'type'      => 'input',
+                            'inputType' => 'textArea',
+                            'label'     => __('Title')
+                        ],
+                        [
+                            'id'        => 'link',
+                            'type'      => 'input',
+                            'inputType' => 'textArea',
+                            'label'     => __('Link')
+                        ]
+                    ]
+                ],
             ]
         ]);
     }
@@ -106,8 +172,11 @@ class ListProductInCategories extends BaseBlock
             'rows'       => $list,
             'title'      => $model['title'],
             'all_product'=> $model['link_product'],
-            'link'       => $product_url,
-            'blocks'     => 'product_in_cats'
+            'style'       => $model['style_list'] ?? 0,
+            'sliders'    => $model['sliders'] ?? '',
+            'custom_link'=> $model['custom_link'] ?? '',
+            'blocks'     => 'product_in_cats',
+            'link_all'   => $model['link_all'] ?? ''
         ];
         return view('Product::frontend.blocks.list-product-in-categories.index', $data);
     }
