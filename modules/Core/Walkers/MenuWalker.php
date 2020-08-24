@@ -50,9 +50,9 @@ class MenuWalker
                 $class.=' is-mega-menu';
             }
 
-            printf('<li class="menu-item %s">', $class);
+            printf('<li class="menu-item %s">', e($class));
 
-            printf('<a  target="%s" href="%s" >%s</a>', $item['target'], $url, $item['name']);
+            printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), e($item['name']));
             if (!empty($item['children'])) {
                 echo '<ul class="children-menu dropdown-submenu">';
                 if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
@@ -93,9 +93,9 @@ class MenuWalker
                                 $class.=' menu-item-has-children';
                             }
 
-                            printf('<div class="%s mega-menu-col col">', $class);
+                            printf('<div class="%s mega-menu-col col">', e($class));
                             echo '<div class="menu-item-mega">';
-                                printf('<a  target="%s" href="%s" >%s</a>', $item['target'], $url, $item['name']);
+                                printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), e($item['name']));
                                 if (!empty($item['children'])) {
                                     echo '<div class="mega-menu-submenu">';
                                         echo '<ul class="sub-menu check">';

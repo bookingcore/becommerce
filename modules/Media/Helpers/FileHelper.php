@@ -183,7 +183,7 @@ class FileHelper
         ob_start();
         ?>
         <div class="dungdt-upload-multiple <?php if (!empty($file))
-            echo 'active' ?>" data-val="<?php echo $oldValue ?>">
+            echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
             <div class="attach-demo d-flex">
                 <?php
                 foreach ($oldIds as $id) {
