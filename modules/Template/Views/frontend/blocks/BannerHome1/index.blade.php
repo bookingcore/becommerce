@@ -17,7 +17,7 @@
                     <div class="row">
                         @foreach($saleOff as $item)
                             <div class="col-md-12 col-xs-12">
-                                <div class="mf-banner-small has-img" {!! !empty($item['color']) ? 'style="background-color: '.$item['color'].'"' : '' !!}>
+                                <div class="mf-banner-small has-img" @if(!empty($item['color'])) style="background-color: '{{$item['color']}}'" @endif >
                                     <div class="b-image">{!! get_image_tag($item['image'], 'full') ?? '' !!}</div>
                                     <a class="link" href="{{$item['link'] ?? '#'}}"></a>
                                     <div class="box-price">

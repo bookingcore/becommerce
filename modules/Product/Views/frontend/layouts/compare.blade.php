@@ -46,35 +46,35 @@
         @endphp
         <tr class="remove">
             <th style="width: calc(100%/{!! $compare_count !!})"></th>
-            {!! $c_remove !!}
+            {!! clean($c_remove) !!}
         </tr>
         <tr class="image">
             <th></th>
-            {!! $c_image !!}
+            {!! clean($c_image) !!}
         </tr>
         <tr class="title">
             <th></th>
-            {!! $c_title !!}
+            {!! clean($c_title) !!}
         </tr>
         <tr class="price">
             <th></th>
-            {!! $c_price !!}
+            {!! clean($c_price) !!}
         </tr>
         <tr class="add-to-cart">
             <th></th>
-            {!! $c_add !!}
+            {!! clean($c_add) !!}
         </tr>
         <tr class="description">
             <th>{{ __('Description') }}</th>
-            {!! $c_desc !!}
+            {!! clean($c_desc) !!}
         </tr>
         <tr class="stock">
             <th>{{ __('Availability') }}</th>
-            {!! $stock !!}
+            {!! clean($stock) !!}
         </tr>
         <tr class="stock">
             <th>{{ __('Brand') }}</th>
-            {!! $brand !!}
+            {!! clean($brand) !!}
         </tr>
         @if(!empty($attributes = \Modules\Core\Models\Attributes::all()))
             @foreach($attributes as $item)
