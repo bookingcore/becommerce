@@ -29,7 +29,7 @@ return [
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
             'Attr.EnableID' => true,
-            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-target,data-toggle,data-tab'
+            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-target,data-toggle,data-tab,data-product'
         ],
         "youtube" => [
             "HTML.SafeIframe"      => 'true',
@@ -100,6 +100,7 @@ return [
             ['li', 'data-tab', 'CDATA'],
             ['a', 'data-toggle', 'CDATA'],
             ['a', 'data-target', 'CDATA'],
+            ['a', 'data-product', 'CDATA'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
