@@ -108,6 +108,7 @@ class ProductController extends Controller
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => $categories,
+            'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
                     'url'=>'',
@@ -172,16 +173,29 @@ class ProductController extends Controller
         ];
     }
 
-
+    public function recently_viewed($row){
+        $p_recently = (!empty(session('product_recently'))) ? session('product_recently') : [];
+        if (count($p_recently)){
+            if (!in_array($row,$p_recently)){
+                array_push($p_recently, $row);
+                session(['product_recently'=>$p_recently]);
+            } else {
+                return false;
+            }
+        } else {
+            $item[] = $row;
+            session(['product_recently'=>$item]);
+        }
+    }
 
     public function detail(Request $request, $slug)
     {
-        $row = $this->product::where('slug', $slug)->first();
+        $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
+        $this->recently_viewed($row->id);
         if(empty($row) or (!empty($row) and $row->status != 'publish' and  Auth::id() != $row->create_user)){
             abort(404);
             return;
         }
-
         $product_variations = $this->product_variations($row);
         $translation = $row->translateOrOrigin(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
@@ -216,6 +230,7 @@ class ProductController extends Controller
             'review_list'  => $review_list,
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
+            'show_breadcrumb' => 0,
             'breadcrumbs'=> $c_breadcrumbs,
             'variations_product'    =>  json_encode($product_variations['variations_product']),
             'attrs_list' =>  $product_variations['attr_list'],
@@ -314,6 +329,24 @@ class ProductController extends Controller
             'count' =>  count($n_compare),
             'view'  =>  view('Product::frontend.layouts.compare', $data)->render()
         ];
+    }
+
+    public function recent_viewed(){
+        $products = '';
+        if (!empty($recently = session('product_recently'))){
+            $products = Product::whereIn('id',$recently)->limit(20)->get();
+        }
+        $data = [
+            'page_title'         =>  __('Your Recently Viewed'),
+            'rows'   =>  $products,
+            'breadcrumbs'   =>  [
+                [
+                    'url'=>'',
+                    'name'=> __('Your Recently Viewed')
+                ]
+            ]
+        ];
+        return view('Product::frontend.your-recent-viewed',$data);
     }
 
     public function store_list(){

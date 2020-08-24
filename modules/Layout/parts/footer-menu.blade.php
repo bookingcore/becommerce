@@ -14,7 +14,7 @@
             <div class="mobile-nav-content">
                 <div class="mobile-nav-overlay"></div>
                 <div class="mobile-nav-header">
-                    <h2>Shop By Departments</h2>
+                    <h2>{{ __('Shop By Departments') }}</h2>
                     <a class="close-mobile-nav"><i class="icon-cross"></i></a>
                 </div>
                 @include('Layout::headers.parts.department')
@@ -22,7 +22,8 @@
         </div>
         <div id="mf-cart-mobile" class="mf-cart-mobile mf-els-item mini-cart">
             <div class="mobile-cart-header">
-                <h2>Shopping Cart</h2>        <a class="close-cart-mobile"><i class="icon-cross"></i></a>
+                <h2>{{ __('Shopping Cart') }}</h2>
+                <a class="close-cart-mobile"><i class="icon-cross"></i></a>
             </div>
 
             <div class="widget-canvas-content">

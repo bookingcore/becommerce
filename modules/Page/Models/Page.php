@@ -21,7 +21,10 @@ class Page extends BaseModel
         'image_id',
         'slug',
         'template_id',
-        'page_style'
+        'page_style',
+        'show_breadcrumb',
+        'page_style',
+        'c_background'
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';

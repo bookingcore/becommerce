@@ -62,6 +62,40 @@
 <hr>
 <div class="row">
     <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Header & Footer Style")}}</h3>
+        <p class="form-group-desc">{{__('Change style for header and footer')}}</p>
+    </div>
+    <div class="col-sm-8">
+        @php $style_id = json_decode(setting_item('homepage_style')) ?? '' @endphp
+        <div class="panel">
+            <div class="panel-title"><strong>{{__('Header & Footer Style')}}</strong></div>
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>{{ __('Header style') }}</label>
+                    <select name="homepage_style[header]" class="form-control">
+                        @if(!empty(list_homepage_style()))
+                            @foreach(list_homepage_style() as $key => $style)
+                                <option @if(!empty($style_id->header) && $style_id->header == $key) selected @endif value="{{ $key }}">{{ $style }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                    <hr>
+                    <label>{{ __('Footer style') }}</label>
+                    <select name="homepage_style[footer]" class="form-control">
+                        @if(!empty(list_homepage_style()))
+                            @foreach(list_homepage_style() as $key => $style)
+                                <option @if(!empty($style_id->footer) && $style_id->footer == $key) selected @endif value="{{ $key }}">{{ $style }}</option>
+                            @endforeach
+                        @endif
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="row">
+    <div class="col-sm-4">
         <h3 class="form-group-title">{{__("Custom CSS")}}</h3>
         <p class="form-group-desc">{{__('Write your own custom css code')}}</p>
     </div>

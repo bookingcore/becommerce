@@ -90,7 +90,8 @@ class SettingsController extends AdminController
                 $keys = [
                     'style_main_color',
                     'style_custom_css',
-                    'style_typo'
+                    'style_typo',
+                    'homepage_style',
                 ];
                 break;
             case 'advance':

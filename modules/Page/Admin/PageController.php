@@ -106,8 +106,10 @@ class PageController extends AdminController
             $this->checkPermission('page_create');
             $row = new Page();
         }
-
-        $row->fill($request->input());
+        $n_request = $request->input();
+        $n_request['page_style'] = json_encode($n_request['page_style']);
+        $n_request['c_background'] = json_encode($n_request['c_background']);
+        $row->fill($n_request);
 
         $row->saveOriginOrTranslation($request->query('lang'),true);
 

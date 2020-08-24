@@ -24,6 +24,7 @@ class ProfileController extends FrontendController
 
         $data['user'] = $user;
         $data['page_title'] = $user->getDisplayName();
+        $data['show_breadcrumb'] = 0;
         $data['breadcrumbs'] = [
             ['name'=>$user->getDisplayName()],
         ];

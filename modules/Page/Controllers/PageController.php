@@ -32,6 +32,7 @@ class PageController extends Controller
          * @var Page $page
          * @var PageTranslation $translation
          */
+
         $slug = request()->route('slug');
 
         $page = Page::where('slug', $slug)->first();
@@ -42,9 +43,12 @@ class PageController extends Controller
         $translation = $page->translateOrOrigin(app()->getLocale());
         $data = [
             'row' => $page,
+            'p_style'   => $page->page_style,
+            'c_background' => $page->c_background,
+            'show_breadcrumb'   => $page->show_breadcrumb,
             'translation' => $translation,
             'seo_meta'  => $page->getSeoMetaWithTranslation(app()->getLocale(),$translation),
-            'body_class'  => "page",
+            'body_class'  => "page {$page->slug}",
             'breadcrumbs' => [
                 ['name' => $page->title,'class' => 'active'],
             ],

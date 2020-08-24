@@ -22,8 +22,10 @@ class CreateTableCorePages extends Migration
             $table->string('status',50)->nullable();
             $table->dateTime('publish_date')->nullable();
             $table->integer('image_id')->nullable();
+            $table->integer('c_background')->nullable();
             $table->integer('template_id')->nullable();
-
+            $table->string('page_style',100)->nullable();
+            $table->tinyInteger('show_breadcrumb')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->softDeletes();

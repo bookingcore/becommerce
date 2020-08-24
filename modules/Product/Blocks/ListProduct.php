@@ -15,15 +15,15 @@ class ListProduct extends BaseBlock
                 [
                     'id'            => 'style_list',
                     'type'          => 'radios',
-                    'label'         => ('Style Item'),
+                    'label'         => __('Style Item'),
                     'values'        => [
                         [
                             'value'   => '1',
-                            'name' => ("Style 1")
+                            'name' => __("Style 1"),
                         ],
                         [
                             'value'   => '2',
-                            'name' => ("Style 2")
+                            'name' => __("Style 2")
                         ]
                     ]
                 ],

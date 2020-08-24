@@ -92,11 +92,13 @@
     <link href="{{ route('core.style.customCss') }}" rel="stylesheet">
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
+@php $page_style = (!empty($p_style)) ? json_decode($p_style) : json_decode(setting_item('homepage_style')); @endphp
 <body class="{{$body_class ?? ''}}">
     {!! clean(setting_item('body_scripts')) !!}
     <div class="bravo_wrap">
         @include('Layout::parts.header')
-        @if(!isset($is_homepage))
+
+        @if(isset($show_breadcrumb) && $show_breadcrumb == 0)
             @include('Layout::parts.bc')
         @endif
         @yield('content')

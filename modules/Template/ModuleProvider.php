@@ -30,8 +30,11 @@ class ModuleProvider extends ModuleServiceProvider
             'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",
             'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
             'BannerHome1' =>"\\Modules\\Template\\Blocks\\BannerHome1",
+            'BannerHome2' =>"\\Modules\\Template\\Blocks\\BannerHome2",
             'HomeFee' =>"\\Modules\\Template\\Blocks\\HomeFee",
             'Promotion' =>"\\Modules\\Template\\Blocks\\Promotion",
+            'BestSellerBrands' =>"\\Modules\\Template\\Blocks\\BestSellerBrands",
+            'SearchTrending' =>"\\Modules\\Template\\Blocks\\SearchTrending",
         ];
     }
 

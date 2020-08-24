@@ -25,14 +25,15 @@ return [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
             'HTML.Allowed'             => 'div[class|id],b,strong,i[class],em,u,a[class|href|title],ul[class],ol[class],li[class],p[style|class|id],br,span[style|class|id],img[width|height|alt|src|class],ins,del,h1[class|id],h2[class|id],h3[class|id],h4[class|id],h5[class|id],h6',
-            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,background',
+            'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,background,background-image,margin,width',
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
-            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style'
+            'Attr.EnableID' => true,
+            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-tab'
         ],
-        'test'    => [
-            'Attr.EnableID' => 'true',
-        ],
+        /*'test'    => [
+            'Attr.EnableID' => true,
+        ],*/
         "youtube" => [
             "HTML.SafeIframe"      => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
@@ -99,6 +100,7 @@ return [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
             ['div', 'data', 'CDATA'],
             ['img', 'data-src', 'CDATA'],
+            ['li', 'data-tab', 'CDATA'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],

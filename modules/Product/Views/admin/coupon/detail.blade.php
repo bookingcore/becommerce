@@ -62,7 +62,7 @@
                     minDate: today,
                     opens: bookingCore.rtl ? 'right':'left',
                     locale: {
-                        format: "YYYY-MM-DD",
+                        format: "MM/DD/YYYY",
                         direction: bookingCore.rtl ? 'rtl':'ltr',
                         firstDay:daterangepickerLocale.first_day_of_week
                     }
@@ -76,7 +76,7 @@
                         if (picker.endDate.diff(picker.startDate, 'day') <= 0) {
                             picker.endDate.add(1, 'day');
                         }
-                        check_in_out.val( picker.startDate.format("YYYY-MM-DD") + " - "+  picker.endDate.format("YYYY-MM-DD") )
+                        check_in_out.val( picker.startDate.format("MM/DD/YYYY") + " - "+  picker.endDate.format("MM/DD/YYYY") )
                     });
                 date_wrapper.on('click',function (e) {
                     check_in_out.trigger('click');

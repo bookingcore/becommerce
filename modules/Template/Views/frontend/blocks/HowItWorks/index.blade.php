@@ -1,8 +1,8 @@
 <div class="bravo_HowItWorks">
     <div class="container">
-        <h4 class="bravo-header-title mf-semi-bold">HOW IT WORKS</h4>
+        <h4 class="bravo-header-title mf-semi-bold">{{ $title }}</h4>
         <h2 style="font-size: 30px;text-align: center" class="bravo-sub-title mf-regular">
-            Easy to start selling online on Martfury just 4 simple steps
+            {{ $sub_title }}
         </h2>
         <div class="martfury-process ">
             <div class="list-process">

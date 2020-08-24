@@ -13,24 +13,39 @@ class Promotion extends BaseBlock
                 [
                     'id'            => 'colItem',
                     'type'          => 'radios',
-                    'label'         => ('Item Per Rows'),
+                    'label'         => __('Item Per Rows'),
                     'values'        => [
                         [
                             'value'   => '6',
-                            'name' => ("2 Item")
+                            'name' => __("2 Item")
                         ],
                         [
                             'value'   => '4',
-                            'name' => ("3 Item")
+                            'name' => __("3 Item")
                         ],
                         [
                             'value'   => '3',
-                            'name' => ("4 Item")
+                            'name' => __("4 Item")
                         ],
                         [
                             'value'   => 'big_and_small',
-                            'name' => ("Big & Small")
+                            'name' => __("Big & Small (Only use for default template)")
                         ]
+                    ]
+                ],
+                [
+                    'id'            => 'styleItem',
+                    'type'          => 'radios',
+                    'label'         => __('Style Item'),
+                    'values'        => [
+                        [
+                            'value'   => '0',
+                            'name' => __("Default")
+                        ],
+                        [
+                            'value'   => '1',
+                            'name' => __("Style 1")
+                        ],
                     ]
                 ],
                 [
@@ -64,6 +79,21 @@ class Promotion extends BaseBlock
                             'label'     => __('Discount Percent')
                         ],
                         [
+                            'id'            => 'discount_position',
+                            'type'          => 'radios',
+                            'label'         => __('Discount position (Not used for default template)'),
+                            'values'        => [
+                                [
+                                    'value'   => 'top',
+                                    'name' => __("Top")
+                                ],
+                                [
+                                    'value'   => 'bottom',
+                                    'name' => __("Bottom")
+                                ],
+                            ]
+                        ],
+                        [
                             'id'        => 'link',
                             'type'      => 'input',
                             'inputType' => 'text',
@@ -93,6 +123,11 @@ class Promotion extends BaseBlock
 
     public function content($model = [])
     {
+        $model = [
+            'style' =>  $model['styleItem'] ?? 0,
+            'item'  =>  $model['item'],
+            'colItem' =>$model['colItem']
+        ];
         return view('Template::frontend.blocks.Promotion.index', $model);
     }
 }

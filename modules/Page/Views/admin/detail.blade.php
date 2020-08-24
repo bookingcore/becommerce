@@ -64,6 +64,9 @@
                         </div>
                         @if(is_default_lang())
                             <div class="panel">
+                                @php
+                                    $page_style = ($row->page_style) ? json_decode($row->page_style) : '';
+                                @endphp
                                 <div class="panel-title"><strong>{{__('Template Setting')}}</strong></div>
                                 <div class="panel-body">
                                     <select name="template_id" class="form-control">
@@ -74,6 +77,46 @@
                                             @endforeach
                                         @endif
                                     </select>
+                                    <hr>
+                                    <label>{{ __('Page Header Style') }}</label>
+                                    <select name="page_style[header]" class="form-control">
+                                        @if(list_homepage_style())
+                                            @foreach(list_homepage_style() as $key => $item)
+                                                <option @if ($page_style->header == $key) selected @endif value="{{$key}}">{{$item}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <hr>
+                                    <label>{{ __('Page Footer Style') }}</label>
+                                    <select name="page_style[footer]" class="form-control">
+                                        @if(list_homepage_style())
+                                            @foreach(list_homepage_style() as $key => $item)
+                                                <option @if ($page_style->footer == $key) selected @endif value="{{$key}}">{{$item}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <hr>
+                                    <label>{{ __('Show Breadcrumb') }}</label>
+                                    <div class="show-breadcrumb">
+                                        <label><input @if($row->show_breadcrumb=='0' || empty($row->show_breadcrumb)) checked @endif type="radio" name="show_breadcrumb" value="0"> {{__("On")}}</label>
+                                        <label><input @if($row->show_breadcrumb=='1') checked @endif type="radio" name="show_breadcrumb" value="1"> {{__("Off")}}</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    @php
+                                        $background = (!empty(json_decode($row->c_background))) ? json_decode($row->c_background) : '';
+                                        $bg_image = (isset($background->image)) ? $background->image : '';
+                                    @endphp
+                                    <h3 class="panel-body-title">{{ __('Content Background')}}</h3>
+                                    <div class="form-group">
+                                        <label>{{ __('Color:') }}</label>
+                                        <input type="color" name="c_background[color]" class="form-control" value="{{(isset($background->color)) ? $background->color : '#FFFFFF'}}">
+                                        <hr>
+                                        <label>{{ __('Image:') }}</label>
+                                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('c_background[image]',$bg_image) !!}
+                                    </div>
                                 </div>
                             </div>
                             <div class="panel">
