@@ -17,9 +17,9 @@
                 <div id="gateway_{{$k}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
                     <div class="card-body">
                         <div class="gateway_name">
-                            {!! $gateway->getDisplayName() !!}
+                            {!! clean($gateway->getDisplayName()) !!}
                         </div>
-                        {!! $gateway->getDisplayHtml() !!}
+                        {!! clean($gateway->getDisplayHtml()) !!}
                     </div>
                 </div>
             </div>

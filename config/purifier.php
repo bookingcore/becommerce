@@ -29,11 +29,8 @@ return [
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
             'Attr.EnableID' => true,
-            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-tab'
+            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-target,data-toggle,data-tab'
         ],
-        /*'test'    => [
-            'Attr.EnableID' => true,
-        ],*/
         "youtube" => [
             "HTML.SafeIframe"      => 'true',
             "URI.SafeIframeRegexp" => "%^(http://|https://|//)(www.youtube.com/embed/|player.vimeo.com/video/)%",
@@ -101,6 +98,8 @@ return [
             ['div', 'data', 'CDATA'],
             ['img', 'data-src', 'CDATA'],
             ['li', 'data-tab', 'CDATA'],
+            ['a', 'data-toggle', 'CDATA'],
+            ['a', 'data-target', 'CDATA'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
