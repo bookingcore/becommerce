@@ -24,12 +24,12 @@ return [
     'settings'      => [
         'default' => [
             'HTML.Doctype'             => 'HTML 4.01 Transitional',
-            'HTML.Allowed'             => 'div[class|id],b,strong,i[class],em,u,a[class|href|title],ul[class],ol[class],li[class],p[style|class|id],br,span[style|class|id],img[width|height|alt|src|class],ins,del,h1[class|id],h2[class|id],h3[class|id],h4[class|id],h5[class|id],h6',
+            'HTML.Allowed'             => 'div[class|id|title],b,strong,i[class|id|title],em,u,a[class|href|title],ul[class],ol[class],li[class],p[style|class|id],br,span[style|class|id],img[width|height|alt|src|class],ins,del,h1[class|id],h2[class|id],h3[class|id],h4[class|id],h5[class|id],h6',
             'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,background,background-image,margin,width',
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
             'Attr.EnableID' => true,
-            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-target,data-toggle,data-tab,data-product'
+            'HTML.AllowedAttributes'=>'title,src,data-src,class,id,href,alt,style,data-target,data-toggle,data-tab,data-product,data-id,data-type'
         ],
         "youtube" => [
             "HTML.SafeIframe"      => 'true',
@@ -96,9 +96,13 @@ return [
         'custom_attributes' => [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
             ['div', 'data', 'CDATA'],
+            ['div', 'data-id', 'CDATA'],
+            ['div', 'data-type', 'CDATA'],
             ['img', 'data-src', 'CDATA'],
             ['li', 'data-tab', 'CDATA'],
             ['a', 'data-toggle', 'CDATA'],
+            ['i', 'data-toggle', 'CDATA'],
+            ['div', 'data-toggle', 'CDATA'],
             ['a', 'data-target', 'CDATA'],
             ['a', 'data-product', 'CDATA'],
         ],
