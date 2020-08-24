@@ -671,32 +671,27 @@ function is_default_lang($lang = '')
 function get_lang_switcher_url($locale = false){
 
     $request =  request();
+    $data = $request->query();
+    $data['set_lang'] = $locale;
 
-    $segments = $request->segments();
+    $url = url()->current();
 
-    if(empty($segments[0])){
-        // Set the default language code as the first segment
-        $segments = \Illuminate\Support\Arr::prepend($segments, $locale);
-    }
-    if(!empty($segments[0])){
+    $url.='?'.http_build_query($data);
 
-        $lang = \Modules\Language\Models\Language::findByLocale($segments[0]);
-        if(!empty($lang))
-        {
-            $segments[0] = $locale;
-        }else{
-            $segments = \Illuminate\Support\Arr::prepend($segments, $locale);
-        }
-    }
-
-    $url = implode('/', $segments);
-
-    if(!empty($request->query())){
-        $url.='?'.http_build_query($request->query());
-    }
     return url($url);
 }
+function get_currency_switcher_url($code = false){
 
+    $request =  request();
+    $data = $request->query();
+    $data['set_currency'] = $code;
+
+    $url = url()->current();
+
+    $url.='?'.http_build_query($data);
+
+    return url($url);
+}
 function translate_or_origin($key,$settings = [],$locale = '')
 {
     if(empty($locale)) $locale = request()->query('lang');
