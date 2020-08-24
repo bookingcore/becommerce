@@ -44,7 +44,7 @@
             'city',
             'state',
             'country',
-            'zip_code',
+            'postcode',
             'last_login_at',
             'avatar_id',
             'bio',

@@ -172,8 +172,8 @@ class UserController extends FrontendController
                                      'messages' => $validator->errors()
             ], 200);
         } else {
-            $email = $request->input('email');
-            $password = $request->input('password');
+            $email = e($request->input('email'));
+            $password = e($request->input('password'));
             if (Auth::attempt(['email'    => $email,
                                'password' => $password
             ], $request->has('remember'))) {
@@ -188,10 +188,11 @@ class UserController extends FrontendController
 
                 }
 
+                $url = strip_tags(e($request->input('redirect')));
                 return response()->json([
                     'error'    => false,
                     'messages' => false,
-                    'redirect' => $request->input('redirect') ?? url(app_get_locale(false,'/'))
+                    'redirect' => $url ?? url(app_get_locale(false,'/'))
                 ], 200);
             } else {
                 $errors = new MessageBag(['message_error' => __('Username or password incorrect')]);
@@ -257,10 +258,10 @@ class UserController extends FrontendController
         ], 200);
     } else {
         $user = \App\User::create([
-            'first_name'     => $request->input('first_name'),
-            'last_name'     => $request->input('last_name'),
-            'email'    => $request->input('email'),
-            'password' => Hash::make($request->input('password')),
+            'first_name'     => strip_tags($request->input('first_name')),
+            'last_name'     => strip_tags($request->input('last_name')),
+            'email'    => strip_tags($request->input('email')),
+            'password' => strip_tags(Hash::make($request->input('password'))),
             'status'   => 'publish'
         ]);
         Auth::loginUsingId($user->id);
@@ -274,10 +275,12 @@ class UserController extends FrontendController
 
         }
         $user->assignRole('customer');
+        $url = $request->headers->get('referer');
+
         return response()->json([
             'error'    => false,
             'messages'  => false,
-            'redirect' => $request->headers->get('referer') ?? url(app_get_locale(false,'/'))
+            'redirect' =>  $url ?? url(app_get_locale(false,'/'))
         ], 200);
     }
 }
@@ -297,9 +300,9 @@ class UserController extends FrontendController
             return $this->sendError(__('You are already subscribed'));
         } else {
             $a = new Subscriber();
-            $a->email = $request->input('email');
-            $a->first_name = $request->input('first_name');
-            $a->last_name = $request->input('last_name');
+            $a->email = e($request->input('email'));
+            $a->first_name = e($request->input('first_name'));
+            $a->last_name = e($request->input('last_name'));
             $a->save();
             return $this->sendSuccess([], __('Thank you for subscribing'));
         }

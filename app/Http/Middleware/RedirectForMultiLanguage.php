@@ -28,7 +28,7 @@ class RedirectForMultiLanguage
 
         if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed') && strtolower($request->method()) === 'get' and $request->query('set_lang')) {
 
-            $locale = $request->query('set_lang');
+            $locale = strip_tags(e($request->query('set_lang')));
             $firstSegment = $request->segment(1);
             $languages = \Modules\Language\Models\Language::getActive();
             $localeCodes = Arr::pluck($languages, 'locale');

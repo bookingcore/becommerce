@@ -104,9 +104,9 @@ class FileHelper
         $file = MediaFile::find($oldValue);
         ob_start();
         ?>
-        <div class="dungdt-upload-box <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo $oldValue ?>">
+        <div class="dungdt-upload-box <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
             <div class="upload-box" v-show="!value">
-                <input type="hidden" <?php echo $nameAttr;?>="<?php echo $inputId ?>" v-model="value" value="<?php echo $oldValue ?>">
+                <input type="hidden" <?php echo e($nameAttr);?>="<?php echo e($inputId) ?>" v-model="value" value="<?php echo e($oldValue) ?>">
                 <div class="text-center">
                     <svg id="next-dropzone" width="100%" height="100%">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 20">
@@ -183,7 +183,7 @@ class FileHelper
         ob_start();
         ?>
         <div class="dungdt-upload-multiple <?php if (!empty($file))
-            echo 'active' ?>" data-val="<?php echo $oldValue ?>">
+            echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
             <div class="attach-demo d-flex">
                 <?php
                 foreach ($oldIds as $id) {
@@ -195,7 +195,7 @@ class FileHelper
                 ?>
             </div>
             <div class="upload-box" v-show="!value">
-                <input type="hidden" name="<?php echo $inputId ?>" v-model="value" value="<?php echo htmlspecialchars($oldValue) ?>">
+                <input type="hidden" name="<?php echo e($inputId) ?>" v-model="value" value="<?php echo e($oldValue) ?>">
                 <div class="text-left">
                     <span class="btn btn-info btn-sm btn-field-upload" @click="openUploader"><i class="fa fa-plus-circle"></i> <?php echo __("Select images") ?></span>
                 </div>

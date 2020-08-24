@@ -6,7 +6,7 @@
     </div>
 @endif
 <div class="col-product-sidebar-item product-sidebar-custom-link">
-    <a href="{!! setting_item('ads_url') !!}">
+    <a href="{{setting_item('ads_url')}}">
         {!! get_image_tag(setting_item('ads_image'),'medium',['lazy'=>false]) !!}
     </a>
 </div>

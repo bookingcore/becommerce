@@ -28,7 +28,7 @@ return [
             'CSS.AllowedProperties'    => 'font,font-size,font-weight,font-style,font-family,text-decoration,padding-left,color,background-color,text-align,background',
             'AutoFormat.AutoParagraph' => false,
             'AutoFormat.RemoveEmpty'   => false,
-            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style'
+            'HTML.AllowedAttributes'=>'src,data-src,class,id,href,alt,style,data-target,data-toggle'
         ],
         'test'    => [
             'Attr.EnableID' => 'true',
@@ -99,6 +99,8 @@ return [
             ['a', 'target', 'Enum#_blank,_self,_target,_top'],
             ['div', 'data', 'CDATA'],
             ['img', 'data-src', 'CDATA'],
+            ['a', 'data-toggle', 'CDATA'],
+            ['a', 'data-target', 'CDATA'],
         ],
         'custom_elements' => [
             ['u', 'Inline', 'Inline', 'Common'],
