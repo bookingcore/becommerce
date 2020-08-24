@@ -100,8 +100,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Zip Code")}}</label>
-                    <input type="text" value="{{old('zip_code',$dataUser->zip_code)}}" name="zip_code" placeholder="{{__("Zip Code")}}" class="form-control">
+                    <label>{{__("Post Code")}}</label>
+                    <input type="text" value="{{old('postcode',$dataUser->postcode)}}" name="postcode" placeholder="{{__("Post code")}}" class="form-control">
                     <i class="fa fa-map-pin input-icon"></i>
                 </div>
             </div>

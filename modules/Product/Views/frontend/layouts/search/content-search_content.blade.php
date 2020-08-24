@@ -1,5 +1,5 @@
 <div id="mf-catalog-toolbar" class="shop-toolbar multiple">
-    <div class="products-found">{{ __('<strong>:count</strong> :product found',['count'=>$rows->total(),'product'=>($rows->total() > 0) ? 'Products' : 'Product']) }}</div>
+    <div class="products-found">{!! __('<strong>:count</strong> :product found',['count'=>$rows->total(),'product'=>($rows->total() > 0) ? 'Products' : 'Product']) !!}</div>
     <a href="#" class="mf-filter-mobile" id="mf-filter-mobile">
         <i class="icon-equalizer"></i>
         <span>{{ __('Filter') }}</span>
