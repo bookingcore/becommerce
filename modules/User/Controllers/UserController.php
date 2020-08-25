@@ -278,7 +278,7 @@ class UserController extends FrontendController
         return response()->json([
             'error'    => false,
             'messages'  => false,
-            'redirect' =>  $url ?? url(app_get_locale(false,'/'))
+            'redirect' =>  $url ? $url : url(app_get_locale(false,'/'))
         ], 200);
     }
 }
