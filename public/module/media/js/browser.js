@@ -1,4 +1,5 @@
 (function ($) {
+    'use strict';
     window.uploaderModal = new Vue({
         el: '#cdn-browser',
         data:{

@@ -1,4 +1,5 @@
 (function ($) {
+    'use strict';
     window.BravoMapEngine = function (id,configs) {
         switch (bookingCore.map_provider) {
             case "osm":

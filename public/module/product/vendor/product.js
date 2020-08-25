@@ -1,4 +1,5 @@
 (function ($) {
+    'use strict';
     $('.open-edit-input').on('click',function () {
         $(this).next('input').attr('type','text');
         $(this).hide();

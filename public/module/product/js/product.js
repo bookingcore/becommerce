@@ -1,4 +1,5 @@
 jQuery(function ($) {
+    'use strict';
     $(".bravo-filter-price").each(function () {
         var input_price = $(this).find(".price_slider");
         var input_min = $(this).find('#min_price');

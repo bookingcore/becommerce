@@ -1,3 +1,4 @@
+'use strict';
 Vue.component('bravo-messages-box', {
     template: '#bravo-messages-box',
     data() {

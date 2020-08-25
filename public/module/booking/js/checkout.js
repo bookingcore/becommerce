@@ -1,5 +1,6 @@
 (function ($) {
 
+    'use strict';
     new Vue({
         el:'#bravo-checkout-page',
         data:{

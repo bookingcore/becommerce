@@ -1,4 +1,5 @@
 (function ($) {
+    'use strict';
 
 	// Product Variations
 	$("[href='#variations']").on('shown.bs.tab', function (e) {

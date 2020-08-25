@@ -1,6 +1,7 @@
 /*import BookingCoreAdaterPlugin from "../../../../resources/admin/js/ckeditor/uploadAdapter";*/
 
 jQuery(function ($) {
+    'use strict';
     //Input group image select
     $('.upload-btn-wrapper').each(function () {
         var container = $(this);
