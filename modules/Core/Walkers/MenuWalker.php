@@ -32,7 +32,11 @@ class MenuWalker
                 continue;
             if (class_exists($item['item_model'])) {
                 $itemClass = $item['item_model'];
-                $itemObj = $itemClass::find($item['id']);
+                if(is_callable([$itemClass,'findWithCache'])){
+                    $itemObj = call_user_func([$itemClass,'findWithCache'],$item['id']);
+                }else {
+                    $itemObj = $itemClass::find($item['id']);
+                }
                 if (empty($itemObj)) {
                     continue;
                 }

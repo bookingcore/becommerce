@@ -51,7 +51,7 @@
                                     @php $i = 0 @endphp
                                     @foreach($tabs as $tab_id=>$tab)
                                         @php
-                                        if(!empty($tab['hide_in_sub_language'])) continue;
+                                        if(!empty($tab['hide_in_sub_language']) and request()->query('lang',setting_item('site_locale')) != app()->getLocale()) continue;
                                         @endphp
                                         <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-toggle="tab">
                                                 @if(!empty($tab['icon']))

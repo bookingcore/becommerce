@@ -109,6 +109,9 @@ class UserController extends AdminController
 
     public function changepass(Request $request, $id)
     {
+        if(is_demo_mode()){
+            return redirect()->back()->with("error","DEMO MODE: You can not change password");
+        }
         $rules = [];
         $urow = User::find($id);
         if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
@@ -214,7 +217,12 @@ class UserController extends AdminController
         if ($row->save()) {
 
             if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {
-                $row->syncRoles($role);
+                if(!$id and is_demo_mode()){
+                    $role = Role::findById(3);// Customer
+                }
+                if(!is_demo_mode() or !$id){
+                    $row->syncRoles($role);
+                }
             }
             return redirect('admin/module/user')->with('success', ($id and $id>0) ? __('User updated'):__("User created"));
         }
@@ -246,6 +254,9 @@ class UserController extends AdminController
 
     public function bulkEdit(Request $request)
     {
+        if(is_demo_mode()){
+            return redirect()->back()->with("error","DEMO MODE: You can not update user");
+        }
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids))

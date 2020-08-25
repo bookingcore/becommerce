@@ -91,7 +91,7 @@ class UserController extends FrontendController
 
     public function changePassword(Request $request)
     {
-        if (!empty($request->input())) {
+        if (!empty($request->input()) and !is_demo_mode()) {
             if (!(Hash::check($request->get('current-password'), Auth::user()->password))) {
                 // The passwords matches
                 return redirect()->back()->with("error", __("Your current password does not matches with the password you provided. Please try again."));
