@@ -1,4 +1,5 @@
 jQuery(function ($) {
+    "use strict";
     $.fn.bravoAutocomplete = function (options) {
         return this.each(function () {
             var $this = $(this);
@@ -98,6 +99,7 @@ jQuery(function ($) {
 
 jQuery(function ($) {
 
+    "use strict";
     function parseErrorMessage(e){
         var html = '';
         if(e.responseJSON){
@@ -532,6 +534,7 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
+    "use strict";
     $('.testimonial-list').slick({
         infinite: true,
         autoplay: true,
@@ -649,6 +652,7 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
+    "use strict";
     $('.category-select').change(function(){
         $("#text_change").html($('.category-select option:selected').text());
         $(this).css('width', $(".select_change").width() + 10 + 'px');
@@ -715,6 +719,7 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
+    "use strict";
     $('.quantity-number button').on('click',function (e) {
         e.preventDefault();
         let $this = $(this);
@@ -858,6 +863,7 @@ jQuery(function ($) {
 });
 
 jQuery(function ($) {
+    "use strict";
     //Compare
     let compare_box = $('.bravo_compare_box');
     let compare_count = $('.user-compare-count');

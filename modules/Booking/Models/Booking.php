@@ -16,7 +16,6 @@ class Booking extends BaseModel
     use SoftDeletes;
     protected $table      = 'bravo_bookings';
     protected $cachedMeta = [];
-    //protected $cachedMetaArr = [];
     const DRAFT      = 'draft'; // New booking, before payment processing
     const UNPAID     = 'unpaid'; // Require payment
     const PROCESSING = 'processing'; // like offline - payment
@@ -93,13 +92,11 @@ class Booking extends BaseModel
 
     public function getMeta($key, $default = '')
     {
-        //if(isset($this->cachedMeta[$key])) return $this->cachedMeta[$key];
         $val = DB::table('bravo_booking_meta')->where([
             'booking_id' => $this->id,
             'name'       => $key
         ])->first();
         if (!empty($val)) {
-            //$this->cachedMeta[$key]  = $val->val;
             return $val->val;
         }
         return $default;

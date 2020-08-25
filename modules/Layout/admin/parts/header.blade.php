@@ -1,6 +1,5 @@
 <?php
 $user = Auth::user();
-//$languages = \Modules\Language\Models\Language::getActive();
 $locale = App::getLocale();
 ?>
 <div class="header-logo flex-shrink-0">

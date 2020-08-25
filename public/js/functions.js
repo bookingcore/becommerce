@@ -1,3 +1,4 @@
+"use strict";
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -9,11 +10,8 @@ $(function () {
 window.bravo_format_money =  function($money) {
 
     if (!$money) {
-        //return Bravo.free_text;
+
     }
-    //if (typeof Bravo.booking_currency_precision && Bravo.booking_currency_precision) {
-    //    $money = Math.round($money).toFixed(Bravo.booking_currency_precision);
-    //}
 
     $money            = bravo_number_format($money, Bravo.booking_decimals, Bravo.decimal_separator, Bravo.thousand_separator);
     var $symbol       = Bravo.currency_symbol;
@@ -237,7 +235,6 @@ $(document).on('click','.bravo_delete_cart_item',function(e){
                 window.location.reload();
             }
             if(json.message){
-                // bookingCoreApp.showAjaxMessage(json);
             }
 
         },

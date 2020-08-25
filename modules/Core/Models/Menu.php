@@ -13,7 +13,6 @@ class Menu extends BaseModel
     public function getItemsJsonAttribute()
     {
         $items = json_decode($this->items, true);
-        //dd($this);
         return $this->filterMenuItems($items,$this->lastIndex);
     }
 

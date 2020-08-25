@@ -1,6 +1,5 @@
 <?php
 // Booking
-//Route::get('/cart','BookingController@cart')->name('booking.cart');
 Route::get('/checkout','BookingController@checkout')->name('booking.checkout');
 
 Route::group(['prefix'=>env('BOOKING_ROUTE_PREFIX', 'booking')],function(){

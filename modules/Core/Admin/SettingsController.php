@@ -34,7 +34,6 @@ class SettingsController extends AdminController
             'current_group' => $group,
             'groups'        => $this->groups,
             'settings'      => Settings::getSettings($group),
-//            'translations'      => Settings::getSettings($group,request()->query('lang')),
             'breadcrumbs'   => [
                 ['name' => $this->groups[$group]['name'] ?? $this->groups[$group]['title'] ?? ''],
             ],

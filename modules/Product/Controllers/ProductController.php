@@ -191,11 +191,11 @@ class ProductController extends Controller
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
-        $this->recently_viewed($row->id);
         if(empty($row) or (!empty($row) and $row->status != 'publish' and  Auth::id() != $row->create_user)){
             abort(404);
             return;
         }
+        $this->recently_viewed($row->id);
         $product_variations = $this->product_variations($row);
         $translation = $row->translateOrOrigin(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));

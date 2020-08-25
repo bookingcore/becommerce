@@ -29,8 +29,6 @@ class UserController extends FrontendController
         $this->checkPermission('product_view');
         $user_id = Auth::id();
         $data = [
-//            'cards_report'       => Booking::getTopCardsReportForVendor($user_id),
-//            'earning_chart_data' => Booking::getEarningChartDataForVendor(strtotime('monday this week'), time(), $user_id),
             'page_title'         => __("Vendor Dashboard"),
             'breadcrumbs'        => [
                 [
@@ -192,7 +190,7 @@ class UserController extends FrontendController
                 return response()->json([
                     'error'    => false,
                     'messages' => false,
-                    'redirect' => $url ?? url(app_get_locale(false,'/'))
+                    'redirect' => $url ? $url : url(app_get_locale(false,'/'))
                 ], 200);
             } else {
                 $errors = new MessageBag(['message_error' => __('Username or password incorrect')]);

@@ -46,8 +46,6 @@ class Terms extends BaseModel
     {
         $query =  static::query()->select('bravo_terms.id', DB::raw('CONCAT(at.name,": ",bravo_terms.name) as text'))
         ->join('bravo_attrs as at','at.id','=','bravo_terms.attr_id')
-        // ->where("bravo_terms.status","publish")
-        // ->where("at.status","publish")
         ->where("at.service",$service)
         ->whereRaw("at.deleted_at is null");
 

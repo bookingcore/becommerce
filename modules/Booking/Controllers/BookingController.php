@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery\Exception;
-//use Modules\Booking\Events\VendorLogPayment;
 use Modules\Booking\BravoCart;
 use Modules\Product\Models\Order;
 use Modules\Product\Models\OrderItem;

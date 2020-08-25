@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('landing')}}/css/bootstrap.min.css"/>
     <link type="text/css" rel="stylesheet" href="{{asset('landing')}}/css/style.css"/>
     <link type="text/css" rel="stylesheet" href="{{asset('landing')}}/css/responsive.css"/>
-    <script src="{{asset('landing')}}/js/jquery-1.10.2.min.js"></script>
+    <script src="{{asset('landing')}}/js/jquery-3.3.1.min.js"></script>
 
 </head>
 <body class="landing-page">

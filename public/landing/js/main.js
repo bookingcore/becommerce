@@ -1,4 +1,5 @@
 jQuery(document).ready(function($){
+    "use strict";
     $('.st-testimonial-landing').each(function () {
         $(this).owlCarousel({
             loop: false,

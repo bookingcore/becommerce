@@ -25,7 +25,6 @@ class Order extends BaseModel{
     protected $table = 'product_orders';
     use SoftDeletes;
     protected $cachedMeta = [];
-    //protected $cachedMetaArr = [];
     const DRAFT      = 'draft'; // New booking, before payment processing
     const UNPAID     = 'unpaid'; // Require payment
     const PROCESSING = 'processing'; // like offline - payment
