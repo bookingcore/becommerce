@@ -84,6 +84,9 @@ class TemplateController extends AdminController
 
     public function store(Request $request)
     {
+        if(is_demo_mode()){
+            return $this->sendError("DEMO MODE: you can not save template");
+        }
         $request->validate([
             'content' => 'required',
             'title'   => 'required|max:255'

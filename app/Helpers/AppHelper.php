@@ -1061,3 +1061,7 @@ function is_vendor(){
     // Check is vendor
     return (auth()->check() and auth()->user()->hasPermissionTo('dashboard_vendor_access'));
 }
+
+function is_demo_mode(){
+    return env('DEMO_MODE',0);
+}

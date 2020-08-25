@@ -25,7 +25,7 @@ class RoleController extends AdminController
 
     public function create(Request $request)
     {
-        if (!empty($request->input())) {
+        if (!empty($request->input()) and !is_demo_mode()) {
             $row = new Role($request->input());
             if ($row->save()) {
                 return redirect('admin/module/user/role')->with('success', __('Role created'));
@@ -49,7 +49,7 @@ class RoleController extends AdminController
         if (empty($row)) {
             return redirect('admin/module/user/role');
         }
-        if (!empty($request->input())) {
+        if (!empty($request->input()) and !is_demo_mode()) {
             $row->fill($request->input());
             if ($row->save()) {
 
