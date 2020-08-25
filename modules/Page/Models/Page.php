@@ -4,9 +4,11 @@ namespace Modules\Page\Models;
 use App\BaseModel;
 use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
 use Astrotomic\Translatable\Translatable;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Models\SEO;
+use function Clue\StreamFilter\fun;
 
 class Page extends BaseModel
 {
@@ -86,6 +88,5 @@ class Page extends BaseModel
             return $translation->getProcessedContent();
         }
     }
-
 
 }

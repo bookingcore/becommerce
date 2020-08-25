@@ -70,7 +70,7 @@
     <link href="{{ route('core.style.customCss') }}" rel="stylesheet">
     <link href="{{ asset('libs/carousel-2/owl.carousel.css') }}" rel="stylesheet">
 </head>
-<body class="{{$body_class ?? ''}}">
+<body class="is_user_page {{$body_class ?? ''}}">
     {!! clean(setting_item('body_scripts')) !!}
     <div class="bravo_wrap">
         @include('Layout::parts.topbar')

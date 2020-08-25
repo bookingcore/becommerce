@@ -92,7 +92,7 @@ function generate_menu($location = '',$options = [])
     {
         foreach($setting as $l=>$menuId){
             if($l == $location and $menuId){
-                $menu = (new \Modules\Core\Models\Menu())->findById($menuId);
+                $menu = (new \Modules\Core\Models\Menu())::findWithCache($menuId);
                 if(!empty($menu)) {
                     $translation = $menu->translateOrOrigin(app()->getLocale());
 
@@ -614,9 +614,11 @@ function get_country_name($name){
     return $all[$name] ?? $name;
 }
 
-function get_page_url($page_id)
+function get_page_url($page_id = '')
 {
-    $page = \Modules\Page\Models\Page::find($page_id);
+    if(empty($page_id)) return false;
+
+    $page = \Modules\Page\Models\Page::findWithCache($page_id);
 
     if($page){
         return $page->getDetailUrl();
