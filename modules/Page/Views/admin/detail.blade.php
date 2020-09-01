@@ -82,7 +82,7 @@
                                     <select name="page_style[header]" class="form-control">
                                         @if(list_homepage_style())
                                             @foreach(list_homepage_style() as $key => $item)
-                                                <option @if ($page_style->header == $key) selected @endif value="{{$key}}">{{$item}}</option>
+                                                <option @if (!empty($page_style) && $page_style->header == $key) selected @endif value="{{$key}}">{{$item}}</option>
                                             @endforeach
                                         @endif
                                     </select>
@@ -91,7 +91,7 @@
                                     <select name="page_style[footer]" class="form-control">
                                         @if(list_homepage_style())
                                             @foreach(list_homepage_style() as $key => $item)
-                                                <option @if ($page_style->footer == $key) selected @endif value="{{$key}}">{{$item}}</option>
+                                                <option @if (!empty($page_style) && $page_style->footer == $key) selected @endif value="{{$key}}">{{$item}}</option>
                                             @endforeach
                                         @endif
                                     </select>
