@@ -50,14 +50,16 @@
             "App\\": "app/",
             "Plugins\\": "plugins/",
             "Custom\\": "custom/",
-            "Modules\\": "modules/"
+            "Modules\\": "modules/",
+            "Core\\": "core/"
         },
         "classmap": [
             "database/seeds",
             "database/factories"
         ],
         "files": [
-            "app/Helpers/AppHelper.php"
+            "app/Helpers/AppHelper.php",
+            "core/Helpers/CoreHelper.php"
         ]
     },
     "autoload-dev": {
