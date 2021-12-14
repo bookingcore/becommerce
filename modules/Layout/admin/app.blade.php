@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Martfury'}}</title>
+    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Becommerce'}}</title>
     <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
 
     <meta name="robots" content="noindex, nofollow" />
@@ -93,7 +93,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 copy-right" >
-                        {{date('Y')}} &copy; {{__('Martfury')}} <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('BookingCore Team')}}</a>
+                        {{date('Y')}} &copy; {{__('Becommerce')}} <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('BookingCore Team')}}</a>
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-right footer-links d-none d-sm-block">

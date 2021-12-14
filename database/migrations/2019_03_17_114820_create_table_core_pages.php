@@ -33,7 +33,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_attrs', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('bc_attrs', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('name',255)->nullable();
@@ -48,7 +48,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_terms', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('bc_terms', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('name',255)->nullable();
@@ -152,7 +152,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_attrs_translations', function (Blueprint $table) {
+        Schema::create('bc_attrs_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
@@ -165,7 +165,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_terms_translations', function (Blueprint $table) {
+        Schema::create('bc_terms_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
@@ -190,8 +190,8 @@ class CreateTableCorePages extends Migration
     public function down()
     {
         Schema::dropIfExists('core_pages');
-        Schema::dropIfExists('bravo_attrs');
-        Schema::dropIfExists('bravo_terms');
+        Schema::dropIfExists('bc_attrs');
+        Schema::dropIfExists('bc_terms');
 
         Schema::dropIfExists('core_page_translations');
         Schema::dropIfExists('core_news_translations');
@@ -199,7 +199,7 @@ class CreateTableCorePages extends Migration
         Schema::dropIfExists('core_tag_translations');
         Schema::dropIfExists('core_menu_translations');
         Schema::dropIfExists('core_template_translations');
-        Schema::dropIfExists('bravo_attrs_translations');
-        Schema::dropIfExists('bravo_terms_translations');
+        Schema::dropIfExists('bc_attrs_translations');
+        Schema::dropIfExists('bc_terms_translations');
     }
 }

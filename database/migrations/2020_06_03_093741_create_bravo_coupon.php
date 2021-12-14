@@ -13,7 +13,7 @@ class CreateBravoCoupon extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_coupon', function (Blueprint $table) {
+        Schema::create('bc_coupon', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name','100')->nullable();
             $table->string('coupon_type','20')->nullable();
@@ -38,6 +38,6 @@ class CreateBravoCoupon extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_coupon');
+        Schema::dropIfExists('bc_coupon');
     }
 }

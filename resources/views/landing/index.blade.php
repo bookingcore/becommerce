@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Martfury - Marketplace Theme</title>
+    <title>Becommerce - Marketplace Theme</title>
 
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,500,600,700" rel="stylesheet">
     <link rel="stylesheet" href="{{asset('landing')}}/css/bootstrap.min.css"/>
@@ -104,7 +104,7 @@
             <div class="feature-item">
                 <h3>Easily Built Multi-Vendor
                     Marketplace</h3>
-                <p>Martfury comes with full intergatation of Dokan, WC Vendors and WC Marketplace.</p>
+                <p>Becommerce comes with full intergatation of Dokan, WC Vendors and WC Marketplace.</p>
             </div>
             <div class="feature-item">
                 <h3>Visual Composer
@@ -149,7 +149,7 @@
                 <div class="row">
                     <div class="section-header col-md-12 text-center">
                         <h2 class="section-title">Unique Demos</h2>
-                        <p class="line-1">Martfury created many concepts designed based on
+                        <p class="line-1">Becommerce created many concepts designed based on
                             <strong>user experience</strong> from real sites.</p>
                         <p class="line-2">as <strong>Amazon, Flipkart, Jumia, Ebay,</strong> etc.
                             <strong>Help increase high converation rate</strong> to buy product with your customers so
@@ -364,10 +364,10 @@
 
     <section id="section-mobile-version" class="section-mobile-version section scrollto hidden">
         <div class="section-header col-md-12 text-center">
-            <h2 class="section-title">Welcome to Martfury <strong>Mobile Version</strong>
+            <h2 class="section-title">Welcome to Becommerce <strong>Mobile Version</strong>
                 <small>HOT</small>
             </h2>
-            <p class="line-1">This is Martfury Mobile Layout demo. Please scan the <strong>QR code </strong> on your
+            <p class="line-1">This is Becommerce Mobile Layout demo. Please scan the <strong>QR code </strong> on your
                 right with your mobile device</p>
             <p>to have <strong>an authentic experience.</strong></p>
         </div>

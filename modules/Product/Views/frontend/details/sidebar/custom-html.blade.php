@@ -1,7 +1,7 @@
 @if(!\Illuminate\Support\Facades\Auth::id())
     <div class="col-product-sidebar-item product-sidebar-custom-html">
         <i style="font-size: 18px" class="icon-store"></i>
-        <span style="color: #000; padding-left: 10px">{{ __('Sell on Martfury?') }} </span>
+        <span style="color: #000; padding-left: 10px">{{ __('Sell on Becommerce?') }} </span>
         <a href="{{route('route.page',['slug'=>'become-a-vendor'])}}">{{__('Register Now!')}}</a>
     </div>
 @endif

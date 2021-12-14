@@ -13,7 +13,7 @@ class CreateBravoReview extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_review', function (Blueprint $table) {
+        Schema::create('bc_review', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('object_id')->nullable();
@@ -36,7 +36,7 @@ class CreateBravoReview extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_review_meta', function (Blueprint $table) {
+        Schema::create('bc_review_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('review_id')->nullable();
@@ -58,7 +58,7 @@ class CreateBravoReview extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_review');
-        Schema::dropIfExists('bravo_review_meta');
+        Schema::dropIfExists('bc_review');
+        Schema::dropIfExists('bc_review_meta');
     }
 }

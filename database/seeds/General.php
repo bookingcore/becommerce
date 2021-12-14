@@ -28,7 +28,7 @@
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_name',
-                        'val'   => 'Martfury',
+                        'val'   => 'Becommerce',
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_address',
@@ -58,7 +58,7 @@
                     ],
                     [
                         'name'  => 'footer_text_left',
-                        'val'   => '© '.date('Y').' Martfury. All Rights Reserved',
+                        'val'   => '© '.date('Y').' Becommerce. All Rights Reserved',
                         'group' => "general",
                     ],
                     [
@@ -110,7 +110,7 @@
                     ],
                     [
                         'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Martfury</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
+                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Becommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
                         'group' => "general",
                     ],
                     [
@@ -179,7 +179,7 @@
                     ],
                     [
                         'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Martfury</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
+                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Becommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
                         'group' => "general",
                     ],
                     [
@@ -264,7 +264,7 @@
                     ],
                     [
                         'name'  => "site_title",
-                        'val'   => "Martfury",
+                        'val'   => "Becommerce",
                         'group' => "general",
                     ],
                 ]
@@ -280,17 +280,17 @@
                 ],
                 [
                     'name' => "site_title",
-                    'val' => "Martfury",
+                    'val' => "Becommerce",
                     'group' => "general",
 				],
 				[
 					'name'  => "email_header",
-					'val'   => '<h1 class="site-title" style="text-align: center">Martfury</h1>',
+					'val'   => '<h1 class="site-title" style="text-align: center">Becommerce</h1>',
 					'group' => "general",
 				],
 				[
 					'name'  => "email_footer",
-					'val'   => '<p class="" style="text-align: center">&copy; 2019 Martfury. All rights reserved</p>',
+					'val'   => '<p class="" style="text-align: center">&copy; 2019 Becommerce. All rights reserved</p>',
 					'group' => "general",
 				],
 				[
@@ -302,9 +302,9 @@
 					'name'  => "user_content_email_registered",
 					'val'   => '<h1 style="text-align: center">Welcome!</h1>
 						<h3>Hello [first_name] [last_name]</h3>
-						<p>Thank you for signing up with Martfury! We hope you enjoy your time with us.</p>
+						<p>Thank you for signing up with Becommerce! We hope you enjoy your time with us.</p>
 						<p>Regards,</p>
-						<p>Martfury</p>',
+						<p>Becommerce</p>',
 					'group' => "user",
 				],
 				[
@@ -319,7 +319,7 @@
 						<p>Full name: [first_name] [last_name]</p>
 						<p>Email: [email]</p>
 						<p>Regards,</p>
-						<p>Martfury</p>',
+						<p>Becommerce</p>',
 					'group' => "user",
 				],
 				[
@@ -331,7 +331,7 @@
 						<p>If you did not request a password reset, no further action is required.
 						</p>
 						<p>Regards,</p>
-						<p>Martfury</p>',
+						<p>Becommerce</p>',
 					'group' => "user",
 				]
             ]
@@ -566,7 +566,7 @@
                             ]
                         ],
                         [
-                            "name" => "Martfury Pages",
+                            "name" => "Becommerce Pages",
                             "url" => "",
                             "item_model" => "custom",
                             "_open" => false,
@@ -1013,7 +1013,7 @@
             $right_menu = [
                 [
                     "id" => 2,
-                    "name" => "Sell On Martfury",
+                    "name" => "Sell On Becommerce",
                     "class" => "",
                     "target" => "",
                     "open" => false,

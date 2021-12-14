@@ -13,7 +13,7 @@ class BravoSeo extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_seo', function (Blueprint $table) {
+        Schema::create('bc_seo', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('object_id')->nullable();
             $table->string('object_model',255)->nullable();
@@ -39,6 +39,6 @@ class BravoSeo extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_seo');
+        Schema::dropIfExists('bc_seo');
     }
 }

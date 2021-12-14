@@ -178,7 +178,6 @@ return [
         * Custom Service Providers...
         */
         Modules\ServiceProvider::class,
-        Spatie\Permission\PermissionServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class, // Xử lý ảnh,
         Barryvdh\Debugbar\ServiceProvider::class, // Debug BAR
 

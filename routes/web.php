@@ -13,8 +13,6 @@ Route::get('/intro','LandingpageController@index');
 Route::get('/', 'HomeController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
 
-//Login
-Auth::routes();
 //Custom User Login and Register
 Route::post('register','\Modules\User\Controllers\UserController@userRegister')->name('auth.register');
 Route::post('login','\Modules\User\Controllers\UserController@userLogin')->name('auth.login');

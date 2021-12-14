@@ -1,4 +1,4 @@
-<div class="bravo_whySellOnMartfury">
+<div class="bravo_whySellOnBecommerce">
     <div class="container">
         <h4 class="bravo-header-title mf-semi-bold">{{$title}}</h4>
 

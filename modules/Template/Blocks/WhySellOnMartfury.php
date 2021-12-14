@@ -4,7 +4,7 @@ namespace Modules\Template\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
-class WhySellOnMartfury extends BaseBlock
+class WhySellOnBecommerce extends BaseBlock
 {
     function __construct()
     {
@@ -65,11 +65,11 @@ class WhySellOnMartfury extends BaseBlock
 
     public function getName()
     {
-        return __('Why Sell On Martfury');
+        return __('Why Sell On Becommerce');
     }
 
     public function content($model = [])
     {
-        return view('Template::frontend.blocks.WhySellOnMartfury.index', $model);
+        return view('Template::frontend.blocks.WhySellOnBecommerce.index', $model);
     }
 }

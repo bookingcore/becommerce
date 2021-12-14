@@ -4,7 +4,7 @@ namespace Modules\Template\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
-class bestSellerBrands extends BaseBlock
+class BestSellerBrands extends BaseBlock
 {
     function __construct()
     {
