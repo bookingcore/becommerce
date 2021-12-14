@@ -18,11 +18,9 @@ use Illuminate\Support\MessageBag;
 use Validator;
 use Modules\Booking\Models\Booking;
 use App\Helpers\ReCaptchaEngine;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class UserController extends FrontendController
 {
-    use AuthenticatesUsers;
 
     public function dashboard(Request $request)
     {
