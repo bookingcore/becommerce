@@ -11,10 +11,13 @@ storage/app/public/*
 /.idea
 /resources/ckeditor/node_modules/
 .env
+.env.backup
 .phpunit.result.cache
+docker-compose.override.yml
 Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-
+/.idea
+/.vscode
 /storage/installed
