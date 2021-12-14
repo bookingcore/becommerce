@@ -26,7 +26,6 @@ Route::match(['get','post'],'/contact','\Modules\Contact\Controllers\ContactCont
 Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactController@store'); // Contact
 
 Route::get('/test_functions', 'HomeController@test');
-Route::get('/update', 'HomeController@updateMigrate');
 
 //Homepage
 Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');
@@ -48,3 +47,5 @@ Route::group(['middleware' => ['auth']],function(){
 
 // Logs
 Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'dashboard','system_log_view']);
+
+Route::get('/install','HomeController@redirectToRequirement')->name('LaravelInstaller::welcome');

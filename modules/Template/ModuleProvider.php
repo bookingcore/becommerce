@@ -24,7 +24,6 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'slider'=>"\\Modules\\Template\\Blocks\\Slider",
             'callaction'=>"\\Modules\\Template\\Blocks\\CallAction",
-            'WhySellOnBecommerce' =>"\\Modules\\Template\\Blocks\\WhySellOnBecommerce",
             'HowItWorks' =>"\\Modules\\Template\\Blocks\\HowItWorks",
             'BestFeesToStart' =>"\\Modules\\Template\\Blocks\\BestFeesToStart",
             'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",

@@ -15,12 +15,12 @@ return [
     |
     */
     'core' => [
-        'minPhpVersion' => '7.2.0'
+        'minPhpVersion' => '7.3.0'
     ],
     'final' => [
         'key' => true,
         'publish' => false
-    ],    
+    ],
     'requirements' => [
         'php' => [
             'openssl',

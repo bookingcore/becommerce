@@ -59,16 +59,6 @@
                         @endif
                     </li>
                     <li class="step__divider"></li>
-                    <li class="step__item {{ isActive('LaravelInstaller::welcome') }}">
-                        @if(Request::is('install') || Request::is('install/requirements') || Request::is('install/permissions') || Request::is('install/environment') || Request::is('install/environment/wizard') || Request::is('install/environment/classic') )
-                            <a href="{{ route('LaravelInstaller::welcome') }}">
-                                <i class="step__icon fa fa-home" aria-hidden="true"></i>
-                            </a>
-                        @else
-                            <i class="step__icon fa fa-home" aria-hidden="true"></i>
-                        @endif
-                    </li>
-                    <li class="step__divider"></li>
                 </ul>
                 <div class="main">
                     @if (session('message'))
