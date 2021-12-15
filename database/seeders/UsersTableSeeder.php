@@ -22,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'created_at' =>  date("Y-m-d H:i:s"),
             'bio'=> 'We\'re designers who have fallen in love with creating spaces for others to reflect, reset, and create. We split our time between two deserts (the Mojave, and the Sonoran). We love the way the heat sinks into our bones, the vibrant sunsets, and the wildlife we get to call our neighbors.'
         ]);
-        $user = \App\User::where('email','admin@dev.com')->first();
+        $user = \App\User::where('email','admin@becommerce.test')->first();
         $user->assignRole('administrator');
 
     }

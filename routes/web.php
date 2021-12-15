@@ -49,3 +49,4 @@ Route::group(['middleware' => ['auth']],function(){
 Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'dashboard','system_log_view']);
 
 Route::get('/install','HomeController@redirectToRequirement')->name('LaravelInstaller::welcome');
+Route::get('/install/environment','HomeController@redirectToWizard')->name('LaravelInstaller::environment');

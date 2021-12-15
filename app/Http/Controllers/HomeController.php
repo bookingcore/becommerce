@@ -72,6 +72,10 @@ class HomeController extends Controller
     public function redirectToRequirement(){
         return redirect(route('LaravelInstaller::requirements'));
     }
+    public function redirectToWizard(){
+        return redirect(route('LaravelInstaller::environmentWizard'));
+    }
+
 
     public function checkConnectDatabase(Request $request){
         $connection = $request->input('database_connection');

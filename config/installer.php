@@ -94,6 +94,8 @@ return [
                 'pusher_app_id'         => 'max:50',
                 'pusher_app_key'        => 'max:50',
                 'pusher_app_secret'     => 'max:50',
+                'admin_email'         => 'required|email',
+                'admin_password'         => 'required|min:8',
             ],
         ],
     ],

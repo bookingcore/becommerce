@@ -8,8 +8,10 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Modules\Booking\Events\VendorLogPayment;
 use Modules\Booking\Listeners\VendorLogPaymentListen;
+use Modules\Installer\Listeners\EnvironmentSavedListener;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Listeners\SendMailUserRegisteredListen;
+use RachidLaasri\LaravelInstaller\Events\EnvironmentSaved;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -25,6 +27,9 @@ class EventServiceProvider extends ServiceProvider
         SendMailUserRegistered::class => [
             SendMailUserRegisteredListen::class
         ],
+        EnvironmentSaved::class=>[
+            EnvironmentSavedListener::class
+        ]
 //        VendorLogPayment::class =>[
 //            VendorLogPaymentListen::class
 //        ]
