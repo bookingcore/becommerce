@@ -9,9 +9,6 @@ mix.webpackConfig({
 
 });
 
-mix.sass('public/sass/app.scss','css').sourceMaps();
-mix.sass('public/sass/contact.scss','css');
-// ----------------------------------------------------------------------------------------------------
-//Booking
-mix.sass('public/module/user/scss/user.scss','module/user/css');
-mix.sass('public/module/media/scss/browser.scss','module/media/css');
+mix.postCss("public/css/app.css", "css", [
+    require("tailwindcss"),
+]);
