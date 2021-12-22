@@ -6,7 +6,9 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Foundation\Auth\User as Authenticatable;
+    use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Mail;
+    use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\HasApiTokens;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
@@ -15,9 +17,8 @@
     use Modules\Vendor\Models\VendorRequest;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
-    use Tymon\JWTAuth\Contracts\JWTSubject;
 
-    class User extends Authenticatable implements MustVerifyEmail,JWTSubject
+    class User extends Authenticatable implements MustVerifyEmail
     {
         use SoftDeletes;
         use HasApiTokens, HasFactory, Notifiable;
@@ -353,14 +354,14 @@
 
         public function sendEmailVerificationNotification(){
         	$actionUrl = $this->verificationUrl();
-	        $a  = Mail::to($this->email)->send(new EmailUserVerifyRegister($this, $actionUrl));
+	        Mail::to($this->email)->send(new EmailUserVerifyRegister($this, $actionUrl));
         }
 
 
         public function verificationUrl(){
 	        return URL::temporarySignedRoute(
 		        'verification.verify',
-		        Carbon::now()->addMinutes(Config::get('auth.verification.expire', 60)),
+		        Carbon::now()->addMinutes(config('auth.verification.expire', 60)),
 		        ['id' => $this->id,
                  'hash' => sha1($this->getEmailForVerification()),
                 ]
