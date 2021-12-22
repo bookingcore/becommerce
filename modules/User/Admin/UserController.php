@@ -4,12 +4,21 @@ namespace Modules\User\Admin;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
-use Modules\Vendor\Models\VendorRequest;
-use Spatie\Permission\Models\Role;
+use Modules\Candidate\Models\Candidate;
+use Modules\Candidate\Models\CandidateCategories;
+use Modules\Candidate\Models\CandidateCvs;
+use Modules\Candidate\Models\CandidateSkills;
+use Modules\Candidate\Models\Category;
+use Modules\Location\Models\Location;
+use Modules\Skill\Models\Skill;
+use Modules\User\Events\VendorApproved;
+use Modules\User\Exports\UserExport;
+use Modules\User\Models\Role;
 
 class UserController extends AdminController
 {
@@ -21,9 +30,9 @@ class UserController extends AdminController
 
     public function index(Request $request)
     {
-        $this->checkPermission('user_view');
+        $this->checkPermission('user_manage');
         $username = $request->query('s');
-        $listUser = User::query();
+        $listUser = User::query()->orderBy('id','desc');
         if (!empty($username)) {
              $listUser->where(function($query) use($username){
                  $query->where('first_name', 'LIKE', '%' . $username . '%');
@@ -33,12 +42,11 @@ class UserController extends AdminController
                  $query->orWhere('last_name', 'LIKE', '%' . $username . '%');
              });
         }
-
         if($request->query('role')){
             $listUser->role($request->query('role'));
         }
         $data = [
-            'rows' => $listUser->paginate(20),
+            'rows' => $listUser->with(['department','role'])->paginate(20),
             'roles' => Role::all()
         ];
         return view('User::admin.index', $data);
@@ -48,10 +56,13 @@ class UserController extends AdminController
     {
 
         $row = new \Modules\User\Models\User();
-
         $data = [
             'row' => $row,
             'roles' => Role::all(),
+            'candidate_create' => $request->get('candidate_create', 0),
+            'locations' => Location::query()->where('status', 'publish')->get()->toTree(),
+            'categories' => Category::get()->toTree(),
+            'skills' => Skill::query()->where('status', 'publish')->get(),
             'breadcrumbs'=>[
                 [
                     'name'=>__("Users"),
@@ -64,17 +75,20 @@ class UserController extends AdminController
 
     public function edit(Request $request, $id)
     {
-
         $row = User::find($id);
         if (empty($row)) {
             return redirect('admin/module/user');
         }
-        if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
         $data = [
             'row'   => $row,
             'roles' => Role::all(),
+            'locations' => Location::query()->where('status', 'publish')->get()->toTree(),
+            'categories' => Category::get()->toTree(),
+            'cvs'   => CandidateCvs::query()->where('origin_id', $id)->with('media')->get(),
+            'skills' => Skill::query()->where('status', 'publish')->get(),
             'breadcrumbs'=>[
                 [
                     'name'=>__("Users"),
@@ -92,7 +106,6 @@ class UserController extends AdminController
     public function password(Request $request,$id){
 
         $row = User::find($id);
-
         $data  = [
             'row'=>$row,
             'currentUser'=>Auth::user()
@@ -100,21 +113,20 @@ class UserController extends AdminController
         if (empty($row)) {
             return redirect('admin/module/user');
         }
-        if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
-
         return view('User::admin.password',$data);
     }
 
     public function changepass(Request $request, $id)
     {
         if(is_demo_mode()){
-            return redirect()->back()->with("error","DEMO MODE: You can not change password");
+            return redirect()->back()->with("error", __("DEMO MODE: You can not change password!"));
         }
         $rules = [];
         $urow = User::find($id);
-        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
         $request->validate([
@@ -126,7 +138,7 @@ class UserController extends AdminController
         if ($password != $password_confirmation) {
             return redirect()->back()->with("error", __("Your New password does not matches. Please type again!"));
         }
-        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             if ($password) {
                 if ($urow->id != Auth::user()->id) {
                     $rules['old_password'] = 'required';
@@ -153,14 +165,15 @@ class UserController extends AdminController
 
     public function store(Request $request, $id)
     {
-
+        if(!is_candidate() && !is_admin() && !is_employer()){
+            abort(403);
+        }
         if($id and $id>0){
-            $this->checkPermission('user_update');
             $row = User::find($id);
             if(empty($row)){
                 abort(404);
             }
-            if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+            if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
                 abort(403);
             }
 
@@ -168,7 +181,8 @@ class UserController extends AdminController
                 'first_name'              => 'required|max:255',
                 'last_name'              => 'required|max:255',
                 'status'              => 'required|max:50',
-                'role_id'              => 'required|max:11',
+                'phone'              => 'required',
+                'role_id'              => 'sometimes|required|max:11',
                 'email'              =>[
                     'required',
                     'email',
@@ -178,13 +192,12 @@ class UserController extends AdminController
             ]);
 
         }else{
-            $this->checkPermission('user_create');
-
             $check = Validator::make($request->input(),[
                 'first_name'              => 'required|max:255',
                 'last_name'              => 'required|max:255',
                 'status'              => 'required|max:50',
-                'role_id'              => 'required|max:11',
+                'phone'              => 'required',
+                'role_id'              => 'sometimes|required|max:11',
                 'email'              =>[
                     'required',
                     'email',
@@ -205,26 +218,110 @@ class UserController extends AdminController
         $row->first_name = $request->input('first_name');
         $row->last_name = $request->input('last_name');
         $row->phone = $request->input('phone');
-        $row->birthday = $request->input('birthday');
-        $row->address = $request->input('address');
-        $row->address2 = $request->input('address2');
+        $row->birthday = date("Y-m-d", strtotime($request->input('birthday')));
         $row->bio = clean($request->input('bio'));
         $row->status = $request->input('status');
         $row->avatar_id = $request->input('avatar_id');
         $row->email = $request->input('email');
-        $row->vendor_commission_type = $request->input('vendor_commission_type');
-        $row->vendor_commission_amount = $request->input('vendor_commission_amount');
-        if ($row->save()) {
 
-            if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {
-                if(!$id and is_demo_mode()){
-                    $role = Role::findById(3);// Customer
+        if($this->hasPermission('user_manage')) {
+            $row->role_id = $request->input('role_id');
+        }
+
+
+        if ($row->save()) {
+            if($row->role_id == 3){
+                    $cData = Candidate::find($row->id);
+                    if(empty($cData)){
+                        DB::table('bc_candidates')->insert([
+                            'id'       => $row->id
+                        ]);
+                        $cData = Candidate::find($row->id);
+                    }
+                    $cData->fillByAttr([
+                        'title',
+                        'gallery',
+                        'video',
+                        'gender',
+                        'expected_salary',
+                        'salary_type',
+                        'website',
+                        'education_level',
+                        'experience_year',
+                        'languages',
+                        'allow_search',
+
+                        'address',
+                        'city',
+                        'country',
+                        'location_id',
+                        'map_lat',
+                        'map_lng',
+                        'map_zoom',
+
+                        'education',
+                        'experience',
+                        'award',
+                        'social_media',
+                        'video_cover_id'
+
+                    ], $request->input());
+                    $cData->save();
+
+                    CandidateCvs::query()->where('origin_id', $row->id)->delete();
+                    if(!empty($request->cvs)){
+                        foreach($request->cvs as $oneCv){
+                            $cv =  new CandidateCvs();
+                            $cv->file_id = $oneCv;
+                            $cv->origin_id = $row->id;
+                            $cv->is_default = ($oneCv == @$request->csv_default) ? 1 : 0;
+                            $cv->create_user = Auth::id();
+                            $cv->save();
+                        }
+                    }
+
+                    if(!empty($request->skills)){
+                        $cSkills =  CandidateSkills::query()->where('origin_id', $row->id)->pluck('skill_id')->toArray();
+                        foreach($request->skills as $skill){
+                            $pos = array_search(intval($skill), $cSkills);
+                            if($pos !== false){
+                                unset($cSkills[$pos]);
+                            }else{
+                                DB::table('bc_candidate_skills')->insert([
+                                    'origin_id'       => $row->id,
+                                    'skill_id'        => $skill
+                                ]);
+                            }
+                        }
+                        if(!empty($cSkills)){
+                            CandidateSkills::query()->where('origin_id', $row->id)->whereIn('skill_id', $cSkills)->delete();
+                        }
+                    }else{
+                        CandidateSkills::query()->where('origin_id', $row->id)->delete();
+                    }
+
+                    if(!empty($request->categories)){
+                        $cCats =  CandidateCategories::query()->where('origin_id', $row->id)->pluck('cat_id')->toArray();
+                        foreach($request->categories as $category){
+                            $pos = array_search(intval($category), $cCats);
+                            if($pos !== false){
+                                unset($cCats[$pos]);
+                            }else{
+                                DB::table('bc_candidate_categories')->insert([
+                                    'origin_id'       => $row->id,
+                                    'cat_id'        => $category
+                                ]);
+                            }
+                        }
+                        if(!empty($cCats)){
+                            CandidateCategories::query()->where('origin_id', $row->id)->whereIn('cat_id', $cCats)->delete();
+                        }
+                    }else{
+                        CandidateCategories::query()->where('origin_id', $row->id)->delete();
+                    }
+
                 }
-                if(!is_demo_mode() or !$id){
-                    $row->syncRoles($role);
-                }
-            }
-            return redirect('admin/module/user')->with('success', ($id and $id>0) ? __('User updated'):__("User created"));
+            return back()->with('success', ($id and $id>0) ? __('User updated'):__("User created"));
         }
     }
 
@@ -240,11 +337,24 @@ class UserController extends AdminController
         $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
         $data = [];
         if (!empty($res)) {
-            foreach ($res as $item) {
-                $data[] = [
-                    'id'   => $item->id,
-                    'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
-                ];
+            if($request->query("user_type") == "vendor"){
+                //for only vendor
+                foreach ($res as $item) {
+                    if($item->hasPermission("dashboard_vendor_access")){
+                        $data[] = [
+                            'id'   => $item->id,
+                            'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                        ];
+                    }
+                }
+            }else{
+                //for all
+                foreach ($res as $item) {
+                    $data[] = [
+                        'id'   => $item->id,
+                        'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                    ];
+                }
             }
         }
         return response()->json([
@@ -255,17 +365,28 @@ class UserController extends AdminController
     public function bulkEdit(Request $request)
     {
         if(is_demo_mode()){
-            return redirect()->back()->with("error","DEMO MODE: You can not update user");
+            return redirect()->back()->with("error","DEMO MODE: You are not allowed to do it");
         }
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids))
-            return redirect()->back()->with('error', __('Select at leas 1 item!'));
+            return redirect()->back()->with('error', __('Select at least 1 item!'));
         if (empty($action))
             return redirect()->back()->with('error', __('Select an Action!'));
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                User::where("id", $id)->first()->delete();
+                if($id == Auth::id()) continue;
+                $query = User::where("id", $id)->first();
+                $candidate = Candidate::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->email.='_d_'.uniqid().rand(0,99999);
+                    $query->save();
+                    $query->delete();
+
+                    if(!empty($candidate)){
+                        $candidate->delete();
+                    }
+                }
             }
         } else {
             foreach ($ids as $id) {
@@ -276,10 +397,10 @@ class UserController extends AdminController
     }
     public function userUpgradeRequest(Request $request)
     {
-        $this->checkPermission('user_view');
+        $this->checkPermission('user_manage');
         $listUser = VendorRequest::query();
         $data = [
-            'rows' => $listUser->with(['user','role','approvedBy'])->paginate(20),
+            'rows' => $listUser->with(['user','role','approvedBy'])->orderBy('id','desc')->paginate(20),
             'roles' => Role::all(),
 
         ];
@@ -287,6 +408,7 @@ class UserController extends AdminController
     }
     public function userUpgradeRequestApproved(Request $request)
     {
+        $this->checkPermission('user_manage');
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids))
@@ -294,33 +416,65 @@ class UserController extends AdminController
         if (empty($action))
             return redirect()->back()->with('error', __('Select an Action!'));
 
-        foreach ($ids as $id) {
-            $vendorRequest = VendorRequest::find( $id);
-            if(!empty($vendorRequest)){
-                $vendorRequest->update(['status' => $action,'approved_time'=>now(),'approved_by'=>Auth::id()]);
-                $user = User::find($vendorRequest->user_id);
-                if(!empty($user)){
-                    $user->assignRole($vendorRequest->role_request);
+        switch ($action){
+            case "delete":
+                foreach ($ids as $id) {
+                    $query = VendorRequest::find( $id);
+                    if(!empty($query)){
+                        $query->delete();
+                    }
                 }
+                return redirect()->back()->with('success', __('Deleted success!'));
+                break;
+            default:
+                foreach ($ids as $id) {
+                    $vendorRequest = VendorRequest::find( $id);
+                    if(!empty($vendorRequest)){
+                        $vendorRequest->update(['status' => $action,'approved_time'=>now(),'approved_by'=>Auth::id()]);
+                        $user = User::find($vendorRequest->user_id);
+                        if(!empty($user)){
+                            $user->syncRoles($vendorRequest->role_request);
+                        }
+                        event(new VendorApproved($user,$vendorRequest));
+                    }
+                }
+                return redirect()->back()->with('success', __('Updated successfully!'));
+                break;
+        }
+    }
+    public function userUpgradeRequestApprovedId(Request $request, $id)
+    {
+        $this->checkPermission('user_manage');
+        if (empty($id))
+            return redirect()->back()->with('error', __('Select at least 1 item!'));
+
+        $vendorRequest = VendorRequest::find( $id);
+        if(!empty($vendorRequest)){
+            $vendorRequest->update(['status' => 'approved','approved_time'=>now(),'approved_by'=>Auth::id()]);
+            $user = User::find($vendorRequest->user_id);
+            if(!empty($user)){
+                $user->syncRoles($vendorRequest->role_request);
             }
 
+            event(new VendorApproved($user,$vendorRequest));
         }
         return redirect()->back()->with('success', __('Updated successfully!'));
     }
-    public function userUpgradeRequestApprovedId(Request $request,$id)
+
+    public function export()
     {
-        $ids = $request->input('$id');
-        if (empty($id))
-            return redirect()->back()->with('error', __('Select at leas 1 item!'));
-            $vendorRequest = VendorRequest::find( $id);
-            if(!empty($vendorRequest)){
-                $vendorRequest->update(['status' => 'approved','approved_time'=>now(),'approved_by'=>Auth::id()]);
-                $user = User::find($vendorRequest->user_id);
-                if(!empty($user)){
-                    $user->assignRole($vendorRequest->role_request);
-                }
-            }
-        return redirect()->back()->with('success', __('Updated successfully!'));
+        return (new UserExport())->download('user-' . date('M-d-Y') . '.xlsx');
+    }
+    public function verifyEmail(Request $request,$id)
+    {
+        $user = User::find($id);
+        if(!empty($user)){
+            $user->email_verified_at = now();
+            $user->save();
+            return redirect()->back()->with('success', __('Verify email successfully!'));
+        }else{
+            return redirect()->back()->with('error', __('Verify email cancel!'));
+        }
     }
 
 }

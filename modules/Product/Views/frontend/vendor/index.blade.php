@@ -5,7 +5,7 @@
 @section('content')
     <h2 class="title-bar">
         {{__("Manage Products")}}
-        @if(Auth::user()->hasPermissionTo('product_create'))
+        @if(Auth::user()->hasPermission('product_create'))
             <a href="{{route('product.vendor.create')}}" class="btn-change-password">{{__("Add Product")}}</a>
         @endif
     </h2>

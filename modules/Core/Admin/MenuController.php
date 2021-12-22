@@ -18,8 +18,7 @@ class MenuController extends AdminController
 
     public function index()
     {
-
-        $this->checkPermission('menu_view');
+        $this->checkPermission('menu_manage');
         $data = [
             'rows'           => Menu::paginate(20),
             'locations'      => $this->getLocations(),
@@ -32,15 +31,13 @@ class MenuController extends AdminController
     {
         return [
             'primary' => __("Primary"),
-            'department' => __("Department"),
-            'menu_right' => __("Right menu")
         ];
     }
 
     public function create()
     {
 
-        $this->checkPermission('menu_create');
+        $this->checkPermission('menu_manage');
         $data = [
             'row'                    => new Menu(),
             'locations'              => $this->getLocations(),
@@ -63,7 +60,7 @@ class MenuController extends AdminController
     public function edit($id)
     {
 
-        $this->checkPermission('menu_update');
+        $this->checkPermission('menu_manage');
         $row = Menu::find($id);
         if (empty($row)) {
             abort(404);
@@ -107,11 +104,22 @@ class MenuController extends AdminController
         $q = $request->input('q');
         if (class_exists($class) and method_exists($class, 'searchForMenu')) {
 
+            $menuItems = call_user_func([
+                $class,
+                'searchForMenu'
+            ], $q);
+
+            foreach ($menuItems as $k => &$menuItem) {
+                $menuItem['class'] = '';
+                $menuItem['target'] = '';
+                $menuItem['open'] = false;
+                $menuItem['item_model'] = $class;
+                $menuItem['origin_name'] = $menuItem['name'];
+                $menuItem['model_name'] =$class::getModelName();
+            }
+
             return $this->sendSuccess([
-                'data' => call_user_func([
-                    $class,
-                    'searchForMenu'
-                ], $q)
+                'data' => $menuItems
             ]);
         }
         return $this->sendSuccess([
@@ -122,6 +130,30 @@ class MenuController extends AdminController
     public function getTypes()
     {
         $menuModels = [
+            [
+                'class' => \Modules\Page\Models\Page::class,
+                'name'  => __("Page"),
+                'items' => \Modules\Page\Models\Page::searchForMenu(),
+                'position'=>10
+            ],
+            [
+                'class' => \Modules\Location\Models\Location::class,
+                'name'  => __("Location"),
+                'items' => \Modules\Location\Models\Location::searchForMenu(),
+                'position'=>40
+            ],
+            [
+                'class' => \Modules\News\Models\News::class,
+                'name'  => __("News"),
+                'items' => \Modules\News\Models\News::searchForMenu(),
+                'position'=>50
+            ],
+            [
+                'class' => NewsCategory::class,
+                'name'  => __("News Category"),
+                'items' => NewsCategory::searchForMenu(),
+                'position'=>60
+            ],
         ];
 
         // Modules
@@ -141,7 +173,20 @@ class MenuController extends AdminController
 
             }
         }
-
+        // Plugins Menu
+        $plugins_modules = \Plugins\ServiceProvider::getModules();
+        if(!empty($plugins_modules)){
+            foreach($plugins_modules as $module){
+                $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
+                if(class_exists($moduleClass))
+                {
+                    $menuConfig = call_user_func([$moduleClass,'getMenuBuilderTypes']);
+                    if(!empty($menuConfig)){
+                        $menuModels = array_merge($menuModels,$menuConfig);
+                    }
+                }
+            }
+        }
         // Custom Menu
         $custom_modules = \Custom\ServiceProvider::getModules();
         if(!empty($custom_modules)){
@@ -159,6 +204,7 @@ class MenuController extends AdminController
 
             }
         }
+
         $menuModels = array_values(\Illuminate\Support\Arr::sort($menuModels, function ($value) {
             return $value['position'] ?? 100;
         }));
@@ -191,27 +237,24 @@ class MenuController extends AdminController
 
     public function store(Request $request)
     {
+        $this->checkPermission('menu_manage');
         $request->validate([
             'items' => 'required',
             'name'  => 'required|max:255'
         ]);
         if ($request->input('id')) {
-
-            $this->checkPermission('menu_update');
             $menu = Menu::find($request->input('id'));
         } else {
-
-            $this->checkPermission('menu_create');
             $menu = new Menu();
         }
         if (empty($menu))
             return $this->sendError(__('Menu not found'));
 
-
-        $menu->items = $request->input('items');
+        $items = json_decode($request->input('items'),true);
+        $newItems = clean_by_key($items, 'name');
+        $menu->items = json_encode($newItems);
         $menu->name = $request->input('name');
         $menu->saveOriginOrTranslation($request->input('lang'));
-
 
         $setting = json_decode(setting_item('menu_locations'), true);
         $hasChange = false;
@@ -231,10 +274,35 @@ class MenuController extends AdminController
                 $setting[$location] = $menu->id;
             }
         }
-
         setting_update_item('menu_locations', json_encode($setting));
         return $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/core/menu/edit/' . $menu->id)
         ], __('Your menu has been saved'));
+    }
+
+    public function bulkEdit(Request $request)
+    {
+        $this->checkPermission('menu_manage');
+        $ids = $request->input('ids');
+        $action = $request->input('action');
+        if (empty($ids) or !is_array($ids)) {
+            return redirect()->back()->with('error', __('No items selected!'));
+        }
+        if (empty($action)) {
+            return redirect()->back()->with('error', __('Please select an action!'));
+        }
+
+        switch ($action) {
+            case "delete":
+                foreach ($ids as $id) {
+                    $query = Menu::where("id", $id);
+                    $row = $query->first();
+                    if (!empty($row)) {
+                        $row->delete();
+                    }
+                }
+                return redirect()->back()->with('success', __('Deleted success!'));
+            break;
+        }
     }
 }

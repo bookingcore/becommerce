@@ -46,7 +46,7 @@ class UpdaterController extends  AdminController
             'envato_username'=>setting_item('envato_username'),
             'action'=>'check_update',
             'domain'=>\request()->getHost(),
-            'product'=>'bookingcore',
+            'product'=>'superio',
         ]);
 
         $data_json =  json_decode($data,true);
@@ -80,7 +80,7 @@ class UpdaterController extends  AdminController
 
         $updater_latest_version = setting_item('updater_latest_version');
         if(empty($updater_latest_version) or version_compare(config('app.version'),$updater_latest_version,'>=')){
-            return $this->sendError(__("You are using latest version of martfury"));
+            return $this->sendError(__("You are using latest version of Superio"));
         }
 
         if(!class_exists('\ZipArchive'))
@@ -102,7 +102,7 @@ class UpdaterController extends  AdminController
             'envato_username'=>setting_item('envato_username'),
             'action'=>'get_update',
             'domain'=>\request()->getHost(),
-            'product'=>'bookingcore'
+            'product'=>'superio'
         ]);
 
         $data_json =  json_decode($data,true);
@@ -133,10 +133,6 @@ class UpdaterController extends  AdminController
         $check = $this->unzipFile($zip_file_tmp,base_path());
 
         if($check){
-
-            ob_start();
-                app()->call('\\App\\Http\\Controllers\\HomeController@updateMigrate');
-            ob_end_clean();
 
             Settings::store('updater_last_success',time());
             return $this->sendSuccess([],__("Update Success"));

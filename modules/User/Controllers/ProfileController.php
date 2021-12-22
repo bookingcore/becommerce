@@ -10,78 +10,63 @@ namespace Modules\User\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Modules\FrontendController;
-use Modules\Product\Models\Product;
+use Modules\Gig\Models\Gig;
 
 class ProfileController extends FrontendController
 {
-    public function profile(Request $request,$id){
+    public function profile(Request $request,$id_or_slug){
 
-        $user = User::find($id);
-        $data['rows'] = Product::where('create_user', $id)->paginate(12);
+        $user = User::where('email', '=', $id_or_slug)->first();
+        if(empty($user)){
+            $user = User::find($id_or_slug);
+        }
         if(empty($user)){
             abort(404);
         }
-
+        if(!$user->hasPermission('dashboard_vendor_access'))
+        {
+            return redirect('/');
+        }
         $data['user'] = $user;
         $data['page_title'] = $user->getDisplayName();
-        $data['show_breadcrumb'] = 0;
-        $data['breadcrumbs'] = [
-            ['name'=>$user->getDisplayName()],
-        ];
-        $data['wishlist'] = wishlist();
-
-        $this->registerCss('module/user/css/profile.css');
-
+        $this->registerCss('dist/frontend/module/user/css/profile.css');
         return view('User::frontend.profile.profile',$data);
     }
 
-    public function alLReviews(Request $request,$id){
-
-        $user = User::find($id);
+    public function alLReviews(Request $request,$id_or_slug){
+        $user = User::where('email', '=', $id_or_slug)->first();
+        if(empty($user)){
+            $user = User::find($id_or_slug);
+        }
         if(empty($user)){
             abort(404);
         }
-
         $data['user'] = $user;
         $data['page_title'] = __(':name - reviews from guests',['name'=>$user->getDisplayName()]);
         $data['breadcrumbs'] = [
-            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$id])],
+            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
             ['name'=>__('Reviews from guests'),'url'=>''],
         ];
-
-        $this->registerCss('module/user/css/profile.css');
-
+        $this->registerCss('dist/frontend/module/user/css/profile.css');
         return view('User::frontend.profile.all-reviews',$data);
     }
-    public function allServices(Request $request,$id){
-
-        $all = get_bookable_services();
-        $type = $request->query('type');
-        if(empty($type) or !array_key_exists($type,$all))
-        {
-            abort(404);
+    public function allServices(Request $request,$id_or_slug){
+        $user = User::where('email', '=', $id_or_slug)->first();
+        if(empty($user)){
+            $user = User::find($id_or_slug);
         }
-
-        $moduleClass = $all[$type];
-
-        $user = User::find($id);
         if(empty($user)){
             abort(404);
         }
-
-
         $data['user'] = $user;
-        $data['page_title'] = __(':name - :type',['name'=>$user->getDisplayName(),'type'=>$moduleClass::getModelName()]);
+        $data['page_title'] = __(':name',['name'=>$user->getDisplayName()]);
         $data['breadcrumbs'] = [
-            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$id])],
-            ['name'=>__(':type by :first_name',['type'=>$moduleClass::getModelName(),'first_name'=>$user->first_name]),'url'=>''],
+            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
+            ['name'=>__(':type by :first_name',['type'=>"Gig",'first_name'=>$user->first_name]),'url'=>''],
         ];
-        $data['type'] = $type;
-
-        $this->registerCss('module/user/css/profile.css');
-
+        $data['type'] = 'gig';
+        $data['services'] = Gig::getVendorServicesQuery($user->id)->orderBy('id','desc')->paginate(6);
+        $this->registerCss('dist/frontend/module/user/css/profile.css');
         return view('User::frontend.profile.all-services',$data);
     }
-
-
 }

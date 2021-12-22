@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,8 @@
 Route::get('/intro','LandingpageController@index');
 Route::get('/', 'HomeController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
+
+\Illuminate\Support\Facades\Auth::routes();
 
 //Custom User Login and Register
 Route::post('register','\Modules\User\Controllers\UserController@userRegister')->name('auth.register');
@@ -50,3 +53,4 @@ Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@inde
 
 Route::get('/install','HomeController@redirectToRequirement')->name('LaravelInstaller::welcome');
 Route::get('/install/environment','HomeController@redirectToWizard')->name('LaravelInstaller::environment');
+

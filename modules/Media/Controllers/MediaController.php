@@ -173,4 +173,23 @@ class MediaController extends Controller
 
         abort(404);
     }
+
+    public function getFile(){
+
+        $id = \request()->get('id');
+        if(!Auth::check()){
+
+            return $this->sendSuccess();
+        }
+
+        if(empty($id)){
+            return $this->sendSuccess();
+        }
+        $file = (new MediaFile())->findById($id);
+        if(empty($file)){
+            return $this->sendSuccess();
+        }
+
+        return $this->sendSuccess($file);
+    }
 }

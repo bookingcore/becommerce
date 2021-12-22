@@ -6,68 +6,19 @@ $menus = [
         'icon'  => 'icon ion-ios-desktop',
         "position"=>0
     ],
-    'review'=>[
-        "position"=>50,
-        'url'   => 'admin/module/review',
-        'title' => __("Reviews"),
-        'icon'  => 'icon ion-ios-text',
-        'permission' => 'review_manage_others',
-    ],
-    'news'=>[
-        "position"=>10,
-        'url'        => 'admin/module/news',
-        'title'      => __("News"),
-        'icon'       => 'ion-md-bookmarks',
-        'permission' => 'news_view',
-        'children'   => [
-            'news_view'=>[
-                'url'        => 'admin/module/news',
-                'title'      => __("All News"),
-                'permission' => 'news_view',
-            ],
-            'news_create'=>[
-                'url'        => 'admin/module/news/create',
-                'title'      => __("Add News"),
-                'permission' => 'news_create',
-            ],
-            'news_categoty'=>[
-                'url'        => 'admin/module/news/category',
-                'title'      => __("Categories"),
-                'permission' => 'news_create',
-            ],
-            'news_tag'=>[
-                'url'        => 'admin/module/news/tag',
-                'title'      => __("Tags"),
-                'permission' => 'news_create',
-            ],
-        ]
-    ],
-    'page'=>[
-        "position"=>20,
-        'url'   => 'admin/module/page',
-        'title' => __("Page"),
-        'icon'  => 'icon ion-ios-bookmarks',
-    ],
     'menu'=>[
         "position"=>60,
         'url'        => 'admin/module/core/menu',
         'title'      => __("Menu"),
         'icon'       => 'icon ion-ios-apps',
-        'permission' => 'menu_view',
-    ],
-    'template'=>[
-        "position"=>70,
-        'url'        => 'admin/module/template',
-        'title'      => __('Templates'),
-        'icon'       => 'icon ion-logo-html5',
-        'permission' => 'template_create',
+        'permission' => 'menu_manage',
     ],
     'general'=>[
         "position"=>80,
         'url'        => 'admin/module/core/settings/index/general',
         'title'      => __('Setting'),
         'icon'       => 'icon ion-ios-cog',
-        'permission' => 'setting_update',
+        'permission' => 'setting_manage',
         'children'   => \Modules\Core\Models\Settings::getSettingPages()
     ],
     'tools'=>[
@@ -75,6 +26,7 @@ $menus = [
         'url'      => 'admin/module/core/tools',
         'title'    => __("Tools"),
         'icon'     => 'icon ion-ios-hammer',
+        'permission' => 'setting_manage',
         'children' => [
             'language'=>[
                 'url'        => 'admin/module/language',
@@ -96,38 +48,7 @@ $menus = [
             ],
         ]
     ],
-    'users'=>[
-        "position"=>100,
-        'url'        => 'admin/module/user',
-        'title'      => __('Users'),
-        'icon'       => 'icon ion-ios-contacts',
-        'permission' => 'user_view',
-        'children'   => [
-            'user'=>[
-                'url'   => 'admin/module/user',
-                'title' => __('All Users'),
-                'icon'  => 'fa fa-user',
-            ],
-            'role'=>[
-                'url'        => 'admin/module/user/role',
-                'title'      => __('Role Manager'),
-                'permission' => 'role_view',
-                'icon'       => 'fa fa-lock',
-            ],
-            'subscriber'=>[
-                'url'        => 'admin/module/user/subscriber',
-                'title'      => __('Subscribers'),
-                'permission' => 'newsletter_manage',
-            ],
-            'userUpgradeRequest'=>[
-                'url'        => 'admin/module/user/userUpgradeRequest',
-                'title'      => __('User Upgrade Request'),
-                'permission' => 'user_view',
-            ],
-        ]
-    ]
 ];
-
 // Modules
 $custom_modules = \Modules\ServiceProvider::getModules();
 if(!empty($custom_modules)){
@@ -146,6 +67,7 @@ if(!empty($custom_modules)){
             if(!empty($menuSubMenu)){
                 foreach($menuSubMenu as $k=>$submenu){
                     $submenu['id'] = $submenu['id'] ?? '_'.$k;
+
                     if(!empty($submenu['parent']) and isset($menus[$submenu['parent']])){
                         $menus[$submenu['parent']]['children'][$submenu['id']] = $submenu;
                         $menus[$submenu['parent']]['children'] = array_values(\Illuminate\Support\Arr::sort($menus[$submenu['parent']]['children'], function ($value) {
@@ -157,6 +79,33 @@ if(!empty($custom_modules)){
             }
         }
 
+    }
+}
+
+// Plugins Menu
+$plugins_modules = \Plugins\ServiceProvider::getModules();
+if(!empty($plugins_modules)){
+    foreach($plugins_modules as $module){
+        $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
+        if(class_exists($moduleClass))
+        {
+            $menuConfig = call_user_func([$moduleClass,'getAdminMenu']);
+            if(!empty($menuConfig)){
+                $menus = array_merge($menus,$menuConfig);
+            }
+            $menuSubMenu = call_user_func([$moduleClass,'getAdminSubMenu']);
+            if(!empty($menuSubMenu)){
+                foreach($menuSubMenu as $k=>$submenu){
+                    $submenu['id'] = $submenu['id'] ?? '_'.$k;
+                    if(!empty($submenu['parent']) and isset($menus[$submenu['parent']])){
+                        $menus[$submenu['parent']]['children'][$submenu['id']] = $submenu;
+                        $menus[$submenu['parent']]['children'] = array_values(\Illuminate\Support\Arr::sort($menus[$submenu['parent']]['children'], function ($value) {
+                            return $value['position'] ?? 100;
+                        }));
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -197,7 +146,7 @@ $user = \Illuminate\Support\Facades\Auth::user();
 if (!empty($menus)){
     foreach ($menus as $k => $menuItem) {
 
-        if (!empty($menuItem['permission']) and !$user->hasPermissionTo($menuItem['permission'])) {
+        if (!empty($menuItem['permission']) and !$user->hasPermission($menuItem['permission'])) {
             unset($menus[$k]);
             continue;
         }
@@ -205,7 +154,7 @@ if (!empty($menus)){
         if (!empty($menuItem['children'])) {
             $menus[$k]['class'] .= ' has-children';
             foreach ($menuItem['children'] as $k2 => $menuItem2) {
-                if (!empty($menuItem2['permission']) and !$user->hasPermissionTo($menuItem2['permission'])) {
+                if (!empty($menuItem2['permission']) and !$user->hasPermission($menuItem2['permission'])) {
                     unset($menus[$k]['children'][$k2]);
                     continue;
                 }
@@ -223,15 +172,15 @@ if (!empty($menus)){
 ?>
 <ul class="main-menu">
     @foreach($menus as $menuItem)
-
-        <li class="{{$menuItem['class']}}"><a href="{{ url($menuItem['url']) }}">
-
+        @php $menuItem['class'] .= " ".str_ireplace("/","_",$menuItem['url']) @endphp
+        <li class="{{$menuItem['class']}} position-{{ $menuItem['position'] }}"><a href="{{ url($menuItem['url']) }}">
                 @if(!empty($menuItem['icon']))
                     <span class="icon text-center"><i class="{{$menuItem['icon']}}"></i></span>
                 @endif
-                {{$menuItem['title']}}
+                {!! clean($menuItem['title'],[
+                    'Attr.AllowedClasses'=>null
+                ]) !!}
             </a>
-
             @if(!empty($menuItem['children']))
                 <span class="btn-toggle"><i class="fa fa-angle-left pull-right"></i></span>
                 <ul class="children">
@@ -240,12 +189,13 @@ if (!empty($menus)){
                                 @if(!empty($menuItem2['icon']))
                                     <i class="{{$menuItem2['icon']}}"></i>
                                 @endif
-                                {{$menuItem2['title']}}</a></li>
+                                {!! clean($menuItem2['title'],[
+                                    'Attr.AllowedClasses'=>null
+                                ]) !!}</a>
+                        </li>
                     @endforeach
                 </ul>
             @endif
-
         </li>
-
     @endforeach
 </ul>

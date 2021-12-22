@@ -5,13 +5,16 @@
     <h2 class="title-bar no-border-bottom">
         {{__("Dashboard")}}
     </h2>
-    @include('Layout::admin.message')
+    @include('admin.message')
     <div class="bravo-user-dashboard">
         <div class="row dashboard-price-info row-eq-height">
             @if(!empty($cards_report))
                 @foreach($cards_report as $item)
                     <div class="col-lg-3 col-md-3">
-                        <div class="dashboard-item">
+                        <div class="dashboard-item {{$item['class']}}">
+                            <div class="icon">
+                                <i class="{{$item['icon']}}"></i>
+                            </div>
                             <div class="wrap-box">
                                 <div class="title">
                                     {{$item['title']}}
@@ -41,7 +44,7 @@
         </div>
         <canvas class="bravo-user-render-chart"></canvas>
         <script>
-            {{--var earning_chart_data = {!! json_encode($earning_chart_data) !!};--}}
+            var earning_chart_data = {!! json_encode($earning_chart_data) !!};
         </script>
     </div>
 @endsection
@@ -49,6 +52,7 @@
     <script type="text/javascript" src="{{ asset("libs/chart_js/Chart.min.js") }}"></script>
     <script type="text/javascript">
         jQuery(function ($) {
+            "use strict"
             $(".bravo-user-render-chart").each(function () {
                 let ctx = $(this)[0].getContext('2d');
                 window.myMixedChartForVendor = new Chart(ctx, {
@@ -96,7 +100,9 @@
                     }
                 });
             });
-            $(".bravo-user-chart form select").change(function () {
+
+
+            $(".bravo-user-chart form select").on('change',function () {
                 $(this).closest("form").submit();
             });
 

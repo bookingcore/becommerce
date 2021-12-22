@@ -1,5 +1,5 @@
 <?php
-if(!$user->hasPermissionTo('space_create')) return;
+if(!$user->hasPermission('space_create')) return;
 $services = \Modules\Product\Models\Product::getVendorServicesQuery($user->id)->orderBy('id','desc')->paginate(10);
 ?>
 @if($services->total())

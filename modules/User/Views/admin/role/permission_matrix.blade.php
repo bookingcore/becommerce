@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 @section('content')
-    <form action="{{url('admin/module/user/role/save_permissions')}}" method="post">
+    <form action="{{route('user.admin.role.save_permissions')}}" method="post">
         @csrf
         <div class="container">
             <div class="d-flex justify-content-between mb20">
@@ -8,7 +8,7 @@
                     <h1 class="title-bar">{{ __('Permission Matrix')}}</h1>
                 </div>
             </div>
-            @include('Layout::admin.message')
+            @include('admin.message')
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel">
@@ -36,10 +36,10 @@
                                         @if(!empty($permissions))
                                             @foreach($permissions as $permission)
                                                 <tr>
-                                                    <td>{{$permission->name}}</td>
+                                                    <td>{{$permission}}</td>
                                                     @foreach($roles as $role)
                                                         <td>
-                                                            <input type="checkbox" @if(in_array($permission->id,$selectedIds[$role->id])) checked @endif name="matrix[{{$role->id}}][]" value="{{$permission->id}}">
+                                                            <input type="checkbox" @if(in_array($permission,$selectedIds[$role->id])) checked @endif name="matrix[{{$role->id}}][]" value="{{$permission}}">
                                                         </td>
                                                     @endforeach
                                                 </tr>

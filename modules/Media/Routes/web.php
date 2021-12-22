@@ -7,6 +7,7 @@ Route::get('media/private/view','MediaController@privateFileView')->middleware('
 Route::group(['prefix'=>'media'],function(){
     Route::get('/preview/{id}/{size?}','\Modules\Media\Controllers\MediaController@preview');//
     Route::post('/private/store','MediaController@privateFileStore')->name('media.private.store');//
+    Route::get('/get_file','MediaController@getFile')->name('media.get_file');//
 });
 Route::group(['middleware' => ['auth']],function(){
     Route::post('/admin/module/media/store','\Modules\Media\Admin\MediaController@store');

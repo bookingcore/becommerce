@@ -1,4 +1,4 @@
-<aside class="sidebar-right">
+<aside class="sidebar blog-sidebar">
     @php
         $list_sidebars = setting_item_with_lang("news_sidebar");
     @endphp

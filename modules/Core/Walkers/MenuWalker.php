@@ -1,145 +1,113 @@
 <?php
-namespace Modules\Core\Walkers;
-class MenuWalker
-{
-    protected static $currentMenuItem;
-    protected        $menu;
+	namespace Modules\Core\Walkers;
+	class MenuWalker
+	{
+		protected static $currentMenuItem;
+		protected        $menu;
+		protected $activeItems = [];
 
-    public function __construct($menu)
-    {
-        $this->menu = $menu;
-    }
+		public function __construct($menu)
+		{
+			$this->menu = $menu;
+		}
 
-    public function generate()
-    {
-        $items = json_decode($this->menu->items, true);
-        if (!empty($items)) {
-            echo '<ul class="main-menu-ul menu-generated">';
-            $this->generateTree($items);
-            echo '</ul>';
-        }
-    }
+		public function generate()
+		{
+			$items = json_decode($this->menu->items, true);
+			if (!empty($items)) {
+				echo '<ul class="navigation" id="navbar">';
+				$this->generateTree($items);
 
-    public function generateTree($items = [])
-    {
-
-        foreach ($items as $item) {
-
-            $class = $item['class'] ?? '';
-            $url = $item['url'] ?? '';
-            $item['target'] = $item['target'] ?? '';
-            if (!isset($item['item_model']))
-                continue;
-            if (class_exists($item['item_model'])) {
-                $itemClass = $item['item_model'];
-                if(is_callable([$itemClass,'findWithCache'])){
-                    $itemObj = call_user_func([$itemClass,'findWithCache'],$item['id']);
-                }else {
-                    $itemObj = $itemClass::find($item['id']);
+				if($this->menu->location == 'primary' && !(is_candidate() && !is_admin())){
+                    ob_start();
+                    if(is_employer()){
+                        ?>
+                        <!-- Only for Mobile View -->
+                        <li class="mm-add-listing">
+                            <a href="<?php echo route('job.admin.create'); ?>" class="theme-btn btn-style-one <?php echo !auth()->check() ? 'bc-call-modal login' : ''; ?>"><?php echo __("Job Post"); ?></a>
+                        </li>
+                        <?php
+                    }
+                    echo ob_get_clean();
                 }
-                if (empty($itemObj)) {
-                    continue;
-                }
-                $url = $itemObj->getDetailUrl();
-            }
-            if ($this->checkCurrentMenu($item, $url))
-                $class .= ' active';
+				echo '</ul>';
+			}
+		}
 
+		public function generateTree($items = [],$depth = 0,$parentKey = '')
+		{
 
-            if (!empty($item['children'])) {
-                $class.=' menu-item-has-children';
-            }
+			foreach ($items as $k=>$item) {
 
-            if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
-                $class.=' is-mega-menu';
-            }
+				$class = e($item['class'] ?? '');
+				$url = $item['url'] ?? '';
+				$item['target'] = $item['target'] ?? '';
+				if (!isset($item['item_model']))
+					continue;
+				if (class_exists($item['item_model'])) {
+					$itemClass = $item['item_model'];
+					$itemObj = $itemClass::find($item['id']);
+					if (empty($itemObj)) {
+						continue;
+					}
+					$url = $itemObj->getDetailUrl();
+				}
+				if ($this->checkCurrentMenu($item, $url))
+				{
+					$class .= ' current';
+					$this->activeItems[] = $parentKey;
+				}
 
-            printf('<li class="menu-item %s">', e($class));
+				if (!empty($item['children'])) {
+                    $class .= ' dropdown';
+					ob_start();
+					$this->generateTree($item['children'],$depth + 1,$parentKey.'_'.$k);
+					$html = ob_get_clean();
+					if(in_array($parentKey.'_'.$k,$this->activeItems)){
+						$class.=' current ';
+					}
+				}
+				$class.=' depth-'.($depth);
+				printf('<li class="%s">', $class);
+				if (!empty($item['children'])) {
+					$item['name'] .= ' <i class="caret fa fa-angle-down"></i>';
+				}
+				printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
+				if (!empty($item['children'])) {
+					echo '<ul class="children-menu menu-dropdown">';
+					echo $html;
+					echo "</ul>";
+				}
+				echo '</li>';
+			}
+		}
 
-            printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), e($item['name']));
-            if (!empty($item['children'])) {
-                echo '<ul class="children-menu dropdown-submenu">';
-                if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
-                    $this->generateMultiRowTree($item['children']);
-                }else{
-                    $this->generateTree($item['children']);
-                }
-                echo "</ul>";
-            }
-            echo '</li>';
-        }
-    }
-    public function generateMultiRowTree($items = [])
-    {
-        echo '<li>';
-            echo '<div class="mega-menu-content">';
-                echo '<div class="row flex-nowrap">';
-                        foreach ($items as $item) {
+		protected function checkCurrentMenu($item, $url = '')
+		{
 
-                            $class = $item['class'] ?? '';
-                            $url = $item['url'] ?? '';
-                            $item['target'] = $item['target'] ?? '';
-                            if (!isset($item['item_model']))
-                                continue;
-                            if (class_exists($item['item_model'])) {
-                                $itemClass = $item['item_model'];
-                                $itemObj = $itemClass::find($item['id']);
-                                if (empty($itemObj)) {
-                                    continue;
-                                }
-                                $url = $itemObj->getDetailUrl();
-                            }
-                            if ($this->checkCurrentMenu($item, $url))
-                                $class .= ' active';
+			if(trim($url,'/') == request()->path()){
+				return true;
+			}
+			if (!static::$currentMenuItem)
+				return false;
+			if (empty($item['item_model']))
+				return false;
+			if (is_string(static::$currentMenuItem) and ($url == static::$currentMenuItem or $url == url(static::$currentMenuItem))) {
+				return true;
+			}
+			if (is_object(static::$currentMenuItem) and get_class(static::$currentMenuItem) == $item['item_model'] && static::$currentMenuItem->id == $item['id']) {
+				return true;
+			}
+			return false;
+		}
 
+		public static function setCurrentMenuItem($item)
+		{
+			static::$currentMenuItem = $item;
+		}
 
-                            if (!empty($item['children'])) {
-                                $class.=' menu-item-has-children';
-                            }
-
-                            printf('<div class="%s mega-menu-col col">', e($class));
-                            echo '<div class="menu-item-mega">';
-                                printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), e($item['name']));
-                                if (!empty($item['children'])) {
-                                    echo '<div class="mega-menu-submenu">';
-                                        echo '<ul class="sub-menu check">';
-                                            $this->generateTree($item['children']);
-                                        echo "</ul>";
-                                    echo "</div>";
-                                }
-                                echo '</div>';
-                            echo '</div>';
-                        }
-
-                echo '</div>';
-            echo '</div>';
-        echo '</li>';
-    }
-
-
-    protected function checkCurrentMenu($item, $url = '')
-    {
-
-        if (!static::$currentMenuItem)
-            return false;
-        if (empty($item['item_model']))
-            return false;
-        if (is_string(static::$currentMenuItem) and ($url == static::$currentMenuItem or $url == url(static::$currentMenuItem))) {
-            return true;
-        }
-        if (is_object(static::$currentMenuItem) and get_class(static::$currentMenuItem) == $item['item_model'] && static::$currentMenuItem->id == $item['id']) {
-            return true;
-        }
-        return false;
-    }
-
-    public static function setCurrentMenuItem($item)
-    {
-        static::$currentMenuItem = $item;
-    }
-
-    public static function getActiveMenu()
-    {
-        return static::$currentMenuItem;
-    }
-}
+		public static function getActiveMenu()
+		{
+			return static::$currentMenuItem;
+		}
+	}

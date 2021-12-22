@@ -52,6 +52,7 @@ class CreateUsersTable extends Migration
 
 
             $table->tinyInteger('need_update_pw')->default(0);
+            $table->string('verify_submit_status',20)->nullable();
 
             $table->softDeletes();
             $table->rememberToken();

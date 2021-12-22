@@ -18,7 +18,7 @@ class NewsController extends AdminController
 
     public function index(Request $request)
     {
-        $this->checkPermission('news_view');
+        $this->checkPermission('news_manage');
         $dataNews = News::query()->orderBy('id', 'desc');
         $post_name = $request->query('s');
         $cate = $request->query('cate_id');
@@ -55,7 +55,7 @@ class NewsController extends AdminController
 
     public function create(Request $request)
     {
-        $this->checkPermission('news_create');
+        $this->checkPermission('news_manage');
         $row = new News();
         $row->fill([
             'status' => 'publish',
@@ -80,7 +80,7 @@ class NewsController extends AdminController
 
     public function edit(Request $request, $id)
     {
-        $this->checkPermission('news_update');
+        $this->checkPermission('news_manage');
 
         $row = News::find($id);
 
@@ -102,18 +102,21 @@ class NewsController extends AdminController
 
     public function store(Request $request, $id){
         if($id>0){
-            $this->checkPermission('news_update');
+            $this->checkPermission('news_manage');
             $row = News::find($id);
             if (empty($row)) {
                 return redirect(route('news.admin.index'));
             }
         }else{
-            $this->checkPermission('news_create');
+            $this->checkPermission('news_manage');
             $row = new News();
             $row->status = "publish";
         }
 
         $row->fill($request->input());
+        if($request->input('slug')){
+            $row->slug = $request->input('slug');
+        }
         $res = $row->saveOriginOrTranslation($request->query('lang'),true);
 
         if ($res) {
@@ -130,7 +133,7 @@ class NewsController extends AdminController
 
     public function bulkEdit(Request $request)
     {
-        $this->checkPermission('news_update');
+        $this->checkPermission('news_manage');
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids) or !is_array($ids)) {
@@ -144,7 +147,7 @@ class NewsController extends AdminController
                 $query = News::where("id", $id);
                 if (!$this->hasPermission('news_manage_others')) {
                     $query->where("create_user", Auth::id());
-                    $this->checkPermission('news_delete');
+                    $this->checkPermission('news_manage');
                 }
                 $query->first();
                 if(!empty($query)){
@@ -156,7 +159,7 @@ class NewsController extends AdminController
                 $query = News::where("id", $id);
                 if (!$this->hasPermission('news_manage_others')) {
                     $query->where("create_user", Auth::id());
-                    $this->checkPermission('news_update');
+                    $this->checkPermission('news_manage');
                 }
                 $query->update(['status' => $action]);
             }

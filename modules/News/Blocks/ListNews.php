@@ -12,16 +12,40 @@ class ListNews extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'    => 'style',
+                    'type'  => 'radios',
+                    'label' => __('Style'),
+                    'value' => 'style_1',
+                    'values' => [
+                        [
+                            'value'   => 'style_1',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                        [
+                            'value'   => 'style_3',
+                            'name' => __("Style 3")
+                        ],
+                        [
+                            'value'   => 'style_4',
+                            'name' => __("Style 4")
+                        ]
+                    ],
+                ],
+                [
                     'id'        => 'title',
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Title')
                 ],
                 [
-                    'id'        => 'desc',
+                    'id'        => 'sub_title',
                     'type'      => 'input',
                     'inputType' => 'text',
-                    'label'     => __('Desc')
+                    'label'     => __('Sub Title')
                 ],
                 [
                     'id'        => 'number',
@@ -74,7 +98,8 @@ class ListNews extends BaseBlock
                         ],
                     ]
                 ]
-            ]
+            ],
+            'category'=>__("News Blocks")
         ]);
     }
 
@@ -85,36 +110,54 @@ class ListNews extends BaseBlock
 
     public function content($model = [])
     {
-        $model_Tour = News::select("core_news.*")->with(['translations']);
+        $list = $this->query($model);
+        $data = [
+            'rows'       => $list,
+            'title'      => $model['title'] ?? "",
+            'sub_title'  => $model['sub_title'] ?? "",
+            'desc'      => $model['desc'] ?? "",
+        ];
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
+
+        return view('News::frontend.blocks.list-news.'.$style, $data);
+    }
+
+    public function contentAPI($model = []){
+        $rows = $this->query($model);
+        $model['data']= $rows->map(function($row){
+            return $row->dataForApi();
+        });
+        return $model;
+    }
+
+    public function query($model){
+        $model_news = News::select("core_news.*")->with(['translations']);
         if(empty($model['order'])) $model['order'] = "id";
         if(empty($model['order_by'])) $model['order_by'] = "desc";
-        if(empty($model['number'])) $model['number'] = 5;
+        if(empty($model['number'])) $model['number'] = 3;
         if (!empty($model['category_id'])) {
             $category_ids = [$model['category_id']];
             $list_cat = NewsCategory::whereIn('id', $category_ids)->where("status","publish")->get();
             if(!empty($list_cat)){
                 $where_left_right = [];
+                $params = [];
                 foreach ($list_cat as $cat){
-                    $where_left_right[] = " ( core_news_category._lft >= {$cat->_lft} AND core_news_category._rgt <= {$cat->_rgt} ) ";
+                    $where_left_right[] = " ( core_news_category._lft >= ? AND core_news_category._rgt <= ? ) ";
+                    $params[] = $cat->_lft;
+                    $params[] = $cat->_rgt;
                 }
                 $sql_where_join = " ( ".implode("OR" , $where_left_right)." )  ";
-                $model_Tour
-                    ->join('core_news_category', function ($join) use($sql_where_join) {
+                $model_news
+                    ->join('core_news_category', function ($join) use($sql_where_join,$params) {
                         $join->on('core_news_category.id', '=', 'core_news.cat_id')
-                            ->WhereRaw($sql_where_join);
+                            ->WhereRaw($sql_where_join,$params);
                     });
             }
         }
 
-        $model_Tour->orderBy("core_news.".$model['order'], $model['order_by']);
-        $model_Tour->where("core_news.status", "publish");
-        $model_Tour->groupBy("core_news.id");
-        $list = $model_Tour->limit($model['number'])->get();
-        $data = [
-            'rows'       => $list,
-            'title'      => $model['title'] ?? "",
-            'desc'      => $model['desc'] ?? "",
-        ];
-        return view('News::frontend.blocks.list-news.index', $data);
+        $model_news->orderBy("core_news.".$model['order'], $model['order_by']);
+        $model_news->where("core_news.status", "publish");
+        $model_news->groupBy("core_news.id");
+        return $model_news->with(['getCategory'])->limit($model['number'])->get();
     }
 }

@@ -5869,7 +5869,7 @@ function createDateAsLocalTime(arg) {
 
 /**
  * is it for local time? These type can be used from Calendar API.
- * @param {Date|string} arg - date 
+ * @param {Date|string} arg - date
  * @returns {boolean}
  */
 function useLocalTimeConverter(arg) {
@@ -14081,7 +14081,7 @@ MonthMove.prototype.getMoreLayerScheduleBlock = function(target) {
  * @returns {(string|null)} model instance ID related with schedule. if handle
  *  has not permission to handle the schedule then return null.
  */
-MonthMove.prototype.hasPermissionToHandle = function(target) {
+MonthMove.prototype.hasPermissionHandle = function(target) {
     var modelID = null;
     var blockElement;
 
@@ -14116,7 +14116,7 @@ MonthMove.prototype.hasPermissionToHandle = function(target) {
  */
 MonthMove.prototype._onDragStart = function(dragStartEvent) {
     var target = dragStartEvent.target,
-        modelID = this.hasPermissionToHandle(target),
+        modelID = this.hasPermissionHandle(target),
         model = this.baseController.schedules.items[modelID],
         scheduleData;
 

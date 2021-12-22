@@ -2,7 +2,6 @@
 namespace Modules\News\Controllers;
 
 use Illuminate\Http\Request;
-use Modules\Contact\Models\Contact;
 use Modules\FrontendController;
 use Modules\Language\Models\Language;
 use Modules\News\Models\News;
@@ -52,9 +51,10 @@ class NewsController extends FrontendController
                     'class' => 'active'
                 ],
             ],
+            'header_transparent'=>true,
             "seo_meta" => News::getSeoMetaForPageList(),
             "languages"=>Language::getActive(false),
-            "locale"=> app_get_locale()
+            "locale"=> app()->getLocale()
         ];
         return view('News::frontend.index', $data);
     }
@@ -62,20 +62,23 @@ class NewsController extends FrontendController
     public function detail(Request $request, $slug)
     {
         $row = News::where('slug', $slug)->where('status','publish')->first();
+        $near_post = $row->near_post();
         if (empty($row)) {
             return redirect('/');
         }
-        $related = News::where('cat_id',$row->cat_id)->limit(3)->get();
         $translation = $row->translateOrOrigin(app()->getLocale());
+        $row->type = 'news';
+
+        $review_list = $row->getReviewList();
 
         $data = [
             'row'               => $row,
-            'related'           => $related,
             'translation'       => $translation,
             'model_category'    => NewsCategory::where("status", "publish"),
             'model_tag'         => Tag::query(),
             'model_news'        => News::where("status", "publish"),
             'custom_title_page' => $title_page ?? "",
+            'review_list'  => $review_list,
             'breadcrumbs'       => [
                 [
                     'name' => __('News'),
@@ -86,7 +89,9 @@ class NewsController extends FrontendController
                     'class' => 'active'
                 ],
             ],
+            'header_transparent'=>true,
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
+            'near_post' => $near_post
         ];
         $this->setActiveMenu($row);
         return view('News::frontend.detail', $data);

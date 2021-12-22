@@ -10,7 +10,6 @@ class StyleController extends Controller
         $value = Cache::rememberForever('custom_css_' . app()->getLocale(), function (){
             return view('Layout::parts.custom-css')->render();
         });
-
         return response($value,200,[
             'Content-Type'=>'text/css; charset=UTF-8'
         ]);

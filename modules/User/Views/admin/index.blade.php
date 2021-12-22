@@ -6,9 +6,12 @@
             <h1 class="title-bar">{{ __('All Users')}}</h1>
             <div class="title-actions">
                 <a href="{{url('admin/module/user/create')}}" class="btn btn-primary">{{ __('Add new user')}}</a>
+                <a class="btn btn-warning btn-icon" href="{{ route("user.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
+                    <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
+                </a>
             </div>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
@@ -18,7 +21,7 @@
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
-                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                     </form>
                 @endif
             </div>
@@ -49,7 +52,9 @@
                             <th>{{__('Name')}}</th>
                             <th>{{__('Email')}}</th>
                             <th>{{__('Phone')}}</th>
+                            <th>{{__("Department")}}</th>
                             <th>{{__('Role')}}</th>
+                            <th>{{__('Status')}}</th>
                             <th class="date">{{ __('Date')}}</th>
                             <th></th>
                         </tr>
@@ -63,17 +68,28 @@
                                 </td>
                                 <td>{{$row->email}}</td>
                                 <td>{{$row->phone}}</td>
+                                <td>{{$row->department->name ?? ''}}</td>
                                 <td>
-                                    @php $roles = $row->getRoleNames();
-                                    if(!empty($roles[0])){
-                                        echo e(ucfirst($roles[0]));
-                                    }
-                                    @endphp
+                                    {{$row->role->name ?? ''}}
                                 </td>
+                                <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                                 <td>{{ display_date($row->created_at)}}</td>
                                 <td>
-                                    <a class="btn btn-sm btn-primary" href="{{url('admin/module/user/edit/'.$row->id)}}">{{__('Edit')}}</a>
-                                    <a class="btn btn-sm btn-info" href="{{url('admin/module/user/password/'.$row->id)}}">{{__('Change Password')}}</a>
+                                    <div class="dropdown">
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fa fa-th"></i>
+                                        </button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item"  href="{{url('admin/module/user/edit/'.$row->id)}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                            @if(!$row->hasVerifiedEmail())
+                                                <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Verify email')}}</a>
+                                                @else
+                                                <a class="dropdown-item"  href="#" ><i class="fa fa-check"></i> {{__('Email verified')}}</a>
+                                            @endif
+                                            <a class="dropdown-item" href="{{url('admin/module/user/password/'.$row->id)}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
+                                            <a href="{{route('user.admin.wallet.addCredit',['id'=>$row->id])}}" class="dropdown-item"><i class="fa fa-plus"></i> {{__("Add Credit")}}</a>
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach

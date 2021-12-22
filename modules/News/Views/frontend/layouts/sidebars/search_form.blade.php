@@ -1,9 +1,12 @@
-<div id="search-2" class="widget widget_search">
-    <form role="search" method="get" class="search-form" action="{{ url(app_get_locale(false,false,'/').config('news.news_route_prefix')) }}">
-        <label>
-            <span class="screen-reader-text">Search for:</span>
-            <input type="search" class="search-field" placeholder="{{__("Search ...")}}" value="{{ strip_tags(Request::query("s")) }}" name="s">
-        </label>
-        <input type="submit" class="search-submit" value="{{__('Search')}}">
+<div class="sidebar-widget widget_search search-box">
+    <div class="sidebar-title">
+        <h4>{{ __('Search by Keywords') }}</h4>
+    </div>
+
+    <form action="{{ url(app_get_locale(false,false,'/').config('news.news_route_prefix')) }}">
+        <div class="form-group">
+            <span class="icon flaticon-search-1"></span>
+            <input type="search" name="s" value="{{ Request::query("s") }}" placeholder="{{__("keywords ...")}}" aria-label="{{ __("Company or title") }}">
+        </div>
     </form>
 </div>

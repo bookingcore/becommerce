@@ -23,13 +23,14 @@
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
-        var bookingCore  = {
+        var BC  = {
             url:'{{url('/')}}',
             map_provider:'{{setting_item('map_provider')}}',
             map_gmap_key:'{{setting_item('map_gmap_key')}}',
             csrf:'{{csrf_token()}}',
             media:{
-                get_file:'{{route('media.get_file')}}'
+                get_file:'{{route('media.get_file')}}',
+                groups:{!! json_encode(config('bc.media.groups')) !!}
             }
         };
         var i18n = {

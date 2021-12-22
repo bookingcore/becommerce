@@ -43,7 +43,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if(Auth::user()->hasPermissionTo('dashboard_access')){
+        if(Auth::user()->hasPermission('dashboard_access')){
             return '/admin';
         }else{
             return $this->redirectTo;
@@ -95,7 +95,7 @@ class LoginController extends Controller
                 Auth::login($userByEmail);
                 return redirect('/');
             }
-            
+
 
             // Create New User
             $realUser = new User();
@@ -124,7 +124,7 @@ class LoginController extends Controller
             if($existUser->deleted == 1){
                 return redirect()->route('/login')->with('error',__('User blocked'));
             }
-            
+
             Auth::login($existUser);
 
             return redirect('/');

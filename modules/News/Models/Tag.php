@@ -54,8 +54,6 @@ class Tag extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        $locale = $locale ? $locale : app()->getLocale();
-
-        return url(( $locale ? $locale.'/' : ''). config('news.news_route_prefix') . "/" . config('news.news_tag_route_prefix') . "/".$this->slug);
+        return route('news.tag.index',['slug'=>$this->slug]);
     }
 }

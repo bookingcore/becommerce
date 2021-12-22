@@ -60,73 +60,53 @@
                 @include('Language::admin.navigation')
                 <div class="lang-content-box">
                     <div class="panel">
-                        <div class="panel-title">{{__('Menu items')}}</div>
-                        <div class="panel-body">
-                            <div class="menu-items-zone">
-                                <Draggable-Tree :value="items" draggable cross-tree :trigger-class="'drag-trigger'">
-                                    <div slot-scope="{node,index, path, tree}" class="nestable-item-content" >
-                                        <div class="menu-title drag-trigger">@{{node.name}}
-                                            <span class="menu-right">
-                                            <span class="model-name">@{{node.model_name}}</span>
-                                            <i class="icon ion-md-arrow-dropdown" @click="toogleItem(node)"></i>
-                                            </span>
+                    <div class="panel-title">{{__('Menu items')}}</div>
+                    <div class="panel-body">
+                        <div class="menu-items-zone">
+                            <Draggable-Tree :value="items" draggable cross-tree :triggerClass="triggerClass">
+                                <div slot-scope="{node,index, path, tree}" class="nestable-item-content" >
+                                    <div class="menu-title drag-trigger">@{{node.name}}
+                                        <span class="menu-right">
+                                        <span class="model-name">@{{node.model_name}}</span>
+                                        <i class="icon ion-md-arrow-dropdown" @click="toogleItem(node)"></i>
+                                        </span>
+                                    </div>
+                                    <div class="menu-info" v-show="node._open">
+                                        <div class="form-group">
+                                            <label>{{__('Label')}}</label>
+                                            <input type="text" v-model="node.name" class="form-control input-sm">
                                         </div>
-                                        <div class="menu-info" v-show="node._open">
-                                            <div class="form-group">
-                                                <label>{{__('Label')}}</label>
-                                                <input type="text" v-model="node.name" class="form-control input-sm">
-                                            </div>
-                                            <div class="form-group" v-show="node.item_model=='custom'">
-                                                <label>{{__('URL')}}</label>
-                                                <input type="text" v-model="node.url" class="form-control input-sm">
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>{{__('Icon')}}</label>
-                                                        <input type="text" v-model="node.icon" class="form-control input-sm">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>{{__('Layout')}}</label>
-                                                        <select v-model="node.layout" class="input-sm form-control">
-                                                            <option value="">{{__('Normal')}}</option>
-                                                            <option value="multi_row">{{__('Multi-row')}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>{{__('CSS Class')}}</label>
-                                                        <input type="text" v-model="node.class"
-                                                               class="form-control input-sm">
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="form-group">
-                                                        <label>{{__('Target')}}</label>
-                                                        <select v-model="node.target" class="input-sm form-control">
-                                                            <option value="">{{__('Normal')}}</option>
-                                                            <option value="_blank">{{__('Open new tab')}}</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label>{{__('Background')}}</label>
-                                                        <file-picker v-model="node.bg"></file-picker>
-                                                    </div>
+                                        <div class="form-group" v-show="node.item_model=='custom'">
+                                            <label>{{__('URL')}}</label>
+                                            <input type="text" v-model="node.url" class="form-control input-sm">
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>{{__('Class')}}</label>
+                                                    <input type="text" v-model="node.class"
+                                                           class="form-control input-sm">
                                                 </div>
                                             </div>
-                                            <div class="d-flex justify-content-between">
-                                                <a href='#' @click="deleteMenuItem($event,node,tree,path)"
-                                                   class="alert-text danger delete-menu-item">{{__('Delete')}}</a>
-                                                <span v-show="node.origin_name">{{__('Origin: ')}} <a
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>{{__('Target')}}</label>
+                                                    <select v-model="node.target" class="input-sm form-control">
+                                                        <option value="">{{__('Normal')}}</option>
+                                                        <option value="_blank">{{__('Open new tab')}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            <a href='#' @click="deleteMenuItem($event,node,tree,path)"
+                                               class="alert-text danger delete-menu-item">{{__('Delete')}}</a>
+                                            <span v-show="node.origin_name">{{__('Origin: ')}} <a
                                                         :href="node.origin_edit_url" target="_blank">@{{node.origin_name}}</a></span>
-                                            </div>
                                         </div>
                                     </div>
+                                </div>
                             </Draggable-Tree>
                         </div>
                         <br>
@@ -155,6 +135,6 @@
         var current_menu_name = '{{$row->name}}';
         var current_menu_locations = {!! json_encode($current_menu_locations) ?? '[]' !!};
         var current_items_index = {{$translation->lastIndex}};
-        var current_menu_lang = '{{request()->query('lang',app()->getLocale())}}';
+        var current_menu_lang = '{{request()->query('lang','')}}';
     </script>
 @endsection

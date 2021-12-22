@@ -1,87 +1,77 @@
-<div class="article single-post">
-    <header class="header entry-header">
-        @if($image_url = get_file_url($row->image_id, 'full'))
-            <div class="entry-images">
-                <img src="{{ $image_url  }}" alt="{{$translation->title}}">
-            </div>
-        @endif
-        <div class="cate">
-            @php $category = $row->getCategory; @endphp
-            @if(!empty($category))
-                @php $t = $category->translateOrOrigin(app()->getLocale()); @endphp
-                <ul>
-                    <li>
-                        <a href="{{$category->getDetailUrl(app()->getLocale())}}">
-                            {{$t->name ?? ''}}
-                        </a>
-                    </li>
-                </ul>
-            @endif
-        </div>
-    </header>
-    <h2 class="title">{{$translation->title}}</h2>
-    <div class="post-info">
-        <ul>
-            @if(!empty($row->getAuthor))
-                <li>
-                    <span> {{ __('BY ')}} </span>
-                    {{$row->getAuthor->getDisplayName() ?? ''}}
-                </li>
-            @endif
-            <li> {{__('DATE ')}}  {{ display_date($row->updated_at)}}  </li>
+@php $translation = $row->translateOrOrigin(app()->getLocale());
+    $user = \Modules\User\Models\User::find($row->create_user);
+@endphp
+<div class="auto-container">
+    <div class="upper-box">
+        <h3>{{ $translation->title }}</h3>
+        <ul class="post-info">
+            <li>
+                <span class="thumb">
+                    @if(!empty($user->avatar_id))
+                        {!! get_image_tag($user->avatar_id,'thumb',['alt' => $user->getDisplayName()]) !!}
+                    @endif
+                </span>
+                {{ $user->getDisplayName() }}
+            </li>
+            <li>{{ display_date($row->updated_at) }}</li>
         </ul>
     </div>
-    <div class="post-content"> {!! clean($translation->content) !!}</div>
-    <div class="entry-footer">
-        @if (!empty($tags = $row->getTags()) and count($tags) > 0)
-            <span class="tags-links"><strong>{{__("Tags:")}} </strong>
-                @foreach($tags as $tag)
-                    @php $t = $tag->translateOrOrigin(app()->getLocale()); @endphp
-                    <a href="{{ $tag->getDetailUrl(app()->getLocale()) }}" rel="tag">{{$t->name ?? ''}}</a>,
-                @endforeach
-            </span>
-        @endif
-        <div class="footer-socials">
-            <div class="social-links">
-                <a class="share-facebook martfury-facebook"
-                   title="{{__("Facebook")}}"
-                   href="https://www.facebook.com/sharer/sharer.php?u={{$row->getDetailUrl()}}&amp;title={{$translation->title}}"
-                   target="_blank">
-                    <i class="fa fa-facebook"></i>
-                </a>
-                <a class="share-twitter martfury-twitter"
-                   href="https://twitter.com/share?url={{$row->getDetailUrl()}}&amp;title={{$translation->title}}"
-                   title="{{__("Twitter")}}"
-                   target="_blank">
-                    <i class="fa fa-twitter" aria-hidden="true"></i>
-                </a>
-                <a class="share-google-plus martfury-google-plus"
-                   title="{{__("Google Plus")}}"
-                   href="https://plus.google.com/share?url={{$row->getDetailUrl()}}&amp;text={{$translation->title}}"
-                   target="_blank">
-                    <i class="fa fa-google-plus"></i>
-                </a>
-                <a class="share-linkedin martfury-linkedin"
-                   href="http://www.linkedin.com/shareArticle?url={{$row->getDetailUrl()}}&amp;title={{$translation->title}}"
-                   title="{{__("Linkedin")}}"
-                   target="_blank">
-                    <i class="fa fa-linkedin" aria-hidden="true"></i>
-                </a>
-                <a class="share-vkontakte martfury-vkontakte"
-                   href="http://vk.com/share.php?url={{$row->getDetailUrl()}}&amp;title={{$translation->title}}"
-                   title="{{__('Vkontakte')}}"
-                   target="_blank">
-                    <i class="fa fa-vk"></i>
-                </a>
-                <a class="share-pinterest martfury-pinterest"
-                   href="http://pinterest.com/pin/create/button?url={{$row->getDetailUrl()}}&amp;description={{$translation->title}}"
-                   title="{{__('Pinterest')}}"
-                   target="_blank">
-                    <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                </a>
+</div>
+<div class="main-image">
+    {!! get_image_tag($row->banner_id,'full',['alt' => $translation->title]) !!}
+</div>
+<div class="auto-container">
+    <div class="blog-content">
+        <p class="mb-0 text-lh-lg">
+            {!! $translation->content !!}
+        </p>
+
+        <div class="other-options">
+            <div class="social-share">
+                <h5>{{ __('Share this post') }}</h5>
+                <a class="facebook share-item" href="https://www.facebook.com/sharer/sharer.php?u={{$row->getDetailUrl()}}&amp;title={{$translation->title}}" target="_blank" original-title="{{__("Facebook")}}"><i class="fab fa-facebook-f"></i>{{ __('Facebook') }}</a>
+                <a class="twitter share-item" href="https://twitter.com/share?url={{$row->getDetailUrl()}}&amp;title={{$translation->title}}" target="_blank" original-title="{{__("Twitter")}}"><i class="fab fa-twitter"></i> {{ __('Twitter') }}</a>
+                <a class="google share-item" href="https://plus.google.com/share?url={{$row->getDetailUrl()}}" target="_blank" original-title="{{__("Google+")}}"><i class="fab fa-google"></i> {{__("Google+")}}</a>
+            </div>
+
+            <div class="tags">
+                @if($row->getTags())
+                    @foreach($row->getTags() as $tag)
+                        <a href="{{ $tag->getDetailUrl() }}">{{ $tag->name }}</a>
+                    @endforeach
+                @endif
             </div>
         </div>
-        @include('News::frontend.layouts.details.related-news')
+
+        @if(!empty($near_post))
+            <div class="post-control d-block overflow-hidden">
+                @foreach($near_post as $post)
+                    @php $translation = $post->translateOrOrigin(app()->getLocale()); @endphp
+                    @if($post->id < $row->id)
+                        <div class="prev-post float-left">
+                            <span class="icon flaticon-back"></span>
+                            <span class="title">{{ __('Previous Post') }}</span>
+                            <h5><a href="{{ $post->getDetailUrl() }}">{{ $translation->title ?? '' }}</a></h5>
+                        </div>
+                    @endif
+
+                    @if($post->id > $row->id)
+                        <div class="next-post float-right">
+                            <span class="icon flaticon-next"></span>
+                            <span class="title">{{ __('Next Post') }}</span>
+                            <h5><a href="{{ $post->getDetailUrl() }}">{{ $translation->title ?? '' }}</a></h5>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        @endif
+
+        {{--Reviews--}}
+        @if(setting_item('news_enable_review'))
+            @php $review_score = $row->review_data @endphp
+            <div id="reviews" class="blog-reviews">
+                @include('Review::frontend.form')
+            </div>
+        @endif
     </div>
 </div>
-

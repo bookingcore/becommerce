@@ -5,8 +5,8 @@
     <h2 class="title-bar">
         {{__("Change Password")}}
     </h2>
-    @include('Layout::admin.message')
-    <form action="{{url(app_get_locale()."/user/profile/change-password")}}" method="post">
+    @include('admin.message')
+    <form action="{{ route("user.change_password.update") }}" method="post">
         @csrf
         <div class="row">
             <div class="col-md-6">
@@ -26,7 +26,7 @@
             <div class="col-md-12">
                 <hr>
                 <input type="submit" class="btn btn-primary" value="{{__("Change Password")}}">
-                <a href="{{url(app_get_locale()."/user/profile")}}" class="btn btn-default">{{__("Cancel")}}</a>
+                <a href="{{ route("user.profile.index") }}" class="btn btn-default">{{__("Cancel")}}</a>
             </div>
         </div>
     </form>

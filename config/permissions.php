@@ -1,24 +1,12 @@
 <?php
 
 return [
-    //GIG
-    "gig_manage",
-    "gig_manage_others",
-
-    //candidate_manage
-    "candidate_manage",
-    "candidate_manage_others",
-
-    //employer_manage
-    "employer_manage",
-    "employer_manage_others",
-
-    //job_manage
-    "job_manage",
-    "job_manage_others",
-
-    "skill_manage_others",
-    "category_manage_others",
+    "product_view",
+    "product_create",
+    "product_update",
+    "product_delete",
+    "product_manage_others",
+    "product_manage_attributes",
 
     // Page
     "page_manage",

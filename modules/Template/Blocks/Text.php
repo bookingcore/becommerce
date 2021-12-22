@@ -8,11 +8,6 @@ class Text extends BaseBlock
             'settings' => [
                 [
                     'id'    => 'content',
-                    'type'  => 'textArea',
-                    'label' => __('Content')
-                ],
-                [
-                    'id'    => 'content2',
                     'type'  => 'editor',
                     'label' => __('Editor')
                 ],
@@ -22,36 +17,18 @@ class Text extends BaseBlock
                     'inputType' => 'text',
                     'label'     => __('Wrapper Class (opt)')
                 ],
-                [
-                    'id'          => 'list_item',
-                    'type'        => 'listItem',
-                    'label'       => __('Wrapper Class (opt)'),
-                    'title_field' => 'class',
-                    'settings'    => [
-                        [
-                            'id'        => 'class',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => "Input"
-                        ],
-                        [
-                            'id'    => 'content',
-                            'type'  => 'textArea',
-                            'label' => __('Content')
-                        ]
-                    ]
-                ],
-                [
-                    'id'    => 'bg',
-                    'type'  => 'uploader',
-                    'label' => __('Image Uploader')
-                ],
-            ]
+            ],
+            'category'=>__("Other Block")
         ]);
     }
 
     public function getName()
     {
         return __('Text');
+    }
+
+    public function content($model = [])
+    {
+        return view('Template::frontend.blocks.text', $model);
     }
 }

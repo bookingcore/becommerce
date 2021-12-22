@@ -8,17 +8,24 @@
             <div class="panel-title"><strong>{{__('General Options')}}</strong></div>
             <div class="panel-body">
                 @if(is_default_lang())
-                <div class="form-group">
-                    <label>{{__("Main color")}}</label>
-                    <div class="form-controls">
-                        <input type="text" name="style_main_color" value="{{$settings['style_main_color'] ?? '#fcb800'}}" class="has-colorpicker d-none">
+                    <div class="form-group">
+                        <label>{{__("Enable Preloader")}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" @if(setting_item('enable_preloader') ?? '' == 1) checked @endif name="enable_preloader" value="1">{{__('Enable')}}</label>
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label>{{__("Main color")}}</label>
+                        <div class="form-controls">
+                            <input type="text" name="style_main_color" value="{{$settings['style_main_color'] ?? '#5191FA'}}" class="has-colorpicker d-none">
+                        </div>
+                    </div>
                 @endif
                 <div class="form-group">
                     <label><strong>{{__("Typography")}}</strong></label>
                     <div class="form-controls">
-                        @php $typo = json_decode(setting_item_with_lang('style_typo',request()->query('lang')),true) @endphp
+                        @php
+                            $typo = json_decode(setting_item_with_lang('style_typo',request()->query('lang')),true) @endphp
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
@@ -37,13 +44,13 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{__("Font Size")}}</label>
-                                    <input type="number" name="style_typo[font_size]" class="form-control" min="0" max="60" value="{{$typo['font_size'] ?? ''}}">
+                                    <input type="text" name="style_typo[font_size]" class="form-control" min="0" max="60" value="{{$typo['font_size'] ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label>{{__("Line Height")}}</label>
-                                    <input type="number" name="style_typo[line_height]" class="form-control" min="0" max="60" value="{{$typo['line_height'] ?? ''}}">
+                                    <input type="text" name="style_typo[line_height]" class="form-control" min="0" max="60" value="{{$typo['line_height'] ?? ''}}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
@@ -59,61 +66,52 @@
         </div>
     </div>
 </div>
-<hr>
-<div class="row">
-    <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Header & Footer Style")}}</h3>
-        <p class="form-group-desc">{{__('Change style for header and footer')}}</p>
-    </div>
-    <div class="col-sm-8">
-        @php $style_id = json_decode(setting_item('homepage_style')) ?? '' @endphp
-        <div class="panel">
-            <div class="panel-title"><strong>{{__('Header & Footer Style')}}</strong></div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>{{ __('Header style') }}</label>
-                    <select name="homepage_style[header]" class="form-control">
-                        @if(!empty(list_homepage_style()))
-                            @foreach(list_homepage_style() as $key => $style)
-                                <option @if(!empty($style_id->header) && $style_id->header == $key) selected @endif value="{{ $key }}">{{ $style }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                    <hr>
-                    <label>{{ __('Footer style') }}</label>
-                    <select name="homepage_style[footer]" class="form-control">
-                        @if(!empty(list_homepage_style()))
-                            @foreach(list_homepage_style() as $key => $style)
-                                <option @if(!empty($style_id->footer) && $style_id->footer == $key) selected @endif value="{{ $key }}">{{ $style }}</option>
-                            @endforeach
-                        @endif
-                    </select>
-                </div>
-            </div>
+@if(is_default_lang())
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 class="form-group-title">{{__("Custom CSS for all languages")}}</h3>
+            <p class="form-group-desc">{{__('Write your own custom css code')}}</p>
         </div>
-    </div>
-</div>
-<hr>
-<div class="row">
-    <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Custom CSS")}}</h3>
-        <p class="form-group-desc">{{__('Write your own custom css code')}}</p>
-    </div>
-    <div class="col-sm-8">
-        <div class="panel">
-            <div class="panel-title"><strong>{{__('Custom CSS')}}</strong></div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label>{{__("Custom CSS")}}</label>
-                    <div class="form-controls">
-                        <div id="custom_css_editor" class="ace-editor" style="height: 400px" data-theme="monokai" data-mod="css">{{setting_item_with_lang('style_custom_css',request()->query('lang'))}}</div>
-                        <textarea class="d-none" name="style_custom_css" > {{ setting_item_with_lang('style_custom_css',request()->query('lang')) }} </textarea>
+        <div class="col-sm-8">
+            <div class="panel">
+                <div class="panel-title"><strong>{{__('Custom CSS')}}</strong></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>{{__("Custom CSS")}}</label>
+                        <div class="form-controls">
+                            <div id="custom_css_editor" class="ace-editor" style="height: 400px" data-theme="monokai" data-mod="css">{{setting_item('style_custom_css')}}</div>
+                            <textarea class="d-none" name="style_custom_css" > {{ setting_item('style_custom_css') }} </textarea>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+@else
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 class="form-group-title">{{__("Custom CSS for :name",['name'=>request('lang')])}}</h3>
+            <p class="form-group-desc">{{__('Write your own custom css code')}}</p>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel">
+                <div class="panel-title"><strong>{{__('Custom CSS')}}</strong></div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label>{{__("Custom CSS")}}</label>
+                        <div class="form-controls">
+                            <div id="custom_css_editor" class="ace-editor" style="height: 400px" data-theme="monokai" data-mod="css">{{setting_item_with_lang('style_custom_css',request()->query('lang'))}}</div>
+                            <textarea class="d-none" name="style_custom_css" > {{ setting_item_with_lang_raw('style_custom_css',request()->query('lang')) }} </textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
 @section('script.body')
     <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{asset('libs/spectrum/spectrum.js')}}" type="text/javascript" charset="utf-8"></script>

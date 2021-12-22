@@ -1,54 +1,41 @@
 @extends('layouts.app')
 @section('head')
-    <link href="{{ asset('module/news/css/news.css?_ver='.config('app.version')) }}" rel="stylesheet">
-    <link href="{{ asset('css/app.css?_ver='.config('app.version')) }}" rel="stylesheet">
+    <link href="{{ asset('dist/frontend/module/news/css/news.css?_ver='.config('app.version')) }}" rel="stylesheet">
+    <link href="{{ asset('dist/frontend/css/app.css?_ver='.config('app.version')) }}" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/daterange/daterangepicker.css") }}">
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/ion_rangeslider/css/ion.rangeSlider.min.css") }}"/>
     <link rel="stylesheet" type="text/css" href="{{ asset("libs/fotorama/fotorama.css") }}"/>
 @endsection
 @section('content')
     <div class="bravo-news">
-        @php
-            $title_page = setting_item_with_lang("news_page_list_title");
-            if(!empty($custom_title_page)){
-                $title_page = $custom_title_page;
-            }
-        @endphp
-        @if(!empty($title_page))
-            <div class="page-header text-center page-header-blog layout-1">
-                <div class="container">
-                    <h1 class="entry-title">{{ $title_page }}</h1>
-                    @include('News::frontend.layouts.details.news-breadcrumb')
-                </div>
-            </div>
-        @endif
+        @include('Template::frontend.blocks.box-hero',[
+            'title' => setting_item_with_lang('news_page_list_title'),
+            'sub_title' => setting_item_with_lang('news_page_list_sub_title')
+        ])
 
-        <div class="blog-layout-content-sidebar">
-            <div class="bravo_content">
-                <div class="container">
-                    <div class="row">
-                        <div class="content-area col-md-9 col-sm-12 col-xs-12">
-                            @if($rows->count() > 0)
-                                <main id="main" class="site-main">
-                                    <div class="row">
-                                        <div class="mf-post-list">
-                                            @include('News::frontend.layouts.details.news-loop')
+        <div class="sidebar-page-container">
+            <div class="auto-container">
+                <div class="row">
+                    <div class="content-side col-lg-8 col-md-12 col-sm-12">
+                        <div class="blog-grid">
+                            <div class="row">
+                                @if($rows->count() > 0)
+                                    @foreach($rows as $row)
+                                        <div class="news-block col-lg-6 col-md-6 col-sm-12">
+                                        @include('News::frontend.layouts.details.news-loop')
                                         </div>
-                                        <div class="bravo-pagination">
-                                            {{$rows->appends(request()->query())->links()}}
-                                            <span class="count-string">{{ __("Showing :from - :to of :total posts",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]) }}</span>
-                                        </div>
+                                    @endforeach
+                                @else
+                                    <div class="alert alert-danger">
+                                        {{__("Sorry, but nothing matched your search terms. Please try again with some different keywords.")}}
                                     </div>
-                                </main>
-                            @else
-                                <div class="alert alert-danger">
-                                    {{__("Sorry, but nothing matched your search terms. Please try again with some different keywords.")}}
-                                </div>
-                            @endif
+                                @endif
+                            </div>
                         </div>
-                        <div class="widgets-area primary-sidebar col-md-3 col-sm-12 col-xs-12  blog-sidebar">
-                            @include('News::frontend.layouts.details.news-sidebar')
-                        </div>
+                        {{$rows->appends(request()->query())->links('vendor.pagination.news-pagination')}}
+                    </div>
+                    <div class="sidebar-side col-lg-4 col-md-12 col-sm-12">
+                        @include('News::frontend.layouts.details.news-sidebar')
                     </div>
                 </div>
             </div>

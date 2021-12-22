@@ -5,15 +5,27 @@
 @section('content')
     <h2 class="title-bar">
         {{__("Settings")}}
-        <a href="{{url(app_get_locale()."/user/profile/change-password")}}" class="btn-change-password">{{__("Change Password")}}</a>
+        <a href="{{route('user.change_password')}}" class="btn-change-password">{{__("Change Password")}}</a>
     </h2>
-    @include('Layout::admin.message')
-    <form action="{{url(app_get_locale()."/user/profile")}}" method="post" class="input-has-icon">
+    @include('admin.message')
+    <form action="{{route('user.profile.update')}}" method="post" class="input-has-icon">
         @csrf
         <div class="row">
             <div class="col-md-6">
                 <div class="form-title">
                     <strong>{{__("Personal Information")}}</strong>
+                </div>
+                @if($is_vendor_access)
+                    <div class="form-group">
+                        <label>{{__("Business name")}}</label>
+                        <input type="text" value="{{old('business_name',$dataUser->business_name)}}" name="business_name" placeholder="{{__("Business name")}}" class="form-control">
+                        <i class="fa fa-user input-icon"></i>
+                    </div>
+                @endif
+                <div class="form-group">
+                    <label>{{__("User name")}}</label>
+                    <input type="text" name="user_name" value="{{old('user_name',$dataUser->user_name)}}" placeholder="{{__("User name")}}" class="form-control">
+                    <i class="fa fa-user input-icon"></i>
                 </div>
                 <div class="form-group">
                     <label>{{__("E-mail")}}</label>
@@ -59,10 +71,10 @@
                                     {{__("Browse")}}… <input type="file">
                                 </span>
                             </span>
-                            <input type="text" data-error="{{__("Error upload...")}}" data-loading="{{__("Loading...")}}" class="form-control text-view" readonly value="{{ $dataUser->getAvatarUrl()?? __("No Image")}}">
+                            <input type="text" data-error="{{__("Error upload...")}}" data-loading="{{__("Loading...")}}" class="form-control text-view" readonly value="{{ get_file_url( old('avatar_id',$dataUser->avatar_id) ) ?? $dataUser->getAvatarUrl()?? __("No Image")}}">
                         </div>
-                        <input type="hidden" class="form-control" name="avatar_id" value="{{ $dataUser->avatar_id?? ""}}">
-                        <img class="image-demo" src="{{ $dataUser->getAvatarUrl()?? ""}}"/>
+                        <input type="hidden" class="form-control" name="avatar_id" value="{{ old('avatar_id',$dataUser->avatar_id)?? ""}}">
+                        <img class="image-demo" src="{{ get_file_url( old('avatar_id',$dataUser->avatar_id) ) ??  $dataUser->getAvatarUrl() ?? ""}}"/>
                     </div>
                 </div>
             </div>
@@ -71,12 +83,12 @@
                     <strong>{{__("Location Information")}}</strong>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Address")}}</label>
+                    <label>{{__("Address Line 1")}}</label>
                     <input type="text" value="{{old('address',$dataUser->address)}}" name="address" placeholder="{{__("Address")}}" class="form-control">
                     <i class="fa fa-location-arrow input-icon"></i>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Address2")}}</label>
+                    <label>{{__("Address Line 2")}}</label>
                     <input type="text" value="{{old('address2',$dataUser->address2)}}" name="address2" placeholder="{{__("Address2")}}" class="form-control">
                     <i class="fa fa-location-arrow input-icon"></i>
                 </div>
@@ -100,10 +112,11 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Post Code")}}</label>
-                    <input type="text" value="{{old('postcode',$dataUser->postcode)}}" name="postcode" placeholder="{{__("Post code")}}" class="form-control">
+                    <label>{{__("Zip Code")}}</label>
+                    <input type="text" value="{{old('zip_code',$dataUser->zip_code)}}" name="zip_code" placeholder="{{__("Zip Code")}}" class="form-control">
                     <i class="fa fa-map-pin input-icon"></i>
                 </div>
+
             </div>
             <div class="col-md-12">
                 <hr>

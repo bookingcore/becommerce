@@ -7,12 +7,12 @@
             </div>
             <hr>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="row">
             <div class="col-md-3 d-none">
                 <div class="panel">
                     <div class="panel-title">{{__('Settings Groups')}}</div>
-                    <div class="panel-body">                        
+                    <div class="panel-body">
                         <ul class="panel-navs">
                             @foreach($groups as $k=>$row)
                                 <li class="@if($current_group == $k) active @endif"><a href="{{url('admin/module/core/settings/index/'.$k)}}">
@@ -26,8 +26,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">                
-                <form action="{{url('admin/module/core/settings/store/'.$current_group)}}" method="post">
+            <div class="col-md-12">
+                <form action="{{url('admin/module/core/settings/store/'.$current_group)}}" method="post" autocomplete="off">
                     @csrf
 
                     @include('Language::admin.navigation')

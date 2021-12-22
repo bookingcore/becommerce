@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function checkPermission($permission = false)
     {
         if ($permission) {
-            if (!Auth::user()->hasPermissionTo($permission)) {
+            if (!Auth::user()->hasPermission($permission)) {
                 abort(403);
             }
         }
@@ -22,6 +22,6 @@ class AdminController extends Controller
 
     public function hasPermission($permission)
     {
-        return Auth::user()->hasPermissionTo($permission);
+        return Auth::user()->hasPermission($permission);
     }
 }

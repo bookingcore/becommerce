@@ -17,7 +17,7 @@
                     @endif
                 </div>
             </div>
-            @include('Layout::admin.message')
+            @include('admin.message')
             @include('Language::admin.navigation')
             <div class="lang-content-box">
                 <div class="row">
@@ -96,6 +96,14 @@
                                     <h3 class="panel-body-title"> {{ __('Feature Image')}}</h3>
                                     <div class="form-group">
                                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',$row->image_id) !!}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel">
+                                <div class="panel-body">
+                                    <h3 class="panel-body-title"> {{ __('Banner Image')}}</h3>
+                                    <div class="form-group">
+                                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('banner_id',$row->banner_id) !!}
                                     </div>
                                 </div>
                             </div>

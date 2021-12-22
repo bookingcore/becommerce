@@ -110,7 +110,10 @@ class SubscriberController extends AdminController
             case "delete":
                 foreach ($ids as $id) {
                     $query = Subscriber::where("id", $id);
-                    $query->first()->delete();
+                    $query->first();
+                    if(!empty($query)){
+                        $query->delete();
+                    }
                 }
                 break;
             default:

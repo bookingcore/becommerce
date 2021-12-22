@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-4">
         <h3 class="form-group-title">{{__("Site Information")}}</h3>
-        <p class="form-group-desc">{{__('Information of your website for customer and goole')}}</p>
+        <p class="form-group-desc">{{__('Information of your website for customer and google')}}</p>
     </div>
     <div class="col-sm-8">
         <div class="panel">
@@ -51,22 +51,66 @@
                         </select>
                     </div>
                 </div>
+                 <div class="form-group">
+                    <label>{{__("Change the first day of week for the calendars")}}</label>
+                    <div class="form-controls">
+                        <select name="site_first_day_of_the_weekin_calendar" class="form-control">
+                            <option @if("1" == ($settings['site_first_day_of_the_weekin_calendar'] ?? '') ) selected @endif value="1">{{__("Monday")}}</option>
+                            <option @if("0" == ($settings['site_first_day_of_the_weekin_calendar'] ?? '') ) selected @endif value="0">{{__("Sunday")}}</option>
+                        </select>
+                    </div>
+                </div>
                 @endif
-
             </div>
         </div>
     </div>
 </div>
+<hr>
+
 @if(is_default_lang())
-    <hr>
     <div class="row">
         <div class="col-sm-4">
-            <h3 class="form-group-title">{{__('Language')}}</h3>
-            <p class="form-group-desc">{{__('Change language of your websites')}}</p>
+            <h3 class="form-group-title">{{__('General')}}</h3>
+            <p class="form-group-desc">{{__('Change your general options')}}</p>
         </div>
         <div class="col-sm-8">
             <div class="panel">
                 <div class="panel-body">
+                    <div class="form-group">
+                        <label>{{__("Page for Terms and Conditions")}}</label>
+                        <div class="form-controls">
+                            <?php
+                            $template = !empty($settings['terms_and_conditions_id']) ? \Modules\Page\Models\Page::find($settings['terms_and_conditions_id']) : false;
+
+                            \App\Helpers\AdminForm::select2('terms_and_conditions_id', [
+                                'configs' => [
+                                    'ajax' => [
+                                        'url'      => url('/admin/module/page/getForSelect2'),
+                                        'dataType' => 'json'
+                                    ]
+                                ]
+                            ],
+                                !empty($template->id) ? [$template->id, $template->title] : false
+                            )
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__('Language')}}</h3>
+        <p class="form-group-desc">{{__('Change language of your websites')}}</p>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                @if(is_default_lang())
                     <div class="form-group">
                         <label>{{__("Select default language")}}</label>
                         <div class="form-controls">
@@ -89,11 +133,19 @@
                             <label><input type="checkbox" @if(setting_item('site_enable_multi_lang') ?? '' == 1) checked @endif name="site_enable_multi_lang" value="1">{{__('Enable')}}</label>
                         </div>
                     </div>
+                @endif
+                <div class="form-group">
+                    <label>{{__("Enable RTL")}}</label>
+                    <div class="form-controls">
+                        <label><input type="checkbox" @if(setting_item_with_lang('enable_rtl',request()->query('lang')) ?? '' == 1) checked @endif name="enable_rtl" value="1">{{__('Enable')}}</label>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
+@if(is_default_lang())
     <hr>
     <div class="row">
         <div class="col-sm-4">
@@ -104,21 +156,9 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label>{{__("Admin Email")}}</label>
+                        <label>{{__("Phone Contact")}}</label>
                         <div class="form-controls">
-                            <input type="email" class="form-control" name="admin_email" value="{{$settings['admin_email'] ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>{{__("Email Form Name")}}</label>
-                        <div class="form-controls">
-                            <input type="text" class="form-control" name="email_from_name" value="{{$settings['email_from_name'] ?? '' }}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>{{__("Email Form Address")}}</label>
-                        <div class="form-controls">
-                            <input type="email" class="form-control" name="email_from_address" value="{{$settings['email_from_address'] ?? '' }}">
+                            <input type="text" class="form-control" name="phone_contact" value="{{$settings['phone_contact'] ?? '' }}">
                         </div>
                     </div>
                 </div>
@@ -168,18 +208,35 @@
         <div class="panel">
             <div class="panel-body">
                 @if(is_default_lang())
-                <div class="form-group">
-                    <label>{{__("Logo")}}</label>
-                    <div class="form-controls form-group-image">
-                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_id',$settings['logo_id'] ?? '') !!}
+                    <div class="form-group">
+                        <label>{{__("Logo")}}</label>
+                        <div class="form-controls form-group-image">
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_id',$settings['logo_id'] ?? '') !!}
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <label>{{__("White Logo")}}</label>
+                        <div class="form-controls form-group-image">
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_white_id',$settings['logo_white_id'] ?? '') !!}
+                        </div>
+                    </div>
                 @endif
                 <div class="form-group">
-                    <label>{{__("Topbar Left Text")}}</label>
+                    <label>{{__("Footer Style")}}</label>
                     <div class="form-controls">
-                        <div id="topbar_left_text_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('topbar_left_text',request()->query('lang'))}}</div>
-                        <textarea class="d-none" name="topbar_left_text" > {{ setting_item_with_lang('topbar_left_text',request()->query('lang')) }} </textarea>
+                        @php $footer_style = setting_item_with_lang('footer_style', request()->query('lang')) @endphp
+                        <select name="footer_style" class="form-control" >
+                            <option value="style_1" @if($footer_style == 'style_1') selected @endif>{{ __("Style 1") }}</option>
+                            <option value="style-two" @if($footer_style == 'style-two') selected @endif>{{ __("Style 2") }}</option>
+                            <option value="alternate" @if($footer_style == 'alternate') selected @endif>{{ __("Style 3") }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Footer Info Contact")}}</label>
+                    <div class="form-controls">
+                        <div id="info_text_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_info_text',request()->query('lang'))}}</div>
+                        <textarea class="d-none" name="footer_info_text" > {{ setting_item_with_lang('footer_info_text',request()->query('lang')) }} </textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -198,7 +255,7 @@
                                 <div class="g-items">
                                     <?php
                                     $social_share = setting_item_with_lang('list_widget_footer',request()->query('lang'));
-                                    if(!empty($social_share)) $social_share = json_decode($social_share);
+                                    if(!empty($social_share)) $social_share = json_decode($social_share,true);
                                     if(empty($social_share) or !is_array($social_share))
                                         $social_share = [];
                                     ?>
@@ -206,17 +263,17 @@
                                         <div class="item" data-number="{{$key}}">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <input type="text" name="list_widget_footer[{{$key}}][title]" class="form-control" value="{{$item->title}}">
+                                                    <input type="text" name="list_widget_footer[{{$key}}][title]" class="form-control" value="{{$item['title']}}">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <select class="form-control" name="list_widget_footer[{{$key}}][size]">
-                                                        <option @if(!empty($item->size) && $item->size=='3') selected @endif value="3">1/4</option>
-                                                        <option @if(!empty($item->size) && $item->size=='4') selected @endif value="4">1/3</option>
-                                                        <option @if(!empty($item->size) && $item->size=='6') selected @endif value="6">1/2</option>
+                                                        <option @if(!empty($item['size']) && $item['size']=='3') selected @endif value="3">1/4</option>
+                                                        <option @if(!empty($item['size']) && $item['size']=='4') selected @endif value="4">1/3</option>
+                                                        <option @if(!empty($item['size']) && $item['size']=='6') selected @endif value="6">1/2</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <textarea name="list_widget_footer[{{$key}}][content]" rows="5" class="form-control">{{$item->content}}</textarea>
+                                                    <textarea name="list_widget_footer[{{$key}}][content]" rows="5" class="form-control">{{$item['content']}}</textarea>
                                                 </div>
                                                 <div class="col-md-1">
                                                     <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
@@ -255,23 +312,16 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Footer Text Left")}}</label>
+                    <label>{{__("Copyright")}}</label>
                     <div class="form-controls">
-                        <textarea name="footer_text_left" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('footer_text_left',request()->query('lang')) }}</textarea>
+                        <textarea name="copyright" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('copyright',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Footer Text Right")}}</label>
+                    <label>{{__("Footer Socials")}}</label>
                     <div class="form-controls">
-                        <div id="footer_text_right_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_text_right',request()->query('lang'))}}</div>
-                        <textarea class="d-none" name="footer_text_right" > {{ setting_item_with_lang('footer_text_right',request()->query('lang')) }} </textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>{{__("Footer Categories")}}</label>
-                    <div class="form-controls">
-                        <div id="footer_categories_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_categories',request()->query('lang'))}}</div>
-                        <textarea class="d-none" name="footer_categories" > {{ setting_item_with_lang('footer_categories',request()->query('lang')) }} </textarea>
+                        <div id="footer_socials" class="ace-editor" style="min-height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_socials',request()->query('lang'))}}</div>
+                        <textarea name="footer_socials" class="d-none">{{setting_item_with_lang('footer_socials',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -288,34 +338,96 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="">{{__("Contact title")}}</label>
+                    <label>{{__("List Contact")}}</label>
                     <div class="form-controls">
-                        <input type="text" class="form-control" name="page_contact_title" value="{{setting_item_with_lang('page_contact_title',request()->query('lang'),"We'd love to hear from you")}}">
+                        <div class="form-group-item">
+                            <div class="form-group-item">
+                                <div class="g-items-header">
+                                    <div class="row">
+                                        <div class="col-md-4">{{__("Title")}}</div>
+                                        <div class="col-md-7">{{__('Info Contact')}}</div>
+                                        <div class="col-md-1"></div>
+                                    </div>
+                                </div>
+                                <div class="g-items">
+                                    <?php
+                                    $page_contact_lists = $settings['page_contact_lists'];
+                                    if(!empty($page_contact_lists)) $page_contact_lists = json_decode($page_contact_lists,true);
+                                    if(empty($page_contact_lists) or !is_array($page_contact_lists))
+                                        $page_contact_lists = [];
+                                    ?>
+                                    @foreach($page_contact_lists as $key=>$item)
+                                        <div class="item" data-number="{{$key}}">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <input type="text" name="page_contact_lists[{{$key}}][title]" class="form-control" value="{{$item['title'] ?? ''}}">
+                                                </div>
+                                                <div class="col-md-7">
+                                                    <label for="">{{ __("Description") }}</label>
+                                                    <textarea name="page_contact_lists[{{$key}}][desc]" class="form-control">{!! @clean($item['desc']) ?? '' !!}</textarea>
+                                                    <label for="">{{ __("Icon") }}</label>
+                                                    <div class="form-controls form-group-image">
+                                                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('page_contact_lists['.$key.'][icon]',$item['icon'] ?? '') !!}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="text-right">
+                                    <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
+                                </div>
+                                <div class="g-more hide">
+                                    <div class="item" data-number="__number__">
+                                        <div class="row">
+                                            <div class="col-md-4">
+                                                <label for="">{{ __("Title") }}</label>
+                                                <input type="text" __name__="page_contact_lists[__number__][title]" class="form-control" value="">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <label for="">{{ __("Description") }}</label>
+                                                <textarea __name__="page_contact_lists[__number__][desc]" class="form-control"></textarea>
+                                                <label for="">{{ __("Icon") }}</label>
+                                                <div class="form-controls form-group-image">
+                                                    {!! \Modules\Media\Helpers\FileHelper::fieldUpload('page_contact_lists[__number__][icon]','','__name__') !!}
+                                                </div>
+                                            </div>
+                                            <div class="col-md-1">
+                                                <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Contact sub title")}}</label>
+                    <label class="">{{__("Iframe google map")}}</label>
                     <div class="form-controls">
-                        <input type="text" class="form-control" name="page_contact_sub_title" value="{{setting_item_with_lang('page_contact_sub_title',request()->query('lang'),"Send us a message and we'll respond as soon as possible")}}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>{{__("Contact Desc")}}</label>
-                    <div class="form-controls">
-                        <textarea name="page_contact_desc" class="d-none has-ckeditor" cols="30" rows="7">{{setting_item_with_lang('page_contact_desc',request()->query('lang'),'<p>Tell. + 00 222 444 33</p>
-<p>Email. hello@yoursite.com</p>
-<p class="address">1355 Market St, Suite 900San, Francisco, CA 94103 United States</p>
-<p>            <!--<p>Tell. + 00 222 444 33</p>
-            <p>Email. hello@yoursite.com</p>
-            <p class="address">1355 Market St, Suite 900San, Francisco, CA 94103 United States</p>-->
-        </p>') }}</textarea>
+                        <input type="text" class="form-control" name="page_contact_iframe_google_map" value="{{ $settings['page_contact_iframe_google_map'] ?? "" }}">
                     </div>
                 </div>
                 @if(is_default_lang())
                     <div class="form-group">
-                        <label>{{__("Contact Featured Image")}}</label>
+                        <label>{{__("Contact Call To Action")}}</label>
+                        <div class="form-controls mb-3">
+                            <input type="text" class="form-control" name="contact_call_to_action_title" placeholder="{{ __('Title') }}" value="{{ $settings['contact_call_to_action_title'] ?? "" }}">
+                        </div>
+                        <div class="form-controls mb-3">
+                            <textarea name="contact_call_to_action_sub_title" class="form-control" placeholder="{{ __('Description') }}">{!! clean($settings['contact_call_to_action_sub_title'] ?? '') !!}</textarea>
+                        </div>
+                        <div class="form-controls mb-3">
+                            <input type="text" class="form-control" name="contact_call_to_action_button_text" placeholder="{{ __('Button Text') }}" value="{{ $settings['contact_call_to_action_button_text'] ?? "" }}">
+                        </div>
+                        <div class="form-controls mb-3">
+                            <input type="text" class="form-control" name="contact_call_to_action_button_link" placeholder="{{ __('Button Link') }}" value="{{ $settings['contact_call_to_action_button_link'] ?? "" }}">
+                        </div>
                         <div class="form-controls form-group-image">
-                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('page_contact_image',$settings['page_contact_image'] ?? '') !!}
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('contact_call_to_action_image',setting_item('contact_call_to_action_image')) !!}
                         </div>
                     </div>
                 @endif

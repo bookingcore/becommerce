@@ -1,5 +1,5 @@
 <?php
-if (!Auth::id() or !Auth::user()->hasPermissionTo('dashboard_access'))
+if (!Auth::id() or !Auth::user()->hasPermission('dashboard_access'))
     return;
 $activeMenu = \Modules\Core\Walkers\MenuWalker::getActiveMenu();
 ?>

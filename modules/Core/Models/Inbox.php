@@ -68,7 +68,7 @@ class Inbox extends BaseModel
 
         return [
             'id'=>$this->id,
-            'display_name'=>Auth::id() != $this->to_user ? $to_user->getDisplayName() : $from_user->getDisplayName(),
+            'display_name'=>Auth::id() != $this->to_user ? $to_user->getDisplayName(true) : $from_user->getDisplayName(true),
             'avatar_url'=> Auth::id() != $this->to_user ? $to_user->getAvatarUrl(): $from_user->getAvatarUrl(),
             'last_message' => $last_message->jsData(),
             'last_updated_text'=>$last_message['last_updated_text'] ? $last_message['last_updated_text'] : $this->last_updated_text,

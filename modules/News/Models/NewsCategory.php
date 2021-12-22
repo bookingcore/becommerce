@@ -45,9 +45,16 @@ class NewsCategory extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        $locale = $locale ? $locale : app()->getLocale();
+        return route('news.category.index',['slug'=>$this->slug]);
+    }
 
-        return url(( $locale ? $locale.'/' : '').config('news.news_route_prefix')."/".config('news.news_category_route_prefix')."/".$this->slug);
+    public function dataForApi(){
+        $translation = $this->translateOrOrigin(app()->getLocale());
+        return [
+            'name'=>$translation->name,
+            'id'=>$this->id,
+            'url'=>$this->getDetailUrl()
+        ];
     }
 
 }

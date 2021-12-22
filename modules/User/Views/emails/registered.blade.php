@@ -2,7 +2,7 @@
 @section('content')
     <div class="b-container">
         <div class="b-panel">
-            {!! clean($content) !!}
+            {!! $content !!}
         </div>
     </div>
 @endsection

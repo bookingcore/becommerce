@@ -1,20 +1,15 @@
 <?php
 namespace Modules\Template;
+
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
 {
-
-    public function boot(){
-
-        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+    public function boot()
+    {
 
     }
-    /**
-     * Register bindings in the container.
-     *
-     * @return void
-     */
+
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
@@ -22,19 +17,32 @@ class ModuleProvider extends ModuleServiceProvider
 
     public static function getTemplateBlocks(){
         return [
-            'slider'=>"\\Modules\\Template\\Blocks\\Slider",
-            'callaction'=>"\\Modules\\Template\\Blocks\\CallAction",
-            'HowItWorks' =>"\\Modules\\Template\\Blocks\\HowItWorks",
-            'BestFeesToStart' =>"\\Modules\\Template\\Blocks\\BestFeesToStart",
-            'SellerStories' =>"\\Modules\\Template\\Blocks\\SellerStories",
-            'FrequentlyAskedQuestions' =>"\\Modules\\Template\\Blocks\\FrequentlyAskedQuestions",
-            'BannerHome1' =>"\\Modules\\Template\\Blocks\\BannerHome1",
-            'BannerHome2' =>"\\Modules\\Template\\Blocks\\BannerHome2",
-            'HomeFee' =>"\\Modules\\Template\\Blocks\\HomeFee",
-            'Promotion' =>"\\Modules\\Template\\Blocks\\Promotion",
-            'BestSellerBrands' =>"\\Modules\\Template\\Blocks\\BestSellerBrands",
-            'SearchTrending' =>"\\Modules\\Template\\Blocks\\SearchTrending",
+            'text'=>"\\Modules\\Template\\Blocks\\Text",
+            'call_to_action'=>"\\Modules\\Template\\Blocks\\CallToAction",
+            'breadcrumb_section'=>"\\Modules\\Template\\Blocks\\BreadcrumbSection",
+            'brands_list'=>"\\Modules\\Template\\Blocks\\BrandsList",
+            'gallery'=>"\\Modules\\Template\\Blocks\\Gallery",
+            'BlockCounter'=>"\\Modules\\Template\\Blocks\\BlockCounter",
+            'HowItWork'=>"\\Modules\\Template\\Blocks\\HowItWork",
+            'testimonial'=>"\\Modules\\Template\\Blocks\\Testimonial",
+            'FaqList'=>"\\Modules\\Template\\Blocks\\FaqList",
+            'hero_banner'=>"\\Modules\\Template\\Blocks\\HeroBanner",
+            'about'=>"\\Modules\\Template\\Blocks\\AboutBlock",
+            'app_download'=>"\\Modules\\Template\\Blocks\\AppDownload",
+            'table_price'=>"\\Modules\\Template\\Blocks\\TablePrice",
         ];
     }
 
+    public static function getAdminMenu()
+    {
+        return [
+            'template'=>[
+                "position"=>70,
+                'url'        => 'admin/module/template',
+                'title'      => __('Templates'),
+                'icon'       => 'icon ion-logo-html5',
+                'permission' => 'template_manage',
+            ]
+        ];
+    }
 }
