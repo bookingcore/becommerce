@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Default;
+namespace Themes\Base;
 
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {

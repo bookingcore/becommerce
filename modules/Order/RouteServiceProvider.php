@@ -4,7 +4,7 @@ namespace Modules\Order;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
-class RouterServiceProvider extends ServiceProvider
+class RouteServiceProvider extends ServiceProvider
 {
     /**
      * The module namespace to assume when generating URLs to actions.
@@ -38,9 +38,9 @@ class RouterServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
-        $this->mapAdminRoutes();
-
         $this->mapLanguageRoutes();
+
+        $this->mapAdminRoutes();
     }
 
     /**
@@ -56,19 +56,13 @@ class RouterServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->group(__DIR__ . '/Routes/web.php');
     }
-    /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
+
     protected function mapLanguageRoutes()
     {
         Route::middleware('web')
             ->namespace($this->moduleNamespace)
             ->prefix(app()->getLocale())
-            ->group(__DIR__ . '/Routes/web.php');
+            ->group(__DIR__ . '/Routes/language.php');
     }
 
     /**
@@ -82,7 +76,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         Route::middleware(['web','dashboard'])
             ->namespace($this->adminModuleNamespace)
-            ->prefix('admin/module/core')
+            ->prefix('admin/module/order')
             ->group(__DIR__ . '/Routes/admin.php');
     }
 
