@@ -173,7 +173,7 @@ if (!empty($menus)){
 <ul class="main-menu">
     @foreach($menus as $menuItem)
         @php $menuItem['class'] .= " ".str_ireplace("/","_",$menuItem['url']) @endphp
-        <li class="{{$menuItem['class']}} position-{{ $menuItem['position'] }}"><a href="{{ url($menuItem['url']) }}">
+        <li class="{{$menuItem['class']}} position-{{ $menuItem['position'] ?? 100 }}"><a href="{{ url($menuItem['url']) }}">
                 @if(!empty($menuItem['icon']))
                     <span class="icon text-center"><i class="{{$menuItem['icon']}}"></i></span>
                 @endif

@@ -46,7 +46,8 @@
             "Database\\Seeders\\": "database/seeders/",
             "Plugins\\": "plugins/",
             "Custom\\": "custom/",
-            "Modules\\": "modules/"
+            "Modules\\": "modules/",
+            "Themes\\": "themes/"
         },
         "files": [
             "app/Helpers/AppHelper.php"

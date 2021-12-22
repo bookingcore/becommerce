@@ -1213,3 +1213,69 @@ function get_status_text($status){
         case "draft": return __('Draft'); break;
     }
 }
+
+
+function get_product_types(){
+    $all = [];
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getProductTypes']);
+                $all = array_merge($all,$services);
+            }
+
+        }
+    }
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getProductTypes']);
+                $all = array_merge($all,$services);
+            }
+        }
+    }
+
+    return $all;
+}
+
+function get_admin_product_tabs(){
+    $all = [];
+    // Modules
+    $custom_modules = \Modules\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                $all = array_merge($all,$services);
+            }
+
+        }
+    }
+    $custom_modules = \Custom\ServiceProvider::getModules();
+    if(!empty($custom_modules)){
+        foreach($custom_modules as $module){
+            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($moduleClass))
+            {
+                $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                $all = array_merge($all,$services);
+            }
+        }
+    }
+
+    //@todo Sort Menu by Position
+    $all = \Illuminate\Support\Arr::sort($all, function ($value) {
+        return $value['position'] ?? 10;
+    });
+
+    return $all;
+}

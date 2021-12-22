@@ -1,6 +1,9 @@
 <?php
 
 return [
+    //Theme Management
+    "theme_manage",
+
     "product_view",
     "product_create",
     "product_update",
