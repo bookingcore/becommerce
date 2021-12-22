@@ -24,7 +24,7 @@ class UsersTableSeeder extends Seeder
         ]);
         $user->need_update_pw = 1;
         $user->save();
-        $user->assignRole('administrator');
+        $user->assignRole('admin');
 
     }
 }

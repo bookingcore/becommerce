@@ -39,6 +39,7 @@ class CreateUsersTable extends Migration
             $table->string('vendor_commission_type',30)->nullable();
             $table->string('locale',10)->nullable();
             $table->string('company',255)->nullable();
+            $table->bigInteger('role_id')->nullable();
 
 
             $table->string('shipping_first_name',255)->nullable();
