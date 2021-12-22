@@ -135,7 +135,7 @@ class ProductController extends Controller
 
     public function product_variations($row){
         $attrs = (!empty($row->attributes_for_variation)) ? Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
-        $terms = ProductTerm::select('*','bravo_terms.attr_id as attr_id')->join('bravo_terms','product_term.term_id','=','bravo_terms.id')->where('target_id',$row->id)->get();
+        $terms = ProductTerm::select('*','core_terms.attr_id as attr_id')->join('core_terms','product_term.term_id','=','core_terms.id')->where('target_id',$row->id)->get();
         $product_variations = ProductVariation::where('product_id',$row->id)->get();
         $get_variation = [];
         if (!empty($product_variations)){
@@ -265,7 +265,7 @@ class ProductController extends Controller
         if (!empty($product) && $product->product_type == 'variable'){
             foreach ($product->attributes_for_variation as $attr){
                 $term_id = [];
-                $product_variable = ProductVariationTerm::select('product_variation_term.*','bravo_terms.name','bravo_terms.attr_id')->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')->where('product_id',$product->id)->get();
+                $product_variable = ProductVariationTerm::select('product_variation_term.*','core_terms.name','core_terms.attr_id')->join('core_terms','product_variation_term.term_id','=','core_terms.id')->where('product_id',$product->id)->get();
                 if (!empty($product_variable)){
                     foreach ($product_variable as $item){
                         if ($attr == $item->attr_id){

@@ -390,14 +390,14 @@ class ProductSeeder extends Seeder
 
         //attr
         $attr = [];
-        $attr['color'] = DB::table('bravo_attrs')->insertGetId([
+        $attr['color'] = DB::table('core_attrs')->insertGetId([
             'name'      =>      'Color',
             'display_type'=>    'color',
             'slug'      =>      'color',
             'service'   =>      'product',
             'create_user'=>     '1'
         ]);
-        $attr['size'] = DB::table('bravo_attrs')->insertGetId([
+        $attr['size'] = DB::table('core_attrs')->insertGetId([
             'name'      =>      'Size',
             'display_type'=>    'text',
             'slug'      =>      'size',
@@ -458,7 +458,7 @@ class ProductSeeder extends Seeder
         ];
         $term = [];
         foreach ($term_list as $k => $list){
-            $term[$k] = DB::table('bravo_terms')->insertGetId($list);
+            $term[$k] = DB::table('core_terms')->insertGetId($list);
         }
         //end create term
 
@@ -655,7 +655,7 @@ class ProductSeeder extends Seeder
         );
 
 
-        DB::table('bravo_coupon')->insert(
+        DB::table('bc_coupon')->insert(
             [
                 [
                     'name'  =>  'QF645TY6',
@@ -697,8 +697,8 @@ class ProductSeeder extends Seeder
         );
 
         //comments
-        $ip = $_SERVER['REDIS_HOST'];
-        DB::table('bravo_review')->insert(
+        $ip = "127.0.0.1";
+        DB::table('bc_review')->insert(
         [
             [
                 'object_id'     =>  $id_8,

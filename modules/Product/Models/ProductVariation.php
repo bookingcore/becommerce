@@ -85,9 +85,9 @@ class ProductVariation extends BaseProduct
         if($variation_id){
             $variation = ProductVariation::find($variation_id);
             $product = Product::where('id',$variation->product_id)->first();
-            $term = ProductVariationTerm::select('product_variation_term.*','bravo_terms.name AS term_name','bravo_attrs.name AS attr_name','bravo_attrs.slug AS attr_slug')
-                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
-                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+            $term = ProductVariationTerm::select('product_variation_term.*','core_terms.name AS term_name','core_attrs.name AS attr_name','core_attrs.slug AS attr_slug')
+                    ->join('core_terms','product_variation_term.term_id','=','core_terms.id')
+                    ->join('core_attrs','core_terms.attr_id','=','core_attrs.id')
                     ->where('product_variation_term.variation_id',$variation_id)->get();
             $product_name = $product->title;
             $options = [];

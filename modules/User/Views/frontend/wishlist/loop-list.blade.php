@@ -23,7 +23,7 @@
     <td class="product-add-to-cart">
         @if($row->stock_status == 'in')
             @php $is_variable = $row->product_type == 'variable' @endphp
-            <a href="{{ $is_variable ? $row->getDetailUrl() : '' }}" class="button {{ !$is_variable ? 'bravo_add_to_cart' : null }}" data-product={"id":{{$row->id}},"type":"{{$row->product_type}}"}>
+            <a href="{{ $is_variable ? $row->getDetailUrl() : '' }}" class="button {{ !$is_variable ? 'bc_add_to_cart' : null }}" data-product={"id":{{$row->id}},"type":"{{$row->product_type}}"}>
                 <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ $is_variable ? __('Select options') : __('Add to Cart') }}"></i>
                 <span class="add-to-cart-text">{{ $is_variable ? __('Select options') : __('Add to Cart') }}</span>
             </a>

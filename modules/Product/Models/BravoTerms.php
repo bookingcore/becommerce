@@ -4,7 +4,7 @@ namespace Modules\Product\Models;
 
 class BravoTerms extends BaseProduct
 {
-    protected $table = 'bravo_terms';
+    protected $table = 'core_terms';
 
     protected $fillable = [
         'id',

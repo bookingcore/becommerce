@@ -23,7 +23,7 @@ class FileHelper
         ],
     ];
 
-    public static function url($fileId, $size = 'medium')
+    public static function url($fileId, $size = 'medium',$resize = true)
     {
         if ($fileId instanceof MediaFile) {
             $file = $fileId;
@@ -33,9 +33,8 @@ class FileHelper
         if (empty($file)) {
             return false;
         }
-
         if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
-            $url = static::maybeResize($file, $size);
+            $url = static::maybeResize($file, $size,$resize);
             return $url;
         }
         return asset('uploads/' . $file->file_path);
@@ -51,32 +50,63 @@ class FileHelper
         return sprintf("<img src='%' align='%s'>", static::url($file, $size), $file->file_name);
     }
 
-    protected static function maybeResize($fileObj, $size = '')
+    protected static function maybeResize($fileObj, $size = '',$resize = true)
     {
-        if ($size == 'full')
+
+        if ($size == 'full' or in_array(strtolower($fileObj->file_extension),['svg','bmp']))
             return asset('uploads/' . $fileObj->file_path);
         if (!isset($size, static::$defaultSize))
             $size = 'medium';
         $sizeData = static::$defaultSize[$size];
-        if ($sizeData[0] >= $fileObj['file_width']) {
+        if ($sizeData[0] >= $fileObj->file_width) {
             return asset('uploads/' . $fileObj->file_path);
         }
         $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
+
         if (Storage::disk('uploads')->exists($resizeFile)) {
             return asset('uploads/' . $resizeFile);
+        }elseif(!$resize){
+            return asset('uploads/' . $fileObj->file_path);
         } else {
+
+            $image_path = public_path('uploads/' . $fileObj->file_path);
+
+            $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $image_path);
+            if(in_array($mime,['image/x-ms-bmp'])){
+                return asset('uploads/' . $fileObj->file_path);
+            }
+
+            if(env('APP_RESIZE_SIMPLE'))
+            {
+                return static::resizeSimple($fileObj,$size);
+            }
+
             // Start Resize
-            $img = Image::make(public_path('uploads/' . $fileObj->file_path))->resize($sizeData[0], null, function ($constraint) {
+            $img = Image::make($image_path)->resize($sizeData[0], null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('uploads/' . $resizeFile));
+
             return asset('uploads/' . $resizeFile);
         }
     }
 
+    protected static function resizeSimple($fileObj,$size = ''){
+
+        $resize = new ResizeImage(public_path('uploads/'.$fileObj->file_path));
+
+        $sizeData = static::$defaultSize[$size];
+        $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
+
+        $resize->resizeTo($sizeData[0], $sizeData[0], 'maxWidth');
+
+        $resize->saveImage(public_path('uploads/'.$resizeFile), "100");
+
+        return asset('uploads/' . $resizeFile);
+    }
+
     public static function isImage($fileObj)
     {
-
-        if (false !== mb_strpos($fileObj->file_type, "image")) {
+        if (false !== mb_strpos($fileObj->file_type, "image") and in_array($fileObj->file_type,['image/jpg','image/jpeg','image/png','image/gif'])) {
 
             return true;
         } else {
@@ -88,7 +118,7 @@ class FileHelper
     public static function checkMimeIsImage($mime)
     {
 
-        if (false !== mb_strpos($mime, "image")) {
+        if (false !== mb_strpos($mime, "image") and $mime != "image/webp") {
 
             return true;
         } else {
@@ -101,12 +131,12 @@ class FileHelper
     {
 
         if(!empty($oldValue))
-        $file = MediaFile::find($oldValue);
+        $file = (new MediaFile())->findById($oldValue);
         ob_start();
         ?>
-        <div class="dungdt-upload-box <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
+        <div class="dungdt-upload-box dungdt-upload-box-normal <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo $oldValue ?>">
             <div class="upload-box" v-show="!value">
-                <input type="hidden" <?php echo e($nameAttr);?>="<?php echo e($inputId) ?>" v-model="value" value="<?php echo e($oldValue) ?>">
+                <input type="hidden" <?php echo $nameAttr;?>="<?php echo $inputId ?>" v-model="value" value="<?php echo $oldValue ?>">
                 <div class="text-center">
                     <svg id="next-dropzone" width="100%" height="100%">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 20">
@@ -183,11 +213,11 @@ class FileHelper
         ob_start();
         ?>
         <div class="dungdt-upload-multiple <?php if (!empty($file))
-            echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
+            echo 'active' ?>" data-val="<?php echo $oldValue ?>">
             <div class="attach-demo d-flex">
                 <?php
                 foreach ($oldIds as $id) {
-                    $file = MediaFile::find($id);
+                    $file = (new MediaFile())->findById($id);
                     if (!empty($file)) {
                         printf('<div class="image-item"><div class="inner"><span class="delete btn btn-sm btn-danger"><i class="fa fa-trash"></i></span><img src="%s" class="image-responsive"></div></div>', FileHelper::url($file, 'thumb'));
                     }
@@ -195,9 +225,47 @@ class FileHelper
                 ?>
             </div>
             <div class="upload-box" v-show="!value">
-                <input type="hidden" name="<?php echo e($inputId) ?>" v-model="value" value="<?php echo e($oldValue) ?>">
+                <input type="hidden" name="<?php echo e($inputId) ?>" v-model="value" value="<?php echo htmlspecialchars($oldValue) ?>">
                 <div class="text-left">
                     <span class="btn btn-info btn-sm btn-field-upload" @click="openUploader"><i class="fa fa-plus-circle"></i> <?php echo __("Select images") ?></span>
+                </div>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    public static function fieldFileUpload($inputId = '', $oldValue = '', $type = '')
+    {
+        ob_start();
+        ?>
+
+        <div class="g-items lists_<?php echo e($type) ?>">
+            <?php if(!empty($oldValue)): ?>
+            <?php foreach($oldValue as $item): ?>
+                <div class="item">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <input type="radio" <?php echo e($item->is_default == 1 ? 'checked' : '') ?> class="form-control" name="csv_default"  value="<?php echo e($item->file_id) ?>" />
+                        </div>
+                        <div class="col-md-8">
+                            <input type="hidden" name="<?php echo e($inputId) ?>[]" value="<?php echo e($item->file_id) ?>" >
+                            <i class="fa <?php echo e($item->media->file_extension == 'doc' || $item->media->file_extension == 'docx' ? 'fa-file-word-o' : 'fa-file-pdf-o') ?>"></i>
+                            <?php echo e($item->media->file_name) ?>.<?php echo e($item->media->file_extension) ?>
+                        </div>
+                        <div class="col-md-2">
+                            <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+
+        <div class="dungdt-upload-multiple">
+            <div class="upload-box" v-show="!value">
+                <div class="text-left">
+                    <span class="btn btn-info btn-sm btn-field-upload" data-type="<?php echo e($type) ?>" @click="openUploader(<?php echo e($type) ?>)"><i class="fa fa-plus-circle"></i> <?php echo __("Select files") ?></span>
                 </div>
             </div>
         </div>

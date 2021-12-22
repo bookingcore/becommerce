@@ -2,26 +2,25 @@
 
     namespace App;
 
+    use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Notifications\Notifiable;
-    use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Foundation\Auth\User as Authenticatable;
     use Illuminate\Support\Facades\Cache;
     use Illuminate\Support\Facades\Mail;
+    use Laravel\Sanctum\HasApiTokens;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
-//    use Modules\Vendor\Models\VendorPlan;
     use Modules\User\Models\UserWishList;
+    use Modules\User\Traits\HasRoles;
     use Modules\Vendor\Models\VendorRequest;
-    use Spatie\Permission\Traits\HasRoles;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
 
     class User extends Authenticatable
     {
         use SoftDeletes;
-        use Notifiable;
+        use HasApiTokens, HasFactory, Notifiable;
         use HasRoles;
-//        protected $appends = ['vendorPlanData'];
 
         /**
          * The attributes that are mass assignable.
@@ -48,10 +47,6 @@
             'last_login_at',
             'avatar_id',
             'bio',
-//            'vendor_plan_id',
-//            'vendor_plan_enable',
-//            'vendor_plan_start_date',
-//            'vendor_plan_end_date',
         ];
 
         /**
@@ -74,7 +69,6 @@
 
         public function getMeta($key, $default = '')
         {
-            //if(isset($this->cachedMeta[$key])) return $this->cachedMeta[$key];
 
             $val = DB::table('user_meta')->where([
                 'user_id' => $this->id,
@@ -82,7 +76,6 @@
             ])->first();
 
             if (!empty($val)) {
-                //$this->cachedMeta[$key]  = $val->val;
                 return $val->val;
             }
 
@@ -185,34 +178,6 @@
                 $table->name = implode(' ', [$table->first_name, $table->last_name]);
             });
         }
-
-//        public function vendorPlan()
-//        {
-//            return $this->belongsTo(VendorPlan::class, 'vendor_plan_id');
-//        }
-//
-//        public function getVendorPlanDataAttribute()
-//        {
-//            $data = [];
-//            if ($this->hasRole('vendor')) {
-//                $plan = $this->vendorPlan()->first();
-//                if (!empty($plan)) {
-//                    $enable = !empty($this->vendor_plan_enable) ? true : false;
-//                    if ($plan->status == 'publish') {
-//                        $enable = true;
-//                    } else {
-//                        $enable = false;
-//                    }
-//                    $data['vendor_plan_enable'] = $enable;
-//                    $data['base_commission'] = $plan->base_commission;
-//                    $planMeta = $plan->meta;
-//                    foreach ($planMeta as $meta){
-//                        $data[$meta->post_type] = $meta->toArray();
-//                    }
-//                }
-//            }
-//            return $data;
-//        }
 
         public function getVendorServicesQuery($moduleClass,$limit = 10){
             return $moduleClass::getVendorServicesQuery()->take($limit);

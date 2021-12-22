@@ -19,4 +19,17 @@ class ModuleProvider extends ModuleServiceProvider
     {
         $this->app->register(RouterServiceProvider::class);
     }
+
+    public static function getAdminMenu()
+    {
+        return [
+            'media'=>[
+                'position'=>50,
+                'title'=>__("Media"),
+                'icon'=>"fa fa-picture-o",
+                "url"=>route('media.admin.index'),
+                'permission' => 'media_upload',
+            ]
+        ];
+    }
 }

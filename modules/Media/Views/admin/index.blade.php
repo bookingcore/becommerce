@@ -1,7 +1,9 @@
-<div id="cdn-browser-modal" class="modal fade">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak :class="{is_loading:isLoading}">
+@extends('Layout::admin.app')
+
+@section('content')
+    <div class="container-fluid">
+        <div id="media-management" class="cdn-browser management-page" v-cloak :class="{is_loading:isLoading}">
+            <div class="d-flex flex-column">
                 <div class="files-nav flex-shrink-0">
                     <div class="d-flex justify-content-between">
                         <div class="col-left d-flex align-items-center">
@@ -20,7 +22,7 @@
                             <i class="fa-spin fa fa-spinner icon-loading active" v-show="isLoading"></i>
                             <button class="btn btn-success btn-pick-files">
                                 <span><i class="fa fa-upload"></i> {{__("Upload")}}</span>
-                                <input :accept="accept_type" multiple type="file" name="files[]" ref="files">
+                                <input multiple :accept="accept_type" type="file" name="files[]" ref="files">
                             </button>
                         </div>
                     </div>
@@ -60,23 +62,11 @@
                             <div class="clear-selected" @click="selected=[]"><i>{{__("unselect")}}</i></div>
                         </div>
                     </div>
-                    <div class="col-right" v-show="selected.length">
+                    <div class="col-right d-none" v-show="selected.length">
                         <button class="btn btn-primary" :class="{disabled:!selected.length}" @click="sendFiles">{{__("Use file")}}</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script type="text/x-template" id="file-item-template">
-    <div class="file-item" :class="fileClass(file)">
-        <div class="inner" :class="{active:selected.indexOf(file.id) !== -1 }" @click="selectFile(file)" :title="file.file_name">
-            <div class="file-thumb" v-if="viewType=='grid'" v-html="getFileThumb(file)">
-            </div>
-            <div class="file-name">@{{file.file_name}}</div>
-            <span class="file-checked-status" v-show="selected.indexOf(file.id) !== -1">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M186.301 339.893L96 249.461l-32 30.507L186.301 402 448 140.506 416 110z"/></svg>
-            </span>
-        </div>
-    </div>
-</script>
+@endsection

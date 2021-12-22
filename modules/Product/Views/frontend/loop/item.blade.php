@@ -18,7 +18,7 @@
 
         <div class="footer-button">
             @php $in_stock = $row->stock_status == 'in' @endphp
-            <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bravo_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
+            <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bc_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
                 <i class="p-icon icon-bag2" data-toggle="tooltip" data-rel="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
             </a>
             <a href="#" class="mf-product-quick-view" data-toggle="tooltip" title="{{__('Quick View')}}" data-product={"id":{{$row->id}},"type":"{{$row->type}}"}>

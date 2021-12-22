@@ -14,7 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Booking extends BaseModel
 {
     use SoftDeletes;
-    protected $table      = 'bravo_bookings';
+    protected $table      = 'bc_bookings';
     protected $cachedMeta = [];
     const DRAFT      = 'draft'; // New booking, before payment processing
     const UNPAID     = 'unpaid'; // Require payment
@@ -92,7 +92,7 @@ class Booking extends BaseModel
 
     public function getMeta($key, $default = '')
     {
-        $val = DB::table('bravo_booking_meta')->where([
+        $val = DB::table('bc_booking_meta')->where([
             'booking_id' => $this->id,
             'name'       => $key
         ])->first();
@@ -115,24 +115,24 @@ class Booking extends BaseModel
         if (is_object($val) or is_array($val))
             $val = json_encode($val);
         if ($multiple) {
-            return DB::table('bravo_booking_meta')->insert([
+            return DB::table('bc_booking_meta')->insert([
                 'name'       => $key,
                 'val'        => $val,
                 'booking_id' => $this->id
             ]);
         } else {
-            $old = DB::table('bravo_booking_meta')->where([
+            $old = DB::table('bc_booking_meta')->where([
                 'booking_id' => $this->id,
                 'name'       => $key
             ])->first();
             if ($old) {
 
-                return DB::table('bravo_booking_meta')->where('id', $old->id)->insert([
+                return DB::table('bc_booking_meta')->where('id', $old->id)->insert([
                     'val' => $val
                 ]);
 
             } else {
-                return DB::table('bravo_booking_meta')->insert([
+                return DB::table('bc_booking_meta')->insert([
                     'name'       => $key,
                     'val'        => $val,
                     'booking_id' => $this->id

@@ -169,7 +169,7 @@
                     <label for="database_name">
                         {{ trans('installer_messages.environment.wizard.form.db_name_label') }}
                     </label>
-                    <input type="text" name="database_name" required id="database_name" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_name_placeholder') }}" />
+                    <input type="text" name="database_name" required id="database_name" value="" />
                     @if ($errors->has('database_name'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -182,7 +182,7 @@
                     <label for="database_username">
                         {{ trans('installer_messages.environment.wizard.form.db_username_label') }}
                     </label>
-                    <input type="text" name="database_username" required id="database_username" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_username_placeholder') }}" />
+                    <input type="text" name="database_username" required id="database_username" value="" />
                     @if ($errors->has('database_username'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -195,37 +195,11 @@
                     <label for="database_password">
                         {{ trans('installer_messages.environment.wizard.form.db_password_label') }}
                     </label>
-                    <input type="text" name="database_password" id="database_password" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_password_placeholder') }}" />
+                    <input type="text" name="database_password" id="database_password" value="" />
                     @if ($errors->has('database_password'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
                             {{ $errors->first('database_password') }}
-                        </span>
-                    @endif
-                </div>
-                <hr>
-                <p class="header__title"><strong>Now setup your admin account</strong></p>
-                <div class="form-group {{ $errors->has('admin_email') ? ' has-error ' : '' }}">
-                    <label for="admin_email">
-                        {{ __("Admin Email") }}
-                    </label>
-                    <input type="text" required name="admin_email" id="admin_email" value=""  />
-                    @if ($errors->has('admin_email'))
-                        <span class="error-block">
-                            <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
-                            {{ $errors->first('admin_email') }}
-                        </span>
-                    @endif
-                </div>
-                <div class="form-group {{ $errors->has('admin_password') ? ' has-error ' : '' }}">
-                    <label for="admin_password">
-                        {{ __("Admin Password") }}
-                    </label>
-                    <input type="text" required minlength="8" name="admin_password" id="admin_password" value=""  />
-                    @if ($errors->has('admin_password'))
-                        <span class="error-block">
-                            <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
-                            {{ $errors->first('admin_password') }}
                         </span>
                     @endif
                 </div>

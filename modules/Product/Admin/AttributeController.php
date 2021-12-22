@@ -157,7 +157,7 @@ class AttributeController extends AdminController
     public function term_edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Attributes::select('bravo_terms.*','bravo_attrs.name as attr_name','bravo_attrs.display_type')->from('bravo_attrs')->join('bravo_terms','bravo_terms.attr_id','=','bravo_attrs.id')->where('bravo_terms.id',$id)->first();
+        $row = Attributes::select('core_terms.*','core_attrs.name as attr_name','core_attrs.display_type')->from('core_attrs')->join('core_terms','core_terms.attr_id','=','core_attrs.id')->where('core_terms.id',$id)->first();
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
         }
@@ -261,7 +261,7 @@ class AttributeController extends AdminController
             if(is_array($selected))
             {
                 $query = Terms::getForSelect2Query('product');
-                $items = $query->whereIn('bravo_terms.id',$selected)->take(50)->get();
+                $items = $query->whereIn('core_terms.id',$selected)->take(50)->get();
                 return response()->json([
                     'items'=>$items
                 ]);
@@ -279,7 +279,7 @@ class AttributeController extends AdminController
         }
         $q = $request->query('q');
         $query = Terms::getForSelect2Query('product',$q);
-        $res = $query->orderBy('bravo_terms.id', 'desc')->limit(20)->get();
+        $res = $query->orderBy('core_terms.id', 'desc')->limit(20)->get();
         return response()->json([
             'results' => $res
         ]);

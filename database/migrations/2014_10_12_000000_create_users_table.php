@@ -51,6 +51,8 @@ class CreateUsersTable extends Migration
             $table->string('shipping_company',255)->nullable();
 
 
+            $table->tinyInteger('need_update_pw')->default(0);
+
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

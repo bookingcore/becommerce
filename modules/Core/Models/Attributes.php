@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attributes extends BaseModel
 {
     use SoftDeletes;
-    protected $table = 'bravo_attrs';
+    protected $table = 'core_attrs';
     protected $fillable = ['name','display_type'];
     protected $slugField = 'slug';
     protected $slugFromField = 'name';

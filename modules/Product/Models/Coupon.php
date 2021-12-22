@@ -16,7 +16,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Coupon extends BaseProduct
 {
-    protected $table = 'bravo_coupon';
+    protected $table = 'bc_coupon';
     public $type = 'product';
 
     protected $fillable = [
@@ -291,8 +291,8 @@ class Coupon extends BaseProduct
     {
         $number = 0;
         if(!empty($location)) {
-            $number = parent::join('bravo_locations', function ($join) use ($location) {
-                $join->on('bravo_locations.id', '=', $this->table.'.location_id')->where('bravo_locations._lft', '>=', $location->_lft)->where('bravo_locations._rgt', '<=', $location->_rgt);
+            $number = parent::join('bc_locations', function ($join) use ($location) {
+                $join->on('bc_locations.id', '=', $this->table.'.location_id')->where('bc_locations._lft', '>=', $location->_lft)->where('bc_locations._rgt', '<=', $location->_rgt);
             })->where($this->table.".status", "publish")->count($this->table.".id");
         }
         if ($number > 1) {
@@ -420,7 +420,7 @@ class Coupon extends BaseProduct
 
     public function getTermsOfAttr($attr_id)
     {
-         return Terms::query()->select('bravo_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','bravo_terms.id')->where('target_id',$this->id)->get();
+         return Terms::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
     }
 
     public function getAttributesForVariationDataAttribute(){

@@ -7,10 +7,9 @@ Route::get('media/private/view','MediaController@privateFileView')->middleware('
 Route::group(['prefix'=>'media'],function(){
     Route::get('/preview/{id}/{size?}','\Modules\Media\Controllers\MediaController@preview');//
     Route::post('/private/store','MediaController@privateFileStore')->name('media.private.store');//
-    Route::get('/get_file','MediaController@getFile')->name('media.get_file');//
 });
 Route::group(['middleware' => ['auth']],function(){
-    Route::match(['get','post'],'/admin/module/media/store','\Modules\Media\Admin\MediaController@store');
-    Route::match(['get','post'],'/admin/module/media/getLists','\Modules\Media\Admin\MediaController@getLists');
-    Route::match(['get','post'],'/admin/module/media/removeFiles','\Modules\Media\Admin\MediaController@removeFiles');
+    Route::post('/admin/module/media/store','\Modules\Media\Admin\MediaController@store');
+    Route::post('/admin/module/media/getLists','\Modules\Media\Admin\MediaController@getLists');
+    Route::post('/admin/module/media/removeFiles','\Modules\Media\Admin\MediaController@removeFiles');
 });
