@@ -1,7 +1,22 @@
 <?php
 namespace Modules\Theme;
+use Illuminate\Support\Facades\View;
+
 class ModuleProvider extends \Modules\ModuleServiceProvider
 {
+    public function boot(){
+
+        if(!is_installed()) return;
+
+        $active = ThemeManager::current();
+        if($active){
+            View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR.ucfirst($active)));
+        }
+
+        View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
+
+
+    }
     public function register()
     {
         $this->app->register(\Modules\Theme\RouterServiceProvider::class);

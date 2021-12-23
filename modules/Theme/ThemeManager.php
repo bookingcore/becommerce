@@ -8,13 +8,13 @@ class ThemeManager
     protected static $_all = [];
 
     public static function current(){
-        return config('bc.active_theme','default');
+        return config('bc.active_theme','base');
     }
     public static function currentProvider(){
         return static::getProviderClass(static::current());
     }
     public static function getProviderClass($theme){
-        return "Themes\\".ucfirst($theme)."\\ThemeProvider";
+        return "\\Themes\\".ucfirst($theme)."\\ThemeProvider";
     }
 
     public static function all(){

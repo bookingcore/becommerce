@@ -6,9 +6,9 @@ use Illuminate\Support\ServiceProvider;
 abstract class AbstractThemeProvider extends ServiceProvider
 {
 
-    public static String $name;
+    public static $name;
 
-    public static String $screenshot;
+    public static $screenshot;
 
     /**
      * Return Theme Info
@@ -18,4 +18,5 @@ abstract class AbstractThemeProvider extends ServiceProvider
     abstract static function info();
 
     public function register(){}
+
 }
