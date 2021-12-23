@@ -22,6 +22,21 @@
         <footer class="footer mt-auto py-3 bg-light">
             @include('layouts.parts.footer')
 
+            <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
+            <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
+            <script>
+
+                window.lazyLoadOptions = {
+                    elements_selector: ".lazy",
+                };
+
+                window.addEventListener('LazyLoad::Initialized', function (event) {
+                    window.lazyLoadInstance = event.detail.instance;
+                }, false);
+
+
+            </script>
+
             <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
             <link href="{{ theme_url('base/js/app.js') }}" rel="stylesheet">
             @yield('footer')

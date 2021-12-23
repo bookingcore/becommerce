@@ -17,7 +17,7 @@
                             @if(\Modules\Theme\ThemeManager::current() == strtolower($theme_id))
                                 <span class="badge badge-success">{{__('Current')}}</span>
                             @else
-                                <form action="">
+                                <form action="{{route('theme.admin.activate',['theme'=>$theme_id])}}" method="post">
                                     @csrf
                                     <button class="btn btn-primary">{{__("Activate")}}</button>
                                 </form>

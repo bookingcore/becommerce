@@ -1,12 +1,17 @@
 <?php
 namespace Modules\Theme;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
+use League\Flysystem\Config;
+use Modules\Core\JsonConfigManager;
 
 class ModuleProvider extends \Modules\ModuleServiceProvider
 {
-    public function boot(){
+    public function boot(Request $request){
 
-        if(!is_installed()) return;
+        if(!is_installed() || strpos($request->path(), 'install') !== false) return false;
+
+        \Illuminate\Support\Facades\Config::set('bc.active_theme', JsonConfigManager::get('active_theme','base'));
 
         $active = ThemeManager::current();
         if($active){
@@ -14,7 +19,6 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         }
 
         View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
-
 
     }
     public function register()
