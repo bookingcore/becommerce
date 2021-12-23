@@ -1290,3 +1290,6 @@ function list_compare_id(){
     }
     return $l_compare;
 }
+function theme_url($path){
+    return asset("themes/".trim("$path","/\\"));
+}

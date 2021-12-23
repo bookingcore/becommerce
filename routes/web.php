@@ -11,21 +11,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/intro','LandingpageController@index');
-Route::get('/', 'HomeController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
 
-\Illuminate\Support\Facades\Auth::routes();
-
-//Custom User Login and Register
-Route::post('register','\Modules\User\Controllers\UserController@userRegister')->name('auth.register');
-Route::post('login','\Modules\User\Controllers\UserController@userLogin')->name('auth.login');
-Route::post('logout','\Modules\User\Controllers\UserController@logout')->name('auth.logout');
 // Social Login
 Route::get('social-login/{provider}', 'Auth\LoginController@socialLogin');
 Route::get('social-callback/{provider}', 'Auth\LoginController@socialCallBack');
 
 //Contact
-Route::match(['get','post'],'/contact','\Modules\Contact\Controllers\ContactController@index'); // Contact
+Route::match(['get'],'/contact','\Modules\Contact\Controllers\ContactController@index'); // Contact
 Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactController@store'); // Contact
 
 Route::get('/test_functions', 'HomeController@test');

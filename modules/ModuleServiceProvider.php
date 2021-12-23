@@ -41,4 +41,7 @@ class ModuleServiceProvider extends \Illuminate\Support\ServiceProvider
         return [];
     }
 
+    public static function getPaymentGateway(){
+        return [];
+    }
 }

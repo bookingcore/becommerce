@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -53,7 +52,7 @@ class LoginController extends Controller
     public function socialLogin($provider)
     {
         $this->initConfigs($provider);
-        return Socialite::driver($provider)->redirect();
+        return \Laravel\Socialite\Facades\Socialite::driver($provider)->redirect();
     }
 
     protected function initConfigs($provider)
@@ -75,7 +74,7 @@ class LoginController extends Controller
     {
         $this->initConfigs($provider);
 
-        $user = Socialite::driver($provider)->user();
+        $user = \Laravel\Socialite\Facades\Socialite::driver($provider)->user();
 
         if(empty($user)){
             return redirect()->route('/login')->with('error',__('Can not authorize'));

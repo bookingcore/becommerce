@@ -1,14 +1,5 @@
 const mix = require('laravel-mix');
 
-// Admin
-mix.webpackConfig({
-    output: {
-        path:__dirname+'/public/dist/frontend',
-    },
-    devtool: 'source-map'
-
-});
-
-mix.postCss("public/css/app.css", "css", [
+mix.postCss("public/themes/base/css/app.css", "public/themes/base/dist/css", [
     require("tailwindcss"),
 ]);

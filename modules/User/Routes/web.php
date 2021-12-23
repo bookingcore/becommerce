@@ -41,7 +41,7 @@ Route::group(['prefix'=>'user','middleware' => ['auth','verified']],function(){
     Route::get('chat','ChatController@index')->name('user.chat');
 });
 
-Route::group(['prefix'=>config('chatify.path'),'middleware'=>'auth'],function(){
+Route::group(['prefix'=>"messenger",'middleware'=>'auth'],function(){
     Route::get('/', 'ChatController@iframe')->name(config('chatify.path'));
     Route::post('search','ChatController@search')->name('search');
     Route::post('getContacts', 'ChatController@getContacts')->name('contacts.get');
