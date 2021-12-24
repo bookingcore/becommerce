@@ -36,11 +36,6 @@ namespace Database\Seeders;
                         'group' => "general",
                     ],
                     [
-                        'name'  => 'logo_id',
-                        'val'   => MediaFile::findMediaByName("logo")->id ?? '',
-                        'group' => "general",
-                    ],
-                    [
                         'name'  => 'site_favicon',
                         'val'   => '',
                         'group' => "general",

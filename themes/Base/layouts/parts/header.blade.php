@@ -1,230 +1,547 @@
-<!-- This example requires Tailwind CSS v2.0+ -->
-<div class="relative bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="flex justify-between items-center border-b-2 border-gray-100 py-6 md:justify-start md:space-x-10">
-            <div class="flex justify-start lg:w-0 lg:flex-1">
-                <a href="#">
-                    <span class="sr-only">Workflow</span>
-                    <img class="h-8 w-auto sm:h-10" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="">
-                </a>
-            </div>
-            <div class="-mr-2 -my-2 md:hidden">
-                <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500" aria-expanded="false">
-                    <span class="sr-only">Open menu</span>
-                    <!-- Heroicon name: outline/menu -->
-                    <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-            <nav class="hidden md:flex space-x-10">
-                <div class="relative">
-                    <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
-                    <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
-                        <span>Solutions</span>
-                        <!--
-                          Heroicon name: solid/chevron-down
-
-                          Item active: "text-gray-600", Item inactive: "text-gray-400"
-                        -->
-                        <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-
-                </div>
-
-                <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                    Pricing
-                </a>
-                <a href="#" class="text-base font-medium text-gray-500 hover:text-gray-900">
-                    Docs
-                </a>
-
-                <div class="relative">
-                    <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
-                    <button type="button" class="text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" aria-expanded="false">
-                        <span>More</span>
-                        <!--
-                          Heroicon name: solid/chevron-down
-
-                          Item active: "text-gray-600", Item inactive: "text-gray-400"
-                        -->
-                        <svg class="text-gray-400 ml-2 h-5 w-5 group-hover:text-gray-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                        </svg>
-                    </button>
-                </div>
-            </nav>
-            <div class="hidden md:flex items-center justify-end md:flex-1 lg:w-0">
-                @if(!auth()->check())
-                    <a href="{{route('login')}}" class="whitespace-nowrap text-base font-medium text-gray-500 hover:text-gray-900">
-                        Sign in
-                    </a>
-                    <a href="{{route('register')}}" class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                        Sign up
-                    </a>
-                @else
-                    <div class="">
-                    <button type="button" class="bc-dropdown-btn bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                        <span class="sr-only">View notifications</span>
-                        <!-- Heroicon name: outline/bell -->
-                        <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                    </button>
-
-                    <!-- Profile dropdown -->
-                    <div class="ml-3 relative bc-dropdown">
-                        <div class="bc-dropdown-btn">
-                            <button type="button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
-                            </button>
-                        </div>
-
-                        <!--
-                          Dropdown menu, show/hide based on menu state.
-
-                          Entering: "transition ease-out duration-100"
-                            From: "transform opacity-0 scale-95"
-                            To: "transform opacity-100 scale-100"
-                          Leaving: "transition ease-in duration-75"
-                            From: "transform opacity-100 scale-100"
-                            To: "transform opacity-0 scale-95"
-                        -->
-                        <div class="bc-dropdown-menu origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
-                            <!-- Active: "bg-gray-100", Not Active: "" -->
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-2">Sign out</a>
-                        </div>
-                    </div>
-                    </div>
-                @endif
-            </div>
+<div class="ps-block--promotion-header bg--cover" data-background="/themes/Base/img/promotions/header-promotion.jpg">
+    <div class="container">
+        <div class="ps-block__left">
+            <h3>20%</h3>
+            <figure>
+                <p>Discount</p>
+                <h4>For Books Of March</h4>
+            </figure>
         </div>
-    </div>
-
-    <!--
-      Mobile menu, show/hide based on mobile menu state.
-
-      Entering: "duration-200 ease-out"
-        From: "opacity-0 scale-95"
-        To: "opacity-100 scale-100"
-      Leaving: "duration-100 ease-in"
-        From: "opacity-100 scale-100"
-        To: "opacity-0 scale-95"
-    -->
-    <div class="absolute top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden">
-        <div class="rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 bg-white divide-y-2 divide-gray-50">
-            <div class="pt-5 pb-6 px-5">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow">
-                    </div>
-                    <div class="-mr-2">
-                        <button type="button" class="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
-                            <span class="sr-only">Close menu</span>
-                            <!-- Heroicon name: outline/x -->
-                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-                <div class="mt-6">
-                    <nav class="grid gap-y-8">
-                        <a href="#" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                            <!-- Heroicon name: outline/chart-bar -->
-                            <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                            </svg>
-                            <span class="ml-3 text-base font-medium text-gray-900">
-                Analytics
-              </span>
-                        </a>
-
-                        <a href="#" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                            <!-- Heroicon name: outline/cursor-click -->
-                            <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
-                            </svg>
-                            <span class="ml-3 text-base font-medium text-gray-900">
-                Engagement
-              </span>
-                        </a>
-
-                        <a href="#" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                            <!-- Heroicon name: outline/shield-check -->
-                            <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                            </svg>
-                            <span class="ml-3 text-base font-medium text-gray-900">
-                Security
-              </span>
-                        </a>
-
-                        <a href="#" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                            <!-- Heroicon name: outline/view-grid -->
-                            <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
-                            </svg>
-                            <span class="ml-3 text-base font-medium text-gray-900">
-                Integrations
-              </span>
-                        </a>
-
-                        <a href="#" class="-m-3 p-3 flex items-center rounded-md hover:bg-gray-50">
-                            <!-- Heroicon name: outline/refresh -->
-                            <svg class="flex-shrink-0 h-6 w-6 text-indigo-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                            </svg>
-                            <span class="ml-3 text-base font-medium text-gray-900">
-                Automations
-              </span>
-                        </a>
-                    </nav>
-                </div>
-            </div>
-            <div class="py-6 px-5 space-y-6">
-                <div class="grid grid-cols-2 gap-y-4 gap-x-8">
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Pricing
-                    </a>
-
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Docs
-                    </a>
-
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Help Center
-                    </a>
-
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Guides
-                    </a>
-
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Events
-                    </a>
-
-                    <a href="#" class="text-base font-medium text-gray-900 hover:text-gray-700">
-                        Security
-                    </a>
-                </div>
-                <div>
-                    <a href="#" class="w-full flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                        Sign up
-                    </a>
-                    <p class="mt-6 text-center text-base font-medium text-gray-500">
-                        Existing customer?
-                        <a href="#" class="text-indigo-600 hover:text-indigo-500">
-                            Sign in
-                        </a>
-                    </p>
-                </div>
-            </div>
-        </div>
+        <div class="ps-block__center">
+            <p>Enter Promotion<span>Sale2019</span></p>
+        </div><a class="ps-btn ps-btn--sm" href="#">Shop now</a>
     </div>
 </div>
+<header class="header header--standard header--market-place-1" data-sticky="true">
+    <div class="header__top">
+        <div class="container">
+            <div class="header__left">
+                <p>Welcome to Martfury Online Shopping Store !</p>
+            </div>
+            <div class="header__right">
+                <ul class="header__top-links">
+                    <li><a href="#">Store Location</a></li>
+                    <li><a href="#">Track Your Order</a></li>
+                    <li>
+                        <div class="ps-dropdown"><a href="#">US Dollar</a>
+                            <ul class="ps-dropdown-menu">
+                                <li><a href="#">Us Dollar</a></li>
+                                <li><a href="#">Euro</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="ps-dropdown language"><a href="#"><img src="img/flag/en.png" alt="">English</a>
+                            <ul class="ps-dropdown-menu">
+                                <li><a href="#"><img src="img/flag/germany.png" alt=""> Germany</a></li>
+                                <li><a href="#"><img src="img/flag/fr.png" alt=""> France</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header__content">
+        <div class="container">
+            <div class="header__content-left">
+                <div class="menu--product-categories">
+                    <div class="menu__toggle"><i class="icon-menu"></i><span>Shop by Department</span></div>
+                    <div class="menu__content">
+                        <ul class="menu--dropdown">
+                            <li><a href="#.html">Hot Promotions</a>
+                            </li>
+                            <li class="menu-item-has-children has-mega-menu"><a href="#">Consumer Electronic</a><span class="sub-toggle"></span>
+                                <div class="mega-menu">
+                                    <div class="mega-menu__column">
+                                        <h4>Electronic<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Home Audio &amp; Theathers</a>
+                                            </li>
+                                            <li><a href="#.html">TV &amp; Videos</a>
+                                            </li>
+                                            <li><a href="#.html">Camera, Photos &amp; Videos</a>
+                                            </li>
+                                            <li><a href="#.html">Cellphones &amp; Accessories</a>
+                                            </li>
+                                            <li><a href="#.html">Headphones</a>
+                                            </li>
+                                            <li><a href="#.html">Videosgames</a>
+                                            </li>
+                                            <li><a href="#.html">Wireless Speakers</a>
+                                            </li>
+                                            <li><a href="#.html">Office Electronic</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu__column">
+                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Digital Cables</a>
+                                            </li>
+                                            <li><a href="#.html">Audio &amp; Video Cables</a>
+                                            </li>
+                                            <li><a href="#.html">Batteries</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#.html">Clothing &amp; Apparel</a>
+                            </li>
+                            <li><a href="#.html">Home, Garden &amp; Kitchen</a>
+                            </li>
+                            <li><a href="#.html">Health &amp; Beauty</a>
+                            </li>
+                            <li><a href="#.html">Yewelry &amp; Watches</a>
+                            </li>
+                            <li class="menu-item-has-children has-mega-menu"><a href="#">Computer &amp; Technology</a><span class="sub-toggle"></span>
+                                <div class="mega-menu">
+                                    <div class="mega-menu__column">
+                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Computer &amp; Tablets</a>
+                                            </li>
+                                            <li><a href="#.html">Laptop</a>
+                                            </li>
+                                            <li><a href="#.html">Monitors</a>
+                                            </li>
+                                            <li><a href="#.html">Networking</a>
+                                            </li>
+                                            <li><a href="#.html">Drive &amp; Storages</a>
+                                            </li>
+                                            <li><a href="#.html">Computer Components</a>
+                                            </li>
+                                            <li><a href="#.html">Security &amp; Protection</a>
+                                            </li>
+                                            <li><a href="#.html">Gaming Laptop</a>
+                                            </li>
+                                            <li><a href="#.html">Accessories</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#.html">Babies &amp; Moms</a>
+                            </li>
+                            <li><a href="#.html">Sport &amp; Outdoor</a>
+                            </li>
+                            <li><a href="#.html">Phones &amp; Accessories</a>
+                            </li>
+                            <li><a href="#.html">Books &amp; Office</a>
+                            </li>
+                            <li><a href="#.html">Cars &amp; Motocycles</a>
+                            </li>
+                            <li><a href="#.html">Home Improments</a>
+                            </li>
+                            <li><a href="#.html">Vouchers &amp; Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <a class="ps-logo" href="{{url('/')}}">
+                    @if($logo_id = setting_item("logo_id"))
+                        <?php $logo = get_file_url($logo_id,'full') ?>
+                        <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                    @else
+                        <span class="logo-text fs-33 fw-700 c-000000">{{__('Be')}}<span class="hl fw-700">{{__("Commerce")}}</span></span>
+                    @endif
+                </a>
+            </div>
+            <div class="header__content-center">
+                <form class="ps-form--quick-search" action="index.html" method="get">
+                    <div class="form-group--icon"><i class="icon-chevron-down"></i>
+                        <select class="form-control">
+                            <option value="1">All</option>
+                            <option value="1">Smartphone</option>
+                            <option value="1">Sounds</option>
+                            <option value="1">Technology toys</option>
+                        </select>
+                    </div>
+                    <input class="form-control" type="text" placeholder="I'm shopping for...">
+                    <button>Search</button>
+                </form>
+            </div>
+            <div class="header__content-right">
+                <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>
+                    <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
+                        <div class="ps-cart__content">
+                            <div class="ps-cart__items">
+                                <div class="ps-product--cart-mobile">
+                                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt="" /></a></div>
+                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
+                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                    </div>
+                                </div>
+                                <div class="ps-product--cart-mobile">
+                                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg" alt="" /></a></div>
+                                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
+                                        <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps-cart__footer">
+                                <h3>Sub Total:<strong>$59.99</strong></h3>
+                                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                            </div>
+                        </div>
+                    </div>
+                    @include('layouts.parts.header.user')
+                </div>
+            </div>
+        </div>
+    </div>
+    <nav class="navigation">
+        <div class="container">
+            <div class="navigation__left">
+                <div class="menu--product-categories">
+                    <div class="menu__toggle"><i class="icon-menu"></i><span>Shop by Department</span></div>
+                    <div class="menu__content">
+                        <ul class="menu--dropdown">
+                            <li><a href="#.html">Hot Promotions</a>
+                            </li>
+                            <li class="menu-item-has-children has-mega-menu"><a href="#">Consumer Electronic</a><span class="sub-toggle"></span>
+                                <div class="mega-menu">
+                                    <div class="mega-menu__column">
+                                        <h4>Electronic<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Home Audio &amp; Theathers</a>
+                                            </li>
+                                            <li><a href="#.html">TV &amp; Videos</a>
+                                            </li>
+                                            <li><a href="#.html">Camera, Photos &amp; Videos</a>
+                                            </li>
+                                            <li><a href="#.html">Cellphones &amp; Accessories</a>
+                                            </li>
+                                            <li><a href="#.html">Headphones</a>
+                                            </li>
+                                            <li><a href="#.html">Videosgames</a>
+                                            </li>
+                                            <li><a href="#.html">Wireless Speakers</a>
+                                            </li>
+                                            <li><a href="#.html">Office Electronic</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="mega-menu__column">
+                                        <h4>Accessories &amp; Parts<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Digital Cables</a>
+                                            </li>
+                                            <li><a href="#.html">Audio &amp; Video Cables</a>
+                                            </li>
+                                            <li><a href="#.html">Batteries</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#.html">Clothing &amp; Apparel</a>
+                            </li>
+                            <li><a href="#.html">Home, Garden &amp; Kitchen</a>
+                            </li>
+                            <li><a href="#.html">Health &amp; Beauty</a>
+                            </li>
+                            <li><a href="#.html">Yewelry &amp; Watches</a>
+                            </li>
+                            <li class="menu-item-has-children has-mega-menu"><a href="#">Computer &amp; Technology</a><span class="sub-toggle"></span>
+                                <div class="mega-menu">
+                                    <div class="mega-menu__column">
+                                        <h4>Computer &amp; Technologies<span class="sub-toggle"></span></h4>
+                                        <ul class="mega-menu__list">
+                                            <li><a href="#.html">Computer &amp; Tablets</a>
+                                            </li>
+                                            <li><a href="#.html">Laptop</a>
+                                            </li>
+                                            <li><a href="#.html">Monitors</a>
+                                            </li>
+                                            <li><a href="#.html">Networking</a>
+                                            </li>
+                                            <li><a href="#.html">Drive &amp; Storages</a>
+                                            </li>
+                                            <li><a href="#.html">Computer Components</a>
+                                            </li>
+                                            <li><a href="#.html">Security &amp; Protection</a>
+                                            </li>
+                                            <li><a href="#.html">Gaming Laptop</a>
+                                            </li>
+                                            <li><a href="#.html">Accessories</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <li><a href="#.html">Babies &amp; Moms</a>
+                            </li>
+                            <li><a href="#.html">Sport &amp; Outdoor</a>
+                            </li>
+                            <li><a href="#.html">Phones &amp; Accessories</a>
+                            </li>
+                            <li><a href="#.html">Books &amp; Office</a>
+                            </li>
+                            <li><a href="#.html">Cars &amp; Motocycles</a>
+                            </li>
+                            <li><a href="#.html">Home Improments</a>
+                            </li>
+                            <li><a href="#.html">Vouchers &amp; Services</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="navigation__right">
+                <ul class="menu">
+                    <li class="menu-item-has-children"><a href="index">Home</a><span class="sub-toggle"></span>
+                        <ul class="sub-menu">
+                            <li><a href="index.html">Marketplace Full Width</a>
+                            </li>
+                            <li><a href="home-autopart.html">Home Auto Parts</a>
+                            </li>
+                            <li><a href="home-technology.html">Home Technology</a>
+                            </li>
+                            <li><a href="home-organic.html">Home Organic</a>
+                            </li>
+                            <li><a href="home-marketplace.html">Home Marketplace V1</a>
+                            </li>
+                            <li><a href="home-marketplace-2.html">Home Marketplace V2</a>
+                            </li>
+                            <li><a href="home-marketplace-3.html">Home Marketplace V3</a>
+                            </li>
+                            <li><a href="home-marketplace-4.html">Home Marketplace V4</a>
+                            </li>
+                            <li><a href="home-electronic.html">Home Electronic</a>
+                            </li>
+                            <li><a href="home-furniture.html">Home Furniture</a>
+                            </li>
+                            <li><a href="home-kid.html">Home Kids</a>
+                            </li>
+                            <li><a href="homepage-photo-and-video.html">Home photo and picture</a>
+                            </li>
+                            <li><a href="home-medical.html">Home Medical</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="menu-item-has-children has-mega-menu"><a href="shop-default">Shop</a><span class="sub-toggle"></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu__column">
+                                <h4>Catalog Pages<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="shop-default.html">Shop Default</a>
+                                    </li>
+                                    <li><a href="shop-default.html">Shop Fullwidth</a>
+                                    </li>
+                                    <li><a href="shop-categories.html">Shop Categories</a>
+                                    </li>
+                                    <li><a href="shop-sidebar.html">Shop Sidebar</a>
+                                    </li>
+                                    <li><a href="shop-sidebar-without-banner.html">Shop Without Banner</a>
+                                    </li>
+                                    <li><a href="shop-carousel.html">Shop Carousel</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu__column">
+                                <h4>Product Layout<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="product-default.html">Default</a>
+                                    </li>
+                                    <li><a href="product-extend.html">Extended</a>
+                                    </li>
+                                    <li><a href="product-full-content.html">Full Content</a>
+                                    </li>
+                                    <li><a href="product-box.html">Boxed</a>
+                                    </li>
+                                    <li><a href="product-sidebar.html">Sidebar</a>
+                                    </li>
+                                    <li><a href="product-default.html">Fullwidth</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu__column">
+                                <h4>Product Types<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="product-default.html">Simple</a>
+                                    </li>
+                                    <li><a href="product-default.html">Color Swatches</a>
+                                    </li>
+                                    <li><a href="product-image-swatches.html">Images Swatches</a>
+                                    </li>
+                                    <li><a href="product-countdown.html">Countdown</a>
+                                    </li>
+                                    <li><a href="product-multi-vendor.html">Multi-Vendor</a>
+                                    </li>
+                                    <li><a href="product-instagram.html">Instagram</a>
+                                    </li>
+                                    <li><a href="product-affiliate.html">Affiliate</a>
+                                    </li>
+                                    <li><a href="product-on-sale.html">On sale</a>
+                                    </li>
+                                    <li><a href="product-video.html">Video Featured</a>
+                                    </li>
+                                    <li><a href="product-groupped.html">Grouped</a>
+                                    </li>
+                                    <li><a href="product-out-stock.html">Out Of Stock</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu__column">
+                                <h4>Woo Pages<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="shopping-cart.html">Shopping Cart</a>
+                                    </li>
+                                    <li><a href="checkout.html">Checkout</a>
+                                    </li>
+                                    <li><a href="whishlist.html">Whishlist</a>
+                                    </li>
+                                    <li><a href="compare.html">Compare</a>
+                                    </li>
+                                    <li><a href="order-tracking.html">Order Tracking</a>
+                                    </li>
+                                    <li><a href="my-account.html">My Account</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu-item-has-children has-mega-menu"><a href="">Pages</a><span class="sub-toggle"></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu__column">
+                                <h4>Basic Page<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="about-us.html">About Us</a>
+                                    </li>
+                                    <li><a href="contact-us.html">Contact</a>
+                                    </li>
+                                    <li><a href="faqs.html">Faqs</a>
+                                    </li>
+                                    <li><a href="comming-soon.html">Comming Soon</a>
+                                    </li>
+                                    <li><a href="404-page.html">404 Page</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu__column">
+                                <h4>Vendor Pages<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="become-a-vendor.html">Become a Vendor</a>
+                                    </li>
+                                    <li><a href="vendor-store.html">Vendor Store</a>
+                                    </li>
+                                    <li><a href="vendor-dashboard-free.html">Vendor Dashboard Free</a>
+                                    </li>
+                                    <li><a href="vendor-dashboard-pro.html">Vendor Dashboard Pro</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="menu-item-has-children has-mega-menu"><a href="">Blogs</a><span class="sub-toggle"></span>
+                        <div class="mega-menu">
+                            <div class="mega-menu__column">
+                                <h4>Blog Layout<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="blog-grid.html">Grid</a>
+                                    </li>
+                                    <li><a href="blog-list.html">Listing</a>
+                                    </li>
+                                    <li><a href="blog-small-thumb.html">Small Thumb</a>
+                                    </li>
+                                    <li><a href="blog-left-sidebar.html">Left Sidebar</a>
+                                    </li>
+                                    <li><a href="blog-right-sidebar.html">Right Sidebar</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="mega-menu__column">
+                                <h4>Single Blog<span class="sub-toggle"></span></h4>
+                                <ul class="mega-menu__list">
+                                    <li><a href="blog-detail.html">Single 1</a>
+                                    </li>
+                                    <li><a href="blog-detail-2.html">Single 2</a>
+                                    </li>
+                                    <li><a href="blog-detail-3.html">Single 3</a>
+                                    </li>
+                                    <li><a href="blog-detail-4.html">Single 4</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="ps-block--header-hotline inline">
+                    <p><i class="icon-telephone"></i>Hotline:<strong> 1-800-234-5678</strong></p>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+<header class="header header--mobile" data-sticky="true">
+    <div class="header__top">
+        <div class="header__left">
+            <p>Welcome to Martfury Online Shopping Store !</p>
+        </div>
+        <div class="header__right">
+            <ul class="navigation__extra">
+                <li><a href="#">Sell on Martfury</a></li>
+                <li><a href="#">Tract your order</a></li>
+                <li>
+                    <div class="ps-dropdown"><a href="#">US Dollar</a>
+                        <ul class="ps-dropdown-menu">
+                            <li><a href="#">Us Dollar</a></li>
+                            <li><a href="#">Euro</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <div class="ps-dropdown language"><a href="#"><img src="img/flag/en.png" alt="" />English</a>
+                        <ul class="ps-dropdown-menu">
+                            <li><a href="#"><img src="img/flag/germany.png" alt="" /> Germany</a></li>
+                            <li><a href="#"><img src="img/flag/fr.png" alt="" /> France</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="navigation--mobile">
+        <div class="navigation__left"><a class="ps-logo" href="index.html"><img src="img/logo_light.png" alt="" /></a></div>
+        <div class="navigation__right">
+            <div class="header__actions">
+                <div class="ps-cart--mini"><a class="header__extra" href="#"><i class="icon-bag2"></i><span><i>0</i></span></a>
+                    <div class="ps-cart__content">
+                        <div class="ps-cart__items">
+                            <div class="ps-product--cart-mobile">
+                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt="" /></a></div>
+                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
+                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                </div>
+                            </div>
+                            <div class="ps-product--cart-mobile">
+                                <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/5.jpg" alt="" /></a></div>
+                                <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">Sleeve Linen Blend Caro Pane Shirt</a>
+                                    <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ps-cart__footer">
+                            <h3>Sub Total:<strong>$59.99</strong></h3>
+                            <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-block--user-header">
+                    <div class="ps-block__left"><a href="my-account.html"><i class="icon-user"></i></a></div>
+                    <div class="ps-block__right"><a href="my-account.html">Login</a><a href="my-account.html">Register</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="ps-search--mobile">
+        <form class="ps-form--search-mobile" action="index.html" method="get">
+            <div class="form-group--nest">
+                <input class="form-control" type="text" placeholder="Search something..." />
+                <button><i class="icon-magnifier"></i></button>
+            </div>
+        </form>
+    </div>
+</header>

@@ -19,7 +19,7 @@ class HideDebugbar
         if(strpos($request->path(),'install') === false){
 
             if (!Auth::user() || !Auth::user()->hasPermission('system_log_view')) {
-                \Debugbar::disable();
+                //\Debugbar::disable();
             }
         }
         return $next($request);

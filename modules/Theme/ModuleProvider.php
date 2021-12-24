@@ -14,7 +14,7 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         \Illuminate\Support\Facades\Config::set('bc.active_theme', JsonConfigManager::get('active_theme','base'));
 
         $active = ThemeManager::current();
-        if($active){
+        if(strtolower($active) != "base"){
             View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR.ucfirst($active)));
         }
 
