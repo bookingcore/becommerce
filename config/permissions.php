@@ -57,7 +57,7 @@ return [
     'setting_manage',
 
     // Custom
-    "dashboard_vendor_access",
+    "vendor_access",
     "vendor_payout_view",
     "vendor_payout_manage",
     "enquiry_view",

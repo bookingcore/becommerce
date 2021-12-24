@@ -42,7 +42,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if(Auth::user()->hasPermission('dashboard_access')){
+        if(Auth::user()->hasPermission('setting_update')){
             return '/admin';
         }else{
             return $this->redirectTo;
@@ -131,4 +131,10 @@ class LoginController extends Controller
     }
 
 
+    public function showLoginForm()
+    {
+        return view('auth.login',[
+            'page_title'=>__("Login")
+        ]);
+    }
 }

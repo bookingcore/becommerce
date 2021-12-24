@@ -1,4 +1,4 @@
-<form class="form bravo-form-register ps-form--account {{$class ?? ''}}" method="post">
+<form class="form bravo-form-register bravo-form ps-form--account {{$class ?? ''}}" method="post">
     @csrf
     <div class="ps-form__content">
         <div class="row">

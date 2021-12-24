@@ -16,9 +16,7 @@ trait HasRoles
      * @return bool
      */
     public function hasPermission($permission = ''){
-        if(!PermissionHelper::find($permission)){
-            throw new \Exception(__("Permission: :name not found",['name'=>$permission]));
-        }
+
         if(!$this->role or !$this->role->hasPermission($permission)) return false;
 
         return true;

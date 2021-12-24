@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Modules\Media\Helpers\FileHelper;
 use Modules\Review\Models\Review;
 
-class BaseProduct extends BaseModel implements  Buyable
+class BaseProduct extends BaseModel
 {
     public $email_new_booking_file             = '';
     public $checkout_booking_detail_modal_file = '';

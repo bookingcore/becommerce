@@ -1,4 +1,4 @@
-<div class="ps-block--promotion-header bg--cover" data-background="/themes/Base/img/promotions/header-promotion.jpg">
+<div class="ps-block--promotion-header bg--cover d-none" data-background="/themes/Base/img/promotions/header-promotion.jpg">
     <div class="container">
         <div class="ps-block__left">
             <h3>20%</h3>
