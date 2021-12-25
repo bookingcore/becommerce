@@ -161,7 +161,7 @@ class ProductController extends AdminController
             'image_id',
             'gallery',
             'price',
-            'sale_price',
+            'origin_price',
             'is_featured',
             'brand_id',
             'product_type',

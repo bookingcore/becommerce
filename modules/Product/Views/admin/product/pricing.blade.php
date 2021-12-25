@@ -6,10 +6,10 @@
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label">{{__("Sale Price")}}</label>
+        <label class="control-label">{{__("Origin Price (Optional)")}}</label>
         <div class="controls">
-            <input type="number" step="any" name="sale_price" class="form-control" value="{{$row->sale_price}}" placeholder="{{__("Sale Price")}}">
-            <span><i>{{__("If the regular price is less than the discount , it will show the regular price")}}</i></span>
+            <input type="number" step="any" name="origin_price" class="form-control" value="{{$row->origin_price}}" placeholder="{{__("Origin Price")}}">
+            <span><i>{{__("Must be great than price")}}</i></span>
         </div>
     </div>
 @endif
