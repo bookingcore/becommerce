@@ -103,7 +103,7 @@ class ProductController extends AdminController
         if (empty($row)) {
             return redirect(route('product.admin.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         if (!$this->hasPermission('product_manage_others')) {
             if ($row->create_user != Auth::id()) {
                 return redirect(route('product.admin.index'));

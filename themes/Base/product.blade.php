@@ -1,13 +1,6 @@
 @extends("layouts.app")
 @section('content')
-    <div class="ps-breadcrumb">
-        <div class="container">
-            <ul class="breadcrumb">
-                <li><a href="{{url('/')}}">{{__("Home")}}</a></li>
-                <li>{{__('Shop')}}</li>
-            </ul>
-        </div>
-    </div>
+    @include('global.bc')
     <div class="ps-page--shop" id="shop-sidebar">
         <div class="container">
             <div class="ps-layout--shop">

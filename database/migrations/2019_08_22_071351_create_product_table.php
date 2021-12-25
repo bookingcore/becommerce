@@ -51,11 +51,12 @@ class CreateProductTable extends Migration
             $table->string('stock_status',20)->nullable();
 
 
-            $table->string('product_type',50)->nullable();
+            $table->string('product_type',30)->nullable();
 
             //review
             $table->decimal('review_score',2,1)->nullable();
 
+            $table->bigInteger('author_id')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->timestamps();

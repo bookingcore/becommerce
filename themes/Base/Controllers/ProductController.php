@@ -39,8 +39,6 @@ class ProductController extends Controller
             'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
-                    'url'=>'',
-                    'class'=>'active',
                     'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
                 ]
             ],
@@ -48,23 +46,43 @@ class ProductController extends Controller
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translation')->get();
-        $data['brands']  = ProductBrand::with(['products','translation'])->get()->map(function ($item){
-            $item->count_product  = count($item->products);
-            return $item;
-        });
+        $data['attributes'] = Attributes::where('service', 'product')->where('status', 'publish')->with('terms.translation')->orderBy('position')->get();
+        $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
 
         return view('product', $data);
     }
 
     public function categoryIndex( $slug , Request $request){
-        $getCats = ProductCategory::where('slug',$slug)->first();
-        $categories = $getCats->id;
-        $data = $this->_querySearch($request , [$categories]);
-        return view('Product::frontend.categories', (isset($data)) ? $data : []);
+        $category = ProductCategory::where('slug',$slug)->first();
+
+        if(!$category){
+            abort(404);
+        }
+
+        $list = $this->_querySearch($request,['cat_id'=>$category->id]);
+
+        $categories = ProductCategory::where('status', 'publish')->with(['translation'])->limit(999)->get()->toTree();
+        $data = [
+            'rows'               => $list->paginate(16),
+            'product_min_max_price' => Product::getMinMaxPrice(),
+            "blank"              => 1,
+            'categories'         => $categories,
+            'show_breadcrumb'    => 0,
+            'breadcrumbs'=>[
+                [
+                    'name'=> $category->name,
+                ]
+            ],
+            'body_class'        => 'full_width',
+            "seo_meta"           => Product::getSeoMetaForPageList()
+        ];
+
+        $data['attributes'] = Attributes::where('service', 'product')->where('status', 'publish')->with('terms.translation')->orderBy('position')->get();
+        $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
+        return view('product', $data);
     }
 
-    private function _querySearch($request , $cats = false){
+    private function _querySearch($request , $filters = []){
         $query = $this->product::query()->select("products.*");
         $query->where("products.status", "publish");
 
@@ -103,15 +121,11 @@ class ProductController extends Controller
             $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
         }
 
-        if(!empty($cats)){
-            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cats);
+        if(!empty($filters['cat_id'])){
+            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->where('ctr.cat_id', $filters['cat_id']);
         }
 
-        $cat_id = $request->query('category_id');
         $search = $request->query('s');
-        if (!empty($cat_id)){
-            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $cat_id);
-        }
         if (!empty($search)){
             $query->where('products.title','LIKE',"%$search%");
         }

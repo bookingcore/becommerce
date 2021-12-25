@@ -41,8 +41,14 @@ class CreateTableCorePages extends Migration
             $table->string('slug',255)->nullable();
             $table->string('service',50)->nullable();
 
+            $table->tinyInteger('hide_in_filter_search')->nullable()->default(0);
+            $table->tinyInteger('hide_in_single')->nullable()->default(0);
+            $table->tinyInteger('position')->nullable()->default(0);
+
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->string('status',30)->nullable();
 
             $table->softDeletes();
             $table->timestamps();

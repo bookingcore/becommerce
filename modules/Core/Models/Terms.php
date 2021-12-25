@@ -18,6 +18,8 @@ class Terms extends BaseModel
     protected $slugField     = 'slug';
     protected $slugFromField = 'name';
 
+    protected $translation_class = TermsTranslation::class;
+
     /**
      * @param $term_IDs array or number
      * @return mixed

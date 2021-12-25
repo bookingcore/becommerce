@@ -198,13 +198,37 @@ class BaseModel extends Model
         return $this->hasOne(UserWishList::class,'object_id')->where('object_model',$this->type);
     }
 
-    public function getBookingData($extra = [])
-    {
-        $booking_data = [
-            'id'              => $this->id,
-            'type'=>$this->type
-        ];
-
-        return array_merge($booking_data,$extra);
+    public function getStatusTextAttribute(){
+        switch ($this->status){
+            case "publish":
+                return __("Publish");
+                break;
+            case "draft":
+                return __("Draft");
+                break;
+            case "pending":
+                return __("Pending");
+                break;
+            case "in-progress":
+                return __("In Progress");
+                break;
+            default:
+                return ucfirst($this->status ?? '');
+                break;
+        }
+    }
+    public function getStatusBadgeAttribute(){
+        switch ($this->status){
+            case "publish":
+                return "success";
+                break;
+            case "pending":
+                return "warning";
+                break;
+            case "draft":
+            default:
+                return "secondary";
+                break;
+        }
     }
 }

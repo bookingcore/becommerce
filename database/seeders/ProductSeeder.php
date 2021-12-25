@@ -158,7 +158,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_2 = DB::table('products')->insertGetId([
             'title'       => "Paul’s Smith Sneaker InWhite Color",
@@ -173,7 +174,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_3 = DB::table('products')->insertGetId([
             'title'       => "Herschel Leather Duffle Bag In Brown Color",
@@ -188,7 +190,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_4 = DB::table('products')->insertGetId([
             'title'       => "Unero Military Classical Backpack",
@@ -203,7 +206,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_5 = DB::table('products')->insertGetId([
             'title'       => "Rayban Rounded Sunglass Brown Color",
@@ -218,7 +222,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_6 = DB::table('products')->insertGetId([
             'title'       => "Men’s Sports Runnning Swim Board Shorts",
@@ -234,7 +239,8 @@ class ProductSeeder extends Seeder
             'attributes_for_variation' => '["1","2"]',
             'stock_status'=> 'in',
             'product_type'=> 'variable',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_7 = DB::table('products')->insertGetId([
             'title'       => "Korea Long Sofa Fabric In Blue Navy Color",
@@ -249,7 +255,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'out',
             'product_type'=> 'simple',
-            'create_user' => '1'
+            'create_user' => '1',
+            'author_id'=>1
         ] );
         $id_8 = DB::table('products')->insertGetId([
             'title'       => "LG White Front Load Steam Washer",
@@ -264,7 +271,8 @@ class ProductSeeder extends Seeder
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> 'simple',
-            'create_user' => '2'
+            'create_user' => '2',
+            'author_id'=>1
         ] );
 
         $list_products[] = [
@@ -390,19 +398,21 @@ class ProductSeeder extends Seeder
 
         //attr
         $attr = [];
-        $attr['color'] = DB::table('core_attrs')->insertGetId([
+        $attr['color'] = DB::table('bc_attrs')->insertGetId([
             'name'      =>      'Color',
             'display_type'=>    'color',
             'slug'      =>      'color',
             'service'   =>      'product',
-            'create_user'=>     '1'
+            'create_user'=>     '1',
+            'status'=>'publish'
         ]);
-        $attr['size'] = DB::table('core_attrs')->insertGetId([
+        $attr['size'] = DB::table('bc_attrs')->insertGetId([
             'name'      =>      'Size',
             'display_type'=>    'text',
             'slug'      =>      'size',
             'service'   =>      'product',
-            'create_user'=>     '1'
+            'create_user'=>     '1',
+            'status'=>'publish'
         ]);
 
         //create term
@@ -458,7 +468,7 @@ class ProductSeeder extends Seeder
         ];
         $term = [];
         foreach ($term_list as $k => $list){
-            $term[$k] = DB::table('core_terms')->insertGetId($list);
+            $term[$k] = DB::table('bc_terms')->insertGetId($list);
         }
         //end create term
 

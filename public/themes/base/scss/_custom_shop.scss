@@ -1,0 +1,15 @@
+.ps-product {
+    .ps-product__thumbnail{
+        overflow: initial;
+        .ps-product__actions{
+            visibility: hidden;
+            opacity: 0;
+        }
+    }
+    &:hover{
+        .ps-product__actions{
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+}

@@ -50,6 +50,8 @@
                                 <tr>
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
                                     <th>{{__("Name")}}</th>
+                                    <th>{{__("Type")}}</th>
+                                    <th>{{__("Status")}}</th>
                                     <th class="">{{__("Actions")}}</th>
                                 </tr>
                                 </thead>
@@ -61,6 +63,12 @@
                                             </td>
                                             <td class="title">
                                                 <a href="{{route('product.admin.attribute.edit',['id'=>$row->id])}}">{{$row->name}}</a>
+                                            </td>
+                                            <td>
+                                                {{$row->display_type}}
+                                            </td>
+                                            <td>
+                                                <span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
                                             </td>
                                             <td>
                                                 <a href="{{route('product.admin.attribute.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}
