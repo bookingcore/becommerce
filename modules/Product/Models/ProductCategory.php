@@ -24,6 +24,8 @@ class ProductCategory extends BaseModel
         return __("Product Category");
     }
 
+    protected $translation_class = ProductCategoryTranslation::class;
+
     public static function searchForMenu($q = false)
     {
         $query = static::select('id', 'name');

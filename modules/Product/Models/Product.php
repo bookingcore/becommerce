@@ -19,9 +19,6 @@ class Product extends BaseProduct
 {
     protected $table = 'products';
     public $type = 'product';
-    public $checkout_booking_detail_file       = 'Product::frontend/booking/detail';
-    public $checkout_booking_detail_modal_file = 'Product::frontend/booking/detail-modal';
-    public $email_new_booking_file             = 'Product::emails.new_booking_detail';
 
     protected $fillable = [
         'title',
@@ -56,6 +53,7 @@ class Product extends BaseProduct
      */
     protected $reviewClass;
 
+    protected $translation_class = ProductTranslation::class;
 
     public function __construct(array $attributes = [])
     {

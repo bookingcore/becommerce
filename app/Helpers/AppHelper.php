@@ -1293,3 +1293,6 @@ function list_compare_id(){
 function theme_url($path){
     return asset("themes/".trim("$path","/\\"));
 }
+function get_main_lang(){
+    return setting_item('site_locale');
+}

@@ -3,7 +3,7 @@ namespace Modules\Dashboard\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
-use Modules\Product\Models\Order;
+use Modules\Order\Models\Order;
 
 class DashboardController extends AdminController
 {
@@ -11,9 +11,9 @@ class DashboardController extends AdminController
     {
         $f = strtotime('monday this week');
         $data = [
-            'recent_bookings'    => Order::getRecentBookings(),
-            'top_cards'          => Order::getTopCardsReport(),
-            'earning_chart_data' => Order::getDashboardChartData($f, time())
+            'recent_bookings'    => [],//Order::getRecentBookings(),
+            'top_cards'          => [],//Order::getTopCardsReport(),
+            'earning_chart_data' => [],//Order::getDashboardChartData($f, time())
         ];
         return view('Dashboard::index', $data);
     }

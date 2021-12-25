@@ -50,7 +50,7 @@ class AttributeController extends AdminController
         if (empty($row)) {
             abort(404);
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $this->checkPermission('product_manage_attributes');
         $data = [
             'translation'    => $translation,
@@ -93,7 +93,10 @@ class AttributeController extends AdminController
             $row->service = 'product';
         }
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        if(is_default_lang($request->input('lang'))){
+            $row->save();
+        }
+        $res = $row->saveTranslation($request->input('lang'));
         if ($res) {
             return redirect()->back()->with('success', __('Attribute saved'));
         }

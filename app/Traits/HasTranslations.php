@@ -20,12 +20,6 @@ trait HasTranslations
     public $table_translation = '';
 
     /**
-     * Array of translate-able field
-     * @var array
-     */
-    public $translatable = [];
-
-    /**
      * Class name for translation, default is current class
      * @var
      */
@@ -56,19 +50,10 @@ trait HasTranslations
      * @return boolean
      */
     public function saveTranslation($locale = false){
-        if(is_enable_multi_lang() and !empty($this->translatable)){
+        if(is_enable_multi_lang()){
 
             $translation = $this->translate($locale);
-            if(!empty($this->translatable)){
-
-                foreach ($this->translatable as $key){
-                    $translation->setAttribute($key,request()->input($key));
-                }
-
-            }else{
-                // allow fillable
-                $translation->fill(request()->input());
-            }
+            $translation->fill(request()->input());
             return $translation->save();
         }
         return true;
@@ -88,7 +73,6 @@ trait HasTranslations
         if($this->table_translation){
             $inst->setTable($this->table_translation);
         }
-
         $find =  $inst->where([
             'origin_id'=>$this->id,
             'locale'=>$locale,
@@ -101,9 +85,7 @@ trait HasTranslations
             }
             $find->locale = $locale;
             $find->origin_id = $this->id;
-            foreach ($this->translatable as $key){
-                $find->setAttribute($key,$this->getAttribute($key));
-            }
+            $find->fill($this->getAttributes());
         }
         if(!$find->type) $find->type = $this->type;
 
@@ -129,7 +111,7 @@ trait HasTranslations
     }
 
     public function translation(){
-        return $this->belongsTo($this->getTranslationModelNameDefault(),'translation_id');
+        return $this->belongsTo($this->getTranslationModelNameDefault(),'translation_id')->where('locale',app()->getLocale());
     }
 
 }
