@@ -1,3 +1,4 @@
+import Vue from 'vue'
 (function ($) {
 window.uploaderModal = new Vue({
     el: '#cdn-browser',
@@ -13,6 +14,7 @@ window.uploaderModal = new Vue({
         apiFinished:false,
         modalEl:false,
         multiple:false,
+        isLoading:false,
         filter:{
             page:1
         },
@@ -46,8 +48,9 @@ window.uploaderModal = new Vue({
         }
     },
     methods:{
-
         show(configs){
+            this.files = [];
+            this.resetSelected();
             this.uploadConfigs = configs;
             this.modalEl.modal('show');
         },
@@ -73,16 +76,46 @@ window.uploaderModal = new Vue({
                 this.selectedLists.push(file);
             }
         },
+        removeFiles() {
+            var me = this;
+            bookingCoreApp.showConfirm({
+                message: i18n.confirm_delete,
+                callback: function(result){
+                    if(result){
+                        me.isLoading = true;
+                        $.ajax({
+                            url:bookingCore.url+'/admin/module/media/removeFiles',
+                            type:'POST',
+                            data:{
+                                file_ids : me.selected
+                            },
+                            dataType:'json',
+                            success:function (data) {
+                                if(data.status === 1){
+                                    //bookingCoreApp.showSuccess(data);
+                                }
+                                if(data.status === 0){
+                                    bookingCoreApp.showError(data);
+                                }
+                                me.isLoading = false;
+                                me.reloadLists();
+                            },
+                            error:function (e) {
+                                me.isLoading = false;
+                                bookingCoreApp.showAjaxError(e);
+                                me.resetSelected();
+                            }
+                        });
+                    }
+                }
+            })
+        },
         sendFiles(){
-
             if(typeof this.onSelect == 'function'){
                 let f = this.onSelect;
                 f(this.selectedLists)
             }
-
             this.hide();
-            this.selectedLists = [];
-            this.selected = [];
         },
         init(){
             var me = this;
@@ -90,8 +123,8 @@ window.uploaderModal = new Vue({
         },
         reloadLists(){
             var me = this;
-            this.selected = [];
             $("#cdn-browser .icon-loading").addClass("active");
+            me.isLoading = true;
             $.ajax({
                 url:bookingCore.url+'/admin/module/media/getLists',
                 type:'POST',
@@ -102,25 +135,24 @@ window.uploaderModal = new Vue({
                 },
                 dataType:'json',
                 success:function (json) {
+                    me.resetSelected();
                     me.files = json.data;
                     me.total = json.total;
                     me.totalPage = json.totalPage;
+                    me.isLoading = false;
                     me.apiFinished = true;
-                    $("#cdn-browser .icon-loading").removeClass("active");
                 }
             });
         },
         upload(files){
             var me = this;
-
             if(!files.length) return ;
-
+            console.log(files);
             for(var i = 0; i < files.length ; i++){
                 var d = new FormData();
-
                 d.append('file',files[i]);
                 d.append('type',this.uploadConfigs.file_type);
-                $("#cdn-browser .icon-loading").addClass("active");
+                me.isLoading = true;
                 $.ajax({
                     url:bookingCore.url+'/admin/module/media/store',
                     data:d,
@@ -129,28 +161,34 @@ window.uploaderModal = new Vue({
                     contentType: false,
                     processData: false,
                     success:function (res) {
+                        me.isLoading = false;
                         if(res.status)
                         {
                             me.reloadLists();
                         }
-                        if(res.message){
-                            alert(res.message);
+                        if(res.status === 0){
+                            bookingCoreApp.showError(res);
                         }
-                        $("#cdn-browser .icon-loading").removeClass("active");
+                        $(me.$refs.files).val('');
                     },
                     error:function(e){
-                        console.log(e);
-                        alert('Can not upload file');
-                        $("#cdn-browser .icon-loading").removeClass("active");
+                        bookingCoreApp.showAjaxError(e);
+                        $(me.$refs.files).val('');
+                        me.isLoading = false;
                     }
                 })
             }
-
         },
         initUploader(){
 
+        },
+        resetSelected(){
+            this.selectedLists = [];
+            this.selected = [];
+            this.total = 0;
+            this.totalPage = 0;
+            this.apiFinished = false;
         }
-
     }
 });
 

@@ -5,7 +5,6 @@
 <script>
 
     import { abstractField } from "vue-form-generator";
-import { type } from 'os';
 
     export default {
         mixins: [ abstractField ],

@@ -104,5 +104,27 @@
         }
     }
 }
+.vue-form-generator{
+    .form-group{
+        .field-wrap{
+            .radio-list{
+                label{
+                    margin-right: 10px;
+                }
+            }
+        }
+    }
+}
 
-  
+.block-types-menu{
+    .panel-toggle-able .panel-title i {
+        font-size: 22px;
+        line-height: 8px;
+    }
+    .panel-toggle-able .panel-title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+}

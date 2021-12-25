@@ -11,22 +11,28 @@ $menus = [
         'url'        => 'admin/module/core/menu',
         'title'      => __("Menu"),
         'icon'       => 'icon ion-ios-apps',
-        'permission' => 'menu_manage',
+        'permission' => 'menu_view',
+    ],
+    'template'=>[
+        "position"=>70,
+        'url'        => 'admin/module/template',
+        'title'      => __('Templates'),
+        'icon'       => 'icon ion-logo-html5',
+        'permission' => 'template_create',
     ],
     'general'=>[
         "position"=>80,
         'url'        => 'admin/module/core/settings/index/general',
         'title'      => __('Setting'),
         'icon'       => 'icon ion-ios-cog',
-        'permission' => 'setting_manage',
-        'children'   => \Modules\Core\Models\Settings::getSettingPages()
+        'permission' => 'setting_update',
+        'children'   => \Modules\Core\Models\Settings::getSettingPages(true)
     ],
     'tools'=>[
         "position"=>90,
         'url'      => 'admin/module/core/tools',
         'title'    => __("Tools"),
         'icon'     => 'icon ion-ios-hammer',
-        'permission' => 'setting_manage',
         'children' => [
             'language'=>[
                 'url'        => 'admin/module/language',
@@ -49,6 +55,7 @@ $menus = [
         ]
     ],
 ];
+
 // Modules
 $custom_modules = \Modules\ServiceProvider::getModules();
 if(!empty($custom_modules)){
@@ -173,7 +180,7 @@ if (!empty($menus)){
 <ul class="main-menu">
     @foreach($menus as $menuItem)
         @php $menuItem['class'] .= " ".str_ireplace("/","_",$menuItem['url']) @endphp
-        <li class="{{$menuItem['class']}} position-{{ $menuItem['position'] ?? 100 }}"><a href="{{ url($menuItem['url']) }}">
+        <li class="{{$menuItem['class']}}"><a href="{{ url($menuItem['url']) }}">
                 @if(!empty($menuItem['icon']))
                     <span class="icon text-center"><i class="{{$menuItem['icon']}}"></i></span>
                 @endif

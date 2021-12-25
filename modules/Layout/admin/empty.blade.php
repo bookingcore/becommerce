@@ -28,8 +28,6 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Styles -->
-    <link href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('libs/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{url('libs/daterange/daterangepicker.css')}}"/>
@@ -96,59 +94,57 @@
         var image_editer = {
             language: '{{ app()->getLocale() }}',
             translations: {
-                {{ app()->getLocale() }}: {
-                    'header.image_editor_title': '{{ __('Image Editor') }}',
-                    'header.toggle_fullscreen': '{{ __('Toggle fullscreen') }}',
-                    'header.close': '{{ __('Close') }}',
-                    'header.close_modal': '{{ __('Close window') }}',
-                    'toolbar.download': '{{ __('Save Change') }}',
-                    'toolbar.save': '{{ __('Save') }}',
-                    'toolbar.apply': '{{ __('Apply') }}',
-                    'toolbar.saveAsNewImage': '{{ __('Save As New Image') }}',
-                    'toolbar.cancel': '{{ __('Cancel') }}',
-                    'toolbar.go_back': '{{ __('Go Back') }}',
-                    'toolbar.adjust': '{{ __('Adjust') }}',
-                    'toolbar.effects': '{{ __('Effects') }}',
-                    'toolbar.filters': '{{ __('Filters') }}',
-                    'toolbar.orientation': '{{ __('Orientation') }}',
-                    'toolbar.crop': '{{ __('Crop') }}',
-                    'toolbar.resize': '{{ __('Resize') }}',
-                    'toolbar.watermark': '{{ __('Watermark') }}',
-                    'toolbar.focus_point': '{{ __('Focus point') }}',
-                    'toolbar.shapes': '{{ __('Shapes') }}',
-                    'toolbar.image': '{{ __('Image') }}',
-                    'toolbar.text': '{{ __('Text') }}',
-                    'adjust.brightness': '{{ __('Brightness') }}',
-                    'adjust.contrast': '{{ __('Contrast') }}',
-                    'adjust.exposure': '{{ __('Exposure') }}',
-                    'adjust.saturation': '{{ __('Saturation') }}',
-                    'orientation.rotate_l': '{{ __('Rotate Left') }}',
-                    'orientation.rotate_r': '{{ __('Rotate Right') }}',
-                    'orientation.flip_h': '{{ __('Flip Horizontally') }}',
-                    'orientation.flip_v': '{{ __('Flip Vertically') }}',
-                    'pre_resize.title': '{{ __('Would you like to reduce resolution before editing the image?') }}',
-                    'pre_resize.keep_original_resolution': '{{ __('Keep original resolution') }}',
-                    'pre_resize.resize_n_continue': '{{ __('Resize & Continue') }}',
-                    'footer.reset': '{{ __('Reset') }}',
-                    'footer.undo': '{{ __('Undo') }}',
-                    'footer.redo': '{{ __('Redo') }}',
-                    'spinner.label': '{{ __('Processing...') }}',
-                    'warning.too_big_resolution': '{{ __('The resolution of the image is too big for the web. It can cause problems with Image Editor performance.') }}',
-                    'common.x': '{{ __('x') }}',
-                    'common.y': '{{ __('y') }}',
-                    'common.width': '{{ __('width') }}',
-                    'common.height': '{{ __('height') }}',
-                    'common.custom': '{{ __('custom') }}',
-                    'common.original': '{{ __('original') }}',
-                    'common.square': '{{ __('square') }}',
-                    'common.opacity': '{{ __('Opacity') }}',
-                    'common.apply_watermark': '{{ __('Apply watermark') }}',
-                    'common.url': '{{ __('URL') }}',
-                    'common.upload': '{{ __('Upload') }}',
-                    'common.gallery': '{{ __('Gallery') }}',
-                    'common.text': '{{ __('Text') }}',
-                }
-            }
+            'header.image_editor_title': '{{ __('Image Editor') }}',
+            'header.toggle_fullscreen': '{{ __('Toggle fullscreen') }}',
+            'header.close': '{{ __('Close') }}',
+            'header.close_modal': '{{ __('Close window') }}',
+            'toolbar.download': '{{ __('Save Change') }}',
+            'toolbar.save': '{{ __('Save') }}',
+            'toolbar.apply': '{{ __('Apply') }}',
+            'toolbar.saveAsNewImage': '{{ __('Save As New Image') }}',
+            'toolbar.cancel': '{{ __('Cancel') }}',
+            'toolbar.go_back': '{{ __('Go Back') }}',
+            'toolbar.adjust': '{{ __('Adjust') }}',
+            'toolbar.effects': '{{ __('Effects') }}',
+            'toolbar.filters': '{{ __('Filters') }}',
+            'toolbar.orientation': '{{ __('Orientation') }}',
+            'toolbar.crop': '{{ __('Crop') }}',
+            'toolbar.resize': '{{ __('Resize') }}',
+            'toolbar.watermark': '{{ __('Watermark') }}',
+            'toolbar.focus_point': '{{ __('Focus point') }}',
+            'toolbar.shapes': '{{ __('Shapes') }}',
+            'toolbar.image': '{{ __('Image') }}',
+            'toolbar.text': '{{ __('Text') }}',
+            'adjust.brightness': '{{ __('Brightness') }}',
+            'adjust.contrast': '{{ __('Contrast') }}',
+            'adjust.exposure': '{{ __('Exposure') }}',
+            'adjust.saturation': '{{ __('Saturation') }}',
+            'orientation.rotate_l': '{{ __('Rotate Left') }}',
+            'orientation.rotate_r': '{{ __('Rotate Right') }}',
+            'orientation.flip_h': '{{ __('Flip Horizontally') }}',
+            'orientation.flip_v': '{{ __('Flip Vertically') }}',
+            'pre_resize.title': '{{ __('Would you like to reduce resolution before editing the image?') }}',
+            'pre_resize.keep_original_resolution': '{{ __('Keep original resolution') }}',
+            'pre_resize.resize_n_continue': '{{ __('Resize & Continue') }}',
+            'footer.reset': '{{ __('Reset') }}',
+            'footer.undo': '{{ __('Undo') }}',
+            'footer.redo': '{{ __('Redo') }}',
+            'spinner.label': '{{ __('Processing...') }}',
+            'warning.too_big_resolution': '{{ __('The resolution of the image is too big for the web. It can cause problems with Image Editor performance.') }}',
+            'common.x': '{{ __('x') }}',
+            'common.y': '{{ __('y') }}',
+            'common.width': '{{ __('width') }}',
+            'common.height': '{{ __('height') }}',
+            'common.custom': '{{ __('custom') }}',
+            'common.original': '{{ __('original') }}',
+            'common.square': '{{ __('square') }}',
+            'common.opacity': '{{ __('Opacity') }}',
+            'common.apply_watermark': '{{ __('Apply watermark') }}',
+            'common.url': '{{ __('URL') }}',
+            'common.upload': '{{ __('Upload') }}',
+            'common.gallery': '{{ __('Gallery') }}',
+            'common.text': '{{ __('Text') }}',
+        }
         };
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
@@ -156,48 +152,20 @@
 
 </head>
 <body class="{{($enable_multi_lang ?? '') ? 'enable_multi_lang' : '' }} @if(setting_item('site_enable_multi_lang')) site_enable_multi_lang @endif">
-<div id="app">
-    <div class="main-header d-flex">
-        @include('Layout::admin.parts.header')
-    </div>
-    <div class="main-sidebar">
-        @include('Layout::admin.parts.sidebar')
-    </div>
-    <div class="main-content">
-        @include('Layout::admin.parts.bc')
-        @yield('content')
-        <footer class="main-footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-6 copy-right" >
-                        {{date('Y')}} &copy; {{__('Booking Core by')}} <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('BookingCore Team')}}</a>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="text-md-right footer-links d-none d-sm-block">
-                            <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('About Us')}}</a>
-                            <a href="{{__('https://m.me/bookingcore')}}" target="_blank">{{__('Contact Us')}}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <div class="backdrop-sidebar-mobile"></div>
-</div>
+    @yield('content')
 
 @include('Media::browser')
 
 <!-- Scripts -->
 {!! \App\Helpers\Assets::css(true) !!}
-<script src="{{ asset('libs/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('libs/pusher.min.js') }}"></script>
 <script src="{{ asset('dist/admin/js/manifest.js?_ver='.config('app.version')) }}" ></script>
 <script src="{{ asset('dist/admin/js/vendor.js?_ver='.config('app.version')) }}" ></script>
-<script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.version')) }}"></script>
+
 <script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.version')) }}" ></script>
 <script src="{{ asset('libs/vue/vue'.(!env('APP_DEBUG') ? '.min':'').'.js') }}"></script>
+
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
 <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
 

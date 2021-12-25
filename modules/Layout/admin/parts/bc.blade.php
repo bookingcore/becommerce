@@ -1,7 +1,7 @@
 @if(!empty($breadcrumbs))
 <nav class="main-breadcrumb" aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{{url('admin')}}"><i class='fa fa-home'></i> Dashboard</a></li>
+        <li class="breadcrumb-item"><a href="{{url('admin')}}"><i class='fa fa-home'></i> {{__("Dashboard")}}</a></li>
 
             @foreach($breadcrumbs as $breadcrumb)
                 <li class="breadcrumb-item {{$breadcrumb['class'] ?? ''}}">

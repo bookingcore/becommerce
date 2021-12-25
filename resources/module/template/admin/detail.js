@@ -2,9 +2,9 @@ import Vue from 'vue';
 import draggable from 'vuedraggable';
 import VueFormGenerator from 'vue-form-generator';
 
-import RowBlock from './components/row';
-import ColumnBlock from './components/column';
-import RegularBlock from './components/regular';
+import RowBlock from './components/row.vue';
+import ColumnBlock from './components/column.vue';
+import RegularBlock from './components/regular.vue';
 
 require('./custom-fields')
 
@@ -26,7 +26,9 @@ export default function()
             model:{},
             onEdit:false,
             template_i18n:template_i18n,
-            options:{}
+            options:{},
+            tmp_block:{}
+
         },
         mounted(){
             var me = this;
@@ -42,10 +44,27 @@ export default function()
         },
         methods:{
             openEdit(item,block){
+                var me = this;
                 this.item = item;
+                this.tmp_block = Object.assign({},block);
+                _.forEach(this.tmp_block.settings,function(item){
+                    if(typeof item.conditions === 'undefined') return true;
+
+                    item.visible = function () {
+                        var status = true;
+                        _.forEach(item.conditions,function (value,key) {
+                            if(me.model[key] != value){
+                                status = false;
+                            }
+                        })
+                        return status;
+                    }
+                });
+
                 this.block = block;
                 this.model = Object.assign({},this.item.model);
                 this.modal.modal('show');
+
 
                 manageBlocksScreen.message.content = '';
             },
@@ -190,13 +209,19 @@ export default function()
                 return res;
             },
             searchBlockById(id){
-
-                for(var i =0 ; i < this.blocks.length ; i++ ){
+               /* for(var i =0 ; i < this.blocks.length ; i++ ){
                     if(this.blocks[i].id == id ){
                         return this.blocks[i];
                     }
+                }*/
+                for (var key in this.blocks) {
+                    var block = this.blocks[key];
+                    for(var i =0 ; i < block.items.length ; i++ ) {
+                        if (block.items[i].id == id) {
+                            return block.items[i];
+                        }
+                    }
                 }
-
             }
         },
         components:{

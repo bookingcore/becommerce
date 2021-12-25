@@ -1,3 +1,4 @@
+import Vue from 'vue';
 // import {VueNestableHandle, VueNestable} from 'vue-nestable'
 // import {DraggableTree} from 'vue-draggable-nested-tree'
 import {Tree,Draggable} from 'he-tree-vue'

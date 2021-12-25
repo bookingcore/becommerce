@@ -48,6 +48,12 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 text-decoration: none;
                 color: #cad6e2;
                 padding: 5px 18px;
+                .badge{
+                    width: auto;
+                    font-size: 75%;
+                    margin-left: 10px;
+                    min-width: 0px;
+                }
             }
             &:hover{
                 >a{
@@ -215,8 +221,17 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 cursor: pointer;
                 line-height: initial;
                 .user-avatar{
-                    width: 32px;
                     margin-right: 10px;
+                    .avatar-cover{
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-size: cover;
+                    }
                     .avatar-text{
                         border-radius: 50%;
                         text-align: center;
@@ -226,6 +241,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                         display: block;
                         height: 32px;
                         line-height: 32px;
+                    }
+                    img{
+                        max-width: 30px;
                     }
                 }
                 .user-role{
@@ -327,6 +345,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     .panel-title{
         padding: 14px 20px;
         border-bottom: 1px solid #dfe4e8;
+        position: relative;
+        .panel-toggle{
+            position: absolute;
+            right: 11px;
+            top: 10px;
+            cursor: pointer;
+        }
     }
     .panel-body{
         padding: 20px;
@@ -515,7 +540,7 @@ tbody td.title{
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     //border-bottom: 7px solid #3293fe;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     border-bottom: 1px solid #e9ecef;
     background: white;
     display: none;
@@ -533,10 +558,10 @@ tbody td.title{
 }
 .enable_multi_lang.site_enable_multi_lang{
     .lang-content-box{
-        //padding: 14px;
-        //background: #e9ecef;
+        padding: 14px;
+        background: #e9ecef;
         /* border: 1px solid #d6d6d6; */
-        //box-shadow: 0px 0px 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 #3f3f4426;
+        box-shadow: 0px 0px 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 #3f3f4426;
     }
     .language-navigation{
         display: block;
@@ -545,3 +570,25 @@ tbody td.title{
 
 @import '_menu';
 @import "template";
+
+
+.bootbox.modal{
+    z-index: 3000;
+    &.show{
+        display: flex !important;
+        align-items: center;
+    }
+    &:before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: #000;
+        opacity: 0.5;
+    }
+    .modal-dialog{
+        min-width: 500px;
+    }
+}
+
+@import "_notification";
