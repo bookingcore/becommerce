@@ -31,7 +31,8 @@
     </ul>
 </div>
 <div class="widget widget_shop">
-
+    @include('product.filter.brand')
+    @include('product.filter.price')
 </div>
 <div class="bravo-filter">
     <div class="filter-header">
