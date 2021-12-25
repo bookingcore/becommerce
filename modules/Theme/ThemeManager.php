@@ -2,13 +2,14 @@
 namespace Modules\Theme;
 
 use Illuminate\Support\Facades\File;
+use Modules\Core\JsonConfigManager;
 
 class ThemeManager
 {
     protected static $_all = [];
 
     public static function current(){
-        return strtolower(config('bc.active_theme','base'));
+        return strtolower(config('bc.active_theme',JsonConfigManager::get('active_theme','base')));
     }
     public static function currentProvider(){
         return static::getProviderClass(static::current());
