@@ -51,6 +51,7 @@
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
                                     <th>{{__("Name")}}</th>
                                     <th>{{__("Type")}}</th>
+                                    <th>{{__("Order")}}</th>
                                     <th>{{__("Status")}}</th>
                                     <th class="">{{__("Actions")}}</th>
                                 </tr>
@@ -67,6 +68,7 @@
                                             <td>
                                                 {{$row->display_type}}
                                             </td>
+                                            <td>{{$row->position}}</td>
                                             <td>
                                                 <span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
                                             </td>

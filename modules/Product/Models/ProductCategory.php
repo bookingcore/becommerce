@@ -19,6 +19,8 @@ class ProductCategory extends BaseModel
     protected $slugField     = 'slug';
     protected $slugFromField = 'name';
 
+    protected static $_all = null;
+
     public static function getModelName()
     {
         return __("Product Category");
@@ -43,5 +45,10 @@ class ProductCategory extends BaseModel
     public function getDetailUrl($locale = false)
     {
         return route('product.category.index',['slug'=>$this->slug]);
+    }
+
+    public static function getAll(){
+        if(!empty(static::$_all)) return static::$_all;
+        return static::$_all = parent::query()->where('status','publish')->with(['translation'])->limit(999)->get()->toTree();
     }
 }

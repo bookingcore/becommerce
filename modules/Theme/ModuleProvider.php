@@ -45,7 +45,8 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                 'title'=>__("Themes"),
                 'url'=>route("theme.admin.index"),
                 "permission"=>"theme_manage",
-                "position"=>50
+                "position"=>50,
+                'icon'=>"fa fa-paint-brush"
             ]
         ];
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductAttr;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
@@ -29,13 +30,18 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
+        if($request->query('cat_slug')){
+            $data = $request->query();
+            $data['slug'] = $data['cat_slug'];
+            unset($data['cat_slug']);
+            return redirect()->to(route('product.category.index',$data));
+        }
         $list = $this->_querySearch($request);
-        $categories = ProductCategory::where('status', 'publish')->with(['translation'])->limit(999)->get()->toTree();
         $data = [
             'rows'               => $list->paginate(16),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
-            'categories'         => $categories,
+            'categories'         => ProductCategory::getAll(),
             'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
@@ -46,7 +52,7 @@ class ProductController extends Controller
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->where('status', 'publish')->with('terms.translation')->orderBy('position')->get();
+        $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
 
         return view('product', $data);
@@ -58,15 +64,14 @@ class ProductController extends Controller
         if(!$category){
             abort(404);
         }
+        $translation = $category->translate();
 
         $list = $this->_querySearch($request,['cat_id'=>$category->id]);
-
-        $categories = ProductCategory::where('status', 'publish')->with(['translation'])->limit(999)->get()->toTree();
         $data = [
             'rows'               => $list->paginate(16),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
-            'categories'         => $categories,
+            'categories'         => ProductCategory::getAll(),
             'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
@@ -74,10 +79,12 @@ class ProductController extends Controller
                 ]
             ],
             'body_class'        => 'full_width',
-            "seo_meta"           => Product::getSeoMetaForPageList()
+            "seo_meta"           => $category->getSeoMetaWithTranslation(app()->getLocale(),$translation),
+            'current_cat'=>$category,
+            'translation'=>$translation
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->where('status', 'publish')->with('terms.translation')->orderBy('position')->get();
+        $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
         return view('product', $data);
     }

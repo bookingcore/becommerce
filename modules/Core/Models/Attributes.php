@@ -15,7 +15,7 @@ class Attributes extends BaseModel
 
     public function terms()
     {
-        return $this->hasMany(Terms::class, 'attr_id', 'id')->with(['translations']);
+        return $this->hasMany(Terms::class, 'attr_id', 'id');
     }
 
 

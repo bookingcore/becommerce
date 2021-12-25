@@ -149,18 +149,7 @@
                 </a>
             </div>
             <div class="header__content-center">
-                <form class="ps-form--quick-search" action="index.html" method="get">
-                    <div class="form-group--icon"><i class="icon-chevron-down"></i>
-                        <select class="form-control">
-                            <option value="1">All</option>
-                            <option value="1">Smartphone</option>
-                            <option value="1">Sounds</option>
-                            <option value="1">Technology toys</option>
-                        </select>
-                    </div>
-                    <input class="form-control" type="text" placeholder="I'm shopping for...">
-                    <button>Search</button>
-                </form>
+                @include('layouts.parts.header.search')
             </div>
             <div class="header__content-right">
                 <div class="header__actions"><a class="header__extra" href="#"><i class="icon-heart"></i><span><i>0</i></span></a>

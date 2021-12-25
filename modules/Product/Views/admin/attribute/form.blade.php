@@ -11,6 +11,10 @@
     </select>
 </div>
 <div class="form-group">
+    <label>{{__("Display Order")}}</label>
+    <input type="number" value="{{$row->position}}" name="position" class="form-control">
+</div>
+<div class="form-group">
     <label>{{__("Status")}}</label>
     <select name="display_type" class="form-control">
         <option @if($row->status == 'publish') selected @endif value="publish">{{ __('Publish') }}</option>

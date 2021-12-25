@@ -27,7 +27,9 @@ trait HasSEO
         return $meta;
     }
 
-    public function getSeoMetaWithTranslation($locale,$translation){
+    public function getSeoMetaWithTranslation($locale = '',$translation = null){
+        if(empty($locale)) $locale = app()->getLocale();
+
         if(is_default_lang($locale)) return $this->getSeoMeta();
         if(!empty($translation->origin_id)){
             $meta = $translation->getSeoMeta( $locale );
