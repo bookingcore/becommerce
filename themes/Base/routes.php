@@ -9,3 +9,7 @@ Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.
 Route::group(['prefix'=>'user'],function(){
    Route::get('/order','UserController@order')->name('user.order.index');
 });
+
+Route::group(['prefix'=>'pos'],function(){
+   Route::get('/','POSController@index')->name('pos');
+});

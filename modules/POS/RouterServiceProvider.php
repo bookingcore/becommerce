@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Product;
+namespace Modules\POS;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -11,11 +11,9 @@ class RouterServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace = 'Modules\Product\Controllers';
+    protected $moduleNamespace = 'Modules\POS\Controllers';
 
-    protected $moduleApiNamespace = 'Modules\Product\Api';
-
-    protected $adminModuleNamespace = 'Modules\Product\Admin';
+    protected $adminModuleNamespace = 'Modules\POS\Admin';
 
     /**
      * Called before routes are registered.
@@ -84,7 +82,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         Route::middleware(['web','dashboard'])
             ->namespace($this->adminModuleNamespace)
-            ->prefix('admin/module/product')
+            ->prefix('admin/module/pos')
             ->group(__DIR__ . '/Routes/admin.php');
     }
 
@@ -99,7 +97,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->moduleApiNamespace)
+            ->namespace($this->moduleNamespace)
             ->group(__DIR__ . '/Routes/api.php');
     }
 }
