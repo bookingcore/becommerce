@@ -106,7 +106,7 @@ class News extends BaseModel
     }
 
     public function dataForApi($forSingle = false){
-        $translation = $this->translateOrOrigin(app()->getLocale());
+        $translation = $this->translate(app()->getLocale());
         $data = [
             'id'=>$this->id,
             'slug'=>$this->slug,

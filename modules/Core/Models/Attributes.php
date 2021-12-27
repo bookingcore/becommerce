@@ -23,7 +23,7 @@ class Attributes extends BaseModel
         $data = [];
         $attributes = Attributes::selectRaw("id,name,slug,service")->where('service', $service_type)->get();
         foreach ($attributes as $item){
-            $translation = $item->translateOrOrigin(app()->getLocale());
+            $translation = $item->translate(app()->getLocale());
             $list_terms = $item->terms;
             $data[] = [
                 'id'    => $item->id,

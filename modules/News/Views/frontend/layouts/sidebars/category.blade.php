@@ -10,7 +10,7 @@
         <?php
         $traverse = function ($categories, $prefix = '') use (&$traverse) {
             foreach ($categories as $category) {
-                $translation = $category->translateOrOrigin(app()->getLocale());
+                $translation = $category->translate(app()->getLocale());
                 ?>
                     <li>
                         <span></span>

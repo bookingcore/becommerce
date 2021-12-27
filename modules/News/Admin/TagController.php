@@ -55,7 +55,7 @@ class TagController extends AdminController
 
         $data = [
             'row'     => $row,
-            'translation'=>$row->translateOrOrigin($request->query('lang')),
+            'translation'=>$row->translate($request->query('lang')),
             'parents' => Tag::get(),
             'enable_multi_lang'=>true
         ];

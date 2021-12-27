@@ -28,6 +28,9 @@ class CreateTableCorePages extends Migration
             $table->tinyInteger('show_breadcrumb')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->bigInteger('author_id')->nullable();
+
             $table->softDeletes();
 
             $table->timestamps();

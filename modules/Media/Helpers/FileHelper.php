@@ -189,7 +189,7 @@ class FileHelper
                     </svg>
                 </div>
                 <div class="text-center">
-                    <span class="btn btn-primary btn-field-upload" @click="openUploader"><?php echo __("Upload image") ?></span>
+                    <span class="btn btn-default btn-field-upload" @click="openUploader"><?php echo __("Upload image") ?></span>
                 </div>
             </div>
             <div class="attach-demo" title="Change file">

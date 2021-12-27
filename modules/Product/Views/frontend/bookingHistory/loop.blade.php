@@ -6,7 +6,7 @@
     <td>
         @if($service = $booking->service)
             @php
-                $translation = $service->translateOrOrigin(app()->getLocale());
+                $translation = $service->translate(app()->getLocale());
             @endphp
             <a target="_blank" href="{{$service->getDetailUrl()}}">
                 {{$translation->title}}

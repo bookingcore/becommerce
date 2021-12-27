@@ -6,7 +6,7 @@
             <div class="service-info">
                 <div>
                     @php
-                        $service_translation = $service->translateOrOrigin($lang_local);
+                        $service_translation = $service->translate($lang_local);
                     @endphp
                     <h3 class="service-name"><a href="{{$service->getDetailUrl()}}">{{$service_translation->title}}</a></h3>
                     @if($service_translation->address)

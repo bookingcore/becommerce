@@ -66,7 +66,7 @@ class NewsController extends FrontendController
         if (empty($row)) {
             return redirect('/');
         }
-        $translation = $row->translateOrOrigin(app()->getLocale());
+        $translation = $row->translate(app()->getLocale());
         $row->type = 'news';
 
         $review_list = $row->getReviewList();

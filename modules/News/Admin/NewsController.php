@@ -84,7 +84,7 @@ class NewsController extends AdminController
 
         $row = News::find($id);
 
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         if (empty($row)) {
             return redirect('admin/module/news');

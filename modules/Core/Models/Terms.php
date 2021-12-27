@@ -66,7 +66,7 @@ class Terms extends BaseModel
         if(!empty($terms)){
             foreach ($terms as $term){
                 $attr = $term->attribute;
-                $attrTranslation = $attr->translateOrOrigin(app()->getLocale());
+                $attrTranslation = $attr->translate(app()->getLocale());
                 $dataAttr = array(
                     'id'=>$attr->id,
                     'title'=>$attrTranslation->name,
@@ -78,7 +78,7 @@ class Terms extends BaseModel
                 if(!empty($dataAttr) and empty($dataAttr['hide_in_single'])){
                     if(empty($listTerms[$term->attr_id]['child'])) $listTerms[$term->attr_id]['parent'] = $dataAttr;
                     if(empty($listTerms[$term->attr_id]['child'])) $listTerms[$term->attr_id]['child'] = [];
-                    $termTranslation = $term->translateOrOrigin(app()->getLocale());
+                    $termTranslation = $term->translate(app()->getLocale());
                     $dataAttr = array(
                         'id'=>$term->id,
                         'title'=>$termTranslation->name,
@@ -96,7 +96,7 @@ class Terms extends BaseModel
     }
 
     public function dataForApi(){
-        $translation = $this->translateOrOrigin(app()->getLocale());
+        $translation = $this->translate(app()->getLocale());
         return [
             'id'=>$this->id,
             'name'=>$translation->name,

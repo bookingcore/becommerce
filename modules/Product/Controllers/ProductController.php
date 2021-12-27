@@ -197,7 +197,7 @@ class ProductController extends Controller
         }
         $this->recently_viewed($row->id);
         $product_variations = $this->product_variations($row);
-        $translation = $row->translateOrOrigin(app()->getLocale());
+        $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
         $bc = [
@@ -244,7 +244,7 @@ class ProductController extends Controller
     public function quick_view(Request $request){
         $id = (!empty($request->id)) ? $request->id : '';
         $product = Product::where('id',$id)->first();
-        $translation = $product->translateOrOrigin(app()->getLocale());
+        $translation = $product->translate(app()->getLocale());
         $product_variations = $this->product_variations($product);
 
         $data = [

@@ -14,7 +14,7 @@
                         @php
                             $traverse = function ($categories, $prefix = '') use (&$traverse) {
                                 foreach ($categories as $category) {
-                                    $translate = $category->translateOrOrigin(app()->getLocale());
+                                    $translate = $category->translate(app()->getLocale());
                                     if(empty($prefix)){
                                         echo '<li class="cat-item">';
                                         echo '<a href="'.$category->getDetailUrl().'">'.$translate->name.'</a>';
@@ -51,7 +51,7 @@
                     <div class="bravo-filter-checkbox">
                         <ul class="bravo-custom-scroll list-unstyled">
                             @foreach($brands as $item=>$brand)
-                                @php $translate = $brand->translateOrOrigin(app()->getLocale()) @endphp
+                                @php $translate = $brand->translate(app()->getLocale()) @endphp
                                 <li>
                                 <div class="bravo-checkbox">
                                     <label>
@@ -131,7 +131,7 @@
         @endphp
         @foreach ($attributes as $item)
             @php
-                $translate = $item->translateOrOrigin(app()->getLocale());
+                $translate = $item->translate(app()->getLocale());
             @endphp
             <div class="g-filter-item">
                 <div class="item-title">
@@ -140,7 +140,7 @@
                 <div class="item-content">
                     <ul class="list-unstyled">
                         @foreach($item->terms as $key => $term)
-                            @php $translate = $term->translateOrOrigin(app()->getLocale()); @endphp
+                            @php $translate = $term->translate(app()->getLocale()); @endphp
                             <li @if($key > 2 and empty($selected)) @endif>
                                 <div class="bravo-checkbox">
                                     <label>

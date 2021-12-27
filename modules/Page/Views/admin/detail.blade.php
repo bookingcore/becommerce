@@ -14,8 +14,11 @@
                     @endif
                 </div>
                 <div class="">
+                    @if($row->id)
+                        <a class="btn btn-primary btn-sm" href="{{route('page.admin.builder',['id'=>$row->id])}}"><i class="fa fa-paint-brush"></i> {{ __('Template Builder')}}</a>
+                    @endif
                     @if($row->slug)
-                        <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{ __('View page')}}</a>
+                        <a class="btn btn-default btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank"><i class="fa fa-eye"></i> {{ __('View page')}}</a>
                     @endif
                 </div>
             </div>
@@ -57,8 +60,11 @@
                                     <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
                                     </label></div>
                                 @endif
+
+                            </div>
+                            <div class="panel-footer">
                                 <div class="text-right">
-                                    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
                                 </div>
                             </div>
                         </div>

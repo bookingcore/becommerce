@@ -115,7 +115,7 @@ class PageController extends AdminController
             $row->template_id = $temp->id;
             $row->save();
         }
-        return redirect(route('template.admin.edit',['id'=>$row->template_id]));
+        return redirect(route('template.admin.edit',['id'=>$row->template_id,'ref'=>'page']));
     }
 
     public function store(Request $request, $id){

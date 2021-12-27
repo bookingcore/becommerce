@@ -120,6 +120,7 @@ namespace Database\Seeders;
                 'title'       => 'Home Page',
                 'slug'        => 'home-page',
                 'template_id' => '2',
+                'author_id' => 1,
                 'create_user' => '1',
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
@@ -130,6 +131,7 @@ namespace Database\Seeders;
                 'slug'        => 'become-a-vendor',
                 'template_id' => '1',
                 'create_user' => '1',
+                'author_id' => 1,
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
@@ -142,6 +144,7 @@ namespace Database\Seeders;
                 'page_style'  => '{"header":"1","footer":"1"}',
                 'create_user' => '1',
                 'status'      => 'publish',
+                'author_id' => 1,
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
 

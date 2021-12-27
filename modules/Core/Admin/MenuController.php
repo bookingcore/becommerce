@@ -74,7 +74,7 @@ class MenuController extends AdminController
                 }
             }
         }
-        $translation = $row->translateOrOrigin(request()->get('lang'));
+        $translation = $row->translate(request()->get('lang'));
 
         $data = [
             'row'                    => $row,

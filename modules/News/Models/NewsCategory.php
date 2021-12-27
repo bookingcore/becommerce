@@ -49,7 +49,7 @@ class NewsCategory extends BaseModel
     }
 
     public function dataForApi(){
-        $translation = $this->translateOrOrigin(app()->getLocale());
+        $translation = $this->translate(app()->getLocale());
         return [
             'name'=>$translation->name,
             'id'=>$this->id,

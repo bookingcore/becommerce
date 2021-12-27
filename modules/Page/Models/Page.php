@@ -84,7 +84,7 @@ class Page extends BaseModel
     {
         $template = $this->template;
         if(!empty($template)){
-            $translation = $template->translateOrOrigin(app()->getLocale());
+            $translation = $template->translate(app()->getLocale());
             return $translation->getProcessedContent();
         }
     }

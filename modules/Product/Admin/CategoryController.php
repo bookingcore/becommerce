@@ -49,7 +49,7 @@ class CategoryController extends AdminController
         if (empty($row)) {
             return redirect(route('product.admin.category.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
