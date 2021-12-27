@@ -52,7 +52,6 @@ class SettingsController extends AdminController
 
         $this->checkPermission('setting_manage');
         $group_data = SettingManager::page($group);
-        dd($group_data);
 
         $keys = [];
         $htmlKeys = [];

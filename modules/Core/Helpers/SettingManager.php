@@ -41,9 +41,9 @@ class SettingManager
     }
 
     public static function page($page_id){
-        if(isset(static::$_all[$page_id]) and isset($config['callable']) and is_callable($config['callable']))
+        if(isset(static::$_all[$page_id]) and isset(static::$_all[$page_id]['callable']) and is_callable(static::$_all[$page_id]['callable']))
         {
-            return call_user_func($config['callable']);
+            return call_user_func(static::$_all[$page_id]['callable']);
         }
         return null;
     }
