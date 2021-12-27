@@ -25,6 +25,7 @@ class CreateCoreSettingTable extends Migration
 
             $table->string('lang',10)->nullable();
 
+            $table->unique('name');
             $table->timestamps();
         });
     }
