@@ -2,6 +2,7 @@
 namespace Modules\Language\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
 use Modules\Language\Models\Language;
@@ -76,6 +77,9 @@ class LanguageController extends AdminController
 
             $row->fill($request->input());
 
+            Cache::forget('locale_active_0');
+            Cache::forget('locale_active_1');
+
             if ($row->save()) {
                 return redirect()->back()->with('success', __('Language updated'));
             }
@@ -112,8 +116,10 @@ class LanguageController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = Language::where("id", $id);
-                $query->first()->delete();
+                $query = Language::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->delete();
+                }
             }
         } else {
             foreach ($ids as $id) {
@@ -121,6 +127,8 @@ class LanguageController extends AdminController
                 $query->update(['status' => $action]);
             }
         }
+        Cache::forget('locale_active_0');
+        Cache::forget('locale_active_1');
         return redirect()->back()->with('success', __('Updated success!'));
     }
 }

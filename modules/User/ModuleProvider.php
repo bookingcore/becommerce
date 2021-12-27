@@ -3,6 +3,7 @@ namespace Modules\User;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 use Modules\User\Models\Plan;
 use Modules\Vendor\Models\VendorRequest;
@@ -20,6 +21,8 @@ class ModuleProvider extends ModuleServiceProvider
         Blade::directive('end_has_permission', function ($expression) {
             return "<?php endif; ?>";
         });
+
+        SettingManager::register("user",[$this,'getUserSettings']);
 
     }
     /**
@@ -116,5 +119,30 @@ class ModuleProvider extends ModuleServiceProvider
         }
 
         return $res;
+    }
+    public function getUserSettings(){
+        return [
+
+            'id'   => 'user',
+            'title' => __("User Settings"),
+            'position'=>50,
+            'view'=>"User::admin.settings.user",
+            "keys"=>[
+                'user_enable_login_recaptcha',
+                'user_enable_register_recaptcha',
+                'enable_mail_user_registered',
+                'user_content_email_registered',
+                'admin_enable_mail_user_registered',
+                'admin_content_email_user_registered',
+                'user_content_email_forget_password',
+                'inbox_enable',
+                'subject_email_verify_register_user',
+                'content_email_verify_register_user',
+                'enable_verify_email_register_user',
+            ],
+            'html_keys'=>[
+
+            ]
+        ];
     }
 }

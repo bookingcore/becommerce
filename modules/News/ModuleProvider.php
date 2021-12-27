@@ -2,6 +2,7 @@
 namespace Modules\News;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
 use Modules\News\Models\News;
@@ -17,6 +18,8 @@ class ModuleProvider extends ModuleServiceProvider
         if(is_installed()){
             $sitemapHelper->add("news",[app()->make(News::class),'getForSitemap']);
         }
+
+        SettingManager::register("news",[$this,'getNewsSettings']);
 
     }
     /**
@@ -48,7 +51,7 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __("All News"),
                         'permission' => 'news_manage',
                     ],
-                    'news_manage'=>[
+                    'news_add'=>[
                         'url'        => 'admin/module/news/create',
                         'title'      => __("Add News"),
                         'permission' => 'news_manage',
@@ -78,6 +81,33 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'list_news'=>"\\Modules\\News\\Blocks\\ListNews",
+        ];
+    }
+
+    public function getNewsSettings(){
+        return [
+            'id'   => 'news',
+            'title' => __("News Settings"),
+            'position'=>30,
+            'view'=>"News::admin.settings.news",
+            "keys"=>[
+                'news_page_list_title',
+                'news_page_list_sub_title',
+                'news_page_list_banner',
+                'news_sidebar',
+                'news_page_list_seo_title',
+                'news_page_list_seo_desc',
+                'news_page_list_seo_image',
+                'news_page_list_seo_share',
+                'news_enable_review',
+                'news_review_approved',
+                'news_enable_review_after_booking',
+                'news_review_number_per_page',
+                'news_review_stats',
+            ],
+            'html_keys'=>[
+
+            ]
         ];
     }
 }

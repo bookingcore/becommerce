@@ -1,12 +1,11 @@
 <?php
 namespace Modules\Product;
+use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductVariation;
-use Modules\Product\Models\Space;
-use Modules\Product\Models\VariableProduct;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -14,6 +13,8 @@ class ModuleProvider extends ModuleServiceProvider
     public function boot(){
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+
+        SettingManager::register("product",[$this,'getProductSettings']);
 
     }
     /**
@@ -216,5 +217,43 @@ class ModuleProvider extends ModuleServiceProvider
             ]
         ];
         return $res;
+    }
+
+    public function getProductSettings(){
+        return [
+            'id'   => 'product',
+            'title' => __("Product Settings"),
+            'position'=>20,
+            'view'=>"Product::admin.settings.product",
+            "keys"=>[
+                'product_page_search_title',
+                'product_page_search_banner',
+                'product_layout_search',
+                'product_location_search_style',
+
+                'product_enable_review',
+                'product_review_approved',
+                'product_enable_review_after_booking',
+                'product_review_number_per_page',
+                'product_review_stats',
+
+                'product_page_list_seo_title',
+                'product_page_list_seo_desc',
+                'product_page_list_seo_image',
+                'product_page_list_seo_share',
+
+                'product_booking_buyer_fees',
+
+                'product_policies',
+                'shipping_information',
+                'ads_url',
+                'ads_image',
+                'product_sidebar',
+                'list_sliders'
+            ],
+            'html_keys'=>[
+
+            ]
+        ];
     }
 }

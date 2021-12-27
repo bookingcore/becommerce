@@ -2,6 +2,7 @@
 namespace Modules\Order;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -14,6 +15,8 @@ class ModuleProvider extends ModuleServiceProvider
         ]);
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+
+        SettingManager::register("order",[$this,'getOrderSettings']);
     }
     /**
      * Register bindings in the container.
@@ -29,9 +32,28 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(EventServiceProvider::class);
     }
 
-    public static function getAdminMenu()
+    public function getOrderSettings()
     {
         return [
+            'id'   => 'order',
+            'title' => __("Order Settings"),
+            'position'=>40,
+            'view'=>"Order::admin.settings.order",
+            "keys"=>[
+                'order_enable_recaptcha',
+                'order_term_conditions',
+                'logo_invoice_id',
+                'invoice_company_info',
+                'booking_guest_checkout',
+                'booking_why_book_with_us'
+            ],
+            'html_keys'=>[
+
+            ],
+            'filter_demo_mode'=>[
+                'order_term_conditions',
+                'invoice_company_info',
+            ]
         ];
     }
 }

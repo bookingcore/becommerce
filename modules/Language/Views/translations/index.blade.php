@@ -5,7 +5,7 @@
             <h1 class="title-bar">{{__("Translation Manager")}}</h1>
             <a class="btn btn-primary" href="{{url('admin/module/language/translations/loadStrings')}}"><i class="icon ion-ios-search"></i> {{__("Find Translations")}}</a>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="alert alert-warning">
             {{__("After translation. You must re-build language file to apply the change")}}
         </div>
@@ -39,10 +39,14 @@
                                         <td>{{$language->translated_number}}/{{$total_text}}</td>
                                         <td>{{$language->last_build_at ? display_datetime($language->last_build_at) : ''}}</td>
                                         <td>
-                                            <a href="{{url('admin/module/language/translations/detail/'.$language->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> {{__("Translate")}}
-                                            </a>
-                                            <a href="{{url('admin/module/language/translations/build/'.$language->id)}}" class="btn btn-sm btn-info"><i class="fa fa-cubes"></i> {{__("Build")}}
-                                            </a>
+                                            <a href="{{url('admin/module/language/translations/detail/'.$language->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> {{__("Translate")}}</a>
+                                            <a href="{{url('admin/module/language/translations/build/'.$language->id)}}" class="btn btn-sm btn-info"><i class="fa fa-cubes"></i> {{__("Build")}}</a>
+                                            <button type="button" class="btn btn-secondary dropdown-toggle btn-sm" data-toggle="dropdown">
+                                                {{__("More")}}
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{url('admin/module/language/translations/loadTranslateJson?locale='.$language->locale)}}">{{__("Load Translate Default")}}</a>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach

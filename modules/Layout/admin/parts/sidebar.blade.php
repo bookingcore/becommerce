@@ -26,7 +26,7 @@ $menus = [
         'title'      => __('Setting'),
         'icon'       => 'icon ion-ios-cog',
         'permission' => 'setting_update',
-        'children'   => \Modules\Core\Models\Settings::getSettingPages(true)
+        'children'   => \Modules\Core\Helpers\SettingManager::menus()
     ],
     'tools'=>[
         "position"=>90,
