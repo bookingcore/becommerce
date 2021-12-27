@@ -23,6 +23,10 @@ class SettingManager
                 $allSettings[$id] = call_user_func($config['callable']);
             }
         }
+
+        $allSettings = \Illuminate\Support\Arr::sort($allSettings, function ($value) {
+            return $value['position'] ?? 0;
+        });
         return $allSettings;
     }
 

@@ -351,8 +351,7 @@
                                 </div>
                                 <div class="g-items">
                                     <?php
-                                    $page_contact_lists = $settings['page_contact_lists'];
-                                    if(!empty($page_contact_lists)) $page_contact_lists = json_decode($page_contact_lists,true);
+                                    $page_contact_lists = setting_item_array('page_contact_lists');
                                     if(empty($page_contact_lists) or !is_array($page_contact_lists))
                                         $page_contact_lists = [];
                                     ?>

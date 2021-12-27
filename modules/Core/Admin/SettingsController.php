@@ -32,10 +32,11 @@ class SettingsController extends AdminController
         if (empty($group) or !in_array($group, $settingsGroupKeys)) {
             $group = $settingsGroupKeys[0];
         }
+        $group_options = $this->groups[$group];
         $data = [
             'current_group' => $group,
             'groups'        => $this->groups,
-            'settings'      => Settings::getSettings($group),
+            'settings'      => Settings::getSettings($group_options['keys']),
             'breadcrumbs'   => [
                 ['name' => $this->groups[$group]['name'] ?? $this->groups[$group]['title'] ?? ''],
             ],
