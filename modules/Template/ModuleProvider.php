@@ -33,16 +33,4 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-    public static function getAdminMenu()
-    {
-        return [
-            'template'=>[
-                "position"=>70,
-                'url'        => 'admin/module/template',
-                'title'      => __('Templates'),
-                'icon'       => 'icon ion-logo-html5',
-                'permission' => 'template_manage',
-            ]
-        ];
-    }
 }

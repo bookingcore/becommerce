@@ -13,13 +13,6 @@ $menus = [
         'icon'       => 'icon ion-ios-apps',
         'permission' => 'menu_view',
     ],
-    'template'=>[
-        "position"=>70,
-        'url'        => 'admin/module/template',
-        'title'      => __('Templates'),
-        'icon'       => 'icon ion-logo-html5',
-        'permission' => 'template_create',
-    ],
     'general'=>[
         "position"=>80,
         'url'        => 'admin/module/core/settings/index/general',

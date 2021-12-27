@@ -19,6 +19,7 @@ class PageController extends AdminController
 
     public function index(Request $request)
     {
+        $this->checkPermission("page_manage");
         $page_name = $request->query('page');
         $datapage = new Page();
         if ($page_name) {
@@ -44,6 +45,7 @@ class PageController extends AdminController
 
     public function create(Request $request)
     {
+        $this->checkPermission("page_manage");
         $row = new Page();
         $row->fill([
             'status' => 'publish',
@@ -69,12 +71,14 @@ class PageController extends AdminController
 
     public function edit(Request $request, $id)
     {
+        $this->checkPermission("page_manage");
+
         $row = Page::find($id);
 
         if (empty($row)) {
             return redirect('admin/module/page');
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         $data = [
             'translation'  => $translation,
@@ -95,23 +99,41 @@ class PageController extends AdminController
         return view('Page::admin.detail', $data);
     }
 
+    public function toBuilder($id){
+        $row = Page::find($id);
+
+        if (empty($row)) {
+            return redirect('admin/module/page');
+        }
+        if(!$row->template_id){
+            $temp = new Template(
+                [
+                    'title'=>$row->title
+                ]
+            );
+            $temp->save();
+            $row->template_id = $temp->id;
+            $row->save();
+        }
+        return redirect(route('template.admin.edit',['id'=>$row->template_id]));
+    }
+
     public function store(Request $request, $id){
         if($id>0){
-            $this->checkPermission('page_update');
+            $this->checkPermission('page_manage');
             $row = Page::find($id);
             if (empty($row)) {
                 return redirect(route('page.admin.index'));
             }
         }else{
-            $this->checkPermission('page_create');
+            $this->checkPermission('page_manage');
             $row = new Page();
         }
         $n_request = $request->input();
-        $n_request['page_style'] = json_encode($n_request['page_style']);
-        $n_request['c_background'] = json_encode($n_request['c_background']);
         $row->fill($n_request);
 
-        $row->saveOriginOrTranslation($request->query('lang'),true);
+        $row->saveWithTranslation($request->query('lang'));
+        $row->saveSEO($request,$request->query('lang'));
 
         if($id > 0 ){
             return back()->with('success',  __('Page updated') );

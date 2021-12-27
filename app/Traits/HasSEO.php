@@ -40,8 +40,6 @@ trait HasSEO
         }
     }
 
-
-
     public function saveSEO(\Illuminate\Http\Request $request , $locale = false)
     {
         if(!$locale or $locale == get_main_lang()){

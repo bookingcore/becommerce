@@ -11,6 +11,7 @@ Route::get('/','PageController@index')->name('page.admin.index');
 
 Route::match(['get'],'/create','PageController@create')->name('page.admin.create');
 Route::match(['get'],'/edit/{id}','PageController@edit')->name('page.admin.edit');
+Route::match(['get'],'/builder/{id}','PageController@toBuilder')->name('page.admin.builder');
 
 Route::post('/store/{id}','PageController@store')->name('page.admin.store');
 
