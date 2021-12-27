@@ -46,4 +46,26 @@
         </div>
     </div>
     @endif
+    <hr>
+    @if(is_default_lang() and is_admin())
+        <div class="form-group">
+            <label >{{__("Author")}}</label>
+            <?php
+            $user = !empty($row->author_id) ? App\User::find($row->author_id) : false;
+            \App\Helpers\AdminForm::select2('author_id', [
+                'configs' => [
+                    'ajax'        => [
+                        'url' => url('/admin/module/user/getForSelect2'),
+                        'dataType' => 'json'
+                    ],
+                    'allowClear'  => true,
+                    'placeholder' => __('-- Select User --')
+                ]
+            ], !empty($user->id) ? [
+                $user->id,
+                $user->getDisplayName() . ' (#' . $user->id . ')'
+            ] : false)
+            ?>
+        </div>
+    @endif
 @endif
