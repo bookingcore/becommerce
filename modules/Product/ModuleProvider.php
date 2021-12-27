@@ -223,7 +223,7 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'id'   => 'product',
             'title' => __("Product Settings"),
-            'position'=>20,
+            'position'=>30,
             'view'=>"Product::admin.settings.product",
             "keys"=>[
                 'product_page_search_title',
