@@ -31,7 +31,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'product'=>[
-                "position"=>41,
+                "position"=>40,
                 'url'        => 'admin/module/product',
                 'title'      => __('Products'),
                 'icon'       => 'icon ion-ios-cart',

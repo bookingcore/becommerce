@@ -31,6 +31,18 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(RouteServiceProvider::class);
         $this->app->register(EventServiceProvider::class);
     }
+    public static function getAdminMenu()
+    {
+        return [
+            'orders'=>[
+                "position"=>45,
+                'url'        => route('booking.admin.orders'),
+                'title'      => __("Orders"),
+                'icon'       => 'fa fa-dashboard',
+                'permission' => 'report_view',
+            ]
+        ];
+    }
 
     public function getOrderSettings()
     {

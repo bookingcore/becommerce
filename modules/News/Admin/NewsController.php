@@ -34,7 +34,7 @@ class NewsController extends AdminController
         $this->filterLang($dataNews);
 
         $data = [
-            'rows'        => $dataNews->with("getAuthor")->with("getCategory")->paginate(20),
+            'rows'        => $dataNews->with("author")->with("getCategory")->paginate(20),
             'categories'  => NewsCategory::get(),
             'breadcrumbs' => [
                 [
@@ -117,7 +117,9 @@ class NewsController extends AdminController
         if($request->input('slug')){
             $row->slug = $request->input('slug');
         }
-        $res = $row->saveOriginOrTranslation($request->query('lang'),true);
+        $row->author_id = $request->input('author_id',\auth()->id());
+        $res = $row->saveWithTranslation($request->input('lang'));
+        $row->saveSEO($request,$request->input('lang'));
 
         if ($res) {
             if(is_default_lang($request->query('lang'))){

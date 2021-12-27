@@ -16,7 +16,6 @@ class News extends BaseModel
         'status',
         'cat_id',
         'image_id',
-        'banner_id'
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';

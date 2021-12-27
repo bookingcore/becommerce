@@ -30,6 +30,7 @@ class CreateTableCorePages extends Migration
             $table->bigInteger('update_user')->nullable();
 
             $table->bigInteger('author_id')->nullable();
+            $table->tinyInteger('show_template')->nullable()->default(0);
 
             $table->softDeletes();
 

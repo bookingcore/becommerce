@@ -22,18 +22,6 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->bind('cart', BravoCart::class);
     }
 
-    public static function getAdminMenu()
-    {
-        return [
-            'orders'=>[
-                "position"=>40,
-                'url'        => route('booking.admin.orders'),
-                'title'      => __("Orders"),
-                'icon'       => 'fa fa-dashboard',
-                'permission' => 'report_view',
-            ]
-        ];
-    }
 
     public function getPaymentSetting(){
         $keys = [

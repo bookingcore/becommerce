@@ -61,6 +61,17 @@
                                     </label></div>
                                 @endif
 
+                                    <hr>
+                                <div class="form-group">
+                                    <label >{{__("Display type")}}</label>
+
+                                    <div>
+                                        <label><input @if($row->show_template) checked @endif type="radio" name="show_template" value="1"> {{__("Template")}}
+                                        </label></div>
+                                    <div>
+                                        <label><input @if(!$row->show_template) checked @endif type="radio" name="show_template" value="0"> {{__("Content")}}
+                                        </label></div>
+                                </div>
                             </div>
                             <div class="panel-footer">
                                 <div class="text-right">
@@ -68,6 +79,32 @@
                                 </div>
                             </div>
                         </div>
+
+                        @if(is_default_lang())
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Author")}}</strong></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <?php
+                                        $user = !empty($row->author_id) ? App\User::find($row->author_id) : false;
+                                        \App\Helpers\AdminForm::select2('author_id', [
+                                            'configs' => [
+                                                'ajax'        => [
+                                                    'url' => url('/admin/module/user/getForSelect2'),
+                                                    'dataType' => 'json'
+                                                ],
+                                                'allowClear'  => true,
+                                                'placeholder' => __('-- Select User --')
+                                            ]
+                                        ], !empty($user->id) ? [
+                                            $user->id,
+                                            $user->getDisplayName() . ' (#' . $user->id . ')'
+                                        ] : false)
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         @if(is_default_lang())
                             <div class="panel">
                                 <div class="panel-body">

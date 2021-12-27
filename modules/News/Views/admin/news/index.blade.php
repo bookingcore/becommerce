@@ -76,8 +76,8 @@
                                             </td>
                                             <td>{{$row->getCategory->name ?? '' }}</td>
                                             <td>
-                                                @if(!empty($row->getAuthor))
-                                                    {{$row->getAuthor->getDisplayName()}}
+                                                @if(!empty($row->author))
+                                                    {{$row->author->display_name}}
                                                 @else
                                                     {{__("[Author Deleted]")}}
                                                 @endif

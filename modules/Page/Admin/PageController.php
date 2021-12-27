@@ -113,8 +113,10 @@ class PageController extends AdminController
             );
             $temp->save();
             $row->template_id = $temp->id;
-            $row->save();
         }
+        $row->show_template = 1;
+        $row->save();
+
         return redirect(route('template.admin.edit',['id'=>$row->template_id,'ref'=>'page']));
     }
 
@@ -131,6 +133,8 @@ class PageController extends AdminController
         }
         $n_request = $request->input();
         $row->fill($n_request);
+        $row->show_template = $request->input('show_template');
+        $row->author_id = $request->input('author_id',\auth()->id());
 
         $row->saveWithTranslation($request->query('lang'));
         $row->saveSEO($request,$request->query('lang'));
