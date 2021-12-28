@@ -11,17 +11,23 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="ps-section__right">
-                        <div class="ps-section--account-setting">
-                            <div class="ps-section__header">
-                                <h3>{{$page_title}}</h3>
+                        <form action="{{route('user.address.store',['type'=>$type])}}" method="post">
+                            @csrf
+                            <div class="ps-section--account-setting">
+                                <div class="ps-section__header">
+                                    <h3>{{$page_title}}</h3>
+                                </div>
+                                <div class="ps-section__content">
+                                    @switch($type)
+                                        @case("billing") @include("user.address.billing-form") @break
+                                        @case("shipping") @include("user.address.shipping-form") @break
+                                    @endswitch
+                                </div>
+                                <div class="form-group submit">
+                                    <button class="ps-btn">{{__('Update')}}</button>
+                                </div>
                             </div>
-                            <div class="ps-section__content">
-                                @switch($type)
-                                    @case("billing") @include("user.address.billing-form") @break
-                                    @case("shipping") @include("user.address.shipping-form") @break
-                                @endswitch
-                            </div>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -13,3 +13,25 @@
         }
     }
 }
+.ps-btn, button.ps-btn,
+.header--standard .ps-form--quick-search button{
+    color:white;
+}
+.ps-widget--account-dashboard .ps-widget__content ul li.active{
+    background: var(--main-color);
+}
+.header--standard .ps-form--quick-search button,
+.header--standard .header__extra span,
+.ps-btn, button.ps-btn,
+.ps-widget--account-dashboard .ps-widget__content ul li a:hover,
+.menu--dropdown > li:hover
+{
+    background-color: var(--main-color);
+}
+.header--market-place-1 .header__extra:hover > i,
+a:hover,
+.widget_contact-us .widget_content h3,
+.mega-menu .mega-menu__list li a:hover
+{
+    color:var(--main-color)
+}

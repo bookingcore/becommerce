@@ -233,6 +233,7 @@ class CreateProductTable extends Migration
 		    $table->string('address')->nullable();
 		    $table->string('address2')->nullable();
 		    $table->string('city')->nullable();
+		    $table->string('state')->nullable();
 		    $table->string('postcode')->nullable();
 		    $table->string('country',30)->nullable();
 		    $table->string('email')->nullable();

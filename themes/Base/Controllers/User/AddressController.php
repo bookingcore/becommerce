@@ -50,8 +50,7 @@ class AddressController extends FrontendController
                     'name'=>$page_title
                 ],
             ],
-            "billing"=>$user->billing_address,
-            "shipping"=>$user->shipping_address,
+            "address"=>$type == 'billing' ? $user->billing_address : $user->shipping_address,
             'type'=>$type
         ];
         return view('user.address-edit',$data);
