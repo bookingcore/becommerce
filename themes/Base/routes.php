@@ -14,6 +14,8 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
    Route::get('/address','User\AddressController@index')->name('user.address.index');
    Route::get('/address/{type}','User\AddressController@detail')->name('user.address.detail');
    Route::post('/address/{type}/store','User\AddressController@store')->name('user.address.store');
+   Route::get('/change-password/','User\PasswordController@index')->name('user.password');
+   Route::post('/change-password/store','User\PasswordController@store')->name('user.password.store');
 });
 
 Route::group(['prefix'=>'pos'],function(){
