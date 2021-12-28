@@ -15,21 +15,15 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('business_name');
             $table->string('username',40)->unique();
             $table->string('first_name',255)->nullable();
             $table->string('last_name',255)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('address',255)->nullable();
-            $table->string('address2',255)->nullable();
             $table->string('phone',30)->nullable();
             $table->date('birthday')->nullable();
-            $table->string('city',255)->nullable();
-            $table->string('state',255)->nullable();
-            $table->string('country',255)->nullable();
-            $table->integer('postcode')->nullable();
             $table->dateTime('last_login_at')->nullable();
             $table->bigInteger('avatar_id')->nullable();
             $table->text('bio')->nullable();
@@ -39,23 +33,11 @@ class CreateUsersTable extends Migration
             $table->integer('vendor_commission_amount')->nullable();
             $table->string('vendor_commission_type',30)->nullable();
             $table->string('locale',10)->nullable();
-            $table->string('company',255)->nullable();
             $table->bigInteger('role_id')->nullable();
-
-
-            $table->string('shipping_first_name',255)->nullable();
-            $table->string('shipping_last_name',255)->nullable();
-            $table->string('shipping_address',255)->nullable();
-            $table->string('shipping_address2',255)->nullable();
-            $table->string('shipping_city',255)->nullable();
-            $table->string('shipping_country',255)->nullable();
-            $table->integer('shipping_postcode')->nullable();
-            $table->string('shipping_company',255)->nullable();
 
 
             $table->tinyInteger('need_update_pw')->default(0);
             $table->string('verify_submit_status',20)->nullable();
-
 
             $table->index('role_id');
 

@@ -52,7 +52,6 @@
                             <th>{{__('Name')}}</th>
                             <th>{{__('Email')}}</th>
                             <th>{{__('Phone')}}</th>
-                            <th>{{__("Department")}}</th>
                             <th>{{__('Role')}}</th>
                             <th>{{__('Status')}}</th>
                             <th class="date">{{ __('Date')}}</th>
@@ -68,7 +67,6 @@
                                 </td>
                                 <td>{{$row->email}}</td>
                                 <td>{{$row->phone}}</td>
-                                <td>{{$row->department->name ?? ''}}</td>
                                 <td>
                                     {{$row->role->name ?? ''}}
                                 </td>

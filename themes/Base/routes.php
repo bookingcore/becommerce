@@ -7,6 +7,8 @@ Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.
 
 
 Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
+   Route::get('/profile','User\ProfileController@index')->name('user.profile');
+   Route::post('/profile/store','User\ProfileController@store')->name('user.profile.store');
    Route::get('/order','User\OrderController@index')->name('user.order.index');
    Route::get('/order/{id}','User\OrderController@detail')->name('user.order.detail');
    Route::get('/address','User\AddressController@index')->name('user.address.index');
