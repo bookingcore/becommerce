@@ -307,7 +307,7 @@ class UserController extends FrontendController
             //event(new Registered($user));
             Auth::loginUsingId($user->id);
             try {
-              //  event(new SendMailUserRegistered($user));
+                event(new SendMailUserRegistered($user));
             } catch (Exception $exception) {
 
                 Log::warning("SendMailUserRegistered: " . $exception->getMessage());
