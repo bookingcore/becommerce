@@ -15,6 +15,9 @@ class ModuleProvider extends ModuleServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
 
         SettingManager::register("product",[$this,'getProductSettings']);
+        SettingManager::register("store",[$this,'getStoreSettings']);
+        SettingManager::register("shipping",[$this,'getShippingSettings']);
+        SettingManager::register("tax",[$this,'getTaxSettings']);
 
     }
     /**
@@ -232,27 +235,26 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'id'   => 'product',
             'title' => __("Product Settings"),
-            'position'=>30,
+            'position'=>32,
             'view'=>"Product::admin.settings.product",
             "keys"=>[
                 'product_page_search_title',
-                'product_page_search_banner',
-                'product_layout_search',
-                'product_location_search_style',
-
-                'product_enable_review',
-                'product_review_approved',
-                'product_enable_review_after_booking',
-                'product_review_number_per_page',
-                'product_review_stats',
-
+                'products_per_page',
                 'product_page_list_seo_title',
                 'product_page_list_seo_desc',
                 'product_page_list_seo_image',
                 'product_page_list_seo_share',
 
-                'product_booking_buyer_fees',
+                'product_enable_review',
+                'product_review_approved',
+                'product_review_verification_required',
+                'product_review_number_per_page',
 
+                'product_enable_stock_management',
+                'product_hold_stock',
+                'product_hide_products_out_of_stock',
+
+                'product_booking_buyer_fees',
                 'product_policies',
                 'shipping_information',
                 'ads_url',
@@ -261,6 +263,54 @@ class ModuleProvider extends ModuleServiceProvider
                 'list_sliders'
             ],
             'html_keys'=>[
+
+            ]
+        ];
+    }
+
+    public function getStoreSettings(){
+        return [
+            'id'   => 'store',
+            'title' => __("Store Settings"),
+            'position'=>31,
+            'view'=>"Product::admin.settings.store",
+            'keys' => [
+                'store_address',
+                'store_city',
+                'store_country',
+                'store_postcode'
+            ],
+            'html_keys' => [
+
+            ]
+        ];
+    }
+
+    public function getShippingSettings(){
+        return [
+            'id'   => 'shipping',
+            'title' => __("Shipping Settings"),
+            'position'=>33,
+            'view'=>"Product::admin.settings.shipping",
+            'keys' => [
+
+            ],
+            'html_keys' => [
+
+            ]
+        ];
+    }
+
+    public function getTaxSettings(){
+        return [
+            'id'   => 'tax',
+            'title' => __("Tax Settings"),
+            'position'=>34,
+            'view'=>"Product::admin.settings.tax",
+            'keys' => [
+
+            ],
+            'html_keys' => [
 
             ]
         ];

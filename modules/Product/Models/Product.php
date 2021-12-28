@@ -203,7 +203,7 @@ class Product extends BaseProduct
 
     public function check_enable_review_after_booking()
     {
-        $option = setting_item("product_enable_review_after_booking", 0);
+        $option = setting_item("product_review_verification_required", 0);
         if ($option) {
             $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
             $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;

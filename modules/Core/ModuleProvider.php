@@ -24,7 +24,6 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("general",[$this,'registerGeneralSetting']);
         SettingManager::register("advance",[$this,'registerAdvanceSetting']);
         SettingManager::register("style",[$this,'registerStyleSetting']);
-        SettingManager::register("woo-commerce",[$this,'registerWooCommerceSetting']);
 
     }
     /**
@@ -128,7 +127,6 @@ class ModuleProvider extends ModuleServiceProvider
                 'site_title',
                 'site_desc',
                 'site_favicon',
-                'phone_contact',
                 'home_page_id',
                 'logo_id',
                 'logo_white_id',
@@ -167,20 +165,4 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-    public function registerWooCommerceSetting(){
-        return [
-
-            'title' => __("Woo Commerce"),
-            'position'=>25,
-            'keys'=>[
-                'store_address',
-                'store_city',
-                'store_country',
-                'store_postcode'
-            ],
-            'filter_demo_mode'=>[
-
-            ]
-        ];
-    }
 }
