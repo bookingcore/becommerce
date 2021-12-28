@@ -223,6 +223,29 @@ class CreateProductTable extends Migration
 		    $table->timestamps();
 	    });
 
+	    Schema::create('user_address', function (Blueprint $table) {
+		    $table->bigIncrements('id');
+		    $table->bigInteger('user_id')->nullable()->index();
+
+		    $table->string('first_name')->nullable();
+		    $table->string('last_name')->nullable();
+		    $table->string('company')->nullable();
+		    $table->string('address')->nullable();
+		    $table->string('address2')->nullable();
+		    $table->string('city')->nullable();
+		    $table->string('postcode')->nullable();
+		    $table->string('country',30)->nullable();
+		    $table->string('email')->nullable();
+		    $table->string('phone')->nullable();
+
+		    $table->tinyInteger('type')->nullable()->default(1)->comment('1: Billing, 2: Shipping');
+		    $table->tinyInteger('is_default')->nullable()->default(0);
+		    $table->integer('create_user')->nullable();
+		    $table->integer('update_user')->nullable();
+
+		    $table->timestamps();
+	    });
+
     }
 
     /**
@@ -244,5 +267,7 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_variation_translations');
         Schema::dropIfExists('product_brand');
         Schema::dropIfExists('product_brand_translations');
+
+        Schema::dropIfExists('user_address');
     }
 }

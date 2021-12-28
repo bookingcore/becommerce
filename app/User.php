@@ -10,6 +10,7 @@
     use Illuminate\Support\Facades\Mail;
     use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\HasApiTokens;
+    use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
     use Modules\User\Models\UserWishList;
@@ -23,6 +24,7 @@
         use SoftDeletes;
         use HasApiTokens, HasFactory, Notifiable;
         use HasRoles;
+        use HasAddress;
 
         /**
          * The attributes that are mass assignable.

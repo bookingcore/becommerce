@@ -21,7 +21,14 @@
                                         <figure class="ps-block--address">
                                             <figcaption>{{__('Billing address')}}</figcaption>
                                             <div class="ps-block__content">
-                                                <p>You Have Not Set Up This Type Of Address Yet.</p><a href="edit-address.html">Edit</a>
+                                                @if(empty($billing))
+                                                <p>{{__('You Have Not Set Up This Type Of Address Yet.')}}</p>
+                                                @else
+                                                    <address>
+                                                        {!! $billing->html !!}
+                                                    </address>
+                                                @endif
+                                                <a href="{{route('user.address.detail',['type'=>'billing'])}}">{{__('Edit')}}</a>
                                             </div>
                                         </figure>
                                     </div>
