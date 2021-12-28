@@ -11,6 +11,9 @@ class POSController extends FrontendController
         if($this->hasPermission('pos_access')){
             return redirect('/');
         }
-        return view('pos.index');
+        $data = [
+            'page_title'=>__("Point of Sale")
+        ];
+        return view('pos.index',$data);
     }
 }

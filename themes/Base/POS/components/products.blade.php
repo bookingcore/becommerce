@@ -1,16 +1,17 @@
 <script type="text/x-template" id="POS_products">
-    <div class="pos-products">
+    <div class="pos-products ">
         <div class="row">
             <div class="col-md-3" v-for="(item,index) in items" @click="add(item)">
-                <figure>
-                    <img :src="item.image_url">
-                    <span class="absolute bottom-left bottom-right">@{{item.price_html}}</span>
-                </figure>
-                <h3>@{{item.title}}</h3>
+                <div class="p-3 c-pointer">
+                    <figure class="relative bg-white  border-1 border-e1e1e1">
+                        <img :src="item.image_url">
+                        <span class="absolute bottom-0 left-0 right-0 p-2 text-center c-white bg-dark-75">@{{item.price_html}}</span>
+                    </figure>
+                    <div class="fs-16 mt-2">@{{item.title}}</div>
+                </div>
             </div>
         </div>
     </div>
-
 </script>
 <script>
     Vue.component('pos-products', {
