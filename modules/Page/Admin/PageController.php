@@ -27,7 +27,7 @@ class PageController extends AdminController
         }
         $datapage = $datapage->orderBy('title', 'asc');
         $data = [
-            'rows'        => $datapage->paginate(20),
+            'rows'        => $datapage->with(['author'])->paginate(20),
             'page_title'=>__("Page Management"),
             'breadcrumbs' => [
                 [

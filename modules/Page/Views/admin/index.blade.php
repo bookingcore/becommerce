@@ -54,8 +54,8 @@
                                             <a href="{{url('admin/module/page/edit/'.$row->id)}}"> {{$row->title}}  </a>
                                         </td>
                                         <td class="author">
-                                            @if(!empty($row->getAuthor))
-                                                {{$row->getAuthor->getDisplayName()}}
+                                            @if(!empty($row->author))
+                                                {{$row->author->getDisplayName()}}
                                             @else
                                                 {{__("[Author Deleted]")}}
                                             @endif

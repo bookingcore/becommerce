@@ -30,9 +30,6 @@ class NewsController extends AdminController
             $dataNews->orderBy('title', 'asc');
         }
 
-
-        $this->filterLang($dataNews);
-
         $data = [
             'rows'        => $dataNews->with("author")->with("getCategory")->paginate(20),
             'categories'  => NewsCategory::get(),

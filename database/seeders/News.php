@@ -80,6 +80,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-1")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -91,6 +92,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-2")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -102,6 +104,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-3")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -113,6 +116,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-4")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -124,6 +128,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-5")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -135,6 +140,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-6")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -146,6 +152,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-7")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
         DB::table('core_news')->insert([
@@ -157,6 +164,7 @@ class News extends Seeder
             'cat_id' => rand(1, 4),
             'image_id' => MediaFile::findMediaByName("news-8")->id,
             'create_user' => '1',
+            'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
         ]);
     }

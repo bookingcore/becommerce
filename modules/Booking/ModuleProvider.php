@@ -8,7 +8,6 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function boot(){
 
-        SettingManager::register("booking",[$this,'getBookingSetting']);
         SettingManager::register("payment",[$this,'getPaymentSetting']);
     }
     /**
