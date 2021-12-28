@@ -43,6 +43,11 @@ class Order extends BaseModel
     {
         return $this->gateway ? get_payment_gateway_obj($this->gateway) : false;
     }
+    public function getGatewayNameAttribute()
+    {
+        $obj = $this->gateway_obj;
+        if($obj) return $obj->getName();
+    }
 
     public function getStatusNameAttribute()
     {
@@ -113,5 +118,22 @@ class Order extends BaseModel
                 }
                 break;
         }
+    }
+
+    public function getDisplayNameAttribute(){
+        return $this->first_name.' '.$this->last_name;
+    }
+    public function getShippingDisplayNameAttribute(){
+        return $this->shipping_first_name.' '.$this->shipping_last_name;
+    }
+    public function getShippingFulLAddressAttribute(){
+        $add = [
+            $this->shipping_address,
+            $this->shipping_city,
+            $this->shipping_state,
+            $this->shipping_postcode,
+            $this->shipping_country,
+        ];
+        return implode(', ',array_filter($add));
     }
 }

@@ -43,6 +43,7 @@ $('.bravo-form-login').on('submit',function (e) {
         success: function (data) {
             form.removeClass('loading')
             form.find('.icon-loading').hide();
+            if(typeof data =='undefined') return;
             if (data.error === true) {
                 if (data.messages !== undefined) {
                     for(var item in data.messages) {
@@ -54,7 +55,7 @@ $('.bravo-form-login').on('submit',function (e) {
                     form.find('.message-error').show().html('<div class="alert alert-danger">' + data.messages.message_error[0] + '</div>');
                 }
             }
-            if (data.redirect !== undefined && data.redirect) {
+            if (typeof data.redirect !== 'undefined' && data.redirect) {
                 window.location.href = data.redirect
             }
         },

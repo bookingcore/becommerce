@@ -154,7 +154,7 @@ function get_file_url($file_id,$size="thumb",$resize = true){
     return \Modules\Media\Helpers\FileHelper::url($file_id,$size,$resize);
 }
 
-function get_image_tag($image_id,$size = 'thumb',$options = []){
+function get_image_tag($image_id,$size = 'medium',$options = []){
     $options = array_merge($options,[
         'lazy'=>true
     ]);
