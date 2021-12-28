@@ -12,7 +12,7 @@ use Modules\Product\Models\ProductLicense;
 
 class CartManager
 {
-    protected static $session_key='bc_carts';
+    protected static $session_key='core_carts';
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variant_id = false){
 

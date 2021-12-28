@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Terms extends BaseModel
 {
     use SoftDeletes;
-    protected $table = 'bc_terms';
+    protected $table = 'core_terms';
     protected $fillable = [
         'name',
         'content',
@@ -48,13 +48,13 @@ class Terms extends BaseModel
 
     public static function getForSelect2Query($service,$q=false)
     {
-        $query =  static::query()->select('bc_terms.id', DB::raw('CONCAT(at.name,": ",bc_terms.name) as text'))
-        ->join('bc_attrs as at','at.id','=','bc_terms.attr_id')
+        $query =  static::query()->select('core_terms.id', DB::raw('CONCAT(at.name,": ",core_terms.name) as text'))
+        ->join('core_attrs as at','at.id','=','core_terms.attr_id')
         ->where("at.service",$service)
         ->whereRaw("at.deleted_at is null");
 
         if ($query) {
-            $query->where('bc_terms.name', 'like', '%' . $q . '%');
+            $query->where('core_terms.name', 'like', '%' . $q . '%');
         }
         return $query;
     }

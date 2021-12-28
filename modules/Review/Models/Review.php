@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Review extends BaseModel
 {
     use SoftDeletes;
-    protected $table    = 'bc_review';
+    protected $table    = 'core_review';
     protected $fillable = [
         'object_id',
         'object_model',

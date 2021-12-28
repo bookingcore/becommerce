@@ -233,7 +233,7 @@ class UserController extends AdminController
             if($row->role_id == 3){
                     $cData = Candidate::find($row->id);
                     if(empty($cData)){
-                        DB::table('bc_candidates')->insert([
+                        DB::table('core_candidates')->insert([
                             'id'       => $row->id
                         ]);
                         $cData = Candidate::find($row->id);
@@ -287,7 +287,7 @@ class UserController extends AdminController
                             if($pos !== false){
                                 unset($cSkills[$pos]);
                             }else{
-                                DB::table('bc_candidate_skills')->insert([
+                                DB::table('core_candidate_skills')->insert([
                                     'origin_id'       => $row->id,
                                     'skill_id'        => $skill
                                 ]);
@@ -307,7 +307,7 @@ class UserController extends AdminController
                             if($pos !== false){
                                 unset($cCats[$pos]);
                             }else{
-                                DB::table('bc_candidate_categories')->insert([
+                                DB::table('core_candidate_categories')->insert([
                                     'origin_id'       => $row->id,
                                     'cat_id'        => $category
                                 ]);

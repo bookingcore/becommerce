@@ -12,7 +12,7 @@ $score_total = $reviewData['score_total'];
             <div class="footer-button">
                 @php $in_stock = $row->stock_status == 'in' @endphp
                 @if($row->product_type == 'simple')
-                    <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'bc_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
+                    <a href="{{ $in_stock ? '#' : $row->getDetailUrl() }}" class="add_to_cart {{ $in_stock ? 'core_add_to_cart' : '' }}" data-product='{"id":{{$row->id}},"type":"simple"}'>
                         <i class="p-icon icon-bag2" data-toggle="tooltip" title="{{ $in_stock ? __("Add to cart") : __("Read more") }}"></i>
                     </a>
                 @else

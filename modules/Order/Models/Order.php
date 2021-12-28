@@ -16,7 +16,7 @@ class Order extends BaseModel
     const FAILED = 'failed';
     const ON_HOLD = 'on_hold';
     use SoftDeletes;
-    protected $table = 'bc_orders';
+    protected $table = 'core_orders';
 
     protected $casts = [
         'billing'=>'array'

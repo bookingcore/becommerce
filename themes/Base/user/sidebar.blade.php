@@ -10,7 +10,7 @@
             <li><a href="#"><i class="icon-user"></i> Account Information</a></li>
             <li><a href="#"><i class="icon-alarm-ringing"></i> Notifications</a></li>
             <li class="@if(in_array(request()->route()->getName(),['user.order.index','user.order.detail'])) active @endif"><a href="{{route('user.order.index')}}"><i class="icon-papers"></i> {{__('Orders')}}</a></li>
-            <li><a href="#"><i class="icon-map-marker"></i> Address</a></li>
+            <li class="@if(in_array(request()->route()->getName(),['user.address.index'])) active @endif"><a href="{{route('user.address.index')}}"><i class="icon-map-marker"></i> {{__('Address')}}</a></li>
             <li><a href="#"><i class="icon-store"></i> Recent Viewed Product</a></li>
             <li><a href="#"><i class="icon-heart"></i> Wishlist</a></li>
             <li><a href="#" onclick="event.preventDefault(); document.getElementById('logout-form-topbar').submit();"><i class="icon-power-switch"></i>{{__('Logout')}}</a></li>

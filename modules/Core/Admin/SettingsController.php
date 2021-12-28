@@ -90,7 +90,7 @@ class SettingsController extends AdminController
                 }
             }
             //Clear Cache for currency
-            Session::put('bc_current_currency',"");
+            Session::put('core_current_currency',"");
 
             return redirect()->back()->with('success', __('Settings Saved'));
         }

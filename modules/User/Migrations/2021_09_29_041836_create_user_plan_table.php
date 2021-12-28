@@ -13,7 +13,7 @@ class CreateUserPlanTable extends Migration
      */
     public function up()
     {
-        Schema::create('bc_plans', function (Blueprint $table) {
+        Schema::create('core_plans', function (Blueprint $table) {
             $table->id();
 
             $table->string('title')->nullable();
@@ -35,7 +35,7 @@ class CreateUserPlanTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bc_plan_trans', function (Blueprint $table) {
+        Schema::create('core_plan_trans', function (Blueprint $table) {
             $table->id();
 
             $table->string('title')->nullable();
@@ -78,8 +78,8 @@ class CreateUserPlanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bc_plans');
-        Schema::dropIfExists('bc_plan_trans');
+        Schema::dropIfExists('core_plans');
+        Schema::dropIfExists('core_plan_trans');
         Schema::dropIfExists('user_plan');
     }
 }

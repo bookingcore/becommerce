@@ -11,7 +11,7 @@ class OrderItem extends BaseModel
 {
 
     use SoftDeletes;
-    protected $table = 'bc_order_items';
+    protected $table = 'core_order_items';
 
     protected $casts = [
         'meta'=>'array'

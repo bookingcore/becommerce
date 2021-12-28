@@ -26,7 +26,7 @@
                 @endif
                 <div class="cart_price">
                     <span> {{format_money($cartItem->price)}} </span>
-                    <button class="type bc_delete_cart_item"  data-id="{{$cart_item_id}}"> {{__('Remove')}}</button>
+                    <button class="type core_delete_cart_item"  data-id="{{$cart_item_id}}"> {{__('Remove')}}</button>
                 </div>
             </li>
         @endforeach

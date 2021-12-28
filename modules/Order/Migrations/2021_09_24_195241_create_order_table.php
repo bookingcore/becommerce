@@ -13,7 +13,7 @@ class CreateOrderTable extends Migration
      */
     public function up()
     {
-        Schema::create('bc_orders', function (Blueprint $table) {
+        Schema::create('core_orders', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('customer_id')->nullable();
 
@@ -60,7 +60,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bc_order_items', function (Blueprint $table) {
+        Schema::create('core_order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('order_id')->nullable();
@@ -82,7 +82,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bc_order_meta', function (Blueprint $table) {
+        Schema::create('core_order_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('order_id')->nullable();
             $table->string('name',255)->nullable();
@@ -92,7 +92,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bc_payments', function (Blueprint $table) {
+        Schema::create('core_payments', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->bigInteger('object_id')->nullable();
@@ -116,7 +116,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bc_payment_meta', function (Blueprint $table) {
+        Schema::create('core_payment_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('payment_id')->nullable();
@@ -137,10 +137,10 @@ class CreateOrderTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bc_orders');
-        Schema::dropIfExists('bc_order_items');
-        Schema::dropIfExists('bc_order_meta');
-        Schema::dropIfExists('bc_payments');
-        Schema::dropIfExists('bc_payment_meta');
+        Schema::dropIfExists('core_orders');
+        Schema::dropIfExists('core_order_items');
+        Schema::dropIfExists('core_order_meta');
+        Schema::dropIfExists('core_payments');
+        Schema::dropIfExists('core_payment_meta');
     }
 }

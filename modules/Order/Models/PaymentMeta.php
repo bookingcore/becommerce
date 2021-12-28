@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PaymentMeta extends BaseModel
 {
-    protected $table = 'bc_payment_meta';
+    protected $table = 'core_payment_meta';
 
 
     protected $fillable = [

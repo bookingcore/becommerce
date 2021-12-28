@@ -8,7 +8,7 @@ use App\BaseModel;
 
 class OrderMeta extends BaseModel
 {
-    protected $table = 'bc_order_meta';
+    protected $table = 'core_order_meta';
 
     protected $fillable = [
         'name' ,

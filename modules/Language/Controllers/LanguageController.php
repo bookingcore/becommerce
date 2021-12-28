@@ -34,7 +34,7 @@ class LanguageController extends FrontendController
 
     public function setAdminLang(\Illuminate\Http\Request $request,$locale){
 
-        Cookie::queue('bc_admin_locale', $locale, 60*24*365);// one year
+        Cookie::queue('core_admin_locale', $locale, 60*24*365);// one year
 
         return redirect()->back();
 
