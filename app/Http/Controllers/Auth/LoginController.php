@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Illuminate\Support\Facades\Hash;
@@ -136,5 +138,18 @@ class LoginController extends Controller
         return view('auth.login',[
             'page_title'=>__("Login")
         ]);
+    }
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        return $request->wantsJson()
+            ? new JsonResponse(['redirect'=>(string) $request->input('redirect','/')], 200)
+            : redirect()->intended($this->redirectPath());
     }
 }
