@@ -11,6 +11,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="ps-section__right">
+                        @include('global.message')
                         <div class="ps-section--account-setting">
                             <div class="ps-section__header">
                                 <h3>{{__('Address')}}</h3>
@@ -24,19 +25,30 @@
                                                 @if(empty($billing))
                                                 <p>{{__('You Have Not Set Up This Type Of Address Yet.')}}</p>
                                                 @else
-                                                    <address>
-                                                        {!! $billing->html !!}
+                                                    <address class="font-italic">
+                                                        <p>
+                                                            {!! $billing->html !!}
+                                                        </p>
                                                     </address>
                                                 @endif
-                                                <a href="{{route('user.address.detail',['type'=>'billing'])}}">{{__('Edit')}}</a>
+                                                <a class="ps-btn ps-btn--gray ps-btn--sm" href="{{route('user.address.detail',['type'=>'billing'])}}">{{__('Edit')}}</a>
                                             </div>
                                         </figure>
                                     </div>
                                     <div class="col-md-6 col-12">
                                         <figure class="ps-block--address">
-                                            <figcaption>Shipping address</figcaption>
+                                            <figcaption>{{__('Shipping address')}}</figcaption>
                                             <div class="ps-block__content">
-                                                <p>You Have Not Set Up This Type Of Address Yet.</p><a href="edit-address.html">Edit</a>
+                                                @if(empty($shipping))
+                                                    <p>{{__('You Have Not Set Up This Type Of Address Yet.')}}</p>
+                                                @else
+                                                    <address class="font-italic">
+                                                        <p>
+                                                            {!! $shipping->html !!}
+                                                        </p>
+                                                    </address>
+                                                @endif
+                                                <a class="ps-btn ps-btn--gray ps-btn--sm" href="{{route('user.address.detail',['type'=>'shipping'])}}">{{__('Edit')}}</a>
                                             </div>
                                         </figure>
                                     </div>

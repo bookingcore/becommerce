@@ -11,6 +11,7 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="ps-section__right">
+                        @include('global.message')
                         <form action="{{route('user.address.store',['type'=>$type])}}" method="post">
                             @csrf
                             <div class="ps-section--account-setting">
@@ -18,10 +19,7 @@
                                     <h3>{{$page_title}}</h3>
                                 </div>
                                 <div class="ps-section__content">
-                                    @switch($type)
-                                        @case("billing") @include("user.address.billing-form") @break
-                                        @case("shipping") @include("user.address.shipping-form") @break
-                                    @endswitch
+                                    @include("user.address.billing-form")
                                 </div>
                                 <div class="form-group submit">
                                     <button class="ps-btn">{{__('Update')}}</button>
@@ -33,4 +31,9 @@
             </div>
         </div>
     </div>
+@endsection
+@section("footer")
+    <script>
+        $('.ps-select2').select2()
+    </script>
 @endsection
