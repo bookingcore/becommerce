@@ -12,6 +12,7 @@
     use Laravel\Sanctum\HasApiTokens;
     use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
+    use Modules\User\Emails\EmailUserVerifyRegister;
     use Modules\User\Emails\ResetPasswordToken;
     use Modules\User\Models\UserWishList;
     use Modules\User\Traits\HasRoles;
