@@ -67,9 +67,18 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
+                ]
+            ],
+            'coupon'=>[
+                'url'        => 'admin/module/product/coupon',
+                'title'      => __('Coupons'),
+                'permission' => 'product_manage_others',
+                "position"=>42,
+                'icon'       => 'icon ion-ios-barcode',
+                'children'=>[
                     'coupon'=>[
                         'url'        => 'admin/module/product/coupon',
-                        'title'      => __('All Coupon'),
+                        'title'      => __('All Coupons'),
                         'permission' => 'product_manage_others',
                     ],
                     'coupon_create'=>[

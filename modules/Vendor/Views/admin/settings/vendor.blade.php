@@ -58,7 +58,7 @@
                         <div class="form-controls">
                             <select name="vendor_role" class="form-control">
 
-                                @foreach(\Spatie\Permission\Models\Role::all() as $role)
+                                @foreach(\Modules\User\Models\Role::all() as $role)
                                 <option value="{{$role->id}}" {{($settings['vendor_role'] ?? '') == $role->id ? 'selected': ''  }}>{{ucfirst($role->name)}}</option>
                                     @endforeach
                             </select>

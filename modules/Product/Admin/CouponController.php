@@ -41,7 +41,7 @@ class CouponController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        $this->setActiveMenu('admin/module/product/coupon');
         $this->product = Product::class;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
