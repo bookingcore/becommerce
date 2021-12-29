@@ -62,9 +62,9 @@
                                             </div>
                                         </td>
                                         <td data-label="Total">{{format_money($cartItem->subtotal)}}</td>
-                                        <td data-label="Actions"><a href="#" class="bc_delete_cart_item"
-                                                                    data-id="{{$cartItem->id}}"><i
-                                                    class="icon-cross"></i></a></td>
+                                        <td data-label="Actions">
+                                            <a href="#" class="bc_delete_cart_item" data-id="{{$cartItem->id}}" data-remove="tr">
+                                                <i class="icon-cross"></i></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

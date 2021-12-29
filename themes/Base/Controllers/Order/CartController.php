@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Modules\Order\Controllers;
+namespace Themes\Base\Controllers\Order;
 
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-use Modules\FrontendController;
+use Themes\Base\Controllers\FrontendController;
 use Modules\Order\Helpers\CartManager;
 
 class CartController extends FrontendController

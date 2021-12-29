@@ -28,3 +28,18 @@ Route::group(['prefix'=>'pos'],function(){
 });
 
 Route::get('page/{slug}','PageController@detail')->name('page.detail');
+
+Route::group(['prefix'=>'cart','middleware'=>'auth'],function(){
+    Route::get('/','Order\CartController@index')->name('cart');
+    Route::post('/addToCart','Order\CartController@addToCart')->name('cart.addToCart');
+    Route::post('/remove_cart_item','Order\CartController@removeCartItem')->name('cart.remove_cart_item');
+});
+Route::group(['prefix'=>'checkout','middleware'=>'auth'],function(){
+    Route::get('/','Order\CheckoutController@index')->name('checkout');
+    Route::post('/process','Order\CheckoutController@process')->name('checkout.process');
+});
+Route::group(['prefix'=>'order'],function(){
+    Route::get('/confirm/{gateway}','Order\OrderController@confirmPayment')->name('order.confirm');
+    Route::get('/cancel/{gateway}','Order\OrderController@cancelPayment')->name('order.cancel');
+    Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
+});

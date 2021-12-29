@@ -115,7 +115,8 @@ $(document).on('click','.bc_delete_cart_item',function(e){
     e.preventDefault();
     var c = confirm("Do you want to delete this cart item?");
     if(!c) return;
-
+    var removeElement = $(this).data('remove');
+    console.log(removeElement);
     var me = $(this);
     var id = $(this).data('id');
     $.ajax({
@@ -138,7 +139,11 @@ $(document).on('click','.bc_delete_cart_item',function(e){
                 window.location.reload();
             }
             if(json.message){
-                socialiteApp.showAjaxMessage(json);
+                BcApp.showAjaxMessage(json);
+            }
+
+            if(typeof removeElement !='undefined'){
+                me.closest(removeElement).remove();
             }
 
         },

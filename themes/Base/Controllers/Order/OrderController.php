@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Modules\Order\Controllers;
+namespace Themes\Base\Controllers\Order;
 
 
 use Illuminate\Http\Request;
-use Modules\FrontendController;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
+use Themes\Base\Controllers\FrontendController;
 
 class OrderController extends FrontendController
 {

@@ -116,8 +116,7 @@ class CartManager
 
         $items = static::items();
         $items->pull($cart_item_id);
-
-        session()->put(static::$session_key, $items->all());
+        session()->put(static::$session_key, $items);
 
         return true;
 

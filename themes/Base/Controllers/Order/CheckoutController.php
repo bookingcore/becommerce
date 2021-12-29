@@ -1,16 +1,17 @@
 <?php
 
 
-    namespace Modules\Order\Controllers;
+    namespace Themes\Base\Controllers\Order;
 
 
     use App\Currency;
     use App\Helpers\ReCaptchaEngine;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Validator;
-    use Modules\FrontendController;
     use Modules\Order\Helpers\CartManager;
     use Modules\Order\Models\Payment;
+    use Themes\Base\Controllers\FrontendController;
+
 
     class CheckoutController extends FrontendController
     {
