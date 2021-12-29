@@ -20,7 +20,7 @@
                 </a>
                 <ul class="ps-dropdown-menu text-left">
                     @if(Auth::user()->hasPermission('vendor_access'))
-                        <li><a href="{{url(app_get_locale().'/user/dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
+                        <li><a href="{{route('vendor.dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
                     @endif
                     <li class="@if(Auth::user()->hasPermission('vendor_access')) menu-hr @endif">
                         <a href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>

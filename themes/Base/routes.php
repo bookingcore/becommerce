@@ -19,6 +19,10 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
    Route::get('/notification','User\NotificationController@index')->name('user.notification');
 });
 
+Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
+   Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
+});
+
 Route::group(['prefix'=>'pos'],function(){
    Route::get('/','POSController@index')->name('pos');
 });

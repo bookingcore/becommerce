@@ -1,10 +1,6 @@
 <?php
 use \Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'user','middleware' => ['auth','verified']],function(){
-    Route::match(['get'],'/dashboard','UserController@dashboard')->name("vendor.dashboard");
-    Route::post('/reloadChart','UserController@reloadChart');
-
-
     Route::post('/wishlist','UserWishListController@handleWishList')->name("user.wishList.handle");
     Route::get('/wishlist/remove','UserWishListController@remove')->name("user.wishList.remove");
 
