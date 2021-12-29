@@ -2,26 +2,23 @@
 namespace Modules\User\Admin;
 
 use App\User;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
-use Modules\Candidate\Models\Candidate;
-use Modules\Candidate\Models\CandidateCategories;
-use Modules\Candidate\Models\CandidateCvs;
-use Modules\Candidate\Models\CandidateSkills;
-use Modules\Candidate\Models\Category;
-use Modules\Location\Models\Location;
-use Modules\Skill\Models\Skill;
 use Modules\User\Events\VendorApproved;
 use Modules\User\Exports\UserExport;
 use Modules\User\Models\Role;
 
 class UserController extends AdminController
 {
+    use ResetsPasswords;
+
     public function __construct()
     {
         $this->setActiveMenu('admin/module/user');
@@ -46,7 +43,7 @@ class UserController extends AdminController
             $listUser->role($request->query('role'));
         }
         $data = [
-            'rows' => $listUser->with(['department','role'])->paginate(20),
+            'rows' => $listUser->with(['role'])->paginate(20),
             'roles' => Role::all()
         ];
         return view('User::admin.index', $data);
@@ -59,15 +56,14 @@ class UserController extends AdminController
         $data = [
             'row' => $row,
             'roles' => Role::all(),
-            'candidate_create' => $request->get('candidate_create', 0),
-            'locations' => Location::query()->where('status', 'publish')->get()->toTree(),
-            'categories' => Category::get()->toTree(),
-            'skills' => Skill::query()->where('status', 'publish')->get(),
             'breadcrumbs'=>[
                 [
                     'name'=>__("Users"),
                     'url'=>'admin/module/user'
-                ]
+                ],
+                [
+                    'name'=>__("Create new User"),
+                ],
             ]
         ];
         return view('User::admin.detail', $data);
@@ -85,10 +81,6 @@ class UserController extends AdminController
         $data = [
             'row'   => $row,
             'roles' => Role::all(),
-            'locations' => Location::query()->where('status', 'publish')->get()->toTree(),
-            'categories' => Category::get()->toTree(),
-            'cvs'   => CandidateCvs::query()->where('origin_id', $id)->with('media')->get(),
-            'skills' => Skill::query()->where('status', 'publish')->get(),
             'breadcrumbs'=>[
                 [
                     'name'=>__("Users"),
@@ -130,20 +122,15 @@ class UserController extends AdminController
             abort(403);
         }
         $request->validate([
-            'password'              => 'required|min:6|max:255',
-            'password_confirmation' => 'required',
+            'password'              => 'required|min:6|max:255|confirmed',
         ]);
-        $password_confirmation = $request->input('password_confirmation');
         $password = $request->input('password');
-        if ($password != $password_confirmation) {
-            return redirect()->back()->with("error", __("Your New password does not matches. Please type again!"));
-        }
+
         if ($urow->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             if ($password) {
                 if ($urow->id != Auth::user()->id) {
                     $rules['old_password'] = 'required';
                 }
-                $rules['password'] = 'required|string|min:6|confirmed';
             }
             $this->validate($request, $rules);
             if ($password) {
@@ -153,12 +140,10 @@ class UserController extends AdminController
                 }
             }
         }
-        $urow->password = bcrypt($password);
-        if ($urow->save()) {
+        $this->setUserPassword($urow,$password);
+        $urow->setRememberToken(Str::random(60));
 
-            if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {
-                $urow->assignRole($role);
-            }
+        if ($urow->save()) {
             return redirect()->back()->with('success', __('Password updated!'));
         }
     }
@@ -177,19 +162,6 @@ class UserController extends AdminController
                 abort(403);
             }
 
-            $request->validate([
-                'first_name'              => 'required|max:255',
-                'last_name'              => 'required|max:255',
-                'status'              => 'required|max:50',
-                'phone'              => 'required',
-                'role_id'              => 'sometimes|required|max:11',
-                'email'              =>[
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore($row->id)
-                ],
-            ]);
 
         }else{
             $check = Validator::make($request->input(),[
@@ -214,7 +186,24 @@ class UserController extends AdminController
             $row->email = $request->input('email');
         }
 
-        $row->name = $request->input('name');
+        $request->validate([
+            'first_name'              => 'required|max:255',
+            'last_name'              => 'required|max:255',
+            'business_name'              => 'required|max:255',
+            'status'              => 'required|max:50',
+            'phone'              => 'required',
+            'role_id'              => 'required|max:11',
+            'email'              =>[
+                'required',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore($row->id)
+            ],
+        ],[
+            'business_name.required'=>__("Display name is a required field")
+        ]);
+
+
         $row->first_name = $request->input('first_name');
         $row->last_name = $request->input('last_name');
         $row->phone = $request->input('phone');
@@ -223,105 +212,20 @@ class UserController extends AdminController
         $row->status = $request->input('status');
         $row->avatar_id = $request->input('avatar_id');
         $row->email = $request->input('email');
+        $row->business_name = $request->input('business_name');
+        $row->username = $row->email;
 
         if($this->hasPermission('user_manage')) {
             $row->role_id = $request->input('role_id');
         }
 
-
         if ($row->save()) {
-            if($row->role_id == 3){
-                    $cData = Candidate::find($row->id);
-                    if(empty($cData)){
-                        DB::table('bc_candidates')->insert([
-                            'id'       => $row->id
-                        ]);
-                        $cData = Candidate::find($row->id);
-                    }
-                    $cData->fillByAttr([
-                        'title',
-                        'gallery',
-                        'video',
-                        'gender',
-                        'expected_salary',
-                        'salary_type',
-                        'website',
-                        'education_level',
-                        'experience_year',
-                        'languages',
-                        'allow_search',
+            if($id > 0){
+                return back()->with('success', __('User updated'));
+            }else{
+                return redirect()->to('user.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+            }
 
-                        'address',
-                        'city',
-                        'country',
-                        'location_id',
-                        'map_lat',
-                        'map_lng',
-                        'map_zoom',
-
-                        'education',
-                        'experience',
-                        'award',
-                        'social_media',
-                        'video_cover_id'
-
-                    ], $request->input());
-                    $cData->save();
-
-                    CandidateCvs::query()->where('origin_id', $row->id)->delete();
-                    if(!empty($request->cvs)){
-                        foreach($request->cvs as $oneCv){
-                            $cv =  new CandidateCvs();
-                            $cv->file_id = $oneCv;
-                            $cv->origin_id = $row->id;
-                            $cv->is_default = ($oneCv == @$request->csv_default) ? 1 : 0;
-                            $cv->create_user = Auth::id();
-                            $cv->save();
-                        }
-                    }
-
-                    if(!empty($request->skills)){
-                        $cSkills =  CandidateSkills::query()->where('origin_id', $row->id)->pluck('skill_id')->toArray();
-                        foreach($request->skills as $skill){
-                            $pos = array_search(intval($skill), $cSkills);
-                            if($pos !== false){
-                                unset($cSkills[$pos]);
-                            }else{
-                                DB::table('bc_candidate_skills')->insert([
-                                    'origin_id'       => $row->id,
-                                    'skill_id'        => $skill
-                                ]);
-                            }
-                        }
-                        if(!empty($cSkills)){
-                            CandidateSkills::query()->where('origin_id', $row->id)->whereIn('skill_id', $cSkills)->delete();
-                        }
-                    }else{
-                        CandidateSkills::query()->where('origin_id', $row->id)->delete();
-                    }
-
-                    if(!empty($request->categories)){
-                        $cCats =  CandidateCategories::query()->where('origin_id', $row->id)->pluck('cat_id')->toArray();
-                        foreach($request->categories as $category){
-                            $pos = array_search(intval($category), $cCats);
-                            if($pos !== false){
-                                unset($cCats[$pos]);
-                            }else{
-                                DB::table('bc_candidate_categories')->insert([
-                                    'origin_id'       => $row->id,
-                                    'cat_id'        => $category
-                                ]);
-                            }
-                        }
-                        if(!empty($cCats)){
-                            CandidateCategories::query()->where('origin_id', $row->id)->whereIn('cat_id', $cCats)->delete();
-                        }
-                    }else{
-                        CandidateCategories::query()->where('origin_id', $row->id)->delete();
-                    }
-
-                }
-            return back()->with('success', ($id and $id>0) ? __('User updated'):__("User created"));
         }
     }
 

@@ -13,7 +13,7 @@ class CreateBravoContactTable extends Migration
      */
     public function up()
     {
-        Schema::create('bc_contact', function (Blueprint $table) {
+        Schema::create('core_contact', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255)->nullable();
             $table->string('email', 255)->nullable();
@@ -33,6 +33,6 @@ class CreateBravoContactTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bc_contact');
+        Schema::dropIfExists('core_contact');
     }
 }

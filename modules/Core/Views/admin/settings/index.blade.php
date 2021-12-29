@@ -3,7 +3,7 @@
     <div class="container">
         <div class="mb40">
             <div class="d-flex justify-content-between">
-                <h1 class="title-bar">{{$group['name']}}</h1>
+                <h1 class="title-bar">{{$group['title']}}</h1>
             </div>
             <hr>
         </div>
@@ -16,10 +16,10 @@
                         <ul class="panel-navs">
                             @foreach($groups as $k=>$row)
                                 <li class="@if($current_group == $k) active @endif"><a href="{{url('admin/module/core/settings/index/'.$k)}}">
-                                    @if($row['icon'])
+                                    @if(!empty($row['icon']))
                                     <i class="{{$row['icon']}}"></i>
                                     @endif
-                                    {{$row['name']}}
+                                    {{$row['title']}}
                                 </a></li>
                             @endforeach
                         </ul>

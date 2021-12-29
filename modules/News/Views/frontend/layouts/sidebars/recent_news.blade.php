@@ -6,7 +6,7 @@
         @php $list_blog = $model_news->with(['getCategory','translations'])->orderBy('id','desc')->paginate(5) @endphp
         @if($list_blog)
             @foreach($list_blog as $blog)
-                @php $translation = $blog->translateOrOrigin(app()->getLocale()) @endphp
+                @php $translation = $blog->translate(app()->getLocale()) @endphp
                 <article class="post">
                     @if($image_url = get_file_url($blog->image_id, 'thumb'))
                         <div class="post-thumb">

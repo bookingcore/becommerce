@@ -1,4 +1,4 @@
-@php $translation = $row->translateOrOrigin(app()->getLocale());
+@php $translation = $row->translate(app()->getLocale());
     $user = \Modules\User\Models\User::find($row->create_user);
 @endphp
 <div class="auto-container">
@@ -46,7 +46,7 @@
         @if(!empty($near_post))
             <div class="post-control d-block overflow-hidden">
                 @foreach($near_post as $post)
-                    @php $translation = $post->translateOrOrigin(app()->getLocale()); @endphp
+                    @php $translation = $post->translate(app()->getLocale()); @endphp
                     @if($post->id < $row->id)
                         <div class="prev-post float-left">
                             <span class="icon flaticon-back"></span>

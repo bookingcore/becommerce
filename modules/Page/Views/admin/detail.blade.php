@@ -14,8 +14,11 @@
                     @endif
                 </div>
                 <div class="">
+                    @if($row->id)
+                        <a class="btn btn-primary btn-sm" href="{{route('page.admin.builder',['id'=>$row->id])}}"><i class="fa fa-paint-brush"></i> {{ __('Template Builder')}}</a>
+                    @endif
                     @if($row->slug)
-                        <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{ __('View page')}}</a>
+                        <a class="btn btn-default btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank"><i class="fa fa-eye"></i> {{ __('View page')}}</a>
                     @endif
                 </div>
             </div>
@@ -57,52 +60,52 @@
                                     <label><input @if($row->status=='draft') checked @endif type="radio" name="status" value="draft"> {{__("Draft")}}
                                     </label></div>
                                 @endif
+
+                                    <hr>
+                                <div class="form-group">
+                                    <label >{{__("Display type")}}</label>
+
+                                    <div>
+                                        <label><input @if($row->show_template) checked @endif type="radio" name="show_template" value="1"> {{__("Template")}}
+                                        </label></div>
+                                    <div>
+                                        <label><input @if(!$row->show_template) checked @endif type="radio" name="show_template" value="0"> {{__("Content")}}
+                                        </label></div>
+                                </div>
+                            </div>
+                            <div class="panel-footer">
                                 <div class="text-right">
-                                    <button class="btn btn-primary" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
                                 </div>
                             </div>
                         </div>
+
                         @if(is_default_lang())
                             <div class="panel">
-                                @php
-                                    $page_style = ($row->page_style) ? json_decode($row->page_style) : '';
-                                @endphp
-                                <div class="panel-title"><strong>{{__('Template Setting')}}</strong></div>
+                                <div class="panel-title"><strong>{{__("Author")}}</strong></div>
                                 <div class="panel-body">
-                                    <select name="template_id" class="form-control">
-                                        <option value="">{{__('-- Select --')}}</option>
-                                        @if($templates)
-                                            @foreach($templates as $template)
-                                                <option value="{{$template->id}}" @if($row->template_id == $template->id) selected @endif >{{$template->title}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <hr>
-                                    <label>{{ __('Page Header Style') }}</label>
-                                    <select name="page_style[header]" class="form-control">
-                                        @if(list_homepage_style())
-                                            @foreach(list_homepage_style() as $key => $item)
-                                                <option @if (!empty($page_style) && $page_style->header == $key) selected @endif value="{{$key}}">{{$item}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <hr>
-                                    <label>{{ __('Page Footer Style') }}</label>
-                                    <select name="page_style[footer]" class="form-control">
-                                        @if(list_homepage_style())
-                                            @foreach(list_homepage_style() as $key => $item)
-                                                <option @if (!empty($page_style) && $page_style->footer == $key) selected @endif value="{{$key}}">{{$item}}</option>
-                                            @endforeach
-                                        @endif
-                                    </select>
-                                    <hr>
-                                    <label>{{ __('Show Breadcrumb') }}</label>
-                                    <div class="show-breadcrumb">
-                                        <label><input @if($row->show_breadcrumb=='0' || empty($row->show_breadcrumb)) checked @endif type="radio" name="show_breadcrumb" value="0"> {{__("On")}}</label>
-                                        <label><input @if($row->show_breadcrumb=='1') checked @endif type="radio" name="show_breadcrumb" value="1"> {{__("Off")}}</label>
+                                    <div class="form-group">
+                                        <?php
+                                        $user = !empty($row->author_id) ? App\User::find($row->author_id) : false;
+                                        \App\Helpers\AdminForm::select2('author_id', [
+                                            'configs' => [
+                                                'ajax'        => [
+                                                    'url' => url('/admin/module/user/getForSelect2'),
+                                                    'dataType' => 'json'
+                                                ],
+                                                'allowClear'  => true,
+                                                'placeholder' => __('-- Select User --')
+                                            ]
+                                        ], !empty($user->id) ? [
+                                            $user->id,
+                                            $user->getDisplayName() . ' (#' . $user->id . ')'
+                                        ] : false)
+                                        ?>
                                     </div>
                                 </div>
                             </div>
+                        @endif
+                        @if(is_default_lang())
                             <div class="panel">
                                 <div class="panel-body">
                                     @php

@@ -1,12 +1,11 @@
 <?php
 namespace Modules\Product;
+use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductVariation;
-use Modules\Product\Models\Space;
-use Modules\Product\Models\VariableProduct;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -14,6 +13,11 @@ class ModuleProvider extends ModuleServiceProvider
     public function boot(){
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+
+        SettingManager::register("product",[$this,'getProductSettings']);
+        SettingManager::register("store",[$this,'getStoreSettings']);
+        SettingManager::register("shipping",[$this,'getShippingSettings']);
+        SettingManager::register("tax",[$this,'getTaxSettings']);
 
     }
     /**
@@ -30,7 +34,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'product'=>[
-                "position"=>41,
+                "position"=>40,
                 'url'        => 'admin/module/product',
                 'title'      => __('Products'),
                 'icon'       => 'icon ion-ios-cart',
@@ -66,9 +70,18 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
+                ]
+            ],
+            'coupon'=>[
+                'url'        => 'admin/module/product/coupon',
+                'title'      => __('Coupons'),
+                'permission' => 'product_manage_others',
+                "position"=>42,
+                'icon'       => 'icon ion-ios-barcode',
+                'children'=>[
                     'coupon'=>[
                         'url'        => 'admin/module/product/coupon',
-                        'title'      => __('All Coupon'),
+                        'title'      => __('All Coupons'),
                         'permission' => 'product_manage_others',
                     ],
                     'coupon_create'=>[
@@ -216,5 +229,90 @@ class ModuleProvider extends ModuleServiceProvider
             ]
         ];
         return $res;
+    }
+
+    public function getProductSettings(){
+        return [
+            'id'   => 'product',
+            'title' => __("Product Settings"),
+            'position'=>32,
+            'view'=>"Product::admin.settings.product",
+            "keys"=>[
+                'product_page_search_title',
+                'products_per_page',
+                'product_page_list_seo_title',
+                'product_page_list_seo_desc',
+                'product_page_list_seo_image',
+                'product_page_list_seo_share',
+
+                'product_enable_review',
+                'product_review_approved',
+                'product_review_verification_required',
+                'product_review_number_per_page',
+
+                'product_enable_stock_management',
+                'product_hold_stock',
+                'product_hide_products_out_of_stock',
+
+                'product_booking_buyer_fees',
+                'product_policies',
+                'shipping_information',
+                'ads_url',
+                'ads_image',
+                'product_sidebar',
+                'list_sliders'
+            ],
+            'html_keys'=>[
+
+            ]
+        ];
+    }
+
+    public function getStoreSettings(){
+        return [
+            'id'   => 'store',
+            'title' => __("Store Settings"),
+            'position'=>31,
+            'view'=>"Product::admin.settings.store",
+            'keys' => [
+                'store_address',
+                'store_city',
+                'store_country',
+                'store_postcode'
+            ],
+            'html_keys' => [
+
+            ]
+        ];
+    }
+
+    public function getShippingSettings(){
+        return [
+            'id'   => 'shipping',
+            'title' => __("Shipping Settings"),
+            'position'=>33,
+            'view'=>"Product::admin.settings.shipping",
+            'keys' => [
+
+            ],
+            'html_keys' => [
+
+            ]
+        ];
+    }
+
+    public function getTaxSettings(){
+        return [
+            'id'   => 'tax',
+            'title' => __("Tax Settings"),
+            'position'=>34,
+            'view'=>"Product::admin.settings.tax",
+            'keys' => [
+
+            ],
+            'html_keys' => [
+
+            ]
+        ];
     }
 }

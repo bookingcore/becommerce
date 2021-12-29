@@ -2,6 +2,7 @@
 namespace Modules\Vendor;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 use Modules\Vendor\Providers\RouterServiceProvider;
 
@@ -14,6 +15,8 @@ class ModuleProvider extends ModuleServiceProvider
         $this->publishes([
             __DIR__.'/Config/config.php' => config_path('location.php'),
         ]);
+
+        SettingManager::register("vendor",[$this,'getVendorSettings']);
 
     }
     /**
@@ -33,6 +36,25 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'vendor_register_form'=>"\\Modules\\Vendor\\Blocks\\VendorRegisterForm",
+        ];
+    }
+
+    public static function getVendorSettings(){
+        return [
+            'id'        => 'vendor',
+            'title'     => __("Vendor Settings"),
+            'position'  => 50,
+            'view'      => "Vendor::admin.settings.vendor",
+            "keys"      => [
+                'vendor_enable',
+                'vendor_commission_type',
+                'vendor_commission_amount',
+                'vendor_auto_approved',
+                'vendor_role',
+            ],
+            'html_keys' => [
+
+            ]
         ];
     }
 }

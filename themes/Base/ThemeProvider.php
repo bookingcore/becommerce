@@ -6,7 +6,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
     public static $name = "Default Theme";
 
-    public static $screenshot = "/default/screenshot.png";
+    public static $screenshot = "/screenshot.png";
 
     public static function info()
     {

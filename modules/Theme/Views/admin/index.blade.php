@@ -4,6 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{ __('All Themes')}}</h1>
             <div class="title-actions">
+                <a href="{{route('theme.admin.upload')}}" class="btn btn-primary"><i class="fa fa-upload"></i> {{__("Upload")}}</a>
             </div>
         </div>
         @include('admin.message')
@@ -13,7 +14,10 @@
                     <div class="card">
                         <img class="card-img-top" src="{{asset("themes/".$theme_id)}}{{$themeClass::$screenshot}}" alt="">
                         <div class="card-body">
-                            <h5 class="card-title">{{$themeClass::$name}}</h5>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title">{{$themeClass::$name}}</h5>
+                                <span class="badge badge-secondary">{{$themeClass::$version}}</span>
+                            </div>
                             @if(\Modules\Theme\ThemeManager::current() == strtolower($theme_id))
                                 <span class="badge badge-success">{{__('Current')}}</span>
                             @else

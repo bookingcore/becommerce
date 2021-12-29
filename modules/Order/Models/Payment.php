@@ -12,7 +12,7 @@ class Payment extends BaseModel
     CONST ON_HOLD = 'on_hold';
 
     use SoftDeletes;
-    protected $table = 'bc_payments';
+    protected $table = 'core_payments';
 
     protected $attributes = [
         'status'=>'draft'

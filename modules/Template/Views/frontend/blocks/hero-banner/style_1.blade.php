@@ -24,7 +24,7 @@
                                         <option value="">{{ __("All City") }}</option>
                                         @foreach($list_locations as $location)
                                             @php
-                                                $translate = $location->translateOrOrigin(app()->getLocale());
+                                                $translate = $location->translate(app()->getLocale());
                                             @endphp
                                             <option value="{{ $location->id }}" >{{ $translate->name }}</option>
                                         @endforeach

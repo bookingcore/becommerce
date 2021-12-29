@@ -13,6 +13,8 @@ class RouterServiceProvider extends ServiceProvider
      */
     protected $moduleNamespace = 'Modules\Product\Controllers';
 
+    protected $moduleApiNamespace = 'Modules\Product\Api';
+
     protected $adminModuleNamespace = 'Modules\Product\Admin';
 
     /**
@@ -97,7 +99,7 @@ class RouterServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->moduleNamespace)
+            ->namespace($this->moduleApiNamespace)
             ->group(__DIR__ . '/Routes/api.php');
     }
 }

@@ -12,7 +12,7 @@ class Plan extends Bookable
 
     use SoftDeletes;
 
-    protected $table = 'bc_plans';
+    protected $table = 'core_plans';
     public $type = 'plan';
 
     public function getDurationTextAttribute(){

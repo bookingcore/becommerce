@@ -50,7 +50,7 @@ class AvailabilityController extends FrontendController{
             $q->where('create_user',$this->currentUser()->id);
         }
 
-        $q->orderBy('bc_spaces.id','desc');
+        $q->orderBy('core_spaces.id','desc');
 
         $rows = $q->paginate(15);
 

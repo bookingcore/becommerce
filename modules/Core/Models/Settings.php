@@ -12,12 +12,11 @@ class Settings extends BaseModel
 
     protected $table = 'core_settings';
 
-    public static function getSettings($group = '',$locale = '')
+    public static function getSettings($keys)
     {
-        if ($group) {
-            static::where('group', $group);
-        }
-        $all = static::all();
+        $query = parent::query()->where('name', $keys);
+        $all = $query->get();
+
         $res = [];
         foreach ($all as $row) {
             $res[$row->name] = $row->val;
@@ -50,79 +49,6 @@ class Settings extends BaseModel
         Cache::forget('setting_' . $key);
     }
 
-    public static function getSettingPages(){
-        $allSettings = [
-            'general'=>[
-                'id'=>'general',
-                'title' => __("General Settings"),
-                'position'=>10
-            ],
-        ];
-
-        // Modules
-        $custom_modules = \Modules\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Modules\\".ucfirst($module)."\\SettingClass";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getSettingPages']);
-                    if(!empty($blockConfig)){
-                        foreach ($blockConfig as $k=>$v){
-                            $allSettings[$v['id']] = $v;
-                        }
-                    }
-                }
-            }
-        }
-        //Custom
-        $custom_modules = \Custom\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Custom\\".ucfirst($module)."\\SettingClass";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getSettingPages']);
-                    if(!empty($blockConfig)){
-                        foreach ($blockConfig as $k=>$v){
-                            $allSettings[$v['id']] = $v;
-                        }
-                    }
-                }
-            }
-        }
-        //Plugins
-        $plugins_modules = \Plugins\ServiceProvider::getModules();
-        if(!empty($plugins_modules)){
-            foreach($plugins_modules as $module){
-                $moduleClass = "\\Plugins\\".ucfirst($module)."\\SettingClass";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getSettingPages']);
-                    if(!empty($blockConfig)){
-                        foreach ($blockConfig as $k=>$v){
-                            $allSettings[$v['id']] = $v;
-                        }
-                    }
-                }
-            }
-        }
-
-        //@todo Sort items by Position
-        $allSettings = array_values(\Illuminate\Support\Arr::sort($allSettings, function ($value) {
-            return $value['position'] ?? 0;
-        }));
-
-        if(!empty($allSettings)){
-            foreach ($allSettings as &$item)
-            {
-                $item['url'] = 'admin/module/core/settings/index/'.$item['id'];
-                $item['name'] = $item['title'] ?? $item['id'];
-                $item['icon'] = $item['icon'] ?? '';
-            }
-        }
-        return $allSettings;
-    }
     public static function clearCustomCssCache(){
         $langs = Language::getActive();
         if(!empty($langs)){

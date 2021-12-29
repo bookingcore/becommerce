@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("Languages")}}</h1>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="row">
             <div class="col-md-4 mb40">
                 <div class="panel">
@@ -33,7 +33,7 @@
                                     <option value="draft">{{__(" Move to Draft ")}}</option>
                                     <option value="delete">{{__(" Delete ")}}</option>
                                 </select>
-                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                             </form>
                         @endif
                     </div>

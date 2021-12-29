@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Attributes extends BaseModel
 {
     use SoftDeletes;
-    protected $table = 'bc_attrs';
+    protected $table = 'core_attrs';
     protected $fillable = ['name','hide_in_single','hide_in_filter_search','position','status'];
     protected $slugField = 'slug';
     protected $slugFromField = 'name';
@@ -23,7 +23,7 @@ class Attributes extends BaseModel
         $data = [];
         $attributes = Attributes::selectRaw("id,name,slug,service")->where('service', $service_type)->get();
         foreach ($attributes as $item){
-            $translation = $item->translateOrOrigin(app()->getLocale());
+            $translation = $item->translate(app()->getLocale());
             $list_terms = $item->terms;
             $data[] = [
                 'id'    => $item->id,

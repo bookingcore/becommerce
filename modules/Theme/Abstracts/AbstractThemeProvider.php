@@ -10,6 +10,8 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
     public static $screenshot;
 
+    public static $version = "1.0";
+
     /**
      * Return Theme Info
      *

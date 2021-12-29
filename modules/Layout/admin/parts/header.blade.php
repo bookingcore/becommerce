@@ -14,7 +14,7 @@ $locale = App::getLocale();
 ?>
 
 <div class="header-logo flex-shrink-0">
-    <h3 class="logo-text"><a href="{{url('/admin')}}">{{__('Booking Core')}} <span class="app-version">{{config('app.version')}}</span></a></h3>
+    <h3 class="logo-text"><a href="{{url('/admin')}}">{{__('BeCommerce')}} <span class="app-version">{{config('app.version')}}</span></a></h3>
 </div>
 <div class="header-widgets d-flex flex-grow-1">
     <div class="widgets-left d-flex flex-grow-1 align-items-center">
@@ -143,7 +143,7 @@ $locale = App::getLocale();
                 <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> {{__('Logout')}}
                 </a>
             </div>
-            <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 {{ csrf_field() }}
             </form>
         </div>

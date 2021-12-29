@@ -5,7 +5,7 @@ use App\BaseModel;
 
 class TermsTranslation extends BaseModel
 {
-    protected $table = 'bc_terms_translations';
+    protected $table = 'core_terms_translations';
     protected $fillable = [
         'name',
         'content',

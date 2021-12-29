@@ -16,7 +16,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class Coupon extends BaseProduct
 {
-    protected $table = 'bc_coupon';
+    protected $table = 'core_coupon';
     public $type = 'product';
 
     protected $fillable = [
@@ -206,7 +206,7 @@ class Coupon extends BaseProduct
 
     public function check_enable_review_after_booking()
     {
-        $option = setting_item("product_enable_review_after_booking", 0);
+        $option = setting_item("product_review_verification_required", 0);
         if ($option) {
             $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
             $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;
@@ -291,8 +291,8 @@ class Coupon extends BaseProduct
     {
         $number = 0;
         if(!empty($location)) {
-            $number = parent::join('bc_locations', function ($join) use ($location) {
-                $join->on('bc_locations.id', '=', $this->table.'.location_id')->where('bc_locations._lft', '>=', $location->_lft)->where('bc_locations._rgt', '<=', $location->_rgt);
+            $number = parent::join('core_locations', function ($join) use ($location) {
+                $join->on('core_locations.id', '=', $this->table.'.location_id')->where('core_locations._lft', '>=', $location->_lft)->where('core_locations._rgt', '<=', $location->_rgt);
             })->where($this->table.".status", "publish")->count($this->table.".id");
         }
         if ($number > 1) {

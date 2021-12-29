@@ -19,7 +19,7 @@
                                 <option value="">{{ __("All City") }}</option>
                                 @foreach($list_locations as $location)
                                     @php
-                                        $translate = $location->translateOrOrigin(app()->getLocale());
+                                        $translate = $location->translate(app()->getLocale());
                                     @endphp
                                     <option value="{{ $location->id }}" >{{ $translate->name }}</option>
                                 @endforeach
@@ -32,7 +32,7 @@
                                 <option value="">{{ __('All Categories')}}</option>
                                 @foreach($list_categories as $cat)
                                     @php
-                                        $translate = $cat->translateOrOrigin(app()->getLocale());
+                                        $translate = $cat->translate(app()->getLocale());
                                     @endphp
                                     <option value="{{ $cat->id }}" @if($cat->id == request()->get('category')) selected @endif  >{{ $translate->name }}</option>
                                 @endforeach

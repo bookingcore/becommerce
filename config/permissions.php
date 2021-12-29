@@ -10,6 +10,8 @@ return [
     "product_delete",
     "product_manage_others",
     "product_manage_attributes",
+    // POS
+    "pos_access",
 
     // Page
     "page_manage",

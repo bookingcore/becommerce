@@ -32,7 +32,7 @@ class CategoryNewsController extends FrontendController
                 ->groupBy('core_news.id');
 
 
-        $translation = $cat->translateOrOrigin(app()->getLocale());
+        $translation = $cat->translate(app()->getLocale());
 
         $data = [
             'rows'           => $listNews->with("getAuthor")->with("getCategory")->paginate(5),

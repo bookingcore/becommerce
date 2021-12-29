@@ -50,7 +50,7 @@ class CategoryController extends AdminController
         $this->checkPermission('news_manage_others');
         $row = NewsCategory::find($id);
 
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         if (empty($row)) {
             return redirect('admin/module/news/category');

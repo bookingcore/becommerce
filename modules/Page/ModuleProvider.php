@@ -36,6 +36,18 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(RouterServiceProvider::class);
     }
 
+    public static function getAdminMenu()
+    {
+        return [
+            'page'=>[
+                "position"=>40,
+                'url'        => route('page.admin.index'),
+                'title'      => __('Pages'),
+                'icon'  => 'icon ion-ios-bookmarks',
+            ],
+        ];
+    }
+
     public static function getMenuBuilderTypes()
     {
         return [

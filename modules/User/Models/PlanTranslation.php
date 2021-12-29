@@ -12,7 +12,7 @@ class PlanTranslation extends BaseModel
 
     use SoftDeletes;
 
-    protected $table = 'bc_plan_trans';
+    protected $table = 'core_plan_trans';
 
     protected $fillable = [
         'title',

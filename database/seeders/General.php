@@ -120,6 +120,7 @@ namespace Database\Seeders;
                 'title'       => 'Home Page',
                 'slug'        => 'home-page',
                 'template_id' => '2',
+                'author_id' => 1,
                 'create_user' => '1',
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
@@ -130,6 +131,7 @@ namespace Database\Seeders;
                 'slug'        => 'become-a-vendor',
                 'template_id' => '1',
                 'create_user' => '1',
+                'author_id' => 1,
                 'status'      => 'publish',
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
@@ -142,29 +144,15 @@ namespace Database\Seeders;
                 'page_style'  => '{"header":"1","footer":"1"}',
                 'create_user' => '1',
                 'status'      => 'publish',
+                'author_id' => 1,
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
 
             DB::table('core_settings')->insert(
                 [
                     [
-                        'name'  => 'home_page_id',
-                        'val'   => '1',
-                        'group' => "general",
-                    ],
-                    [
-                        'name' => 'page_contact_title',
-                        'val' => "We'd love to hear from you",
-                        'group' => "general",
-                    ],
-                    [
                         'name' => 'page_contact_title_ja',
                         'val' => "あなたからの御一報をお待ち",
-                        'group' => "general",
-                    ],
-                    [
-                        'name' => 'page_contact_sub_title',
-                        'val' => "Send us a message and we'll respond as soon as possible",
                         'group' => "general",
                     ],
                     [
@@ -172,16 +160,6 @@ namespace Database\Seeders;
                         'val' => "私たちにメッセージを送ってください、私たちはできるだ",
                         'group' => "general",
                     ],
-                    [
-                        'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Becommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
-                        'group' => "general",
-                    ],
-                    [
-                        'name' => 'page_contact_image',
-                        'val' => MediaFile::findMediaByName("bg_contact")->id ?? '',
-                        'group' => "general",
-                    ]
                 ]
             );
 
@@ -273,11 +251,6 @@ namespace Database\Seeders;
                     'val' => "UTC",
                     'group' => "general",
                 ],
-                [
-                    'name' => "site_title",
-                    'val' => "Becommerce",
-                    'group' => "general",
-				],
 				[
 					'name'  => "email_header",
 					'val'   => '<h1 class="site-title" style="text-align: center">Becommerce</h1>',

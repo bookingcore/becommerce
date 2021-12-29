@@ -5,7 +5,7 @@ use Modules\Booking\Models\Bookable;
 
 class SEO extends Bookable
 {
-    protected $table    = 'bc_seo';
+    protected $table    = 'core_seo';
     protected $fillable = [
         'seo_index',
         'seo_title',

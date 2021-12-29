@@ -32,7 +32,7 @@
                 $product_type = ($row['product_type'] == 'simple') ? __('Add to cart') : __('Select options');
                 $product_slug = ($row['product_type'] == 'variable') ? 'href='.route('product.detail',['slug'=>e($row['slug'])]) : '';
                 $product_data = ($row['product_type'] == 'simple') ? 'data-product={"id":'.$row['id'].',"type":"'.e($row['product_type']).'"}' : '';
-                $add_to_cart = ($row['product_type'] == 'simple') ? 'bc_add_to_cart' : '';
+                $add_to_cart = ($row['product_type'] == 'simple') ? 'core_add_to_cart' : '';
                 if ($row['stock_status'] == 'in'){
                     $c_add .= "<td><a $product_slug class='btn-add-to-cart $add_to_cart' $product_data>$product_type</a></td>";
                 } else {

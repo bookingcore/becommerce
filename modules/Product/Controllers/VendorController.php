@@ -184,7 +184,7 @@ class VendorController extends FrontendController
         if (empty($row)) {
             return redirect(route('product.vendor.index'))->with('warning', __('Product not found!'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $data = [
             'translation'    => $translation,
             'row'           => $row,

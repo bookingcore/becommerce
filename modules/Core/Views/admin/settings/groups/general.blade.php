@@ -149,25 +149,6 @@
     <hr>
     <div class="row">
         <div class="col-sm-4">
-            <h3 class="form-group-title">{{__('Contact Information')}}</h3>
-            <p class="form-group-desc">{{__('How your customer can contact to you')}}</p>
-        </div>
-        <div class="col-sm-8">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label>{{__("Phone Contact")}}</label>
-                        <div class="form-controls">
-                            <input type="text" class="form-control" name="phone_contact" value="{{$settings['phone_contact'] ?? '' }}">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <hr>
-    <div class="row">
-        <div class="col-sm-4">
             <h3 class="form-group-title">{{__('Homepage')}}</h3>
             <p class="form-group-desc">{{__('Change your homepage content')}}</p>
         </div>
@@ -351,8 +332,7 @@
                                 </div>
                                 <div class="g-items">
                                     <?php
-                                    $page_contact_lists = $settings['page_contact_lists'];
-                                    if(!empty($page_contact_lists)) $page_contact_lists = json_decode($page_contact_lists,true);
+                                    $page_contact_lists = setting_item_array('page_contact_lists');
                                     if(empty($page_contact_lists) or !is_array($page_contact_lists))
                                         $page_contact_lists = [];
                                     ?>

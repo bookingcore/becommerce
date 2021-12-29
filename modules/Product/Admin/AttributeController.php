@@ -164,7 +164,7 @@ class AttributeController extends AdminController
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         $data = [
             'row'         => $row,

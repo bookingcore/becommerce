@@ -19,6 +19,23 @@ class RolesAndPermissionsSeeder extends Seeder
 
         $admin->givePermission(PermissionHelper::all());
 
+        $customer = \Modules\User\Models\Role::firstOrCreate([
+            'code'=>'customer',
+            'name'=>'Customer'
+        ]);
+
+        $vendor = \Modules\User\Models\Role::firstOrCreate([
+            'code'=>'vendor',
+            'name'=>'Vendor'
+        ]);
+        $vendor->givePermission([
+            'product_view',
+            'product_create',
+            'product_update',
+            'product_delete',
+            'pos_access',
+        ]);
+
 
     }
 

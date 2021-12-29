@@ -28,7 +28,7 @@ class TagNewsController extends FrontendController
             ->where('core_news_tag.deleted_at', null)
             ->with(['getAuthor','translations'])->with("getCategory");
 
-        $translation = $tag->translateOrOrigin(app()->getLocale());
+        $translation = $tag->translate(app()->getLocale());
 
         $data = [
             'rows'           => $listNews->paginate(5),

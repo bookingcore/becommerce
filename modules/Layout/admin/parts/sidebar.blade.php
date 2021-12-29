@@ -13,20 +13,13 @@ $menus = [
         'icon'       => 'icon ion-ios-apps',
         'permission' => 'menu_view',
     ],
-    'template'=>[
-        "position"=>70,
-        'url'        => 'admin/module/template',
-        'title'      => __('Templates'),
-        'icon'       => 'icon ion-logo-html5',
-        'permission' => 'template_create',
-    ],
     'general'=>[
         "position"=>80,
         'url'        => 'admin/module/core/settings/index/general',
         'title'      => __('Setting'),
         'icon'       => 'icon ion-ios-cog',
         'permission' => 'setting_update',
-        'children'   => \Modules\Core\Models\Settings::getSettingPages(true)
+        'children'   => \Modules\Core\Helpers\SettingManager::menus()
     ],
     'tools'=>[
         "position"=>90,

@@ -25,9 +25,7 @@ class CreateCoreNewsTable extends Migration
             $table->integer('update_user')->nullable();
             $table->softDeletes();
 
-            //Languages
-            $table->bigInteger('origin_id')->nullable();
-            $table->string('lang',10)->nullable();
+            $table->bigInteger('author_id')->nullable();
 
             $table->timestamps();
         });

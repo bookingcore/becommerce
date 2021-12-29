@@ -20,8 +20,9 @@ class UsersTableSeeder extends Seeder
             'phone'   => '112 666 888',
             'status'   => 'publish',
             'created_at' =>  date("Y-m-d H:i:s"),
-            'bio'=> 'We\'re designers who have fallen in love with creating spaces for others to reflect, reset, and create. We split our time between two deserts (the Mojave, and the Sonoran). We love the way the heat sinks into our bones, the vibrant sunsets, and the wildlife we get to call our neighbors.'
+            'bio'=> 'We\'re designers who have fallen in love with creating spaces for others to reflect, reset, and create. We split our time between two deserts (the Mojave, and the Sonoran). We love the way the heat sinks into our bones, the vibrant sunsets, and the wildlife we get to call our neighbors.',
         ]);
+        $user->email_verified_at = date('Y-m-d H:i:s');
         $user->need_update_pw = 1;
         $user->save();
         $user->assignRole('admin');

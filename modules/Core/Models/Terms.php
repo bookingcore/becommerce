@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Terms extends BaseModel
 {
     use SoftDeletes;
-    protected $table = 'bc_terms';
+    protected $table = 'core_terms';
     protected $fillable = [
         'name',
         'content',
@@ -48,13 +48,13 @@ class Terms extends BaseModel
 
     public static function getForSelect2Query($service,$q=false)
     {
-        $query =  static::query()->select('bc_terms.id', DB::raw('CONCAT(at.name,": ",bc_terms.name) as text'))
-        ->join('bc_attrs as at','at.id','=','bc_terms.attr_id')
+        $query =  static::query()->select('core_terms.id', DB::raw('CONCAT(at.name,": ",core_terms.name) as text'))
+        ->join('core_attrs as at','at.id','=','core_terms.attr_id')
         ->where("at.service",$service)
         ->whereRaw("at.deleted_at is null");
 
         if ($query) {
-            $query->where('bc_terms.name', 'like', '%' . $q . '%');
+            $query->where('core_terms.name', 'like', '%' . $q . '%');
         }
         return $query;
     }
@@ -66,7 +66,7 @@ class Terms extends BaseModel
         if(!empty($terms)){
             foreach ($terms as $term){
                 $attr = $term->attribute;
-                $attrTranslation = $attr->translateOrOrigin(app()->getLocale());
+                $attrTranslation = $attr->translate(app()->getLocale());
                 $dataAttr = array(
                     'id'=>$attr->id,
                     'title'=>$attrTranslation->name,
@@ -78,7 +78,7 @@ class Terms extends BaseModel
                 if(!empty($dataAttr) and empty($dataAttr['hide_in_single'])){
                     if(empty($listTerms[$term->attr_id]['child'])) $listTerms[$term->attr_id]['parent'] = $dataAttr;
                     if(empty($listTerms[$term->attr_id]['child'])) $listTerms[$term->attr_id]['child'] = [];
-                    $termTranslation = $term->translateOrOrigin(app()->getLocale());
+                    $termTranslation = $term->translate(app()->getLocale());
                     $dataAttr = array(
                         'id'=>$term->id,
                         'title'=>$termTranslation->name,
@@ -96,7 +96,7 @@ class Terms extends BaseModel
     }
 
     public function dataForApi(){
-        $translation = $this->translateOrOrigin(app()->getLocale());
+        $translation = $this->translate(app()->getLocale());
         return [
             'id'=>$this->id,
             'name'=>$translation->name,

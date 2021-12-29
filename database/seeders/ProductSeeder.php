@@ -398,7 +398,7 @@ class ProductSeeder extends Seeder
 
         //attr
         $attr = [];
-        $attr['color'] = DB::table('bc_attrs')->insertGetId([
+        $attr['color'] = DB::table('core_attrs')->insertGetId([
             'name'      =>      'Color',
             'display_type'=>    'color',
             'slug'      =>      'color',
@@ -406,7 +406,7 @@ class ProductSeeder extends Seeder
             'create_user'=>     '1',
             'status'=>'publish'
         ]);
-        $attr['size'] = DB::table('bc_attrs')->insertGetId([
+        $attr['size'] = DB::table('core_attrs')->insertGetId([
             'name'      =>      'Size',
             'display_type'=>    'text',
             'slug'      =>      'size',
@@ -468,7 +468,7 @@ class ProductSeeder extends Seeder
         ];
         $term = [];
         foreach ($term_list as $k => $list){
-            $term[$k] = DB::table('bc_terms')->insertGetId($list);
+            $term[$k] = DB::table('core_terms')->insertGetId($list);
         }
         //end create term
 
@@ -665,7 +665,7 @@ class ProductSeeder extends Seeder
         );
 
 
-        DB::table('bc_coupon')->insert(
+        DB::table('core_coupon')->insert(
             [
                 [
                     'name'  =>  'QF645TY6',
@@ -708,7 +708,7 @@ class ProductSeeder extends Seeder
 
         //comments
         $ip = "127.0.0.1";
-        DB::table('bc_review')->insert(
+        DB::table('core_review')->insert(
         [
             [
                 'object_id'     =>  $id_8,

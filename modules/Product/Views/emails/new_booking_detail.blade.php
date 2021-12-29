@@ -1,5 +1,5 @@
 <?php
-$translation = $service->translateOrOrigin(app()->getLocale());
+$translation = $service->translate(app()->getLocale());
 $lang_local = app()->getLocale();
 ?>
 <div class="b-panel-title">{{__('Product information')}}</div>

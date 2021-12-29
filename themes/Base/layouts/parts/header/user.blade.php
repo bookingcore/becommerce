@@ -20,13 +20,13 @@
                 </a>
                 <ul class="ps-dropdown-menu text-left">
                     @if(Auth::user()->hasPermission('vendor_access'))
-                        <li><a href="{{url(app_get_locale().'/user/dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
+                        <li><a href="{{route('vendor.dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
                     @endif
                     <li class="@if(Auth::user()->hasPermission('vendor_access')) menu-hr @endif">
                         <a href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
                     </li>
                     <li class="menu-hr"><a href="{{route('user.order.index')}}"><i class="fa fa-clock-o"></i> {{__("Order History")}}</a></li>
-                    <li class="menu-hr"><a href="{{url(app_get_locale().'/user/profile/change-password')}}"><i class="fa fa-lock"></i> {{__("Change password")}}</a></li>
+                    <li class="menu-hr"><a href="{{route('user.password')}}"><i class="fa fa-lock"></i> {{__("Change password")}}</a></li>
                     @if(Auth::user()->hasPermission('setting_update'))
                         <li class="menu-hr"><a href="{{url('/admin')}}"><i class="fa fa-tachometer"></i> {{__("Admin Dashboard")}}</a></li>
                     @endif

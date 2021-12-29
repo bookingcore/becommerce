@@ -154,7 +154,7 @@ function get_file_url($file_id,$size="thumb",$resize = true){
     return \Modules\Media\Helpers\FileHelper::url($file_id,$size,$resize);
 }
 
-function get_image_tag($image_id,$size = 'thumb',$options = []){
+function get_image_tag($image_id,$size = 'medium',$options = []){
     $options = array_merge($options,[
         'lazy'=>true
     ]);
@@ -1295,4 +1295,54 @@ function theme_url($path){
 }
 function get_main_lang(){
     return setting_item('site_locale');
+}
+/**
+ * This function returns the maximum files size that can be uploaded
+ * in PHP
+ * @returns int File size in bytes
+ **/
+function getMaximumFileUploadSize()
+{
+    return min(convertPHPSizeToBytes(ini_get('post_max_size')), convertPHPSizeToBytes(ini_get('upload_max_filesize')));
+}
+
+/**
+ * This function transforms the php.ini notation for numbers (like '2M') to an integer (2*1024*1024 in this case)
+ *
+ * @param string $sSize
+ * @return integer The value in bytes
+ */
+function convertPHPSizeToBytes($sSize)
+{
+    //
+    $sSuffix = strtoupper(substr($sSize, -1));
+    if (!in_array($sSuffix,array('P','T','G','M','K'))){
+        return (int)$sSize;
+    }
+    $iValue = substr($sSize, 0, -1);
+    switch ($sSuffix) {
+        case 'P':
+            $iValue *= 1024;
+        // Fallthrough intended
+        case 'T':
+            $iValue *= 1024;
+        // Fallthrough intended
+        case 'G':
+            $iValue *= 1024;
+        // Fallthrough intended
+        case 'M':
+            $iValue *= 1024;
+        // Fallthrough intended
+        case 'K':
+            $iValue *= 1024;
+            break;
+    }
+    return (int)$iValue;
+}
+function formatBytes($size, $precision = 2)
+{
+    $base = log($size, 1024);
+    $suffixes = array('', 'K', 'M', 'G', 'T');
+
+    return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 }

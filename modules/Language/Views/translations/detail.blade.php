@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("Translate Manager for: :name",['name'=>$lang->name])}}</h1>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="row">
             <div class="col-md-12">
                 <div class="filter-div d-flex justify-content-between">
@@ -14,6 +14,11 @@
                                 <option value="">{{__("All text")}}</option>
                                 <option @if(Request()->type == 'not_translated') selected @endif value="not_translated">{{__("Not translated")}}</option>
                                 <option @if(Request()->type == 'translated') selected @endif value="translated">{{__("Translated")}}</option>
+                            </select>
+                            <select name="search_by" class="form-control">
+                                <option value="">{{__("Search By")}}</option>
+                                <option @if(Request()->search_by == 'original_text') selected @endif value="original_text">{{__("Original Text")}}</option>
+                                <option @if(Request()->search_by == 'translated_text') selected @endif value="translated_text">{{__("Translated Text")}}</option>
                             </select>
                             <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by key ...')}}" class="form-control">
                             <button class="btn-info btn btn-icon" type="submit">{{__('Filter')}}</button>

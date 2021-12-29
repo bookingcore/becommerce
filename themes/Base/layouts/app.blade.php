@@ -68,7 +68,7 @@
             <script src="{{ theme_url('Base') }}/plugins/select2/dist/js/select2.full.min.js"></script>
             <script src="{{ theme_url('Base') }}/js/main.js"></script>
             <!-- custom scripts-->
-            <script  src="{{ theme_url('Base/js/app.js') }}">
+            <script  src="{{ theme_url('Base/js/app.js') }}"></script>
             @yield('footer')
         </footer>
     </body>

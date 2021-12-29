@@ -68,7 +68,7 @@ class TemplateController extends AdminController
         if (empty($row)) {
             return redirect('admin/module/template');
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         $data = [
             'row'         => $row,
@@ -86,6 +86,21 @@ class TemplateController extends AdminController
             'translation'=>$translation,
             'enable_multi_lang'=>true
         ];
+        switch ($request->query('ref'))
+        {
+            case "page":
+                $data['breadcrumbs'] = [
+                    [
+                        'name' => __('Page'),
+                        'url'  => route('page.admin.index')
+                    ],
+                    [
+                        'name'  => __('Edit Template: :title', ['title' => $row->title]),
+                        'class' => 'active'
+                    ],
+                ];
+                break;
+        }
         return view('Template::admin.detail', $data);
     }
 

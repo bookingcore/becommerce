@@ -1,4 +1,4 @@
-@php $translation = $row->translateOrOrigin(app()->getLocale()); @endphp
+@php $translation = $row->translate(app()->getLocale()); @endphp
     <div class="inner-box">
         <div class="image-box">
             <div class="image">
