@@ -15,7 +15,7 @@ class DepartmentMenuWalker
     {
         $items = json_decode($this->menu->items, true);
         if (!empty($items)) {
-            echo '<ul class="menu">';
+            echo '<ul class="menu--dropdown">';
             $this->generateTree($items);
             echo '</ul>';
         }
@@ -45,7 +45,7 @@ class DepartmentMenuWalker
             }
 
             if(!empty($item['layout']) and $item['layout'] == 'multi_row') {
-                $class.=' is-mega-menu';
+                $class.=' has-mega-menu';
             }
 
             printf('<li class="%s menu-item">', e($class));
@@ -58,7 +58,7 @@ class DepartmentMenuWalker
             printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), $item['name']);
             if (!empty($item['children'])) {
                 $bg = (!empty($item['bg'])) ? 'style="background: white url('.get_file_url($item['bg'],'full').') center center no-repeat"' : 'style="background: white"';
-                echo '<ul class="dropdown-submenu" '.$bg.'>';
+                echo '<ul class="mega-menu" '.$bg.'>';
                     if(!empty($item['layout']) and $item['layout'] == 'multi_row'){
                         $this->generateMultiRowTree($item['children']);
                     }else{
@@ -73,7 +73,7 @@ class DepartmentMenuWalker
 
     public function generateMultiRowTree($items = [])
     {
-        echo '<li>';
+        echo '<li class="mega-menu__column">';
         echo '<div class="mega-menu-content">';
         echo '<div class="row flex-nowrap">';
         foreach ($items as $item) {
@@ -101,13 +101,11 @@ class DepartmentMenuWalker
 
             printf('<div class="%s col-md-6">', $class);
             echo '<div class="menu-item-mega">';
-            printf('<a  target="%s" href="%s" >%s</a>', $item['target'], $url, $item['name']);
+            printf('<h4><a class="font-weight-bold" target="%s" href="%s" >%s</a></h4>', $item['target'], $url, $item['name']);
             if (!empty($item['children'])) {
-                echo '<div class="mega-menu-submenu">';
-                    echo '<ul class="sub-menu check">';
+                    echo '<ul class="mega-menu__list">';
                         $this->generateTree($item['children']);
                     echo "</ul>";
-                echo "</div>";
             }
             echo '</div>';
             echo '</div>';

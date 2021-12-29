@@ -25,6 +25,6 @@ if(!isset($current_cat)) $current_cat = null;
             @endphp
         </select>
     </div>
-    <input class="form-control" type="text" placeholder="I'm shopping for...">
-    <button>Search</button>
+    <input name="s" class="form-control" type="text" placeholder="{{ __("I'm shopping for...") }}">
+    <button type="submit">{{ __("Search") }}</button>
 </form>
