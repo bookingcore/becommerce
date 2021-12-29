@@ -11,6 +11,7 @@ use Modules\Core\Models\Attributes;
 use Modules\Core\Models\Terms;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
+use Modules\Order\Helpers\CartManager;
 use Modules\Review\Models\Review;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
@@ -463,35 +464,36 @@ class Product extends BaseProduct
         }
         return $st;
     }
+
+    public function addToCartValidate(Request $request)
+    {
+        $error = [];
+        //check price
+        if($this->price == null && $this->sale_price == null){
+            $error[] = __('This content must set price. Please contact with author.');
+        }
+        return $error;
+    }
+
     public function addToCart(Request $request)
     {
-        $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
-        $stock = $add = 0;
-
-        if (Cart::count() > 0){
-            foreach (Cart::content() as $row){
-                if ($row->id == $request->input('id')){
-                    $stock = $this->get_stock($stock,$this);
-                    if ($row->qty + $request->input('qty') > $stock){
-                        $add = 1;
-                    }
-                }
-            }
-            if ($stock <= 0){$add = 0;}
-        } else {
-            $add = 0;
+        $checkValidate = $this->addToCartValidate($request);
+        if(!empty($checkValidate)){
+            return $this->sendError($checkValidate);
         }
-        if ($add == 0) {Cart::add($this,$quantity);}
 
+        // Only single item
+        $cartProduct = CartManager::items()->where('product_id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
+        if($cartProduct){
+        }else{
+            CartManager::add($this);
+        }
         $buy_now = $request->input('buy_now');
-        $message = ($add == 0) ? __('":title" has been added to your cart.',['title'=>$this->title]) : __('Product ":title" has been out of stock.',['title'=>$this->title]);
-
-        return $this->sendSuccess(
-            [
-                'status'   => ($add == 0) ? 1 : 0,
-                'fragments'=>get_cart_fragments(),
-                'url'=>$buy_now ? route('booking.checkout') : ''
-            ], $message
+        return $this->sendSuccess([
+            'fragments'=>CartManager::get_cart_fragments(),
+            'url'=>$buy_now ? route('checkout') : ''
+        ],
+            !$buy_now ? __('":title" has been added to your cart.',['title'=>$this->title]) :''
         );
     }
 

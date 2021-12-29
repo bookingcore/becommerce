@@ -69,3 +69,159 @@ $('.bravo-form-login').on('submit',function (e) {
     });
     return false;
 })
+window.bravo_handle_error_response = function(e){
+    switch (e.status) {
+        case 401:
+            // not logged in
+            $('#login').modal('show');
+            break;
+    }
+};
+// Cart
+$(document).on('click','.bc_add_to_cart',function(e){
+    e.preventDefault();
+    $(this).addClass('loading');
+    var me = $(this);
+    console.log(
+        $(this).data('product')
+    )
+    $.ajax({
+        url:'/cart/addToCart',
+        data:$(this).data('product'),
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            me.removeClass('loading');
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.message){
+                BcApp.showAjaxMessage(json);
+            }
+
+        },
+        error:function(err){
+            bravo_handle_error_response(err);
+            me.removeClass('loading');
+        }
+    })
+})
+$(document).on('click','.bc_delete_cart_item',function(e){
+    e.preventDefault();
+    var c = confirm("Do you want to delete this cart item?");
+    if(!c) return;
+
+    var me = $(this);
+    var id = $(this).data('id');
+    $.ajax({
+        url:'cart/remove_cart_item',
+        data:{
+            id:id
+        },
+        type:'post',
+        dataType:'json',
+        success:function(json){
+            if(json.fragments){
+                for(var k in json.fragments){
+                    $(k).html(json.fragments[k]);
+                }
+            }
+            if(json.url){
+                window.location.href = json.url;
+            }
+            if(json.reload){
+                window.location.reload();
+            }
+            if(json.message){
+                socialiteApp.showAjaxMessage(json);
+            }
+
+        },
+        error:function(err){
+            bravo_handle_error_response(err);
+            console.log(err)
+        }
+    })
+})
+
+var BcApp ={
+    showSuccess:function (configs){
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }else{
+            args.message = configs;
+        }
+        if(!args.title){
+            args.title = i18n.success;
+        }
+        args.centerVertical = true;
+        bootbox.alert(args);
+    },
+    showError:function (configs) {
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }else{
+            args.message = configs;
+        }
+        if(!args.title){
+            args.title = i18n.warning;
+        }
+        args.centerVertical = true;
+        bootbox.alert(args);
+    },
+    showAjaxError:function (e) {
+        var json = e.responseJSON;
+        if(typeof json !='undefined'){
+            if(typeof json.errors !='undefined'){
+                var html = '';
+                _.forEach(json.errors,function (val) {
+                    html+=val+'<br>';
+                });
+
+                return this.showError(html);
+            }
+            if(json.message){
+                return this.showError(json.message);
+            }
+        }
+        if(e.responseText){
+            return this.showError(e.responseText);
+        }
+    },
+    showAjaxMessage:function (json) {
+        if(json.message)
+        {
+            if(json.status){
+                this.showSuccess(json);
+            }else{
+                this.showError(json);
+            }
+        }
+    },
+    showConfirm:function (configs) {
+        var args = {};
+        if(typeof configs == 'object')
+        {
+            args = configs;
+        }
+        args.buttons = {
+            confirm: {
+                label: '<i class="fa fa-check"></i> '+i18n.confirm,
+            },
+            cancel: {
+                label: '<i class="fa fa-times"></i> '+i18n.cancel,
+            }
+        };
+        args.centerVertical = true;
+        bootbox.confirm(args);
+    }
+};

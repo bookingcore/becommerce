@@ -17,9 +17,9 @@ class CartController extends FrontendController
 
         $data = [
             'items'=>CartManager::items(),
-            'page_title'=>__("Cart")
+            'page_title'=>__("Shopping Cart")
         ];
-        return view('Order::frontend.cart.index',$data);
+        return view('order.cart.index',$data);
     }
 
     public function addToCart(Request $request)
@@ -48,9 +48,9 @@ class CartController extends FrontendController
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
 
-        if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
-            return $this->sendError(__('Service not found'));
-        }
+//        if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
+//            return $this->sendError(__('Service not found'));
+//        }
         if (!$service->isBookable()) {
             return $this->sendError(__('Service is not bookable'));
         }

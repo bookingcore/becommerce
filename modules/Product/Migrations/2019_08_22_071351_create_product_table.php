@@ -32,6 +32,7 @@ class CreateProductTable extends Migration
 
             //Price
             $table->decimal('price', 12,2)->nullable();
+            $table->decimal('sale_price', 12,2)->nullable();
             $table->decimal('origin_price', 12,2)->nullable();
 
             //Extra Info

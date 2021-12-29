@@ -8,6 +8,7 @@ use Modules\Booking\Models\Bookable;
 use Modules\Order\Models\CartItem;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
+use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductLicense;
 
 class CartManager
@@ -21,6 +22,9 @@ class CartManager
         if(!$item){
             if($product_id instanceof Bookable){
                 $item = CartItem::fromModel($product_id,$qty,$price,$meta, $variant_id);
+            }elseif ($product_id instanceof Product){
+                $item = CartItem::fromProduct($product_id,$qty,$price,$meta, $variant_id);
+
             }else{
                 $item = CartItem::fromAttribute($product_id,$name,$qty,$price, $meta, $variant_id);
             }
@@ -47,6 +51,9 @@ class CartManager
 
         $currentItems  = static::items();
         if($product_id instanceof Bookable){
+            $items =  $currentItems->where('product_id',$product_id->id);
+        }
+        elseif($product_id instanceof Product){
             $items =  $currentItems->where('product_id',$product_id->id);
         }else{
             $items =  $currentItems->where('product_id',$product_id);
@@ -137,7 +144,6 @@ class CartManager
         if(!$items or !$items instanceof Collection){
             return new Collection([]);
         }
-
         return $items;
     }
 
@@ -170,8 +176,7 @@ class CartManager
 
     public static function get_cart_fragments(){
         return [
-            '.header_widgets .dropdown_cart'=>view('Order::frontend.cart.mini-cart')->render(),
-            '.header_widgets .cart-total'=> self::count()
+            '.header__actions .ps-cart--mini'=>view('order.cart.mini-cart')->render(),
         ];
     }
 

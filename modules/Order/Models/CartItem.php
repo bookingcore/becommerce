@@ -5,6 +5,7 @@ namespace Modules\Order\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Booking\Models\Bookable;
+use Modules\Product\Models\Product;
 
 class CartItem extends Model
 {
@@ -20,9 +21,30 @@ class CartItem extends Model
         "object_id"=>"",
         "object_model"=>"",
         "price"=>0,
+        "author"=>"",
         "variant_id"=>""
     ];
 
+    public static function fromProduct(Product $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
+
+        $item = new self();
+
+        $item->class_name = get_class($model);
+
+        $item->product_id = $model->id;
+        $item->qty = $qty;
+        $item->name = $model->title;
+        $item->price = $price ? $price : $model->price ;
+        $item->object_id = $model->id;
+        $item->object_model = $model->type;
+        $item->meta = $meta;
+        $item->author = $model->author->display_name;
+        $item->variant_id = $variant_id;
+
+        $item->generateId();
+
+        return $item;
+    }
     public static function fromModel(Bookable $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
 
         $item = new self();
@@ -36,6 +58,7 @@ class CartItem extends Model
         $item->object_id = $model->id;
         $item->object_model = $model->type;
         $item->meta = $meta;
+        $item->author = $model->author->display_name;
         $item->variant_id = $variant_id;
 
         $item->generateId();
