@@ -73,10 +73,14 @@ trait HasTranslations
         if($this->table_translation){
             $inst->setTable($this->table_translation);
         }
-        $find =  $inst->where([
-            'origin_id'=>$this->id,
-            'locale'=>$locale,
-        ])->first();
+        if($locale == app()->getLocale()){
+            $find = $this->translation;
+        }else {
+            $find = $inst->where([
+                'origin_id' => $this->id,
+                'locale' => $locale,
+            ])->first();
+        }
 
         if(!$find){
             $find = new $class;
@@ -111,7 +115,7 @@ trait HasTranslations
     }
 
     public function translation(){
-        return $this->belongsTo($this->getTranslationModelNameDefault(),'translation_id')->where('locale',app()->getLocale());
+        return $this->hasOne($this->getTranslationModelNameDefault(),'origin_id')->where('locale',app()->getLocale());
     }
 
 }

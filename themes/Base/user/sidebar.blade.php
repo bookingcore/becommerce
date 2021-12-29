@@ -8,7 +8,7 @@
     <div class="ps-widget__content">
         <ul>
             <li class="@if(in_array(request()->route()->getName(),['user.profile'])) active @endif"><a href="{{route('user.profile')}}"><i class="icon-user"></i> {{__('Account Information')}}</a></li>
-            <li><a href="#"><i class="icon-alarm-ringing"></i> Notifications</a></li>
+            <li class="@if(in_array(request()->route()->getName(),['user.notification'])) active @endif"><a href="{{route('user.notification')}}"><i class="icon-alarm-ringing"></i> {{__('Notifications')}}</a></li>
             <li class="@if(in_array(request()->route()->getName(),['user.order.index','user.order.detail'])) active @endif"><a href="{{route('user.order.index')}}"><i class="icon-papers"></i> {{__('Orders')}}</a></li>
             <li class="@if(in_array(request()->route()->getName(),['user.address.index','user.address.detail'])) active @endif"><a href="{{route('user.address.index')}}"><i class="icon-map-marker"></i> {{__('Address')}}</a></li>
             <li><a href="#"><i class="icon-heart"></i> Wishlist</a></li>
