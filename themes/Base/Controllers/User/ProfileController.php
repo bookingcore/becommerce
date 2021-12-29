@@ -44,5 +44,14 @@ class ProfileController extends FrontendController
         ],[
             'business_name.required'=>__("Display name is required")
         ]);
+
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->business_name = $request->input('business_name');
+        $user->email = $request->input('email');
+
+        $user->save();
+
+        return back()->with("success",__("Account information updated"));
     }
 }

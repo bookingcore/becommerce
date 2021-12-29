@@ -21,3 +21,5 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 Route::group(['prefix'=>'pos'],function(){
    Route::get('/','POSController@index')->name('pos');
 });
+
+Route::get('page/{slug}','PageController@detail')->name('page.detail');

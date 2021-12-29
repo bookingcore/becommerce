@@ -54,7 +54,7 @@ class PageController extends AdminController
         $data = [
             'row'         => $row,
             'translation'=>new PageTranslation(),
-            'templates'   => Template::orderBy('id', 'desc')->limit(100)->get(),
+            'page_title'=>__("Create Page"),
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
@@ -83,7 +83,6 @@ class PageController extends AdminController
         $data = [
             'translation'  => $translation,
             'row'            =>$row,
-            'templates'   => Template::orderBy('id', 'desc')->limit(100)->get(),
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
@@ -94,7 +93,8 @@ class PageController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'enable_multi_lang'=>true
+            'enable_multi_lang'=>true,
+            'page_title'=>__("Edit page: :name",['name'=>$row->title])
         ];
         return view('Page::admin.detail', $data);
     }

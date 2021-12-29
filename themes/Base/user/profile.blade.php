@@ -11,7 +11,6 @@
                 </div>
                 <div class="col-lg-8">
                     <div class="ps-section__right">
-                        @include('global.message')
                         <form action="{{route('user.profile.store')}}" method="post">
                             @csrf
                             <div class="ps-section--account-setting">
@@ -19,6 +18,7 @@
                                     <h3>{{__("Update Account Information")}}</h3>
                                 </div>
                                 <div class="ps-section__content">
+                                    @include('global.message')
                                     <div class="row">
                                         <div class="col-sm-6">
                                             <div class="form-group">
