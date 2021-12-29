@@ -8,7 +8,7 @@ use Modules\Template\Models\Template;
 
 class BlockManager
 {
-    protected static $_all;
+    protected static $_all = [];
 
     public static function register($id,$class,$priority = 1){
         if(isset(static::$_all[$id]) and (static::$_all[$id]['priority'] ?? 1) > $priority) return;
