@@ -6,6 +6,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductVariation;
+use Modules\Template\BlockManager;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -18,6 +19,11 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("store",[$this,'getStoreSettings']);
         SettingManager::register("shipping",[$this,'getShippingSettings']);
         SettingManager::register("tax",[$this,'getTaxSettings']);
+
+        BlockManager::register("list_product",\Modules\Product\Blocks\ListProduct::class);
+        BlockManager::register("list_categories",\Modules\Product\Blocks\ListCategories::class);
+        BlockManager::register("list_product_categories",\Modules\Product\Blocks\ListProductInCategories::class);
+        BlockManager::register("recently_viewed_products",\Modules\Product\Blocks\RecentlyViewedProducts::class);
 
     }
     /**
