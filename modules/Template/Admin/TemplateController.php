@@ -144,7 +144,7 @@ class TemplateController extends AdminController
         $template->content = $request->input('content');
         $template->title = $request->input('title');
 
-        $template->saveOriginOrTranslation($request->input('lang'));
+        $template->saveWithTranslation($request->input('lang'));
 
         return $this->sendSuccess([
             'url' => $request->input('id') ? '' : url('admin/module/template/edit/' . $template->id)
