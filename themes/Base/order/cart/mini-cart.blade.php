@@ -9,8 +9,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                 <div class="ps-product--cart-mobile">
                     @if($cartItem->model)
                     <div class="ps-product__thumbnail">
-                        <a href="#">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'float-left','lazy'=>false])!!}
-                        </a></div>
+                        <a href="{{$cartItem->model->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['lazy'=>false])!!} </a></div>
                     <div class="ps-product__content">
                         <a class="ps-product__remove bc_delete_cart_item" data-id="{{$cartItem->id}}" href="#"><i class="icon-cross"></i></a>
                         <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->model->title}}</a>

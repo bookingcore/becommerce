@@ -17,6 +17,8 @@
                         <h1>{{__('Shopping Cart')}}</h1>
                     </div>
                     <div class="ps-section__content">
+                        <form action="{{route('cart.update_cart_item')}}"method="post">
+                            @csrf
                         <div class="table-responsive">
                             <table class="table ps-table--shopping-cart ps-table--responsive">
                                 <thead>
@@ -54,10 +56,11 @@
                                         </td>
                                         <td class="price" data-label="Price">{{format_money($cartItem->price)}}</td>
                                         <td data-label="Quantity">
-                                            <div class="form-group--number">
+                                            <div class="form-group--number cart-item-qty">
                                                 <button class="up">+</button>
                                                 <button class="down">-</button>
-                                                <input class="form-control" type="text" placeholder="{{$cartItem->qty}}"
+                                                <input name="cart_item[{{$cartItem->id}}][qty]" class="form-control" type="number"
+                                                       placeholder="{{$cartItem->qty}}"
                                                        value="{{$cartItem->qty}}">
                                             </div>
                                         </td>
@@ -71,9 +74,10 @@
                             </table>
                         </div>
                         <div class="ps-section__cart-actions"><a class="ps-btn" href="{{route('product.index')}}"><i
-                                    class="icon-arrow-left"></i> {{__('Back to Shop')}}</a><a
-                                class="ps-btn ps-btn--outline" href=""><i class="icon-sync"></i> {{__('Update cart')}}
-                            </a></div>
+                                    class="icon-arrow-left"></i> {{__('Back to Shop')}}</a>
+                            <button class="ps-btn ps-btn--outline" href=""><i class="icon-sync"></i> {{__('Update cart')}} </button>
+                        </div>
+                        </form>
                     </div>
                     <div class="ps-section__footer">
                         <div class="row">
@@ -142,4 +146,41 @@
 
 @endsection
 @section('footer')
+    <script>
+        $(document).on('click','.cart-item-qty .up',function (e) {
+            e.preventDefault()
+            let me = $(this)
+            let parent = me.closest('.cart-item-qty');
+            let input = parent.find('input[type=number]')
+            let value = input.val();
+            const min = input.data('min');
+            const max = input.data('max');
+            value = value++;
+            if(value <= min){
+                value = min;
+            }
+            if(value => max){
+                value = max;
+            }
+            input.val(value);
+        })
+
+        $(document).on('click','.cart-item-qty .down',function (e) {
+            e.preventDefault()
+            let me = $(this)
+            let parent = me.closest('.cart-item-qty');
+            let input = parent.find('input[type=number]')
+            let value = input.val();
+            const min = input.data('min',1);
+            const max = input.data('max',1);
+            value = --value;
+            if(value <= min){
+                value = min;
+            }
+            if(value => max){
+                value = max;
+            }
+            input.val(value);
+        })
+    </script>
 @endsection

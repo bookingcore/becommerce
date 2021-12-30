@@ -76,24 +76,21 @@ class CartManager
     public static function update($cart_item_id,$qty = 1,$price = false, $meta = [], $variant_id = false){
 
         $items = static::items();
-        $find = $items->where('id',$cart_item_id);
-
+        $find = $items->where('id',$cart_item_id)->first();
         if($find){
             $find->qty = $qty;
-            if(!is_null($price)){
+            if(!empty($price)){
                 $find->price = $price;
             }
-            if(!is_null($variant_id)){
+            if(!empty($variant_id)){
                 $find->variant_id = $variant_id;
             }
-            if(!is_null($meta)){
+            if(!empty($meta)){
                 $find->meta = $meta;
             }
 
             if($qty <= 0){
-
                 return static::remove($cart_item_id);
-
             }else{
                 $items->put($cart_item_id,$find);
                 session()->put(static::$session_key, $items);
