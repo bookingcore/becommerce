@@ -121,6 +121,9 @@ class PageController extends AdminController
     }
 
     public function store(Request $request, $id){
+        $request->validate([
+            'title'=>'required'
+        ]);
         if($id>0){
             $this->checkPermission('page_manage');
             $row = Page::find($id);

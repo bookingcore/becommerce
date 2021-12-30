@@ -35,8 +35,8 @@
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label>{{ __('Title')}}</label>
-                                    <input type="text" value="{{$translation->title}}" placeholder="Page title" name="title" class="form-control">
+                                    <label>{{ __('Title')}} <span class="text-danger">*</span></label>
+                                    <input required type="text" value="{{$translation->title}}" placeholder="Page title" name="title" class="form-control">
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label">{{ __('Content')}}</label>
@@ -109,7 +109,7 @@
                             <div class="panel">
                                 <div class="panel-body">
                                     @php
-                                        $background = (!empty(json_decode($row->c_background))) ? json_decode($row->c_background) : '';
+                                        $background = $row->c_background;
                                         $bg_image = (isset($background->image)) ? $background->image : '';
                                     @endphp
                                     <h3 class="panel-body-title">{{ __('Content Background')}}</h3>

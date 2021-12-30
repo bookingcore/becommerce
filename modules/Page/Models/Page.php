@@ -34,6 +34,10 @@ class Page extends BaseModel
         'content',
     ];
 
+    protected $casts = [
+        'c_background'=>'array'
+    ];
+
     public $translatedAttributes = [
         'title',
         'content',
