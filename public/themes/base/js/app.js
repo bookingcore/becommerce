@@ -230,3 +230,54 @@ var BcApp ={
         bootbox.confirm(args);
     }
 };
+
+jQuery(function ($) {
+
+    var onSubmitSubscribe = false;
+    //Subscribe box
+    $('.bravo-subscribe-form').submit(function (e) {
+        e.preventDefault();
+
+        if (onSubmitSubscribe) return;
+
+        $(this).addClass('loading');
+        var me = $(this);
+        me.find('.form-mess').html('');
+
+        $.ajax({
+            url: me.attr('action'),
+            type: 'post',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (json) {
+                onSubmitSubscribe = false;
+                me.removeClass('loading');
+
+                if (json.message) {
+                    me.find('.form-mess').html('<span class="' + (json.status ? 'text-success' : 'text-danger') + '">' + json.message + '</span>');
+                }
+
+                if (json.status) {
+                    me.find('input[name=email]').val('');
+                }
+
+            },
+            error: function (e) {
+                console.log(e);
+                onSubmitSubscribe = false;
+                me.removeClass('loading');
+
+                if(ajax_error_to_string(e)){
+                    me.find('.form-mess').html('<span class="text-danger">' + ajax_error_to_string(e) + '</span>');
+                }else
+                if (e.responseText) {
+                    me.find('.form-mess').html('<span class="text-danger">' + e.responseText + '</span>');
+                }
+
+            }
+        });
+
+        return false;
+    });
+
+});

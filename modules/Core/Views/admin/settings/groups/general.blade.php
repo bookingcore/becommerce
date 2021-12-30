@@ -195,24 +195,7 @@
                             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_id',$settings['logo_id'] ?? '') !!}
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>{{__("White Logo")}}</label>
-                        <div class="form-controls form-group-image">
-                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_white_id',$settings['logo_white_id'] ?? '') !!}
-                        </div>
-                    </div>
                 @endif
-                <div class="form-group">
-                    <label>{{__("Footer Style")}}</label>
-                    <div class="form-controls">
-                        @php $footer_style = setting_item_with_lang('footer_style', request()->query('lang')) @endphp
-                        <select name="footer_style" class="form-control" >
-                            <option value="style_1" @if($footer_style == 'style_1') selected @endif>{{ __("Style 1") }}</option>
-                            <option value="style-two" @if($footer_style == 'style-two') selected @endif>{{ __("Style 2") }}</option>
-                            <option value="alternate" @if($footer_style == 'alternate') selected @endif>{{ __("Style 3") }}</option>
-                        </select>
-                    </div>
-                </div>
                 <div class="form-group">
                     <label>{{__("Footer Info Contact")}}</label>
                     <div class="form-controls">
@@ -303,6 +286,13 @@
                     <div class="form-controls">
                         <div id="footer_socials" class="ace-editor" style="min-height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_socials',request()->query('lang'))}}</div>
                         <textarea name="footer_socials" class="d-none">{{setting_item_with_lang('footer_socials',request()->query('lang')) }}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>{{__("Footer Categories")}}</label>
+                    <div class="form-controls">
+                        <div id="footer_categories_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_categories',request()->query('lang'))}}</div>
+                        <textarea class="d-none" name="footer_categories" > {{ setting_item_with_lang('footer_categories',request()->query('lang')) }} </textarea>
                     </div>
                 </div>
             </div>

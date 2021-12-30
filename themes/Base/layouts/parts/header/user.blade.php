@@ -15,8 +15,8 @@
         </div>
         <div class="ps-block__right">
             <div class="ps-dropdown">
-                <a href="#" data-toggle="dropdown" class="login">{{__("Hi, :name",['name'=>Auth::user()->first_name])}}
-                    <i class="fa fa-angle-down"></i>
+                <a href="#" data-toggle="dropdown" class="login">
+                    {{__("Hi, :name",['name'=>Auth::user()->first_name])}}
                 </a>
                 <ul class="ps-dropdown-menu text-left">
                     @if(Auth::user()->hasPermission('vendor_access'))

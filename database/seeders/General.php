@@ -52,45 +52,37 @@ namespace Database\Seeders;
                         'group' => "general",
                     ],
                     [
-                        'name'  => 'footer_text_left',
+                        'name'  => 'copyright',
                         'val'   => '© '.date('Y').' Becommerce. All Rights Reserved',
                         'group' => "general",
                     ],
                     [
-                        'name'  => 'footer_text_right',
-                        'val'   => '<div class="text">
-    <p>We Using Safe Payment For</p>
-</div>
-<ul class="payments">
-    <li>
-        <img src="/images/p1.jpg" alt="p1">
-    </li>
-    <li>
-        <img src="/images/p2.jpg" alt="p2">
-    </li>
-    <li>
-        <img src="/images/p3.jpg" alt="p3">
-    </li>
-    <li>
-        <img src="/images/p4.jpg" alt="p4">
-    </li>
-    <li>
-        <img src="/images/p5.jpg" alt="p5">
-    </li>
-    <li>
-        <img src="/images/p6.jpg" alt="p6">
-    </li>
+                        'name'  => 'footer_info_text',
+                        'val'   => '<p>Call us 24/7</p>
+<h3>1800 97 97 69</h3>
+<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
+<ul class="ps-list--social">
+    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+    <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
+    <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
 </ul>',
                         'group' => "general",
                     ],
                     [
-                        'name'  => 'list_widget_footer',
-                        'val'   => '[{"title":"NEED HELP?","size":"3","content":"<div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            Call Us\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            + 00 222 44 5678\r\n        <\/div>\r\n    <\/div>\r\n    <div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            Email for Us\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            hello@yoursite.com\r\n        <\/div>\r\n    <\/div>\r\n    <div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            Follow Us\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            <a href=\"#\">\r\n                <i class=\"icofont-facebook\"><\/i>\r\n            <\/a>\r\n            <a href=\"#\">\r\n               <i class=\"icofont-twitter\"><\/i>\r\n            <\/a>\r\n            <a href=\"#\">\r\n                <i class=\"icofont-youtube-play\"><\/i>\r\n            <\/a>\r\n        <\/div>\r\n    <\/div>"},{"title":"COMPANY","size":"3","content":"<ul>\r\n    <li><a href=\"#\">About Us<\/a><\/li>\r\n    <li><a href=\"#\">Community Blog<\/a><\/li>\r\n    <li><a href=\"#\">Rewards<\/a><\/li>\r\n    <li><a href=\"#\">Work with Us<\/a><\/li>\r\n    <li><a href=\"#\">Meet the Team<\/a><\/li>\r\n<\/ul>"},{"title":"SUPPORT","size":"3","content":"<ul>\r\n    <li><a href=\"#\">Account<\/a><\/li>\r\n    <li><a href=\"#\">Legal<\/a><\/li>\r\n    <li><a href=\"#\">Contact<\/a><\/li>\r\n    <li><a href=\"#\">Affiliate Program<\/a><\/li>\r\n    <li><a href=\"#\">Privacy Policy<\/a><\/li>\r\n<\/ul>"},{"title":"SETTINGS","size":"3","content":"<ul>\r\n<li><a href=\"#\">Setting 1<\/a><\/li>\r\n<li><a href=\"#\">Setting 2<\/a><\/li>\r\n<\/ul>"}]',
+                        'name'  => 'footer_socials',
+                        'val'   => '<span>We Using Safe Payment For:</span>
+<a href="#"><img src="/images/p1.jpg" alt="Social"/></a>
+<a href="#"><img src="/images/p2.jpg" alt="Social"/></a>
+<a href="#"><img src="/images/p3.jpg" alt="Social"/></a>
+<a href="#"><img src="/images/p4.jpg" alt="Social"/></a>
+<a href="#"><img src="/images/p5.jpg" alt="Social"/></a>
+<a href="#"><img src="/images/p6.jpg" alt="Social"/></a>',
                         'group' => "general",
                     ],
                     [
-                        'name'  => 'list_widget_footer_ja',
-                        'val'   => '[{"title":"\u52a9\u3051\u304c\u5fc5\u8981\uff1f","size":"3","content":"<div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            \u304a\u96fb\u8a71\u304f\u3060\u3055\u3044\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            + 00 222 44 5678\r\n        <\/div>\r\n    <\/div>\r\n    <div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            \u90f5\u4fbf\u7269\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            hello@yoursite.com\r\n        <\/div>\r\n    <\/div>\r\n    <div class=\"contact\">\r\n        <div class=\"c-title\">\r\n            \u30d5\u30a9\u30ed\u30fc\u3059\u308b\r\n        <\/div>\r\n        <div class=\"sub\">\r\n            <a href=\"#\">\r\n                <i class=\"icofont-facebook\"><\/i>\r\n            <\/a>\r\n            <a href=\"#\">\r\n                <i class=\"icofont-twitter\"><\/i>\r\n            <\/a>\r\n            <a href=\"#\">\r\n                <i class=\"icofont-youtube-play\"><\/i>\r\n            <\/a>\r\n        <\/div>\r\n    <\/div>"},{"title":"\u4f1a\u793e","size":"3","content":"<ul>\r\n    <li><a href=\"#\">\u7d04, \u7565<\/a><\/li>\r\n    <li><a href=\"#\">\u30b3\u30df\u30e5\u30cb\u30c6\u30a3\u30d6\u30ed\u30b0<\/a><\/li>\r\n    <li><a href=\"#\">\u5831\u916c<\/a><\/li>\r\n    <li><a href=\"#\">\u3068\u9023\u643a<\/a><\/li>\r\n    <li><a href=\"#\">\u30c1\u30fc\u30e0\u306b\u4f1a\u3046<\/a><\/li>\r\n<\/ul>"},{"title":"\u30b5\u30dd\u30fc\u30c8","size":"3","content":"<ul>\r\n    <li><a href=\"#\">\u30a2\u30ab\u30a6\u30f3\u30c8<\/a><\/li>\r\n    <li><a href=\"#\">\u6cd5\u7684<\/a><\/li>\r\n    <li><a href=\"#\">\u63a5\u89e6<\/a><\/li>\r\n    <li><a href=\"#\">\u30a2\u30d5\u30a3\u30ea\u30a8\u30a4\u30c8\u30d7\u30ed\u30b0\u30e9\u30e0<\/a><\/li>\r\n    <li><a href=\"#\">\u500b\u4eba\u60c5\u5831\u4fdd\u8b77\u65b9\u91dd<\/a><\/li>\r\n<\/ul>"},{"title":"\u8a2d\u5b9a","size":"3","content":"<ul>\r\n<li><a href=\"#\">\u8a2d\u5b9a1<\/a><\/li>\r\n<li><a href=\"#\">\u8a2d\u5b9a2<\/a><\/li>\r\n<\/ul>"}]',
+                        'name'  => 'list_widget_footer',
+                        'val'   => '{"1":{"title":"Quick links","size":"3","content":"<ul class=\"ps-list--link\">\r\n            <li><a href=\"policy.html\">Policy<\/a><\/li>\r\n            <li><a href=\"term-condition.html\">Term &amp; Condition<\/a><\/li>\r\n            <li><a href=\"shipping.html\">Shipping<\/a><\/li>\r\n            <li><a href=\"return.html\">Return<\/a><\/li>\r\n            <li><a href=\"faqs.html\">FAQs<\/a><\/li>\r\n        <\/ul>"},"2":{"title":"Company","size":"3","content":"<ul class=\"ps-list--link\">\r\n                        <li><a href=\"about-us.html\">About Us<\/a><\/li>\r\n                        <li><a href=\"affilate.html\">Affilate<\/a><\/li>\r\n                        <li><a href=\"shipping.html\">Career<\/a><\/li>\r\n                        <li><a href=\"contact.html\">Contact<\/a><\/li>\r\n                    <\/ul>"},"3":{"title":"Bussiness","size":"3","content":"<ul class=\"ps-list--link\">\r\n                        <li><a href=\"our-press.html\">Our Press<\/a><\/li>\r\n                        <li><a href=\"checkout.html\">Checkout<\/a><\/li>\r\n                        <li><a href=\"my-account.html\">My account<\/a><\/li>\r\n                        <li><a href=\"shop.html\">Shop<\/a><\/li>\r\n                    <\/ul>"}}',
                         'group' => "general",
                     ],
                     [
@@ -1044,88 +1036,66 @@ namespace Database\Seeders;
                     [
                         'name'=>'footer_categories',
                         'group'=>'general',
-                        'val' =>'<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Consumer Electric:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Air Conditioners</a></li>
-            <li><a href="#">Audios &amp; Theaters</a></li>
-            <li><a href="#">Car Electronics</a></li>
-            <li><a href="#">Office Electronics</a></li>
-            <li><a href="#">TV Televisions</a></li>
-            <li><a href="#">Washing Machines</a></li>
-        </ul>
-    </div>
-</div>
-<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Clothing & Apparel:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Printers</a></li>
-            <li><a href="#">Projectors</a></li>
-            <li><a href="#">Scanners</a></li>
-            <li><a href="#">Store & Business</a></li>
-            <li><a href="#">4K Ultra HD TVs</a></li>
-            <li><a href="#">LED TVs</a></li>
-            <li><a href="#">OLED TVs</a></li>
-        </ul>
-    </div>
-</div>
-<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Home, Garden & Kitchen:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Cookware</a></li>
-            <li><a href="#">Decoration</a></li>
-            <li><a href="#">Furniture</a></li>
-            <li><a href="#">Garden Tools</a></li>
-            <li><a href="#">Powers And Hand Tools</a></li>
-            <li><a href="#">Utensil & Gadget</a></li>
-        </ul>
-    </div>
-</div>
-<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Health & Beauty:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Hair Care</a></li>
-            <li><a href="#">Makeup</a></li>
-            <li><a href="#">Body Shower</a></li>
-            <li><a href="#">Skin Care</a></li>
-            <li><a href="#">Cologine</a></li>
-            <li><a href="#">Perfume</a></li>
-        </ul>
-    </div>
-</div>
-<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Jewelry & Watches:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Necklace</a></li>
-            <li><a href="#">Pendant</a></li>
-            <li><a href="#">Diamond Ring</a></li>
-            <li><a href="#">Sliver Earing</a></li>
-            <li><a href="#">Leather Watcher</a></li>
-            <li><a href="#">Rolex</a></li>
-            <li><a href="#">Gucci</a></li>
-        </ul>
-    </div>
-</div>
-<div class="widget widget_nav_menu">
-    <h4 class="widget-title">Computer & Technologies:</h4>
-    <div class="menu-footer">
-        <ul id="menu-footer-link" class="menu">
-            <li><a href="#">Desktop PC</a></li>
-            <li><a href="#">Laptop</a></li>
-            <li><a href="#">Smartphones</a></li>
-            <li><a href="#">Tablet</a></li>
-            <li><a href="#">Game Controller</a></li>
-            <li><a href="#">Audio & Video</a></li>
-            <li><a href="#">Wireless Speaker</a></li>
-            <li><a href="#">Drone</a></li>
-        </ul>
-    </div>
-</div>',
+                        'val' =>'<p>
+    <strong>Consumer Electric:</strong>
+    <a href="#">Air Conditioners</a>
+    <a href="#">Audios &amp; Theaters</a>
+    <a href="#">Car Electronics</a>
+    <a href="#">Office Electronics</a>
+    <a href="#">TV Televisions</a>
+    <a href="#">Washing Machines</a>
+</p>
+<p>
+    <strong>Clothing &amp; Apparel:</strong>
+    <a href="#">Printers</a>
+    <a href="#">Projectors</a>
+    <a href="#">Scanners</a>
+    <a href="#">Store &amp; Business</a>
+    <a href="#">4K Ultra HD TVs</a>
+    <a href="#">LED TVs</a>
+    <a href="#">OLED TVs</a>
+</p>
+<p>
+    <strong>Home, Garden &amp; Kitchen:</strong>
+    <a href="#">Cookware</a>
+    <a href="#">Decoration</a>
+    <a href="#">Furniture</a>
+    <a href="#">Garden Tools</a>
+    <a href="#">Garden Equipments</a>
+    <a href="#">Powers And Hand Tools</a>
+    <a href="#">Utensil &amp; Gadget</a>
+</p>
+<p>
+    <strong>Health &amp; Beauty:</strong>
+    <a href="#">Hair Care</a>
+    <a href="#">Decoration</a>
+    <a href="#">Hair Care</a>
+    <a href="#">Makeup</a>
+    <a href="#">Body Shower</a>
+    <a href="#">Skin Care</a>
+    <a href="#">Cologine</a>
+    <a href="#">Perfume</a>
+</p>
+<p>
+    <strong>Jewelry &amp; Watches:</strong>
+    <a href="#">Necklace</a>
+    <a href="#">Pendant</a>
+    <a href="#">Diamond Ring</a>
+    <a href="#">Sliver Earing</a>
+    <a href="#">Leather Watcher</a>
+    <a href="#">Gucci</a>
+</p>
+<p>
+    <strong>Computer &amp; Technologies:</strong>
+    <a href="#">Desktop PC</a>
+    <a href="#">Laptop</a>
+    <a href="#">Smartphones</a>
+    <a href="#">Tablet</a>
+    <a href="#">Game Controller</a>
+    <a href="#">Audio &amp; Video</a>
+    <a href="#">Wireless Speaker</a>
+    <a href="#">Done</a>
+</p>',
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],

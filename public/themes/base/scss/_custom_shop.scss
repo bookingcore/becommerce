@@ -38,3 +38,54 @@ a:hover,
 .mega-menu {
     padding: 15px 30px 10px !important;
 }
+
+.header--standard{
+    .ps-block--user-header{
+        margin-right: 0;
+        .avatar{
+            max-width: 30px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+        .ps-block__right{
+            align-self: center;
+        }
+        .ps-block__right{
+            a{
+                line-height: initial;
+            }
+            .login{
+                font-weight: normal;
+            }
+            .ps-dropdown{
+                height: 45px;
+                display: flex;
+                align-items: center;
+                .ps-dropdown-menu{
+                    min-width: 200px;
+                    padding: 10px;
+                    li{
+                        border-bottom: solid 1px #e7e7e7;
+                        &:last-child{
+                            border: none;
+                        }
+                        a{
+                            font-weight: normal;
+                            padding: 10px 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+.ps-dropdown ul{
+    border-radius: 5px;
+}
+.bravo-subscribe-form{
+    &.loading{
+        .ps-btn{
+            background: #a7a7a7;
+        }
+    }
+}
