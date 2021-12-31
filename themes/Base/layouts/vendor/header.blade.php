@@ -1,6 +1,6 @@
 <header class="header--dashboard">
     <div class="header__left">
-        <h3>Dashboard</h3>
+        <h3>{{__('Dashboard')}}</h3>
         <p>Everything here</p>
     </div>
     <div class="header__center">

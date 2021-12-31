@@ -10,6 +10,8 @@
         <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/fonts/Linearicons/Linearicons/Font/demo-files/demo.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.carousel.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/select2/dist/css/select2.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/summernote/summernote-bs4.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/apexcharts-bundle/dist/apexcharts.css">
