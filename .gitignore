@@ -24,3 +24,5 @@ yarn-error.log
 /storage/installed
 
 .yarnrc.yml
+public/dist/
+public/themes/Base/dist
