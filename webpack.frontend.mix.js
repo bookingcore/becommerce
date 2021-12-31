@@ -1,5 +1,5 @@
 const mix = require('laravel-mix');
 
-mix.sass("public/themes/base/scss/app.scss", "public/themes/base/dist/css", [
+mix.sass("public/themes/Base/scss/app.scss", "public/themes/Base/dist/css", [
 ]);
-mix.sass("public/themes/base/pos/pos.scss", "public/themes/base/dist/pos", );
+mix.sass("public/themes/Base/pos/pos.scss", "public/themes/Base/dist/pos", );
