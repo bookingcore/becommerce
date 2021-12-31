@@ -299,7 +299,8 @@ class ModuleProvider extends ModuleServiceProvider
             'position'=>33,
             'view'=>"Product::admin.settings.shipping",
             'keys' => [
-
+                'shipping_enable_calc',
+                'shipping_cost_requires_address'
             ],
             'html_keys' => [
 

@@ -15,7 +15,7 @@
     <div class="products-content">
         <ul class="products">
             @foreach($rows as $row)
-                @include('Product::frontend.layouts.product')
+
             @endforeach
         </ul>
     </div>
