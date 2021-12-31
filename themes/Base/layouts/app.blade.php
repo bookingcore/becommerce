@@ -59,7 +59,6 @@
             </script>
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/jquery.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/popper.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/owl-carousel/owl.carousel.min.js"></script>

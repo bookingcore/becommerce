@@ -2,6 +2,7 @@
 
 namespace Modules\Product\Models;
 
+use App\User;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -513,6 +514,9 @@ class Product extends BaseProduct
         $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
         $this->review_score = $rate_number;
         $this->save();
+    }
+    public function scopeOfVendor($query,User $user){
+        return $query->where('author_id',$user->id);
     }
     public function hasWishList(){
         return $this->hasOne(UserWishList::class, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
