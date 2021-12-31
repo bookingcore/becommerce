@@ -20,7 +20,7 @@
             <div class="actions-button">
                 @php $hasWishList = in_array($row->id, wishlist()) @endphp
                 <div class="btn-custom">
-                    <a href="{{route('user.wishList.index')}}" data-id="{{$row->id}}" data-type="{{$row->type}}" class="add_wishlist btn-action service-wishlist detal-wishlist {{ $hasWishList ? 'active' : ''}}" data-toggle="tooltip" title="{{ $hasWishList ? __('Brower to Wishlist') : __('Add to Wishlist')}}">
+                    <a href="{{--{{route('user.wishList.index')}}--}}" data-id="{{$row->id}}" data-type="{{$row->type}}" class="add_wishlist btn-action service-wishlist detal-wishlist {{ $hasWishList ? 'active' : ''}}" data-toggle="tooltip" title="{{ $hasWishList ? __('Brower to Wishlist') : __('Add to Wishlist')}}">
                         <i class="icon-heart"></i>
                         <span class="btn-text">{{ $hasWishList ? __('Brower to Wishlist') : __('Add to Wishlist') }}</span>
                     </a>

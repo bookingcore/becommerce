@@ -93,7 +93,7 @@
             ],
         };
 
-        var image_editer = {
+        /*var image_editer = {
             language: '{{ app()->getLocale() }}',
             translations: {
                 {{ app()->getLocale() }}: {
@@ -149,7 +149,7 @@
                     'common.text': '{{ __('Text') }}',
                 }
             }
-        };
+        };*/
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     @yield('script.head')

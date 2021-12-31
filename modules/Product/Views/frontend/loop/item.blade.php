@@ -28,7 +28,7 @@
             @php $hasWishList = in_array($row->id, wishlist()); @endphp
             <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                 <div class="yith-wcwl-add-button">
-                    <a href="{{route('user.wishList.index')}}" class="wishlist_link" data-rel="tooltip">
+                    <a href="{{--{{route('user.wishList.index')}}--}}" class="wishlist_link" data-rel="tooltip">
                         <i class="yith-wcwl-icon fa fa-heart-o"></i>
                     </a>
                 </div>

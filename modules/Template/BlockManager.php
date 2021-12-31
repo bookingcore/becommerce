@@ -74,10 +74,10 @@ class BlockManager
         foreach ($items as $item) {
             if (empty($item['type']))
                 continue;
-            if (!array_key_exists($item['type'], $blocks) or !class_exists($blocks[$item['type']]))
+            if (!array_key_exists($item['type'], $blocks) or !class_exists($blocks[$item['type']]['class']))
                 continue;
             $item['model'] = isset($item['model']) ? $item['model'] : [];
-            $blockModel = new $blocks[$item['type']]();
+            $blockModel = new $blocks[$item['type']]['class']();
             if (method_exists($blockModel, 'content')) {
                 $html .= call_user_func([
                     $blockModel,

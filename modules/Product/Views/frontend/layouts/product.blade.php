@@ -27,7 +27,7 @@ $score_total = $reviewData['score_total'];
                 @php $hasWishList = $row->hasWishList; @endphp
                 <div class="yith-wcwl-add-to-wishlist service-wishlist {{ $hasWishList ? 'active' : '' }}" data-id="{{ $row->id }}" data-type="{{ $row->type }}" data-toggle="tooltip" title="{{ $hasWishList ? __('Browse to Wishlist') : __('Add to Wishlist')}}">
                     <div class="yith-wcwl-add-button">
-                        <a href="{{route('user.wishList.index')}}" class="wishlist_link">
+                        <a href="{{--{{route('user.wishList.index')}}--}}" class="wishlist_link">
                             <i class="p-icon icon-heart"></i>
                         </a>
                     </div>

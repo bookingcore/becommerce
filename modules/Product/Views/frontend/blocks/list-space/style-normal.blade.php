@@ -59,7 +59,7 @@
                                             </div>
                                         @endif
                                     </div>
-                                    @include('Product::frontend.details.price')
+
                                 </div>
                             </div>
                         </li>
