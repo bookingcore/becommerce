@@ -248,6 +248,32 @@ class CreateProductTable extends Migration
 		    $table->timestamps();
 	    });
 
+        Schema::create('product_shipping_zones', function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('order');
+
+            $table->timestamps();
+        });
+
+        Schema::create('product_shipping_zone_locations', function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->bigInteger('zone_id');
+            $table->string('location_code');
+
+            $table->timestamps();
+        });
+
+        Schema::create('product_shipping_zone_methods', function (Blueprint $table){
+            $table->bigIncrements('id');
+            $table->string('zone_id');
+            $table->string('method_id');
+            $table->integer('order');
+            $table->tinyInteger('is_enabled');
+
+            $table->timestamps();
+        });
+
     }
 
     /**
