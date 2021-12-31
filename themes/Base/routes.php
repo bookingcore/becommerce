@@ -21,6 +21,7 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
 
 Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
    Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
+   Route::get('/product','Vendor\ProductController@index')->name('vendor.product');
 });
 Route::group(['prefix'=>'store','middleware'=>'auth'],function(){
    Route::get('/{slug}','Vendor\StoreController@index')->name('store');

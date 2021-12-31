@@ -15,7 +15,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
                 <div class="ps-block__right">
                     <p>{{__('Hello')}},<a href="#">{{$user->display_name}}</a></p>
                 </div>
-                <div class="ps-block__action"><a title="{{__("To store page")}}" href="{{$row->getStoreUrl()}}"><i class="icon-exit-up "></i></a></div>
+                <div class="ps-block__action"><a title="{{__("To store page")}}" href="{{$user->getStoreUrl()}}"><i class="icon-exit-up "></i></a></div>
             </div>
             <div class="ps-block--earning-count"><small>{{__('Earning')}}</small>
                 <h3>{{format_money($user->payable)}}</h3>
@@ -26,7 +26,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
                 <ul class="menu">
                    <li><a class="@if(in_array(request()->route()->getName(),['vendor.dashboard'])) active @endif" href="{{route('vendor.dashboard')}}"><i class="icon-home"></i>{{__('Dashboard')}}</a></li>
                    @foreach ($menus as $id=>$menu)
-                        <li><a class="@if(\Modules\Vendor\VendorMenuManager::isActive($id,$menus)) active @endif" href="{{$menu['url'] ?? ''}}"><i class="{{$menu['icon'] ?? ''}}"></i> {{$menu['title'] ?? ''}}</a></li>
+                        <li><a class="@if(\Modules\Vendor\VendorMenuManager::isActive($id,$menus)) active @endif" href="{{$menu['url'] ?? ''}}"><i class="{{$menu['icon'] ?? ''}}"></i>{{$menu['title'] ?? ''}}</a></li>
                    @endforeach
                     <li><a href="#"><i class="icon-exit"></i>{{__('Logout')}}</a></li>
                 </ul>

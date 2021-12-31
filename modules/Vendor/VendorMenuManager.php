@@ -28,7 +28,7 @@ class VendorMenuManager
         foreach (static::$_all as $id=>$config){
             if(isset($config['callable']) and is_callable($config['callable']))
             {
-                $allSettings[$id] = call_user_func($config['callable']);
+                $allSettings = array_merge($allSettings,call_user_func($config['callable']));
             }
         }
 

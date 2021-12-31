@@ -21,4 +21,6 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
     public function register(){}
 
+    public function boot(){}
+
 }

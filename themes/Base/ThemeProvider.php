@@ -1,6 +1,8 @@
 <?php
 namespace Themes\Base;
 
+use Modules\Vendor\VendorMenuManager;
+
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {
 
@@ -12,6 +14,20 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     {
         return [
 
+        ];
+    }
+
+    public function boot(){
+        VendorMenuManager::register("product",[$this,'addVendorMenu']);
+    }
+
+    public function addVendorMenu(){
+        return [
+            'product'=>[
+                'url'=>route('vendor.product'),
+                'title'=>__("Products"),
+                "icon"=>"icon-database"
+            ]
         ];
     }
 
