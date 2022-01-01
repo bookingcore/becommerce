@@ -2,12 +2,14 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Product\Database\Factories\ProductCategoryFactory;
 
 class ProductCategory extends BaseModel
 {
-    use NodeTrait;
+    use NodeTrait,HasFactory;
     protected $table = 'product_category';
     protected $fillable = [
         'name',
@@ -27,6 +29,11 @@ class ProductCategory extends BaseModel
     }
 
     protected $translation_class = ProductCategoryTranslation::class;
+
+    protected static function newFactory()
+    {
+        return ProductCategoryFactory::new();
+    }
 
     public static function searchForMenu($q = false)
     {
@@ -50,5 +57,12 @@ class ProductCategory extends BaseModel
     public static function getAll(){
         if(!empty(static::$_all)) return static::$_all;
         return static::$_all = parent::query()->where('status','publish')->with(['translation'])->limit(999)->get()->toTree();
+    }
+
+    public function parent(){
+        return $this->belongsTo(self::class,'parent_id');
+    }
+    public function child(){
+        return $this->hasMany(self::class,'parent_id');
     }
 }

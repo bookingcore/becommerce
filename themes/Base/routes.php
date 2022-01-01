@@ -47,7 +47,7 @@ Route::group(['prefix'=>'cart','middleware'=>'auth'],function(){
     Route::get('/','Order\CartController@index')->name('cart');
     Route::post('/addToCart','Order\CartController@addToCart')->name('cart.addToCart');
     Route::post('/remove_cart_item','Order\CartController@removeCartItem')->name('cart.remove_cart_item');
-    Route::post('/updateCartItem','Order\CartController@updateCartItem')->name('cart.update_cart_item');
+    Route::post('/update','Order\CartController@updateCartItem')->name('cart.update_cart_item');
 
 });
 Route::group(['prefix'=>'checkout','middleware'=>'auth'],function(){
