@@ -144,7 +144,7 @@ class News extends BaseModel
                 $join->whereNull('core_news_tag.deleted_at');
             });
         }
-        return $query->where('status','publish');
+        return $query->isActive();
     }
 
     public function getReviewEnable()

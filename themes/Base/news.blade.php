@@ -26,6 +26,8 @@
                                 </div>
                             @endforeach
                         </div>
+                    @else
+                        <div class="alert alert-warning">{{__("No posts found")}}</div>
                     @endif
                     <div class="ps-pagination">
                         {{$rows->links()}}
