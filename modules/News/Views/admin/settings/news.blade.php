@@ -142,26 +142,23 @@
                             </div>
                             <div class="g-items">
                                 <?php
-                                $social_share = [];
-                                if(!empty($settings['news_sidebar'])){
-                                $social_share  = $settings['news_sidebar'];
-
-                                $social_share = json_decode(setting_item_with_lang('news_sidebar',request()->query('lang'),$settings['news_sidebar'] ?? "[]"));
+                                $social_share = setting_item_with_lang_arr('news_sidebar',request()->query('lang'));
+                                if(empty($social_share)) $social_share = [];
                                 ?>
                                 @foreach($social_share as $key=>$item)
                                     <div class="item" data-number="{{$key}}">
                                         <div class="row">
                                             <div class="col-md-8">
-                                                <input type="text" name="news_sidebar[{{$key}}][title]" class="form-control" placeholder="{{__('Title: About Us')}}" value="{{$item->title}}">
-                                                <textarea name="news_sidebar[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
+                                                <input type="text" name="news_sidebar[{{$key}}][title]" class="form-control" placeholder="{{__('Title: About Us')}}" value="{{$item['title'] ?? ''}}">
+                                                <textarea name="news_sidebar[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item['content'] ?? ''}}</textarea>
                                             </div>
                                             <div class="col-md-3">
                                                 <select class="form-control" name="news_sidebar[{{$key}}][type]">
-                                                    <option @if(!empty($item->type) && $item->type=='search_form') selected @endif value="search_form">{{__("Search Form")}}</option>
-                                                    <option @if(!empty($item->type) && $item->type=='recent_news') selected @endif value="recent_news">{{__("Recent News")}}</option>
-                                                    <option @if(!empty($item->type) && $item->type=='category') selected @endif value="category">{{__("Category")}}</option>
-                                                    <option @if(!empty($item->type) && $item->type=='tag') selected @endif value="tag">{{__("Tags")}}</option>
-                                                    <option @if(!empty($item->type) && $item->type=='content_text') selected @endif value="content_text">{{__("Content Text")}}</option>
+                                                    <option @if(!empty($item['type']) && $item['type']=='search_form') selected @endif value="search_form">{{__("Search Form")}}</option>
+                                                    <option @if(!empty($item['type']) && $item['type']=='recent_news') selected @endif value="recent_news">{{__("Recent News")}}</option>
+                                                    <option @if(!empty($item['type']) && $item['type']=='category') selected @endif value="category">{{__("Category")}}</option>
+                                                    <option @if(!empty($item['type']) && $item['type']=='tag') selected @endif value="tag">{{__("Tags")}}</option>
+                                                    <option @if(!empty($item['type']) && $item['type']=='content_text') selected @endif value="content_text">{{__("Content Text")}}</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-1">
@@ -170,7 +167,6 @@
                                         </div>
                                     </div>
                                 @endforeach
-                                <?php } ?>
                             </div>
                             <div class="text-right">
                                 <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>

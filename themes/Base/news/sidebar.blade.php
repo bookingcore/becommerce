@@ -26,5 +26,6 @@
                     </div>
                 </aside>
             @break
+        @endswitch
     @endif
 @endforeach

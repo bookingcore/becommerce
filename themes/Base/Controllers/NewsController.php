@@ -10,16 +10,21 @@ use Modules\News\Models\Tag;
 class NewsController extends FrontendController
 {
     public function index(Request $request){
+        $s = $request->query('s');
         $model_News = News::search([
             's'=>$request->query('s')
         ]);
         $data = [
-            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
+            'rows'=>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->paginate(5),
             'breadcrumbs' => [
-                ['name' => __('News'), 'url' => url("/news") ,'class' => 'active'],
+                ['name' => __('News'), 'url' => url("/news") ,'class' => $s ? '' : 'active'],
+                $s ? [
+                    'name' => __('Search result for ":key"',['key'=>$s]), 'url' =>'' ,'class' => 'active'
+                ] : []
             ],
             "seo_meta" => News::getSeoMetaForPageList(),
-            'page_title'=>setting_item_with_lang('news_page_list_title',__("News"))
+            'page_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',__("News")),
+            'header_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',__("News"))
         ];
         return view('news',$data);
     }
