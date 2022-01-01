@@ -45,7 +45,7 @@ class NewsCategory extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        return route('news.category.index',['slug'=>$this->slug]);
+        return route('news.category',['slug'=>$this->slug]);
     }
 
     public function dataForApi(){

@@ -8,6 +8,9 @@ Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.
 
 Route::group(['prefix'=>'news'],function(){
     Route::get('/','NewsController@index')->name('news');
+    Route::get('/{slug}','NewsController@detail')->name('news.detail');
+    Route::get('/category/{slug}','NewsController@category')->name('news.category');
+    Route::get('/tag/{slug}','NewsController@tag')->name('news.tag');
 });
 
 Route::group(['prefix'=>'user','middleware'=>'auth'],function(){

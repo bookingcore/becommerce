@@ -132,7 +132,7 @@ class News extends BaseModel
     public static function search($filters = []){
         $query = parent::query();
         if(!empty($filters['category_id'])){
-            $query->where('category_id',$filters['category_id']);
+            $query->where('cat_id',$filters['category_id']);
         }
         return $query->where('status','publish');
     }
