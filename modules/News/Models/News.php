@@ -130,9 +130,17 @@ class News extends BaseModel
     }
 
     public static function search($filters = []){
-        $query = parent::query();
+        $query = parent::query()->select(['core_news.*']);
         if(!empty($filters['category_id'])){
             $query->where('cat_id',$filters['category_id']);
+        }
+        if(!empty($filters['tag_id']))
+        {
+            $query->join('core_news_tag',function($join) use ($filters) {
+                $join->on('core_news_tag.news_id','=','core_news.id');
+                $join->where('cores_news_tag.tag_id',$filters['tag_id']);
+                $join->whereNull('cores_news_tag.deleted_at');
+            });
         }
         return $query->where('status','publish');
     }

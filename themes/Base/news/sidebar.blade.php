@@ -6,5 +6,4 @@
 </aside>
 @include('news.sidebar.category')
 @include('news.sidebar.recent-posts')
-@include('news.sidebar.recent-comments')
 @include('news.sidebar.tags')

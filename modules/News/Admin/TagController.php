@@ -40,7 +40,8 @@ class TagController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'translation'=>new TagTranslation()
+            'translation'=>new TagTranslation(),
+            'page_title'=>__("Tag Management")
         ];
         return view('News::admin.tag.index', $data);
     }

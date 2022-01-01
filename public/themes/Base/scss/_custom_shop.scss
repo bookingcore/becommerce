@@ -33,7 +33,9 @@ a:hover,
 .mega-menu .mega-menu__list li a:hover,
 .menu > li > a:hover, .menu > li > a.active,
 .ps-breadcrumb--2 .breadcrumb li,
-.widget--blog.widget--categories ul li a:hover
+.widget--blog.widget--categories ul li a:hover,
+.widget--blog.widget--recent-post .widget__content a:hover,
+.widget--blog.widget--tags a:hover
 {
     color:var(--main-color)
 }
@@ -43,7 +45,9 @@ a:hover,
 .mega-menu {
     padding: 15px 30px 10px !important;
 }
-
+.widget--blog.widget--tags a:last-child:after{
+    content: "";
+}
 
 
 .header--standard{

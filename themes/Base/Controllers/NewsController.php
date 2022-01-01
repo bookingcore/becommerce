@@ -49,4 +49,33 @@ class NewsController extends FrontendController
         ];
         return view('news',$data);
     }
+
+
+
+    public function tag(Request $request,$slug){
+        $tag = Tag::query()->where('slug',$slug)->first();
+        if(!$tag){
+            abort(404);
+        }
+
+        $model_News = News::search([
+            's'=>$request->query('s'),
+            'tag_id'=>$tag->id
+        ]);
+        $translation = $tag->translate();
+        $data = [
+            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
+            'breadcrumbs' => [
+                ['name' => __('News'), 'url' => url("/news")],
+                ['name' => $translation->name,'class' => 'active'],
+            ],
+            "seo_meta" => News::getSeoMetaForPageList(),
+            'translation'=>$translation,
+            'page_title'=>$translation->name,
+            'header_title'=>$translation->name,
+        ];
+        return view('news',$data);
+    }
+
+
 }

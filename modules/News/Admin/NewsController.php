@@ -70,7 +70,8 @@ class NewsController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'translation'=>new NewsTranslation()
+            'translation'=>new NewsTranslation(),
+            'page_title'=>__("Add new post")
         ];
         return view('News::admin.news.detail', $data);
     }

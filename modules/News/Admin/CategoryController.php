@@ -40,7 +40,8 @@ class CategoryController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'translation'=>new NewsCategoryTranslation()
+            'translation'=>new NewsCategoryTranslation(),
+            'page_title'=>__("News Categories")
         ];
         return view('News::admin.category.index', $data);
     }

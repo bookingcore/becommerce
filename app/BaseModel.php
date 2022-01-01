@@ -233,6 +233,6 @@ class BaseModel extends Model
     }
 
     public function scopeIsActive($query){
-        return $query->where('status','publish');
+        return $query->where($this->table.'.status','publish');
     }
 }

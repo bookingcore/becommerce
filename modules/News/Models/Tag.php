@@ -54,6 +54,14 @@ class Tag extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        return route('news.tag.index',['slug'=>$this->slug]);
+        return route('news.tag',['slug'=>$this->slug]);
+    }
+
+    public function search($filters = []){
+        return parent::query();
+    }
+
+    public function news(){
+        return $this->hasManyThrough(News::class,NewsTag::class,'tag_id','id','id','news_id');
     }
 }
