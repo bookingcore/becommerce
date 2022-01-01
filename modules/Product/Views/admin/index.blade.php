@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("All Products")}}</h1>
             <div class="title-actions">
-                <a href="{{route('product.admin.create')}}" class="btn btn-primary">{{__("Add new product")}}</a>
+                <a href="{{route('product.admin.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__("Add new product")}}</a>
             </div>
         </div>
         @include('Layout::admin.message')
@@ -19,7 +19,7 @@
                             <option value="draft">{{__(" Move to Draft ")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
-                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
                     </form>
                 @endif
             </div>
@@ -44,7 +44,7 @@
                         ?>
                     @endif
                     <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
-                    <button class="btn-info btn btn-icon btn_search" type="submit">{{__('Search')}}</button>
+                    <button class="btn-default btn btn-icon btn_search" type="submit">{{__('Search')}}</button>
                 </form>
             </div>
         </div>
@@ -61,6 +61,8 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th width="100px"> {{ __('Picture')}}</th>
                             <th> {{ __('Name')}}</th>
+                            <th>{{__('Type')}}</th>
+                            <th>{{__('Category')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
                             <th width="100px"> {{ __('Reviews')}}</th>
@@ -82,6 +84,8 @@
                                     <td class="title">
                                         <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
                                     </td>
+                                    <td>{{$row::getTypeName()}}</td>
+                                    <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ' '}}</td>
                                     <td>
                                         @if(!empty($row->author))
                                             {{$row->author->getDisplayName()}}
@@ -97,8 +101,16 @@
                                     </td>
                                     <td>{{ display_date($row->updated_at)}}</td>
                                     <td>
-                                        <a href="{{route('product.admin.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}
-                                        </a>
+
+                                        <div class="dropdown">
+                                            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                {{__("Actions")}}
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a href="{{route('product.admin.edit',['id'=>$row->id])}}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                                <a href="{{$row->getDetailUrl()}}" class="dropdown-item" target="_blank"><i class="fa fa-eye"></i> {{__('View')}}</a>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             @endforeach

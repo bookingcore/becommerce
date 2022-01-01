@@ -35,7 +35,7 @@ $tabs = get_admin_product_tabs();
                 <div class="panel product-information-tabs">
                     <div class="panel-title d-flex justify-content-between">
                         <div class="d-flex justify-content-center align-items-center">
-                            <strong>{{__("Product Information")}}</strong>
+                            <strong class="flex-shrink-0 mr-3">{{__("Product Information")}}</strong>
                             <select @if(!is_default_lang()) readonly="" disabled @endif class="form-control" name="product_type">
                                 <optgroup label="{{__("Product Type")}}">
                                     @foreach(get_product_types() as $type_id=>$type)

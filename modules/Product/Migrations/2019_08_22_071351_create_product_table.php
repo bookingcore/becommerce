@@ -56,6 +56,9 @@ class CreateProductTable extends Migration
 
             //review
             $table->decimal('review_score',2,1)->nullable();
+            //External
+            $table->string('external_url')->nullable();
+            $table->string('button_text')->nullable();
 
             $table->bigInteger('author_id')->nullable();
             $table->bigInteger('create_user')->nullable();

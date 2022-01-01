@@ -136,6 +136,10 @@ class ProductController extends AdminController
 
     public function store( Request $request, $id ){
 
+        $request->validate([
+            'title'=>'required'
+        ]);
+
         if($id>0){
             $this->checkPermission('product_update');
             $row = $this->product::find($id);
@@ -170,9 +174,11 @@ class ProductController extends AdminController
             'is_manage_stock',
             'stock_status',
             'quantity',
+            'button_text',
+            'external_url'
         ];
         if($this->hasPermission('product_manage_others')){
-            $dataKeys[] = 'create_user';
+            $dataKeys[] = 'author_id';
         }
 
         $row->fillByAttr($dataKeys,$request->input());

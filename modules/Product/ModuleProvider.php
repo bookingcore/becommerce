@@ -5,6 +5,7 @@ use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductExternal;
 use Modules\Product\Models\ProductVariation;
 use Modules\Template\BlockManager;
 
@@ -135,6 +136,7 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'simple'=>Product::class,
             'variable'=>ProductVariation::class,
+            'external'=>ProductExternal::class,
         ];
     }
 
@@ -146,6 +148,14 @@ class ModuleProvider extends ModuleServiceProvider
                 "title"=>__("General"),
                 "view"=>"Product::admin.product.general"
             ],
+            "external"=>[
+                'position'=>15,
+                "icon"=>"fa fa-external-link",
+                "title"=>__("External"),
+                "view"=>"Product::admin.product.external",
+                "hide_in_sub_language"=>1,
+                "condition"=>"product_type:is(external)",
+            ],
             "pricing"=>[
                 'position'=>20,
                 "icon"=>"fa fa-money",
@@ -155,28 +165,28 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             "inventory"=>[
                 'position'=>30,
-                "icon"=>"fa fa-money",
+                "icon"=>"fa fa-archive",
                 "title"=>__("Inventory"),
                 "view"=>"Product::admin.product.inventory",
                 "hide_in_sub_language"=>1
             ],
             "categories"=>[
                 'position'=>40,
-                "icon"=>"fa fa-money",
+                "icon"=>"fa fa-book",
                 "title"=>__("Categories"),
                 "view"=>"Product::admin.product.categories",
                 "hide_in_sub_language"=>1
             ],
             "attributes"=>[
                 'position'=>50,
-                "icon"=>"fa fa-money",
+                "icon"=>"fa fa-bars",
                 "title"=>__("Attributes"),
                 "view"=>"Product::admin.product.attributes",
                 "hide_in_sub_language"=>1
             ],
             "variations"=>[
                 'position'=>60,
-                "icon"=>"fa fa-money",
+                "icon"=>"fa fa-bars",
                 "title"=>__("Variations"),
                 "view"=>"Product::admin.product.variations",
                 "condition"=>"product_type:is(variable)",
@@ -184,7 +194,7 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             "seo"=>[
                 'position'=>70,
-                "icon"=>"fa fa-money",
+                "icon"=>"fa fa-flag",
                 "title"=>__("SEO"),
                 "view"=>"Core::admin.seo-meta.seo-meta"
             ],

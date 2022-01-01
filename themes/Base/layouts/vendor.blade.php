@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/plugins/apexcharts-bundle/dist/apexcharts.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/css/style.css">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
+        <link href="{{ theme_url('Base/dist/css/vendor.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
