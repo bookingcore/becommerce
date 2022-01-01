@@ -16,26 +16,13 @@ class News extends Seeder
      */
     public function run()
     {
-
-        DB::table('core_settings')->insert(
-            [
-                [
-                    'name' => 'news_page_list_title',
-                    'val' => 'News',
-                    'group' => "news",
-                ],
-                [
-                    'name' => 'news_page_list_banner',
-                    'val' => MediaFile::findMediaByName("news-banner")->id,
-                    'group' => "news",
-                ],
-                [
-                    'name' => 'news_sidebar',
-                    'val' => '[{"title":null,"content":null,"type":"search_form"},{"title":"About Us","content":"Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa","type":"content_text"},{"title":"Recent News","content":null,"type":"recent_news"},{"title":"Categories","content":null,"type":"category"},{"title":"Tags","content":null,"type":"tag"}]',
-                    'group' => "news",
-                ],
-            ]
-        );
+        setting_update_item('news_page_list_title','News');
+        setting_update_item('news_page_list_title',[
+            ['type'=>'search_form'],
+            ['type'=>'category'],
+            ['type'=>'recent_news'],
+            ['type'=>'tag'],
+        ]);
 
         $list_categories = [
               ['name' => 'Entertaiment', 'slug' => 'entertaiment',  'status' => 'publish' ]

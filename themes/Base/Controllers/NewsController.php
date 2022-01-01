@@ -19,7 +19,7 @@ class NewsController extends FrontendController
                 ['name' => __('News'), 'url' => url("/news") ,'class' => 'active'],
             ],
             "seo_meta" => News::getSeoMetaForPageList(),
-            'page_title'=>__("News")
+            'page_title'=>setting_item_with_lang('news_page_list_title',__("News"))
         ];
         return view('news',$data);
     }

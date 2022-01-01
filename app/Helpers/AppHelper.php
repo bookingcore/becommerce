@@ -48,6 +48,9 @@ function setting_item_with_lang($item,$locale = '',$default = '',$withOrigin = t
     return Settings::item($item.($locale ? '_'.$locale : ''),$withOrigin ? setting_item($item,$default) : $default);
 
 }
+function setting_item_with_lang_arr($item,$locale = '',$default = []){
+    return (array) json_decode(setting_item_with_lang($item,$locale,$default),true);
+}
 function setting_item_with_lang_raw($item,$locale = '',$default = ''){
 
     return setting_item_with_lang($item,$locale,$default,false);

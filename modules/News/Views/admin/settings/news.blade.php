@@ -161,6 +161,7 @@
                                                     <option @if(!empty($item->type) && $item->type=='recent_news') selected @endif value="recent_news">{{__("Recent News")}}</option>
                                                     <option @if(!empty($item->type) && $item->type=='category') selected @endif value="category">{{__("Category")}}</option>
                                                     <option @if(!empty($item->type) && $item->type=='tag') selected @endif value="tag">{{__("Tags")}}</option>
+                                                    <option @if(!empty($item->type) && $item->type=='content_text') selected @endif value="content_text">{{__("Content Text")}}</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-1">
@@ -187,6 +188,7 @@
                                                 <option value="recent_news">{{__("Recent News")}}</option>
                                                 <option value="category">{{__("Category")}}</option>
                                                 <option value="tag">{{__("Tags")}}</option>
+                                                <option value="content_text">{{__("Content Text")}}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-1">
