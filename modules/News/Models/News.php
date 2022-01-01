@@ -16,10 +16,14 @@ class News extends BaseModel
         'status',
         'cat_id',
         'image_id',
+        'author_id'
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $seo_type = 'news';
+    public $type  = 'news';
+
+    public $review_type = 'comment';
 
     public function getDetailUrlAttribute()
     {
@@ -46,22 +50,13 @@ class News extends BaseModel
         return url(app_get_locale(false,false,'/'). config('news.news_route_prefix')."/".$this->slug);
     }
 
-    public function getCategory()
+    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        $catename = $this->belongsTo("Modules\News\Models\NewsCategory", "cat_id", "id");
-        return $catename;
+        return $this->belongsTo(NewsCategory::class, "cat_id");
     }
 
-    public function getTags()
-    {
-        $tags = NewsTag::where('news_id', $this->id)->get();
-        $tag_ids = [];
-        if (!empty($tags)) {
-            foreach ($tags as $key => $value) {
-                $tag_ids[] = $value->tag_id;
-            }
-        }
-        return Tag::whereIn('id', $tag_ids)->with('translations')->get();
+    public function tags(){
+        return $this->belongsToMany(Tag::class,NewsTag::getTableName(),'news_id','tag_id');
     }
 
     public static function searchForMenu($q = false)
@@ -116,8 +111,8 @@ class News extends BaseModel
             'category'=>NewsCategory::selectRaw("id,name,slug")->find($this->cat_id) ?? null,
             'created_at'=>display_date($this->created_at),
             'author'=>[
-                'display_name'=>$this->getAuthor->getDisplayName(),
-                'avatar_url'=>$this->getAuthor->getAvatarUrl()
+                'display_name'=>$this->author->getDisplayName(),
+                'avatar_url'=>$this->author->getAvatarUrl()
             ],
             'url'=>$this->getDetailUrl()
         ];

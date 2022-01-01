@@ -74,7 +74,7 @@
                                             <td class="title">
                                                 <a href="{{$row->getEditUrl()}}">{{$row->title}}</a>
                                             </td>
-                                            <td>{{$row->getCategory->name ?? '' }}</td>
+                                            <td>{{$row->category->name ?? '' }}</td>
                                             <td>
                                                 @if(!empty($row->author))
                                                     {{$row->author->display_name}}

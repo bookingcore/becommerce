@@ -24,7 +24,7 @@ class CategoryController extends AdminController
         if ($catename = $request->query('s')) {
             $catlist = $catlist->where('name', 'LIKE', '%' . $catename . '%');
         }
-        $catlist = $catlist->orderby('name', 'asc');
+        $catlist = $catlist->orderby('id', 'desc');
         $rows = $catlist->get();
 
         $data = [
@@ -66,6 +66,10 @@ class CategoryController extends AdminController
     }
 
     public function store(Request $request, $id){
+        $request->validate([
+            'name'=>'required'
+        ]);
+
         $this->checkPermission('news_manage_others');
 
         if($id>0){
@@ -79,6 +83,7 @@ class CategoryController extends AdminController
         }
 
         $row->fill($request->input());
+        $row->slug = $request->input('slug');
         $res = $row->saveOriginOrTranslation($request->input('lang'));
 
         if ($res) {
@@ -101,13 +106,21 @@ class CategoryController extends AdminController
         if (empty($action)) {
             return redirect()->back()->with('error', __('Please select an Action!'));
         }
-        if ($action == 'delete') {
-            foreach ($ids as $id) {
-                $query = NewsCategory::where("id", $id)->first();
-                if(!empty($query)){
-                    $query->delete();
+
+        switch ($action){
+            case "delete":
+                foreach ($ids as $id) {
+                    $query = NewsCategory::where("id", $id)->first();
+                    if(!empty($query)){
+                        $query->delete();
+                    }
                 }
-            }
+                break;
+            default:
+                NewsCategory::query()->whereIn('id',$ids)->update([
+                    'status'=>$action
+                ]);
+                break;
         }
         return redirect()->back()->with('success', __('Update success!'));
     }

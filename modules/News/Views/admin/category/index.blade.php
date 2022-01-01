@@ -29,6 +29,8 @@
                                 {{csrf_field()}}
                                 <select name="action" class="form-control">
                                     <option value="">{{__(" Bulk Action ")}}</option>
+                                    <option value="publish">{{__("Mark as publish")}}</option>
+                                    <option value="draft">{{__("Mark as draft")}}</option>
                                     <option value="delete">{{__(" Delete ")}}</option>
                                 </select>
                                 <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
@@ -52,6 +54,7 @@
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
                                     <th> {{ __('Name')}}</th>
                                     <th> {{ __('Slug')}}</th>
+                                    <th> {{ __('Status')}}</th>
                                     <th class="d-none d-md-block"> {{ __('Date')}}</th>
                                 </tr>
                                 </thead>
@@ -68,6 +71,7 @@
                                             <a href="{{url('admin/module/news/category/edit/'.$row->id)}}">{{$prefix.' '.$row->name}}</a>
                                         </td>
                                         <td>{{$row->slug}}</td>
+                                        <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span></td>
 
                                         <td class="d-none d-md-block">{{display_date($row->updated_at)}}</td>
                                     </tr>

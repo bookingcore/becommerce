@@ -97,7 +97,7 @@
                                     <div class="form-group">
                                         <label class="control-label"> {{ __('Tag')}}</label>
                                         <div class="">
-                                            <input type="text" data-role="tagsinput" value="{{$row->tag}}" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
+                                            <input type="text" data-role="tagsinput" value="" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
                                             <br>
                                             <div class="show_tags">
                                                 @if(!empty($tags))

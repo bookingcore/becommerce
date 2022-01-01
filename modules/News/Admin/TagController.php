@@ -26,7 +26,7 @@ class TagController extends AdminController
         if ($tagname) {
             $taglist->where('name', 'LIKE', '%' . $tagname . '%');
         }
-        $taglist->orderby('name', 'asc');
+        $taglist->orderby('id', 'desc');
         $data = [
             'rows'        => $taglist->paginate(20),
             'row'    => new Tag(),
@@ -64,6 +64,10 @@ class TagController extends AdminController
     }
 
     public function store(Request $request, $id){
+
+        $request->validate([
+            'name'=>'required'
+        ]);
 
         $this->checkPermission('news_manage_others');
 

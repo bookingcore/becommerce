@@ -31,7 +31,7 @@ class NewsController extends AdminController
         }
 
         $data = [
-            'rows'        => $dataNews->with("author")->with("getCategory")->paginate(20),
+            'rows'        => $dataNews->with("author")->with("category")->paginate(20),
             'categories'  => NewsCategory::get(),
             'breadcrumbs' => [
                 [
@@ -92,13 +92,17 @@ class NewsController extends AdminController
             'row'  => $row,
             'translation'  => $translation,
             'categories' => NewsCategory::get()->toTree(),
-            'tags' => $row->getTags(),
+            'tags' => $row->tags,
             'enable_multi_lang'=>true
         ];
         return view('News::admin.news.detail', $data);
     }
 
     public function store(Request $request, $id){
+        $request->validate([
+            'title'=>'required'
+        ]);
+
         if($id>0){
             $this->checkPermission('news_manage');
             $row = News::find($id);
@@ -115,7 +119,10 @@ class NewsController extends AdminController
         if($request->input('slug')){
             $row->slug = $request->input('slug');
         }
-        $row->author_id = $request->input('author_id',\auth()->id());
+        if(empty($request->input('author_id')))
+        {
+            $row->author_id = auth()->id();
+        }
         $res = $row->saveWithTranslation($request->input('lang'));
         $row->saveSEO($request,$request->input('lang'));
 
