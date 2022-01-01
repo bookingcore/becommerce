@@ -85,11 +85,18 @@ class News extends BaseModel
 
     static public function getSeoMetaForPageList()
     {
-        $meta['seo_title'] = setting_item_with_lang("news_page_list_seo_title", false,null) ?? setting_item_with_lang("news_page_list_title",false, null) ?? __("News");
+        $seo_title_array = array_values(array_filter([
+            setting_item_with_lang('news_page_list_seo_title'),
+            setting_item_with_lang('news_page_list_title'),
+            __('News'),
+        ]));
+
+        $meta['seo_title'] = $seo_title_array[0];
         $meta['seo_desc'] = setting_item_with_lang("news_page_list_seo_desc");
-        $meta['seo_image'] = setting_item("news_page_list_seo_image", null) ?? setting_item("news_page_list_banner", null);
+        $meta['seo_image'] = setting_item("news_page_list_seo_image");
         $meta['seo_share'] = setting_item_with_lang("news_page_list_seo_share");
         $meta['full_url'] = url(config('news.news_route_prefix'));
+
         return $meta;
     }
 
@@ -133,8 +140,8 @@ class News extends BaseModel
         {
             $query->join('core_news_tag',function($join) use ($filters) {
                 $join->on('core_news_tag.news_id','=','core_news.id');
-                $join->where('cores_news_tag.tag_id',$filters['tag_id']);
-                $join->whereNull('cores_news_tag.deleted_at');
+                $join->where('core_news_tag.tag_id',$filters['tag_id']);
+                $join->whereNull('core_news_tag.deleted_at');
             });
         }
         return $query->where('status','publish');
