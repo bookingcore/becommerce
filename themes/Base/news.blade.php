@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+    @include('global.bc')
     <div class="ps-page--blog">
         <div class="container">
             <div class="ps-page__header">

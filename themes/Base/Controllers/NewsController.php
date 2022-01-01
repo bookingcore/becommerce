@@ -38,7 +38,7 @@ class NewsController extends FrontendController
         $data = [
             'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
             'breadcrumbs' => [
-                ['name' => __('News'), 'url' => url("/news")],
+                ['name' => __('News'), 'url' => route('news')],
                 ['name' => $translation->name,'class' => 'active'],
             ],
             "seo_meta" => News::getSeoMetaForPageList(),
@@ -66,7 +66,7 @@ class NewsController extends FrontendController
         $data = [
             'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
             'breadcrumbs' => [
-                ['name' => __('News'), 'url' => url("/news")],
+                ['name' => __('News'), 'url' => route('news')],
                 ['name' => $translation->name,'class' => 'active'],
             ],
             "seo_meta" => News::getSeoMetaForPageList(),
@@ -77,5 +77,24 @@ class NewsController extends FrontendController
         return view('news',$data);
     }
 
+    public function detail(Request $request,$slug){
+        $news = News::query()->isActive()->where('slug',$slug)->with(['tags','tags.translation'])->first();
+        if(!$news){
+            abort(404);
+        }
+        $translation = $news->translate();
+        $data = [
+            'row'=>$news,
+            'breadcrumbs' => [
+                ['name' => __('News'), 'url' => route('news')],
+                ['name' => $translation->title,'class' => 'active'],
+            ],
+            "seo_meta" => $news->me,
+            'translation'=>$translation,
+            'page_title'=>$translation->title,
+            'header_title'=>$translation->title,
+        ];
+        return view('news-detail',$data);
+    }
 
 }

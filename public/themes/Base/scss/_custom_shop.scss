@@ -35,7 +35,11 @@ a:hover,
 .ps-breadcrumb--2 .breadcrumb li,
 .widget--blog.widget--categories ul li a:hover,
 .widget--blog.widget--recent-post .widget__content a:hover,
-.widget--blog.widget--tags a:hover
+.widget--blog.widget--tags a:hover,
+.ps-post--detail .ps-post__header p a:hover,
+.ps-post--detail .ps-post__tags a:hover,
+.hover-c-main:hover,
+.ps-breadcrumb .breadcrumb a:hover
 {
     color:var(--main-color)
 }

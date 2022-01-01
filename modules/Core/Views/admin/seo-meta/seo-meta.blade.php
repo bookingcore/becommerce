@@ -1,10 +1,5 @@
 <?php
-if(is_default_lang()){
-    $meta_seo = $row->getSeoMeta();
-}else{
-    $meta_seo = $translation->getSeoMeta(request()->query('lang'));
-}
-
+$meta_seo = $row->getSeoMeta();
 $seo_share = $meta_seo['seo_share'] ?? false;
 ?>
 <div class="panel">

@@ -11,11 +11,13 @@ trait HasSEO
 
     public function getSeoMeta($locale = false)
     {
+        if(empty($locale)) $locale = request('lang',app()->getLocale());
+
         if(!$this->seo_type and !$this->type) return;
         $seo_key = $this->seo_type ? $this->seo_type : $this->type;
         if(!empty($locale)) $seo_key = $seo_key."_".$locale;
 
-        $meta = SEO::where('object_id',  $this->id ? $this->id : $this->origin_id )->where('object_model', $seo_key)->first();
+        $meta = SEO::where('object_id', $this->id )->where('object_model', $seo_key)->first();
         if(!empty($meta)){
             $meta = $meta->toArray();
         }
@@ -40,13 +42,13 @@ trait HasSEO
         }
     }
 
-    public function saveSEO(\Illuminate\Http\Request $request , $locale = false)
+    public function saveSEO(\Illuminate\Http\Request $request  = null, $locale = false)
     {
-        if(!$locale or $locale == get_main_lang()){
-            $this->processSaveSEO($request);
-        }else{
-            $this->processSaveSEO($request,$locale);
+        if(!$request) $request = request();
+        if(empty($locale)){
+            $locale = $request->get('lang',app()->getLocale());
         }
+        $this->processSaveSEO($request,$locale);
     }
 
     protected function processSaveSEO(\Illuminate\Http\Request $request , $locale = false){
