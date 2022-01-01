@@ -2,11 +2,14 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Product\Database\Factories\ProductBrandFactory;
 
 class ProductBrand extends BaseModel
 {
+    use HasFactory;
     protected $table = 'product_brand';
     protected $fillable = [
         'name',
@@ -20,6 +23,11 @@ class ProductBrand extends BaseModel
     public static function getModelName()
     {
         return __("Product Brand");
+    }
+
+    protected static function newFactory()
+    {
+        return ProductBrandFactory::new();
     }
 
     public static function searchForMenu($q = false)

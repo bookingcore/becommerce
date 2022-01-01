@@ -14,7 +14,7 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function boot(){
 
-        $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
 
         SettingManager::register("product",[$this,'getProductSettings']);
         SettingManager::register("store",[$this,'getStoreSettings']);

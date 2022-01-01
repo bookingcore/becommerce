@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -13,12 +14,14 @@ use Modules\Core\Models\Terms;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Order\Helpers\CartManager;
+use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
 
 class Product extends BaseProduct
 {
+    use HasFactory;
     protected $table = 'products';
     public $type = 'product';
 
@@ -61,6 +64,11 @@ class Product extends BaseProduct
     {
         parent::__construct($attributes);
         $this->reviewClass = Review::class;
+    }
+
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
     }
 
     public static function getModelName()
@@ -407,6 +415,18 @@ class Product extends BaseProduct
         }));
     }
 
+    public function categorySeeder(){
+        return $this->belongsToMany(ProductCategory::class,ProductCategoryRelation::getTableName(),'target_id','cat_id');
+    }
+    public function termSeeder(){
+        return $this->belongsToMany(Terms::class,ProductTerm::getTableName(),'target_id','term_id');
+    }
+    public function tagsSeeder(){
+        return $this->belongsToMany(Tag::class,ProductTag::getTableName(),'target_id','tag_id');
+    }
+    public function review(){
+        return $this->hasMany(Review::class,'object_id','id')->where('object_model',$this->type);
+    }
     public function categories(){
         return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
     }

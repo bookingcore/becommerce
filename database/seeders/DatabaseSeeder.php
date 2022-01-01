@@ -1,5 +1,6 @@
 <?php
 namespace Database\Seeders;
+use File;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
 
@@ -19,7 +20,20 @@ class DatabaseSeeder extends Seeder
         $this->call(MediaFileSeeder::class);
         $this->call(General::class);
         $this->call(News::class);
-        $this->call(ProductSeeder::class);
         $this->call(TemplateSeeder::class);
+
+
+        $listModule = array_map('basename', File::directories(base_path('modules')));
+        $seededClasses = [];
+        foreach ($listModule as $module) {
+            $class = "\Modules\\".ucfirst($module)."\\Database\\DatabaseSeeder";
+            if(class_exists($class) && !in_array($class, $seededClasses)) {
+                if (method_exists($class, 'run')) {
+                    $this->call($class);
+                    $seededClasses[] = $class;
+                }
+            }
+        }
+
     }
 }
