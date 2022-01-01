@@ -6,6 +6,10 @@ Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.category.index');
 
 
+Route::group(['prefix'=>'news'],function(){
+    Route::get('/','NewsController@index')->name('news');
+});
+
 Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
    Route::get('/profile','User\ProfileController@index')->name('user.profile');
    Route::post('/profile/store','User\ProfileController@store')->name('user.profile.store');

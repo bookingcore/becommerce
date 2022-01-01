@@ -57,4 +57,7 @@ class NewsCategory extends BaseModel
         ];
     }
 
+    public static function search($filters = []){
+        return parent::query()->isActive();
+    }
 }

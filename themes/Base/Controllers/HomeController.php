@@ -31,17 +31,6 @@ class HomeController extends FrontendController
             ];
             return view('index',$data);
         }
-        $model_News = News::where("status", "publish");
-        $data = [
-            'rows'=>$model_News->paginate(5),
-            'model_category'    => NewsCategory::where("status", "publish"),
-            'model_tag'         => Tag::query(),
-            'model_news'        => News::where("status", "publish"),
-            'breadcrumbs' => [
-                ['name' => __('News'), 'url' => url("/news") ,'class' => 'active'],
-            ],
-            "seo_meta" => News::getSeoMetaForPageList()
-        ];
-        return view('News::frontend.index',$data);
+        return redirect(route('news'));
     }
 }

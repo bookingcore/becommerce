@@ -13,12 +13,5 @@
         <div class="page-template-content" style="background: {!! clean($style) !!}">
             {!! clean($row->getProcessedContent()) !!}
         </div>
-    @else
-        <div class="container " style="padding-top: 40px;padding-bottom: 40px;">
-            <h1>{{$row->title}}</h1>
-            <div class="blog-content">
-                {!! clean($row->content) !!}
-            </div>
-        </div>
     @endif
 @endsection

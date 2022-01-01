@@ -231,4 +231,8 @@ class BaseModel extends Model
                 break;
         }
     }
+
+    public function scopeIsActive($query){
+        return $query->where('status','publish');
+    }
 }

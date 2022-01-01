@@ -196,4 +196,5 @@ class News extends BaseModel
             return $count;
         }
     }
+
 }
