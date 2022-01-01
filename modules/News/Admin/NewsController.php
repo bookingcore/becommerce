@@ -123,8 +123,8 @@ class NewsController extends AdminController
         {
             $row->author_id = auth()->id();
         }
-        $res = $row->saveWithTranslation($request->input('lang'));
-        $row->saveSEO($request,$request->input('lang'));
+        $res = $row->saveWithTranslation();
+        $row->saveSEO();
 
         if ($res) {
             if(is_default_lang($request->query('lang'))){

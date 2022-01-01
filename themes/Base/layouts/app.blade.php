@@ -40,7 +40,7 @@
             @yield('content')
 
         </main>
-        <footer class="footer mt-auto py-3 bg-light">
+        <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
 
             <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>

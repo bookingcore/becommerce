@@ -13,12 +13,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="" >{{__("Sub Title Page")}}</label>
-                    <div class="form-controls">
-                        <input type="text" name="news_page_list_sub_title" value="{{setting_item_with_lang('news_page_list_sub_title',request()->query('lang'),$settings['news_page_list_sub_title'] ?? '')}}" class="form-control">
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="" >{{__("SEO Options")}}</label>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
@@ -93,80 +87,33 @@
     <hr>
     <div class="row">
         <div class="col-sm-4">
-            <h3 class="form-group-title">{{__("Review Options")}}</h3>
-            <p class="form-group-desc">{{__('Config review for news')}}</p>
+            <h3 class="form-group-title">{{__("Comment Options")}}</h3>
+            <p class="form-group-desc">{{__('Config comment for news')}}</p>
         </div>
         <div class="col-sm-8">
             <div class="panel">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="" >{{__("Enable review system for news?")}}</label>
+                        <label class="" >{{__("Enable comment system for news?")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="news_enable_review" value="1" @if(!empty($settings['news_enable_review'])) checked @endif /> {{__("Yes, please enable it")}} </label>
+                            <label><input type="checkbox" name="news_enable_comment" value="1" @if(setting_item('news_enable_comment')) checked @endif /> {{__("Yes, please enable it")}} </label>
                             <br>
-                            <small class="form-text text-muted">{{__("Turn on the mode for reviewing news")}}</small>
+                            <small class="form-text text-muted">{{__("Turn on the mode for commenting news")}}</small>
                         </div>
                     </div>
-                    <div class="form-group" data-condition="news_enable_review:is(1)">
-                        <label class="" >{{__("Review must be approval by admin")}}</label>
+                    <div class="form-group" data-condition="news_enable_comment:is(1)">
+                        <label class="" >{{__("Comment must be approval by admin")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="news_review_approved" value="1"  @if(!empty($settings['news_review_approved'])) checked @endif /> {{__("Yes please")}} </label>
+                            <label><input type="checkbox" name="news_comment_need_approved" value="1"  @if(setting_item('news_comment_need_approved')) checked @endif /> {{__("Yes please")}} </label>
                             <br>
-                            <small class="form-text text-muted">{{__("ON: Review must be approved by admin - OFF: Review is automatically approved")}}</small>
+                            <small class="form-text text-muted">{{__("ON: Comment must be approved by admin - OFF: Comment is automatically approved")}}</small>
                         </div>
                     </div>
-                    <div class="form-group" data-condition="news_enable_review:is(1)">
-                        <label class="" >{{__("Review number per page")}}</label>
+                    <div class="form-group" data-condition="news_enable_comment:is(1)">
+                        <label class="" >{{__("Number comment per page")}}</label>
                         <div class="form-controls">
-                            <input type="number" class="form-control" name="news_review_number_per_page" value="{{ $settings['news_review_number_per_page'] ?? 5 }}" />
+                            <input type="number" class="form-control" name="news_comment_number_per_page" value="{{ setting_item('news_comment_number_per_page',5) }}" />
                             <small class="form-text text-muted">{{__("Break comments into pages")}}</small>
-                        </div>
-                    </div>
-                    <div class="form-group d-none" data-condition="news_enable_review:is(1)">
-                        <label class="" >{{__("Review criteria")}}</label>
-                        <div class="form-controls">
-                            <div class="form-group-item">
-                                <div class="g-items-header">
-                                    <div class="row">
-                                        <div class="col-md-5">{{__("Title")}}</div>
-                                        <div class="col-md-1"></div>
-                                    </div>
-                                </div>
-                                <div class="g-items">
-                                    <?php
-                                    if(!empty($settings['news_review_stats'])){
-                                    $news_review_stats = json_decode($settings['news_review_stats']);
-                                    ?>
-                                    @foreach($news_review_stats as $key=>$item)
-                                        <div class="item" data-number="{{$key}}">
-                                            <div class="row">
-                                                <div class="col-md-11">
-                                                    <input type="text" name="news_review_stats[{{$key}}][title]" class="form-control" value="{{$item->title}}" placeholder="{{__('Eg: Service')}}">
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    <?php } ?>
-                                </div>
-                                <div class="text-right">
-                                    <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
-                                </div>
-                                <div class="g-more hide">
-                                    <div class="item" data-number="__number__">
-                                        <div class="row">
-                                            <div class="col-md-11">
-                                                <input type="text" __name__="news_review_stats[__number__][title]" class="form-control" value="" placeholder="{{__('Eg: Service')}}">
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -214,7 +161,6 @@
                                                     <option @if(!empty($item->type) && $item->type=='recent_news') selected @endif value="recent_news">{{__("Recent News")}}</option>
                                                     <option @if(!empty($item->type) && $item->type=='category') selected @endif value="category">{{__("Category")}}</option>
                                                     <option @if(!empty($item->type) && $item->type=='tag') selected @endif value="tag">{{__("Tags")}}</option>
-                                                    <option @if(!empty($item->type) && $item->type=='content_text') selected @endif value="content_text">{{__("Content Text")}}</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-1">
@@ -241,7 +187,6 @@
                                                 <option value="recent_news">{{__("Recent News")}}</option>
                                                 <option value="category">{{__("Category")}}</option>
                                                 <option value="tag">{{__("Tags")}}</option>
-                                                <option value="content_text">{{__("Content Text")}}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-1">

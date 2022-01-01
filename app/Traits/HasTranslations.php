@@ -33,7 +33,7 @@ trait HasTranslations
      */
     public function saveWithTranslation($locale = false): bool
     {
-        if(!$locale) $locale = get_main_lang();
+        if(!$locale) $locale = request()->get('lang',get_main_lang());
 
         if(is_default_lang($locale)){
             // Main lang, we need to save origin table also

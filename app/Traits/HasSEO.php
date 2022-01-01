@@ -42,8 +42,9 @@ trait HasSEO
         }
     }
 
-    public function saveSEO(\Illuminate\Http\Request $request , $locale = false)
+    public function saveSEO(\Illuminate\Http\Request $request  = null, $locale = false)
     {
+        if(!$request) $request = request();
         if(empty($locale)){
             $locale = $request->get('lang',app()->getLocale());
         }
