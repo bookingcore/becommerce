@@ -1,5 +1,5 @@
 <?php
-$categories = \Modules\News\Models\NewsCategory::search()->get()->toTree();
+$categories = \Modules\News\Models\NewsCategory::search()->with(['translation'])->get()->toTree();
 if(!$categories) return;
 if(!isset($current_cat)) $current_cat = null;
 ?>
