@@ -3,6 +3,7 @@ use \Illuminate\Support\Facades\Route;
 
 Route::get('/','HomeController@index')->name('home');
 Route::get('/product','ProductController@index')->name('product.index');
+Route::get('/product/{slug}','ProductController@index')->name('product.detail');
 Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.category.index');
 
 

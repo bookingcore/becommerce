@@ -36,7 +36,7 @@
             </select>
         </div>
     </div>
-    @if(is_admin())
+    @if(is_admin() and !empty($is_admin_page))
     <div class="form-group">
         <label>{{__('Is Featured?')}}</label>
         <div class="controls">
@@ -46,8 +46,8 @@
         </div>
     </div>
     @endif
-    <hr>
-    @if(is_default_lang() and is_admin())
+    @if(is_default_lang() and is_admin() and !empty($is_admin_page))
+        <hr>
         <div class="form-group">
             <label >{{__("Author")}}</label>
             <?php

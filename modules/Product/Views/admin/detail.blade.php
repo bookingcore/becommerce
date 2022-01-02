@@ -67,7 +67,7 @@ $tabs = get_admin_product_tabs();
                                 @php $i = 0 @endphp
                                 @foreach($tabs as $tab_id=>$tab)
                                     <div data-product-id="{{$row->id}}" class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
-                                        @include($tab['view'],['product'=>$product])
+                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
                                     </div>
                                     @php $i++ @endphp
                                 @endforeach

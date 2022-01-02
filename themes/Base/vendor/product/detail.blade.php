@@ -1,4 +1,7 @@
 @extends('layouts.vendor')
+@section('head')
+    <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
+@endsection
 @section('content')
     <section class="ps-items-listing">
         <div class="ps-section__content">

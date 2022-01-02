@@ -40,3 +40,42 @@
     font-weight: 600;
     line-height: 24px;
 }
+.language-navigation {
+    background: #fff;
+    border-bottom: 1px solid #e9ecef;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 #3f3f4426;
+    display: block;
+    padding: 14px 14px 0;
+}
+.lang-content-box {
+    background: #e9ecef;
+    box-shadow: 0 0 0 1px rgb(63 63 68 / 5%), 0 1px 3px 0 #3f3f4426;
+    padding: 14px;
+}
+.language-navigation .nav-tabs .nav-link.active {
+    background-color: #e9ecef;
+    border-color: #dee2e6 #dee2e6 #e9ecef;
+}
+.nav-tabs{
+    &.vertical-nav{
+        border-bottom:0px;
+        padding:7px 0px;
+        .nav-item{
+            margin-right: -16px;
+        }
+        .nav-link{
+            &.active,&:hover{
+                border-color:#dfe4e8;
+                border-right-color: #f4f6f8;
+                border-bottom-left-radius: 0.25rem;
+                border-top-right-radius: 0;
+            }
+            &:hover{
+                border-bottom-left-radius: 0.25rem;
+                border-top-right-radius: 0;
+            }
+        }
+    }
+}

@@ -104,3 +104,9 @@ a:hover,
         }
     }
 }
+.btn{
+    font-size: 14px;
+    &.btn-sm{
+        padding: 4px 12px;
+    }
+}
