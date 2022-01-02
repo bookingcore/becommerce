@@ -33,6 +33,8 @@ Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
    Route::get('/product/create','Vendor\ProductController@create')->name('vendor.product.create');
    Route::get('/product/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
    Route::post('/product/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
+
+   Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
 });
 Route::group(['prefix'=>'store','middleware'=>'auth'],function(){
    Route::get('/{slug}','Vendor\StoreController@index')->name('store');

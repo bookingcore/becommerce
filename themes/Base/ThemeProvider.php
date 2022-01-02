@@ -27,6 +27,11 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'url'=>route('vendor.product'),
                 'title'=>__("Products"),
                 "icon"=>"icon-database"
+            ],
+            'order'=>[
+                'url'=>route('vendor.order'),
+                'title'=>__("Orders"),
+                "icon"=>"icon-bag2"
             ]
         ];
     }

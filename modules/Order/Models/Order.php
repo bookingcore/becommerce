@@ -136,4 +136,10 @@ class Order extends BaseModel
         ];
         return implode(', ',array_filter($add));
     }
+
+    public function search($filters){
+        $query = parent::query();
+
+        return $query;
+    }
 }
