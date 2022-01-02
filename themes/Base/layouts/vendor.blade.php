@@ -14,6 +14,7 @@
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.carousel.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/select2/dist/css/select2.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/css/style.css">
+        <link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/vendor.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
