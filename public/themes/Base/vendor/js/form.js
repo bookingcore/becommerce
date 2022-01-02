@@ -11,16 +11,8 @@
     }
 
     // Form Configs
-    $('.has-ckeditor').each(function () {
+    $('.has-tinymce').each(function () {
         var els  = $(this);
-
-        // ClassicEditor
-        //     .create( els[0],{
-        //         extraPlugins: [ BookingCoreAdaterPlugin ],
-        //     })
-        //     .catch( error => {
-        //         console.error( error );
-        //     } );
 
         var id = $(this).attr('id');
 
@@ -37,7 +29,6 @@
         }
 
 
-        // CKEDITOR.replace( id );
         tinymce.init({
             selector:'#'+id,
             plugins: 'preview searchreplace autolink code fullscreen image link media codesample table charmap hr toc advlist lists wordcount textpattern help pagebreak hr',
@@ -56,7 +47,7 @@
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
@@ -81,7 +72,7 @@
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
@@ -90,8 +81,8 @@
 
     });
 
-    $(document).on('click','.dungdt-upload-box-normal .btn-field-upload,.dungdt-upload-box-normal .attach-demo',function () {
-        let p = $(this).closest('.dungdt-upload-box');
+    $(document).on('click','.bc-upload-box-normal .btn-field-upload,.bc-upload-box-normal .attach-demo',function () {
+        let p = $(this).closest('.bc-upload-box');
         uploaderModal.show({
             multiple: false,
             file_type: 'image',
@@ -106,19 +97,19 @@
         });
     });
 
-    $(document).on('click','.dungdt-upload-box-normal .delete',function (e) {
+    $(document).on('click','.bc-upload-box-normal .delete',function (e) {
         e.preventDefault();
-        let p = $(this).closest('.dungdt-upload-box');
+        let p = $(this).closest('.bc-upload-box');
         p.find("input").attr('value','')
         p.removeClass("active");
     });
 
-    $(document).on('click', '.dungdt-upload-box-normal .edit-img, .dungdt-upload-multiple .edit-img, .show_avatar .edit-img', function (e) {
+    $(document).on('click', '.bc-upload-box-normal .edit-img, .bc-upload-multiple .edit-img, .show_avatar .edit-img', function (e) {
         e.preventDefault();
         let $this = $(this);
         let image_path = $this.attr('data-file');
         let edit_type = ($this.hasClass('edit-multiple')) ? 'multiple' : 'single';
-        let p = (edit_type === 'multiple') ? $this.closest('.dungdt-upload-multiple') : $this.closest('.dungdt-upload-box');
+        let p = (edit_type === 'multiple') ? $this.closest('.bc-upload-multiple') : $this.closest('.bc-upload-box');
         let image_id = (edit_type === 'multiple') ? $this.attr('data-id') : p.attr('data-val');
         let config = {
             language: image_editer.language,
@@ -147,7 +138,7 @@
                 }
 
                 $.ajax({
-                    url: bookingCore.url + '/media/edit_image',
+                    url: BC.url + '/media/edit_image',
                     method: 'POST',
                     dataType: 'JSON',
                     data:{
@@ -164,8 +155,8 @@
         ImageEditor.open(image_path);
     });
 
-    $('.dungdt-upload-multiple').find('.btn-field-upload').click(function () {
-        let p = $(this).closest('.dungdt-upload-multiple');
+    $('.bc-upload-multiple').find('.btn-field-upload').click(function () {
+        let p = $(this).closest('.bc-upload-multiple');
         uploaderModal.show({
             multiple: true,
             file_type: 'image',
@@ -193,9 +184,9 @@
         });
     });
 
-    $('.dungdt-upload-multiple').on('click','.image-item .delete',function () {
+    $('.bc-upload-multiple').on('click','.image-item .delete',function () {
         var i = $(this).closest('.image-item').index();
-        let p = $(this).closest('.dungdt-upload-multiple');
+        let p = $(this).closest('.bc-upload-multiple');
         var ids = p.find('input').val().split(',');
 
         ids.splice(i,1);
@@ -210,7 +201,7 @@
     })
 
     $(document).ready(function () {
-        $('.dungdt-select2-field').each(function () {
+        $('.bc-select2').each(function () {
             var configs = $(this).data('options');
             $(this).select2(configs);
         })
@@ -237,9 +228,9 @@
         extra_html = extra_html.replace(/__number__/gi, number);
         p.append(extra_html);
 
-        if(extra_html.indexOf('dungdt-select2-field-lazy') >0 ){
+        if(extra_html.indexOf('bc-select2-field-lazy') >0 ){
 
-            p.find('.dungdt-select2-field-lazy').each(function () {
+            p.find('.bc-select2-field-lazy').each(function () {
                 var configs = $(this).data('options');
                 $(this).select2(configs);
             });
@@ -271,7 +262,7 @@
         }
         if(action === 'delete' ||  action === 'permanently_delete')
         {
-            bookingCoreApp.showConfirm({
+            BCApp.showConfirm({
                 message: i18n.confirm_delete,
                 callback: function(result){
                     if(result){
@@ -281,7 +272,7 @@
             })
         }else if(action === 'recovery')
         {
-            bookingCoreApp.showConfirm({
+            BCApp.showConfirm({
                 message: i18n.confirm_recovery,
                 callback: function(result){
                     if(result){

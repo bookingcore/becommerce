@@ -134,7 +134,7 @@ class FileHelper
         $file = (new MediaFile())->findById($oldValue);
         ob_start();
         ?>
-        <div class="dungdt-upload-box dungdt-upload-box-normal <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo $oldValue ?>">
+        <div class="bc-upload-box bc-upload-box-normal <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo $oldValue ?>">
             <div class="upload-box" v-show="!value">
                 <input type="hidden" <?php echo $nameAttr;?>="<?php echo $inputId ?>" v-model="value" value="<?php echo $oldValue ?>">
                 <div class="text-center">
@@ -212,7 +212,7 @@ class FileHelper
         $oldIds = $oldValue ? explode(',', $oldValue) : [];
         ob_start();
         ?>
-        <div class="dungdt-upload-multiple <?php if (!empty($file))
+        <div class="bc-upload-multiple <?php if (!empty($file))
             echo 'active' ?>" data-val="<?php echo $oldValue ?>">
             <div class="attach-demo d-flex">
                 <?php
@@ -262,7 +262,7 @@ class FileHelper
             <?php endif; ?>
         </div>
 
-        <div class="dungdt-upload-multiple">
+        <div class="bc-upload-multiple">
             <div class="upload-box" v-show="!value">
                 <div class="text-left">
                     <span class="btn btn-info btn-sm btn-field-upload" data-type="<?php echo e($type) ?>" @click="openUploader(<?php echo e($type) ?>)"><i class="fa fa-plus-circle"></i> <?php echo __("Select files") ?></span>

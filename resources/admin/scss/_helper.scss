@@ -11,7 +11,7 @@
     margin-top: 10px;
 }
 [v-cloak] {display: none}
-.dungdt-upload-box{
+.bc-upload-box{
     max-width: 250px;
     /*margin: 0px auto;*/
     position: relative;
@@ -88,7 +88,7 @@
     }
 }
 .form-group-item{
-    .dungdt-upload-box{
+    .bc-upload-box{
         max-width: none;
         .upload-box {
             padding: 10px 5px;
@@ -106,7 +106,7 @@
         }
     }
 }
-.dungdt-upload-multiple{
+.bc-upload-multiple{
     .attach-demo{
         margin: 0px -7px;
         flex-wrap: wrap;

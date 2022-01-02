@@ -19,6 +19,19 @@
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
+        <script>
+            var BC = {
+                url:'{{url('/')}}'
+            }
+            var i18n = {
+                warning:"{{__("Warning")}}",
+                success:"{{__("Success")}}",
+                confirm_delete:"{{__("Do you want to delete?")}}",
+                confirm_recovery:"{{__("Do you want to restore?")}}",
+                confirm:"{{__("Confirm")}}",
+                cancel:"{{__("Cancel")}}",
+            };
+        </script>
         @yield('head')
     </head>
     <body class=" {{$body_class ?? ''}}">

@@ -81,8 +81,8 @@ jQuery(function ($) {
         extra_html = extra_html.replace(/__number__/gi, number);
         $(this).closest(".form-group-item").find(".g-items").append(extra_html);
     });
-    $('.dungdt-upload-box').find('.btn-field-upload,.attach-demo').on('click',function () {
-        let p = $(this).closest('.dungdt-upload-box');
+    $('.bc-upload-box').find('.btn-field-upload,.attach-demo').on('click',function () {
+        let p = $(this).closest('.bc-upload-box');
 
         uploaderModal.show({
             multiple: false,
@@ -95,14 +95,14 @@ jQuery(function ($) {
         });
 
     });
-    $('.dungdt-upload-box .delete').on('click',function (e) {
+    $('.bc-upload-box .delete').on('click',function (e) {
         e.preventDefault();
-        let p = $(this).closest('.dungdt-upload-box');
+        let p = $(this).closest('.bc-upload-box');
         p.find("input").attr('value','')
         p.removeClass("active");
     });
-    $('.dungdt-upload-multiple').find('.btn-field-upload').on('click',function () {
-        let p = $(this).closest('.dungdt-upload-multiple');
+    $('.bc-upload-multiple').find('.btn-field-upload').on('click',function () {
+        let p = $(this).closest('.bc-upload-multiple');
         uploaderModal.show({
             multiple: true,
             file_type: 'image',
@@ -124,9 +124,9 @@ jQuery(function ($) {
             },
         });
     });
-    $('.dungdt-upload-multiple').on('click', '.image-item .delete', function () {
+    $('.bc-upload-multiple').on('click', '.image-item .delete', function () {
         var i = $(this).closest('.image-item').index();
-        let p = $(this).closest('.dungdt-upload-multiple');
+        let p = $(this).closest('.bc-upload-multiple');
         var ids = p.find('input').val().split(',');
         ids.splice(i, 1);
         p.find('input').val(ids.join(','));

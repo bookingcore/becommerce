@@ -29,8 +29,6 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
             remove_script_host = false;
         }
 
-
-        // CKEDITOR.replace( id );
         tinymce.init({
             selector:'#'+id,
             plugins: 'preview searchreplace autolink code fullscreen image link media codesample table charmap hr toc advlist lists wordcount textpattern help pagebreak hr',
@@ -83,8 +81,8 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
 
     });
 
-    $(document).on('click','.dungdt-upload-box-normal .btn-field-upload,.dungdt-upload-box-normal .attach-demo',function () {
-        let p = $(this).closest('.dungdt-upload-box');
+    $(document).on('click','.bc-upload-box-normal .btn-field-upload,.bc-upload-box-normal .attach-demo',function () {
+        let p = $(this).closest('.bc-upload-box');
         uploaderModal.show({
             multiple: false,
             file_type: 'image',
@@ -99,19 +97,19 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         });
     });
 
-    $(document).on('click','.dungdt-upload-box-normal .delete',function (e) {
+    $(document).on('click','.bc-upload-box-normal .delete',function (e) {
         e.preventDefault();
-        let p = $(this).closest('.dungdt-upload-box');
+        let p = $(this).closest('.bc-upload-box');
         p.find("input").attr('value','')
         p.removeClass("active");
     });
 
-    $(document).on('click', '.dungdt-upload-box-normal .edit-img, .dungdt-upload-multiple .edit-img, .show_avatar .edit-img', function (e) {
+    $(document).on('click', '.bc-upload-box-normal .edit-img, .bc-upload-multiple .edit-img, .show_avatar .edit-img', function (e) {
         e.preventDefault();
         let $this = $(this);
         let image_path = $this.attr('data-file');
         let edit_type = ($this.hasClass('edit-multiple')) ? 'multiple' : 'single';
-        let p = (edit_type === 'multiple') ? $this.closest('.dungdt-upload-multiple') : $this.closest('.dungdt-upload-box');
+        let p = (edit_type === 'multiple') ? $this.closest('.bc-upload-multiple') : $this.closest('.bc-upload-box');
         let image_id = (edit_type === 'multiple') ? $this.attr('data-id') : p.attr('data-val');
         let config = {
             language: image_editer.language,
@@ -157,8 +155,8 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         ImageEditor.open(image_path);
     });
 
-    $('.dungdt-upload-multiple').find('.btn-field-upload').click(function () {
-        let p = $(this).closest('.dungdt-upload-multiple');
+    $('.bc-upload-multiple').find('.btn-field-upload').click(function () {
+        let p = $(this).closest('.bc-upload-multiple');
         uploaderModal.show({
             multiple: true,
             file_type: 'image',
@@ -186,9 +184,9 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         });
     });
 
-    $('.dungdt-upload-multiple').on('click','.image-item .delete',function () {
+    $('.bc-upload-multiple').on('click','.image-item .delete',function () {
         var i = $(this).closest('.image-item').index();
-        let p = $(this).closest('.dungdt-upload-multiple');
+        let p = $(this).closest('.bc-upload-multiple');
         var ids = p.find('input').val().split(',');
 
         ids.splice(i,1);

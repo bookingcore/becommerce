@@ -1,5 +1,5 @@
 <template>
-    <div class="dungdt-upload-box dungdt-upload-box-vue " :class="{'active':value}" style="width:200px" >
+    <div class="bc-upload-box bc-upload-box-vue " :class="{'active':value}" style="width:200px" >
         <div class="upload-box" v-show="!value" >
             <div class="text-center">
                 <svg id="next-dropzone" width="100%" height="100%">
