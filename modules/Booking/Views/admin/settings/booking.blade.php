@@ -50,13 +50,13 @@
                 <div class="form-group">
                     <label >{{__("Header")}}</label>
                     <div class="form-controls">
-                        <textarea name="email_header" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('email_header',request()->query('lang')) }}</textarea>
+                        <textarea name="email_header" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('email_header',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
                     <label >{{__("Footer")}}</label>
                     <div class="form-controls">
-                        <textarea name="email_footer" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('email_footer',request()->query('lang')) }}</textarea>
+                        <textarea name="email_footer" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('email_footer',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
             </div>

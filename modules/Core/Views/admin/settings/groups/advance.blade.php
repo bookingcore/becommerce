@@ -237,7 +237,7 @@
                 <div class="form-group" data-condition="cookie_agreement_enable:is(1)">
                     <label>{{__("Content")}}</label>
                     <div class="form-controls">
-                        <textarea name="cookie_agreement_content" rows="8" class="form-control d-none has-ckeditor">{{setting_item_with_lang('cookie_agreement_content',request()->query('lang')) ?? '' }}</textarea>
+                        <textarea name="cookie_agreement_content" rows="8" class="form-control d-none has-tinymce">{{setting_item_with_lang('cookie_agreement_content',request()->query('lang')) ?? '' }}</textarea>
                     </div>
                 </div>
             </div>

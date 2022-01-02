@@ -1,5 +1,14 @@
+@import "panel";
 .menu--dropdown > li:hover,
 .menu > li > a:after
 {
     background-color: var(--main-color);
+}
+.ps-form--search-bar input:hover{
+    border-bottom-color: var(--main-color);
+}
+
+.header--dashboard .header__site-link:hover span, .header--dashboard .header__site-link:hover i
+{
+    color:var(--main-color)
 }

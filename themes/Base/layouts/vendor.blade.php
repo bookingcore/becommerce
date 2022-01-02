@@ -13,8 +13,6 @@
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.carousel.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/select2/dist/css/select2.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/plugins/summernote/summernote-bs4.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/plugins/apexcharts-bundle/dist/apexcharts.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/vendor/css/style.css">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/vendor.css') }}" rel="stylesheet">
@@ -52,9 +50,7 @@
         <script src="{{ theme_url('Base') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
         <script src="{{ theme_url('Base') }}/plugins/jquery.matchHeight-min.js"></script>
         <script src="{{ theme_url('Base') }}/plugins/select2/dist/js/select2.full.min.js"></script>
-        <script src="{{ theme_url('Base') }}/vendor/plugins/summernote/summernote-bs4.min.js"></script>
-        <script src="{{ theme_url('Base') }}/vendor/plugins/apexcharts-bundle/dist/apexcharts.min.js"></script>
-
+        <script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.version')) }}"></script>
         <script src="{{ asset('libs/bootbox/bootbox.all.min.js') }}"></script>
         <script src="{{ theme_url('Base') }}/vendor/js/main.js"></script>
         <!-- custom scripts-->

@@ -7,13 +7,13 @@
 <div class="form-group">
     <label class="control-label">{{__("Content")}}</label>
     <div class="control">
-        <textarea name="content" class="d-none has-ckeditor" cols="30" rows="10">{{$translation->content}}</textarea>
+        <textarea name="content" class="d-none has-tinymce" cols="30" rows="10">{{$translation->content}}</textarea>
     </div>
 </div>
 <div class="form-group">
     <label class="control-label">{{__("Short Description")}}</label>
     <div class="control">
-        <textarea name="short_desc" class="d-none has-ckeditor" cols="30"  >{{$translation->short_desc}}</textarea>
+        <textarea name="short_desc" class="d-none has-tinymce" cols="30"  >{{$translation->short_desc}}</textarea>
     </div>
 </div>
 @if(is_default_lang())

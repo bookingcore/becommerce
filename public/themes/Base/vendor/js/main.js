@@ -258,8 +258,5 @@
         parallax();
         select2Cofig();
         handleToggleDrawer();
-        $('#summernote').summernote({
-            height: 150
-        });
     });
 })(jQuery);

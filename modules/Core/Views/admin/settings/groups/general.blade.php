@@ -278,7 +278,7 @@
                 <div class="form-group">
                     <label>{{__("Copyright")}}</label>
                     <div class="form-controls">
-                        <textarea name="copyright" class="d-none has-ckeditor" cols="30" rows="10">{{setting_item_with_lang('copyright',request()->query('lang')) }}</textarea>
+                        <textarea name="copyright" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('copyright',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">

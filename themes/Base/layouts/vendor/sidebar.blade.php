@@ -34,7 +34,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
             <div class="ps-sidebar__footer">
                 <div class="ps-copyright">
                     @include("global.logo")
-                    <p>&copy;{{__('2020 BeCommerce marketplace')}}. <br> {{__('All rights reversed.')}}</p>
+                    <p>{{__('Powered by BeCommerce :version',['version'=>config('app.version')])}}</p>
                 </div>
             </div>
         </div>

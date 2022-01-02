@@ -1,5 +1,3 @@
-import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
-
 (function ($) {
 
     function makeid(length) {
@@ -13,8 +11,17 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
     }
 
     // Form Configs
-    $('.has-tinymce').each(function () {
+    $('.has-ckeditor').each(function () {
         var els  = $(this);
+
+        // ClassicEditor
+        //     .create( els[0],{
+        //         extraPlugins: [ BookingCoreAdaterPlugin ],
+        //     })
+        //     .catch( error => {
+        //         console.error( error );
+        //     } );
+
         var id = $(this).attr('id');
 
         if(!id){
@@ -62,7 +69,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
                         onSelect:function (files) {
                             console.log(files);
                             if(files.length)
-                            callback(files[0].full_size);
+                                callback(files[0].full_size);
                         },
                     });
                 }
