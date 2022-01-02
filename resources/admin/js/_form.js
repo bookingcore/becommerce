@@ -201,7 +201,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
     })
 
     $(document).ready(function () {
-        $('.dungdt-select2-field').each(function () {
+        $('.bc-select2').each(function () {
             var configs = $(this).data('options');
             $(this).select2(configs);
         })
@@ -228,9 +228,9 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         extra_html = extra_html.replace(/__number__/gi, number);
         p.append(extra_html);
 
-        if(extra_html.indexOf('dungdt-select2-field-lazy') >0 ){
+        if(extra_html.indexOf('bc-select2-lazy') >0 ){
 
-            p.find('.dungdt-select2-field-lazy').each(function () {
+            p.find('.bc-select2-lazy').each(function () {
                 var configs = $(this).data('options');
                 $(this).select2(configs);
             });

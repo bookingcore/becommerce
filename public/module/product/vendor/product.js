@@ -28,7 +28,7 @@
                 success:function (json) {
                     if(json.status){
                         var newOption = new Option(json.name, json.id, true, true);
-                        p.closest('.controls').find('.dungdt-select2-field').append(newOption).trigger('change');
+                        p.closest('.controls').find('.bc-select2').append(newOption).trigger('change');
                         p.find('input').val('');
                     }
                 }

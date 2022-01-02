@@ -10,7 +10,7 @@
                 <div class="form-group">
                     <label class="" >{{__("Main Currency")}}</label>
                     <div class="form-controls">
-                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),$settings['currency_main'] ?? 'usd','dungdt-select2-field') !!}
+                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),$settings['currency_main'] ?? 'usd','bc-select2') !!}
                     </div>
                 </div>
                 <div class="row">

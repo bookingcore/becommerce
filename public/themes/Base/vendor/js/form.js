@@ -228,9 +228,9 @@
         extra_html = extra_html.replace(/__number__/gi, number);
         p.append(extra_html);
 
-        if(extra_html.indexOf('bc-select2-field-lazy') >0 ){
+        if(extra_html.indexOf('bc-select2-lazy') >0 ){
 
-            p.find('.bc-select2-field-lazy').each(function () {
+            p.find('.bc-select2-lazy').each(function () {
                 var configs = $(this).data('options');
                 $(this).select2(configs);
             });

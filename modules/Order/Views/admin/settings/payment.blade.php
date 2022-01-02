@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <div class="form-controls">
-                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),$settings['currency_main'] ?? 'usd','dungdt-select2-field') !!}
+                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),$settings['currency_main'] ?? 'usd','bc-select2') !!}
                     </div>
                 </div>
                 <div class="row">
@@ -79,7 +79,7 @@
                                             <div class="col-md-11">
                                                 <div class="form-group">
                                                     <label class="" >{{__("Sub Currency")}}</label>
-                                                {!! \App\Helpers\AdminForm::select('extra_currency['.$key.'][currency_main]',\App\Currency::getAll(),$item['currency_main'] ?? '','dungdt-select2-field') !!}
+                                                {!! \App\Helpers\AdminForm::select('extra_currency['.$key.'][currency_main]',\App\Currency::getAll(),$item['currency_main'] ?? '','bc-select2') !!}
                                                 </div>
 
                                                 <div class="row">
@@ -146,7 +146,7 @@
                                             <div class="form-group">
                                                 <label class="" >{{__("Sub Currency")}}</label>
                                                 <div class="form-controls">
-                                            {!! \App\Helpers\AdminForm::select('extra_currency[__number__][currency_main]',\App\Currency::getAll(),'','dungdt-select2-field-lazy',true) !!}
+                                            {!! \App\Helpers\AdminForm::select('extra_currency[__number__][currency_main]',\App\Currency::getAll(),'','bc-select2-lazy',true) !!}
                                                 </div>
                                             </div>
                                             <div class="row">

@@ -56,7 +56,7 @@ jQuery(function ($) {
         });
     });
     $(document).ready(function () {
-        $('.dungdt-select2-field').each(function () {
+        $('.bc-select2').each(function () {
             var configs = $(this).data('options');
             $(this).select2(configs);
         })

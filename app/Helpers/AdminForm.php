@@ -17,7 +17,7 @@ class AdminForm{
 
     public static function select2($name,$options,$old = [], $multiple = false){
         ?>
-        <select class="form-control dungdt-select2-field" data-options='<?php echo json_encode($options['configs']) ?>' name="<?php echo e($name) ?>" <?php echo ($multiple != false) ? 'multiple="multiple"' : '' ?>>
+        <select class="form-control bc-select2" data-options='<?php echo json_encode($options['configs']) ?>' name="<?php echo e($name) ?>" <?php echo ($multiple != false) ? 'multiple="multiple"' : '' ?>>
             <?php if ($multiple == false) : ?>
                 <?php if(!empty($old[1])):?>
                     <option value="<?php echo e($old[0]) ?>" selected><?php echo e($old[1]) ?></option>

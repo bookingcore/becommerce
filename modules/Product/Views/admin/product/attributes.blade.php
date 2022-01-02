@@ -7,7 +7,7 @@
                     <label data-condition="product_type:is(variable)"><input type="checkbox" name="attributes_for_variation[]" @if(!empty($product->attributes_for_variation) and in_array($attribute->id,$product->attributes_for_variation)) checked @endif value="{{$attribute->id}}"> {{__("Used for variations")}}</label>
                     <div class="">
                         @php $options = ["width"=>"100%","placeholder"=>__("-- Please select --")]; @endphp
-                        <select data-options='{!! json_encode($options) !!}' name="terms[]" class="dungdt-select2-field" multiple>
+                        <select data-options='{!! json_encode($options) !!}' name="terms[]" class="bc-select2" multiple>
                             @foreach($attribute->terms as $term)
                                 <option value="{{$term->id}}"  @if(!empty($selected_terms) and $selected_terms->contains($term->id)) selected @endif>{{$term->name}}</option>
                             @endforeach
