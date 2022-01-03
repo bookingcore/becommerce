@@ -298,6 +298,9 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_variation_translations');
         Schema::dropIfExists('product_brand');
         Schema::dropIfExists('product_brand_translations');
+        Schema::dropIfExists('product_shipping_zones');
+        Schema::dropIfExists('product_shipping_zone_locations');
+        Schema::dropIfExists('product_shipping_zone_methods');
 
         Schema::dropIfExists('user_address');
     }

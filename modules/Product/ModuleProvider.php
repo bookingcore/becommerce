@@ -20,6 +20,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("store",[$this,'getStoreSettings']);
         SettingManager::register("shipping",[$this,'getShippingSettings']);
         SettingManager::register("tax",[$this,'getTaxSettings']);
+        SettingManager::register("email",[$this,'getEmailSettings']);
 
         BlockManager::register("slide_product",\Modules\Product\Blocks\SlideProduct::class);
 
@@ -323,6 +324,58 @@ class ModuleProvider extends ModuleServiceProvider
             'view'=>"Product::admin.settings.tax",
             'keys' => [
 
+            ],
+            'html_keys' => [
+
+            ]
+        ];
+    }
+
+    public function getEmailSettings(){
+        return [
+            'id'   => 'email',
+            'title' => __("Email Settings"),
+            'position'=> 35,
+            'view'=>"Product::admin.settings.email",
+            'keys' => [
+                'email_new_order_enable',
+                'email_new_order_recipient',
+                'email_new_order_subject',
+                'email_new_order_heading',
+
+                'email_cancelled_order_enable',
+                'email_cancelled_order_recipient',
+                'email_cancelled_order_subject',
+                'email_cancelled_order_heading',
+
+                'email_failed_order_enable',
+                'email_failed_order_recipient',
+                'email_failed_order_subject',
+                'email_failed_order_heading',
+
+                'email_order_on_hold_enable',
+                'email_order_on_hold_subject',
+                'email_order_on_hold_heading',
+
+                'email_processing_order_enable',
+                'email_processing_order_subject',
+                'email_processing_order_heading',
+
+                'email_completed_order_enable',
+                'email_completed_order_subject',
+                'email_completed_order_heading',
+
+                'email_refunded_order_enable',
+                'email_refunded_order_subject',
+                'email_refunded_order_heading',
+
+                'email_customer_invoice_enable',
+                'email_customer_invoice_subject',
+                'email_customer_invoice_heading',
+
+                'email_order_details_enable',
+                'email_order_details_subject',
+                'email_order_details_heading',
             ],
             'html_keys' => [
 
