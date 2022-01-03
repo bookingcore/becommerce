@@ -541,4 +541,33 @@ class Product extends BaseProduct
     public function hasWishList(){
         return $this->hasOne(UserWishList::class, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
     }
+
+
+    public function search($fill)
+    {
+        $model = Product::select("*");
+        if (!empty($category_ids = $fill['category_id'] )) {
+            $model->join('product_category_relations', function ($join) use ($category_ids) {
+                $join->on('products.id', '=', 'product_category_relations.target_id')
+                    ->whereIn('product_category_relations.cat_id', $category_ids);
+            });
+        }
+        if(!empty($fill['is_featured']))
+        {
+            $model->where('products.is_featured',1);
+        }
+        $orderby = $fill['order_by'] ?? "desc";
+        $order = $fill['order'] ?? "id";
+        switch ($order){
+            case "price_low_high":
+                break;
+            case "price_high_low":
+                break;
+        }
+        $model->orderBy("products.".$order, $orderby);
+        $model->where("products.status", "publish");
+        $model->groupBy("products.id");
+        $limit = $fill['limit'] ?? 6;
+        return $model->with(['brand','hasWishList'])->paginate($limit);
+    }
 }

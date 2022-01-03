@@ -21,10 +21,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("shipping",[$this,'getShippingSettings']);
         SettingManager::register("tax",[$this,'getTaxSettings']);
 
-        BlockManager::register("list_product",\Modules\Product\Blocks\ListProduct::class);
-        BlockManager::register("list_categories",\Modules\Product\Blocks\ListCategories::class);
-        BlockManager::register("list_product_categories",\Modules\Product\Blocks\ListProductInCategories::class);
-        BlockManager::register("recently_viewed_products",\Modules\Product\Blocks\RecentlyViewedProducts::class);
+        BlockManager::register("slide_product",\Modules\Product\Blocks\SlideProduct::class);
 
     }
     /**

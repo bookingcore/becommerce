@@ -2,7 +2,7 @@
 @section('content')
     @if($row->template_id && $row->show_template)
         <div class="page-template-content">
-            {!! clean($row->getProcessedContent()) !!}
+            {!! ($row->getProcessedContent()) !!}
         </div>
     @else
         @include('global.bc')

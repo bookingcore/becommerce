@@ -71,7 +71,7 @@
             <script src="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/slick-animation.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/js/lightgallery-all.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
+            {{--<script src="{{ theme_url('Base') }}/plugins/sticky-sidebar/dist/sticky-sidebar.min.js"></script>--}}
             <script src="{{ theme_url('Base') }}/plugins/select2/dist/js/select2.full.min.js"></script>
 
             <script src="{{ asset('libs/bootbox/bootbox.all.min.js') }}"></script>

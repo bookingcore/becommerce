@@ -11,9 +11,9 @@ class Promotion extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'            => 'colItem',
+                    'id'            => 'col',
                     'type'          => 'radios',
-                    'label'         => __('Item Per Rows'),
+                    'label'         => __('Item Per Rows ( default 3 item in row)'),
                     'values'        => [
                         [
                             'value'   => '6',
@@ -26,30 +26,11 @@ class Promotion extends BaseBlock
                         [
                             'value'   => '3',
                             'name' => __("4 Item")
-                        ],
-                        [
-                            'value'   => 'big_and_small',
-                            'name' => __("Big & Small (Only use for default template)")
                         ]
                     ]
                 ],
                 [
-                    'id'            => 'styleItem',
-                    'type'          => 'radios',
-                    'label'         => __('Style Item'),
-                    'values'        => [
-                        [
-                            'value'   => '0',
-                            'name' => __("Default")
-                        ],
-                        [
-                            'value'   => '1',
-                            'name' => __("Style 1")
-                        ],
-                    ]
-                ],
-                [
-                    'id'          => 'item',
+                    'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('List Items'),
                     'title_field' => 'List Item',
@@ -57,53 +38,14 @@ class Promotion extends BaseBlock
                         [
                             'id'        => 'title',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Title')
-                        ],
-                        [
-                            'id'        => 'price',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Price')
-                        ],
-                        [
-                            'id'        => 'sale_price',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Sale Price')
-                        ],
-                        [
-                            'id'        => 'discount',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Discount Percent')
-                        ],
-                        [
-                            'id'            => 'discount_position',
-                            'type'          => 'radios',
-                            'label'         => __('Discount position (Not used for default template)'),
-                            'values'        => [
-                                [
-                                    'value'   => 'top',
-                                    'name' => __("Top")
-                                ],
-                                [
-                                    'value'   => 'bottom',
-                                    'name' => __("Bottom")
-                                ],
-                            ]
                         ],
                         [
                             'id'        => 'link',
                             'type'      => 'input',
                             'inputType' => 'text',
                             'label'     => __('Link Product')
-                        ],
-                        [
-                            'id'        => 'desc',
-                            'type'      => 'input',
-                            'inputType' => 'textArea',
-                            'label'     => __('Description Promotion')
                         ],
                         [
                             'id'    => 'image',
@@ -123,11 +65,10 @@ class Promotion extends BaseBlock
 
     public function content($model = [])
     {
-        $model = [
-            'style' =>  $model['styleItem'] ?? 0,
-            'item'  =>  $model['item'],
-            'colItem' =>$model['colItem']
+        $data = [
+            'list_items'  =>  $model['list_items'],
+            'col' => $model['col'] ?? 4
         ];
-        return view('Template::frontend.blocks.Promotion.index', $model);
+        return view('Template::frontend.blocks.Promotion.index', $data);
     }
 }

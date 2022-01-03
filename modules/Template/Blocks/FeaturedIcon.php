@@ -4,14 +4,14 @@ namespace Modules\Template\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
-class HomeFee extends BaseBlock
+class FeaturedIcon extends BaseBlock
 {
     function __construct()
     {
         $this->setOptions([
             'settings' => [
                 [
-                    'id'          => 'feeItem',
+                    'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('Fee List Items'),
                     'title_field' => 'title',
@@ -42,11 +42,11 @@ class HomeFee extends BaseBlock
 
     public function getName()
     {
-        return __('Home Fee');
+        return __('Featured Icon');
     }
 
     public function content($model = [])
     {
-        return view('Template::frontend.blocks.HomeFee.index', $model);
+        return view('Template::frontend.blocks.FeaturedIcon.index', $model);
     }
 }

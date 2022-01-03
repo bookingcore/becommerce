@@ -67,7 +67,7 @@ class MediaController extends Controller
                     {
                         if(function_exists('proc_open')){
                             try{
-                                    ImageOptimizer::optimize(public_path('app/public/'.$file->file_path));
+                                   // ImageOptimizer::optimize(public_path('app/public/'.$file->file_path));
                                 }catch (\Exception $exception){
 
                             }
@@ -127,7 +127,7 @@ class MediaController extends Controller
         // Try to compress Images
         if(function_exists('proc_open') and function_exists('escapeshellarg')){
             try{
-                ImageOptimizer::optimize(public_path("uploads/".$check));
+               // ImageOptimizer::optimize(public_path("uploads/".$check));
             }catch (\Exception $exception){
 
             }
