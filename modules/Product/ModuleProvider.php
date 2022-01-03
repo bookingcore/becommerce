@@ -341,41 +341,48 @@ class ModuleProvider extends ModuleServiceProvider
                 'email_new_order_enable',
                 'email_new_order_recipient',
                 'email_new_order_subject',
-                'email_new_order_heading',
 
                 'email_cancelled_order_enable',
                 'email_cancelled_order_recipient',
                 'email_cancelled_order_subject',
-                'email_cancelled_order_heading',
 
                 'email_failed_order_enable',
                 'email_failed_order_recipient',
                 'email_failed_order_subject',
-                'email_failed_order_heading',
 
                 'email_order_on_hold_enable',
                 'email_order_on_hold_subject',
-                'email_order_on_hold_heading',
 
                 'email_processing_order_enable',
                 'email_processing_order_subject',
-                'email_processing_order_heading',
 
                 'email_completed_order_enable',
                 'email_completed_order_subject',
-                'email_completed_order_heading',
 
                 'email_refunded_order_enable',
                 'email_refunded_order_subject',
-                'email_refunded_order_heading',
 
                 'email_customer_invoice_enable',
                 'email_customer_invoice_subject',
-                'email_customer_invoice_heading',
 
-                'email_order_details_enable',
-                'email_order_details_subject',
-                'email_order_details_heading',
+                'email_driver',
+                'email_host',
+                'email_port',
+                'email_encryption',
+                'email_username',
+                'email_password',
+                'email_mailgun_domain',
+                'email_mailgun_secret',
+                'email_mailgun_endpoint',
+                'email_postmark_token',
+                'email_ses_key',
+                'email_ses_secret',
+                'email_ses_region',
+                'email_sparkpost_secret',
+
+                'admin_email',
+                'email_from_name',
+                'email_from_address',
             ],
             'html_keys' => [
 

@@ -431,3 +431,10 @@ th.slug{ width: 20%}
         margin: 10px 0 5px;
     }
 }
+.email-settings-header{
+    cursor: pointer;
+    .icon-check{
+        font-size: 20px;
+        color: #999;
+    }
+}

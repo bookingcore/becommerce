@@ -1,14 +1,11 @@
 @if(is_default_lang())
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <h3 class="form-group-title">{{__("Shipping Zones")}}</h3>
-            <p class="form-group-desc">{{__('Shipping Zones')}}</p>
-        </div>
-        <div class="col-sm-8">
             <div class="panel">
                 <div class="panel-body">
                     <div class="mb-3">
-                        <a href="#" class="btn btn-sm btn-default">{{ __("Add shipping zone") }}</a>
+                        <a href="{{ route('product.shipping.new') }}" class="btn btn-sm btn-default">{{ __("Add shipping zone") }}</a>
                     </div>
                     <div class="table-responsive">
                         @php
@@ -24,7 +21,13 @@
                             </thead>
                             <tbody>
                             @if($shippingZones->count() > 0)
-
+                                @foreach($shippingZones as $shippingZone)
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td colspan="3" class="text-center">
@@ -35,9 +38,9 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td><a href="#">{{ __("Locations not covered by your other zones") }}</a></td>
+                                <td>{{ __("This zone is optionally used for regions that are not included in any other shipping zone.") }}</td>
+                                <td>{{ __("No shipping methods") }}</td>
                             </tr>
                             </tfoot>
                         </table>
@@ -48,24 +51,21 @@
     </div>
     <hr>
     <div class="row">
-        <div class="col-sm-4">
+        <div class="col-sm-12">
             <h3 class="form-group-title">{{__("Shipping Options")}}</h3>
-            <p class="form-group-desc">{{__('Shipping Options')}}</p>
-        </div>
-        <div class="col-sm-8">
             <div class="panel">
                 <div class="panel-body">
                     <div class="form-group">
                         <label class="" >{{__("Enable the shipping calculator on the cart page")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="shipping_enable_calc" value="1" @if(!empty($settings['shipping_enable_calc'])) checked @endif /> {{__("Yes")}} </label>
+                            <label><input type="checkbox" name="shipping_enable_calc" value="1" @if(!empty($settings['shipping_enable_calc'])) checked @endif /> {{__("On")}} </label>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="" >{{__("Hide shipping costs until an address is entered")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="shipping_cost_requires_address" value="1" @if(!empty($settings['shipping_cost_requires_address'])) checked @endif /> {{__("Yes")}} </label>
+                            <label><input type="checkbox" name="shipping_cost_requires_address" value="1" @if(!empty($settings['shipping_cost_requires_address'])) checked @endif /> {{__("On")}} </label>
                         </div>
                     </div>
                 </div>
