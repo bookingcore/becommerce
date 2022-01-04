@@ -256,13 +256,19 @@ class CreateProductTable extends Migration
             $table->string('name')->nullable();
             $table->integer('order')->nullable();
 
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
             $table->timestamps();
         });
 
         Schema::create('product_shipping_zone_locations', function (Blueprint $table){
             $table->bigIncrements('id');
             $table->bigInteger('zone_id')->nullable();
+
             $table->string('location_code')->nullable();
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
 
             $table->timestamps();
         });
@@ -275,6 +281,8 @@ class CreateProductTable extends Migration
             $table->integer('order')->nullable();
             $table->tinyInteger('is_enabled')->nullable();
 
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
             $table->timestamps();
         });
 
@@ -285,7 +293,9 @@ class CreateProductTable extends Migration
 
             $table->string('title',255)->nullable();
 
-            $table->unique(['origin_id', 'locale']);
+            $table->unique(['origin_id', 'locale'],'origin_locale');
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
             $table->timestamps();
         });
 
