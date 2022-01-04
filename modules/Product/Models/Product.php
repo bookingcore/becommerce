@@ -156,10 +156,10 @@ class Product extends BaseProduct
     public function getDiscountPercentAttribute()
     {
         if (    !empty($this->price) and $this->price > 0
-            and !empty($this->sale_price) and $this->sale_price > 0
-            and $this->price > $this->sale_price
+            and !empty($this->origin_price) and $this->origin_price > 0
+            and $this->price < $this->origin_price
         ) {
-            $percent = 100 - ceil($this->sale_price / ($this->price / 100));
+            $percent = 100 - ceil($this->price / ($this->origin_price / 100));
             return $percent . "%";
         }
     }

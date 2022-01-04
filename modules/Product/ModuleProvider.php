@@ -23,6 +23,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("email",[$this,'getEmailSettings']);
 
         BlockManager::register("slide_product",\Modules\Product\Blocks\SlideProduct::class);
+        BlockManager::register("list_product_categories",\Modules\Product\Blocks\ListProductCategories::class);
 
     }
     /**

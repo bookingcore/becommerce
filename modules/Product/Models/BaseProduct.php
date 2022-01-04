@@ -133,16 +133,13 @@ class BaseProduct extends BaseModel
 
     public function getDisplayPriceAttribute()
     {
-        if (!empty($this->price) and $this->price > 0 and !empty($this->sale_price) and $this->sale_price > 0 and $this->price > $this->sale_price) {
-            return format_money($this->sale_price);
-        }
         return format_money($this->price);
     }
 
-    public function getDisplaySalePriceAttribute()
+    public function getDisplayOriginPriceAttribute()
     {
-        if (!empty($this->price) and $this->price > 0 and !empty($this->sale_price) and $this->sale_price > 0 and $this->price > $this->sale_price) {
-            return format_money($this->price);
+        if (!empty($this->price) and $this->price > 0 and !empty($this->origin_price) and $this->origin_price > 0 and $this->price < $this->origin_price) {
+            return format_money($this->origin_price);
         }
         return false;
     }

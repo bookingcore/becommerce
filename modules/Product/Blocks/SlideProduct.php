@@ -101,17 +101,17 @@ class SlideProduct extends BaseBlock
         if(!empty($category_ids = $model['category_id'] )) {
             $categories = ProductCategory::select('name','id','slug')->whereIn('id', $category_ids)->get();
         }
-        $model = new Product();
+        $product = new Product();
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
-        $list = $model->search($model);
+        $list = $product->search($model);
         $data = [
             'rows'       => $list,
             'title'      => $model['title'],
             'categories' => $categories ?? [],
             'link_view_all' => $model['link_view_all'] ?? "#",
         ];
-        return view('Product::frontend.blocks.SlideProduct.index', $data);
+        return view('Product::frontend.blocks.slide-product.index', $data);
     }
 }

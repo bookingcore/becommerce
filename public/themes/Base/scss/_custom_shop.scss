@@ -23,7 +23,7 @@
 .header--standard .ps-form--quick-search button,
 .header--standard .header__extra span,
 .ps-btn, button.ps-btn,
-.ps-widget--account-dashboard .ps-widget__content ul li a:hover,
+.ps-widget--account-dashboard .ps-widget__content ul li a:hover
 {
     background-color: var(--main-color);
 }
@@ -109,5 +109,52 @@ a:hover,
     font-size: 14px;
     &.btn-sm{
         padding: 4px 12px;
+    }
+}
+
+.loop-product{
+    .service-review {
+        padding: 15px 0;
+        .list-star{
+            display: inline-block;
+            line-height: 13px;
+            position: relative;
+            .item-rating-stars{
+                padding: 0;
+                margin: 0;
+                width: 90px;
+                &:before,&:after{
+                    content: "";
+                    display: table;
+                    clear: both;
+                }
+                li {
+                    list-style: none;
+                    float: left;
+                    margin-right: 5px;
+                    &:last-child{
+                        margin-right: 0;
+                    }
+                    .fa {
+                        font-size: 15px;
+                        color: #fcb800;
+                    }
+                }
+            }
+            .item-rating-stars-active{
+                position: absolute;
+                width: 0;
+                top: 0;
+                left: 0;
+                overflow: hidden;
+            }
+        }
+        .review {
+            position: relative;
+            top: -2px;
+            font-size: 13px;
+            color: #768092;
+            margin-left: 10px;
+        }
     }
 }

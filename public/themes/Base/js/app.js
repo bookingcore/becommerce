@@ -280,4 +280,29 @@ jQuery(function ($) {
         return false;
     });
 
+    $('.bc-product-quick-view').on('click',function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let product = $(this).data('product');
+        let quickView = $('.mf-quick-view-modal');
+        $.ajax({
+            url: bookingCore.url + '/product/quick_view/' + product.id,
+            method:'POST',
+            beforeSend: function () {
+                $this.tooltip('hide');
+                quickView.addClass('loading').fadeIn();
+            },
+            success: function (data) {
+                quickView.removeClass('loading').addClass('loaded');
+                $('.product-modal-content').html(data).css('display','block');
+                $('.product-gallery').slick({
+                    prevArrow: '<span class="icon-chevron-left slick-prev-arrow"></span>',
+                    nextArrow: '<span class="icon-chevron-right slick-next-arrow"></span>',
+                });
+                $('[data-toggle="tooltip"]').tooltip();
+            }
+        })
+    });
 });
+
+

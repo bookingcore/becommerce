@@ -5,27 +5,12 @@ use Modules\Template\Blocks\BaseBlock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategoryRelation;
 
-class ListProductInCategories extends BaseBlock
+class ListProductCategories extends BaseBlock
 {
     function __construct()
     {
         $this->setOptions([
             'settings' => [
-                [
-                    'id'            => 'style_list',
-                    'type'          => 'radios',
-                    'label'         => __('Style Item'),
-                    'values'        => [
-                        [
-                            'value'   => '0',
-                            'name' => __("Default"),
-                        ],
-                        [
-                            'value'   => '1',
-                            'name' => __("Style 1")
-                        ]
-                    ]
-                ],
                 [
                     'id'        => 'title',
                     'type'      => 'input',
@@ -152,32 +137,19 @@ class ListProductInCategories extends BaseBlock
 
     public function content($model = [])
     {
-        $model_product = Product::select("*");
-        if(empty($model['order'])) $model['order'] = "id";
-        if(empty($model['order_by'])) $model['order_by'] = "desc";
-        if(empty($model['number'])) $model['number'] = 6;
-        if (empty($model['link_product'])) $model['link_product'] = '#';
-        if (!empty($category_ids = $model['category_id'] )) {
-            $model_product->join('product_category_relations', function ($join) use ($category_ids) {
-                $join->on('products.id', '=', 'product_category_relations.target_id')
-                    ->whereIn('product_category_relations.cat_id', $category_ids);
-            });
-        }
-        $model_product->orderBy("products.".$model['order'], $model['order_by']);
-        $model_product->where("products.status", "publish");
-        $model_product->groupBy("products.id");
-        $list = $model_product->with(['brand','hasWishList'])->limit($model['number'])->get();
-        $product_url = Product::getLinkForPageSearch();
+        $product = new Product();
+        $model['order'] = $model['order'] ?? "id";
+        $model['order_by'] = $model['order_by'] ?? "desc";
+        $model['limit'] = $model['number'] ?? 5;
+        $list = $product->search($model);
+
         $data = [
             'rows'       => $list,
-            'title'      => $model['title'],
-            'all_product'=> $model['link_product'],
-            'style'       => $model['style_list'] ?? 0,
+            'title'      => $model['title'] ?? "",
             'sliders'    => $model['sliders'] ?? '',
             'custom_link'=> $model['custom_link'] ?? '',
-            'blocks'     => 'product_in_cats',
             'link_all'   => $model['link_all'] ?? ''
         ];
-        return view('Product::frontend.blocks.list-product-in-categories.index', $data);
+        return view('Product::frontend.blocks.list-product-categories.index', $data);
     }
 }
