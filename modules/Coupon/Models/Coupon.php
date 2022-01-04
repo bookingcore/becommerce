@@ -139,7 +139,20 @@ class Coupon extends Bookable
     }
 
     public function services(){
-        return $this->hasMany( Product::class, 'coupon_id');
+        return $this->hasMany( CouponServices::class, 'coupon_id');
+    }
+    public function getServicesToArray(){
+        $services = $this->services()->with('service')->get();
+        $data = [];
+        if(!empty($services)){
+            foreach ($services as $item){
+                $data[] = [
+                    'id'   => $item->service->id,
+                    'text' => "(#{$item->service->id}): {$item->service->title}"
+                ];
+            }
+        }
+        return $data;
     }
 
     public function calculatorPrice($price){
@@ -151,5 +164,5 @@ class Coupon extends Bookable
 	    }
 	    return $coupon_amount;
     }
-   
+
 }

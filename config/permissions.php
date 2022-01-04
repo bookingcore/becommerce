@@ -10,6 +10,12 @@ return [
     "product_delete",
     "product_manage_others",
     "product_manage_attributes",
+
+    "coupon_view",
+    "coupon_update",
+    "coupon_create",
+    "coupon_delete",
+
     // POS
     "pos_access",
 

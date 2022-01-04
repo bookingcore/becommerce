@@ -91,7 +91,6 @@
                                     <div class="form-group">
                                         <button class="ps-btn ps-btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                     </div>
-                                    
                                     @if(!empty($counpon))
                                         <ul class="p-0 mb-3 list-coupons">
                                             @foreach($coupons as $coupon)
