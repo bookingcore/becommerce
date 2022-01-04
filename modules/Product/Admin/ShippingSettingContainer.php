@@ -14,6 +14,9 @@ class ShippingSettingContainer extends AdminController
 
     public function create(Request $request)
     {
+
+        $this->checkPermission('setting_manage');
+
         $data = [
             'enable_multi_lang' => true,
             'breadcrumbs'        => [
@@ -32,7 +35,24 @@ class ShippingSettingContainer extends AdminController
 
     public function edit(Request $request, $id)
     {
+        $this->checkPermission('setting_manage');
 
+
+        $data = [
+            'enable_multi_lang' => true,
+            'zone_id' => $id,
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Shipping Settings'),
+                    'url'  => 'admin/module/core/settings/index/shipping'
+                ],
+                [
+                    'name'  => __('Shipping Zones'),
+                    'class' => 'active'
+                ],
+            ],
+        ];
+        return view('Product::admin.settings.shipping.shipping_zone', $data);
     }
 
     public function store(Request $request , $id)

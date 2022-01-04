@@ -369,7 +369,7 @@ function _n($l,$m,$count){
     }
     return $l;
 }
-function get_country_lists(){
+function get_country_lists($type = 'default'){
     $countries = array
     (
         'AF' => 'Afghanistan',
@@ -618,6 +618,13 @@ function get_country_lists(){
         'ZM' => 'Zambia',
         'ZW' => 'Zimbabwe',
     );
+    if($type == 'select_2'){
+        $select2 = [];
+        foreach ($countries as $key => $val){
+            $select2[] = ['id' => $key, 'text' => $val];
+        }
+        return $select2;
+    }
     return $countries;
 }
 

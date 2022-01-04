@@ -9,6 +9,9 @@
         </div>
         @include('admin.message')
         <div class="row">
+            <div class="col-md-12 mb-3">
+                <a href="/admin/module/core/settings/index/shipping" class="btn btn-sm btn-default"><i class="fa fa-angle-left"></i> {{ __("Shipping Zones") }}</a>
+            </div>
 
             <div class="col-md-12">
                 <form action="{{ route('product.shipping.store') }}" method="post" autocomplete="off">
@@ -31,7 +34,13 @@
                                             <div class="form-group">
                                                 <label class="">{{__("Zone regions")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="zone_name" value="{{setting_item('zone_name')}}">
+                                                    @php \App\Helpers\AdminForm::select2('zone_regions',
+                                                        ['configs' => [
+                                                            'data' => get_country_lists('select_2'),
+                                                            'allowClear'  => true,
+                                                            'placeholder' => __('-- Select regions --')
+                                                        ]], false, true)
+                                                    @endphp
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -50,7 +59,8 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span></span>
-                        <button class="btn btn-primary" type="submit">{{__('Save settings')}}</button>
+                        <input type="hidden" name="zone_id" value="{{ $zone_id ?? '' }}" />
+                        <button class="btn btn-primary" type="submit">{{__('Save changes')}}</button>
                     </div>
                 </form>
             </div>
