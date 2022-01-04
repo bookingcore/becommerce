@@ -14,23 +14,30 @@
                         <table class="table">
                             <thead>
                             <tr>
-                                <th>{{ __("Zone name") }} </th>
-                                <th>{{ __("Region(s)") }} </th>
-                                <th>{{ __("Shipping method(s)") }} </th>
+                                <th>{{ __("Zone name") }}</th>
+                                <th>{{ __("Region(s)") }}</th>
+                                <th>{{ __("Shipping method(s)") }}</th>
+                                <th>{{ __("Order") }}</th>
+                                <th class="text-center" style="width: 90px"></th>
                             </tr>
                             </thead>
                             <tbody>
                             @if($shippingZones->count() > 0)
                                 @foreach($shippingZones as $shippingZone)
                                     <tr>
+                                        <td><a href="{{ route('product.shipping.edit', ['id' => $shippingZone->id]) }}">{{ $shippingZone->name }}</a></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td>
+                                            <a href=""  class="btn btn-danger btn-sm"><i class="fa fa-times"></i></a>
+                                            <a href="{{ route('product.shipping.edit', ['id' => $shippingZone->id]) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             @else
                                 <tr>
-                                    <td colspan="3" class="text-center">
+                                    <td colspan="5" class="text-center">
                                         {{ __("No shipping zone") }}
                                     </td>
                                 </tr>
@@ -41,6 +48,8 @@
                                 <td><a href="#">{{ __("Locations not covered by your other zones") }}</a></td>
                                 <td>{{ __("This zone is optionally used for regions that are not included in any other shipping zone.") }}</td>
                                 <td>{{ __("No shipping methods") }}</td>
+                                <td></td>
+                                <td><a href="{{ route('product.shipping.edit', ['id' => 'other']) }}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a></td>
                             </tr>
                             </tfoot>
                         </table>

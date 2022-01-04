@@ -24,15 +24,23 @@
                                         <div class="form-group">
                                             <label class="">{{__("Zone name")}} <span class="text-danger">*</span></label>
                                             <div class="form-controls">
-                                                <input type="text" class="form-control" name="zone_name" value="{{setting_item_with_lang('zone_name',request()->query('lang'))}}">
+                                                <input type="text" class="form-control" required name="zone_name" value="{{setting_item_with_lang('zone_name',request()->query('lang'))}}">
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="">{{__("Zone regions")}} <span class="text-danger">*</span></label>
-                                            <div class="form-controls">
-                                                <input type="text" class="form-control" name="zone_name" value="{{setting_item_with_lang('zone_name',request()->query('lang'))}}">
+                                        @if(is_default_lang())
+                                            <div class="form-group">
+                                                <label class="">{{__("Zone regions")}}</label>
+                                                <div class="form-controls">
+                                                    <input type="text" class="form-control" name="zone_name" value="{{setting_item('zone_name')}}">
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="form-group">
+                                                <label class="">{{__("Order No.")}}</label>
+                                                <div class="form-controls">
+                                                    <input type="number" class="form-control" name="order" value="{{ $row->order ?? 1 }}">
+                                                </div>
+                                            </div>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

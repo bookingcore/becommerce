@@ -433,8 +433,24 @@ th.slug{ width: 20%}
 }
 .email-settings-header{
     cursor: pointer;
+    position: relative;
     .icon-check{
         font-size: 20px;
         color: #999;
+    }
+    h6:before{
+        content: "\f3d8";
+        display: inline-block;
+        font-family: "Ionicons";
+        font-size: 20px;
+        position: absolute;
+        right: 15px;
+        top: 17px;
+        color: #007bff;
+    }
+    .collapsed{
+        &:before{
+            content: "\f3d0";
+        }
     }
 }
