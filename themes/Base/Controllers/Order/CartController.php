@@ -14,9 +14,9 @@ class CartController extends FrontendController
 {
 
     public function index(Request $request){
-
         $data = [
             'items'=>CartManager::items(),
+            'counpon'=>CartManager::getCoupon(),
             'page_title'=>__("Shopping Cart")
         ];
         return view('order.cart.index',$data);
@@ -71,8 +71,6 @@ class CartController extends FrontendController
             'reload'=>CartManager::count()  ? false: true,
         ],__("Item removed"));
     }
-
-
     public function updateCartItem(Request $request){
 
         if(!Auth::check()){

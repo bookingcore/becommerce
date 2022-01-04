@@ -7,6 +7,7 @@ use Modules\AdminController;
 use Modules\Booking\Models\Service;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponServices;
+use Modules\Product\Models\Product;
 
 class CouponController extends AdminController
 {
@@ -205,7 +206,7 @@ class CouponController extends AdminController
 
     function getServiceForSelect2(Request $request){
         $q = $request->query('q');
-        $query = Service::select('*');
+        $query = Product::select('*');
         if ($q) {
             $query->where(function ($query) use ($q) {
                 $query->where('title', 'like', '%' . $q . '%')

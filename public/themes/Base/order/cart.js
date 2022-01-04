@@ -65,7 +65,7 @@ jQuery(function () {
         var parentItem = $(this).closest('.item');
         parentItem.find(".fa-spin").removeClass("d-none");
         $.ajax({
-            'url': 'cart/remove-coupon',
+            'url': 'cart/remove_coupon',
             'data': {
                 coupon_code:$(this).attr('data-code')
             },

@@ -16,6 +16,8 @@ class CartManager
 {
     protected static $session_key='core_carts';
 
+    protected static $session_coupon_key = 'core_coupon_cart';
+
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variant_id = false){
 
         $items = static::items();
@@ -162,6 +164,10 @@ class CartManager
         return static::items()->sum('subtotal');
     }
 
+    public static function subtotalBeforeDiscount(){
+        return static::items()->sum('subtotal_before_discount');
+    }
+
     /**
      * Get Subtotal
      *
@@ -169,6 +175,9 @@ class CartManager
      */
     public static function total(){
         return static::subtotal();
+    }
+    public static function totalBeforeDiscount(){
+        return static::subtotalBeforeDiscount();
     }
 
     public static function get_cart_fragments(){
@@ -178,13 +187,57 @@ class CartManager
     }
 
 
-    public function updateCoupon(Coupon $coupon){
-        $items = static::items();
-        foreach ($items as $item){
 
-        }
 
+    public static function getCoupon(){
+    	return session()->get(static::$session_coupon_key,new Collection([]));
     }
+
+    public static function storeCoupon(Coupon $coupon){
+    	if(!empty($coupon->id)){
+		    $coupons = static::getCoupon();
+		    $coupons->put($coupon->id,$coupon);
+		    static::updateItemCoupon($coupon);
+		    session()->put(static::$session_coupon_key,$coupons);
+	    }
+    }
+    public static function removeCounpon(Coupon $coupon){
+    	if(!empty($coupon->id)){
+		    $coupons = static::getCoupon();
+		    $coupons->pull($coupon->id);
+		    static::updateItemCoupon($coupon,'remove');
+		    session()->put(static::$session_coupon_key,$coupons);
+	    }
+    }
+
+	public static function updateItemCoupon(Coupon $coupon,$action='add'){
+		$items = static::items();
+		if(!empty($items)){
+			$services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
+			foreach ($items as $cart_item_id=> $item){
+				$check = \Arr::where($services,function ($value,$key) use ($item){
+					if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+						return $value;
+					}
+				});
+				if(!empty($check)){
+					if($action=='remove'){
+						$item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
+					}else{
+						$item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
+					}
+					$items->put($cart_item_id,$item);
+					session()->put(static::$session_key, $items);
+				}
+			}
+		}
+
+	}
+
+    public static function clearCoupon(){
+    	session()->forget(static::$session_coupon_key);
+    }
+
 
     /**
      * return Order
@@ -212,5 +265,7 @@ class CartManager
         $order->syncTotal();
         return $order;
     }
+
+
 
 }

@@ -12,7 +12,7 @@ class CreateCouponTable extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_coupons', function (Blueprint $table) {
+        Schema::create('core_coupons', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('code',50)->unique();
             $table->string('name')->nullable();
@@ -38,7 +38,7 @@ class CreateCouponTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_coupon_services', function (Blueprint $table) {
+        Schema::create('core_coupon_services', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('coupon_id')->nullable();
             $table->bigInteger('object_id')->nullable();
@@ -49,10 +49,10 @@ class CreateCouponTable extends Migration
             $table->bigInteger('update_user')->nullable();
             $table->timestamps();
         });
-        Schema::create('bravo_booking_coupons', function (Blueprint $table) {
+        Schema::create('core_coupon_order', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('booking_id')->nullable();
-            $table->string('booking_status',30)->nullable();
+            $table->bigInteger('order_id')->nullable();
+            $table->string('order_status',30)->nullable();
             $table->bigInteger('object_id')->nullable();
             $table->string('object_model')->nullable();
 
@@ -73,8 +73,8 @@ class CreateCouponTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_coupons');
-        Schema::dropIfExists('bravo_coupon_services');
-        Schema::dropIfExists('bravo_booking_coupons');
+        Schema::dropIfExists('core_coupons');
+        Schema::dropIfExists('core_coupon_services');
+        Schema::dropIfExists('core_booking_coupons');
     }
 }

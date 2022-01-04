@@ -34,11 +34,7 @@ class CouponController extends FrontendController
         if(empty($coupon)){
             return $this->sendError( __("Invalid coupon code!"));
         }
-        $booking = Booking::where('code', $code)->first();
-        if ( !empty($booking) and !in_array($booking->status , ['draft','unpaid'])) {
-            return $this->sendError( __("Booking not found!"));
-        }
-        $res = $coupon->applyCoupon($booking,'remove');
+        $res = $coupon->removeCoupon();
         if($res['status']==1){
             $res['reload'] = 1;
         }

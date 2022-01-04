@@ -6,52 +6,55 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Booking\Models\Bookable;
 use Modules\Booking\Models\Booking;
 use Modules\Booking\Models\Service;
+use Modules\Order\Helpers\CartManager;
+use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderItem;
+use Modules\Product\Models\Product;
 
 class Coupon extends Bookable
 {
-    protected $table = 'bravo_coupons';
+    protected $table = 'core_coupons';
     protected $casts = [
         'services'      => 'array',
     ];
 
-    protected $bookingClass;
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        $this->bookingClass = Booking::class;
     }
 
-    public function applyCoupon($booking,$action = 'add'){
+    public function applyCoupon(){
         // Validate Coupon
-        $res = $this->applyCouponValidate($booking,$action);
+        $res = $this->applyCouponValidate();
         if ($res !== true)
             return $res;
-        switch ($action){
-            case"add":
-                $this->add($booking);
-                break;
-            case"remove":
-                $this->remove($booking);
-                break;
-        }
-        $booking->reloadCalculateTotalBooking();
+        CartManager::storeCoupon($this);
+        return [
+            'status' =>  1,
+            'message' => __("Coupon code is applied successfully!")
+        ];
+    }
+    public function removeCoupon(){
+        // Validate Coupon
+        $res = $this->applyCouponValidate();
+        if ($res !== true)
+            return $res;
+        CartManager::storeCoupon($this);
         return [
             'status' =>  1,
             'message' => __("Coupon code is applied successfully!")
         ];
     }
 
-    public function applyCouponValidate($booking,$action){
-        if($action == 'remove'){
-            return true;
-        }
-        $check_coupon = CouponBookings::where('coupon_code',$this->code)->where("booking_id",$booking->id)->count();
-        if(!empty($check_coupon)){
-            return [
-                'status'=>0,
-                'message'=> __("Coupon code is added already!")
-            ];
+    public function applyCouponValidate(){
+        $couponCart = CartManager::getCoupon();
+        $totalBeforeDiscount = CartManager::totalBeforeDiscount();
+        if($couponCart->where('id',$this->id)->first()){
+	        return [
+			        'status'=>0,
+			        'message'=> __("Coupon code is added already!")
+	        ];
         }
         if(!empty($end_date = $this->end_date)){
             $today = strtotime("today");
@@ -62,13 +65,14 @@ class Coupon extends Bookable
                 ];
             }
         }
-        if(!empty($min_total = $this->min_total) and $booking->total_before_discount < $min_total){
+
+        if(!empty($min_total = $this->min_total) and $totalBeforeDiscount < $min_total){
             return [
                 'status'=>0,
                 'message'=> __("The order has not reached the minimum value of :amount to apply the coupon code!",['amount'=>format_money($min_total)])
             ];
         }
-        if(!empty($max_total = $this->max_total) and $booking->total_before_discount > $max_total){
+        if(!empty($max_total = $this->max_total) and $totalBeforeDiscount > $max_total){
             return [
                 'status'=>0,
                 'message'=> __("This order has exceeded the maximum value of :amount to apply coupon code! ",['amount'=>format_money($max_total)])
@@ -76,14 +80,17 @@ class Coupon extends Bookable
         }
         if(!empty($this->services)){
             $check = false;
-            $service_booking_object_id = $booking->object_id;
-            $service_booking_object_model = $booking->object_model;
-            foreach ($this->couponServices as $item){
-                if($item->object_id == $service_booking_object_id and $item->object_model == $service_booking_object_model){
-                    $check = true;
-                }
-            }
-            if(!$check){
+            $items = CartManager::items();
+            $items = $items->pluck(['object_id','object_model'])->toArray();
+	        $services  = $this->services->pluck(['object_id','object_model'])->toArray();
+			foreach ($items as $item){
+				$check = \Arr::where($services,function ($value,$key) use ($item){
+					if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+						return $value;
+					}
+				});
+			}
+            if(empty($check)){
                 return [
                     'status'=>0,
                     'message'=> __("Coupon code is not applied to this product!")
@@ -105,7 +112,7 @@ class Coupon extends Bookable
             }
         }
         if(!empty($quantity_limit = $this->quantity_limit)){
-            $count = CouponBookings::where('coupon_code',$this->code)->whereNotIn('booking_status',['draft','unpaid','cancelled'])->count();
+            $count = CouponOrder::where('coupon_code',$this->code)->whereNotIn('order_status',['draft','unpaid','cancelled'])->count();
             if($quantity_limit <= $count){
                 return [
                     'status'=>0,
@@ -120,7 +127,7 @@ class Coupon extends Bookable
                     'message'=> __("You need to log in to use the coupon code!")
                 ];
             }
-            $count = CouponBookings::where('coupon_code',$this->code)->where("create_user",$user_id)->whereNotIn('booking_status',['draft','unpaid','cancelled'])->count();
+            $count = CouponOrder::where('coupon_code',$this->code)->where("create_user",$user_id)->whereNotIn('order_status',['draft','unpaid','cancelled'])->count();
             if($limit_per_user <= $count){
                 return [
                     'status'=>0,
@@ -131,52 +138,18 @@ class Coupon extends Bookable
         return true;
     }
 
-    public function remove($booking){
-        $couponBooking = CouponBookings::where('coupon_code',$this->code)->where('booking_id',$booking->id)->first();
-        if(!empty($couponBooking)){
-            $couponBooking->delete();
-        }
+    public function services(){
+        return $this->hasMany( Product::class, 'coupon_id');
     }
 
-    public function add($booking)
-    {
-        //for Type Fixed
-        $coupon_amount = $this->amount;
-        //for Type Percent
-        if($this->discount_type == 'percent'){
-            $coupon_amount =  $booking->total_before_discount / 100 * $this->amount;
-        }
-        $couponBooking = new CouponBookings();
-        $couponBooking->fill([
-            'booking_id' => $booking->id,
-            'booking_status' => $booking->status,
-            'object_id' => $booking->object_id,
-            'object_model' => $booking->object_model,
-            'coupon_code' => $this->code,
-            'coupon_amount' => $coupon_amount,
-            'coupon_data' => $this->toArray(),
-        ]);
-        $couponBooking->save();
+    public function calculatorPrice($price){
+		//for Type Fixed
+	    $coupon_amount = $this->amount;
+	    //for Type Percent
+	    if($this->discount_type == 'percent'){
+		    $coupon_amount =  $price / 100 * $this->amount;
+	    }
+	    return $coupon_amount;
     }
-
-    public function couponServices(){
-        return $this->hasMany( CouponServices::class, 'coupon_id');
-    }
-    /**
-     * Using for select2
-     * @return array
-     */
-    public function getServicesToArray(){
-        $data = [];
-        if(!empty($this->services)){
-            $services = Service::selectRaw('id,object_id,object_model,title')->whereIn('id',$this->services)->get();
-            foreach ($services as $item){
-                $data[] = [
-                    'id'   => $item->id,
-                    'text' => strtoupper($item->object_model) . " (#{$item->object_id}): {$item->title}"
-                ];
-            }
-        }
-        return $data;
-    }
+   
 }

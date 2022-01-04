@@ -3,12 +3,12 @@ namespace Modules\Coupon\Models;
 
 use App\BaseModel;
 
-class CouponBookings extends BaseModel
+class CouponOrder extends BaseModel
 {
-    protected $table = 'bravo_booking_coupons';
+    protected $table = 'core_coupon_order';
     protected $fillable = [
-        'booking_id',
-        'booking_status',
+        'order_id',
+        'order_status',
         'object_id',
         'object_model',
         'coupon_code',
@@ -21,7 +21,7 @@ class CouponBookings extends BaseModel
 
     public function clean($coupon_id)
     {
-        $query = $this->where("booking_id", $coupon_id);
+        $query = $this->where("order_id", $coupon_id);
         $query->get();
         if (!empty($query)) {
             $query->delete();

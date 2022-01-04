@@ -4,7 +4,7 @@
         <div class="ps-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
-                    <li><a href="index.html">{{__('Hoe')}}</a></li>
+                    <li><a href="{{home_url()}}">{{__('Home')}}</a></li>
                     <li><a href="{{route('product.index')}}">{{__('Shop')}}</a></li>
                     <li>{{$page_title}}</li>
                 </ul>
@@ -85,12 +85,31 @@
                                 <figure class="section-coupon-form">
                                     <figcaption>{{__('Coupon Discount')}}</figcaption>
                                     <div class="form-group">
-                                        <input name="coupon_code" class="form-control" type="text" placeholder="">
+                                        <input name="coupon_code" class="form-control" type="text" placeholder="" value="">
                                     </div>
                                     <div class="message alert-text mt-2"></div>
                                     <div class="form-group">
                                         <button class="ps-btn ps-btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                     </div>
+                                    
+                                    @if(!empty($counpon))
+                                        <ul class="p-0 mb-3 list-coupons">
+                                            @foreach($coupons as $coupon)
+                                                <li class="item">
+                                                    <div class="label">
+                                                        {{ $coupon->code }}
+                                                        <i data-toggle="tooltip" data-placement="top" class="icofont-info-circle" data-original-title="{{ $coupon->name}}"></i>
+                                                    </div>
+                                                    <div class="val">
+                                                            <a href="#" data-code="{{ $item->code }}" class="text-danger text-decoration-none bc_remove_coupon"> {{ __("[Remove]") }}
+                                                                <i class="fa fa-spin fa-spinner d-none"></i>
+                                                            </a>
+                                                    </div>
+                                                </li>
+                                            @endforeach
+                                        </ul>
+                                    @endif
+
                                 </figure>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">

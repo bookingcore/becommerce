@@ -13,6 +13,8 @@ class CartItem extends Model
 
     protected $class_name;
 
+
+
     protected $attributes = [
         "name"=>"",
         "qty"=>1,
@@ -21,6 +23,8 @@ class CartItem extends Model
         "object_id"=>"",
         "object_model"=>"",
         "price"=>0,
+        "discount_amount"=>0, // counpon discount amount
+        "shipping_amount"=>0, // shipping amount nếu có
         "author"=>"",
         "variant_id"=>""
     ];
@@ -54,6 +58,7 @@ class CartItem extends Model
         $item->product_id = $model->id;
         $item->qty = $qty;
         $item->name = $model->name_for_cart;
+        $item->price_before_discount = $price ? $price : $model->price_for_cart ;
         $item->price = $price ? $price : $model->price_for_cart ;
         $item->object_id = $model->id;
         $item->object_model = $model->type;
@@ -93,6 +98,9 @@ class CartItem extends Model
 
     public function getSubtotalAttribute(){
         return $this->price * $this->qty + $this->extra_price_total;
+    }
+    public function getSubtotalDiscountAttribute(){
+        return $this->price * $this->qty + $this->extra_price_total - $this->discount_amount;
     }
 
     public function getDetailUrl(){
