@@ -5,6 +5,7 @@ namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
 use Modules\Booking\Models\Bookable;
+use Modules\Coupon\Models\Coupon;
 use Modules\Order\Models\CartItem;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
@@ -176,6 +177,14 @@ class CartManager
         ];
     }
 
+
+    public function updateCoupon(Coupon $coupon){
+        $items = static::items();
+        foreach ($items as $item){
+
+        }
+
+    }
 
     /**
      * return Order

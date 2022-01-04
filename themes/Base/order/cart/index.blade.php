@@ -82,13 +82,14 @@
                     <div class="ps-section__footer">
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                                <figure>
+                                <figure class="section-coupon-form">
                                     <figcaption>{{__('Coupon Discount')}}</figcaption>
                                     <div class="form-group">
-                                        <input class="form-control" type="text" placeholder="">
+                                        <input name="coupon_code" class="form-control" type="text" placeholder="">
                                     </div>
+                                    <div class="message alert-text mt-2"></div>
                                     <div class="form-group">
-                                        <button class="ps-btn ps-btn--outline">{{__('Apply')}}</button>
+                                        <button class="ps-btn ps-btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                     </div>
                                 </figure>
                             </div>
@@ -146,41 +147,5 @@
 
 @endsection
 @section('footer')
-    <script>
-        $(document).on('click','.cart-item-qty .up',function (e) {
-            e.preventDefault()
-            let me = $(this)
-            let parent = me.closest('.cart-item-qty');
-            let input = parent.find('input[type=number]')
-            let value = input.val();
-            const min = input.data('min');
-            const max = input.data('max');
-            value = value++;
-            if(value <= min){
-                value = min;
-            }
-            if(value => max){
-                value = max;
-            }
-            input.val(value);
-        })
-
-        $(document).on('click','.cart-item-qty .down',function (e) {
-            e.preventDefault()
-            let me = $(this)
-            let parent = me.closest('.cart-item-qty');
-            let input = parent.find('input[type=number]')
-            let value = input.val();
-            const min = input.data('min',1);
-            const max = input.data('max',1);
-            value = --value;
-            if(value <= min){
-                value = min;
-            }
-            if(value => max){
-                value = max;
-            }
-            input.val(value);
-        })
-    </script>
+    <script src="{{theme_url('base/order/cart.js')}}"></script>
 @endsection
