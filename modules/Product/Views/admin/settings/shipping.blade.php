@@ -49,12 +49,12 @@
                                         </td>
                                         <td>
                                             <div class="dropdown">
-                                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                                     {{__("Actions")}}
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a href="{{ route('product.shipping.edit', ['id' => $shippingZone->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
-                                                    <a href="" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item" target="_blank"><i class="fa fa-times"></i> {{__('Delete')}}</a>
+                                                    <a href="{{ route('product.shipping.delete', ['id' => $shippingZone->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -68,15 +68,36 @@
                                 </tr>
                             @endif
                             </tbody>
+                            @php
+                                $default_zone_methods = \Modules\Product\Models\ShippingZoneMethod::query()
+                                    ->whereNull('zone_id')
+                                    ->get();
+                            @endphp
                             <tfoot>
                             <tr>
-                                <td><a href="#">{{ __("Locations not covered by your other zones") }}</a></td>
+                                <td>
+                                    <a href="{{ route('product.shipping.edit', ['id' => 'other']) }}">
+                                        {{ __("Locations not covered by your other zones") }}
+                                    </a>
+                                </td>
                                 <td>{{ __("This zone is optionally used for regions that are not included in any other shipping zone.") }}</td>
-                                <td>{{ __("No shipping methods") }}</td>
+                                <td>
+                                    @if($default_zone_methods)
+                                        @foreach($default_zone_methods as $key => $shippingMethod)
+                                            @if($shippingMethod->is_enabled == 1)
+                                                {{ $shippingMethod->title }},
+                                            @else
+                                                <span style="text-decoration: line-through">{{ $shippingMethod->title }}</span>,
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        {{ __("No shipping methods") }}
+                                    @endif
+                                </td>
                                 <td></td>
                                 <td>
                                     <div class="dropdown">
-                                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                        <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
                                             {{__("Actions")}}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
