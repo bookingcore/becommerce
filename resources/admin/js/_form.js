@@ -285,6 +285,19 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         }
     });
 
+    $(".bc-delete-item").on("click", function (e) {
+        e.preventDefault();
+        var t = $(this);
+        bookingCoreApp.showConfirm({
+            message: i18n.confirm_delete,
+            callback: function(result){
+                if(result){
+                    location.href = t.attr('href');
+                }
+            }
+        })
+    })
+
     $('.dungdt-input-flag-icon').change(function () {
         $(this).closest('.input-group').find('.flag-icon').attr('class','').addClass('flag-icon flag-icon-'+$(this).val());
     });

@@ -15,4 +15,12 @@ class ShippingZone extends BaseModel
     {
         return __("Shipping Zones");
     }
+
+    public function locations(){
+        return $this->hasMany(ShippingZoneLocation::class,'zone_id','id');
+    }
+
+    public function shippingMethods(){
+        return $this->hasMany(ShippingZoneMethod::class,'zone_id','id');
+    }
 }

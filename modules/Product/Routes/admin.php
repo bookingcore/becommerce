@@ -73,4 +73,5 @@ Route::group(['prefix' => 'settings/shipping'], function (){
     Route::get('/shipping-zone/create', 'ShippingSettingContainer@create')->name('product.shipping.new');
     Route::get('/shipping-zone/edit/{id}', 'ShippingSettingContainer@edit')->name('product.shipping.edit');
     Route::post('/shipping-zone/store', 'ShippingSettingContainer@store')->name('product.shipping.store');
+    Route::get('/shipping-zone/delete/{id}', 'ShippingSettingContainer@delete')->name('product.shipping.delete');
 });

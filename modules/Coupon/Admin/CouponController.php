@@ -99,7 +99,7 @@ class CouponController extends AdminController
                 'max:50',
                 'string',
                 'alpha_dash',
-                Rule::unique('bravo_coupons')->ignore($id > 0 ? $id : false)
+                Rule::unique(Coupon::getTableName())->ignore($id > 0 ? $id : false)
             ],
             'amount'=>['required'],
         ]);
@@ -140,13 +140,13 @@ class CouponController extends AdminController
         $coupon_product = new CouponServices();
         $coupon_product->clean($row->id);
         if(!empty($services) and is_array($services)){
-            $services = Service::selectRaw('id,object_id,object_model')->whereIn('id',$services)->get();
+            $services = Product::whereIn('id',$services)->get();
             foreach ($services as $service){
                 $coupon_product = new CouponServices();
                 $coupon_product->fill([
                         'coupon_id' => $row->id,
-                        'object_id' => $service->object_id,
-                        'object_model' => $service->object_model,
+                        'object_id' => $service->id,
+                        'object_model' => $service->type,
                         'service_id' => $service->id,
                     ]);
                 $coupon_product->save();
@@ -219,7 +219,7 @@ class CouponController extends AdminController
             foreach ($res as $item) {
                 $data[] = [
                     'id'   => $item->id,
-                    'text' => strtoupper($item->object_model)." (#{$item->object_id}): {$item->title}",
+                    'text' => "(#{$item->id}): {$item->title}",
                 ];
             }
         }

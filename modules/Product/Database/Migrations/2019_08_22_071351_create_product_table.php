@@ -253,27 +253,49 @@ class CreateProductTable extends Migration
 
         Schema::create('product_shipping_zones', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->integer('order');
+            $table->string('name')->nullable();
+            $table->integer('order')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
 
             $table->timestamps();
         });
 
         Schema::create('product_shipping_zone_locations', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->bigInteger('zone_id');
-            $table->string('location_code');
+            $table->bigInteger('zone_id')->nullable();
+
+            $table->string('location_code')->nullable();
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
 
             $table->timestamps();
         });
 
         Schema::create('product_shipping_zone_methods', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('zone_id');
-            $table->string('method_id');
-            $table->integer('order');
-            $table->tinyInteger('is_enabled');
+            $table->string('title', 255)->nullable();
+            $table->bigInteger('zone_id')->nullable();
+            $table->string('method_id')->nullable();
+            $table->integer('order')->nullable();
+            $table->tinyInteger('is_enabled')->nullable();
 
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('product_shipping_zone_method_translations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->bigInteger('origin_id')->nullable();
+            $table->string('locale',10)->nullable();
+
+            $table->string('title',255)->nullable();
+
+            $table->unique(['origin_id', 'locale'],'origin_locale');
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
             $table->timestamps();
         });
 
@@ -301,6 +323,7 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_shipping_zones');
         Schema::dropIfExists('product_shipping_zone_locations');
         Schema::dropIfExists('product_shipping_zone_methods');
+        Schema::dropIfExists('product_shipping_zone_method_translations');
 
         Schema::dropIfExists('user_address');
     }

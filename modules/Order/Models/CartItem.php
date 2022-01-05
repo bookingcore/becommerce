@@ -58,7 +58,6 @@ class CartItem extends Model
         $item->product_id = $model->id;
         $item->qty = $qty;
         $item->name = $model->name_for_cart;
-        $item->price_before_discount = $price ? $price : $model->price_for_cart ;
         $item->price = $price ? $price : $model->price_for_cart ;
         $item->object_id = $model->id;
         $item->object_model = $model->type;
