@@ -69,6 +69,6 @@ class Promotion extends BaseBlock
             'list_items'  =>  $model['list_items'],
             'col' => $model['col'] ?? 4
         ];
-        return view('Template::frontend.blocks.Promotion.index', $data);
+        return view('blocks.promotion.index', $data);
     }
 }

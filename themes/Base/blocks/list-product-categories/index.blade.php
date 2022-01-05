@@ -28,7 +28,7 @@
             <div class="ps-block__product-box">
                 @if(!empty($rows))
                     @foreach($rows as $row)
-                        @include('Product::frontend.loop.item-simple')
+                        @include('product.search.loop-item',['class'=>'ps-product--simple'])
                     @endforeach
                 @endif
             </div>

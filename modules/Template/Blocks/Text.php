@@ -29,6 +29,6 @@ class Text extends BaseBlock
 
     public function content($model = [])
     {
-        return view('Template::frontend.blocks.text', $model);
+        return view('blocks.text.index', $model);
     }
 }

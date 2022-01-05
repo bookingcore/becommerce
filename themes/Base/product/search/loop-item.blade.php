@@ -3,12 +3,16 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="ps-product">
+<div class="ps-product {{ $class ?? "" }}">
     <div class="ps-product__thumbnail"><a href="{{$row->getDetailUrl()}}">
         {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title]) !!}
         </a>
-        @if(!empty($row->discount_percent))
-            <div class="ps-product__badge">-{{$row->discount_percent}}</div>
+        @if($row->stock_status == "in")
+            @if(!empty($row->discount_percent))
+                <div class="ps-product__badge">-{{$row->discount_percent}}</div>
+            @endif
+        @else
+            <span class="ps-product__badge out-stock">{{__('Out Of Stock')}}</span>
         @endif
         <ul class="ps-product__actions">
             <li><a href="#"  class="bc_add_to_cart" data-product='{!! json_encode(['id'=>$row->id,'type'=>'product']) !!}' data-toggle="tooltip" data-placement="top" title="" data-original-title="Add To Cart"><i class="icon-bag2 "></i></a></li>
@@ -21,8 +25,8 @@ $score_total = $reviewData['score_total'];
         @if($row->author)
             <a class="ps-product__vendor" href="{{$row->author->getDetailUrl()}}">{{$row->author->display_name}}</a>
         @endif
-
-        <div class="ps-product__content"><a class="ps-product__title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
+        <div class="ps-product__container">
+            <a class="ps-product__title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
             @if(!empty($reviewData['total_review']))
             <div class="ps-product__rating mb-2 d-flex mt-1">
                 @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
@@ -32,13 +36,6 @@ $score_total = $reviewData['score_total'];
             <p class="ps-product__price sale">{{$row->display_price}}
                 @if($row->display_sale_price)
                 <del>{{$row->display_sale_price}} </del>
-                @endif
-            </p>
-        </div>
-        <div class="ps-product__content hover"><a class="ps-product__title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
-            <p class="ps-product__price sale">{{$row->display_price}}
-                @if($row->display_sale_price)
-                    <del>{{$row->display_sale_price}} </del>
                 @endif
             </p>
         </div>

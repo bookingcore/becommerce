@@ -47,6 +47,6 @@ class FeaturedIcon extends BaseBlock
 
     public function content($model = [])
     {
-        return view('Template::frontend.blocks.FeaturedIcon.index', $model);
+        return view('blocks.featured-icon.index', $model);
     }
 }

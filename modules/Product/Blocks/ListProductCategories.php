@@ -150,6 +150,6 @@ class ListProductCategories extends BaseBlock
             'custom_link'=> $model['custom_link'] ?? '',
             'link_all'   => $model['link_all'] ?? ''
         ];
-        return view('Product::frontend.blocks.list-product-categories.index', $data);
+        return view('blocks.list-product-categories.index', $data);
     }
 }

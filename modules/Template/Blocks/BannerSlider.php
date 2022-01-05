@@ -63,6 +63,6 @@ class BannerSlider extends BaseBlock
 
     public function content($model = [])
     {
-        return view('Template::frontend.blocks.BannerSlider.index', $model);
+        return view('blocks.banner-slider.index', $model);
     }
 }

@@ -112,6 +112,6 @@ class SlideProduct extends BaseBlock
             'categories' => $categories ?? [],
             'link_view_all' => $model['link_view_all'] ?? "#",
         ];
-        return view('Product::frontend.blocks.slide-product.index', $data);
+        return view('blocks.slide-product.index', $data);
     }
 }

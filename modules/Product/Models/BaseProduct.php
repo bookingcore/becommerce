@@ -136,7 +136,7 @@ class BaseProduct extends BaseModel
         return format_money($this->price);
     }
 
-    public function getDisplayOriginPriceAttribute()
+    public function getDisplaySalePriceAttribute()
     {
         if (!empty($this->price) and $this->price > 0 and !empty($this->origin_price) and $this->origin_price > 0 and $this->price < $this->origin_price) {
             return format_money($this->origin_price);
