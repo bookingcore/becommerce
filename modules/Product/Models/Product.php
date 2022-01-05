@@ -543,19 +543,66 @@ class Product extends BaseProduct
     }
 
 
-    public function search($fill)
+    public static function search($fill)
     {
-        $model = Product::select("*");
-        if (!empty($category_ids = $fill['category_id'] )) {
-            $model->join('product_category_relations', function ($join) use ($category_ids) {
+
+        $query = parent::query()->select("products.*");
+
+        $query->where("products.status", "publish");
+
+        if (!empty($fill['min_price']) and !empty($fill['max_price'])) {
+            $pri_from = $fill['min_price'];
+            $pri_to = $fill['max_price'];
+            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
+								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
+            $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
+        }
+
+        if (!empty($fill['terms']) and is_array($fill['terms'])) {
+            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $fill['terms']);
+        }
+
+        if (!empty($fill['review_score']) && is_array($fill['review_score'])) {
+            $where_review_score = [];
+            foreach ($fill['review_score'] as $number){
+                $decrease_number = $number - 1;
+                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
+            }
+            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
+            $query->WhereRaw($sql_where_review_score);
+        }
+
+        if (!empty($fill['brand']) && is_array($fill['brand'])){
+            $query->whereIn('products.brand_id', $fill['brand']);
+        }
+
+        if (!empty($fill['tag'])){
+            $tag_id = Tag::select('id')->where('slug',$fill['tag'])->first()->getAttribute('id');
+            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
+        }
+
+        if (!empty($fill['cat_ids'])) {
+            $category_ids = $fill['cat_ids'];
+            $query->join('product_category_relations', function ($join) use ($category_ids) {
                 $join->on('products.id', '=', 'product_category_relations.target_id')
                     ->whereIn('product_category_relations.cat_id', $category_ids);
             });
         }
+
+        if (!empty($fill['category_id'])){
+            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $fill['category_id']);
+        }
+
+        if (!empty($fill['s'])){
+            $search = $fill['s'];
+            $query->where('products.title','LIKE',"%$search%");
+        }
+
         if(!empty($fill['is_featured']))
         {
-            $model->where('products.is_featured',1);
+            $query->where('products.is_featured',1);
         }
+
         $orderby = $fill['order_by'] ?? "desc";
         $order = $fill['order'] ?? "id";
         switch ($order){
@@ -564,10 +611,9 @@ class Product extends BaseProduct
             case "price_high_low":
                 break;
         }
-        $model->orderBy("products.".$order, $orderby);
-        $model->where("products.status", "publish");
-        $model->groupBy("products.id");
-        $limit = $fill['limit'] ?? 6;
-        return $model->with(['brand','hasWishList'])->paginate($limit);
+        $query->orderBy("products.".$order, $orderby);
+        $query->groupBy("products.id");
+        $limit = $fill['limit'] ?? 12;
+        return $query->with(['hasWishList','brand'])->paginate($limit);
     }
 }

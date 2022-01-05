@@ -33,100 +33,16 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->_querySearch($request);
+        $data = $this->product::search($request->input());
         return view('Product::frontend.search', $data);
     }
 
     public function categoryIndex( $slug , Request $request){
         $getCats = ProductCategory::where('slug',$slug)->first();
-        $categories = $getCats->id;
-        $data = $this->_querySearch($request , [$categories]);
+        $param = $request->input();
+        $param['cat_id'] = $getCats->id;
+        $data = $this->product::search($param);
         return view('Product::frontend.categories', (isset($data)) ? $data : []);
-    }
-
-    private function _querySearch($request , $cats = false){
-        $query = $this->product::query()->select("products.*");
-        $query->where("products.status", "publish");
-
-        if (!empty($min_price = $request->query('min_price')) and !empty($max_price = $request->query('max_price'))) {
-            $pri_from = $min_price;
-            $pri_to = $max_price;
-            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
-								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
-            $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
-        }
-
-        $terms = $request->query('terms');
-        if (is_array($terms) && !empty($terms)) {
-            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $terms);
-        }
-
-        $review_scores = $request->query('review_score');
-        if (is_array($review_scores) && !empty($review_scores)) {
-            $where_review_score = [];
-            foreach ($review_scores as $number){
-                $decrease_number = $number - 1;
-                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
-            }
-            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
-            $query->WhereRaw($sql_where_review_score);
-        }
-
-        $brand = $request->query('brand');
-        if (is_array($brand) && !empty($brand)){
-            $query->whereIn('products.brand_id', $brand);
-        }
-
-        $tag = $request->query('tag');
-        if (!empty($tag)){
-            $tag_id = Tag::select('id')->where('slug',$tag)->first()->getAttribute('id');
-            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
-        }
-
-        if(!empty($cats)){
-            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cats);
-        }
-
-        $cat_id = $request->query('category_id');
-        $search = $request->query('s');
-        if (!empty($cat_id)){
-            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $cat_id);
-        }
-        if (!empty($search)){
-            $query->where('products.title','LIKE',"%$search%");
-        }
-
-        $query->orderBy("id", "desc");
-        $query->groupBy("products.id");
-
-        $list = $query->with(['hasWishList','brand'])->paginate(12);
-
-        $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
-
-        $data = [
-            'rows'               => $list,
-            'product_min_max_price' => Product::getMinMaxPrice(),
-            "blank"              => 1,
-            'categories'         => $categories,
-            'show_breadcrumb'    => 0,
-            'breadcrumbs'=>[
-                [
-                    'url'=>'',
-                    'class'=>'active',
-                    'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
-                ]
-            ],
-            'wishlist'      =>  wishlist(),
-            'body_class'        => 'full_width',
-            "seo_meta"           => Product::getSeoMetaForPageList()
-        ];
-
-        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translations')->get();
-        $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
-            $item->count_product  = count($item->products);
-            return $item;
-        });
-        return $data;
     }
 
     public function attrs($row){

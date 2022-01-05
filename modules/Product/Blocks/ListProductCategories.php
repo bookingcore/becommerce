@@ -18,7 +18,7 @@ class ListProductCategories extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
-                    'id'      => 'category_id',
+                    'id'      => 'cat_ids',
                     'type'    => 'select2',
                     'label'   => __('Filter by Category'),
                     'select2' => [
@@ -137,11 +137,10 @@ class ListProductCategories extends BaseBlock
 
     public function content($model = [])
     {
-        $product = new Product();
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
-        $list = $product->search($model);
+        $list = Product::search($model);
 
         $data = [
             'rows'       => $list,

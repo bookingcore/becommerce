@@ -24,7 +24,7 @@ class SlideProduct extends BaseBlock
                     'label'     => __('Link View All')
                 ],
                 [
-                    'id'      => 'category_id',
+                    'id'      => 'cat_ids',
                     'type'    => 'select2',
                     'label'   => __('Filter by Category'),
                     'select2' => [
@@ -98,14 +98,13 @@ class SlideProduct extends BaseBlock
 
     public function content($model = [])
     {
-        if(!empty($category_ids = $model['category_id'] )) {
+        if(!empty($category_ids = $model['cat_ids'] )) {
             $categories = ProductCategory::select('name','id','slug')->whereIn('id', $category_ids)->get();
         }
-        $product = new Product();
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
-        $list = $product->search($model);
+        $list = Product::search($model);
         $data = [
             'rows'       => $list,
             'title'      => $model['title'],
