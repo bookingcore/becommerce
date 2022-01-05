@@ -822,22 +822,20 @@
     function filterSlider() {
         var nonLinearSlider = document.getElementById('nonlinear');
         if (typeof nonLinearSlider != 'undefined' && nonLinearSlider != null) {
+
+            var min = nonLinearSlider.getAttribute("data-from");
+            var max = nonLinearSlider.getAttribute("data-to");
+
+            console.log(min);
+            console.log(max);
+
             noUiSlider.create(nonLinearSlider, {
                 connect: true,
                 behaviour: 'tap',
-                start: [0, 1000],
+                start: [min, max],
                 range: {
-                    min: 0,
-                    '10%': 100,
-                    '20%': 200,
-                    '30%': 300,
-                    '40%': 400,
-                    '50%': 500,
-                    '60%': 600,
-                    '70%': 700,
-                    '80%': 800,
-                    '90%': 900,
-                    max: 1000,
+                    min: parseInt(min),
+                    max: parseInt(max),
                 },
             });
             var nodes = [
@@ -846,6 +844,8 @@
             ];
             nonLinearSlider.noUiSlider.on('update', function(values, handle) {
                 nodes[handle].innerHTML = Math.round(values[handle]);
+                $("#ps-min_price").attr(  "value",Math.round(values[0]) );
+                $("#ps-max_price").attr(  "value",Math.round(values[1]) );
             });
         }
     }

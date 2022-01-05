@@ -33,7 +33,33 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->product::search($request->input());
+        $list = $this->product::search($request->input());
+
+        $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
+
+        $data = [
+            'rows'               => $list,
+            'product_min_max_price' => Product::getMinMaxPrice(),
+            "blank"              => 1,
+            'categories'         => $categories,
+            'show_breadcrumb'    => 0,
+            'breadcrumbs'=>[
+                [
+                    'url'=>'',
+                    'class'=>'active',
+                    'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
+                ]
+            ],
+            'body_class'        => 'full_width',
+            "seo_meta"           => Product::getSeoMetaForPageList()
+        ];
+
+        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translations')->get();
+        $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
+            $item->count_product  = count($item->products);
+            return $item;
+        });
+
         return view('Product::frontend.search', $data);
     }
 

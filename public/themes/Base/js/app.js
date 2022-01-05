@@ -303,6 +303,10 @@ jQuery(function ($) {
             }
         })
     });
+
+    $(".bc_form_filter input[type=checkbox]").change(function () {
+        $(this).closest(".bc_form_filter").submit();
+    });
 });
 
 

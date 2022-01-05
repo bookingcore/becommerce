@@ -31,8 +31,10 @@
     </ul>
 </div>
 <div class="widget widget_shop">
-    @include('product.filter.brand')
-    @include('product.filter.price')
-    @include('product.filter.review')
-    @include('product.filter.attributes')
+    <form action="{{ route("product.index") }}" class="bc_form_filter">
+        @include('product.filter.brand')
+        @include('product.filter.price')
+        @include('product.filter.review')
+        @include('product.filter.attributes')
+    </form>
 </div>

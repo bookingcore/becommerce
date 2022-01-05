@@ -12,6 +12,7 @@ class Attributes extends BaseModel
     protected $slugField = 'slug';
     protected $slugFromField = 'name';
 
+    protected $translation_class = AttributesTranslation::class;
 
     public function terms()
     {

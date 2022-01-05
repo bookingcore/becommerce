@@ -1,18 +1,15 @@
 <figure>
     <h4 class="widget-title">{{__("By Review")}}</h4>
-    <ul class="list-unstyled">
     @for ($number = 5 ;$number >= 1 ; $number--)
-        <li>
-            <div class="bravo-checkbox">
-                <label>
-                    <input name="review_score[]" type="checkbox" value="{{$number}}" @if(  in_array($number , request()->query('review_score',[])) )  checked @endif>
-                    <span class="checkmark"></span>
-                    @for ($review_score = 1 ;$review_score <= $number ; $review_score++)
-                        <i class="fa fa-star"></i>
+        <div class="ps-checkbox">
+            <input class="form-control" type="checkbox" id="review-{{$number}}" name="review">
+            <label for="review-{{$number}}">
+                <span>
+                    @for ($review_score = 1 ;$review_score <= 5 ; $review_score++)
+                        <i class="fa fa-star @if($review_score <= $number) rate @endif"></i>
                     @endfor
-                </label>
-            </div>
-        </li>
+                </span>
+            </label>
+        </div>
     @endfor
-    </ul>
 </figure>
