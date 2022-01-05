@@ -40,7 +40,7 @@ class ShippingSettingContainer extends AdminController
     {
         $this->checkPermission('setting_manage');
 
-        $shippingZone = ShippingZone::with('locations')->find($id);
+        $shippingZone = ShippingZone::with('locations', 'shippingMethods')->find($id);
         if (empty($shippingZone) && $id != 'other' ) {
             return redirect( url('/admin/module/core/settings/index/shipping'));
         }
@@ -145,7 +145,85 @@ class ShippingSettingContainer extends AdminController
         return view('Product::admin.settings.shipping.shipping_method', $data);
     }
 
+    public function methodEdit(Request $request, $zone_id, $id){
+        $this->checkPermission('setting_manage');
+
+        $shippingZone = ShippingZone::with('locations')->find($zone_id);
+        if (empty($shippingZone) && $zone_id != 'other' ) {
+            return redirect( url('/admin/module/core/settings/index/shipping'));
+        }
+
+        $zoneMethod = ShippingZoneMethod::query()->find($id);
+
+        $data = [
+            'row' => $zoneMethod,
+            'zone_id' => $zone_id,
+            'shippingZone' => $shippingZone,
+            'enable_multi_lang' => true,
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Shipping Settings'),
+                    'url'  => 'admin/module/core/settings/index/shipping'
+                ],
+                [
+                    'name'  => __('Shipping Zone'),
+                    'url'  => 'admin/module/product/settings/shipping/shipping-zone/edit/' . $zone_id
+                ],
+                [
+                    'name'  => __('Shipping Method'),
+                    'class' => 'active'
+                ],
+            ],
+        ];
+        return view('Product::admin.settings.shipping.shipping_method', $data);
+    }
+
     public function methodStore(Request $request){
 
+        $this->checkPermission('setting_manage');
+        $zone_id = $request->input('zone_id');
+        $shippingZone = ShippingZone::find($zone_id);
+        if (empty($shippingZone) && $zone_id != 'other' ) {
+            return back()->with('error',  __('Shipping zone not found') );
+        }
+        $zone_method_id = $request->input('zone_method_id');
+        if(!empty($zone_method_id)){
+            $shippingMethod = ShippingZoneMethod::query()->find($zone_method_id);
+        }else{
+            $shippingMethod = new ShippingZoneMethod();
+        }
+
+        $dataKeys = [
+            'zone_id',
+            'title',
+            'is_enabled',
+            'order',
+            'method_id'
+        ];
+
+        $shippingMethod->fillByAttr($dataKeys, $request->input());
+
+        $res = $shippingMethod->saveWithTranslation();
+
+        if($res){
+
+            if($zone_method_id > 0 ){
+                return back()->with('success',  __('Shipping method updated') );
+            }else{
+                return redirect(route('product.shipping.method.edit', ['zone_id' => $zone_id, 'id' => $shippingMethod->id]))->with('success', __('Shipping method created') );
+            }
+        }
+
+    }
+
+    public function methodDelete(Request $request, $id){
+        $this->checkPermission('setting_manage');
+
+        $shippingMethod = ShippingZoneMethod::find($id);
+        if (!empty($shippingMethod)) {
+            $shippingMethod->delete();
+        }
+
+        return back();
     }
 }

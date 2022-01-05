@@ -63,6 +63,7 @@
                                             <div class="form-group">
                                                 <label class="font-weight-bold">{{__("Shipping Method")}}</label>
                                                 @if(!empty($zone_id))
+
                                                     <div class="table-responsive">
                                                         <table class="table">
                                                             <thead>
@@ -74,11 +75,37 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr>
-                                                                <td class="text-center" colspan="4">
-                                                                    {{ __("No shipping methods") }}
-                                                                </td>
-                                                            </tr>
+
+                                                            @if($row->shippingMethods)
+                                                                @foreach($row->shippingMethods as $shippingMethod)
+                                                                    <tr>
+                                                                        <td>{{ $shippingMethod->title }}</td>
+                                                                        <td>
+                                                                            <strong>{{ $shippingMethod->method_name }}</strong><br>
+                                                                            <span>{{ $shippingMethod->method_desc }}</span>
+                                                                        </td>
+                                                                        <td></td>
+                                                                        <td>
+                                                                            <div class="dropdown">
+                                                                                <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                                                    {{__("Actions")}}
+                                                                                </button>
+                                                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                                                    <a href="{{ route('product.shipping.method.edit', ['zone_id' => $zone_id, 'id' => $shippingMethod->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                                                                    <a href="{{ route('product.shipping.method.delete', ['id' => $shippingMethod->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            @else
+                                                                <tr>
+                                                                    <td class="text-center" colspan="4">
+                                                                        {{ __("No shipping methods") }}
+                                                                    </td>
+                                                                </tr>
+                                                            @endif
+
                                                             </tbody>
                                                         </table>
                                                     </div>

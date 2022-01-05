@@ -10,11 +10,11 @@
         @include('admin.message')
         <div class="row">
             <div class="col-md-12 mb-3">
-                <a href="{{ route('product.shipping.edit', ['id' => $zone_id]) }}" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-o-left"></i> {{ $shippingZone->name ?? __("Locations not covered by your other zones") }}</a>
+                <a href="{{ route('product.shipping.edit', ['id' => $zone_id]) }}" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-o-left"></i> {{ __("Zone") }}: {{ $shippingZone->name ?? __("Locations not covered by your other zones") }}</a>
             </div>
 
             <div class="col-md-12">
-                <form action="{{ route('product.shipping.store') }}" method="post" autocomplete="off">
+                <form action="{{ route('product.shipping.method.store') }}" method="post" autocomplete="off">
                     @csrf
 
                     @include('Language::admin.navigation')
@@ -32,6 +32,12 @@
                                         </div>
                                         @if(is_default_lang())
                                             <div class="form-group">
+                                                <label class="">{{__("Order No.")}}</label>
+                                                <div class="form-controls">
+                                                    <input type="number" class="form-control" name="order" value="{{ $row->order ?? old('order', 1) }}">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
                                                 <label class="">{{__("Choose Shipping method")}}</label>
                                                 <div class="form-controls">
                                                     <select class="form-control" name="method_id">
@@ -45,7 +51,7 @@
                                             <div class="form-group" data-condition="method_id:is(flat_rate)">
                                                 <label class="">{{__("Tax status")}}</label>
                                                 <div class="form-controls">
-                                                    <select class="form-control" name="method_flat_rate_cost">
+                                                    <select class="form-control" name="flat_rate_status">
                                                         <option value="taxable">{{ __("Taxable") }}</option>
                                                         <option value="none">{{ __("None") }}</option>
                                                     </select>
@@ -55,7 +61,53 @@
                                             <div class="form-group" data-condition="method_id:is(flat_rate)">
                                                 <label class="">{{__("Cost")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="method_flat_rate_cost" value="0">
+                                                    <input type="text" class="form-control" name="flat_rate_cost" value="0">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" data-condition="method_id:is(free_shipping)">
+                                                <label class="">{{__("Free shipping requires")}}</label>
+                                                <div class="form-controls">
+                                                    <select class="form-control" name="free_shipping_requires">
+                                                        <option>{{ __("N/A") }}</option>
+                                                        <option value="coupon">{{ __("A valid free shipping coupon") }}</option>
+                                                        <option value="min_amount">{{ __("A minimum order amount") }}</option>
+                                                        <option value="either">{{ __("A minimum order amount OR a coupon") }}</option>
+                                                        <option value="both">{{ __("A minimum order amount AND a coupon") }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" data-operator="or" data-condition="free_shipping_requires:is(min_amount),free_shipping_requires:is(either),free_shipping_requires:is(both)">
+                                                <label class="">{{__("Minimum order amount")}}</label>
+                                                <div class="form-controls">
+                                                    <input type="text" class="form-control" name="free_shipping_min_amount" value="0">
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" data-operator="or" data-condition="free_shipping_requires:is(min_amount),free_shipping_requires:is(either),free_shipping_requires:is(both)">
+                                                <label class="">{{__("Coupons discounts")}}</label>
+                                                <div class="form-controls">
+                                                    <label>
+                                                        <input type="checkbox" name="free_shipping_ignore_discounts" value="1"> {{ __("Apply minimum order rule before coupon discount") }}
+                                                    </label>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" data-condition="method_id:is(local_pickup)">
+                                                <label class="">{{__("Tax status")}}</label>
+                                                <div class="form-controls">
+                                                    <select class="form-control" name="local_pickup_status">
+                                                        <option value="taxable">{{ __("Taxable") }}</option>
+                                                        <option value="none">{{ __("None") }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group" data-condition="method_id:is(local_pickup)">
+                                                <label class="">{{__("Cost")}}</label>
+                                                <div class="form-controls">
+                                                    <input type="text" class="form-control" name="local_pickup_cost" value="0">
                                                 </div>
                                             </div>
 
@@ -71,7 +123,7 @@
                         <span></span>
                         <input type="hidden" name="is_enabled" value="{{ $row->is_enabled ?? 1 }}" />
                         <input type="hidden" name="zone_id" value="{{ $zone_id ?? '' }}" />
-                        <input type="hidden" name="zone_method_id" value="{{ $zone_method_id ?? '' }}" />
+                        <input type="hidden" name="zone_method_id" value="{{ $row->id ?? '' }}" />
                         <button class="btn btn-primary" type="submit">{{__('Save changes')}}</button>
                     </div>
                 </form>
