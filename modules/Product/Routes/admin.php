@@ -70,8 +70,11 @@ Route::group(['prefix'=>'coupon'],function (){
 });
 
 Route::group(['prefix' => 'settings/shipping'], function (){
-    Route::get('/shipping-zone/create', 'ShippingSettingContainer@create')->name('product.shipping.new');
-    Route::get('/shipping-zone/edit/{id}', 'ShippingSettingContainer@edit')->name('product.shipping.edit');
-    Route::post('/shipping-zone/store', 'ShippingSettingContainer@store')->name('product.shipping.store');
-    Route::get('/shipping-zone/delete/{id}', 'ShippingSettingContainer@delete')->name('product.shipping.delete');
+    Route::get('/shipping-zone/create', 'ShippingSettingContainer@zoneCreate')->name('product.shipping.new');
+    Route::get('/shipping-zone/edit/{id}', 'ShippingSettingContainer@zoneEdit')->name('product.shipping.edit');
+    Route::post('/shipping-zone/store', 'ShippingSettingContainer@zoneStore')->name('product.shipping.store');
+    Route::get('/shipping-zone/delete/{id}', 'ShippingSettingContainer@zoneDelete')->name('product.shipping.delete');
+
+    Route::get('/shipping-zone/{zone_id}/shipping-method/create', 'ShippingSettingContainer@methodCreate')->name('product.shipping.method.create');
+    Route::get('/shipping-zone/shipping-method/store', 'ShippingSettingContainer@methodStore')->name('product.shipping.method.store');
 });

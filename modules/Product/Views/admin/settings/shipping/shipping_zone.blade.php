@@ -25,62 +25,69 @@
                                 <div class="panel">
                                     <div class="panel-body">
                                         @if(is_default_lang())
-                                            <div class="form-group">
-                                                <label class="">{{__("Zone name")}} <span class="text-danger">*</span></label>
-                                                <div class="form-controls">
-                                                    <input type="text" class="form-control" required name="name" value="{{ $row->name ?? old('name') }}">
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group">
-                                                <label class="">{{__("Zone regions")}}</label>
-                                                <div class="form-controls">
-                                                    @php
-                                                        if(!empty($row->locations)){
-                                                            foreach ($row->locations as $key => $loc){
-                                                                $old_regions[] = [$loc->location_code, get_country_name($loc->location_code)];
+                                            @if( ($zone_id ?? '') != 'other' )
+                                                <div class="form-group">
+                                                    <label class="">{{__("Zone name")}} <span class="text-danger">*</span></label>
+                                                    <div class="form-controls">
+                                                        <input type="text" class="form-control" required name="name" value="{{ $row->name ?? old('name') }}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="">{{__("Zone regions")}}</label>
+                                                    <div class="form-controls">
+                                                        @php
+                                                            if(!empty($row->locations)){
+                                                                foreach ($row->locations as $key => $loc){
+                                                                    $old_regions[] = [$loc->location_code, get_country_name($loc->location_code)];
+                                                                }
                                                             }
-                                                        }
-                                                        \App\Helpers\AdminForm::select2('zone_regions[]',
-                                                        ['configs' => [
-                                                            'data' => get_country_lists_select2(),
-                                                            'allowClear'  => true,
-                                                            'placeholder' => __('-- Select regions --')
-                                                        ]], $old_regions ?? false, true)
-                                                    @endphp
+                                                            \App\Helpers\AdminForm::select2('zone_regions[]',
+                                                            ['configs' => [
+                                                                'data' => get_country_lists_select2(),
+                                                                'allowClear'  => true,
+                                                                'placeholder' => __('-- Select regions --')
+                                                            ]], $old_regions ?? false, true)
+                                                        @endphp
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="">{{__("Order No.")}}</label>
-                                                <div class="form-controls">
-                                                    <input type="number" class="form-control" name="order" value="{{ $row->order ?? old('order', 1) }}">
+                                                <div class="form-group">
+                                                    <label class="">{{__("Order No.")}}</label>
+                                                    <div class="form-controls">
+                                                        <input type="number" class="form-control" name="order" value="{{ $row->order ?? old('order', 1) }}">
+                                                    </div>
                                                 </div>
-                                            </div>
+                                            @endif
 
                                             <div class="form-group">
                                                 <label class="font-weight-bold">{{__("Shipping Method")}}</label>
-                                                <div class="table-responsive">
-                                                    <table class="table">
-                                                        <thead>
-                                                        <tr>
-                                                            <th>{{ __("Title") }}</th>
-                                                            <th>{{ __("Description") }}</th>
-                                                            <th>{{ __("Enable") }}</th>
-                                                            <th></th>
-                                                        </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                        <tr>
-                                                            <td class="text-center" colspan="4">
-                                                                {{ __("No shipping methods") }}
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </div>
-                                                <div class="">
-                                                    <a href=" " class="btn btn-default">{{ __("Add shipping method") }}</a>
-                                                </div>
+                                                @if(!empty($zone_id))
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th>{{ __("Title") }}</th>
+                                                                <th>{{ __("Description") }}</th>
+                                                                <th>{{ __("Enable") }}</th>
+                                                                <th></th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr>
+                                                                <td class="text-center" colspan="4">
+                                                                    {{ __("No shipping methods") }}
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="">
+                                                        <a href="{{ route('product.shipping.method.create', ['zone_id' => $zone_id]) }}" class="btn btn-default">{{ __("Add shipping method") }}</a>
+                                                    </div>
+                                                @else
+                                                    <div>{{ __("Please save before adding a shipping method") }}</div>
+                                                @endif
                                             </div>
                                         @endif
                                     </div>

@@ -15,7 +15,7 @@ class ShippingSettingContainer extends AdminController
         $this->setActiveMenu('admin/module/core');
     }
 
-    public function create(Request $request)
+    public function zoneCreate(Request $request)
     {
 
         $this->checkPermission('setting_manage');
@@ -36,7 +36,7 @@ class ShippingSettingContainer extends AdminController
         return view('Product::admin.settings.shipping.shipping_zone', $data);
     }
 
-    public function edit(Request $request, $id)
+    public function zoneEdit(Request $request, $id)
     {
         $this->checkPermission('setting_manage');
 
@@ -68,7 +68,7 @@ class ShippingSettingContainer extends AdminController
         return view('Product::admin.settings.shipping.shipping_zone', $data);
     }
 
-    public function store(Request $request)
+    public function zoneStore(Request $request)
     {
         $this->checkPermission('setting_manage');
         $request->validate([
@@ -103,7 +103,7 @@ class ShippingSettingContainer extends AdminController
         }
     }
 
-    public function delete(Request $request, $id){
+    public function zoneDelete(Request $request, $id){
         $this->checkPermission('setting_manage');
 
         $shippingZone = ShippingZone::with('locations')->find($id);
@@ -113,5 +113,39 @@ class ShippingSettingContainer extends AdminController
         }
 
         return redirect( url('/admin/module/core/settings/index/shipping') );
+    }
+
+    public function methodCreate(Request $request, $zone_id){
+        $this->checkPermission('setting_manage');
+
+        $shippingZone = ShippingZone::with('locations')->find($zone_id);
+        if (empty($shippingZone) && $zone_id != 'other' ) {
+            return redirect( url('/admin/module/core/settings/index/shipping'));
+        }
+
+        $data = [
+            'zone_id' => $zone_id,
+            'shippingZone' => $shippingZone,
+            'enable_multi_lang' => true,
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Shipping Settings'),
+                    'url'  => 'admin/module/core/settings/index/shipping'
+                ],
+                [
+                    'name'  => __('Shipping Zone'),
+                    'url'  => 'admin/module/product/settings/shipping/shipping-zone/edit/' . $zone_id
+                ],
+                [
+                    'name'  => __('Shipping Method'),
+                    'class' => 'active'
+                ],
+            ],
+        ];
+        return view('Product::admin.settings.shipping.shipping_method', $data);
+    }
+
+    public function methodStore(Request $request){
+
     }
 }
