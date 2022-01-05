@@ -106,9 +106,10 @@ class ShippingSettingContainer extends AdminController
     public function zoneDelete(Request $request, $id){
         $this->checkPermission('setting_manage');
 
-        $shippingZone = ShippingZone::with('locations')->find($id);
+        $shippingZone = ShippingZone::with('locations', 'shippingMethods')->find($id);
         if (!empty($shippingZone)) {
             $shippingZone->locations()->delete();
+            $shippingZone->shippingMethods()->delete();
             $shippingZone->delete();
         }
 
@@ -154,9 +155,11 @@ class ShippingSettingContainer extends AdminController
         }
 
         $zoneMethod = ShippingZoneMethod::query()->find($id);
+        $translation = $zoneMethod->translate($request->query('lang'));
 
         $data = [
             'row' => $zoneMethod,
+            'translation' => $translation,
             'zone_id' => $zone_id,
             'shippingZone' => $shippingZone,
             'enable_multi_lang' => true,

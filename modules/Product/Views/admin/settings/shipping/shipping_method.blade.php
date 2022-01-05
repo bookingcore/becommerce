@@ -27,7 +27,7 @@
                                         <div class="form-group">
                                             <label class="">{{__("Method title")}} <span class="text-danger">*</span></label>
                                             <div class="form-controls">
-                                                <input type="text" class="form-control" required name="title" value="{{ $row->title ?? old('title') }}">
+                                                <input type="text" class="form-control" required name="title" value="{{ $translation->title ?? old('title') }}">
                                             </div>
                                         </div>
                                         @if(is_default_lang())
