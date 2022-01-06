@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Booking Core'}}</title>
+    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'BeCommerce'}}</title>
 
     @php
         $favicon = setting_item('site_favicon');
@@ -170,12 +170,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 copy-right" >
-                        {{date('Y')}} &copy; {{__('Booking Core by')}} <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('BookingCore Team')}}</a>
+                        {{__('Power by BeCommerce ver: ')}} {{config('app.version')}}
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-right footer-links d-none d-sm-block">
-                            <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('About Us')}}</a>
-                            <a href="{{__('https://m.me/bookingcore')}}" target="_blank">{{__('Contact Us')}}</a>
+                            <a href="{{__('https://be-commerce.org')}}" target="_blank">{{__('About Us')}}</a>
+                            <a href="{{__('https://be-commerce.org/contact')}}" target="_blank">{{__('Contact Us')}}</a>
                         </div>
                     </div>
                 </div>

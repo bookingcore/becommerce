@@ -170,7 +170,7 @@ if (!empty($menus)){
 }
 
 ?>
-<ul class="main-menu">
+<ul class="main-menu pb-5">
     @foreach($menus as $menuItem)
         @php $menuItem['class'] .= " ".str_ireplace("/","_",$menuItem['url']) @endphp
         <li class="{{$menuItem['class']}}"><a href="{{ url($menuItem['url']) }}">

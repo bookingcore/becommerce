@@ -36,7 +36,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'pos_access',
         ]);
 
-
+        setting_update_item('vendor_role',3);
     }
 
 }
