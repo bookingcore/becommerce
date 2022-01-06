@@ -61,7 +61,7 @@
                                             @endif
 
                                             <div class="form-group">
-                                                <label class="font-weight-bold">{{__("Shipping Method")}}</label>
+                                                <label class="font-weight-bold">{{__("Shipping Methods")}}</label>
                                                 @if(!empty($zone_id))
 
                                                     <div class="table-responsive">
@@ -76,15 +76,17 @@
                                                             </thead>
                                                             <tbody>
 
-                                                            @if(!empty($row->shippingMethods) && $row->shippingMethods->count() > 0)
-                                                                @foreach($row->shippingMethods as $shippingMethod)
+                                                            @if(!empty($zone_methods) && $zone_methods->count() > 0)
+                                                                @foreach($zone_methods as $shippingMethod)
                                                                     <tr>
                                                                         <td>{{ $shippingMethod->title }}</td>
                                                                         <td>
                                                                             <strong>{{ $shippingMethod->method_name }}</strong><br>
                                                                             <span>{{ $shippingMethod->method_desc }}</span>
                                                                         </td>
-                                                                        <td></td>
+                                                                        <td>
+                                                                            <input type="checkbox" @if($shippingMethod->is_enabled == 1) checked @endif name="shipping_method[{{ $shippingMethod->id }}][is_enabled]" value="1" />
+                                                                        </td>
                                                                         <td>
                                                                             <div class="dropdown">
                                                                                 <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">

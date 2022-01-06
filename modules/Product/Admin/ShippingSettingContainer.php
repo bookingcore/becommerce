@@ -45,13 +45,13 @@ class ShippingSettingContainer extends AdminController
             return redirect( url('/admin/module/core/settings/index/shipping'));
         }
 
-        $default_zone_method = ShippingZoneMethod::query()
-            ->whereNull('zone_id')
+        $other_zone_method = ShippingZoneMethod::query()
+            ->where('zone_id', 0)
             ->get();
 
         $data = [
             'row' => $shippingZone,
-            'default_zone_method' => $default_zone_method,
+            'zone_methods' => $id == 'other' ? $other_zone_method : $shippingZone->shippingMethods,
             'enable_multi_lang' => true,
             'zone_id' => $id,
             'breadcrumbs'        => [
@@ -85,6 +85,16 @@ class ShippingSettingContainer extends AdminController
         $shippingZone->name = $request->input('name');
         $shippingZone->order = $request->input('order');
         $shippingZone->save();
+        $shippingZone->load('shippingMethods');
+
+        if($shipping_methods = $request->input('shipping_method')){
+            if(!empty($shippingZone->shippingMethods) && $shippingZone->shippingMethods->count() > 0){
+                foreach ($shippingZone->shippingMethods as $key => $shippingMethod){
+                    $shippingMethod->is_enabled = $shipping_methods[$shippingMethod->id]['is_enabled'] ?? 0;
+                    $shippingMethod->save();
+                }
+            }
+        }
 
         if ($zone_regions = $request->input('zone_regions')){
             $shippingZone->locations()->delete();
@@ -155,13 +165,19 @@ class ShippingSettingContainer extends AdminController
         }
 
         $zoneMethod = ShippingZoneMethod::query()->find($id);
+        if(!$zoneMethod){
+            return redirect( url('/admin/module/core/settings/index/shipping'));
+        }
         $translation = $zoneMethod->translate($request->query('lang'));
+
+        $method_settings = setting_item_array('shipping_method_' . $zoneMethod->id .'_settings');
 
         $data = [
             'row' => $zoneMethod,
             'translation' => $translation,
             'zone_id' => $zone_id,
             'shippingZone' => $shippingZone,
+            'method_settings' => $method_settings,
             'enable_multi_lang' => true,
             'breadcrumbs'        => [
                 [
@@ -209,21 +225,31 @@ class ShippingSettingContainer extends AdminController
             'method_id'
         ];
 
+        if($request->input('zone_id') != 'other'){
+            $dataKeys[] = 'zone_id';
+        }
+
         $shippingMethod->fillByAttr($dataKeys, $request->input());
 
         $res = $shippingMethod->saveWithTranslation();
 
         if($res){
-
+            $sz_settings = ['method_id' => $shippingMethod->method_id];
             if($shippingMethod->method_id == 'flat_rate'){
-
+                $sz_settings['flat_rate_status'] = $request->input('flat_rate_status');
+                $sz_settings['flat_rate_cost'] = $request->input('flat_rate_cost');
             }
-            if($shippingMethod->method_id == 'flat_rate'){
-
+            if($shippingMethod->method_id == 'free_shipping'){
+                $sz_settings['free_shipping_requires'] = $request->input('free_shipping_requires');
+                $sz_settings['free_shipping_min_amount'] = $request->input('free_shipping_min_amount');
+                $sz_settings['free_shipping_ignore_discounts'] = $request->input('free_shipping_ignore_discounts');
             }
-            if($shippingMethod->method_id == 'flat_rate'){
-
+            if($shippingMethod->method_id == 'local_pickup'){
+                $sz_settings['local_pickup_status'] = $request->input('local_pickup_status');
+                $sz_settings['local_pickup_cost'] = $request->input('local_pickup_cost');
             }
+
+            setting_update_item('shipping_method_' . $shippingMethod->id . '_settings', $sz_settings);
 
             if($zone_method_id > 0 ){
                 return back()->with('success',  __('Shipping method updated') );
