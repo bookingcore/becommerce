@@ -75,6 +75,6 @@ class CreateCouponTable extends Migration
     {
         Schema::dropIfExists('core_coupons');
         Schema::dropIfExists('core_coupon_services');
-        Schema::dropIfExists('core_booking_coupons');
+        Schema::dropIfExists('core_coupon_order');
     }
 }

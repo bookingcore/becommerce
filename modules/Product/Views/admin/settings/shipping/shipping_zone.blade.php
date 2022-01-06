@@ -76,7 +76,7 @@
                                                             </thead>
                                                             <tbody>
 
-                                                            @if($row->shippingMethods)
+                                                            @if(!empty($row->shippingMethods) && $row->shippingMethods->count() > 0)
                                                                 @foreach($row->shippingMethods as $shippingMethod)
                                                                     <tr>
                                                                         <td>{{ $shippingMethod->title }}</td>

@@ -5,7 +5,7 @@ use App\BaseModel;
 
 class ShippingZoneMethod extends BaseModel
 {
-    protected $table = 'product_shipping_zone_methods';
+    protected $table = 'product_sz_methods';
     protected $fillable = [
         'title',
         'zone_id',

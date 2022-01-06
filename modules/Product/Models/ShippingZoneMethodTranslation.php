@@ -5,7 +5,7 @@ use App\BaseModel;
 
 class ShippingZoneMethodTranslation extends BaseModel
 {
-    protected $table = 'product_shipping_zone_method_translations';
+    protected $table = 'product_sz_method_translations';
     protected $fillable = [
         'title'
     ];
