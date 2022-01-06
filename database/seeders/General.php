@@ -391,11 +391,6 @@ namespace Database\Seeders;
                         'val'   => "10",
                         'group' => "vendor",
                     ],
-                    [
-                        'name'  => "vendor_role",
-                        'val'   => "1",
-                        'group' => "vendor",
-                    ],
 
                 ]
             );
