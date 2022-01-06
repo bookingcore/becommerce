@@ -3,7 +3,7 @@
     @include('global.bc')
     <div class="ps-page--shop" id="shop-sidebar">
         <div class="container">
-            <form action="{{ route("product.index") }}" class="bc_form_filter">
+            <form action="" class="bc_form_filter">
                 <div class="ps-layout--shop">
                     <div class="ps-layout__left">
                         @include("product.sidebar")

@@ -66,9 +66,12 @@ class ProductController extends Controller
         }
         $translation = $category->translate();
 
-        $list = $this->_querySearch($request,['cat_id'=>$category->id]);
+        $param = $request->input();
+        $param['category_id'] = $category->id;
+        $list = $this->product::search($param);
+
         $data = [
-            'rows'               => $list->paginate(16),
+            'rows'               => $list,
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),
@@ -87,62 +90,6 @@ class ProductController extends Controller
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
         return view('product', $data);
-    }
-
-    private function _querySearch($request , $filters = []){
-        $query = $this->product::query()->select("products.*");
-        $query->where("products.status", "publish");
-
-        if (!empty($min_price = $request->query('min_price')) and !empty($max_price = $request->query('max_price'))) {
-            $pri_from = $min_price;
-            $pri_to = $max_price;
-            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
-								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
-            $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
-        }
-
-        $terms = $request->query('terms');
-        if (is_array($terms) && !empty($terms)) {
-            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $terms);
-        }
-
-        $review_scores = $request->query('review_score');
-        if (is_array($review_scores) && !empty($review_scores)) {
-            $where_review_score = [];
-            foreach ($review_scores as $number){
-                $decrease_number = $number - 1;
-                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
-            }
-            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
-            $query->WhereRaw($sql_where_review_score);
-        }
-
-        $brand = $request->query('brand');
-        if (is_array($brand) && !empty($brand)){
-            $query->whereIn('products.brand_id', $brand);
-        }
-
-        $tag = $request->query('tag');
-        if (!empty($tag)){
-            $tag_id = Tag::select('id')->where('slug',$tag)->first()->getAttribute('id');
-            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
-        }
-
-        if(!empty($filters['cat_id'])){
-            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->where('ctr.cat_id', $filters['cat_id']);
-        }
-
-        $search = $request->query('s');
-        if (!empty($search)){
-            $query->where('products.title','LIKE',"%$search%");
-        }
-
-        $query->orderBy("id", "desc");
-        $query->groupBy("products.id");
-
-        $list = $query->with(['hasWishList','brand']);
-
-        return $list;
     }
 
     public function attrs($row){
