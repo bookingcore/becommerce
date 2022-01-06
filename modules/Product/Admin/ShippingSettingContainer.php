@@ -184,6 +184,11 @@ class ShippingSettingContainer extends AdminController
     public function methodStore(Request $request){
 
         $this->checkPermission('setting_manage');
+
+        $request->validate([
+            'title'=>'required'
+        ]);
+
         $zone_id = $request->input('zone_id');
         $shippingZone = ShippingZone::find($zone_id);
         if (empty($shippingZone) && $zone_id != 'other' ) {
@@ -209,6 +214,16 @@ class ShippingSettingContainer extends AdminController
         $res = $shippingMethod->saveWithTranslation();
 
         if($res){
+
+            if($shippingMethod->method_id == 'flat_rate'){
+
+            }
+            if($shippingMethod->method_id == 'flat_rate'){
+
+            }
+            if($shippingMethod->method_id == 'flat_rate'){
+
+            }
 
             if($zone_method_id > 0 ){
                 return back()->with('success',  __('Shipping method updated') );

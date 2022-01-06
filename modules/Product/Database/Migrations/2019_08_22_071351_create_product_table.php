@@ -273,7 +273,7 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('product_shipping_zone_methods', function (Blueprint $table){
+        Schema::create('product_sz_methods', function (Blueprint $table){
             $table->bigIncrements('id');
             $table->string('title', 255)->nullable();
             $table->bigInteger('zone_id')->nullable();
@@ -286,7 +286,7 @@ class CreateProductTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('product_shipping_zone_method_translations', function (Blueprint $table) {
+        Schema::create('product_sz_method_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
@@ -322,8 +322,8 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_brand_translations');
         Schema::dropIfExists('product_shipping_zones');
         Schema::dropIfExists('product_shipping_zone_locations');
-        Schema::dropIfExists('product_shipping_zone_methods');
-        Schema::dropIfExists('product_shipping_zone_method_translations');
+        Schema::dropIfExists('product_sz_methods');
+        Schema::dropIfExists('product_sz_method_translations');
 
         Schema::dropIfExists('user_address');
     }
