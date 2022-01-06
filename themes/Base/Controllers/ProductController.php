@@ -160,7 +160,7 @@ class ProductController extends Controller
         }
         $this->recently_viewed($row->id);
         $product_variations = $this->product_variations($row);
-        $translation = $row->translateOrOrigin(app()->getLocale());
+        $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
         $bc = [
@@ -189,7 +189,6 @@ class ProductController extends Controller
         $data = [
             'row'          => $row,
             'translation'  => $translation,
-            'booking_data' => $row->getBookingData(),
             'review_list'  => $review_list,
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
@@ -200,7 +199,7 @@ class ProductController extends Controller
             'is_preview_mode'=>$is_preview_mode
         ];
         $this->setActiveMenu($row);
-        return view('Product::frontend.detail', $data);
+        return view('product-detail', $data);
     }
 
     //tomorow fix
