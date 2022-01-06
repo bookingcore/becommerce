@@ -304,7 +304,7 @@ jQuery(function ($) {
         })
     });
 
-    $(".bc_form_filter input[type=checkbox]").change(function () {
+    $(".bc_form_filter input[type=checkbox],.bc_form_filter select[name=sort]").change(function () {
         $(this).closest(".bc_form_filter").submit();
     });
 });

@@ -36,9 +36,9 @@ class ProductController extends Controller
             unset($data['cat_slug']);
             return redirect()->to(route('product.category.index',$data));
         }
-        $list = $this->_querySearch($request);
+        $list = $this->product::search($request->input());
         $data = [
-            'rows'               => $list->paginate(16),
+            'rows'               => $list,
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),

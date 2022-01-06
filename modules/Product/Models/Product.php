@@ -551,11 +551,8 @@ class Product extends BaseProduct
         $query->where("products.status", "publish");
 
         if (!empty($fill['min_price']) and !empty($fill['max_price'])) {
-            $pri_from = $fill['min_price'];
-            $pri_to = $fill['max_price'];
-            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
-								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
-            $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
+            $raw_sql_min_max = "( products.price >= ? and products.price <= ? )";
+            $query->whereRaw($raw_sql_min_max,[$fill['min_price'],$fill['max_price']]);
         }
 
         if (!empty($fill['terms']) and is_array($fill['terms'])) {
@@ -604,14 +601,26 @@ class Product extends BaseProduct
         }
 
         $orderby = $fill['order_by'] ?? "desc";
-        $order = $fill['order'] ?? "id";
+        $order = $fill['order'] ?? $fill['sort'] ?? "id";
+
         switch ($order){
-            case "price_low_high":
+            case "price_asc":
+                $query->orderBy("products.price", "asc");
                 break;
-            case "price_high_low":
+            case "price_desc":
+                $query->orderBy("products.price", "desc");
                 break;
+            case "rate":
+                $query->orderBy("review_score", "desc");
+                break;
+            case"id":
+            case"title":
+                $query->orderBy("products.".$order, $orderby);
+            break;
+            default:
+                $query->orderBy("is_featured", "desc");
+                $query->orderBy("id", "desc");
         }
-        $query->orderBy("products.".$order, $orderby);
         $query->groupBy("products.id");
         $limit = $fill['limit'] ?? 12;
         return $query->with(['hasWishList','brand'])->paginate($limit);
