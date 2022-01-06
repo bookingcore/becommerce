@@ -250,7 +250,6 @@ class ModuleProvider extends ModuleServiceProvider
                 'product_hold_stock',
                 'product_hide_products_out_of_stock',
 
-                'product_booking_buyer_fees',
                 'product_policies',
                 'shipping_information',
                 'ads_url',

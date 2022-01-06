@@ -1605,3 +1605,6 @@ function formatBytes($size, $precision = 2)
 
     return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
 }
+function is_vendor_enable(){
+    return setting_item('vendor_enable') == 1;
+}
