@@ -42,6 +42,48 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-12 col-lg-6 ">
+                <div class="panel">
+                    <div class="panel-title d-flex justify-content-between">
+                        <strong>{{__('Recent Orders')}}</strong>
+                        <a href="{{route('order.admin.index')}}" class="btn-link">{{__("More")}}
+                            <i class="icon ion-ios-arrow-forward"></i></a>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th width="60px">#</th>
+                                    <th width="100px">{{__("Total")}}</th>
+                                    <th width="100px">{{__("Status")}}</th>
+                                    <th width="100px">{{__("Created At")}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @if(count($recent_orders) > 0)
+                                    @foreach($recent_orders as $order)
+                                        <tr>
+                                            <td>#{{$order->id}}</td>
+
+                                            <td>{{format_money($order->total)}}</td>
+                                            <td>
+                                                <span class="badge badge-{{$order->status_class}}">{{$order->status_name}}</span>
+                                            </td>
+                                            <td>{{display_datetime($order->created_at)}}</td>
+                                        </tr>
+                                    @endforeach
+                                @else
+                                    <tr>
+                                        <td colspan="5">{{__("No data")}}</td>
+                                    </tr>
+                                @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         <br>
         <div class="row">

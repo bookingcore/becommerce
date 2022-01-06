@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Event;
 use Modules\Core\Events\CreatedServicesEvent;
 use Modules\Core\Events\CreateReviewEvent;
 use Modules\Core\Events\UpdatedServiceEvent;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\Core\Listeners\CreatedServicesListen;
@@ -25,6 +26,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("advance",[$this,'registerAdvanceSetting']);
         SettingManager::register("style",[$this,'registerStyleSetting']);
 
+        AdminMenuManager::register("product",[$this,'getAdminMenu']);
     }
     /**
      * Register bindings in the container.
@@ -38,6 +40,60 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->singleton(SitemapHelper::class,function($app){
             return new SitemapHelper();
         });
+    }
+
+    public static function getAdminMenu(){
+
+        $menus = [
+            'admin'=>[
+                'url'   => 'admin',
+                'title' => __("Dashboard"),
+                'icon'  => 'icon ion-ios-desktop',
+                "position"=>0
+            ],
+            'menu'=>[
+                "position"=>60,
+                'url'        => 'admin/module/core/menu',
+                'title'      => __("Menu"),
+                'icon'       => 'icon ion-ios-apps',
+                'permission' => 'menu_view',
+            ],
+            'general'=>[
+                "position"=>80,
+                'url'        => 'admin/module/core/settings/index/general',
+                'title'      => __('Setting'),
+                'icon'       => 'icon ion-ios-cog',
+                'permission' => 'setting_update',
+                'children'   => \Modules\Core\Helpers\SettingManager::menus()
+            ],
+            'tools'=>[
+                "position"=>90,
+                'url'      => 'admin/module/core/tools',
+                'title'    => __("Tools"),
+                'icon'     => 'icon ion-ios-hammer',
+                'children' => [
+                    'language'=>[
+                        'url'        => 'admin/module/language',
+                        'title'      => __('Languages'),
+                        'icon'       => 'icon ion-ios-globe',
+                        'permission' => 'language_manage',
+                    ],
+                    'translations'=>[
+                        'url'        => 'admin/module/language/translations',
+                        'title'      => __("Translation Manager"),
+                        'icon'       => 'icon ion-ios-globe',
+                        'permission' => 'language_translation',
+                    ],
+                    'logs'=>[
+                        'url'        => 'admin/logs',
+                        'title'      => __("System Logs"),
+                        'icon'       => 'icon ion-ios-nuclear',
+                        'permission' => 'system_log_view',
+                    ],
+                ]
+            ],
+        ];
+        return $menus;
     }
 
 

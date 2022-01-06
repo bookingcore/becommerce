@@ -235,4 +235,16 @@ class BaseModel extends Model
     public function scopeIsActive($query){
         return $query->where($this->table.'.status','publish');
     }
+
+    public function getForSitemap(){
+        $all = parent::query()->where('status','publish')->get();
+        $res = [];
+        foreach ($all as $item){
+            $res[] = [
+                'loc'=>$item->getDetailUrl(),
+                'lastmod'=>date('c',strtotime($item->updated_at ? $item->updated_at : $item->created_at)),
+            ];
+        }
+        return $res;
+    }
 }

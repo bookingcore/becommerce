@@ -19,10 +19,10 @@
                     {{__("Hi, :name",['name'=>Auth::user()->first_name])}}
                 </a>
                 <ul class="ps-dropdown-menu text-left">
-                    @if(Auth::user()->hasPermission('vendor_access'))
+                    @if(is_vendor_enable() and Auth::user()->hasPermission('vendor_access'))
                         <li><a href="{{route('vendor.dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Vendor Dashboard")}}</a></li>
                     @endif
-                    <li class="@if(Auth::user()->hasPermission('vendor_access')) menu-hr @endif">
+                    <li class="">
                         <a href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
                     </li>
                     <li class="menu-hr"><a href="{{route('user.order.index')}}"><i class="fa fa-clock-o"></i> {{__("Order History")}}</a></li>

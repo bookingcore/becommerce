@@ -13,10 +13,11 @@ use Modules\Order\Events\OrderUpdated;
 class Order extends BaseModel
 {
 
-    const FAILED = 'failed';
-    const ON_HOLD = 'on_hold';
     use SoftDeletes;
     protected $table = 'core_orders';
+    const COMPLETED  = 'completed'; //
+    const FAILED = 'failed';
+    const ON_HOLD = 'on_hold';
 
     protected $casts = [
         'billing'=>'array'

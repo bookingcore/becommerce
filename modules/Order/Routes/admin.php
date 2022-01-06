@@ -6,3 +6,4 @@
  * Time: 10:02 AM
  */
 use Illuminate\Support\Facades\Route;
+Route::get('/','OrderController@index')->name('order.admin.index');

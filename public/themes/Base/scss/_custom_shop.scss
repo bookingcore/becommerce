@@ -23,7 +23,8 @@
 .header--standard .ps-form--quick-search button,
 .header--standard .header__extra span,
 .ps-btn, button.ps-btn,
-.ps-widget--account-dashboard .ps-widget__content ul li a:hover
+.ps-widget--account-dashboard .ps-widget__content ul li a:hover,
+.menu--dropdown > li:hover
 {
     background-color: var(--main-color);
 }

@@ -1,6 +1,8 @@
 <?php
 namespace Modules\Product;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
+use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
@@ -12,9 +14,13 @@ use Modules\Template\BlockManager;
 class ModuleProvider extends ModuleServiceProvider
 {
 
-    public function boot(){
+    public function boot(SitemapHelper $sitemapHelper){
 
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
+
+        $sitemapHelper->add("product",[Product::class,"getForSitemap"]);
+
+        AdminMenuManager::register("core",[$this,'getAdminMenu']);
 
         SettingManager::register("product",[$this,'getProductSettings']);
         SettingManager::register("store",[$this,'getStoreSettings']);

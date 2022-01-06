@@ -22,7 +22,7 @@ $score_total = $reviewData['score_total'];
         </ul>
     </div>
     <div class="ps-product__container">
-        @if($row->author)
+        @if(is_vendor_enable() and $row->author)
             <a class="ps-product__vendor" href="{{$row->author->getDetailUrl()}}">{{$row->author->display_name}}</a>
         @endif
         <div class="ps-product__container">
