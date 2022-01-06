@@ -4,6 +4,7 @@ namespace Themes\Base\Controllers\Order;
 use Illuminate\Http\Request;
 use Modules\Booking\Models\Booking;
 use Modules\Coupon\Models\Coupon;
+use Modules\Order\Helpers\CartManager;
 use Themes\Base\Controllers\FrontendController;
 
 class CouponController extends FrontendController
@@ -29,15 +30,26 @@ class CouponController extends FrontendController
         return $this->sendSuccess($res);
     }
 
-    public function removeCoupon($code , Request $request){
+    public function removeCoupon(Request $request){
         $coupon = Coupon::where('code',$request->input('coupon_code'))->where("status","publish")->first();
         if(empty($coupon)){
             return $this->sendError( __("Invalid coupon code!"));
         }
-        $res = $coupon->removeCoupon();
-        if($res['status']==1){
-            $res['reload'] = 1;
+        $couponCart = CartManager::getCoupon();
+        if($couponCart->where('id',$coupon->id)->first()){
+            CartManager::removeCounpon($coupon);
+            $res =  [
+                'reload'=>1,
+                'status'=>1,
+                'message'=> __("Coupon code is remove already!")
+            ];
+        }else{
+            $res =  [
+                'status'=>0,
+                'message'=> __("Coupon code not exits!")
+            ];
         }
+
         return $this->sendSuccess($res);
     }
 }

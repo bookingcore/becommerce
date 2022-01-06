@@ -164,8 +164,11 @@ class CartManager
         return static::items()->sum('subtotal');
     }
 
-    public static function subtotalBeforeDiscount(){
-        return static::items()->sum('subtotal_before_discount');
+    public static function discountTotal(){
+        return static::items()->sum('discount_amount');
+    }
+    public static function shippingTotal(){
+        return static::items()->sum('shipping_amount');
     }
 
     /**
@@ -174,10 +177,10 @@ class CartManager
      * @return float
      */
     public static function total(){
-        return static::subtotal();
-    }
-    public static function totalBeforeDiscount(){
-        return static::subtotalBeforeDiscount();
+        $subTotal = static::subtotal();
+        $discount = static::discountTotal();
+        $shipping = static::shippingTotal();
+        return $subTotal + $shipping - $discount;
     }
 
     public static function get_cart_fragments(){
@@ -213,23 +216,41 @@ class CartManager
 	public static function updateItemCoupon(Coupon $coupon,$action='add'){
 		$items = static::items();
 		if(!empty($items)){
-			$services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
-			foreach ($items as $cart_item_id=> $item){
-				$check = \Arr::where($services,function ($value,$key) use ($item){
-					if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-						return $value;
-					}
-				});
-				if(!empty($check)){
-					if($action=='remove'){
-						$item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
-					}else{
-						$item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
-					}
-					$items->put($cart_item_id,$item);
-					session()->put(static::$session_key, $items);
-				}
-			}
+			if(!empty($coupon->services)){
+                $services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
+                foreach ($items as $cart_item_id=> $item){
+                    $check = \Arr::where($services,function ($value,$key) use ($item){
+                        if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                            return $value;
+                        }
+                    });
+                    if(!empty($check)){
+                        if($action=='remove'){
+                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
+                        }else{
+                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
+                        }
+                        if($item->discount_amount < 0){
+                            $item->discount_amount = 0;
+                        }
+                        $items->put($cart_item_id,$item);
+                        session()->put(static::$session_key, $items);
+                    }
+                }
+            }else{
+                foreach ($items as $cart_item_id=> $item){
+                        if($action=='remove'){
+                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
+                        }else{
+                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
+                        }
+                        if($item->discount_amount < 0){
+                            $item->discount_amount = 0;
+                        }
+                        $items->put($cart_item_id,$item);
+                        session()->put(static::$session_key, $items);
+                }
+            }
 		}
 
 	}

@@ -53,8 +53,8 @@ Route::group(['prefix'=>'cart','middleware'=>'auth'],function(){
     Route::post('/update','Order\CartController@updateCartItem')->name('cart.update_cart_item');
 
 //  Coupon
-    Route::post('/apply_coupon','CouponController@applyCoupon')->name('cart.coupon.apply');
-    Route::post('/remove_coupon','CouponController@removeCoupon')->name('cart.coupon.remove');
+    Route::post('/apply_coupon','Order\CouponController@applyCoupon')->name('cart.coupon.apply');
+    Route::post('/remove_coupon','Order\CouponController@removeCoupon')->name('cart.coupon.remove');
 });
 Route::group(['prefix'=>'checkout','middleware'=>'auth'],function(){
     Route::get('/','Order\CheckoutController@index')->name('checkout');

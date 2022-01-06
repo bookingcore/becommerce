@@ -47,9 +47,9 @@ class Coupon extends Bookable
         ];
     }
 
-    public function applyCouponValidate(){
+    public function applyCouponValidate($action='add'){
         $couponCart = CartManager::getCoupon();
-        $totalBeforeDiscount = CartManager::totalBeforeDiscount();
+        $subTotal = CartManager::subtotal();
         if($couponCart->where('id',$this->id)->first()){
 	        return [
 			        'status'=>0,
@@ -66,13 +66,13 @@ class Coupon extends Bookable
             }
         }
 
-        if(!empty($min_total = $this->min_total) and $totalBeforeDiscount < $min_total){
+        if(!empty($min_total = $this->min_total) and $subTotal < $min_total){
             return [
                 'status'=>0,
                 'message'=> __("The order has not reached the minimum value of :amount to apply the coupon code!",['amount'=>format_money($min_total)])
             ];
         }
-        if(!empty($max_total = $this->max_total) and $totalBeforeDiscount > $max_total){
+        if(!empty($max_total = $this->max_total) and $subTotal > $max_total){
             return [
                 'status'=>0,
                 'message'=> __("This order has exceeded the maximum value of :amount to apply coupon code! ",['amount'=>format_money($max_total)])

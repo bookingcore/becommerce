@@ -91,16 +91,17 @@
                                     <div class="form-group">
                                         <button class="ps-btn ps-btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                     </div>
-                                    @if(!empty($counpon))
-                                        <ul class="p-0 mb-3 list-coupons">
+                                    @if(!empty($coupons = \Modules\Order\Helpers\CartManager::getCoupon()))
+                                        <h4>{{__("List Coupon")}}</h4>
+                                        <ul class="p-0 mb-3 list-coupons list-disc">
                                             @foreach($coupons as $coupon)
-                                                <li class="item">
+                                                <li class="item d-flex justify-content-between">
                                                     <div class="label">
                                                         {{ $coupon->code }}
                                                         <i data-toggle="tooltip" data-placement="top" class="icofont-info-circle" data-original-title="{{ $coupon->name}}"></i>
                                                     </div>
                                                     <div class="val">
-                                                            <a href="#" data-code="{{ $item->code }}" class="text-danger text-decoration-none bc_remove_coupon"> {{ __("[Remove]") }}
+                                                            <a href="#" data-code="{{ $coupon->code }}" class="text-danger text-decoration-none bc_remove_coupon"> {{ __("[Remove]") }}
                                                                 <i class="fa fa-spin fa-spinner d-none"></i>
                                                             </a>
                                                     </div>
@@ -108,7 +109,6 @@
                                             @endforeach
                                         </ul>
                                     @endif
-
                                 </figure>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
@@ -135,7 +135,7 @@
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                                 <div class="ps-block--shopping-total">
                                     <div class="ps-block__header">
-                                        <p>{{__('Subtotal')}} <span> $683.49</span></p>
+                                        <p>{{__('Subtotal')}} <span>{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span></p>
                                     </div>
                                     <div class="ps-block__content">
                                         <ul class="ps-block__product">
@@ -149,7 +149,7 @@
                                                     class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a
                                                         href="#">Apple Macbook Retina Display 12” ×1</a></span></li>
                                         </ul>
-                                        <h3>Total <span>$683.49</span></h3>
+                                        <h3>{{__('Total')}} <span>{{format_money(\Modules\Order\Helpers\CartManager::total())}}</span></h3>
                                     </div>
                                 </div>
                                 <a class="ps-btn ps-btn--fullwidth" href="{{route('checkout')}}">{{__('Proceed to checkout')}}</a>
