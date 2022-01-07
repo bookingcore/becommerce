@@ -121,3 +121,39 @@ a:hover,
 .widget_shop .ps-checkbox .fa-star{
     margin-right: 0;
 }
+
+.ps-page--product .ps-product--detail .ps-product__info .ps-product__price .price{
+    color: #000;
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+    line-height: 1;
+    ins{
+        text-decoration: none;
+    }
+    &.has-sale{
+        >*{
+            display: inline-block;
+        }
+        ins{
+            color: #ff3300;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        del{
+            opacity: 1;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+            padding-left: 5px;
+        }
+        .sale{
+            font-size: 14px;
+            color: #ff3300;
+            font-weight: 500;
+            &.sale-2{
+                display: none;
+            }
+        }
+    }
+}
