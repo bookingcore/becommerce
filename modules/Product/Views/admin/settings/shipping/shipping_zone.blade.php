@@ -85,7 +85,7 @@
                                                                             <span>{{ $shippingMethod->method_desc }}</span>
                                                                         </td>
                                                                         <td>
-                                                                            <input type="checkbox" @if($shippingMethod->is_enabled == 1) checked @endif name="shipping_method[{{ $shippingMethod->id }}][is_enabled]" value="1" />
+                                                                            <input type="checkbox" @if($shippingMethod->is_enabled == 1) checked @endif name="shipping_methods[{{ $shippingMethod->id }}][is_enabled]" value="1" />
                                                                         </td>
                                                                         <td>
                                                                             <div class="dropdown">
