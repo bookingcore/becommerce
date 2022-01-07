@@ -11,11 +11,12 @@
 			$this->menu = $menu;
 		}
 
-		public function generate()
+		public function generate($wrap_class = '')
 		{
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
-				echo '<ul class="menu">';
+			    $wrap_class = ($this->menu->location = 'menu_header_top' && !empty($wrap_class)) ? $wrap_class : 'menu';
+				echo "<ul class='$wrap_class'>";
 				$this->generateTree($items);
 
 				if($this->menu->location == 'primary' && !(is_candidate() && !is_admin())){

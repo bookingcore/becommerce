@@ -1,3 +1,4 @@
+@php $languages = \Modules\Language\Models\Language::getActive(); @endphp
 <div class="ps-block--promotion-header bg--cover d-none" data-background="/themes/Base/img/promotions/header-promotion.jpg">
     <div class="container">
         <div class="ps-block__left">
@@ -16,24 +17,10 @@
     <div class="header__top">
         <div class="container">
             <div class="header__left">
-                <p>Welcome to Martfury Online Shopping Store !</p>
+                <p>{{ setting_item_with_lang('header_top') }}</p>
             </div>
             <div class="header__right">
-                <ul class="header__top-links">
-                    <li><a href="#">Store Location</a></li>
-                    <li><a href="#">Track Your Order</a></li>
-                    <li>
-                        <div class="ps-dropdown"><a href="#">US Dollar</a>
-                            <ul class="ps-dropdown-menu">
-                                <li><a href="#">Us Dollar</a></li>
-                                <li><a href="#">Euro</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        @include('layouts.parts.header.language-switcher')
-                    </li>
-                </ul>
+                @php generate_menu('menu_header_top',['wrap_class' => 'header__top-links']) @endphp
             </div>
         </div>
     </div>
