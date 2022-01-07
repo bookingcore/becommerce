@@ -197,6 +197,12 @@
                     </div>
                 @endif
                 <div class="form-group">
+                    <label>{{__("header top")}}</label>
+                    <div class="form-controls">
+                        <input type="text" class="form-control" name="header_top" value="{{ setting_item_with_lang('header_top',request()->query('lang')) }}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label>{{__("Footer Info Contact")}}</label>
                     <div class="form-controls">
                         <div id="info_text_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_info_text',request()->query('lang'))}}</div>

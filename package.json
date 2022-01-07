@@ -36,7 +36,8 @@
         "style-loader": "^0.23.1",
         "vue-draggable-nested-tree": "^2.2.20",
         "vue-form-generator": "^2.3.4",
-        "vue-loader": "15.9.7",
-        "vuedraggable": "^2.23.2"
+        "vue-loader": "^15.9.8",
+        "vuedraggable": "^2.23.2",
+        "webpack": "^5.65.0"
     }
 }

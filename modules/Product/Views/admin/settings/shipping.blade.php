@@ -136,4 +136,15 @@
             </div>
         </div>
     </div>
+    <hr>
+    <div class="row">
+        <div class="col-sm-12">
+            <h3 class="form-group-title">{{__("Shipping Classes")}}</h3>
+            <div class="panel">
+                <div class="panel-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 @endif

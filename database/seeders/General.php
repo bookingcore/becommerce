@@ -19,7 +19,7 @@ namespace Database\Seeders;
                 [
                     [
                         'name'  => 'menu_locations',
-                        'val'   => '{"primary":1,"department":2,"menu_right":3}',
+                        'val'   => '{"primary":1,"department":2,"menu_right":3,"menu_header_top":4}',
                         'group' => "general",
                     ],
                     [
@@ -38,6 +38,11 @@ namespace Database\Seeders;
                     [
                         'name'  => 'site_favicon',
                         'val'   => '',
+                        'group' => "general",
+                    ],
+                    [
+                        'name'  => 'header_top',
+                        'val'   => 'Welcome to BeCommerce Online Shopping Store !',
                         'group' => "general",
                     ],
                     [
@@ -389,11 +394,6 @@ namespace Database\Seeders;
                     [
                         'name'  => "vendor_commission_amount",
                         'val'   => "10",
-                        'group' => "vendor",
-                    ],
-                    [
-                        'name'  => "vendor_role",
-                        'val'   => "1",
                         'group' => "vendor",
                     ],
 
@@ -989,6 +989,24 @@ namespace Database\Seeders;
                     "_open" => true
                 ]
             ];
+            $menu_header_top = [
+                [
+                    'name'          =>  'Store Location',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+                [
+                    'name'          =>  'Track Your Order',
+                    'url'           =>  '#',
+                    'item_model'    =>  'custom',
+                    '_open'         =>  false,
+                    'model_name'    =>  'Custom',
+                    'is_removed'    =>  true
+                ],
+            ];
 
             //Menu
             DB::table('core_menus')->insert(
@@ -1010,6 +1028,12 @@ namespace Database\Seeders;
                         'items' =>  json_encode($right_menu),
                         'create_user'   =>  1,
                         'update_user'   =>  1
+                    ],
+                    [
+                        'name'  => "Header top menu",
+                        'items' =>  json_encode($menu_header_top),
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
                     ]
                 ]
             );
@@ -1029,6 +1053,13 @@ namespace Database\Seeders;
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
+                    [
+                        'origin_id'=>4,
+                        'locale'=>'ja',
+                        'items' => json_encode($menu_header_top),
+                        'create_user'   =>  1,
+                        'update_user'   =>  1
+                    ]
                 ]
             );
             DB::table('core_settings')->insert(

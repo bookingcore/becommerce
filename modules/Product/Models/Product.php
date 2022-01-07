@@ -381,7 +381,7 @@ class Product extends BaseProduct
         $getTabs = [
             [
                 'id' => 'content',
-                'name' => __('description'),
+                'name' => __('Description'),
                 'position' => 10
             ],
             [
