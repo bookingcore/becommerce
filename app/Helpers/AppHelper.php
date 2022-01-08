@@ -103,7 +103,6 @@ function currency_symbol(){
 function generate_menu($location = '',$options = [])
 {
     $options['walker'] = $options['walker'] ?? '\\Modules\\Core\\Walkers\\MenuWalker';
-    $options['wrap_class'] = $options['wrap_class'] ?? '';
 
     $setting = json_decode(setting_item('menu_locations'),true);
 
@@ -117,7 +116,7 @@ function generate_menu($location = '',$options = [])
                 $walker = new $options['walker']($translation);
 
                 if(!empty($translation)){
-                    $walker->generate($options['wrap_class']);
+                    $walker->generate($options);
                 }
             }
         }

@@ -20,7 +20,7 @@
                 <p>{{ setting_item_with_lang('header_top') }}</p>
             </div>
             <div class="header__right">
-                @php generate_menu('menu_header_top',['wrap_class' => 'header__top-links']) @endphp
+                @php generate_menu('menu_header_top',['class' => 'header__top-links']) @endphp
             </div>
         </div>
     </div>
