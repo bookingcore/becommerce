@@ -22,7 +22,7 @@
                                     @include("user.address.billing-form")
                                 </div>
                                 <div class="form-group submit">
-                                    <button class="btn">{{__('Update')}}</button>
+                                    <button class="btn btn-success">{{__('Update')}}</button>
                                 </div>
                             </div>
                         </form>

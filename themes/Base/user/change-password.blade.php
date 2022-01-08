@@ -19,21 +19,21 @@
                                 </div>
                                 <div class="bc-section__content">
                                     @include('global.message')
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label>{{__("Current Password")}}</label>
                                         <input type="password" name="current-password" required placeholder="{{__("Current Password")}}" class="form-control">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label>{{__("New Password")}}</label>
                                         <input type="password" name="new-password" required minlength="6" placeholder="{{__("New Password")}}" class="form-control">
                                     </div>
-                                    <div class="form-group">
+                                    <div class="form-group mb-3">
                                         <label>{{__("New Password Again")}}</label>
                                         <input type="password" name="new-password_confirmation" required minlength="6" placeholder="{{__("New Password Again")}}" class="form-control">
                                     </div>
                                 </div>
-                                <div class="form-group submit">
-                                    <button class="btn">{{__('Save changes')}}</button>
+                                <div class="form-group mb-3 submit">
+                                    <button class="btn btn-primary">{{__('Save changes')}}</button>
                                 </div>
                             </div>
 
