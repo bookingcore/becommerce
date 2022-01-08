@@ -7,7 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="stylesheet" href="{{ asset('/') }}/libs/font-awesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')

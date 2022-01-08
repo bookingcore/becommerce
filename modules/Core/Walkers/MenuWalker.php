@@ -16,7 +16,7 @@
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
 			    $option['class'] = (!empty($option['class'])) ? $option['class'] : 'menu';
-				echo "<ul class='{$option['class']}'>";
+				echo "<ul class='nav {$option['class']}'>";
 				$this->generateTree($items);
 				echo '</ul>';
 			}
@@ -47,22 +47,22 @@
 				}
 
 				if (!empty($item['children'])) {
-                    $class .= ' menu-item-has-children';
+                    $class .= ' dropdown menu-item-has-children';
 					ob_start();
 					$this->generateTree($item['children'],$depth + 1,$parentKey.'_'.$k);
 					$html = ob_get_clean();
 					if(in_array($parentKey.'_'.$k,$this->activeItems)){
-						$class.=' current ';
+						$class.=' active ';
 					}
 				}
 				$class.=' depth-'.($depth);
-				printf('<li class="%s">', $class);
+				printf('<li class="nav-item %s">', $class);
 				if (!empty($item['children']) and $depth != 0) {
 					$item['name'] .= ' <i class="caret fa fa-angle-right float-right mt-2"></i>';
 				}
-				printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
+				printf('<a class="nav-link"  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
 				if (!empty($item['children'])) {
-					echo '<ul class="sub-menu">';
+					echo '<ul class="dropdown-menu">';
 					echo $html;
 					echo "</ul>";
 				}

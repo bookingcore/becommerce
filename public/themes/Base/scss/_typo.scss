@@ -1,3 +1,6 @@
+a{
+    text-decoration: none;
+}
 .hl{
     color:var(--main-color);
 }
@@ -68,7 +71,9 @@ img[data-srcset] {
     display: block;
     min-height: 1px;
 }
-
+.object-cover{
+    object-fit: cover;
+}
 // Border
 .border-1{
     border-width:1px;

@@ -3,25 +3,15 @@
     @include('global.bc')
     <div class="bc-page--blog">
         <div class="container">
-            <div class="bc-page__header">
-                <h1>{{$header_title ?? __("News")}}</h1>
-                <div class="bc-breadcrumb--2">
-                    <ul class="breadcrumb">
-                        <li><a href="{{url('/')}}">{{__("Home")}}</a></li>
-                        <li>{{$header_title ?? __("News")}}</li>
-                    </ul>
-                </div>
+            <div class="px-4 py-5 my-5 text-center">
+                <h1 class="display-5 fw-bold">{{$header_title ?? __("News")}}</h1>
             </div>
-            <div class="bc-blog--sidebar">
-                <div class="bc-blog__left">
+            <div class="row">
+                <div class="col-md-8">
                     @if(count($rows))
-                        @if(!request('page'))
-                            @include('news.loop',['row'=>$rows[0]])
-                        @endif
                         <div class="row">
                             @foreach($rows as $k=>$row)
-                                <?php if(!request('page') && !$k) continue; ?>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 ">
+                                <div class="col-sm-6 mb-3">
                                     @include('news.loop')
                                 </div>
                             @endforeach
@@ -33,7 +23,7 @@
                         {{$rows->links()}}
                     </div>
                 </div>
-                <div class="bc-blog__right">
+                <div class="col-md-4">
                     @include('news.sidebar')
                 </div>
             </div>
