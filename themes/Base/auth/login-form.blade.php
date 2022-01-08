@@ -1,4 +1,4 @@
-<form class="p-3 bc-form {{$class ?? ''}}" method="POST" action="{{ route('login') }}">
+<form class="bc-form {{$class ?? ''}}" method="POST" action="{{ route('login') }}">
     <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
     @csrf
     <div class="{{$inner_class ?? ''}}">
@@ -28,7 +28,7 @@
 
             @include("admin.message")
             <div class="form-group mb-3  d-grid">
-                <button class="btn btn-primary">{{__('Login')}}
+                <button class="btn btn-primary btn-lg">{{__('Login')}}
                     <i class="fa fa-spinner fa-pulse fa-fw"></i>
                 </button>
             </div>

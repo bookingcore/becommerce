@@ -11,14 +11,14 @@ class DashboardController extends AdminController
     {
         $f = strtotime('monday this week');
         $data = [
-            'recent_orders'    => $this->getRecentBookings(),
+            'recent_orders'    => $this->getRecentOrders(),
             'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
             'earning_chart_data' => [],//Order::getDashboardChartData($f, time())
         ];
         return view('Dashboard::index', $data);
     }
 
-    protected function getRecentBookings(){
+    protected function getRecentOrders(){
         return Order::query()->orderByDesc('id')->take(10)->get();
     }
     protected function getTopCardsReport($filters = []){

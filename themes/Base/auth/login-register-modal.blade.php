@@ -9,7 +9,7 @@
                     </i>
                 </span>
             </div>
-            <div class="modal-body relative p-0">
+            <div class="modal-body relative">
                 @include('auth/login-form',['class'=>'m-0 p-0 mw-none'])
             </div>
         </div>
@@ -20,13 +20,13 @@
         <div class="modal-content relative">
             <div class="modal-header pt-4 pl-5 pr-5">
                 <h4 class="modal-title">{{__('Sign Up')}}</h4>
-                <span class="c-pointer" data-dismiss="modal" aria-label="Close">
+                <span class="c-pointer" data-bs-dismiss="modal" aria-label="Close">
                     <i class="input-icon field-icon fa">
                         <img src="{{url('images/ico_close.svg')}}" alt="close">
                     </i>
                 </span>
             </div>
-            <div class="modal-body p-0">
+            <div class="modal-body">
                 @include('auth/register-form',['class'=>'m-0 p-0 mw-none'])
             </div>
         </div>
