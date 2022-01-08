@@ -14,12 +14,12 @@
                         @endif
                     </a>
                 </div>
-                <div class="col-md-6 header__content-center">
+                <div class="col-md-7 header__content-center">
                     <div class="px-5">
                         @include('layouts.parts.header.search')
                     </div>
                 </div>
-                <div class="col-md-3 header__content-right">
+                <div class="col-md-2 header__content-right text-end">
                     <div class="dropdown">
                         <a  class="position-relative" data-bs-toggle="dropdown">
                             <i class="fa fa-shopping-cart fa-2x"></i>

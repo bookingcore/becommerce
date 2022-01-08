@@ -31,9 +31,11 @@ $countUnread = $checkNotify->where('read_at', null)->count();
                         </li>
                     @else
                         <li class="dropdown-notifications dropdown p-0">
-                            <a href="#" data-bs-toggle="dropdown" class="is_login nav-link text-white">
-                                <i class="fa fa-bell mr-2"></i>
-                                <span class="badge badge-danger notification-icon">{{$countUnread}}</span>
+                            <a href="#" data-bs-toggle="dropdown" class="is_login nav-link text-white position-relative">
+                                <span class="position-relative">
+                                    <i class="fa fa-bell mr-2"></i>
+                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">{{$countUnread}}</span>
+                                </span>
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-right dropdown-large">

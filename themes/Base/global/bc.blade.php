@@ -1,5 +1,5 @@
 
-<div class="bc-breadcrumb py-2">
+<div class="bc-breadcrumb py-2 bg-light">
     <div class="container">
         <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
             <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{url('/')}}"><span itemprop="name">{{__("Home")}}</span></a></li>
