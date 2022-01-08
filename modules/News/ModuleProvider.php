@@ -2,6 +2,7 @@
 namespace Modules\News;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
@@ -21,6 +22,7 @@ class ModuleProvider extends ModuleServiceProvider
 
         SettingManager::register("news",[$this,'getNewsSettings']);
 
+        AdminMenuManager::register("news",[$this,'getAdminMenu']);
     }
     /**
      * Register bindings in the container.

@@ -8,6 +8,7 @@
 namespace Modules\Page;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\ModuleServiceProvider;
 use Modules\Page\Models\Page;
 use Modules\Page\Providers\RouterServiceProvider;
@@ -20,6 +21,8 @@ class ModuleProvider extends ModuleServiceProvider
         $this->publishes([
             __DIR__.'/Config/config.php' => config_path('news.php'),
         ]);
+
+        AdminMenuManager::register("page",[$this,'getAdminMenu']);
 
     }
     /**

@@ -3,6 +3,7 @@ namespace Modules\User;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 use Modules\User\Models\Plan;
@@ -24,6 +25,7 @@ class ModuleProvider extends ModuleServiceProvider
 
         SettingManager::register("user",[$this,'getUserSettings']);
 
+        AdminMenuManager::register("user",[$this,'getAdminMenu']);
     }
     /**
      * Register bindings in the container.
