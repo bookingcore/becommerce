@@ -71,6 +71,7 @@
                                                                 <th>{{ __("Title") }}</th>
                                                                 <th>{{ __("Description") }}</th>
                                                                 <th>{{ __("Enable") }}</th>
+                                                                <th>{{ __("Order") }}</th>
                                                                 <th></th>
                                                             </tr>
                                                             </thead>
@@ -87,6 +88,7 @@
                                                                         <td>
                                                                             <input type="checkbox" @if($shippingMethod->is_enabled == 1) checked @endif name="shipping_methods[{{ $shippingMethod->id }}][is_enabled]" value="1" />
                                                                         </td>
+                                                                        <td>{{ $shippingMethod->order }}</td>
                                                                         <td>
                                                                             <div class="dropdown">
                                                                                 <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">

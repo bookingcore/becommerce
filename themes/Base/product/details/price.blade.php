@@ -1,4 +1,4 @@
-<h4 class="ps-product__price mt-4">
+<h4 class="bc-product__price mt-4">
     @if($row->product_type=='variable')
         @if(!empty($priceRange = getMinMaxPriceProductVariations($row)))
             <p class="price variable-price">

@@ -3,6 +3,7 @@ namespace Modules\Product\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Product\Models\ShippingClass;
 use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
 use Modules\Product\Models\ShippingZoneMethod;
@@ -28,7 +29,7 @@ class ShippingSettingContainer extends AdminController
                     'url'  => 'admin/module/core/settings/index/shipping'
                 ],
                 [
-                    'name'  => __('Shipping Zones'),
+                    'name'  => __('Shipping Zone'),
                     'class' => 'active'
                 ],
             ],
@@ -142,9 +143,12 @@ class ShippingSettingContainer extends AdminController
             return redirect( url('/admin/module/core/settings/index/shipping'));
         }
 
+        $shipping_classes = ShippingClass::all();
+
         $data = [
             'zone_id' => $zone_id,
             'shippingZone' => $shippingZone,
+            'shipping_classes' => $shipping_classes,
             'enable_multi_lang' => true,
             'breadcrumbs'        => [
                 [
@@ -180,12 +184,15 @@ class ShippingSettingContainer extends AdminController
 
         $method_settings = setting_item_array('shipping_method_' . $zoneMethod->id .'_settings');
 
+        $shipping_classes = ShippingClass::all();
+
         $data = [
             'row' => $zoneMethod,
             'translation' => $translation,
             'zone_id' => $zone_id,
             'shippingZone' => $shippingZone,
             'method_settings' => $method_settings,
+            'shipping_classes' => $shipping_classes,
             'enable_multi_lang' => true,
             'breadcrumbs'        => [
                 [
@@ -242,22 +249,37 @@ class ShippingSettingContainer extends AdminController
         $res = $shippingMethod->saveWithTranslation();
 
         if($res){
-            $sz_settings = ['method_id' => $shippingMethod->method_id];
-            if($shippingMethod->method_id == 'flat_rate'){
-                $sz_settings['flat_rate_status'] = $request->input('flat_rate_status');
-                $sz_settings['flat_rate_cost'] = $request->input('flat_rate_cost');
-            }
-            if($shippingMethod->method_id == 'free_shipping'){
-                $sz_settings['free_shipping_requires'] = $request->input('free_shipping_requires');
-                $sz_settings['free_shipping_min_amount'] = $request->input('free_shipping_min_amount');
-                $sz_settings['free_shipping_ignore_discounts'] = $request->input('free_shipping_ignore_discounts');
-            }
-            if($shippingMethod->method_id == 'local_pickup'){
-                $sz_settings['local_pickup_status'] = $request->input('local_pickup_status');
-                $sz_settings['local_pickup_cost'] = $request->input('local_pickup_cost');
-            }
+            $lang = $request->get('lang');
+            if((empty($lang) or $lang == setting_item('site_locale'))) {
+                $sz_settings = ['method_id' => $shippingMethod->method_id];
+                if ($shippingMethod->method_id == 'flat_rate') {
+                    $sz_settings['flat_rate_status'] = $request->input('flat_rate_status');
+                    $sz_settings['flat_rate_cost'] = $request->input('flat_rate_cost');
 
-            setting_update_item('shipping_method_' . $shippingMethod->id . '_settings', $sz_settings);
+                    //Save shipping class cost
+                    $shipping_classes = ShippingClass::all();
+                    if (!empty($shipping_classes) && $shipping_classes->count() > 0) {
+                        foreach ($shipping_classes as $key => $shipping_class) {
+                            $name = 'flat_rate_class_cost_' . $shipping_class->id;
+                            $sz_settings[$name] = $request->input($name);
+                        }
+
+                        $sz_settings['flat_rate_no_class_cost'] = $request->input('flat_rate_no_class_cost');
+                        $sz_settings['flat_rate_type'] = $request->input('flat_rate_type');
+                    }
+                }
+                if ($shippingMethod->method_id == 'free_shipping') {
+                    $sz_settings['free_shipping_requires'] = $request->input('free_shipping_requires');
+                    $sz_settings['free_shipping_min_amount'] = $request->input('free_shipping_min_amount');
+                    $sz_settings['free_shipping_ignore_discounts'] = $request->input('free_shipping_ignore_discounts');
+                }
+                if ($shippingMethod->method_id == 'local_pickup') {
+                    $sz_settings['local_pickup_status'] = $request->input('local_pickup_status');
+                    $sz_settings['local_pickup_cost'] = $request->input('local_pickup_cost');
+                }
+
+                setting_update_item('shipping_method_' . $shippingMethod->id . '_settings', $sz_settings);
+            }
 
             if($zone_method_id > 0 ){
                 return back()->with('success',  __('Shipping method updated') );
@@ -274,6 +296,91 @@ class ShippingSettingContainer extends AdminController
         $shippingMethod = ShippingZoneMethod::find($id);
         if (!empty($shippingMethod)) {
             $shippingMethod->delete();
+        }
+
+        return back();
+    }
+
+    public function shippingClassCreate(Request $request){
+
+        $this->checkPermission('setting_manage');
+
+        $data = [
+            'enable_multi_lang' => true,
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Shipping Settings'),
+                    'url'  => 'admin/module/core/settings/index/shipping'
+                ],
+                [
+                    'name'  => __('Shipping Class'),
+                    'class' => 'active'
+                ],
+            ]
+        ];
+        return view('Product::admin.settings.shipping.shipping_class', $data);
+    }
+
+    public function shippingClassEdit(Request $request, $id){
+
+        $this->checkPermission('setting_manage');
+
+        $shipping_class = ShippingClass::query()->find($id);
+        if (empty($shipping_class)) {
+            return redirect( url('/admin/module/core/settings/index/shipping'));
+        }
+
+        $data = [
+            'row' => $shipping_class,
+            'translation' => $shipping_class->translate($request->query('lang')),
+            'enable_multi_lang' => true,
+            'breadcrumbs'        => [
+                [
+                    'name' => __('Shipping Settings'),
+                    'url'  => 'admin/module/core/settings/index/shipping'
+                ],
+                [
+                    'name'  => __('Shipping Class'),
+                    'class' => 'active'
+                ],
+            ]
+        ];
+        return view('Product::admin.settings.shipping.shipping_class', $data);
+    }
+
+    public function shippingClassStore(Request $request){
+        $this->checkPermission('setting_manage');
+        $shipping_class_id = $request->input('shipping_class_id');
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        if(!empty($shipping_class_id)){
+            $shipping_class = ShippingClass::query()->find($shipping_class_id);
+        }else{
+            $shipping_class = new ShippingClass();
+        }
+        $dataKeys = [
+            'name',
+            'description'
+        ];
+        $shipping_class->fillByAttr($dataKeys, $request->input());
+
+        $shipping_class->saveWithTranslation();
+
+        if($shipping_class_id > 0){
+            return back()->with('success',  __('Shipping class updated') );
+        }else{
+            return redirect( route('product.shipping.class.edit', ['id' => $shipping_class->id]) )->with('success', __('Shipping class created') );
+        }
+    }
+
+    public function shippingClassDelete(Request $request, $id){
+        $this->checkPermission('setting_manage');
+
+        $shipping_class = ShippingClass::find($id);
+        if (!empty($shipping_class)) {
+            $shipping_class->delete();
         }
 
         return back();

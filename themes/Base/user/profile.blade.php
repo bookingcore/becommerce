@@ -1,23 +1,23 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="ps-section--account">
+    <div class="bc-section--account">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="ps-section__left">
+                    <div class="bc-section__left">
                         @include('user.sidebar')
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="ps-section__right">
+                    <div class="bc-section__right">
                         <form action="{{route('user.profile.store')}}" method="post">
                             @csrf
-                            <div class="ps-section--account-setting">
-                                <div class="ps-section__header">
+                            <div class="bc-section--account-setting">
+                                <div class="bc-section__header">
                                     <h3>{{__("Update Account Information")}}</h3>
                                 </div>
-                                <div class="ps-section__content">
+                                <div class="bc-section__content">
                                     @include('global.message')
                                     <div class="row">
                                         <div class="col-sm-6">
@@ -49,7 +49,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group submit">
-                                    <button class="ps-btn">{{__('Save Changes')}}</button>
+                                    <button class="btn">{{__('Save Changes')}}</button>
                                 </div>
                             </div>
                         </form>

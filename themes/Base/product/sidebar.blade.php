@@ -1,6 +1,6 @@
 <div class="widget widget_shop">
     <h4 class="widget-title">{{__('Categories')}}</h4>
-    <ul class="ps-list--categories">
+    <ul class="bc-list--categories">
         @if(!empty($categories))
             @php
                 $traverse = function ($categories, $prefix = '') use (&$traverse) {

@@ -36,18 +36,6 @@ class Promotion extends BaseBlock
                     'title_field' => 'List Item',
                     'settings'    => [
                         [
-                            'id'        => 'title',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Title')
-                        ],
-                        [
-                            'id'        => 'link',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Link Product')
-                        ],
-                        [
                             'id'    => 'image',
                             'type'  => 'uploader',
                             'label' => __('Image Uploader')
@@ -66,7 +54,7 @@ class Promotion extends BaseBlock
     public function content($model = [])
     {
         $data = [
-            'list_items'  =>  $model['list_items'],
+            'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
         return view('blocks.promotion.index', $data);

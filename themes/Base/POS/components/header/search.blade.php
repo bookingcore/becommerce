@@ -1,5 +1,5 @@
 <script type="text/x-template" id="POS_header_search">
-    <div class="ps-form--quick-search" >
+    <div class="bc-form--quick-search" >
         <input class="form-control" v-model="s" type="text" placeholder="{{__("Search products (F3)")}}">
     </div>
 </script>

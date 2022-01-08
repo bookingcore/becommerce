@@ -1,19 +1,19 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="ps-page--blog">
+    <div class="bc-page--blog">
         <div class="container">
-            <div class="ps-page__header">
+            <div class="bc-page__header">
                 <h1>{{$header_title ?? __("News")}}</h1>
-                <div class="ps-breadcrumb--2">
+                <div class="bc-breadcrumb--2">
                     <ul class="breadcrumb">
                         <li><a href="{{url('/')}}">{{__("Home")}}</a></li>
                         <li>{{$header_title ?? __("News")}}</li>
                     </ul>
                 </div>
             </div>
-            <div class="ps-blog--sidebar">
-                <div class="ps-blog__left">
+            <div class="bc-blog--sidebar">
+                <div class="bc-blog__left">
                     @if(count($rows))
                         @if(!request('page'))
                             @include('news.loop',['row'=>$rows[0]])
@@ -29,11 +29,11 @@
                     @else
                         <div class="alert alert-warning">{{__("No posts found")}}</div>
                     @endif
-                    <div class="ps-pagination">
+                    <div class="bc-pagination">
                         {{$rows->links()}}
                     </div>
                 </div>
-                <div class="ps-blog__right">
+                <div class="bc-blog__right">
                     @include('news.sidebar')
                 </div>
             </div>

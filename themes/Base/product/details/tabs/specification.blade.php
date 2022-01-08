@@ -1,5 +1,5 @@
 <div class="table-responsive">
-    <table class="table table-bordered ps-table ps-table--specification">
+    <table class="table table-bordered bc-table bc-table--specification">
         <tbody>
         <tr>
             <td>Color</td>

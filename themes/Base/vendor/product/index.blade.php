@@ -1,11 +1,11 @@
 @extends('layouts.vendor')
 @section('content')
-<section class="ps-items-listing">
-    <div class="ps-section__actions"><a class="ps-btn success" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
+<section class="bc-items-listing">
+    <div class="bc-section__actions"><a class="btn success" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
     @include('vendor.product.filter')
-    <div class="ps-section__content">
+    <div class="bc-section__content">
         <div class="table-responsive">
-            <table class="table ps-table">
+            <table class="table bc-table">
                 <thead>
                 <tr>
                     <th>{{__('ID')}}</th>

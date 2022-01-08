@@ -1,15 +1,15 @@
 @extends("layouts.app")
 @section('content')
     @include('global.bc')
-    <div class="ps-page--shop" id="shop-sidebar">
+    <div class="bc-page--shop" id="shop-sidebar">
         <div class="container">
             <form action="" class="bc_form_filter">
-                <div class="ps-layout--shop">
-                    <div class="ps-layout__left">
+                <div class="bc-layout--shop">
+                    <div class="bc-layout__left">
                         @include("product.sidebar")
                     </div>
-                    <div class="ps-layout__right">
-                        <div class="ps-shopping ps-tab-root">
+                    <div class="bc-layout__right">
+                        <div class="bc-shopping bc-tab-root">
                             @include("product.search.header")
                             @include("product.search.loop")
                         </div>

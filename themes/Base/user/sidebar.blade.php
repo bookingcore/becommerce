@@ -1,11 +1,11 @@
-<aside class="ps-widget--account-dashboard">
-    <div class="ps-widget__header"><img src="{{$user->avatar_url}}" alt="{{$user->display_name}}">
+<aside class="bc-widget--account-dashboard">
+    <div class="bc-widget__header"><img src="{{$user->avatar_url}}" alt="{{$user->display_name}}">
         <figure>
             <figcaption>{{$user->display_name}}</figcaption>
             <p><a href="#">{{$user->email}}</a></p>
         </figure>
     </div>
-    <div class="ps-widget__content">
+    <div class="bc-widget__content">
         <ul>
             <li class="@if(in_array(request()->route()->getName(),['user.profile'])) active @endif"><a href="{{route('user.profile')}}"><i class="icon-user"></i> {{__('Account Information')}}</a></li>
             <li class="@if(in_array(request()->route()->getName(),['user.notification'])) active @endif"><a href="{{route('user.notification')}}"><i class="icon-alarm-ringing"></i> {{__('Notifications')}}</a></li>

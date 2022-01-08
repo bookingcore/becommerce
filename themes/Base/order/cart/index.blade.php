@@ -1,7 +1,7 @@
 @extends("layouts.app")
 @section('content')
-    <div class="ps-page--simple">
-        <div class="ps-breadcrumb">
+    <div class="bc-page--simple">
+        <div class="bc-breadcrumb">
             <div class="container">
                 <ul class="breadcrumb">
                     <li><a href="{{home_url()}}">{{__('Home')}}</a></li>
@@ -10,17 +10,17 @@
                 </ul>
             </div>
         </div>
-        <div class="ps-section--shopping ps-shopping-cart">
+        <div class="bc-section--shopping bc-shopping-cart">
             @if(\Modules\Order\Helpers\CartManager::count())
                 <div class="container">
-                    <div class="ps-section__header">
+                    <div class="bc-section__header">
                         <h1>{{__('Shopping Cart')}}</h1>
                     </div>
-                    <div class="ps-section__content">
+                    <div class="bc-section__content">
                         <form action="{{route('cart.update_cart_item')}}"method="post">
                             @csrf
                         <div class="table-responsive">
-                            <table class="table ps-table--shopping-cart ps-table--responsive">
+                            <table class="table bc-table--shopping-cart bc-table--responsive">
                                 <thead>
                                 <tr>
                                     <th>{{__('Product name')}}</th>
@@ -34,22 +34,22 @@
                                 @foreach(\Modules\Order\Helpers\CartManager::items() as $cartItem)
                                     <tr>
                                         <td data-label="Product">
-                                            <div class="ps-product--cart">
+                                            <div class="bc-product--cart">
                                                 @if($cartItem->model)
-                                                    <div class="ps-product__thumbnail">
+                                                    <div class="bc-product__thumbnail">
                                                         @if($cartItem->model->image_id)
                                                             <a href="{{$cartItem->getDetailUrl()}}"> {!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>''])!!}</a>
                                                         @endif
                                                     </div>
-                                                    <div class="ps-product__content"><a
+                                                    <div class="bc-product__content"><a
                                                             href="{{$cartItem->getDetailUrl()}}">{{$cartItem->name}}</a>
                                                         @if(!empty($cartItem->author))
                                                             <p>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></p>
                                                         @endif
                                                     </div>
                                                 @else
-                                                    <div class="ps-product__thumbnail"></div>
-                                                    <div class="ps-product__content">{{$cartItem->name}}</p>
+                                                    <div class="bc-product__thumbnail"></div>
+                                                    <div class="bc-product__content">{{$cartItem->name}}</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -73,13 +73,13 @@
                                 </tbody>
                             </table>
                         </div>
-                        <div class="ps-section__cart-actions"><a class="ps-btn" href="{{route('product.index')}}"><i
+                        <div class="bc-section__cart-actions"><a class="btn" href="{{route('product.index')}}"><i
                                     class="icon-arrow-left"></i> {{__('Back to Shop')}}</a>
-                            <button class="ps-btn ps-btn--outline" href=""><i class="icon-sync"></i> {{__('Update cart')}} </button>
+                            <button class="btn btn--outline" href=""><i class="icon-sync"></i> {{__('Update cart')}} </button>
                         </div>
                         </form>
                     </div>
-                    <div class="ps-section__footer">
+                    <div class="bc-section__footer">
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
                                 <figure class="section-coupon-form">
@@ -89,7 +89,7 @@
                                     </div>
                                     <div class="message alert-text mt-2"></div>
                                     <div class="form-group">
-                                        <button class="ps-btn ps-btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
+                                        <button class="btn btn--outline bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                     </div>
                                     @if(!empty($coupons = \Modules\Order\Helpers\CartManager::getCoupon()))
                                         <h4>{{__("List Coupon")}}</h4>
@@ -115,7 +115,7 @@
                                 <figure>
                                     <figcaption>{{__('Calculate shipping')}}</figcaption>
                                     <div class="form-group">
-                                        <select class="ps-select">
+                                        <select class="bc-select">
                                             <option value="1">America</option>
                                             <option value="2">Italia</option>
                                             <option value="3">Vietnam</option>
@@ -128,31 +128,31 @@
                                         <input class="form-control" type="text" placeholder="Postcode/Zip">
                                     </div>
                                     <div class="form-group">
-                                        <button class="ps-btn ps-btn--outline">{{__('Update')}}</button>
+                                        <button class="btn btn--outline">{{__('Update')}}</button>
                                     </div>
                                 </figure>
                             </div>
                             <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12 ">
-                                <div class="ps-block--shopping-total">
-                                    <div class="ps-block__header">
+                                <div class="bc-block--shopping-total">
+                                    <div class="bc-block__header">
                                         <p>{{__('Subtotal')}} <span>{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span></p>
                                     </div>
-                                    <div class="ps-block__content">
-                                        <ul class="ps-block__product">
-                                            <li><span class="ps-block__shop">YOUNG SHOP Shipping</span><span
-                                                    class="ps-block__shipping">Free Shipping</span><span
-                                                    class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a
+                                    <div class="bc-block__content">
+                                        <ul class="bc-block__product">
+                                            <li><span class="bc-block__shop">YOUNG SHOP Shipping</span><span
+                                                    class="bc-block__shipping">Free Shipping</span><span
+                                                    class="bc-block__estimate">Estimate for <strong>Viet Nam</strong><a
                                                         href="#"> MVMTH Classical Leather Watch In Black ×1</a></span>
                                             </li>
-                                            <li><span class="ps-block__shop">ROBERT’S STORE Shipping</span><span
-                                                    class="ps-block__shipping">Free Shipping</span><span
-                                                    class="ps-block__estimate">Estimate for <strong>Viet Nam</strong><a
+                                            <li><span class="bc-block__shop">ROBERT’S STORE Shipping</span><span
+                                                    class="bc-block__shipping">Free Shipping</span><span
+                                                    class="bc-block__estimate">Estimate for <strong>Viet Nam</strong><a
                                                         href="#">Apple Macbook Retina Display 12” ×1</a></span></li>
                                         </ul>
                                         <h3>{{__('Total')}} <span>{{format_money(\Modules\Order\Helpers\CartManager::total())}}</span></h3>
                                     </div>
                                 </div>
-                                <a class="ps-btn ps-btn--fullwidth" href="{{route('checkout')}}">{{__('Proceed to checkout')}}</a>
+                                <a class="btn btn--fullwidth" href="{{route('checkout')}}">{{__('Proceed to checkout')}}</a>
                             </div>
                         </div>
                     </div>

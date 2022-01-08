@@ -21,7 +21,7 @@
         <div class="form-group">
             <label  class="">{{__('Country / Region')}}&nbsp;<span class="text-danger" title="required">*</span></label>
             <div class="">
-                <select class="form-control ps-select2" name="country">
+                <select class="form-control bc-select2" name="country">
                     @foreach(get_country_lists() as $key => $country)
                         <option value="{{$key}}" @if($key == old('country',$address->country ?? '')) selected @endif>{{$country}}</option>
                     @endforeach

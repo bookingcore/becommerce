@@ -116,7 +116,7 @@ function generate_menu($location = '',$options = [])
                 $walker = new $options['walker']($translation);
 
                 if(!empty($translation)){
-                    $walker->generate();
+                    $walker->generate($options);
                 }
             }
         }

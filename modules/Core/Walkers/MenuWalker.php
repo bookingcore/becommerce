@@ -11,25 +11,13 @@
 			$this->menu = $menu;
 		}
 
-		public function generate()
+		public function generate($options = [])
 		{
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
-				echo '<ul class="menu">';
+                $options['class'] = (!empty($options['class'])) ? $options['class'] : 'menu';
+				echo "<ul class='{$options['class']}'>";
 				$this->generateTree($items);
-
-				if($this->menu->location == 'primary' && !(is_candidate() && !is_admin())){
-                    ob_start();
-                    if(is_employer()){
-                        ?>
-                        <!-- Only for Mobile View -->
-                        <li class="mm-add-listing">
-                            <a href="<?php echo route('job.admin.create'); ?>" class="theme-btn btn-style-one <?php echo !auth()->check() ? 'bc-call-modal login' : ''; ?>"><?php echo __("Job Post"); ?></a>
-                        </li>
-                        <?php
-                    }
-                    echo ob_get_clean();
-                }
 				echo '</ul>';
 			}
 		}
