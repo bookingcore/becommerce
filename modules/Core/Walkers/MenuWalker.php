@@ -11,12 +11,12 @@
 			$this->menu = $menu;
 		}
 
-		public function generate($option = [])
+		public function generate($options = [])
 		{
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
-			    $option['class'] = (!empty($option['class'])) ? $option['class'] : 'menu';
-				echo "<ul class='{$option['class']}'>";
+                $options['class'] = (!empty($options['class'])) ? $options['class'] : 'menu';
+				echo "<ul class='{$options['class']}'>";
 				$this->generateTree($items);
 
 				if($this->menu->location == 'primary' && !(is_candidate() && !is_admin())){
