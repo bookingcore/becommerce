@@ -31,6 +31,8 @@ class CreateOrderTable extends Migration
 		    $table->decimal('total_before_tax',10,2)->nullable();
 		    $table->decimal('tax_amount',10,2)->nullable();
 
+            $table->decimal('commission_amount',10,2)->nullable();
+
 		    $table->string('email',255)->nullable();
 		    $table->string('first_name',255)->nullable();
 		    $table->string('last_name',255)->nullable();
@@ -56,6 +58,9 @@ class CreateOrderTable extends Migration
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
 
+            $table->index(['customer_id']);
+            $table->index(['status']);
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -66,6 +71,7 @@ class CreateOrderTable extends Migration
             $table->bigInteger('order_id')->nullable();
             $table->bigInteger('object_id')->nullable();
             $table->string('object_model',255)->nullable();
+            $table->bigInteger('vendor_id')->nullable();
 
             $table->decimal('price',10,2)->nullable();
             $table->integer('qty')->default(1)->nullable();
@@ -75,9 +81,14 @@ class CreateOrderTable extends Migration
 
             $table->text('meta')->nullable();
 
+            $table->decimal('commission_amount',10,2)->nullable();
+            $table->decimal('tax_amount',10,2)->nullable();
+
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
 
+            $table->index(['vendor_id']);
+            $table->index(['order_id']);
             $table->softDeletes();
             $table->timestamps();
         });
@@ -89,6 +100,20 @@ class CreateOrderTable extends Migration
             $table->text('val')->nullable();
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
+
+            $table->index(['order_id','name']);
+            $table->timestamps();
+        });
+
+        Schema::create('core_order_item_meta', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('order_item_id')->nullable();
+            $table->string('name',255)->nullable();
+            $table->text('val')->nullable();
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->index(['order_item_id','name']);
             $table->timestamps();
         });
 
@@ -126,6 +151,7 @@ class CreateOrderTable extends Migration
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
 
+            $table->index(['payment_id','name']);
             $table->timestamps();
         });
     }

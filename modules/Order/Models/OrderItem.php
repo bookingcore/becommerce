@@ -5,13 +5,17 @@ namespace Modules\Order\Models;
 
 
 use App\BaseModel;
+use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class OrderItem extends BaseModel
 {
 
     use SoftDeletes;
+    use HasMeta;
     protected $table = 'core_order_items';
+
+    protected $metaClass = OrderItemMeta::class;
 
     protected $casts = [
         'meta'=>'array'

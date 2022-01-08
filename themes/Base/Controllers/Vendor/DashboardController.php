@@ -12,6 +12,7 @@ class DashboardController extends \Modules\FrontendController
         $data = [
             'recent_orders'    => $this->getRecentOrders(),
             'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
+            'earning_chart_data'=>[],
             'page_title'=>__("Vendor Dashboard")
         ];
 
@@ -34,7 +35,7 @@ class DashboardController extends \Modules\FrontendController
                     break;
             }
         }
-        $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`total`) as total_price , sum( `total` - `tax_amount` ) AS total_earning, sum(tax_amount) as total_tax ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
+        $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`subtotal`) as total_price , sum( `subtotal` - `tax_amount` - `commission_amount` ) AS total_earning, sum(tax_amount) as total_tax ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
         $count_bookings = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->count('id');
 
         $res[] = [
@@ -44,7 +45,7 @@ class DashboardController extends \Modules\FrontendController
             'amount' => format_money($total_data->total_price),
             'desc'   => __("Revenue this month"),
             'class'  => 'purple',
-            'icon'   => 'icon ion-ios-cart'
+            'icon'   => 'fa fa-cart'
         ];
         $res[] = [
             'size'   => 6,

@@ -7,30 +7,28 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/fonts/Linearicons/Linearicons/Font/demo-files/demo.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.carousel.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.theme.default.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/slick/slick/slick.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/css/lightgallery.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/select2/dist/css/select2.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/css/style.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/css/market-place-1.css">
+    <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
     <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
     @include('layouts.parts.seo-meta')
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
+    <script>
+        var i18n = {
+            warning:"{{__("Warning")}}",
+            success:"{{__("Success")}}",
+            please_fill_out:'{{__("Please fill out this field.")}}',
+            delete_cart_item_confirm:'{{__("Do you want to delete this cart item?")}}',
+        };
+    </script>
     @yield('head')
 </head>
 <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
 <main class="flex-shrink-0">
     @yield('content')
 </main>
-<footer class="footer mt-auto py-3 bg-light">
+<footer class="footer mt-auto py-3">
+
     <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
     <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
     <script>
@@ -47,26 +45,10 @@
     </script>
 
     <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-    <script src="{{ asset('libs/vue/vue.js') }}"></script>
-    <script src="{{ theme_url('Base') }}/plugins/jquery.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/popper.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/owl-carousel/owl.carousel.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/imagesloaded.pkgd.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/masonry.pkgd.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/isotope.pkgd.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/jquery.matchHeight-min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/slick/slick/slick.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/slick-animation.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/js/lightgallery-all.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/sticky-sidebar/dist/sticky-sidebar.min.js"></script>
-    <script src="{{ theme_url('Base') }}/plugins/select2/dist/js/select2.full.min.js"></script>
-    <script src="{{ theme_url('Base') }}/js/main.js"></script>
+    <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- custom scripts-->
     <script  src="{{ theme_url('Base/js/app.js') }}"></script>
-        @yield('footer')
-    </footer>
-    </body>
+    @yield('footer')
+</footer>
+</body>
 </html>
