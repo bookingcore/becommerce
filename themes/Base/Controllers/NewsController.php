@@ -15,7 +15,7 @@ class NewsController extends FrontendController
             's'=>$request->query('s')
         ]);
         $data = [
-            'rows'=>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->paginate(5),
+            'rows'=>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->paginate(12),
             'breadcrumbs' => [
                 ['name' => __('News'), 'url' => url("/news") ,'class' => $s ? '' : 'active'],
                 $s ? [
@@ -41,7 +41,7 @@ class NewsController extends FrontendController
         ]);
         $translation = $category->translate();
         $data = [
-            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
+            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(12),
             'breadcrumbs' => [
                 ['name' => __('News'), 'url' => route('news')],
                 ['name' => $translation->name,'class' => 'active'],
@@ -69,7 +69,7 @@ class NewsController extends FrontendController
         ]);
         $translation = $tag->translate();
         $data = [
-            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(5),
+            'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(12),
             'breadcrumbs' => [
                 ['name' => __('News'), 'url' => route('news')],
                 ['name' => $translation->name,'class' => 'active'],

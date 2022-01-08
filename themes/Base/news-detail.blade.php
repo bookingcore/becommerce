@@ -3,18 +3,12 @@
     @include('global.bc')
     <div class="bc-page--blog mt-5">
         <div class="container">
-            <div class="bc-blog--sidebar">
-                <div class="bc-blog__left">
+            <div class="row">
+                <div class="col-md-9">
                     <div class="bc-post--detail sidebar">
-                        <div class="bc-post__header">
+
+                        <div class="px-4 py-5 my-5 text-center">
                             <h1>{{$translation->title}}</h1>
-                            <p>{{display_date($row->created_at)}} / {{__('By')}} {{$row->author->display_name ?? ''}}
-                                @if($cat = $row->category)
-                                    /
-                                    <?php $cat_trans = $cat->translate() ?>
-                                    <a href="{{$cat->getDetailUrl()}}">{{$cat_trans->name ?? ''}}</a>
-                                @endif
-                            </p>
                         </div>
                         <div class="bc-post__content">
                             {!! clean($translation->content) !!}
@@ -31,7 +25,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="bc-blog__right">
+                <div class="col-md-3">
                     @include('news.sidebar')
                 </div>
             </div>
