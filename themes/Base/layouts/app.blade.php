@@ -7,19 +7,20 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Opens+Sans:300,400,500,600,700&amp;amp;subset=latin-ext" rel="stylesheet">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/fonts/Linearicons/Linearicons/Font/demo-files/demo.css">
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/fonts/Linearicons/Linearicons/Font/demo-files/demo.css">--}}
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/bootstrap/css/bootstrap-utilities.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/owl-carousel/assets/owl.theme.default.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/slick/slick/slick.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/css/lightgallery.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/slick/slick/slick.css">--}}
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.css">--}}
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/css/lightgallery.min.css">--}}
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css">--}}
         <link rel="stylesheet" href="{{ theme_url('Base') }}/plugins/select2/dist/css/select2.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/css/style.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/css/market-place-1.css">
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/css/style.css">--}}
+        {{--<link rel="stylesheet" href="{{ theme_url('Base') }}/css/market-place-1.css">--}}
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
@@ -59,23 +60,23 @@
             </script>
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/popper.min.js"></script>
+            {{--<script src="{{ theme_url('Base') }}/plugins/nouislider/nouislider.min.js"></script>
+            <script src="{{ theme_url('Base') }}/plugins/popper.min.js"></script>--}}
             <script src="{{ theme_url('Base') }}/plugins/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/bootstrap/js/bootstrap.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/imagesloaded.pkgd.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/masonry.pkgd.min.js"></script>
+            {{--<script src="{{ theme_url('Base') }}/plugins/imagesloaded.pkgd.min.js"></script>--}}
+            {{--<script src="{{ theme_url('Base') }}/plugins/masonry.pkgd.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/isotope.pkgd.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/jquery.matchHeight-min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/slick/slick/slick.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/jquery-bar-rating/dist/jquery.barrating.min.js"></script>
             <script src="{{ theme_url('Base') }}/plugins/slick-animation.min.js"></script>
-            <script src="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/js/lightgallery-all.min.js"></script>
+            <script src="{{ theme_url('Base') }}/plugins/lightGallery-master/dist/js/lightgallery-all.min.js"></script>--}}
             {{--<script src="{{ theme_url('Base') }}/plugins/sticky-sidebar/dist/sticky-sidebar.min.js"></script>--}}
             <script src="{{ theme_url('Base') }}/plugins/select2/dist/js/select2.full.min.js"></script>
 
-            <script src="{{ asset('libs/bootbox/bootbox.all.min.js') }}"></script>
-            <script src="{{ theme_url('Base') }}/js/main.js"></script>
+            {{--<script src="{{ asset('libs/bootbox/bootbox.all.min.js') }}"></script>--}}
+            {{--<script src="{{ theme_url('Base') }}/js/main.js"></script>--}}
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
             @yield('footer')
