@@ -24,7 +24,7 @@ namespace Database\Seeders;
                     ],
                     [
                         'name'  => 'admin_email',
-                        'val'   => 'contact@bookingcore.com',
+                        'val'   => 'contact@be-commerce.org',
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_name',
@@ -32,7 +32,7 @@ namespace Database\Seeders;
                         'group' => "general",
                     ], [
                         'name'  => 'email_from_address',
-                        'val'   => 'contact@bookingcore.com',
+                        'val'   => 'contact@be-commerce.org',
                         'group' => "general",
                     ],
                     [
@@ -47,13 +47,7 @@ namespace Database\Seeders;
                     ],
                     [
                         'name'  => 'topbar_left_text',
-                        'val'   => '<div class="socials">
-                                        <a href="#"><i class="fa fa-facebook"></i></a>
-                                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                                        <a href="#"><i class="fa fa-google-plus"></i></a>
-                                    </div>
-                                    <span class="line"></span>
-                                    <a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
+                        'val'   => '<a href="mailto:contact@be-commerce.org">contact@be-commerce.org</a>',
                         'group' => "general",
                     ],
                     [
@@ -65,7 +59,7 @@ namespace Database\Seeders;
                         'name'  => 'footer_info_text',
                         'val'   => '<p>Call us 24/7</p>
 <h3>1800 97 97 69</h3>
-<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
+<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@be-commerce.org">contact@be-commerce.org</a></p>
 <ul class="ps-list--social">
     <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
     <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
@@ -102,7 +96,7 @@ namespace Database\Seeders;
                     ],
                     [
                         'name' => 'page_contact_desc',
-                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Becommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.com</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
+                        'val' => "<!DOCTYPE html><html><head></head><body><h3>Becommerce</h3><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>Tell. + 00 222 444 33</p><p>Email. hello@yoursite.org</p><p>1355 Market St, Suite 900San, Francisco, CA 94103 United States</p></body></html>",
                         'group' => "general",
                     ],
                     [

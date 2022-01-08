@@ -1,6 +1,6 @@
-<form class="form bravo-form-register bravo-form ps-form--account {{$class ?? ''}}" method="post">
+<form class="form bravo-form-register bravo-form bc-form--account {{$class ?? ''}}" method="post">
     @csrf
-    <div class="ps-form__content">
+    <div class="bc-form__content">
         <div class="row">
             <div class="col-lg-6 col-md-12">
                 <div class="form-group">
@@ -39,7 +39,7 @@
         <div class="error message-error invalid-feedback"></div>
         @include("admin.message")
         <div class="form-group">
-            <button type="submit" class="ps-btn ps-btn--fullwidth form-submit">
+            <button type="submit" class="btn btn--fullwidth form-submit">
                 {{ __('Sign Up') }}
                 <span class="spinner-grow spinner-grow-sm icon-loading" role="status" aria-hidden="true"></span>
             </button>

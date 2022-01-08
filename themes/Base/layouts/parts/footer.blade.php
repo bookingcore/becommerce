@@ -1,20 +1,20 @@
-<div class="ps-newsletter">
+<div class="bc-newsletter">
     <div class="container">
-        <div class="ps-form--newsletter">
+        <div class="bc-form--newsletter">
             <div class="row">
                 <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                    <div class="ps-form__left">
+                    <div class="bc-form__left">
                         <h3>{{ __("Newsletter") }}</h3>
                         <p>{{ __("Subcribe to get information about products and coupons") }}</p>
                     </div>
                 </div>
                 <div class="col-xl-7 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                    <div class="ps-form__right">
+                    <div class="bc-form__right">
                         <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bravo-subscribe-form bravo-form">
                             @csrf
                             <div class="form-group--nest">
                                 <input class="form-control" type="email" placeholder="Email address">
-                                <button class="ps-btn">{{ __("Subscribe") }}</button>
+                                <button class="btn">{{ __("Subscribe") }}</button>
                             </div>
                             <div class="form-mess mt-2"></div>
                         </form>
@@ -24,9 +24,9 @@
         </div>
     </div>
 </div>
-<footer class="ps-footer">
+<footer class="bc-footer">
     <div class="container">
-        <div class="ps-footer__widgets">
+        <div class="bc-footer__widgets">
             @if($footer_info_text = setting_item_with_lang("footer_info_text"))
                 <aside class="widget widget_footer widget_contact-us">
                     <h4 class="widget-title">{{ __("Contact us") }}</h4>
@@ -47,12 +47,12 @@
                 @endforeach
             @endif
         </div>
-        <div class="ps-footer__links">
+        <div class="bc-footer__links">
             @if($footer_categories = setting_item_with_lang("footer_categories"))
                 {!! clean($footer_categories) !!}
             @endif
         </div>
-        <div class="ps-footer__copyright">
+        <div class="bc-footer__copyright">
             <div>{!! setting_item_with_lang("copyright") !!}</div>
             <div>{!! setting_item_with_lang("footer_socials") !!}</div>
         </div>
@@ -60,34 +60,34 @@
     </div>
 </footer>
 <div id="back2top"><i class="icon icon-arrow-up"></i></div>
-<div class="ps-site-overlay"></div>
-<div class="ps-panel--sidebar" id="cart-mobile">
-    <div class="ps-panel__header">
+<div class="bc-site-overlay"></div>
+<div class="bc-panel--sidebar" id="cart-mobile">
+    <div class="bc-panel__header">
         <h3>Shopping Cart</h3>
     </div>
     <div class="navigation__content">
-        <div class="ps-cart--mobile">
-            <div class="ps-cart__content">
-                <div class="ps-product--cart-mobile">
-                    <div class="ps-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a></div>
-                    <div class="ps-product__content"><a class="ps-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
+        <div class="bc-cart--mobile">
+            <div class="bc-cart__content">
+                <div class="bc-product--cart-mobile">
+                    <div class="bc-product__thumbnail"><a href="#"><img src="img/products/clothing/7.jpg" alt=""></a></div>
+                    <div class="bc-product__content"><a class="bc-product__remove" href="#"><i class="icon-cross"></i></a><a href="product-default.html">MVMTH Classical Leather Watch In Black</a>
                         <p><strong>Sold by:</strong> YOUNG SHOP</p><small>1 x $59.99</small>
                     </div>
                 </div>
             </div>
-            <div class="ps-cart__footer">
+            <div class="bc-cart__footer">
                 <h3>Sub Total:<strong>$59.99</strong></h3>
-                <figure><a class="ps-btn" href="shopping-cart.html">View Cart</a><a class="ps-btn" href="checkout.html">Checkout</a></figure>
+                <figure><a class="btn" href="shopping-cart.html">View Cart</a><a class="btn" href="checkout.html">Checkout</a></figure>
             </div>
         </div>
     </div>
 </div>
 <!--include ../../data/menu/menu-product-categories-->
-<div class="ps-panel--sidebar" id="navigation-mobile">
-    <div class="ps-panel__header">
+<div class="bc-panel--sidebar" id="navigation-mobile">
+    <div class="bc-panel__header">
         <h3>Categories</h3>
     </div>
-    <div class="ps-panel__content">
+    <div class="bc-panel__content">
         <div class="menu--product-categories">
             <div class="menu__toggle"><i class="icon-menu"></i><span> Shop by Department</span></div>
             <div class="menu__content">
@@ -186,11 +186,11 @@
     </div>
 </div>
 <div class="navigation--list">
-    <div class="navigation__content"><a class="navigation__item ps-toggle--sidebar" href="#menu-mobile"><i class="icon-menu"></i><span> Menu</span></a><a class="navigation__item ps-toggle--sidebar" href="#navigation-mobile"><i class="icon-list4"></i><span> Categories</span></a><a class="navigation__item ps-toggle--sidebar" href="#search-sidebar"><i class="icon-magnifier"></i><span> Search</span></a><a class="navigation__item ps-toggle--sidebar" href="#cart-mobile"><i class="icon-bag2"></i><span> Cart</span></a></div>
+    <div class="navigation__content"><a class="navigation__item bc-toggle--sidebar" href="#menu-mobile"><i class="icon-menu"></i><span> Menu</span></a><a class="navigation__item bc-toggle--sidebar" href="#navigation-mobile"><i class="icon-list4"></i><span> Categories</span></a><a class="navigation__item bc-toggle--sidebar" href="#search-sidebar"><i class="icon-magnifier"></i><span> Search</span></a><a class="navigation__item bc-toggle--sidebar" href="#cart-mobile"><i class="icon-bag2"></i><span> Cart</span></a></div>
 </div>
-<div class="ps-panel--sidebar" id="search-sidebar">
-    <div class="ps-panel__header">
-        <form class="ps-form--search-mobile" action="index.html" method="get">
+<div class="bc-panel--sidebar" id="search-sidebar">
+    <div class="bc-panel__header">
+        <form class="bc-form--search-mobile" action="index.html" method="get">
             <div class="form-group--nest">
                 <input class="form-control" type="text" placeholder="Search something...">
                 <button><i class="icon-magnifier"></i></button>
@@ -199,11 +199,11 @@
     </div>
     <div class="navigation__content"></div>
 </div>
-<div class="ps-panel--sidebar" id="menu-mobile">
-    <div class="ps-panel__header">
+<div class="bc-panel--sidebar" id="menu-mobile">
+    <div class="bc-panel__header">
         <h3>Menu</h3>
     </div>
-    <div class="ps-panel__content">
+    <div class="bc-panel__content">
         <ul class="menu--mobile">
             <li class="menu-item-has-children"><a href="index">Home</a><span class="sub-toggle"></span>
                 <ul class="sub-menu">
@@ -384,9 +384,9 @@
         </ul>
     </div>
 </div>
-<div class="ps-search" id="site-search"><a class="ps-btn--close" href="#"></a>
-    <div class="ps-search__content">
-        <form class="ps-form--primary-search" action="do_action" method="post">
+<div class="bc-search" id="site-search"><a class="btn--close" href="#"></a>
+    <div class="bc-search__content">
+        <form class="bc-form--primary-search" action="do_action" method="post">
             <input class="form-control" type="text" placeholder="Search for...">
             <button><i class="aroma-magnifying-glass"></i></button>
         </form>
@@ -395,21 +395,21 @@
 <div class="modal fade" id="product-quickview" tabindex="-1" role="dialog" aria-labelledby="product-quickview" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content"><span class="modal-close" data-dismiss="modal"><i class="icon-cross2"></i></span>
-            <article class="ps-product--detail ps-product--fullwidth ps-product--quickview">
-                <div class="ps-product__header">
-                    <div class="ps-product__thumbnail" data-vertical="false">
-                        <div class="ps-product__images" data-arrow="true">
+            <article class="bc-product--detail bc-product--fullwidth bc-product--quickview">
+                <div class="bc-product__header">
+                    <div class="bc-product__thumbnail" data-vertical="false">
+                        <div class="bc-product__images" data-arrow="true">
                             <div class="item"><img src="img/products/detail/fullwidth/1.jpg" alt=""></div>
                             <div class="item"><img src="img/products/detail/fullwidth/2.jpg" alt=""></div>
                             <div class="item"><img src="img/products/detail/fullwidth/3.jpg" alt=""></div>
                         </div>
                     </div>
-                    <div class="ps-product__info">
+                    <div class="bc-product__info">
                         <h1>Marshall Kilburn Portable Wireless Speaker</h1>
-                        <div class="ps-product__meta">
+                        <div class="bc-product__meta">
                             <p>Brand:<a href="shop-default.html">Sony</a></p>
-                            <div class="ps-product__rating">
-                                <select class="ps-rating" data-read-only="true">
+                            <div class="bc-product__rating">
+                                <select class="bc-rating" data-read-only="true">
                                     <option value="1">1</option>
                                     <option value="1">2</option>
                                     <option value="1">3</option>
@@ -418,10 +418,10 @@
                                 </select><span>(1 review)</span>
                             </div>
                         </div>
-                        <h4 class="ps-product__price">$36.78 – $56.99</h4>
-                        <div class="ps-product__desc">
+                        <h4 class="bc-product__price">$36.78 – $56.99</h4>
+                        <div class="bc-product__desc">
                             <p>Sold By:<a href="shop-default.html"><strong> Go Pro</strong></a></p>
-                            <ul class="ps-list--dot">
+                            <ul class="bc-list--dot">
                                 <li> Unrestrained and portable active stereo speaker</li>
                                 <li> Free from the confines of wires and chords</li>
                                 <li> 20 hours of portable capabilities</li>
@@ -429,8 +429,8 @@
                                 <li> 3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li>
                             </ul>
                         </div>
-                        <div class="ps-product__shopping"><a class="ps-btn ps-btn--black" href="#">Add to cart</a><a class="ps-btn" href="#">Buy Now</a>
-                            <div class="ps-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
+                        <div class="bc-product__shopping"><a class="btn btn--black" href="#">Add to cart</a><a class="btn" href="#">Buy Now</a>
+                            <div class="bc-product__actions"><a href="#"><i class="icon-heart"></i></a><a href="#"><i class="icon-chart-bars"></i></a></div>
                         </div>
                     </div>
                 </div>

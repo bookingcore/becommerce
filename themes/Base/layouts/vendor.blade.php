@@ -7,7 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/boostrap.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/vendor.css') }}" rel="stylesheet">
@@ -30,13 +30,16 @@
         @yield('head')
     </head>
     <body class=" {{$body_class ?? ''}}">
-        <main class="bc-main">
-            @include('layouts.vendor.sidebar')
-            <div class="bc-main__wrapper">
-                @include('layouts.vendor.header')
-                @yield('content')
+        @include('layouts.vendor.header')
+
+        <div class="container-fluid">
+            <div class="row">
+                @include('layouts.vendor.sidebar')
             </div>
-        </main>
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-md-4">
+                @yield('content')
+            </main>
+        </div>
         <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
         <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
         <script>

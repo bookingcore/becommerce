@@ -1,6 +1,6 @@
 <script type="text/x-template" id="POS_order_items">
     <div class="p-3">
-        <table class="table ps-table ps-table--vendor">
+        <table class="table bc-table bc-table--vendor">
             <thead>
             <tr>
                 <th>{{__("No")}}</th>

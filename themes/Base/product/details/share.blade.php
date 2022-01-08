@@ -1,4 +1,4 @@
-<div class="ps-product__sharing">
+<div class="bc-product__sharing">
     <a target="_blank" class="facebook" href="http://www.facebook.com/sharer.php?u={{$row->getDetailUrl()}}" title="{{$translation->title}}">
         <i class="fa fa-facebook"></i>
     </a>

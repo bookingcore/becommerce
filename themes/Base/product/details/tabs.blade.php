@@ -1,5 +1,5 @@
-<div class="ps-product__content ps-tab-root">
-    <ul class="ps-tab-list">
+<div class="bc-product__content bc-tab-root">
+    <ul class="bc-tab-list">
         <?php
         $reviewData = $row->getScoreReview();
         $score_total = $reviewData['score_total'];
@@ -19,10 +19,10 @@
             @endforeach
         @endif
     </ul>
-    <div class="ps-tabs">
+    <div class="bc-tabs">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
-                <div class="ps-tab @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
+                <div class="bc-tab @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
                     @if(!empty($tab['content']))
                         {!! clean($tab['content']) !!}
                     @elseif(isset($tab['id']) and view()->exists('product.details.tabs.'.$tab['id']))
