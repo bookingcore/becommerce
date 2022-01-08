@@ -1,7 +1,7 @@
 
-<div class="bc-breadcrumb py-2 bg-light">
-    <div class="container">
-        <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
+<div class="bc-breadcrumb my-3">
+    <div class="container bg-light py-3 ">
+        <ol class="breadcrumb mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
             <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{url('/')}}"><span itemprop="name">{{__("Home")}}</span></a></li>
             @if(!empty($breadcrumbs))
                 @foreach($breadcrumbs as $item)
