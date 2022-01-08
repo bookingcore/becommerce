@@ -79,4 +79,9 @@ Route::group(['prefix' => 'settings/shipping'], function (){
     Route::get('/shipping-zone/{zone_id}/shipping-method/edit/{id}', 'ShippingSettingContainer@methodEdit')->name('product.shipping.method.edit');
     Route::post('/shipping-zone/shipping-method/store', 'ShippingSettingContainer@methodStore')->name('product.shipping.method.store');
     Route::get('/shipping-zone/shipping-method/delete/{id}', 'ShippingSettingContainer@methodDelete')->name('product.shipping.method.delete');
+
+    Route::get('/shipping-class/create', 'ShippingSettingContainer@shippingClassCreate')->name('product.shipping.class.new');
+    Route::get('/shipping-class/edit/{id}', 'ShippingSettingContainer@shippingClassEdit')->name('product.shipping.class.edit');
+    Route::post('/shipping-class/store', 'ShippingSettingContainer@shippingClassStore')->name('product.shipping.class.store');
+    Route::get('/shipping-class/delete/{id}', 'ShippingSettingContainer@shippingClassDelete')->name('product.shipping.class.delete');
 });

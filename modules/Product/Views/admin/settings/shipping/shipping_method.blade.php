@@ -111,6 +111,41 @@
                                                 </div>
                                             </div>
 
+                                            @if(!empty($shipping_classes) && $shipping_classes->count() > 0)
+                                                <div class="card" data-condition="method_id:is(flat_rate)">
+                                                    <div class="card-header">
+                                                        <b>{{ __("Shipping class costs") }}</b>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        @foreach($shipping_classes as $key => $shipping_class)
+                                                            @php $name = 'flat_rate_class_cost_'.$shipping_class->id; @endphp
+                                                            <div class="form-group">
+                                                                <label class=""><span class="fw-600">"{{ $shipping_class->name }}"</span> {{__("shipping class cost")}}</label>
+                                                                <div class="form-controls">
+                                                                    <input type="text" class="form-control" name="{{$name}}" value="{{ $method_settings[$name] ?? old($name, 0) }}">
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+
+                                                        <div class="form-group">
+                                                            <label class="">{{__("No shipping class cost")}}</label>
+                                                            <div class="form-controls">
+                                                                <input type="text" class="form-control" name="flat_rate_no_class_cost" value="{{ $method_settings['flat_rate_no_class_cost'] ?? old('flat_rate_no_class_cost', 0) }}">
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="">{{__("Calculation type")}}</label>
+                                                            <div class="form-controls">
+                                                                <select class="form-control" name="flat_rate_type">
+                                                                    <option value="class" @if(($method_settings['flat_rate_type'] ?? old('flat_rate_type')) == 'class') selected @endif >{{ __("Per class: Charge shipping for each shipping class individually") }}</option>
+                                                                    <option value="order" @if(($method_settings['flat_rate_type'] ?? old('flat_rate_type')) == 'order') selected @endif >{{ __("Per order: Charge shipping for the most expensive shipping class") }}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
                                         @endif
                                     </div>
                                 </div>
