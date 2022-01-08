@@ -7,7 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/boostrap.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         <link href="{{ theme_url('Base/dist/css/vendor.css') }}" rel="stylesheet">

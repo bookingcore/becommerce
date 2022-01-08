@@ -1,36 +1,3 @@
-@import "panel";
-.menu--dropdown > li:hover,
-.menu > li > a:after
-{
-    background-color: var(--main-color);
-}
-.ps-form--search-bar input:hover{
-    border-bottom-color: var(--main-color);
-}
-
-.header--dashboard .header__site-link:hover span, .header--dashboard .header__site-link:hover i
-{
-    color:var(--main-color)
-}
-.product-information-tabs{
-    .form-control{
-        height: 38px;
-    }
-}
-.terms-scrollable{
-    overflow-y: auto;
-    background: #f4f6f8;
-    padding:10px;
-    border: 1px solid #e1e2e5;
-    max-height: 250px;
-    label{
-        display: block;
-        margin-bottom:10px;
-        &:last-child{
-            margin-bottom:0px;
-        }
-    }
-}
 .show_tags{
     .tag_item{
         background: #4fa6f3;
@@ -60,4 +27,3 @@
         padding: 0px 2px;
     }
 }
-
