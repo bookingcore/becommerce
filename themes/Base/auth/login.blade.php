@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ps-page--my-account">
+    <div class="bc-page--my-account">
         <div class="bg-f1f1f1">
             <div class="container">
                 <div class="pb-5 pt-5">

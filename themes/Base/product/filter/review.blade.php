@@ -1,7 +1,7 @@
 <figure>
     <h4 class="widget-title">{{__("By Review")}}</h4>
     @for ($number = 5 ;$number >= 1 ; $number--)
-        <div class="ps-checkbox">
+        <div class="bc-checkbox">
             <input class="form-control" type="checkbox" id="review-{{$number}}" name="review">
             <label for="review-{{$number}}">
                 <span>

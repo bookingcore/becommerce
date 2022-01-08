@@ -12,17 +12,17 @@
     @endphp
     <h4 class="widget-title">{{ __("By Price") }}</h4>
     <div id="nonlinear" data-from="{{$pri_from}}" data-to="{{$pri_to}}"></div>
-    <p class="ps-slider__meta">
+    <p class="bc-slider__meta">
         {{ __("Price") }}:
-        <span class="ps-slider__value">
-            {{$currency['symbol']}}<span class="ps-slider__min">{{$price_min}}</span>
+        <span class="bc-slider__value">
+            {{$currency['symbol']}}<span class="bc-slider__min">{{$price_min}}</span>
         </span>
         -
-        <span class="ps-slider__value">
-            {{$currency['symbol']}}<span class="ps-slider__max">{{$price_max}}</span>
+        <span class="bc-slider__value">
+            {{$currency['symbol']}}<span class="bc-slider__max">{{$price_max}}</span>
         </span>
     </p>
-    <input type="text" id="ps-min_price" name="min_price" class="d-none" value="{{$price_min}}">
-    <input type="text" id="ps-max_price" name="max_price" class="d-none" value="{{$price_max}}">
+    <input type="text" id="bc-min_price" name="min_price" class="d-none" value="{{$price_min}}">
+    <input type="text" id="bc-max_price" name="max_price" class="d-none" value="{{$price_max}}">
     <input type="submit" class="btn btn-sm btn-warning mt-2" title="{{__('APPLY')}}" value="{{__('APPLY')}}">
 </figure>

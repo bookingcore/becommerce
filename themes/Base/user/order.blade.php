@@ -1,23 +1,23 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="ps-section--account">
+    <div class="bc-section--account">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="ps-section__left">
+                    <div class="bc-section__left">
                         @include('user.sidebar')
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="ps-section__right">
-                        <div class="ps-section--account-setting">
-                            <div class="ps-section__header">
+                    <div class="bc-section__right">
+                        <div class="bc-section--account-setting">
+                            <div class="bc-section__header">
                                 <h3>{{__("Orders")}}</h3>
                             </div>
-                            <div class="ps-section__content">
+                            <div class="bc-section__content">
                                 <div class="table-responsive">
-                                    <table class="table ps-table ps-table--invoices">
+                                    <table class="table bc-table bc-table--invoices">
                                         <thead>
                                             <tr>
                                                 <th>{{__("Id")}}</th>
@@ -35,7 +35,7 @@
                                                 <td>{{format_money($row->total)}}</td>
                                                 <td>{{$row->status_text}}</td>
                                                 <td>
-                                                    <a class="ps-btn ps-btn--sm" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
+                                                    <a class="btn btn--sm" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -1,22 +1,22 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="ps-section--account">
+    <div class="bc-section--account">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="ps-section__left">
+                    <div class="bc-section__left">
                         @include('user.sidebar')
                     </div>
                 </div>
                 <div class="col-lg-8">
-                    <div class="ps-section__right">
+                    <div class="bc-section__right">
                         @include('global.message')
-                        <div class="ps-section--account-setting">
-                            <div class="ps-section__header">
+                        <div class="bc-section--account-setting">
+                            <div class="bc-section__header">
                                 <h3>{{__('Notifications')}}</h3>
                             </div>
-                            <div class="ps-section__content">
+                            <div class="bc-section__content">
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                         <a class="nav-link @if(empty($type)) active @endif" href="{{route('user.notification')}}">{{__("All")}}</a>
@@ -28,7 +28,7 @@
                                         <a class="nav-link @if($type == 'read') active @endif" href="{{route('user.notification',['type'=>'read'])}}">{{__("Read")}}</a>
                                     </li>
                                 </ul>
-                                <div class="ps-card mt-3">
+                                <div class="bc-card mt-3">
                                     <ul class="list-group">
                                         @if(count($rows)> 0)
                                             @foreach($rows as $oneNotification)

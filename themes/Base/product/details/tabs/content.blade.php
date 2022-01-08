@@ -1,3 +1,3 @@
-<div class="ps-document">
+<div class="bc-document">
     {!! clean($row->content) !!}
 </div>

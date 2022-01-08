@@ -3,8 +3,8 @@
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
 @endsection
 @section('content')
-    <section class="ps-items-listing">
-        <div class="ps-section__content">
+    <section class="bc-items-listing">
+        <div class="bc-section__content">
             @include('global.message')
             @if($row->id)
                 @include('Language::admin.navigation')
