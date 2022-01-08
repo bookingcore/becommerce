@@ -10,7 +10,7 @@
                 $style = (!empty($bg->color)) ? $bg->color : '';
             }
         @endphp
-        <div class="page-template-content" style="background: {!! clean($style) !!}">
+        <div class="page-template-content d-none" style="background: {!! clean($style) !!}">
             {!! $row->getProcessedContent() !!}
         </div>
     @endif

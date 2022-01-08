@@ -11,12 +11,12 @@
 			$this->menu = $menu;
 		}
 
-		public function generate($option = [])
+		public function generate($options = [])
 		{
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
-			    $option['class'] = (!empty($option['class'])) ? $option['class'] : 'menu';
-				echo "<ul class='nav {$option['class']}'>";
+                $options['class'] = (!empty($options['class'])) ? $options['class'] : 'menu';
+				echo "<ul class='nav {$options['class']}'>";
 				$this->generateTree($items);
 				echo '</ul>';
 			}
