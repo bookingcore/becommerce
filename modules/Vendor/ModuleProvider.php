@@ -4,6 +4,7 @@ namespace Modules\Vendor;
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
+use Modules\Vendor\Commands\CreatePayoutsCommand;
 use Modules\Vendor\Providers\RouterServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -18,6 +19,11 @@ class ModuleProvider extends ModuleServiceProvider
 
         SettingManager::register("vendor",[$this,'getVendorSettings']);
 
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                CreatePayoutsCommand::class,
+            ]);
+        }
     }
     /**
      * Register bindings in the container.
