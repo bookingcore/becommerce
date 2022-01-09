@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 header__content-right text-end">
-                    <div class="dropdown">
+                    <div class="dropdown dropstart">
                         <a  class="position-relative" data-bs-toggle="dropdown">
                             <i class="fa fa-shopping-cart fa-2x"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
