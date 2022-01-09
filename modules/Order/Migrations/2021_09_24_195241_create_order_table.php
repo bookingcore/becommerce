@@ -72,6 +72,7 @@ class CreateOrderTable extends Migration
             $table->bigInteger('object_id')->nullable();
             $table->string('object_model',255)->nullable();
             $table->bigInteger('vendor_id')->nullable();
+            $table->bigInteger('payout_id')->nullable();
 
             $table->decimal('price',10,2)->nullable();
             $table->integer('qty')->default(1)->nullable();
@@ -87,6 +88,7 @@ class CreateOrderTable extends Migration
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
 
+            $table->index(['payout_id']);
             $table->index(['vendor_id']);
             $table->index(['order_id']);
             $table->softDeletes();
