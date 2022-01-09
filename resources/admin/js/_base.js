@@ -1,6 +1,6 @@
 (function ($) {
-    $('.main-menu .has-children .btn-toggle').click(function () {
-        var p = $(this).closest('.has-children');
+    $('.main-menu .btn-toggle').click(function () {
+        var p = $(this).closest('li');
         if(p.hasClass('active')){
             p.removeClass('active');
         }else{
