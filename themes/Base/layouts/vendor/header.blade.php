@@ -15,7 +15,10 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+    <div class="flex-grow-1 px-3">
+        <a href="{{url('/')}}" class="btn btn-outline-light me-3"><i class="fa fa-home"></i> {{__("To homepage")}}</a>
+        <a href="{{$user->getStoreUrl()}}" class="btn btn-light"><i class="fa fa-shopping-basket"></i> {{__("View my store")}}</a>
+    </div>
     <ul class="d-flex flex-shrink-0 mb-0">
         @include('layouts.parts.header.notification')
         @include('layouts.parts.header.user')

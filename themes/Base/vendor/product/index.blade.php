@@ -1,7 +1,11 @@
 @extends('layouts.vendor')
 @section('content')
 <section class="bc-items-listing">
-    <div class="bc-section__actions"><a class="btn success" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
+    <div class="d-flex justify-content-between mb-4">
+        <h1>{{$page_title ?? ''}}</h1>
+        <div class="bc-section__actions"><a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
+    </div>
+
     @include('vendor.product.filter')
     <div class="bc-section__content">
         <div class="table-responsive">
@@ -14,6 +18,7 @@
                     <th>{{__('Stock')}}</th>
                     <th>{{__('Price')}}</th>
                     <th>{{__('Categories')}}</th>
+                    <th>{{__('Type')}}</th>
                     <th>{{__('Status')}}</th>
                     <th>{{__('Date')}}</th>
                     <th></th>
@@ -25,22 +30,29 @@
                         <td>#{{$row->id}}</td>
                         <td>
                             <a href="{{route('vendor.product.edit',['id'=>$row->id])}}">
-                                <strong>{{$row->title}}</strong>
+                                <span class="d-flex">
+                                    <div class="me-3">
+                                        <img src="{{get_file_url($row->image_id)}}" width="60">
+                                    </div>
+                                    <strong>{{$row->title}}</strong>
+                                </span>
                             </a>
                         </td>
                         <td>{{$row->sku}}</td>
                         <td>{{$row->stock}}</td>
                         <td><strong>{{format_money($row->price)}}</strong></td>
                         <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
+                        <td>{{$row::getTypeName()}}</td>
+                        <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                         <td>{{display_datetime($row->created_at)}}</td>
-                        <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                         <td>
                             <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
                                     {{__("Actions")}}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
+                                    <a class="dropdown-item" target="_blank" href="{{$row->getDetailUrl()}}">{{__("View")}}</a>
                                 </div>
                             </div>
                         </td>

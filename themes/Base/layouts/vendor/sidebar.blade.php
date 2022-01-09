@@ -10,7 +10,6 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
             @foreach ($menus as $id=>$menu)
                 <li class="nav-item"><a class="nav-link @if(\Modules\Vendor\VendorMenuManager::isActive($id,$menus)) active @endif" href="{{$menu['url'] ?? ''}}"><i class="{{$menu['icon'] ?? ''}}"></i>{{$menu['title'] ?? ''}}</a></li>
             @endforeach
-            <li class="nav-item"><a class="nav-link" href="#"><i class="icon-exit"></i>{{__('Logout')}}</a></li>
         </ul>
     </div>
 </nav>
