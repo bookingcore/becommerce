@@ -60,6 +60,13 @@ class ModuleProvider extends ModuleServiceProvider
                     'title' => __('All Users'),
                     'icon'  => 'fa fa-user',
                 ],
+                'plan'=>[
+                    "position"=>50,
+                    'url'        => route('user.admin.plan.index'),
+                    'title'      => __('User Plans'),
+                    'icon'       => 'icon ion-ios-contacts',
+                    'permission' => 'user_manage',
+                ],
                 'role'=>[
                     'url'        => 'admin/module/user/role',
                     'title'      => __('Role Manager'),
@@ -75,13 +82,6 @@ class ModuleProvider extends ModuleServiceProvider
         ];
         return [
             'users'=> $options,
-            'plan'=>[
-                "position"=>50,
-                'url'        => route('user.admin.plan.index'),
-                'title'      => __('User Plans'),
-                'icon'       => 'icon ion-ios-contacts',
-                'permission' => 'user_manage',
-            ]
         ];
     }
     public static function getUserMenu()

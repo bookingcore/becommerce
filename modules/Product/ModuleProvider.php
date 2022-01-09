@@ -196,42 +196,6 @@ class ModuleProvider extends ModuleServiceProvider
             'RecentlyViewedProducts'=>"\\Modules\\Product\\Blocks\\RecentlyViewedProducts",
         ];
     }
-    public static function getUserMenu()
-    {
-        $res = [];
-
-        $res['orders'] = [
-            'url'   => route('user.orders.index'),
-            'title'      => __("Manage Orders"),
-            'position'   => 30,
-            'icon'=>'fa fa-shopping-bag'
-        ];
-        $res['product'] = [
-            'url'   => route('product.vendor.index'),
-            'title'      => __("Manage Products"),
-            'position'   => 33,
-            'permission' => 'product_view',
-            'icon'=>'fa fa-cubes',
-            'children' => [
-                [
-                    'url'   => route('product.vendor.index'),
-                    'title'  => __("All Products"),
-                ],
-                [
-                    'url'   => route('product.vendor.create'),
-                    'title'      => __("Add Product"),
-                    'permission' => 'product_create',
-                ],
-                'products_order' => [
-                    'url'      => route('product.vendor.orders'),
-                    'title'    => __("Orders"),
-                    'permission' => 'product_create',
-                    'position' => 21
-                ],
-            ]
-        ];
-        return $res;
-    }
 
     public function getProductSettings(){
         return [
