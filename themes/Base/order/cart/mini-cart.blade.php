@@ -1,7 +1,7 @@
 <?php
 $countCart = \Modules\Order\Helpers\CartManager::count();
 ?>
-<a class="header__extra" href="#"><i class="icon-bag2"></i><span><i class="cart-count">{{$countCart}}</i></span></a>
+<a class="header__extra" href="#"><i class="fa fa-shopping-bag"></i><span><i class="cart-count">{{$countCart}}</i></span></a>
 <div class="bc-cart__content">
     @if(!empty($countCart))
     <div class="bc-cart__items">
@@ -9,7 +9,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                 <div class="bc-product--cart-mobile">
                     @if($cartItem->model)
                     <div class="bc-product__thumbnail">
-                        <a href="{{$cartItem->model->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['lazy'=>false])!!} </a></div>
+                        <a href="{{$cartItem->model->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a></div>
                     <div class="bc-product__content">
                         <a class="bc-product__remove bc_delete_cart_item" data-id="{{$cartItem->id}}" href="#"><i class="icon-cross"></i></a>
                         <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->model->title}}</a>
