@@ -22,6 +22,9 @@ class CreatePayoutTable extends Migration
             $table->string("payout_method",50)->nullable();
             $table->text("account_info")->nullable();
 
+            $table->tinyInteger('month')->nullable();
+            $table->tinyInteger('year')->nullable();
+
             $table->text("note_to_admin")->nullable();
             $table->text("note_to_vendor")->nullable();
             $table->integer('last_process_by')->nullable();
@@ -29,6 +32,9 @@ class CreatePayoutTable extends Migration
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
+
+            $table->index(['year','month']);
+
             $table->softDeletes();
             $table->timestamps();
         });
