@@ -11,11 +11,8 @@
     use Modules\Order\Helpers\CartManager;
     use Modules\Order\Models\Payment;
     use Themes\Base\Controllers\FrontendController;
-
-
     class CheckoutController extends FrontendController
     {
-
         public function index(){
             $data = [
                 'items'=>CartManager::items(),
@@ -24,7 +21,7 @@
                 'gateways'=>get_payment_gateway_objects(),
                 'user'=>auth()->user()
             ];
-            return view('Order::frontend.checkout.index',$data);
+            return view('order.checkout.index',$data);
         }
 
         public function process(Request $request){

@@ -49,6 +49,7 @@
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
             @yield('footer')
