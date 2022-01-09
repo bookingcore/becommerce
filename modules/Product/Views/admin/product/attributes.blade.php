@@ -1,8 +1,8 @@
 @if(is_default_lang())
     @if(count($attributes))
         @foreach ($attributes as $attribute)
-            <div class="form-group">
-                <label class="control-label" >{{$attribute->name}}</label>
+            <div class="form-group mb-3">
+                <label class="control-label mb-2" >{{$attribute->name}}</label>
                 <div class="controls">
                     <label data-condition="product_type:is(variable)"><input type="checkbox" name="attributes_for_variation[]" @if(!empty($product->attributes_for_variation) and in_array($attribute->id,$product->attributes_for_variation)) checked @endif value="{{$attribute->id}}"> {{__("Used for variations")}}</label>
                     <div class="">

@@ -117,7 +117,7 @@ class Product extends BaseProduct
 
     public function getDetailUrl($locale = false)
     {
-        return route('product.detail',['slug'=>$this->slug]);
+        return route('product.detail',['slug'=>$this->slug ?  $this->slug : $this->id]);
     }
 
     public static function getLinkForPageSearch( $locale = false , $param = [] ){

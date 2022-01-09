@@ -6,6 +6,8 @@
         <div class="bc-section__actions"><a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
     </div>
 
+    @include('global.message')
+
     @include('vendor.product.filter')
     <div class="bc-section__content">
         <div class="table-responsive">
@@ -61,6 +63,10 @@
                 </tbody>
             </table>
         </div>
+        @if(!count($rows))
+            <div class="alert alert-warning">{{__("No data found")}}</div>
+        @endif
+        {{$rows->appends(request()->query())->links()}}
     </div>
 </section>
 @endsection

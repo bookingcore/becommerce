@@ -23,39 +23,39 @@
                 <input type="hidden" name="variations[{{$variation->id}}][id]" value="{{$variation->id}}">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group align-items-center">
-                            <label class="control-label">{{__('Enabled?')}}</label>
+                        <div class="form-group mb-3 align-items-center">
+                            <label class="control-label mb-2">{{__('Enabled?')}}</label>
                             <div class="controls">
                                 <label >
                                     <input type="checkbox" value="1" @if($variation->active) checked @endif name="variations[{{$variation->id}}][active]"> {{__("Yes, I want to enable it")}}
                                 </label>
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label">{{__('SKU')}}</label>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-2">{{__('SKU')}}</label>
                             <div class="controls">
                                 <input type="text" class="form-control" value="{{$variation->sku}}" name="variations[{{$variation->id}}][sku]">
                             </div>
                         </div>
-                        
-                        <div class="form-group">
-                            <label class="control-label">{{__('Price')}}</label>
+
+                        <div class="form-group mb-3">
+                            <label class="control-label mb-2">{{__('Price')}}</label>
                             <div class="controls">
                                 <input type="number" min="0" class="form-control" value="{{$variation->price}}" name="variations[{{$variation->id}}][price]">
                             </div>
                         </div>
-                        <div class="form-group align-items-center">
-                            <label class="control-label">{{__('Manage Stock?')}}</label>
+                        <div class="form-group mb-3 align-items-center">
+                            <label class="control-label mb-2">{{__('Manage Stock?')}}</label>
                             <div class="controls">
                                 <label >
                                     <input data-name="is_manage_stock" type="checkbox" value="1" @if($variation->is_manage_stock) checked @endif name="variations[{{$variation->id}}][is_manage_stock]"> {{__('Yes, please')}}
                                 </label>
                             </div>
                         </div>
-                        
-                        <div class="form-group" v-condition="is_manage_stock:is()">
-                            <label class="control-label">{{__('Stock status')}}</label>
+
+                        <div class="form-group mb-3" v-condition="is_manage_stock:is()">
+                            <label class="control-label mb-2">{{__('Stock status')}}</label>
                             <div class="controls">
                                 <select name="variations[{{$variation->id}}][stock_status]" class="form-control">
                                     <option value="in">{{__("In stock")}}</option>
@@ -63,9 +63,9 @@
                                 </select>
                             </div>
                         </div>
-                            
-                        <div class="form-group" v-condition="is_manage_stock:is(1)">
-                            <label class="control-label">{{__('Stock quantity')}}</label>
+
+                        <div class="form-group mb-3" v-condition="is_manage_stock:is(1)">
+                            <label class="control-label mb-2">{{__('Stock quantity')}}</label>
                             <div class="controls">
                                 <input type="number" min="0" class="form-control" value="{{$variation->quantity}}" name="variations[{{$variation->id}}][quantity]">
                             </div>
