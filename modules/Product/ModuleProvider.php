@@ -274,7 +274,15 @@ class ModuleProvider extends ModuleServiceProvider
             'position'=>34,
             'view'=>"Product::admin.settings.tax",
             'keys' => [
-
+                'tax_enable_calc',
+                'tax_prices_include_tax',
+                'tax_shipping_tax_class',
+                'tax_round_at_subtotal',
+                'tax_classes',
+                'tax_display_shop',
+                'tax_display_cart',
+                'tax_price_display_suffix',
+                'tax_total_display'
             ],
             'html_keys' => [
 
