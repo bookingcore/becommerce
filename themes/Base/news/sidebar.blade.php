@@ -4,8 +4,8 @@
             @case ('search_form')
                 <aside class="widget widget--blog widget--search">
                     <form class="bc-form--widget-search" action="{{route('news')}}" method="get">
-                        <input class="form-control" type="text" name="s" value="{{request('s')}}" placeholder="{{__('Search...')}}">
-                        <button><i class="icon-magnifier"></i></button>
+                        <input class="form-control pr-5" type="text" name="s" value="{{request('s')}}" placeholder="{{__('Search...')}}">
+                        <button><i class="fa fa-search"></i></button>
                     </form>
                 </aside>
             @break
