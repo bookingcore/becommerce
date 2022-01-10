@@ -136,6 +136,9 @@ class News extends BaseModel
         if(!empty($filters['category_id'])){
             $query->where('cat_id',$filters['category_id']);
         }
+        if (!empty($filters['s'])){
+            $query->where('title','like',"%{$filters['s']}%")->orWhere('slug','like',"%{$filters['s']}%");
+        }
         if(!empty($filters['tag_id']))
         {
             $query->join('core_news_tag',function($join) use ($filters) {

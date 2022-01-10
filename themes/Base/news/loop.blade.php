@@ -6,7 +6,7 @@ $translation = $row->translate();
         <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" class="c-333333">{{$translation->title}}</a></h2>
         <ul class="post-meta list-unstyled d-flex m-0">
             <li class="mr-30"><i class="fa fa-calendar"></i> {{display_date($row->created_at)}}</li>
-            @if($row->tags)
+            @if($row->tags->count())
                 <li class="mr-30">
                     <i class="fa fa-tags"></i>
                     @php $tags = []; @endphp
