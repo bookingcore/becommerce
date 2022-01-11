@@ -28,7 +28,7 @@
             <div class="bc-block__product-box">
                 @if(!empty($rows))
                     @foreach($rows as $row)
-                        @include('product.search.loop-item',['class'=>'bc-product--simple'])
+                        @include('product.search.loop',['class'=>'bc-product--simple'])
                     @endforeach
                 @endif
             </div>
