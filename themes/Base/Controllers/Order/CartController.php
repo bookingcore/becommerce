@@ -47,14 +47,21 @@ class CartController extends FrontendController
         }
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
+        try {
+            $service->addToCartValidate($request->input('qty'),$request->input('variant_id'));
+            CartManager::add($service);
+            $buy_now = $request->input('buy_now');
+            return $this->sendSuccess([
+                'fragments'=>CartManager::get_cart_fragments(),
+                'url'=>$buy_now ? route('checkout') : ''
+            ],
+                !$buy_now ? __('":title" has been added to your cart.',['title'=>$this->title]) :''
+            );
 
-//        if (empty($service) or !is_subclass_of($service, '\\Modules\\Booking\\Models\\Bookable')) {
-//            return $this->sendError(__('Service not found'));
-//        }
-        if (!$service->isBookable()) {
-            return $this->sendError(__('Service is not bookable'));
+        }catch (\Exception $exception){
+            return $this->sendError($exception->getMessage());
         }
-        return $service->addToCart($request);
+
     }
     public function removeCartItem(Request $request){
         $validator = Validator::make($request->all(), [

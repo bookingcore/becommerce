@@ -18,6 +18,7 @@ use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
+use phpDocumentor\Reflection\Types\Self_;
 
 class Product extends BaseProduct
 {
@@ -486,24 +487,53 @@ class Product extends BaseProduct
         return $st;
     }
 
-    public function addToCartValidate(Request $request)
+    public function addToCartValidate($qty=1, $variant_id=null)
     {
-        $error = [];
+//        gop chung bang product va variant product
+        switch ($this->product_type){
+            case 'variable':
+                    $variant = self::where('parent_id',$this->id)->where('id',$variant_id)->first();
+                    if(!empty($variant)){
+                        if(!empty($this->is_manage_stock)){
+//                            Nếu SP cha bật quản lý stock	remain_stock = stock - on_hold của sản phẩm cha
+                            $onHold = $this->on_hold;
+                            if(!empty($this->quantity)){
+                                $remainStock = $this->quantity - $onHold;
+                                if($qty>$remainStock){
+                                    throw new \Exception('Ko add dudowc');
+                                }
+                            }else{
+                                throw new \Exception('Ko add dudowc');
+                            }
+                        }else{
+//                            Nếu SP cha không bật	remain_stock = stock - on_hodl riêng của từng variant
+                            $variant->stockValidation($qty);
+                        }
+                    }else{
+                        $this->stockValidation($qty);
+                    }
+                break;
+            case 'external':
+                throw  new \Exception('ko cho add');
+                break;
+            default:
+                $this->stockValidation($qty);
+                break;
+        }
+
         //check price
         if($this->price == null && $this->sale_price == null){
-            $error[] = __('This content must set price. Please contact with author.');
+            throw  new \Exception('This content must set price. Please contact with author.');
         }
-        return $error;
     }
 
-    public function addToCart(Request $request)
+    public function addToCart($qty=1, $variant_id=null)
     {
-        $checkValidate = $this->addToCartValidate($request);
+        $checkValidate = $this->addToCartValidate($qty,$variant_id);
         if(!empty($checkValidate)){
             return $this->sendError($checkValidate);
         }
 
-        // Only single item
         $cartProduct = CartManager::items()->where('product_id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
         if($cartProduct){
         }else{
@@ -625,4 +655,41 @@ class Product extends BaseProduct
         $limit = $fill['limit'] ?? 12;
         return $query->with(['hasWishList','brand'])->paginate($limit);
     }
+
+
+    public function productOnHold(){
+        return $this->hasMany(ProductOnHold::class,'product_id','id')->where('expired_at','>',now());
+    }
+
+    public function getOnHoldAttribute()
+    {
+        return $this->productOnHold()->sum('qty');
+    }
+
+    //    Hatt
+
+
+    public function stockValidation($qty)
+    {
+        $isManageStock  = $this->is_manage_stock;
+        if(!empty($isManageStock)){
+            $onHold = $this->on_hold;
+            if(!empty($this->quantity)){
+                $remainStock = $this->quantity - $onHold;
+                if($qty>$remainStock){
+                    throw new \Exception('Ko add dudowc');
+                }
+            }else{
+                throw new \Exception('Ko add dudowc');
+            }
+        }else{
+            if($this->stock_status ==='out'){
+                throw new \Exception('Ko add dudowc');
+            }
+        }
+    }
+
+
+
+
 }
