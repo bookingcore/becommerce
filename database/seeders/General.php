@@ -990,30 +990,5 @@ namespace Database\Seeders;
                     ],
                 ]
             );
-            DB::table('core_menu_translations')->insert(
-                [
-                    [
-                        'origin_id'=>1,
-                        'locale'=>'ja',
-                        'items' => json_encode($primary_menu),
-                        'create_user'   =>  1,
-                        'update_user'   =>  1
-                    ],
-                    [
-                        'origin_id'=>2,
-                        'locale'=>'ja',
-                        'items' => json_encode($department_menu),
-                        'create_user'   =>  1,
-                        'update_user'   =>  1
-                    ],
-                    [
-                        'origin_id'=>4,
-                        'locale'=>'ja',
-                        'items' => json_encode($menu_header_top),
-                        'create_user'   =>  1,
-                        'update_user'   =>  1
-                    ]
-                ]
-            );
         }
 }
