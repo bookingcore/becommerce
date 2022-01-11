@@ -391,6 +391,9 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_sz_method_translations');
         Schema::dropIfExists('product_shipping_classes');
         Schema::dropIfExists('product_shipping_class_translations');
+        Schema::dropIfExists('product_tax_rates');
+        Schema::dropIfExists('product_tax_rate_translations');
+        Schema::dropIfExists('product_tax_locations');
 
         Schema::dropIfExists('user_address');
     }

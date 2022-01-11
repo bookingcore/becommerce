@@ -94,7 +94,7 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="mb-3">
-                    <a href="{{ route('product.shipping.class.new') }}" class="btn btn-sm btn-default">{{ __("Add item") }}</a>
+                    <a href="{{ route('product.tax.create') }}" class="btn btn-sm btn-default">{{ __("Add item") }}</a>
                 </div>
                 <div class="table-responsive">
                     <table class="table">
@@ -114,11 +114,36 @@
                         </tr>
                         </thead>
                         @php
-                            $tax_rates = \Modules\Product\Models\TaxRate::all();
+                            $taxRates = \Modules\Product\Models\TaxRate::all();
                         @endphp
                         <tbody>
-                            @if($tax_rates && $tax_rates->count() > 0)
-
+                            @if($taxRates && $taxRates->count() > 0)
+                                @foreach($taxRates as $key => $taxRate)
+                                    @php $transition = $taxRate->translate(request()->query('lang')) @endphp
+                                    <tr>
+                                        <td>{{ $taxRate->country_code }}</td>
+                                        <td>{{ $taxRate->state }}</td>
+                                        <td>{{ $taxRate->locationPostcodes->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->locationCities->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->tax_rate }}</td>
+                                        <td>{{ $transition->name }}</td>
+                                        <td>{{ $taxRate->priority }}</td>
+                                        <td><input type="checkbox" @if(!empty($taxRate->compound)) checked @endif disabled class="disabled" /></td>
+                                        <td><input type="checkbox" @if(!empty($taxRate->shipping)) checked @endif disabled class="disabled" /></td>
+                                        <td>{{ $taxRate->class_name }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                    {{__("Actions")}}
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a href="{{ route('product.tax.edit', ['id' => $taxRate->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                                    <a href="{{ route('product.tax.delete', ['id' => $taxRate->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             @else
                                 <tr>
                                     <td class="text-center" colspan="11">{{ __("No tax rates") }}</td>

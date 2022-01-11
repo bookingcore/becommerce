@@ -17,6 +17,16 @@ class TaxRate extends BaseModel
         'tax_rate_class'
     ];
 
+    public function getClassNameAttribute(){
+        $taxRateClasses = [
+            'standard' => __("Standard"),
+            'reduced_rate' => __("Reduced rate"),
+            'zero_rate' => __("Zero rate")
+        ];
+
+        return $taxRateClasses[$this->tax_rate_class] ?? __("Standard");
+    }
+
     public function locations(){
         return $this
             ->hasMany(TaxRateLocation::class,'tax_rate_id','id');
