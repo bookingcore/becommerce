@@ -35,7 +35,7 @@ class DashboardController extends \Modules\FrontendController
                     break;
             }
         }
-        $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`subtotal`) as total_price , sum( `subtotal` - `tax_amount` - `commission_amount` ) AS total_earning, sum(tax_amount) as total_tax ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
+        $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`subtotal` - `discount_amount`) as total_price , sum( `subtotal` - `discount_amount` - `commission_amount` ) AS total_earning ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
         $count_bookings = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->count('id');
 
         $res[] = [
@@ -65,16 +65,6 @@ class DashboardController extends \Modules\FrontendController
             'desc'   => __("Orders this month"),
             'class'  => 'info',
             'icon'   => 'icon ion-ios-pricetags'
-        ];
-        $res[] = [
-
-            'size'   => 6,
-            'size_md'=>3,
-            'title'  => __("Total Tax"),
-            'amount' => format_money($total_data->total_tax),
-            'desc'   => __("Total tax this month"),
-            'class'  => 'success',
-            'icon'   => 'icon ion-ios-flash'
         ];
         return $res;
     }

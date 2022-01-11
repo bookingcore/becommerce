@@ -10,8 +10,11 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
+use Modules\User\Models\User;
+use Modules\Vendor\Email\PayoutCalculatedEmail;
 use Modules\Vendor\Models\VendorPayout;
 
 class CreatePayoutForVendorJob implements ShouldQueue
@@ -41,6 +44,9 @@ class CreatePayoutForVendorJob implements ShouldQueue
      */
     public function handle()
     {
+        $vendor = User::find($this->vendor_id);
+        if(!$vendor) return;
+
         $where = [
             'year'=>$this->year,
             'month'=>$this->month,
@@ -65,6 +71,10 @@ class CreatePayoutForVendorJob implements ShouldQueue
                 ]);
             // Now recalculate total
             $find->calculateTotal();
+
+            // Now send email to vendor :)
+            Mail::to($vendor)
+                ->queue(new PayoutCalculatedEmail($find));
         }
     }
 }
