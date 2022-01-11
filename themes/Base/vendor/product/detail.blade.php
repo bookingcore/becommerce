@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <div class="text-right">
+                        <div class="text-end">
                             <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{__('Save changes')}} </button>
                         </div>
                     </div>
