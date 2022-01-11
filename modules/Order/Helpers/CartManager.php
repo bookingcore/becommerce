@@ -185,7 +185,7 @@ class CartManager
 
     public static function get_cart_fragments(){
         return [
-            '.header__actions .ps-cart--mini'=>view('order.cart.mini-cart')->render(),
+            '.header__content .bc-mini-cart'=>view('order.cart.mini-cart')->render(),
         ];
     }
 

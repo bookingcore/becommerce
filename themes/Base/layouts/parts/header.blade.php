@@ -19,19 +19,8 @@
                         @include('layouts.parts.header.search')
                     </div>
                 </div>
-                <div class="col-md-2 header__content-right text-end">
-                    <div class="dropdown">
-                        <a  class="position-relative" data-bs-toggle="dropdown">
-                            <i class="fa fa-shopping-cart fa-2x"></i>
-                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {{\Modules\Order\Helpers\CartManager::count()}}
-                            <span class="visually-hidden">{{__("Your cart")}}</span>
-                          </span>
-                        </a>
-                        <div class="dropdown-menu">
-                            @includeIf('order.cart.mini-cart')
-                        </div>
-                    </div>
+                <div class="col-md-2 header__content-right text-end bc-mini-cart">
+                    @includeIf('order.cart.mini-cart')
                 </div>
             </div>
         </div>

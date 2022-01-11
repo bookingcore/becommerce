@@ -6,7 +6,7 @@ if(!isset($current_cat)) $current_cat = null;
 <aside class="widget widget--blog widget--categories">
     <h3 class="widget__title">{{__('Categories')}}</h3>
     <div class="widget__content">
-        <ul>
+        <ul class="list-unstyled">
             @php
                 $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {
                     foreach ($categories as $category) {
@@ -16,7 +16,7 @@ if(!isset($current_cat)) $current_cat = null;
                         if((isset($current_cat) and $category->id == $current_cat->id)){
                             $selected = 'active';
                         }
-                        printf('<li class="%s"><a href="%s" >'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</a></li>',$selected,$category->getDetailUrl()).PHP_EOL;
+                        printf('<li class="%s"><a href="%s" class="c-333333">'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</a></li>',$selected,$category->getDetailUrl()).PHP_EOL;
                         if($has_children){
                             $traverse($category->children, $prefix,$level + 1);
                         }
