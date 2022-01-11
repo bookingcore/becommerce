@@ -20,7 +20,7 @@ $countUnread = $checkNotify->where('read_at', null)->count();
         </span>
         <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end m-w-300px p-3">
+    <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end miw-300 p-3">
         <div class="dropdown-toolbar d-flex justify-content-between align-items-center pb-2 mb-2">
             <h3 class="dropdown-toolbar-title fs-16 mb-0">{{__('Notifications')}} (<span class="notif-count">{{$countUnread}}</span>)</h3>
             <div class="dropdown-toolbar-actions">
@@ -78,7 +78,7 @@ $countUnread = $checkNotify->where('read_at', null)->count();
                 </a>
             @endif
         </div>
-        <div class="dropdown-footer text-right mt-3 fs-14">
+        <div class="dropdown-footer text-end mt-3 fs-14">
             <a class="btn btn-primary fs-14 c-white" href="{{route('core.notification.loadNotify')}}">{{__('View More')}}</a>
         </div>
     </ul>

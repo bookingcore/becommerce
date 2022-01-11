@@ -11,7 +11,7 @@
                         @csrf
                         <div class="input-group">
                             <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
-                            <button class="btn m-w-120px btn-primary" type="submit">
+                            <button class="btn miw-120 btn-primary" type="submit">
                                 {{ __("Subscribe") }}
                                 <i class="fa fa-spinner fa-pulse fa-fw"></i>
                             </button>
