@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-12">
         <h3 class="form-group-title">{{__("Tax Settings")}}</h3>
-        <p class="form-group-desc">{{__('Tax Settings')}}</p>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div class="panel">
             <div class="panel-body">
                 @if(is_default_lang())
@@ -67,7 +66,7 @@
                 <div class="form-group">
                     <label class="" >{{__("Price display suffix")}}</label>
                     <div class="form-controls">
-                        <input type="text" name="tax_price_display_suffix" class="form-control" value="{{ @setting_item('tax_price_display_suffix', '') }}" placeholder="{{ __("N/A") }}">
+                        <input type="text" name="tax_price_display_suffix" class="form-control" value="{{ @setting_item_with_lang('tax_price_display_suffix', request()->query('lang'), '') }}" placeholder="{{ __("N/A") }}">
                     </div>
                 </div>
                 @if(is_default_lang())
@@ -81,6 +80,54 @@
                         </div>
                     </div>
                 @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="form-group-title">{{__("Tax rate classes")}}</h3>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="mb-3">
+                    <a href="{{ route('product.shipping.class.new') }}" class="btn btn-sm btn-default">{{ __("Add item") }}</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ __("Country code") }}</th>
+                            <th>{{ __("State code") }}</th>
+                            <th>{{ __("Postcode / ZIP") }}</th>
+                            <th>{{ __("City") }}</th>
+                            <th>{{ __("Rate %") }}</th>
+                            <th>{{ __("Tax name") }}</th>
+                            <th>{{ __("Priority") }}</th>
+                            <th>{{ __("Compound") }}</th>
+                            <th>{{ __("Shipping") }}</th>
+                            <th>{{ __("Class") }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        @php
+                            $tax_rates = \Modules\Product\Models\TaxRate::all();
+                        @endphp
+                        <tbody>
+                            @if($tax_rates && $tax_rates->count() > 0)
+
+                            @else
+                                <tr>
+                                    <td class="text-center" colspan="11">{{ __("No tax rates") }}</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>
