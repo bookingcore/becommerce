@@ -38,6 +38,19 @@ class CreatePayoutTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+        Schema::create('user_payout_accounts', function (Blueprint $table) {
+            $table->id();
+
+            $table->bigInteger('vendor_id')->index();
+            $table->string("payout_method",50)->nullable();
+            $table->text("account_info")->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -48,5 +61,6 @@ class CreatePayoutTable extends Migration
     public function down()
     {
         Schema::dropIfExists('user_payouts');
+        Schema::dropIfExists('user_payout_accounts');
     }
 }

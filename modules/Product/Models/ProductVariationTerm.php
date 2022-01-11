@@ -12,7 +12,6 @@ class ProductVariationTerm extends BaseModel
     protected $fillable = [
         'variation_id','term_id','product_id'
     ];
-
     public function get_term($product_id){
         $variations_id = [];
         $variations = ProductVariation::where('product_id',$product_id)->get();

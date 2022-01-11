@@ -18,23 +18,8 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
 
     public function boot(){
-        VendorMenuManager::register("product",[$this,'addVendorMenu']);
     }
 
-    public function addVendorMenu(){
-        return [
-            'product'=>[
-                'url'=>route('vendor.product'),
-                'title'=>__("Products"),
-                "icon"=>"icon-database"
-            ],
-            'order'=>[
-                'url'=>route('vendor.order'),
-                'title'=>__("Orders"),
-                "icon"=>"icon-bag2"
-            ]
-        ];
-    }
 
     public function register()
     {
