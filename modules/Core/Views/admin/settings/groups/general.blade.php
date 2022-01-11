@@ -197,12 +197,6 @@
                     </div>
                 @endif
                 <div class="form-group">
-                    <label>{{__("header top")}}</label>
-                    <div class="form-controls">
-                        <input type="text" class="form-control" name="header_top" value="{{ setting_item_with_lang('header_top',request()->query('lang')) }}">
-                    </div>
-                </div>
-                <div class="form-group">
                     <label>{{__("Footer Info Contact")}}</label>
                     <div class="form-controls">
                         <div id="info_text_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_info_text',request()->query('lang'))}}</div>
@@ -285,20 +279,6 @@
                     <label>{{__("Copyright")}}</label>
                     <div class="form-controls">
                         <textarea name="copyright" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('copyright',request()->query('lang')) }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>{{__("Footer Socials")}}</label>
-                    <div class="form-controls">
-                        <div id="footer_socials" class="ace-editor" style="min-height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_socials',request()->query('lang'))}}</div>
-                        <textarea name="footer_socials" class="d-none">{{setting_item_with_lang('footer_socials',request()->query('lang')) }}</textarea>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>{{__("Footer Categories")}}</label>
-                    <div class="form-controls">
-                        <div id="footer_categories_editor" class="ace-editor" style="height: 400px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('footer_categories',request()->query('lang'))}}</div>
-                        <textarea class="d-none" name="footer_categories" > {{ setting_item_with_lang('footer_categories',request()->query('lang')) }} </textarea>
                     </div>
                 </div>
             </div>

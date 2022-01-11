@@ -185,12 +185,12 @@ class ModuleProvider extends ModuleServiceProvider
                 'site_favicon',
                 'home_page_id',
                 'logo_id',
-                'header_top',
+
                 'copyright',
-                'footer_socials',
+
                 'footer_info_text',
                 'list_widget_footer',
-                'footer_categories',
+
                 'date_format',
                 'site_timezone',
                 'site_locale',

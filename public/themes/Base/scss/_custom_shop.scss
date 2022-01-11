@@ -23,3 +23,20 @@
 .bravo_topbar .topbar-left a{
     color: #fff;
 }
+.bc-newsletter{
+    .bc-form-newsletter{
+        border: solid 1px #ccc;
+        padding: 25px 45px 20px;
+        border-radius: 5px;
+        .fa-spinner{
+            display: none;
+        }
+        .bc-subscribe-form{
+            &.loading{
+                .fa-spinner{
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

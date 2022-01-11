@@ -60,7 +60,7 @@
 				if (!empty($item['children']) and $depth != 0) {
 					$item['name'] .= ' <i class="caret fa fa-angle-right float-right mt-2"></i>';
 				}
-				printf('<a class="nav-link"  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
+				printf('<a class="nav-link c-000000"  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
 				if (!empty($item['children'])) {
 					echo '<ul class="dropdown-menu">';
 					echo $html;

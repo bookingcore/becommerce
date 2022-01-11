@@ -40,11 +40,7 @@ namespace Database\Seeders;
                         'val'   => '',
                         'group' => "general",
                     ],
-                    [
-                        'name'  => 'header_top',
-                        'val'   => 'Welcome to BeCommerce Online Shopping Store !',
-                        'group' => "general",
-                    ],
+
                     [
                         'name'  => 'topbar_left_text',
                         'val'   => '<div class="socials-list"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-google-plus"></i></a></div><a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
@@ -57,31 +53,18 @@ namespace Database\Seeders;
                     ],
                     [
                         'name'  => 'footer_info_text',
-                        'val'   => '<p>Call us 24/7</p>
-<h3>1800 97 97 69</h3>
-<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@be-commerce.org">contact@be-commerce.org</a></p>
-<ul class="ps-list--social">
-    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-    <li><a class="google-plus" href="#"><i class="fa fa-google-plus"></i></a></li>
-    <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-</ul>',
-                        'group' => "general",
-                    ],
-                    [
-                        'name'  => 'footer_socials',
-                        'val'   => '<span>We Using Safe Payment For:</span>
-<a href="#"><img src="/images/p1.jpg" alt="Social"/></a>
-<a href="#"><img src="/images/p2.jpg" alt="Social"/></a>
-<a href="#"><img src="/images/p3.jpg" alt="Social"/></a>
-<a href="#"><img src="/images/p4.jpg" alt="Social"/></a>
-<a href="#"><img src="/images/p5.jpg" alt="Social"/></a>
-<a href="#"><img src="/images/p6.jpg" alt="Social"/></a>',
+                        'val'   => '<h3 class="c-main fw-bold">1800 97 97 69</h3>
+<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
+<div class="socials-list">
+    <a href="#"><i class="fa fa-facebook"></i></a>
+    <a href="#"><i class="fa fa-linkedin"></i></a>
+    <a href="#"><i class="fa fa-google-plus"></i></a>
+</div>',
                         'group' => "general",
                     ],
                     [
                         'name'  => 'list_widget_footer',
-                        'val'   => '{"1":{"title":"Quick links","size":"3","content":"<ul class=\"ps-list--link\">\r\n            <li><a href=\"policy.html\">Policy<\/a><\/li>\r\n            <li><a href=\"term-condition.html\">Term &amp; Condition<\/a><\/li>\r\n            <li><a href=\"shipping.html\">Shipping<\/a><\/li>\r\n            <li><a href=\"return.html\">Return<\/a><\/li>\r\n            <li><a href=\"faqs.html\">FAQs<\/a><\/li>\r\n        <\/ul>"},"2":{"title":"Company","size":"3","content":"<ul class=\"ps-list--link\">\r\n                        <li><a href=\"about-us.html\">About Us<\/a><\/li>\r\n                        <li><a href=\"affilate.html\">Affilate<\/a><\/li>\r\n                        <li><a href=\"shipping.html\">Career<\/a><\/li>\r\n                        <li><a href=\"contact.html\">Contact<\/a><\/li>\r\n                    <\/ul>"},"3":{"title":"Bussiness","size":"3","content":"<ul class=\"ps-list--link\">\r\n                        <li><a href=\"our-press.html\">Our Press<\/a><\/li>\r\n                        <li><a href=\"checkout.html\">Checkout<\/a><\/li>\r\n                        <li><a href=\"my-account.html\">My account<\/a><\/li>\r\n                        <li><a href=\"shop.html\">Shop<\/a><\/li>\r\n                    <\/ul>"}}',
+                        'val'   => '{"1":{"title":"Quick links","size":"3","content":"<ul class=\"nav flex-column\">\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Policy<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Term &amp; Condition<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Shipping<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Return<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - FAQs<\/a><\/li>\r\n<\/ul>"},"2":{"title":"Company","size":"3","content":"<ul class=\"nav flex-column\">\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - About Us<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Affilate<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Career<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Contact<\/a><\/li>\r\n<\/ul>"},"3":{"title":"Bussiness","size":"3","content":"<ul class=\"nav flex-column\">\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Our Press<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Checkout<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - My account<\/a><\/li>\r\n\t<li class=\"nav-item mb-2\"><a href=\"#\" class=\"nav-link p-0 text-muted\"> - Shop<\/a><\/li>\r\n<\/ul>"}}',
                         'group' => "general",
                     ],
                     [
@@ -983,24 +966,6 @@ namespace Database\Seeders;
                     "_open" => true
                 ]
             ];
-            $menu_header_top = [
-                [
-                    'name'          =>  'Store Location',
-                    'url'           =>  '#',
-                    'item_model'    =>  'custom',
-                    '_open'         =>  false,
-                    'model_name'    =>  'Custom',
-                    'is_removed'    =>  true
-                ],
-                [
-                    'name'          =>  'Track Your Order',
-                    'url'           =>  '#',
-                    'item_model'    =>  'custom',
-                    '_open'         =>  false,
-                    'model_name'    =>  'Custom',
-                    'is_removed'    =>  true
-                ],
-            ];
 
             //Menu
             DB::table('core_menus')->insert(
@@ -1023,12 +988,6 @@ namespace Database\Seeders;
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ],
-                    [
-                        'name'  => "Header top menu",
-                        'items' =>  json_encode($menu_header_top),
-                        'create_user'   =>  1,
-                        'update_user'   =>  1
-                    ]
                 ]
             );
             DB::table('core_menu_translations')->insert(
@@ -1054,76 +1013,6 @@ namespace Database\Seeders;
                         'create_user'   =>  1,
                         'update_user'   =>  1
                     ]
-                ]
-            );
-            DB::table('core_settings')->insert(
-                [
-                    [
-                        'name'=>'footer_categories',
-                        'group'=>'general',
-                        'val' =>'<p>
-    <strong>Consumer Electric:</strong>
-    <a href="#">Air Conditioners</a>
-    <a href="#">Audios &amp; Theaters</a>
-    <a href="#">Car Electronics</a>
-    <a href="#">Office Electronics</a>
-    <a href="#">TV Televisions</a>
-    <a href="#">Washing Machines</a>
-</p>
-<p>
-    <strong>Clothing &amp; Apparel:</strong>
-    <a href="#">Printers</a>
-    <a href="#">Projectors</a>
-    <a href="#">Scanners</a>
-    <a href="#">Store &amp; Business</a>
-    <a href="#">4K Ultra HD TVs</a>
-    <a href="#">LED TVs</a>
-    <a href="#">OLED TVs</a>
-</p>
-<p>
-    <strong>Home, Garden &amp; Kitchen:</strong>
-    <a href="#">Cookware</a>
-    <a href="#">Decoration</a>
-    <a href="#">Furniture</a>
-    <a href="#">Garden Tools</a>
-    <a href="#">Garden Equipments</a>
-    <a href="#">Powers And Hand Tools</a>
-    <a href="#">Utensil &amp; Gadget</a>
-</p>
-<p>
-    <strong>Health &amp; Beauty:</strong>
-    <a href="#">Hair Care</a>
-    <a href="#">Decoration</a>
-    <a href="#">Hair Care</a>
-    <a href="#">Makeup</a>
-    <a href="#">Body Shower</a>
-    <a href="#">Skin Care</a>
-    <a href="#">Cologine</a>
-    <a href="#">Perfume</a>
-</p>
-<p>
-    <strong>Jewelry &amp; Watches:</strong>
-    <a href="#">Necklace</a>
-    <a href="#">Pendant</a>
-    <a href="#">Diamond Ring</a>
-    <a href="#">Sliver Earing</a>
-    <a href="#">Leather Watcher</a>
-    <a href="#">Gucci</a>
-</p>
-<p>
-    <strong>Computer &amp; Technologies:</strong>
-    <a href="#">Desktop PC</a>
-    <a href="#">Laptop</a>
-    <a href="#">Smartphones</a>
-    <a href="#">Tablet</a>
-    <a href="#">Game Controller</a>
-    <a href="#">Audio &amp; Video</a>
-    <a href="#">Wireless Speaker</a>
-    <a href="#">Done</a>
-</p>',
-                        'create_user'   =>  1,
-                        'update_user'   =>  1
-                    ],
                 ]
             );
         }
