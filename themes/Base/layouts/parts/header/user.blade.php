@@ -2,7 +2,7 @@
     <a href="#" data-bs-toggle="dropdown" class="login nav-link text-white">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
         <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end">
+    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end m-w-250px">
         <li class="">
             <a class="dropdown-item" href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
         </li>

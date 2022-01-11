@@ -200,3 +200,33 @@ img[data-srcset] {
 .op-1{
     opacity: 1;
 }
+
+.f-w-10{
+    flex: 0 0 10% !important;
+}
+.f-w-20{
+    flex: 0 0 20% !important;
+}
+.f-w-30{
+    flex: 0 0 30% !important;
+}
+.f-w-40{
+    flex: 0 0 40% !important;
+}
+.f-w-50{
+    flex: 0 0 50% !important;
+}
+.m-w-300px{
+    min-width: 300px;
+}
+.m-w-250px{
+    min-width: 250px;
+}
+.text-right{
+    text-align: right;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #1a2b48;
+    border-color: #1a2b48;
+}

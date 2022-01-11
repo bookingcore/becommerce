@@ -47,7 +47,7 @@ namespace Database\Seeders;
                     ],
                     [
                         'name'  => 'topbar_left_text',
-                        'val'   => '<a href="mailto:contact@be-commerce.org">contact@be-commerce.org</a>',
+                        'val'   => '<div class="socials-list"><a href="#"><i class="fa fa-facebook"></i></a><a href="#"><i class="fa fa-linkedin"></i></a><a href="#"><i class="fa fa-google-plus"></i></a></div><a href="mailto:contact@bookingcore.com">contact@bookingcore.com</a>',
                         'group' => "general",
                     ],
                     [

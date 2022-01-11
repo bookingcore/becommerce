@@ -1,166 +1,25 @@
-.ps-product {
-    .ps-product__thumbnail{
-        overflow: initial;
-        .ps-product__actions{
-            visibility: hidden;
-            opacity: 0;
-        }
-    }
-    &:hover{
-        .ps-product__actions{
-            visibility: visible;
-            opacity: 1;
-        }
-    }
-}
-.ps-btn, button.ps-btn,
-.header--standard .ps-form--quick-search button{
-    color:white;
-}
-.ps-widget--account-dashboard .ps-widget__content ul li.active{
-    background: var(--main-color);
-}
-.header--standard .ps-form--quick-search button,
-.header--standard .header__extra span,
-.ps-btn, button.ps-btn,
-.ps-widget--account-dashboard .ps-widget__content ul li a:hover,
-.menu--dropdown > li:hover
-{
-    background-color: var(--main-color);
-}
-.header--market-place-1 .header__extra:hover > i,
-a:hover,
-.widget_contact-us .widget_content h3,
-.mega-menu .mega-menu__list li a:hover,
-.menu > li > a:hover, .menu > li > a.active,
-.ps-breadcrumb--2 .breadcrumb li,
-.widget--blog.widget--categories ul li a:hover,
-.widget--blog.widget--recent-post .widget__content a:hover,
-.widget--blog.widget--tags a:hover,
-.ps-post--detail .ps-post__header p a:hover,
-.ps-post--detail .ps-post__tags a:hover,
-.hover-c-main:hover,
-.ps-breadcrumb .breadcrumb a:hover,
-.header--standard .ps-block--user-header a:hover
-{
-    color:var(--main-color)
-}
-.form-control:focus{
-    border-color: var(--main-color);
-}
-.mega-menu {
-    padding: 15px 30px 10px !important;
-}
-.widget--blog.widget--tags a:last-child:after{
-    content: "";
-}
-
-
-.header--standard{
-    .ps-block--user-header{
-        margin-right: 0;
-        .avatar{
-            max-width: 30px;
-            overflow: hidden;
-            border-radius: 50%;
-        }
-        .ps-block__right{
-            align-self: center;
-        }
-        .ps-block__right{
-            a{
-                line-height: initial;
-            }
-            .login{
-                font-weight: normal;
-            }
-            .ps-dropdown{
-                height: 45px;
-                display: flex;
-                align-items: center;
-                .ps-dropdown-menu{
-                    min-width: 200px;
-                    padding: 10px;
-                    li{
-                        border-bottom: solid 1px #e7e7e7;
-                        &:last-child{
-                            border: none;
-                        }
-                        a{
-                            font-weight: normal;
-                            padding: 10px 10px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-.ps-dropdown ul{
-    border-radius: 5px;
-}
-.bravo-subscribe-form{
-    &.loading{
-        .ps-btn{
-            background: #a7a7a7;
-        }
-    }
-}
-.btn{
-    font-size: 14px;
-    &.btn-sm{
-        padding: 4px 12px;
-    }
-}
-.ps-product {
-    border-bottom: 1px solid transparent;
-    &.ps-product--simple{
-        border-bottom:none;
-    }
-}
-.widget_shop .ps-checkbox .fa-star{
-    margin-right: 0;
-}
-
-.ps-page--product .ps-product--detail .ps-product__info .ps-product__price .price{
-    color: #000;
-    font-size: 24px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    line-height: 1;
-    ins{
-        text-decoration: none;
-    }
-    &.has-sale{
-        >*{
-            display: inline-block;
-        }
-        ins{
-            color: #ff3300;
-            text-decoration: none;
-            font-weight: 600;
-        }
-        del{
-            opacity: 1;
-            font-size: 14px;
-            color: #666;
-            font-weight: 500;
-            padding-left: 5px;
-        }
-        .sale{
-            font-size: 14px;
-            color: #ff3300;
-            font-weight: 500;
-            &.sale-2{
-                display: none;
-            }
-        }
-    }
-}
-
 //new version bs5
 
 .bc-mini-cart-dropdown{
     min-width: 300px;
 
+}
+.socials-list{
+    margin-right: 15px;
+    a{
+        display: inline-block;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+        transition: all 0.5s;
+        background-color: #4a4a4a;
+        border-radius: 50%;
+        color: #fff !important;
+        text-align: center;
+        margin-right: 2px;
+    }
+}
+.bravo_topbar .topbar-left a{
+    color: #fff;
 }

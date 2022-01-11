@@ -4,7 +4,7 @@ if(!isset($current_cat)) $current_cat = null;
 ?>
 <form class="bc-form--quick-search" action="{{route('product.index')}}" method="get">
     <div class="input-group">
-        <select name="cat_slug" class="form-select">
+        <select name="cat_slug" class="form-select f-w-30">
             <option value="">{{__("All")}}</option>
             @php
                 $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {
@@ -25,6 +25,6 @@ if(!isset($current_cat)) $current_cat = null;
             @endphp
         </select>
         <input name="s" class="form-control" type="text" placeholder="{{ __("I'm shopping for...") }}">
-        <button type="submit" class="btn btn-primary">{{ __("Search") }}</button>
+        <button type="submit" class="btn bg-main c-white">{{ __("Search") }}</button>
     </div>
 </form>
