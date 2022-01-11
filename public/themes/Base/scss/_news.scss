@@ -100,12 +100,15 @@
             }
         }
         &.widget--recent-post{
-            .post-thumb{
-                overflow: hidden;
-                flex: 0 0 120px;
-                max-width: 120px;
-                img{
-                    width: 100%;
+            .post-content{
+                border-bottom: 1px solid rgba(238, 238, 238, .7);
+                .post-thumb{
+                    overflow: hidden;
+                    flex: 0 0 120px;
+                    max-width: 120px;
+                    img{
+                        width: 100%;
+                    }
                 }
             }
         }
