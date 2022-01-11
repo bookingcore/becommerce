@@ -41,6 +41,8 @@ class CartController extends FrontendController
         }
         $service_type = $request->input('type');
         $service_id = $request->input('id');
+        $variant_id = $request->input('variant_id');
+
         $allServices = get_bookable_services();
         if (empty($allServices[$service_type])) {
             return $this->sendError(__('Service type not found'));
@@ -48,7 +50,7 @@ class CartController extends FrontendController
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
         try {
-            $service->addToCartValidate($request->input('qty'),$request->input('variant_id'));
+            $service->addToCartValidate($request->input('qty'),$variant_id);
             CartManager::add($service);
             $buy_now = $request->input('buy_now');
             return $this->sendSuccess([
