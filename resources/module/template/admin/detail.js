@@ -112,7 +112,7 @@ export default function()
                 this.onSaving = true;
 
                 $.ajax({
-                    url:bookingCore.url+'/admin/module/template/store',
+                    url:BC.url+'/admin/module/template/store',
                     dataType:'json',
                     type:'post',
                     data:{
@@ -151,7 +151,7 @@ export default function()
                 var me = this;
 
                 $.ajax({
-                    url:bookingCore.url+'/admin/module/template/getBlocks',
+                    url:BC.url+'/admin/module/template/getBlocks',
                     dataType:'json',
                     type:'get',
                     success:function (res) {

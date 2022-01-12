@@ -6,9 +6,9 @@ use App\BaseModel;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
-class ProductVariation extends BaseProduct
+class ProductVariation extends BaseModel
 {
-    protected $table = 'products';
+    protected $table = 'product_variations';
     public $type = 'product_variation';
 
     protected $fillable = [

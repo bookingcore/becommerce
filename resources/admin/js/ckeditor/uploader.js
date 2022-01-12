@@ -5,11 +5,11 @@ import ButtonView from '@ckeditor/ckeditor5-ui/src/button/buttonview';
 import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
 
 
-class BookingCoreUploader extends Plugin {
+class BCUploader extends Plugin {
     init() {
         const editor = this.editor;
 
-        editor.ui.componentFactory.add( 'bookingCoreUplader', locale => {
+        editor.ui.componentFactory.add( 'BCUplader', locale => {
             const view = new ButtonView( locale );
 
             view.set( {
@@ -56,4 +56,4 @@ class BookingCoreUploader extends Plugin {
     }
 }
 
-export default BookingCoreUploader
+export default BCUploader

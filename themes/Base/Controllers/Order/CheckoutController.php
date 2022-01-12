@@ -7,19 +7,27 @@
     use App\Currency;
     use App\Helpers\ReCaptchaEngine;
     use Illuminate\Http\Request;
+    use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
     use Modules\Order\Helpers\CartManager;
     use Modules\Order\Models\Payment;
+    use Modules\Product\Models\UserAddress;
     use Themes\Base\Controllers\FrontendController;
     class CheckoutController extends FrontendController
     {
         public function index(){
+            $user = Auth::user();
+            $billing  = $user->billing_address;
+            if(empty($billing)){
+                $billing = new UserAddress();
+            }
             $data = [
                 'items'=>CartManager::items(),
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
                 'gateways'=>get_payment_gateway_objects(),
-                'user'=>auth()->user()
+                'user'=>$user,
+                'billing'=>$billing
             ];
             return view('order.checkout.index',$data);
         }
@@ -77,7 +85,6 @@
                 'city'=>$request->input('city'),
                 'zip_code'=>$request->input('zip_code'),
             ];
-            $order->billing = $billing_data;
 
             $gateways = get_payment_gateways();
             $gatewayObj = new $gateways[$payment_gateway]($payment_gateway);
@@ -103,22 +110,14 @@
             $order->payment_id = $payment->id;
             $order->save();
 
-            // Save User
-            $billing_data = [
-                'billing_first_name'=>$request->input('first_name'),
-                'billing_last_name'=>$request->input('last_name'),
-                'phone'=>$request->input('phone'),
-                'country'=>$request->input('country'),
-                'address'=>$request->input('address'),
-                'address2'=>$request->input('address2'),
-                'state'=>$request->input('state'),
-                'city'=>$request->input('city'),
-                'zip_code'=>$request->input('zip_code'),
-            ];
-            foreach ($billing_data as $k=>$v){
-                $user->setAttribute($k,$v);
+//            save billing order
+            $order->addMeta('billing',$billing_data);
+            if(!empty($request->input('billing_id'))){
+                $billing_data['id'] = $request->input('billing_id');
             }
-            $user->save();
+            //update or create user billing
+            $user->billing_address()->updateOrCreate([],$billing_data);
+
 
             try {
                 $res = $gatewayObj->process($payment);

@@ -149,6 +149,8 @@ class CreateProductTable extends Migration
             $table->tinyInteger('active')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->index(['product_id']);
             $table->timestamps();
 
         });

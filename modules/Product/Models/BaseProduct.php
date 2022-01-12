@@ -181,20 +181,25 @@ class BaseProduct extends BaseModel
         return $this->price;
     }
 
-
-    public function stockQuality(){
-        if(!empty($this->is_manage_stock)){
-            $quantity = !empty($this->quantity)?$this->quantity:0;
-        }else{
-            if($this->stock_status==='out'){
-                $quantity =  0;
+    public function stockValidation($qty)
+    {
+        $isManageStock  = $this->is_manage_stock;
+        if(!empty($isManageStock)){
+            $onHold = $this->on_hold;
+            if(!empty($this->quantity)){
+                $remainStock = $this->quantity - $onHold;
+                if($qty>$remainStock){
+                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                }
             }else{
-                $quantity =true;
+                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+            }
+        }else{
+            if($this->stock_status ==='out'){
+                throw new \Exception(__("Out of stock"));
             }
         }
-        return $quantity;
     }
-
 
 
 }
