@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductVariation extends BaseProduct
 {
-    protected $table = 'product_variations';
+    protected $table = 'products';
     public $type = 'product_variation';
 
     protected $fillable = [
