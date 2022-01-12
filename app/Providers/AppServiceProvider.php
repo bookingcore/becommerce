@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
             $this->setLang();
             $this->initConfigFromDB();
         }
+        Paginator::useBootstrap();
     }
 
     protected function initConfigFromDB(){

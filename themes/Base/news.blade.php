@@ -1,7 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    @include('global.bc')
-    <div class="bc-page--blog mt-5 mb-3">
+    <div class="bc-page-blog">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8">

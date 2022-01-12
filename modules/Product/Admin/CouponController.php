@@ -18,6 +18,7 @@ use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
+use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\VariableProduct;
 use Modules\Product\Models\Coupon;
 
@@ -48,7 +49,7 @@ class CouponController extends AdminController
         $this->attributes = Attributes::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag = ProductTag::class;
-        $this->variable_product = VariableProduct::class;
+        $this->variable_product = ProductVariation::class;
         $this->coupon = Coupon::class;
     }
 

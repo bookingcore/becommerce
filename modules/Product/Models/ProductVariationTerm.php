@@ -4,6 +4,7 @@ namespace Modules\Product\Models;
 
 use App\BaseModel;
 use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Terms;
 
 class ProductVariationTerm extends BaseModel
 {
@@ -27,7 +28,7 @@ class ProductVariationTerm extends BaseModel
                 array_push($term_id, $item->term_id);
             }
         }
-        $variations_attr = BravoTerms::select('id','name','attr_id')->whereIn('id',$term_id)->get();
+        $variations_attr = Terms::select('id','name','attr_id')->whereIn('id',$term_id)->get();
 
         return $variations_attr;
     }

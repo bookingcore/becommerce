@@ -494,7 +494,7 @@ class Product extends BaseProduct
 //        gop chung bang product va variant product
         switch ($this->product_type){
             case 'variable':
-                    $variant = self::where('parent_id',$this->id)->where('id',$variant_id)->first();
+                    $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
                         if(!empty($this->is_manage_stock)){
 //                            Nếu SP cha bật quản lý stock	remain_stock = stock - on_hold của sản phẩm cha
@@ -645,25 +645,6 @@ class Product extends BaseProduct
     //    Hatt
 
 
-    public function stockValidation($qty)
-    {
-        $isManageStock  = $this->is_manage_stock;
-        if(!empty($isManageStock)){
-            $onHold = $this->on_hold;
-            if(!empty($this->quantity)){
-                $remainStock = $this->quantity - $onHold;
-                if($qty>$remainStock){
-                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
-                }
-            }else{
-                throw new \Exception(__('You cannot add to cart. Please contact author.'));
-            }
-        }else{
-            if($this->stock_status ==='out'){
-                throw new \Exception(__("Out of stock"));
-            }
-        }
-    }
 
 
 

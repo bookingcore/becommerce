@@ -3,21 +3,15 @@ namespace Modules\Product\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\News\Models\Tag;
-use Modules\Product\Models\BravoTerms;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
-use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
-use Modules\Product\Models\Space;
 use Illuminate\Http\Request;
-use Modules\Location\Models\Location;
 use Modules\Review\Models\Review;
 use Modules\Core\Models\Attributes;
-use DB;
 use Modules\User\Models\User;
 
 class ProductController extends Controller
