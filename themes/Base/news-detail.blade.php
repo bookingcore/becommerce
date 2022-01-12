@@ -1,31 +1,68 @@
 @extends('layouts.app')
 @section('content')
-    @include('global.bc')
-    <div class="bc-page--blog mt-5">
+    <div class="bc-page-blog">
         <div class="container">
             <div class="row">
-                <div class="col-md-9">
-                    <div class="bc-post--detail sidebar">
-
-                        <div class="px-4 py-5 my-5 text-center">
-                            <h1>{{$translation->title}}</h1>
+                <div class="col-md-8">
+                    <div class="bc-post-detail">
+                        <div class="post-header mb-4">
+                            <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" class="c-333333">{{$translation->title}}</a></h2>
+                            <ul class="post-meta list-unstyled d-flex m-0">
+                                <li><i class="fa fa-calendar"></i> {{display_date($row->created_at)}}</li>
+                                @if($row->tags->count())
+                                    <li>
+                                        <i class="fa fa-tags"></i>
+                                        @php $tags = []; @endphp
+                                        @foreach($row->tags as $tag)
+                                            <a class="c-333333" href="{{ route('news.tag',['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if(!$loop->last),@endif
+                                        @endforeach
+                                    </li>
+                                @endif
+                            </ul>
                         </div>
-                        <div class="bc-post__content">
+                        <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
+                            {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
+                        </a>
+                        <div class="bc-post_content">
                             {!! clean($translation->content) !!}
                         </div>
-                        <div class="bc-post__footer">
-                            <p class="bc-post__tags">
-                                {{__('Tags:')}}
-                                @foreach($row->tags as $tag)
-                                    <?php $tag_trans = $tag->translate() ?>
-                                    <a class="hover-c-main" href="{{$tag->getDetailUrl()}}">{{$tag_trans->name ?? ''}}</a>
-                                @endforeach
-                            </p>
-                            <div class="bc-post__social"><a class="facebook" href="#"><i class="fa fa-facebook"></i></a><a class="twitter" href="#"><i class="fa fa-twitter"></i></a><a class="google" href="#"><i class="fa fa-google-plus"></i></a><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a><a class="pinterest" href="#"><i class="fa fa-pinterest"></i></a></div>
+                        <div class="bc-post_footer">
+                            @if($row->tags->count())
+                                <div class="bc-post_tags mt-5">
+                                    <h6>{{__('Tags:')}}</h6>
+                                    @foreach($row->tags as $tag)
+                                        <?php $tag_trans = $tag->translate() ?>
+                                        <a class="tag" href="{{$tag->getDetailUrl()}}">{{$tag_trans->name ?? ''}}</a>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
+                    @if($related_post)
+                        <div class="related-post">
+                            <h5 class="post-title text-center mt-5">{{ __('You Might Also Like') }}</h5>
+                            <div class="post-content">
+                                <div class="row">
+                                    @foreach($related_post as $post)
+                                        @php $translation = $post->translate(); @endphp
+                                        <div class="col-lg-4">
+                                            <div class="post-review">
+                                                <a href="{{ $post->getDetailUrl() }}">
+                                                    <img class="img-cover" src="{{ get_file_url($post->image_id) }}" alt="{{ $translation->title }}">
+                                                </a>
+                                            </div>
+                                            <div class="post-body">
+                                                <h6 class="post-title">{{ $translation->title }}</h6>
+                                                <p class="m-0 post-date opacity-75">{{ display_date($post->created_at) }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-4">
                     @include('news.sidebar')
                 </div>
             </div>

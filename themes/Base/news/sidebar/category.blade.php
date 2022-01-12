@@ -3,9 +3,9 @@ $categories = \Modules\News\Models\NewsCategory::search()->with(['translation'])
 if(!$categories) return;
 if(!isset($current_cat)) $current_cat = null;
 ?>
-<aside class="widget widget--blog widget--categories">
-    <h3 class="widget__title">{{__('Categories')}}</h3>
-    <div class="widget__content">
+<aside class="widget widget-categories">
+    <h3 class="widget_title">{{__('Categories')}}</h3>
+    <div class="widget_content">
         <ul class="list-unstyled">
             @php
                 $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {

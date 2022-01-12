@@ -2,14 +2,13 @@
 $recent_posts = \Modules\News\Models\News::search()->take(5)->orderByDesc('id')->get();
 if(!count($recent_posts)) return;
 ?>
-<aside class="widget widget--blog widget--recent-post">
-    <h3 class="widget__title">{{__('Recent Posts')}}</h3>
-    <div class="widget__content">
+<aside class="widget widget-recent-post">
+    <h3 class="widget_title">{{__('Recent Posts')}}</h3>
+    <div class="widget_content">
         @foreach($recent_posts as $post)
-{{--            @dump($post)--}}
             <?php $translation = $post->translate() ?>
             <div class="post-content d-flex mb-3 pb-3">
-                <div class="post-thumb mr-15">
+                <div class="post-thumb">
                     <img src="{{ get_file_url($post->image_id) }}" alt="{{$translation->title}}">
                 </div>
                 <div class="post-title">
