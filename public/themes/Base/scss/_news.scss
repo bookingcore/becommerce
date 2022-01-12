@@ -1,4 +1,15 @@
 .bc-page-blog{
+    .news-heading{
+        .news-title{
+            line-height: 50px;
+            font-size: 2rem;
+        }
+        .news-description{
+            line-height: 28px;
+            font-size: 16px;
+            color: #6c757d;
+        }
+    }
     .btn-read-more{
         padding: .6rem .8rem;
         border-radius: 2px;

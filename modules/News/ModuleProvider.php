@@ -101,6 +101,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'news_enable_comment',
                 'news_comment_approved',
                 'news_comment_number_per_page',
+                'news_page_description'
             ],
             'html_keys'=>[
 
