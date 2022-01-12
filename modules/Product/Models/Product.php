@@ -617,7 +617,7 @@ class Product extends BaseProduct
                 $query->orderBy("products.price", "desc");
                 break;
             case "rate":
-                $query->orderBy("review_score", "desc");
+                $query->orderBy("review_score", $orderby);
                 break;
             case"id":
             case"title":

@@ -85,6 +85,11 @@ namespace Database\Seeders;
                         'name' => 'page_contact_image',
                         'val' => MediaFile::findMediaByName("bg_contact")->id,
                         'group' => "general",
+                    ],
+                    [
+                        'name'  => 'home_page_id',
+                        'val'   => "1",
+                        'group' => "general",
                     ]
                 ]
             );
@@ -93,6 +98,7 @@ namespace Database\Seeders;
                 'title'       => 'Home Page',
                 'slug'        => 'home-page',
                 'template_id' => '2',
+                'show_template' => 1,
                 'author_id' => 1,
                 'create_user' => '1',
                 'status'      => 'publish',
@@ -103,6 +109,7 @@ namespace Database\Seeders;
                 'title'       => 'Become a Vendor',
                 'slug'        => 'become-a-vendor',
                 'template_id' => '1',
+                'show_template' => '1',
                 'create_user' => '1',
                 'author_id' => 1,
                 'status'      => 'publish',

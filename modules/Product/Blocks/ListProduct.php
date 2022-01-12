@@ -73,6 +73,10 @@ class ListProduct extends BaseBlock
                             'id'   => 'title',
                             'name' => __("Title")
                         ],
+                        [
+                            'id'   => 'rate',
+                            'name' => __("Rate")
+                        ],
                     ],
                     "selectOptions"=> [
                         'hideNoneSelectedText' => "true"
