@@ -27,7 +27,7 @@
                             {!! clean($translation->content) !!}
                         </div>
                         <div class="bc-post_footer">
-                            @if( $row->tags)
+                            @if($row->tags->count())
                                 <div class="bc-post_tags mt-5">
                                     <h6>{{__('Tags:')}}</h6>
                                     @foreach($row->tags as $tag)
