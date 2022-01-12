@@ -216,7 +216,7 @@ $(document).on('click','.bravo_delete_cart_item',function(e){
     var me = $(this);
     var id = $(this).data('id');
     $.ajax({
-        url:bookingCore.routes.remove_cart_item,
+        url:BC.routes.remove_cart_item,
         data:{
             id:id
         },

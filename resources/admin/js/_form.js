@@ -1,4 +1,4 @@
-import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
+import BCAdaterPlugin from './ckeditor/uploadAdapter'
 
 (function ($) {
 
@@ -47,7 +47,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
@@ -72,7 +72,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
@@ -138,7 +138,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
                 }
 
                 $.ajax({
-                    url: bookingCore.url + '/media/edit_image',
+                    url: BC.url + '/media/edit_image',
                     method: 'POST',
                     dataType: 'JSON',
                     data:{
@@ -262,7 +262,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
         }
         if(action === 'delete' ||  action === 'permanently_delete')
         {
-            bookingCoreApp.showConfirm({
+            BCApp.showConfirm({
                 message: i18n.confirm_delete,
                 callback: function(result){
                     if(result){
@@ -272,7 +272,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
             })
         }else if(action === 'recovery')
         {
-            bookingCoreApp.showConfirm({
+            BCApp.showConfirm({
                 message: i18n.confirm_recovery,
                 callback: function(result){
                     if(result){
@@ -288,7 +288,7 @@ import BookingCoreAdaterPlugin from './ckeditor/uploadAdapter'
     $(".bc-delete-item").on("click", function (e) {
         e.preventDefault();
         var t = $(this);
-        bookingCoreApp.showConfirm({
+        BCApp.showConfirm({
             message: i18n.confirm_delete,
             callback: function(result){
                 if(result){

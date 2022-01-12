@@ -759,7 +759,7 @@ jQuery(function ($) {
         let product = $(this).data('product');
         let quickView = $('.mf-quick-view-modal');
         $.ajax({
-            url: bookingCore.url + '/product/quick_view/' + product.id,
+            url: BC.url + '/product/quick_view/' + product.id,
             method:'POST',
             beforeSend: function () {
                 $this.tooltip('hide');
@@ -881,7 +881,7 @@ jQuery(function ($) {
             compare_box.addClass('active');
         } else {
             $.ajax({
-                url: bookingCore.url + '/product/compare',
+                url: BC.url + '/product/compare',
                 method: 'POST',
                 data: {id: id},
                 beforeSend: function () {
@@ -903,7 +903,7 @@ jQuery(function ($) {
         let $this = $(this);
         let id = $this.attr('data-id');
         $.ajax({
-            url: bookingCore.url + '/product/remove_compare',
+            url: BC.url + '/product/remove_compare',
             method:'POST',
             data: {id: id},
             beforeSend: function () {

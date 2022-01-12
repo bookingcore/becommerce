@@ -27,7 +27,6 @@ class VariationController extends AdminController
         parent::__construct();
         $this->product_variation = ProductVariation::class;
         $this->product_class = Product::class;
-        $this->variable_product = VariableProduct::class;
         $this->product_variation_term = ProductVariationTerm::class;
     }
 
@@ -92,14 +91,14 @@ class VariationController extends AdminController
     public function ajaxVariationList($id){
         $this->checkPermission('product_update');
 
-        $query = $this->variable_product::where("id", $id);
+        $query = $this->product_class::where("id", $id);
         if (!$this->hasPermission('product_manage_others')) {
             $query->where("create_user", Auth::id());
         }
 
         $product = $query->first();
 
-        if(empty($product)) return;
+        if(!$product) return;
 
         return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
     }

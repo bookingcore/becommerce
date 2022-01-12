@@ -13,7 +13,7 @@ jQuery(function($){
         var id = $(this).data('id');
         var url = $(this).attr('href');
         $.ajax({
-            url: bookingCore.markAsRead,
+            url: BC.markAsRead,
             data: {'id' : id },
             method: "post",
             success:function (res) {
@@ -26,7 +26,7 @@ jQuery(function($){
         e.stopPropagation();
         e.preventDefault();
         $.ajax({
-            url: bookingCore.markAllAsRead,
+            url: BC.markAllAsRead,
             method: "post",
             success:function (res) {
                 $('.dropdown-notifications').find('li.notification').removeClass('active');
@@ -36,10 +36,10 @@ jQuery(function($){
         })
     });
 
-    if(bookingCore.pusher_api_key && bookingCore.pusher_cluster){
-        var pusher = new Pusher(bookingCore.pusher_api_key, {
+    if(BC.pusher_api_key && BC.pusher_cluster){
+        var pusher = new Pusher(BC.pusher_api_key, {
             encrypted: true,
-            cluster: bookingCore.pusher_cluster
+            cluster: BC.pusher_cluster
         });
     }
 
@@ -67,13 +67,13 @@ jQuery(function($){
         notificationsWrapper.find('.notif-count').text(notificationsCount);
     };
 
-    if(bookingCore.isAdmin > 0 && bookingCore.pusher_api_key){
+    if(BC.isAdmin > 0 && BC.pusher_api_key){
         var channel = pusher.subscribe('admin-channel');
         channel.bind('App\\Events\\PusherNotificationAdminEvent', callback);
     }
 
-    if(bookingCore.currentUser > 0 && bookingCore.pusher_api_key){
-        var channelPrivate = pusher.subscribe('user-channel-'+bookingCore.currentUser);
+    if(BC.currentUser > 0 && BC.pusher_api_key){
+        var channelPrivate = pusher.subscribe('user-channel-'+BC.currentUser);
         channelPrivate.bind('App\\Events\\PusherNotificationPrivateEvent', callback);
     }
 

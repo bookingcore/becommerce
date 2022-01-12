@@ -54,7 +54,7 @@ import {Tree,Draggable} from 'he-tree-vue'
             searchItems(type) {
                 // if(!type.q) return;
                 $.ajax({
-                    url: bookingCore.url + '/admin/module/core/menu/searchTypeItems',
+                    url: BC.url + '/admin/module/core/menu/searchTypeItems',
                     data: {
                         class: type.class,
                         q: type.q
@@ -74,7 +74,7 @@ import {Tree,Draggable} from 'he-tree-vue'
             reloadItems() {
                 var me = this;
                 $.ajax({
-                    url: bookingCore.url + '/admin/module/core/menu/getItems',
+                    url: BC.url + '/admin/module/core/menu/getItems',
                     dataType: 'json',
                     type: 'post',
                     data: {
@@ -93,7 +93,7 @@ import {Tree,Draggable} from 'he-tree-vue'
             reloadTypes() {
                 var me = this;
                 $.ajax({
-                    url: bookingCore.url + '/admin/module/core/menu/getTypes',
+                    url: BC.url + '/admin/module/core/menu/getTypes',
                     dataType: 'json',
                     type: 'post',
                     data: {},
@@ -176,7 +176,7 @@ import {Tree,Draggable} from 'he-tree-vue'
                 var items = this.parseMenuItems(this.items);
 
                 $.ajax({
-                    url: bookingCore.url + '/admin/module/core/menu/store',
+                    url: BC.url + '/admin/module/core/menu/store',
                     dataType: 'json',
                     type: 'post',
                     data: {

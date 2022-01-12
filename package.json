@@ -2,12 +2,8 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
-        "development": "mix",
         "watch": "mix watch",
-        "watch-poll": "mix watch -- --watch-options-poll=1000",
-        "hot": "mix watch --hot",
         "prod": "npm run production",
-        "production": "mix --production",
         "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix",
         "f-watch": "npm run f-dev watch",
         "f-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"

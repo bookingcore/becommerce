@@ -1,4 +1,4 @@
-/*import BookingCoreAdaterPlugin from "../../../../resources/admin/js/ckeditor/uploadAdapter";*/
+/*import BCAdaterPlugin from "../../../../resources/admin/js/ckeditor/uploadAdapter";*/
 
 jQuery(function ($) {
     'use strict';
@@ -181,7 +181,7 @@ jQuery(function ($) {
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
@@ -205,7 +205,7 @@ jQuery(function ($) {
                         file_type:'video',
                         onSelect:function (files) {
                             if(files.length)
-                                callback(bookingCore.url+'/media/preview/'+files[0].id);
+                                callback(BC.url+'/media/preview/'+files[0].id);
                         },
                     });
                 }
