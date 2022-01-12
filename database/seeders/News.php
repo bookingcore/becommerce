@@ -17,6 +17,7 @@ class News extends Seeder
     public function run()
     {
         setting_update_item('news_page_list_title','News');
+        setting_update_item('news_page_description','Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit. Proin gravida nibh vel velit auctor Aenean sollicitudin, adipisicing elit sed lorem quis bibendum auctor.');
         setting_update_item('news_sidebar',[
             ['type'=>'search_form'],
             ['type'=>'category'],

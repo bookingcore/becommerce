@@ -13,6 +13,12 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="" >{{__("Title Description")}}</label>
+                    <div class="form-controls">
+                        <textarea type="text" name="news_page_description" class="form-control">{{setting_item_with_lang('news_page_description',request()->query('lang'),$settings['news_page_description'] ?? '')}}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="" >{{__("SEO Options")}}</label>
                     <ul class="nav nav-tabs">
                         <li class="nav-item">

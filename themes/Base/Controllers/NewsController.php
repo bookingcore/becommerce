@@ -18,7 +18,8 @@ class NewsController extends FrontendController
             'rows'=>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->paginate(12),
             "seo_meta" => News::getSeoMetaForPageList(),
             'page_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : false,
-            'header_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',false,__("News"))
+            'header_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',false,__("News")),
+            'news_description' => setting_item_with_lang('news_page_description')
         ];
         return view('news',$data);
     }
