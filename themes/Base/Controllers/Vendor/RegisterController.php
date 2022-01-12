@@ -21,7 +21,7 @@ class RegisterController extends FrontendController
 {
 
     public function index(){
-        if(auth()->check()){
+        if(auth()->check() or !is_vendor_enable()){
             return redirect('/');
         }
         $data = [
@@ -31,7 +31,7 @@ class RegisterController extends FrontendController
     }
 
     public function store(Request $request){
-        if(auth()->check()){
+        if(auth()->check() or !is_vendor_enable()){
             return redirect('/');
         }
         $messages = [

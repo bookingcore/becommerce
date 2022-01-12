@@ -9,7 +9,7 @@
         <li class="menu-hr"><a class="dropdown-item" href="{{route('user.order.index')}}"><i class="fa fa-clock-o"></i> {{__("Order History")}}</a></li>
         <li class="menu-hr"><a class="dropdown-item" href="{{route('user.password')}}"><i class="fa fa-lock"></i> {{__("Change password")}}</a></li>
 
-        @if(is_vendor_enable() and Auth::user()->hasPermission('vendor_access'))
+        @if(is_vendor_enable() and is_vendor())
             <li><hr class="dropdown-divider"></li>
             <li><h6 class="dropdown-header">{{__("Vendor Settings")}}</h6></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.dashboard')}}"><i class="fa fa-desktop"></i> {{__("Dashboard")}}</a></li>
