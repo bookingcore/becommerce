@@ -1339,14 +1339,9 @@ function is_admin(){
     if(auth()->user()->hasPermission('setting_manage')) return true;
     return false;
 }
-function is_candidate(){
+function is_vendor(){
     if(!auth()->check()) return false;
-    if(auth()->user()->hasPermission('candidate_manage')) return true;
-    return false;
-}
-function is_employer(){
-    if(!auth()->check()) return false;
-    if(auth()->user()->hasPermission('employer_manage')) return true;
+    if(auth()->user()->hasPermission('vendor_access')) return true;
     return false;
 }
 

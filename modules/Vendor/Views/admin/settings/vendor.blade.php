@@ -33,6 +33,26 @@
                         </div>
                         <p><i>{{__('Example: 10% commission. Vendor get 90%, Admin get 10%')}}</i></p>
                     </div>
+                    <hr>
+                    <div class="form-group" data-condition="vendor_enable:is(1)">
+                        <label>{{__("Page for Terms and Conditions")}}</label>
+                        <div class="form-controls">
+                            <?php
+                            $template = \Modules\Page\Models\Page::find(setting_item('vendor_term_condition'));
+
+                            \App\Helpers\AdminForm::select2('vendor_term_condition', [
+                                'configs' => [
+                                    'ajax' => [
+                                        'url'      => url('/admin/module/page/getForSelect2'),
+                                        'dataType' => 'json'
+                                    ]
+                                ]
+                            ],
+                                !empty($template->id) ? [$template->id, $template->title] : false
+                            )
+                            ?>
+                        </div>
+                    </div>
                 @else
                     <p>{{__('You can edit on main lang.')}}</p>
                 @endif
@@ -57,10 +77,17 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="form-controls">
+                            <div class="form-group">
+                                <label> <input type="checkbox" @if(setting_item('vendor_register_captcha') == 1) checked @endif name="vendor_register_captcha" value="1"> {{__("Captcha for Register?")}}</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <label>{{__('Vendor Role')}}</label>
                         <div class="form-controls">
                             <select name="vendor_role" class="form-control">
-
                                 @foreach(\Modules\User\Models\Role::all() as $role)
                                 <option value="{{$role->id}}" {{setting_item('vendor_role') == $role->id ? 'selected': ''  }}>{{ucfirst($role->name)}}</option>
                                     @endforeach

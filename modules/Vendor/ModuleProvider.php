@@ -54,10 +54,12 @@ class ModuleProvider extends ModuleServiceProvider
             'view'      => "Vendor::admin.settings.vendor",
             "keys"      => [
                 'vendor_enable',
+                'vendor_term_condition',
                 'vendor_commission_type',
                 'vendor_commission_amount',
                 'vendor_auto_approved',
                 'vendor_role',
+                'vendor_register_captcha'
             ],
             'html_keys' => [
 

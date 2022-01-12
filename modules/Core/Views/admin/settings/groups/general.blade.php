@@ -80,7 +80,7 @@
                         <label>{{__("Page for Terms and Conditions")}}</label>
                         <div class="form-controls">
                             <?php
-                            $template = !empty($settings['terms_and_conditions_id']) ? \Modules\Page\Models\Page::find($settings['terms_and_conditions_id']) : false;
+                            $template = \Modules\Page\Models\Page::find(setting_item('terms_and_conditions_id'));
 
                             \App\Helpers\AdminForm::select2('terms_and_conditions_id', [
                                 'configs' => [

@@ -27,6 +27,11 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
    Route::get('/notification','User\NotificationController@index')->name('user.notification');
 });
 
+Route::group(['prefix'=>'vendor'],function(){
+   Route::get('/register','Vendor\RegisterController@index')->name('vendor.register');
+   Route::post('/register/store','Vendor\RegisterController@store')->name('vendor.register.store');
+});
+
 Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
    Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
    Route::get('/product','Vendor\ProductController@index')->name('vendor.product');
