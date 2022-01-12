@@ -18,7 +18,6 @@ use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
-use phpDocumentor\Reflection\Types\Self_;
 
 class Product extends BaseProduct
 {
