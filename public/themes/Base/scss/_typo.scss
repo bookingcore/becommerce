@@ -4,6 +4,9 @@ a{
 .hl{
     color:var(--main-color);
 }
+.fs-12{
+    font-size: 12px;
+}
 .fs-14{
     font-size: 14px;
 }
@@ -125,4 +128,34 @@ img[data-srcset] {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.f-w-10{
+    flex: 0 0 10% !important;
+}
+.f-w-20{
+    flex: 0 0 20% !important;
+}
+.f-w-30{
+    flex: 0 0 30% !important;
+}
+.f-w-40{
+    flex: 0 0 40% !important;
+}
+.f-w-50{
+    flex: 0 0 50% !important;
+}
+.miw-300{
+    min-width: 300px;
+}
+.miw-250{
+    min-width: 250px;
+}
+.miw-120{
+    min-width: 120px;
+}
+.btn-primary {
+    color: #fff;
+    background-color: #1a2b48;
+    border-color: #1a2b48;
 }

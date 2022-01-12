@@ -266,7 +266,7 @@ class CartManager
     public static function order(){
         $order = new Order();
         $order->customer_id = auth()->id();
-        $order->status = 'draft';
+        $order->status = Order::DRAFT;
         $order->save();
 
         $items = static::items();
@@ -278,8 +278,9 @@ class CartManager
             $order_item->price = $item->price;
             $order_item->qty = $item->qty;
             $order_item->subtotal = $item->subtotal;
-            $order_item->status = 'draft';
+            $order_item->status = Order::DRAFT;
             $order_item->meta = $item->meta;
+            $order_item->variant_id = $item->variant_id;
             $order_item->save();
 
         }

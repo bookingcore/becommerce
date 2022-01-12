@@ -5,7 +5,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="mb-3">
-                        <a href="{{ route('product.shipping.new') }}" class="btn btn-sm btn-default">{{ __("Add shipping zone") }}</a>
+                        <a href="{{ route('product.shipping.create') }}" class="btn btn-sm btn-default">{{ __("Add shipping zone") }}</a>
                     </div>
                     <div class="table-responsive">
                         @php
@@ -143,7 +143,7 @@
             <div class="panel">
                 <div class="panel-body">
                     <div class="mb-3">
-                        <a href="{{ route('product.shipping.class.new') }}" class="btn btn-sm btn-default">{{ __("Add shipping class") }}</a>
+                        <a href="{{ route('product.shipping.class.create') }}" class="btn btn-sm btn-default">{{ __("Add shipping class") }}</a>
                     </div>
                     <div class="table-responsive">
                         <table class="table">

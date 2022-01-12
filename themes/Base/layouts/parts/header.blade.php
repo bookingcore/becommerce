@@ -5,7 +5,7 @@
         <div class="container">
             <div class="row justify-content-between">
                 <div class="col-md-3 header__content-left">
-                    <a class="bc-logo" href="{{url('/')}}">
+                    <a class="bc-logo text-decoration-none" href="{{url('/')}}">
                         @if($logo_id = setting_item("logo_id"))
                             <?php $logo = get_file_url($logo_id,'full') ?>
                             <img src="{{$logo}}" alt="{{setting_item("site_title")}}">

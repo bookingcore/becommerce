@@ -70,7 +70,7 @@ Route::group(['prefix'=>'coupon'],function (){
 });
 
 Route::group(['prefix' => 'settings/shipping'], function (){
-    Route::get('/shipping-zone/create', 'ShippingSettingContainer@zoneCreate')->name('product.shipping.new');
+    Route::get('/shipping-zone/create', 'ShippingSettingContainer@zoneCreate')->name('product.shipping.create');
     Route::get('/shipping-zone/edit/{id}', 'ShippingSettingContainer@zoneEdit')->name('product.shipping.edit');
     Route::post('/shipping-zone/store', 'ShippingSettingContainer@zoneStore')->name('product.shipping.store');
     Route::get('/shipping-zone/delete/{id}', 'ShippingSettingContainer@zoneDelete')->name('product.shipping.delete');
@@ -80,8 +80,14 @@ Route::group(['prefix' => 'settings/shipping'], function (){
     Route::post('/shipping-zone/shipping-method/store', 'ShippingSettingContainer@methodStore')->name('product.shipping.method.store');
     Route::get('/shipping-zone/shipping-method/delete/{id}', 'ShippingSettingContainer@methodDelete')->name('product.shipping.method.delete');
 
-    Route::get('/shipping-class/create', 'ShippingSettingContainer@shippingClassCreate')->name('product.shipping.class.new');
+    Route::get('/shipping-class/create', 'ShippingSettingContainer@shippingClassCreate')->name('product.shipping.class.create');
     Route::get('/shipping-class/edit/{id}', 'ShippingSettingContainer@shippingClassEdit')->name('product.shipping.class.edit');
     Route::post('/shipping-class/store', 'ShippingSettingContainer@shippingClassStore')->name('product.shipping.class.store');
     Route::get('/shipping-class/delete/{id}', 'ShippingSettingContainer@shippingClassDelete')->name('product.shipping.class.delete');
+
+    Route::get('/tax/create', 'TaxSettingContainer@create')->name('product.tax.create');
+    Route::get('/tax/edit/{id}', 'TaxSettingContainer@edit')->name('product.tax.edit');
+    Route::post('/tax/store', 'TaxSettingContainer@store')->name('product.tax.store');
+    Route::get('/tax/delete/{id}', 'TaxSettingContainer@delete')->name('product.tax.delete');
+
 });

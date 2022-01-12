@@ -19,6 +19,7 @@
     use Modules\Vendor\Models\VendorRequest;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
+    use Modules\Vendor\Traits\HasPayout;
 
     class User extends Authenticatable implements MustVerifyEmail
     {
@@ -26,6 +27,7 @@
         use HasApiTokens, HasFactory, Notifiable;
         use HasRoles;
         use HasAddress;
+        use HasPayout;
 
         /**
          * The attributes that are mass assignable.
@@ -475,5 +477,6 @@
         public function getStoreUrl(){
             return route('store',['slug'=>$this->username ? $this->username : $this->id]);
         }
+
     }
 

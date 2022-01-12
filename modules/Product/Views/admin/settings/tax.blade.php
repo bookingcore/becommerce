@@ -1,9 +1,8 @@
 <div class="row">
-    <div class="col-sm-4">
+    <div class="col-sm-12">
         <h3 class="form-group-title">{{__("Tax Settings")}}</h3>
-        <p class="form-group-desc">{{__('Tax Settings')}}</p>
     </div>
-    <div class="col-sm-8">
+    <div class="col-sm-12">
         <div class="panel">
             <div class="panel-body">
                 @if(is_default_lang())
@@ -67,7 +66,7 @@
                 <div class="form-group">
                     <label class="" >{{__("Price display suffix")}}</label>
                     <div class="form-controls">
-                        <input type="text" name="tax_price_display_suffix" class="form-control" value="{{ @setting_item('tax_price_display_suffix', '') }}" placeholder="{{ __("N/A") }}">
+                        <input type="text" name="tax_price_display_suffix" class="form-control" value="{{ @setting_item_with_lang('tax_price_display_suffix', request()->query('lang'), '') }}" placeholder="{{ __("N/A") }}">
                     </div>
                 </div>
                 @if(is_default_lang())
@@ -81,6 +80,79 @@
                         </div>
                     </div>
                 @endif
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr>
+<div class="row">
+    <div class="col-sm-12">
+        <h3 class="form-group-title">{{__("Tax rate classes")}}</h3>
+    </div>
+    <div class="col-sm-12">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="mb-3">
+                    <a href="{{ route('product.tax.create') }}" class="btn btn-sm btn-default">{{ __("Add item") }}</a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ __("Country code") }}</th>
+                            <th>{{ __("State code") }}</th>
+                            <th>{{ __("Postcode / ZIP") }}</th>
+                            <th>{{ __("City") }}</th>
+                            <th>{{ __("Rate %") }}</th>
+                            <th>{{ __("Tax name") }}</th>
+                            <th>{{ __("Priority") }}</th>
+                            <th>{{ __("Compound") }}</th>
+                            <th>{{ __("Shipping") }}</th>
+                            <th>{{ __("Class") }}</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        @php
+                            $taxRates = \Modules\Product\Models\TaxRate::all();
+                        @endphp
+                        <tbody>
+                            @if($taxRates && $taxRates->count() > 0)
+                                @foreach($taxRates as $key => $taxRate)
+                                    @php $transition = $taxRate->translate(request()->query('lang')) @endphp
+                                    <tr>
+                                        <td>{{ $taxRate->country_code }}</td>
+                                        <td>{{ $taxRate->state }}</td>
+                                        <td>{{ $taxRate->locationPostcodes->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->locationCities->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->tax_rate }}</td>
+                                        <td>{{ $transition->name }}</td>
+                                        <td>{{ $taxRate->priority }}</td>
+                                        <td><input type="checkbox" @if(!empty($taxRate->compound)) checked @endif disabled class="disabled" /></td>
+                                        <td><input type="checkbox" @if(!empty($taxRate->shipping)) checked @endif disabled class="disabled" /></td>
+                                        <td>{{ $taxRate->class_name }}</td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                                    {{__("Actions")}}
+                                                </button>
+                                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                    <a href="{{ route('product.tax.edit', ['id' => $taxRate->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                                    <a href="{{ route('product.tax.delete', ['id' => $taxRate->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @else
+                                <tr>
+                                    <td class="text-center" colspan="11">{{ __("No tax rates") }}</td>
+                                </tr>
+                            @endif
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
         </div>
     </div>

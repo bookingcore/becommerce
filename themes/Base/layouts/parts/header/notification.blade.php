@@ -14,20 +14,20 @@ $countUnread = $checkNotify->where('read_at', null)->count();
 ?>
 <li class="dropdown-notifications dropdown p-0">
     <a href="#" data-bs-toggle="dropdown" class="is_login nav-link text-white position-relative">
-                                <span class="position-relative">
-                                    <i class="fa fa-bell mr-2"></i>
-                                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">{{$countUnread}}</span>
-                                </span>
+        <span class="position-relative">
+            <i class="fa fa-bell mr-2"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">{{$countUnread}}</span>
+        </span>
         <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end">
-        <div class="dropdown-toolbar">
+    <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end miw-300 p-3">
+        <div class="dropdown-toolbar d-flex justify-content-between align-items-center pb-2 mb-2">
+            <h3 class="dropdown-toolbar-title fs-16 mb-0">{{__('Notifications')}} (<span class="notif-count">{{$countUnread}}</span>)</h3>
             <div class="dropdown-toolbar-actions">
-                <a href="#" class="markAllAsRead">{{__('Mark all as read')}}</a>
+                <a href="#" class="markAllAsRead fs-14">{{__('Mark all as read')}}</a>
             </div>
-            <h3 class="dropdown-toolbar-title">{{__('Notifications')}} (<span class="notif-count">{{$countUnread}}</span>)</h3>
         </div>
-        <ul class="dropdown-list-items p-0">
+        <div class="list-group">
             @if(count($notifications)> 0)
                 @foreach($notifications as $oneNotification)
                     @php
@@ -50,7 +50,7 @@ $countUnread = $checkNotify->where('read_at', null)->count();
                             $active = 'active';
                         }
                     @endphp
-                    <li class="notification {{$active}}">
+                    <li class="list-group-item list-group-item-action {{$active}}">
                         <a class="{{$class}} p-0" data-id="{{$idNotification}}" href="{{$link}}">
                             <div class="media">
                                 <div class="media-left">
@@ -72,10 +72,14 @@ $countUnread = $checkNotify->where('read_at', null)->count();
                         </a>
                     </li>
                 @endforeach
+            @else
+                <a href="#" class="list-group-item list-group-item-action">
+                    <span class="fs-14">{{ __("No notification") }}</span>
+                </a>
             @endif
-        </ul>
-        <div class="dropdown-footer text-center">
-            <a href="{{route('core.notification.loadNotify')}}">{{__('View More')}}</a>
+        </div>
+        <div class="dropdown-footer text-end mt-3 fs-14">
+            <a class="btn btn-primary fs-14 c-white" href="{{route('core.notification.loadNotify')}}">{{__('View More')}}</a>
         </div>
     </ul>
 </li>

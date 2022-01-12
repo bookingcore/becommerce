@@ -15,6 +15,7 @@ class CreateProductTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('parent_id')->nullable();
             $table->string('sku',255)->nullable();
             $table->string('title', 255)->nullable();
             $table->string('slug',255)->charset('utf8')->index();
@@ -391,6 +392,9 @@ class CreateProductTable extends Migration
         Schema::dropIfExists('product_sz_method_translations');
         Schema::dropIfExists('product_shipping_classes');
         Schema::dropIfExists('product_shipping_class_translations');
+        Schema::dropIfExists('product_tax_rates');
+        Schema::dropIfExists('product_tax_rate_translations');
+        Schema::dropIfExists('product_tax_locations');
 
         Schema::dropIfExists('user_address');
     }

@@ -180,4 +180,21 @@ class BaseProduct extends BaseModel
         }
         return $this->price;
     }
+
+
+    public function stockQuality(){
+        if(!empty($this->is_manage_stock)){
+            $quantity = !empty($this->quantity)?$this->quantity:0;
+        }else{
+            if($this->stock_status==='out'){
+                $quantity =  0;
+            }else{
+                $quantity =true;
+            }
+        }
+        return $quantity;
+    }
+
+
+
 }

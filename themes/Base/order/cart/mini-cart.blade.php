@@ -3,11 +3,11 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
 ?>
 <div class="dropdown dropstart ">
     <a  class="position-relative" data-bs-toggle="dropdown">
-        <i class="fa fa-shopping-cart fa-2x"></i>
+        <i class="fa fa-shopping-cart fa-2x c-main"></i>
         <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger bc-mini-cart-count-item">
-                            {{\Modules\Order\Helpers\CartManager::count()}}
-                            <span class="visually-hidden">{{__("Your cart")}}</span>
-                          </span>
+            {{\Modules\Order\Helpers\CartManager::count()}}
+            <span class="visually-hidden">{{__("Your cart")}}</span>
+        </span>
     </a>
     <div class="dropdown-menu">
         <div class="bc-mini-cart-dropdown px-3 py-2">

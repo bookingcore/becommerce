@@ -24,6 +24,7 @@ class ModuleProvider extends ModuleServiceProvider
                 CreatePayoutsCommand::class,
             ]);
         }
+        VendorMenuManager::register("product",[$this,'addVendorMenu']);
     }
     /**
      * Register bindings in the container.
@@ -60,6 +61,27 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'html_keys' => [
 
+            ]
+        ];
+    }
+
+
+    public function addVendorMenu(){
+        return [
+            'product'=>[
+                'url'=>route('vendor.product'),
+                'title'=>__("Products"),
+                "icon"=>"fa fa-database"
+            ],
+            'order'=>[
+                'url'=>route('vendor.order'),
+                'title'=>__("Orders"),
+                "icon"=>"fa fa-shopping-basket"
+            ],
+            'payout'=>[
+                'url'=>route('vendor.payout'),
+                'title'=>__("Payouts"),
+                "icon"=>"fa fa-credit-card"
             ]
         ];
     }

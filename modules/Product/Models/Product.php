@@ -486,38 +486,44 @@ class Product extends BaseProduct
         return $st;
     }
 
-    public function addToCartValidate(Request $request)
+    public function addToCartValidate($qty=1, $variant_id=null)
     {
-        $error = [];
-        //check price
         if($this->price == null && $this->sale_price == null){
-            $error[] = __('This content must set price. Please contact with author.');
+            throw  new \Exception('This content must set price. Please contact with author.');
         }
-        return $error;
+//        gop chung bang product va variant product
+        switch ($this->product_type){
+            case 'variable':
+                    $variant = self::where('parent_id',$this->id)->where('id',$variant_id)->first();
+                    if(!empty($variant)){
+                        if(!empty($this->is_manage_stock)){
+//                            Nếu SP cha bật quản lý stock	remain_stock = stock - on_hold của sản phẩm cha
+                            $onHold = $this->on_hold;
+                            if(!empty($this->quantity)){
+                                $remainStock = $this->quantity - $onHold;
+                                if($qty>$remainStock){
+                                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                                }
+                            }else{
+                                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+                            }
+                        }else{
+//                            Nếu SP cha không bật	remain_stock = stock - on_hodl riêng của từng variant
+                            $variant->stockValidation($qty);
+                        }
+                    }else{
+                        $this->stockValidation($qty);
+                    }
+                break;
+            case 'external':
+                throw  new \Exception('Product type external. You cannot add to cart!');
+                break;
+            default:
+                $this->stockValidation($qty);
+                break;
+        }
+
     }
-
-    public function addToCart(Request $request)
-    {
-        $checkValidate = $this->addToCartValidate($request);
-        if(!empty($checkValidate)){
-            return $this->sendError($checkValidate);
-        }
-
-        // Only single item
-        $cartProduct = CartManager::items()->where('product_id', $this->getBuyableIdentifier())->where('name', $this->getBuyableDescription())->first();
-        if($cartProduct){
-        }else{
-            CartManager::add($this);
-        }
-        $buy_now = $request->input('buy_now');
-        return $this->sendSuccess([
-            'fragments'=>CartManager::get_cart_fragments(),
-            'url'=>$buy_now ? route('checkout') : ''
-        ],
-            !$buy_now ? __('":title" has been added to your cart.',['title'=>$this->title]) :''
-        );
-    }
-
     public function list_attrs(){
         return Attributes::select('id','name','slug')->get();
     }
@@ -625,4 +631,41 @@ class Product extends BaseProduct
         $limit = $fill['limit'] ?? 12;
         return $query->with(['hasWishList','brand'])->paginate($limit);
     }
+
+
+    public function productOnHold(){
+        return $this->hasMany(ProductOnHold::class,'product_id','id')->where('expired_at','>',now());
+    }
+
+    public function getOnHoldAttribute()
+    {
+        return $this->productOnHold()->sum('qty');
+    }
+
+    //    Hatt
+
+
+    public function stockValidation($qty)
+    {
+        $isManageStock  = $this->is_manage_stock;
+        if(!empty($isManageStock)){
+            $onHold = $this->on_hold;
+            if(!empty($this->quantity)){
+                $remainStock = $this->quantity - $onHold;
+                if($qty>$remainStock){
+                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                }
+            }else{
+                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+            }
+        }else{
+            if($this->stock_status ==='out'){
+                throw new \Exception(__("Out of stock"));
+            }
+        }
+    }
+
+
+
+
 }

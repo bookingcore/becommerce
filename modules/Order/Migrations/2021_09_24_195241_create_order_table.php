@@ -70,6 +70,7 @@ class CreateOrderTable extends Migration
 
             $table->bigInteger('order_id')->nullable();
             $table->bigInteger('object_id')->nullable();
+            $table->bigInteger('variant_id')->nullable();
             $table->string('object_model',255)->nullable();
             $table->bigInteger('vendor_id')->nullable();
             $table->bigInteger('payout_id')->nullable();

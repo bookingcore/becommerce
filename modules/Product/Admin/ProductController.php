@@ -10,6 +10,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attributes;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
@@ -39,7 +40,7 @@ class ProductController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
         $this->product = Product::class;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;

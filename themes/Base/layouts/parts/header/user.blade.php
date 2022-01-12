@@ -2,7 +2,7 @@
     <a href="#" data-bs-toggle="dropdown" class="login nav-link text-white">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
         <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end">
+    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end miw-250">
         <li class="">
             <a class="dropdown-item" href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
         </li>
@@ -13,8 +13,9 @@
             <li><hr class="dropdown-divider"></li>
             <li><h6 class="dropdown-header">{{__("Vendor Settings")}}</h6></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.dashboard')}}"><i class="fa fa-line-chart"></i> {{__("Dashboard")}}</a></li>
-            <li class=""><a class="dropdown-item" href="{{route('vendor.order')}}"><i class="fa fa-line-chart"></i> {{__("Orders")}}</a></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.product')}}"><i class="fa fa-line-chart"></i> {{__("Products")}}</a></li>
+            <li class=""><a class="dropdown-item" href="{{route('vendor.order')}}"><i class="fa fa-line-chart"></i> {{__("Orders")}}</a></li>
+            <li class=""><a class="dropdown-item" href="{{route('vendor.payout')}}"><i class="fa fa-line-chart"></i> {{__("Payouts")}}</a></li>
         @endif
         @if(Auth::user()->hasPermission('setting_update'))
             <li><hr class="dropdown-divider"></li>

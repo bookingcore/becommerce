@@ -235,7 +235,7 @@ jQuery(function ($) {
 
     var onSubmitSubscribe = false;
     //Subscribe box
-    $('.bravo-subscribe-form').submit(function (e) {
+    $('.bc-subscribe-form').submit(function (e) {
         e.preventDefault();
 
         if (onSubmitSubscribe) return;
