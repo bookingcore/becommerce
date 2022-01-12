@@ -7,6 +7,8 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
@@ -48,6 +50,7 @@
             </script>
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
+            <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
             <!-- custom scripts-->
