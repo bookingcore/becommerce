@@ -78,20 +78,18 @@ class NewsController extends FrontendController
 
     public function detail(Request $request,$slug){
         $news = News::query()->isActive()->where('slug',$slug)->with(['tags','tags.translation'])->first();
+        $related_post = $news->where('cat_id',$news->cat_id)->where('slug','!=',$slug)->get();
         if(!$news){
             abort(404);
         }
         $translation = $news->translate();
         $data = [
             'row'=>$news,
-            'breadcrumbs' => [
-                ['name' => __('News'), 'url' => route('news')],
-                ['name' => $translation->title,'class' => 'active'],
-            ],
             "seo_meta" => $news->me,
             'translation'=>$translation,
             'page_title'=>$translation->title,
             'header_title'=>$translation->title,
+            'related_post' => $related_post
         ];
         return view('news-detail',$data);
     }

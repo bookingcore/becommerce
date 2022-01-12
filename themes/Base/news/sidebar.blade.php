@@ -2,8 +2,8 @@
     @if(!empty($widget['type']))
         @switch($widget['type'])
             @case ('search_form')
-                <aside class="widget widget--blog widget--search">
-                    <form class="bc-form--widget-search" action="{{route('news')}}" method="get">
+                <aside class="widget widget-search">
+                    <form class="bc-form-widget-search" action="{{route('news')}}" method="get">
                         <input class="form-control pr-5" type="text" name="s" value="{{request('s')}}" placeholder="{{__('Search...')}}">
                         <button><i class="fa fa-search"></i></button>
                     </form>
