@@ -23,7 +23,7 @@
                 this.onSubmit = true;
 
                 $.ajax({
-                    url:bookingCore.url+'/booking/doCheckout',
+                    url:BC.url+'/booking/doCheckout',
                     data:$('#bravo-checkout-page').find('input,textarea,select').serialize(),
                     method:"post",
                     success:function (res) {

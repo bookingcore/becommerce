@@ -79,7 +79,7 @@ Vue.directive('click-outside', {
     }
 });
 
-window.bookingCoreChatBox = new Vue({
+window.BCChatBox = new Vue({
     el:'#bc-chat-box',
     data:{
         config:typeof bravo_chat_config !='undefined' ? bravo_chat_config : {
@@ -366,7 +366,7 @@ window.bookingCoreChatBox = new Vue({
 			});
         },
         checkUser:function(){
-            if(!bookingCore.currentUser){
+            if(!BC.currentUser){
                 $('#login').modal('show');
                 return false;
             }
@@ -407,7 +407,7 @@ window.bookingCoreChatBox = new Vue({
 
         this.initialDocumentTitle = document.title;
 
-        if(this.config.enable &&  bookingCore.currentUser){
+        if(this.config.enable &&  BC.currentUser){
 
             if(window.localStorage){
                 var bravo_inbox_last = window.localStorage.getItem('bravo_inbox_last');

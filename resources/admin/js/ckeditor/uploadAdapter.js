@@ -1,4 +1,4 @@
-class BookingCoreAdapterUpload {
+class BCAdapterUpload {
     constructor( loader ) {
         // The file loader instance to use during the upload.
         this.loader = loader;
@@ -29,7 +29,7 @@ class BookingCoreAdapterUpload {
         // integration to choose the right communication channel. This example uses
         // a POST request with JSON as a data structure but your configuration
         // could be different.
-        xhr.open( 'POST', bookingCore.url+'/admin/module/media/store', true );
+        xhr.open( 'POST', BC.url+'/admin/module/media/store', true );
         xhr.responseType = 'json';
     }
 
@@ -98,11 +98,11 @@ class BookingCoreAdapterUpload {
 
 // ...
 
-function BookingCoreAdapterPlugin( editor ) {
+function BCAdapterPlugin( editor ) {
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader ) => {
         // Configure the URL to the upload script in your back-end here!
-        return new BookingCoreAdapterUpload( loader );
+        return new BCAdapterUpload( loader );
     };
 }
 
-export default BookingCoreAdapterPlugin
+export default BCAdapterPlugin

@@ -73,13 +73,13 @@ export default function(){
             },
             removeFiles() {
                 var me = this;
-                bookingCoreApp.showConfirm({
+                BCApp.showConfirm({
                     message: i18n.confirm_delete,
                     callback: function(result){
                         if(result){
                             me.isLoading = true;
                             $.ajax({
-                                url:bookingCore.url+'/admin/module/media/removeFiles',
+                                url:BC.url+'/admin/module/media/removeFiles',
                                 type:'POST',
                                 data:{
                                     file_ids : me.selected
@@ -87,17 +87,17 @@ export default function(){
                                 dataType:'json',
                                 success:function (data) {
                                     if(data.status === 1){
-                                        //bookingCoreApp.showSuccess(data);
+                                        //BCApp.showSuccess(data);
                                     }
                                     if(data.status === 0){
-                                        bookingCoreApp.showError(data);
+                                        BCApp.showError(data);
                                     }
                                     me.isLoading = false;
                                     me.reloadLists();
                                 },
                                 error:function (e) {
                                     me.isLoading = false;
-                                    bookingCoreApp.showAjaxError(e);
+                                    BCApp.showAjaxError(e);
                                     me.resetSelected();
                                 }
                             });
@@ -121,7 +121,7 @@ export default function(){
                 $("#cdn-browser .icon-loading").addClass("active");
                 me.isLoading = true;
                 $.ajax({
-                    url:bookingCore.url+'/admin/module/media/getLists',
+                    url:BC.url+'/admin/module/media/getLists',
                     type:'POST',
                     data:{
                         file_type:this.uploadConfigs.file_type,
@@ -149,7 +149,7 @@ export default function(){
                     d.append('type',this.uploadConfigs.file_type);
                     me.isLoading = true;
                     $.ajax({
-                        url:bookingCore.url+'/admin/module/media/store',
+                        url:BC.url+'/admin/module/media/store',
                         data:d,
                         dataType:'json',
                         type:'post',
@@ -162,12 +162,12 @@ export default function(){
                                 me.reloadLists();
                             }
                             if(res.status === 0){
-                                bookingCoreApp.showError(res);
+                                BCApp.showError(res);
                             }
                             $(me.$refs.files).val('');
                         },
                         error:function(e){
-                            bookingCoreApp.showAjaxError(e);
+                            BCApp.showAjaxError(e);
                             $(me.$refs.files).val('');
                             me.isLoading = false;
                         }

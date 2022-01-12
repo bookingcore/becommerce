@@ -286,7 +286,7 @@ jQuery(function ($) {
         let product = $(this).data('product');
         let quickView = $('.mf-quick-view-modal');
         $.ajax({
-            url: bookingCore.url + '/product/quick_view/' + product.id,
+            url: BC.url + '/product/quick_view/' + product.id,
             method:'POST',
             beforeSend: function () {
                 $this.tooltip('hide');

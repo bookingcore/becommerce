@@ -90,7 +90,7 @@
                 if(this.selectedLists.length) {
                     var funcNum = this.getUrlParam('CKEditorFuncNum');
                     if (funcNum) {
-                        window.opener.CKEDITOR.tools.callFunction(funcNum, bookingCore.url + '/media/preview/' + this.selectedLists[0].id + '/full');
+                        window.opener.CKEDITOR.tools.callFunction(funcNum, BC.url + '/media/preview/' + this.selectedLists[0].id + '/full');
                         window.close();
                     }
                 }
@@ -110,7 +110,7 @@
                 this.selected = [];
                 $("#cdn-browser .icon-loading").addClass("active");
                 $.ajax({
-                    url:bookingCore.url+'/admin/module/media/getLists',
+                    url:BC.url+'/admin/module/media/getLists',
                     type:'POST',
                     data:{
                         file_type:this.uploadConfigs.file_type,
@@ -139,7 +139,7 @@
                     d.append('type',this.uploadConfigs.file_type);
                     $("#cdn-browser .icon-loading").addClass("active");
                     $.ajax({
-                        url:bookingCore.url+'/admin/module/media/store',
+                        url:BC.url+'/admin/module/media/store',
                         data:d,
                         dataType:'json',
                         type:'post',
