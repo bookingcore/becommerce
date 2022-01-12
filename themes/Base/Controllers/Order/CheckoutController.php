@@ -110,10 +110,12 @@
             $order->payment_id = $payment->id;
             $order->save();
 
+//            save billing order
             $order->addMeta('billing',$billing_data);
             if(!empty($request->input('billing_id'))){
                 $billing_data['id'] = $request->input('billing_id');
             }
+            //update or create user billing
             $user->billing_address()->updateOrCreate([],$billing_data);
 
 
