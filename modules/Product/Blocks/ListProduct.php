@@ -4,7 +4,6 @@ namespace Modules\Product\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
-use Modules\User\Models\UserWishList;
 
 class ListProduct extends BaseBlock
 {
@@ -18,12 +17,12 @@ class ListProduct extends BaseBlock
                     'label'         => __('Style Item'),
                     'values'        => [
                         [
-                            'value'   => '1',
-                            'name' => __("Style 1"),
+                            'value'   => '',
+                            'name' => __("Style Normal"),
                         ],
                         [
-                            'value'   => '2',
-                            'name' => __("Style 2")
+                            'value'   => 'slide',
+                            'name' => __("Style Slide")
                         ]
                     ]
                 ],
@@ -34,7 +33,13 @@ class ListProduct extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
-                    'id'      => 'category_id',
+                    'id'        => 'sub_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Sub Title')
+                ],
+                [
+                    'id'      => 'cat_ids',
                     'type'    => 'select2',
                     'label'   => __('Filter by Category'),
                     'select2' => [
@@ -103,41 +108,25 @@ class ListProduct extends BaseBlock
 
     public function getName()
     {
-        return __('Product: List Items');
+        return __('Product: List item');
     }
 
     public function content($model = [])
     {
-        $model_product = Product::select("*");
-        $categories = [];
-        if(empty($model['order'])) $model['order'] = "id";
-        if(empty($model['order_by'])) $model['order_by'] = "desc";
-        if(empty($model['number'])) $model['number'] = 5;
-        if (empty($model['link_product'])) $model['link_product'] = '#';
-        if (!empty($category_ids = $model['category_id'] )) {
-            $model_product->join('product_category_relations', function ($join) use ($category_ids) {
-                $join->on('products.id', '=', 'product_category_relations.target_id')
-                    ->whereIn('product_category_relations.cat_id', $category_ids);
-            });
+        if(!empty($category_ids = $model['cat_ids'] )) {
             $categories = ProductCategory::select('name','id','slug')->whereIn('id', $category_ids)->get();
         }
-
-        if(!empty($model['is_featured']))
-        {
-            $model_product->where('is_featured',1);
-        }
-
-        $model_product->orderBy("products.".$model['order'], $model['order_by']);
-        $model_product->where("products.status", "publish");
-        $model_product->groupBy("products.id");
-        $list = $model_product->with(['brand','hasWishList'])->limit($model['number'])->get();
+        $model['order'] = $model['order'] ?? "id";
+        $model['order_by'] = $model['order_by'] ?? "desc";
+        $model['limit'] = $model['number'] ?? 5;
+        $list = Product::search($model);
         $data = [
             'rows'       => $list,
-            'style_list' => $model['style_list'],
-            'title'      => $model['title'],
-            'categories' => $categories,
-            'blocks'     => 'product_list'
+            'title'      => $model['title'] ?? "",
+            'sub_title'  => $model['sub_title'] ?? "",
+            'categories' => $categories ?? [],
+            'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal"
         ];
-        return view('Product::frontend.blocks.list-space.index', $data);
+        return view('blocks.list-product.'.$data['style_list'], $data);
     }
 }

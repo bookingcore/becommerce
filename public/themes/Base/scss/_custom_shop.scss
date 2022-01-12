@@ -92,6 +92,83 @@
         }
     }
     .owl-dots{
-        margin-top: 15px;
+        margin-top: 30px !important;
+    }
+}
+
+.bc-site-features{
+    .box{
+        border: solid 1px #ccc;
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .round{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+    }
+}
+
+.bc-loop-product{
+    .badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 20px;
+        padding: 5px 10px;
+        border-radius: 4px;
+        background-color: #f14705;
+        &.out-stock {
+            background-color: #000;
+        }
+    }
+    .card-price{
+        &.sale{
+            color: #f30;
+            del{
+                color: #000;
+            }
+        }
+    }
+}
+
+.service-review {
+    &.list-star {
+        display: inline-block;
+        line-height: 13px;
+        position: relative;
+        .rating-stars-active {
+            position: absolute;
+            width: 0;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        .rating-stars {
+            padding: 0;
+            margin: 0;
+            width: 95px;
+            list-style: none;
+            li {
+                list-style: none;
+                float: left;
+                margin-right: 5px;
+
+                i {
+                    font-size: 15px;
+                    color: #ffdc00;
+                }
+            }
+
+            &:before {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+        }
     }
 }

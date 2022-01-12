@@ -17,20 +17,13 @@ class ProductSeeder extends Seeder
     public function run()
     {
         $productImage = [
-            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'demo/templates/product-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-2', 'file_path' => 'demo/templates/product-image-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-3', 'file_path' => 'demo/templates/product-image-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-4', 'file_path' => 'demo/templates/product-image-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-5'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-5', 'file_path' => 'demo/templates/product-image-5.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-6'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-6', 'file_path' => 'demo/templates/product-image-6.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-7'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-7', 'file_path' => 'demo/templates/product-image-7.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-8'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-8', 'file_path' => 'demo/templates/product-image-8.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'demo/product/product-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         $productGallery = [
-            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-1', 'file_path' => 'demo/templates/gallery-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-2', 'file_path' => 'demo/templates/gallery-image-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-3', 'file_path' => 'demo/templates/gallery-image-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-4', 'file_path' => 'demo/templates/gallery-image-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-1', 'file_path' => 'demo/product/gallery-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-2', 'file_path' => 'demo/product/gallery-image-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-3', 'file_path' => 'demo/product/gallery-image-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'gallery-image-4', 'file_path' => 'demo/product/gallery-image-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         $brandName = [
             "Galaxy",

@@ -1,15 +1,19 @@
 @if(!empty($list_items))
     <div class="bc-site-features pt-5 pb-5">
         <div class="container">
-            <div class="bc-block--site-features bc-block--site-features-2">
+            <div class="row">
                 @foreach($list_items as $item)
-                    <div class="bc-block__item">
-                        <div class="bc-block__left">
-                            <i class="{{$item['icon'] ?? 'icon-sync'}}"></i>
-                        </div>
-                        <div class="bc-block__right">
-                            <h4>{{ $item['title'] ?? '' }}</h4>
-                            <p>{{$item['sub_title'] ?? ''}}</p>
+                    <div class="col-md-4 col-sm-6">
+                        <div class="d-flex align-items-center box">
+                            <div class="flex-shrink-0">
+                                <div class="round bg-main c-white d-flex align-items-center justify-content-center">
+                                    <i class="fs-32 {{$item['icon'] ?? 'fa fa-configs'}}"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h4 class="fs-24">{{ $item['title'] ?? '' }}</h4>
+                                <p class="mb-0">{{$item['sub_title'] ?? ''}}</p>
+                            </div>
                         </div>
                     </div>
                 @endforeach

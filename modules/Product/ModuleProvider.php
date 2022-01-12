@@ -28,8 +28,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("tax",[$this,'getTaxSettings']);
         SettingManager::register("email",[$this,'getEmailSettings']);
 
-        BlockManager::register("slide_product",\Modules\Product\Blocks\SlideProduct::class);
-        BlockManager::register("list_product_categories",\Modules\Product\Blocks\ListProductCategories::class);
+        BlockManager::register("list_product",\Modules\Product\Blocks\ListProduct::class);
 
     }
     /**

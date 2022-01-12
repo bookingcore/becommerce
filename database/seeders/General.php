@@ -14,7 +14,6 @@ namespace Database\Seeders;
          */
         public function run()
         {
-            $c_background = DB::table('media_files')->insertGetId( ['file_name' => 'homepage-2-background', 'file_path' => 'demo/templates/homepage-2-background.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']);
             DB::table('core_settings')->insert(
                 [
                     [
@@ -110,32 +109,6 @@ namespace Database\Seeders;
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
 
-            DB::table('core_pages')->insert([
-                'title'       => 'Home page 2',
-                'slug'        => 'home-page-2',
-                'c_background'=> $c_background,
-                'template_id' => '3',
-                'page_style'  => '{"header":"1","footer":"1"}',
-                'create_user' => '1',
-                'status'      => 'publish',
-                'author_id' => 1,
-                'created_at'  => date("Y-m-d H:i:s")
-            ]);
-
-            DB::table('core_settings')->insert(
-                [
-                    [
-                        'name' => 'page_contact_title_ja',
-                        'val' => "あなたからの御一報をお待ち",
-                        'group' => "general",
-                    ],
-                    [
-                        'name' => 'page_contact_sub_title_ja',
-                        'val' => "私たちにメッセージを送ってください、私たちはできるだ",
-                        'group' => "general",
-                    ],
-                ]
-            );
 
 
             // Setting Currency
@@ -376,6 +349,8 @@ namespace Database\Seeders;
 
                 ]
             );
+
+
             $m_background = [
                 'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-1', 'file_path' => 'demo/templates/menu-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
                 'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'menu-2', 'file_path' => 'demo/templates/menu-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),

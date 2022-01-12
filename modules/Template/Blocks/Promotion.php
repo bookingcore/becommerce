@@ -10,6 +10,16 @@ class Promotion extends BaseBlock
     {
         $this->setOptions([
             'settings' => [
+                [      'id'        => 'title',
+                       'type'      => 'input',
+                       'inputType' => 'text',
+                       'label'     => __('Title')
+                ],
+                [      'id'        => 'sub_title',
+                       'type'      => 'input',
+                       'inputType' => 'text',
+                       'label'     => __('Sub Title')
+                ],
                 [
                     'id'            => 'col',
                     'type'          => 'radios',
@@ -35,6 +45,17 @@ class Promotion extends BaseBlock
                     'label'       => __('List Items'),
                     'title_field' => 'List Item',
                     'settings'    => [
+                        [      'id'        => 'title',
+                               'type'      => 'input',
+                               'inputType' => 'text',
+                               'label'     => __('Title')
+                        ],
+                        [
+                            'id'        => 'link',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Link Product')
+                        ],
                         [
                             'id'    => 'image',
                             'type'  => 'uploader',
@@ -54,6 +75,8 @@ class Promotion extends BaseBlock
     public function content($model = [])
     {
         $data = [
+            'title'  =>  $model['title'] ?? '',
+            'sub_title'  =>  $model['sub_title'] ?? '',
             'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
