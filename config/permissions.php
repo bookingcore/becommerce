@@ -19,6 +19,14 @@ return [
     // POS
     "pos_access",
 
+    // POS
+    "vendor_view",
+    "vendor_create",
+    "vendor_update",
+    "vendor_delete",
+    "vendor_register_approve",
+    "vendor_verification_approve",
+
     // Page
     "page_manage",
     "page_manage_others",

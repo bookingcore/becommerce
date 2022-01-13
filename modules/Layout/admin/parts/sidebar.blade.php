@@ -3,7 +3,7 @@ $menus = \Modules\Core\Helpers\AdminMenuManager::menus();
 ?>
 <ul class="main-menu pb-5">
     @foreach($menus as $id=>$menuItem)
-        <li class="@if(\Modules\Core\Helpers\AdminMenuManager::isActive($id,$menuItem)) active @endif"><a href="{{ url($menuItem['url']) }}">
+        <li class="@if(\Modules\Core\Helpers\AdminMenuManager::isActive($id,$menuItem)) active @endif @if(!empty($menuItem['children'])) has-children @endif"><a href="{{ url($menuItem['url']) }}">
                 @if(!empty($menuItem['icon']))
                     <span class="icon text-center"><i class="{{$menuItem['icon']}}"></i></span>
                 @endif

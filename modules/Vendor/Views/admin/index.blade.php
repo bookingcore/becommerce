@@ -3,10 +3,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{ __('All Users')}}</h1>
+            <h1 class="title-bar">{{ __('All Vendors')}}</h1>
             <div class="title-actions">
-                <a href="{{url('admin/module/user/create')}}" class="btn btn-primary">{{ __('Add new user')}}</a>
-                <a class="btn btn-warning btn-icon" href="{{ route("user.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
+                <a href="{{route('vendor.admin.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new vendor')}}</a>
+                <a class="btn btn-warning btn-icon" href="{{ route("vendor.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
                     <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
                 </a>
             </div>
@@ -15,26 +15,22 @@
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{url('admin/module/user/bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{route('vendor.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
+                            <option value="publish">{{__("Mark as Publish")}}</option>
+                            <option value="blocked">{{__("Mark as Blocked")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
-                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                     </form>
                 @endif
             </div>
             <div class="col-left">
                 <form method="get" class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    <select class="form-control" name="role">
-                        <option value="">{{ __('-- Select --')}}</option>
-                        @foreach($roles as $role)
-                            <option value="{{$role->name}}" @if(Request()->role == $role->name) selected @endif >{{ucfirst($role->name)}}</option>
-                        @endforeach
-                    </select>
                     <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
-                    <button class="btn-info btn btn-icon btn_search" type="submit">{{__('Search User')}}</button>
+                    <button class="btn-default btn btn-icon btn_search" type="submit">{{__('Search')}}</button>
                 </form>
             </div>
         </div>
@@ -49,13 +45,12 @@
                         <thead>
                         <tr>
                             <th width="60px"><input type="checkbox" class="check-all"></th>
-                            <th>{{__('Name')}}</th>
+                            <th>{{__('Business Name')}}</th>
                             <th>{{__('Email')}}</th>
-                            <th>{{__('Phone')}}</th>
-                            <th>{{__('Role')}}</th>
-                            <th>{{__('Status')}}</th>
-                            <th class="date">{{ __('Date')}}</th>
-                            <th></th>
+                            <th width="100">{{__('Email Verified?')}}</th>
+                            <th width="100">{{__('Status')}}</th>
+                            <th class="date" width="100">{{ __('Date')}}</th>
+                            <th width="100"></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -63,26 +58,28 @@
                             <tr>
                                 <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item"></td>
                                 <td class="title">
-                                    <a href="{{url('admin/module/user/edit/'.$row->id)}}">{{$row->getDisplayName()}}</a>
+                                    <a href="{{route('vendor.admin.edit',['id'=>$row->id])}}">{{$row->display_name}}</a>
                                 </td>
                                 <td>{{$row->email}}</td>
-                                <td>{{$row->phone}}</td>
                                 <td>
-                                    {{$row->role->name ?? ''}}
+                                    @if($row->hasVerifiedEmail())
+                                        <span class="badge badge-success">{{__('Verified')}}</span>
+                                    @else
+                                        <span class="badge badge-secondary">{{__('Not verified')}}</span>
+                                    @endif
                                 </td>
-                                <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span></td>
+                                <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
+                                </td>
                                 <td>{{ display_date($row->created_at)}}</td>
                                 <td>
                                     <div class="dropdown">
                                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-th"></i>
+                                            {{__("Actions")}}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item"  href="{{url('admin/module/user/edit/'.$row->id)}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
+                                            <a class="dropdown-item"  href="{{route('vendor.admin.edit',['id'=>$row->id])}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
                                             @if(!$row->hasVerifiedEmail())
-                                                <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Verify email')}}</a>
-                                                @else
-                                                <a class="dropdown-item"  href="#" ><i class="fa fa-check"></i> {{__('Email verified')}}</a>
+                                                <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Mark as email-verified')}}</a>
                                             @endif
                                             <a class="dropdown-item" href="{{url('admin/module/user/password/'.$row->id)}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
                                         </div>

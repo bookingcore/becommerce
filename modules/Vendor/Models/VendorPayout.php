@@ -18,6 +18,23 @@ class VendorPayout extends BaseModel
 
     protected $table = 'user_payouts';
 
+    public static function getAllStatuses(){
+        return [
+            'initial'=>[
+                'title'=>__("Initial")
+            ],
+            'confirmed'=>[
+                'title'=>__("Confirmed")
+            ],
+            'paid'=>[
+                'title'=>__("Paid")
+            ],
+            'rejected'=>[
+                'title'=>__("Rejected")
+            ],
+        ];
+    }
+
     public function calculateTotal(){
         $this->total = OrderItem::query()
             ->where('payout_id',$this->id)

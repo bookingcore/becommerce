@@ -9,7 +9,7 @@
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{route('user.admin.userUpgradeRequestApproved')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{route('vendor.admin.request.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
@@ -35,7 +35,6 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th>{{__('Name')}}</th>
                             <th>{{__('Email')}}</th>
-                            <th>{{ __('Role request')}}</th>
                             <th class="date">{{ __('Date request')}}</th>
                             <th class="date">{{ __('Date approved')}}</th>
                             <th>{{ __('Approved By')}}</th>
@@ -52,20 +51,13 @@
                                         <a href="{{url('admin/module/user/edit/'.$row->user->id)}}">{{@$row->user->getDisplayName()}}</a>
                                     </td>
                                     <td>{{$row->user->email}}</td>
-                                    <td>
-                                        @php $role = $row->role;
-                                    if(!empty($role)){
-                                        echo e(ucfirst($role->name));
-                                    }
-                                        @endphp
-                                    </td>
                                     <td>{{ display_date($row->created_at)}}</td>
                                     <td>{{ $row->approved_time ? display_date($row->approved_time) : ''}}</td>
                                     <td>{{ $row->approvedBy->getDisplayName()}}</td>
                                     <td class="status"><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
                                     <td>
                                         @if($row->status!='approved')
-                                            <a class="btn btn-sm btn-info approve-user" data-id="{{$row->id}}"  href="{{route('user.admin.upgradeId',['id' => $row->id])}}">{{__('Approve')}}</a>
+                                            <a class="btn btn-sm btn-info approve-user" data-id="{{$row->id}}"  href="{{route('vendor.admin.request.store',['id' => $row->id])}}">{{__('Approve')}}</a>
                                         @endif
                                     </td>
                                 </tr>
