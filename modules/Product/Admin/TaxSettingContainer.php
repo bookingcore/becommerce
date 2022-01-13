@@ -124,7 +124,7 @@ class TaxSettingContainer extends AdminController
 
         $taxRate = TaxRate::with('locations')->find($id);
         if (!empty($taxRate)) {
-            $taxRate->locations->delete();
+            $taxRate->locations()->delete();
             $taxRate->delete();
         }
 
