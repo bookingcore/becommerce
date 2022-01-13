@@ -6,11 +6,13 @@ namespace Modules\Order\Helpers;
 use Illuminate\Support\Collection;
 use Modules\Booking\Models\Bookable;
 use Modules\Coupon\Models\Coupon;
+use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductLicense;
+use Modules\Product\Models\ProductOnHold;
 
 class CartManager
 {
@@ -276,6 +278,7 @@ class CartManager
             $order_item->object_id = $item->model->id;
             $order_item->object_model = $item->model->type;
             $order_item->price = $item->price;
+            $order_item->discount_amount = $item->discount_amount;
             $order_item->qty = $item->qty;
             $order_item->subtotal = $item->subtotal;
             $order_item->status = Order::DRAFT;
@@ -283,8 +286,24 @@ class CartManager
             $order_item->variant_id = $item->variant_id;
             $order_item->save();
 
+//            update product on- hold
         }
         $order->syncTotal();
+
+        $coupons = static::getCoupon();
+        if(!empty($coupons) and count($coupons)>0){
+            foreach ($coupons as $coupon){
+                $couponOrder = new CouponOrder();
+                $couponOrder->order_id = $order->id;
+                $couponOrder->order_status = Order::DRAFT;
+                $couponOrder->coupon_code = $coupon->code;
+                $couponOrder->coupon_amount = $coupon->amount;
+                $couponOrder->coupon_discount_type = $coupon->discount_type;
+                $couponOrder->coupon_data = $coupon->toArray();
+                $couponOrder->save();
+            }
+        }
+
         return $order;
     }
 
