@@ -1,6 +1,6 @@
 @if(!empty($breadcrumbs))
-    <div class="bc-breadcrumb my-3">
-        <div class="container bg-light py-3 ">
+    <div class="bc-breadcrumb my-3 bg-light">
+        <div class="container py-3 ">
             <ol class="breadcrumb mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
                 <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{url('/')}}"><span itemprop="name">{{__("Home")}}</span></a></li>
 

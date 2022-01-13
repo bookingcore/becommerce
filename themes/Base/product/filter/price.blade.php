@@ -1,4 +1,4 @@
-<figure>
+<div class="mb-3 bc-slider-price">
     @php
     $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
     $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );
@@ -10,19 +10,21 @@
     }
     $currency = App\Currency::getCurrency(setting_item('currency_main'));
     @endphp
-    <h4 class="widget-title">{{ __("By Price") }}</h4>
-    <div id="nonlinear" data-from="{{$pri_from}}" data-to="{{$pri_to}}"></div>
-    <p class="bc-slider__meta">
+    <h4 class="widget-title fs-22 mb-2">{{ __("By Price") }}</h4>
+    <div class="p-2">
+        <div id="nonlinear" class="nonlinear" data-from="{{$pri_from}}" data-to="{{$pri_to}}" data-min="{{$price_min}}" data-max="{{$price_max}}"></div>
+    </div>
+    <div class="slider-meta">
         {{ __("Price") }}:
-        <span class="bc-slider__value">
-            {{$currency['symbol']}}<span class="bc-slider__min">{{$price_min}}</span>
+        <span class="slider-value">
+            {{$currency['symbol']}}<span class="slider-min">{{$price_min}}</span>
         </span>
         -
-        <span class="bc-slider__value">
-            {{$currency['symbol']}}<span class="bc-slider__max">{{$price_max}}</span>
+        <span class="slider-value">
+            {{$currency['symbol']}}<span class="slider-max">{{$price_max}}</span>
         </span>
-    </p>
-    <input type="text" id="bc-min_price" name="min_price" class="d-none" value="{{$price_min}}">
-    <input type="text" id="bc-max_price" name="max_price" class="d-none" value="{{$price_max}}">
-    <input type="submit" class="btn btn-sm btn-warning mt-2" title="{{__('APPLY')}}" value="{{__('APPLY')}}">
-</figure>
+    </div>
+    <input type="text" name="min_price" class="d-none" value="{{$price_min}}">
+    <input type="text" name="max_price" class="d-none" value="{{$price_max}}">
+    <input type="submit" class="btn btn-sm btn-primary mt-2" title="{{__('APPLY')}}" value="{{__('APPLY')}}">
+</div>

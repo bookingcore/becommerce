@@ -104,7 +104,7 @@ class ModuleProvider extends ModuleServiceProvider
         $options = [
             "position"=>60,
             'url'        => route('vendor.admin.index'),
-            'title'      => __('Vendor :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
+            'title'      => __('Vendors :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'     =>'icon ion-ios-basket',
             'permission' => 'vendor_view',
             'children'   => [
