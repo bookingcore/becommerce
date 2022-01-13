@@ -29,9 +29,9 @@
                                                 <label class="">{{__("Tax rate class")}}</label>
                                                 <div class="form-controls">
                                                     <select class="form-control" name="tax_rate_class">
-                                                        <option value="standard" @if(($taxRate->tax_rate_class ?? old('tax_rate_class')) == 'standard') selected @endif>{{ __("Standard") }}</option>
-                                                        <option value="reduced_rate" @if(($taxRate->tax_rate_class ?? old('tax_rate_class')) == 'reduced_rate') selected @endif>{{ __("Reduced rate") }}</option>
-                                                        <option value="zero_rate" @if(($taxRate->tax_rate_class ?? old('tax_rate_class')) == 'zero_rate') selected @endif>{{ __("Zero rate") }}</option>
+                                                        <option value="standard" @if(($row->tax_rate_class ?? old('tax_rate_class')) == 'standard') selected @endif>{{ __("Standard") }}</option>
+                                                        <option value="reduced_rate" @if(($row->tax_rate_class ?? old('tax_rate_class')) == 'reduced_rate') selected @endif>{{ __("Reduced rate") }}</option>
+                                                        <option value="zero_rate" @if(($row->tax_rate_class ?? old('tax_rate_class')) == 'zero_rate') selected @endif>{{ __("Zero rate") }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -50,19 +50,19 @@
                                             <div class="form-group">
                                                 <label class="">{{__("Postcode / ZIP")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="postcode" value="{{ $taxRate->locationPostcodes->location_code ?? old('postcode') }}">
+                                                    <input type="text" class="form-control" name="postcode" value="{{ $row->locationPostcode->location_code ?? old('postcode') }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="">{{__("City")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="city" value="{{ $taxRate->locationCities->location_code ?? old('city') }}">
+                                                    <input type="text" class="form-control" name="city" value="{{ $row->locationCity->location_code ?? old('city') }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="">{{__("Rate %")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="tax_rate" value="{{ $taxRate->tax_rate ?? old('tax_rate') }}">
+                                                    <input type="text" class="form-control" name="tax_rate" value="{{ $row->tax_rate ?? old('tax_rate', 1) }}">
                                                 </div>
                                             </div>
                                         @endif
@@ -77,17 +77,17 @@
                                             <div class="form-group">
                                                 <label class="">{{__("Priority")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="number" class="form-control" name="priority" value="{{ $taxRate->priority ?? old('priority') }}">
+                                                    <input type="number" class="form-control" name="priority" value="{{ $row->priority ?? old('priority') }}">
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-controls">
-                                                    <input type="checkbox" class="form-control" name="compound" @if(($taxRate->compound ?? old('compound')) == 1) checked @endif value="1"> {{__("Compound")}}
+                                                    <input type="checkbox" class="form-control" name="compound" @if(($row->compound ?? old('compound')) == 1) checked @endif value="1"> {{__("Compound")}}
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="form-controls">
-                                                    <input type="checkbox" class="form-control" name="shipping" @if(($taxRate->shipping ?? old('shipping')) == 1) checked @endif value="1"> {{__("Shipping")}}
+                                                    <input type="checkbox" class="form-control" name="shipping" @if(($row->shipping ?? old('shipping')) == 1) checked @endif value="1"> {{__("Shipping")}}
                                                 </div>
                                             </div>
 
@@ -101,7 +101,7 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span></span>
-                        <input type="hidden" name="id" value="{{ $taxRate->id ?? '' }}" />
+                        <input type="hidden" name="id" value="{{ $row->id ?? '' }}" />
                         <button class="btn btn-primary" type="submit">{{__('Save changes')}}</button>
                     </div>
                 </form>
