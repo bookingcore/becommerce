@@ -371,6 +371,33 @@ jQuery(function ($) {
         });
     });
 
+
+    var nonLinearSlider = document.getElementById('nonlinear');
+    if (typeof nonLinearSlider != 'undefined' && nonLinearSlider != null) {
+
+        var from = nonLinearSlider.getAttribute("data-from");
+        var to = nonLinearSlider.getAttribute("data-to");
+        var min = nonLinearSlider.getAttribute("data-min");
+        var max = nonLinearSlider.getAttribute("data-max");
+        noUiSlider.create(nonLinearSlider, {
+            connect: true,
+            behaviour: 'tap',
+            start: [from, to],
+            range: {
+                min: parseInt(min),
+                max: parseInt(max),
+            },
+        });
+
+        nonLinearSlider.noUiSlider.on('update', function(values, handle) {
+            $(".bc-slider-price .slider-min").html(  Math.round(values[0]) );
+            $(".bc-slider-price .slider-max").html(  Math.round(values[1]) );
+            $(".bc-slider-price input[name=min_price]").val(  Math.round(values[0]) );
+            $(".bc-slider-price input[name=max_price]").val(  Math.round(values[1]) );
+        });
+    }
+
+
 });
 
 
