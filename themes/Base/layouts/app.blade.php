@@ -55,6 +55,7 @@
             <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
+            <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
             @yield('footer')
