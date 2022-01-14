@@ -14,13 +14,13 @@
             </p>
         @endif
     @else
-        @if(!empty($row->sale_price))
+        @if(!empty($row->display_sale_price))
             <p class="price has-sale m-0">
                 <ins>
-                    <span class="amount">{{format_money($row->sale_price)}}</span>
+                    <span class="amount">{{$row->display_price}}</span>
                 </ins>
                 <del>
-                    <span class="amount">{{format_money($row->price)}}</span>
+                    <span class="amount">{{$row->display_sale_price}}</span>
                 </del>
                 @if(!empty($row->discount_percent))
                     <span class="sale sale-1">(-{{$row->discount_percent}})</span>

@@ -4,7 +4,7 @@
     <div class="bc-page-product">
         <div class="container">
             <div class="bc-product-detail mb-5">
-                <div class="bc-product_header">
+                <div class="bc-product_header bc-product_box">
                     @include('product.details.gallery')
                     <div class="bc-product_info">
                         <h1>{{$translation->title}}</h1>
@@ -36,37 +36,17 @@
                                 {!! clean($row->short_desc) !!}
                             </div>
                         </div>
-                        @include('product.details.color')
+                        @if($row->product_type == 'variable')
+                            @include('product.details.variations')
+                        @endif
                         @include('product.details.add-to-cart')
-                        <div class="bc-product__specification">
-                            @if($row->sku)
-                                <p><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
-                            @endif
-                            @if(!empty($row->categories))
-                                <p class="categories">
-                                    <strong> {{__("Categories:")}}</strong>
-                                    @foreach($row->categories as $k=>$category)
-                                        @if($k) ,
-                                        @endif
-                                        <a href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
-                                    @endforeach
-                                </p>
-                            @endif
-                            @if(!empty($row->tags))
-                                <p class="tags">
-                                    <strong> {{ __("Tags") }}</strong>
-                                    @foreach($row->tags as $k=>$category)
-                                        @if($k) ,
-                                        @endif
-                                        <a href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
-                                    @endforeach
-                                </p>
-                            @endif
-                        </div>
+                        @include('product.details.specification')
                         @include('product.details.share')
                     </div>
                 </div>
-                @include('product.details.tabs')
+                <div class="bc-product_content bc-product_box">
+                    @include('product.details.tabs')
+                </div>
             </div>
             {{--<div class="bc-section--default">
                 <div class="bc-section__header">

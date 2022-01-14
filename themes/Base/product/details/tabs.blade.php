@@ -1,9 +1,9 @@
-<div class="bc-product__content bc-tab-root">
-    <ul class="bc-tab-list">
-        <?php
-        $reviewData = $row->getScoreReview();
-        $score_total = $reviewData['score_total'];
-        ?>
+<?php
+$reviewData = $row->getScoreReview();
+$score_total = $reviewData['score_total'];
+?>
+<div class="bc-tab-root">
+    <ul class="nav nav-pills bc-tab-list mb-3">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
                 @php $review_text = $tab['name'] @endphp
@@ -13,8 +13,8 @@
                         $review_text = $tab['name']." ($count)";
                     @endphp
                 @endif
-                <li class="@if(!$k) active @endif">
-                    <a data-toggle="tab" href="#tab_{{$k}}" role="tab" aria-controls="home" aria-selected="true">{{$review_text}}</a>
+                <li class="nav-item">
+                    <a class="nav-link @if(!$k) active @endif" data-tab="tab_{{$k}}" aria-current="page" href="#">{{ $review_text }}</a>
                 </li>
             @endforeach
         @endif
