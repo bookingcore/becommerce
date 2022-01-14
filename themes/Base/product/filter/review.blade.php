@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3 border-bottom pb-3">
     <h4 class="widget-title fs-22 mb-2">{{__("By Review")}}</h4>
     @for ($number = 5 ;$number >= 1 ; $number--)
         <div class="bc-checkbox">
