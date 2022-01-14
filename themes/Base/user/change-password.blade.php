@@ -1,16 +1,14 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="bc-section--account">
+    <div class="bc-section-account mb-3 mt-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="bc-section__left">
-                        @include('user.sidebar')
-                    </div>
+                    @include('user.sidebar')
                 </div>
                 <div class="col-lg-8">
-                    <div class="bc-section__right">
+                    <div class="bc-content">
                         <form action="{{route('user.password.store')}}" method="post">
                             @csrf
                             <div class="bc-section--account-setting">

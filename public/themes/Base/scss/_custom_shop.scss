@@ -180,3 +180,32 @@
         }
     }
 }
+.service-wishlist{
+    &.is_loop{
+        position: absolute;
+        left: 15px;
+        top: 15px;
+        color: white;
+        cursor: pointer;
+    }
+    &.active{
+        color:var(--main-color)
+    }
+}
+.bc-header-wishlist{
+    margin-right: 30px;
+    .counter-wrap{
+        position: relative;
+        display: block;
+    }
+    .counter{
+        position: absolute;
+        right: -10px;
+        font-size: 12px;
+        font-weight: 700;
+        border-radius: 50%;
+        min-width: 20px;
+        height: 20px;
+        line-height: 20px;
+    }
+}

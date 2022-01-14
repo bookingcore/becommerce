@@ -1,9 +1,7 @@
 <?php
 namespace Modules\User\Models;
 use App\BaseModel;
-use Modules\Candidate\Models\Candidate;
-use Modules\Company\Models\Company;
-use Modules\Job\Models\Job;
+use Modules\Product\Models\Product;
 
 class UserWishList extends BaseModel
 {
@@ -16,12 +14,6 @@ class UserWishList extends BaseModel
 
     public function service()
     {
-        $allServices = [
-            'candidate'=>Candidate::class,
-            'company'=>Company::class,
-            'job'=>Job::class,
-        ];
-        $module = $allServices[$this->object_model];
-        return $this->hasOne($module, "id", 'object_id')->where("deleted_at",null);
+        return $this->hasOne(Product::class, "id", 'object_id');
     }
 }

@@ -1,50 +1,44 @@
 @extends('layouts.app')
 @section('content')
     @include('global.bc')
-    <div class="bc-section--account">
+    <div class="bc-section-account mb-3 mt-3">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="bc-section__left">
-                        @include('user.sidebar')
-                    </div>
+                    @include('user.sidebar')
                 </div>
                 <div class="col-lg-8">
-                    <div class="bc-section__right">
-                        <div class="bc-section--account-setting">
-                            <div class="bc-section__header">
-                                <h3>{{__("Orders")}}</h3>
-                            </div>
-                            <div class="bc-section__content">
-                                <div class="table-responsive">
-                                    <table class="table bc-table bc-table--invoices">
-                                        <thead>
-                                            <tr>
-                                                <th>{{__("Id")}}</th>
-                                                <th>{{__("Date")}}</th>
-                                                <th>{{__("Amount")}}</th>
-                                                <th>{{__("Status")}}</th>
-                                                <th>{{__("Actions")}}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($rows as $row)
-                                            <tr>
-                                                <td>#{{$row->id}}</td>
-                                                <td>{{display_date($row->created_at)}}</td>
-                                                <td>{{format_money($row->total)}}</td>
-                                                <td>{{$row->status_text}}</td>
-                                                <td>
-                                                    <a class="btn btn--sm" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {{ $rows->links() }}
-                            </div>
+                    <div class="fs-24 mb-3">
+                        <h3>{{__("Orders")}}</h3>
+                    </div>
+                    <div class="bc-content">
+                        <div class="table-responsive">
+                            <table class="table bc-table bc-table--invoices">
+                                <thead>
+                                <tr>
+                                    <th>{{__("Id")}}</th>
+                                    <th>{{__("Date")}}</th>
+                                    <th>{{__("Amount")}}</th>
+                                    <th>{{__("Status")}}</th>
+                                    <th>{{__("Actions")}}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($rows as $row)
+                                    <tr>
+                                        <td>#{{$row->id}}</td>
+                                        <td>{{display_date($row->created_at)}}</td>
+                                        <td>{{format_money($row->total)}}</td>
+                                        <td>{{$row->status_text}}</td>
+                                        <td>
+                                            <a class="btn btn--sm" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
                         </div>
+                        {{ $rows->links() }}
                     </div>
                 </div>
             </div>

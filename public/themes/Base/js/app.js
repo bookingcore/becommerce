@@ -397,6 +397,31 @@ jQuery(function ($) {
         });
     }
 
+    $(document).on("click",".service-wishlist",function(){
+        var $this = $(this);
+        $.ajax({
+            url:  BC.url+'/user/wishlist',
+            data: {
+                object_id: $this.attr("data-id"),
+                object_model: $this.attr("data-type"),
+            },
+            dataType: 'json',
+            type: 'POST',
+            beforeSend: function() {
+                $this.addClass("loading");
+            },
+            success: function (res) {
+                if(res.status){
+                    $this.toggleClass('active');
+                }
+            },
+            error:function (e) {
+                if(e.status === 401){
+                    $('#login').modal('show');
+                }
+            }
+        })
+    });
 
 });
 

@@ -181,6 +181,16 @@ class BaseProduct extends BaseModel
         return $this->price;
     }
 
+
+    public function productOnHold(){
+        return $this->hasMany(ProductOnHold::class,'product_id','id')->where('expired_at','>',now());
+    }
+
+    public function getOnHoldAttribute()
+    {
+        return $this->productOnHold()->sum('qty');
+    }
+
     public function stockValidation($qty)
     {
         $isManageStock  = $this->is_manage_stock;

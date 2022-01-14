@@ -25,6 +25,11 @@ Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
    Route::get('/change-password/','User\PasswordController@index')->name('user.password');
    Route::post('/change-password/store','User\PasswordController@store')->name('user.password.store');
    Route::get('/notification','User\NotificationController@index')->name('user.notification');
+
+    Route::get('/wishlist','User\UserWishListController@index')->name("user.wishList.index");
+    Route::post('/wishlist','User\UserWishListController@handleWishList')->name("user.wishList.handle");
+    Route::get('/wishlist/remove','User\UserWishListController@remove')->name("user.wishList.remove");
+
 });
 
 Route::group(['prefix'=>'vendor'],function(){

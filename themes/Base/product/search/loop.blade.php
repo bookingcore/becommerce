@@ -15,6 +15,10 @@ $score_total = $reviewData['score_total'];
         @else
             <span class="badge out-stock">{{__('Out Of Stock')}}</span>
         @endif
+
+        <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
+            <i class="fa fa-heart"></i>
+        </div>
     </div>
     <div class="card-body">
         <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>

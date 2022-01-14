@@ -11,12 +11,9 @@
         <a class="btn btn-black btn-add-to-cart" href="#">{{ __('Add to cart') }}</a>
         <a class="btn btn-buy-now" href="#">{{ __('Buy Now') }}</a>
         <div class="bc-product_actions">
-            <a href="#" class="service-wishlist">
-                <i class="fa fa-heart-o"></i>
-            </a>
-            <a href="#">
-                <i class="fa fa-bar-chart-o"></i>
-            </a>
+            <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
+                <i class="fa fa-heart"></i>
+            </div>
         </div>
     </div>
 @endif

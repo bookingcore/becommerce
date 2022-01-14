@@ -285,8 +285,6 @@ class CartManager
             $order_item->meta = $item->meta;
             $order_item->variant_id = $item->variant_id;
             $order_item->save();
-
-//            update product on- hold
         }
         $order->syncTotal();
 

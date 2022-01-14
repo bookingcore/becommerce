@@ -18,6 +18,9 @@
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
         <script>
+            var BC = {
+                url: '{{url( app_get_locale() )}}',
+            }
             var i18n = {
                 warning:"{{__("Warning")}}",
                 success:"{{__("Success")}}",

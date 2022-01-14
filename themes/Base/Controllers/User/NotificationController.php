@@ -37,7 +37,16 @@ class NotificationController extends FrontendController
             'rows'                  => $query->paginate(20),
             'page_title'=>__('Notifications'),
             'user'=>auth()->user(),
-            'type'=>$type
+            'type'=>$type,
+            'breadcrumbs'=>[
+                [
+                    'url'=>'',
+                    'name'=>__("My Account")
+                ],
+                [
+                    'name'=>__("Notification")
+                ],
+            ],
         ];
         return view('user.notification',$data);
     }
