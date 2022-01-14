@@ -9,7 +9,9 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
+    use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
+    use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Modules\Product\Models\UserAddress;
     use Themes\Base\Controllers\FrontendController;
@@ -128,6 +130,11 @@
                 if ($res !== true) {
                     return response()->json($res);
                 }
+// change order status on-hold
+                $order->status = Order::ON_HOLD;
+                $order->save();
+                OrderUpdated::dispatch($order);
+
                 return $this->sendSuccess([
                     'url' => $order->getDetailUrl()
                 ]);

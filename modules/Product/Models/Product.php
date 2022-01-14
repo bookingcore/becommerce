@@ -7,16 +7,12 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
 use Modules\Core\Models\Attributes;
 use Modules\Core\Models\Terms;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
-use Modules\Order\Helpers\CartManager;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
 
 class Product extends BaseProduct
@@ -639,20 +635,6 @@ class Product extends BaseProduct
         $limit = $fill['limit'] ?? 12;
         return $query->with(['hasWishList','brand'])->paginate($limit);
     }
-
-
-    public function productOnHold(){
-        return $this->hasMany(ProductOnHold::class,'product_id','id')->where('expired_at','>',now());
-    }
-
-    public function getOnHoldAttribute()
-    {
-        return $this->productOnHold()->sum('qty');
-    }
-
-    //    Hatt
-
-
 
 
 
