@@ -19,8 +19,23 @@
                         @include('layouts.parts.header.search')
                     </div>
                 </div>
-                <div class="col-md-2 header__content-right text-end bc-mini-cart">
-                    @includeIf('order.cart.mini-cart')
+                <div class="col-md-2 text-end d-flex justify-content-end">
+                    <div class="bc-header-wishlist">
+                        @if(Auth::user())
+                            <a class="counter-wrap" href="{{route('user.wishList.index')}}">
+                                <i class="fa fa-heart fs-32 c-main"></i>
+                                <span class="counter bg-danger text-center c-white">{{ countWishlist() }}</span>
+                            </a>
+                        @else
+                            <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
+                                <i class="fa fa-heart fs-32"></i>
+                                <span class="counter">0</span>
+                            </a>
+                        @endif
+                    </div>
+                    <div class="bc-mini-cart">
+                        @includeIf('order.cart.mini-cart')
+                    </div>
                 </div>
             </div>
         </div>

@@ -411,7 +411,9 @@ jQuery(function ($) {
                 $this.addClass("loading");
             },
             success: function (res) {
-                $this.attr('class',"service-wishlist "+res.class);
+                if(res.status){
+                    $this.toggleClass('active');
+                }
             },
             error:function (e) {
                 if(e.status === 401){

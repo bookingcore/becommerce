@@ -24,11 +24,11 @@ class UserWishListController extends FrontendController
             'user'=>auth()->user(),
             'breadcrumbs'        => [
                 [
-                    'name'  => __('My Bookmarks'),
+                    'name'  => __('My Wishlist'),
                     'class' => 'active'
                 ],
             ],
-            'page_title'         => __("My Bookmarks"),
+            'page_title'         => __("My Wishlist"),
         ];
         return view('user.wishlist.index', $data);
     }

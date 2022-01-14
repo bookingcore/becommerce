@@ -3,6 +3,7 @@ use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Modules\User\Models\UserWishList;
 
 //include '../../custom/Helpers/CustomHelper.php';
 
@@ -1602,4 +1603,14 @@ function formatBytes($size, $precision = 2)
 }
 function is_vendor_enable(){
     return setting_item('vendor_enable') == 1;
+}
+
+
+function countWishlist(){
+    $auth = \Illuminate\Support\Facades\Auth::id();
+    $count = 0;
+    if (!empty($auth)){
+        $count = UserWishList::select('object_id')->where('create_user', $auth)->count();
+    }
+    return $count;
 }
