@@ -32,15 +32,15 @@ class TaxRate extends BaseModel
             ->hasMany(TaxRateLocation::class,'tax_rate_id','id');
     }
 
-    public function locationCities(){
+    public function locationCity(){
         return $this
-            ->hasMany(TaxRateLocation::class,'tax_rate_id','id')
+            ->hasOne(TaxRateLocation::class,'tax_rate_id','id')
             ->where('location_type', '=','city');
     }
 
-    public function locationPostcodes(){
+    public function locationPostcode(){
         return $this
-            ->hasMany(TaxRateLocation::class,'tax_rate_id','id')
+            ->hasOne(TaxRateLocation::class,'tax_rate_id','id')
             ->where('location_type', '=','postcode');
     }
 

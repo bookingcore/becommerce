@@ -113,7 +113,6 @@ class Order extends BaseModel
                     $this->payment_id = $payment->id;
                     $this->paid = $payment->amount;
                     $this->save();
-
                     $this->items()->update(['status'=>$this->status]);
 
                     OrderUpdated::dispatch($this);
