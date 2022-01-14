@@ -16,7 +16,7 @@ $score_total = $reviewData['score_total'];
             <span class="badge out-stock">{{__('Out Of Stock')}}</span>
         @endif
 
-        <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
+        <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
             <i class="fa fa-heart"></i>
         </div>
     </div>
