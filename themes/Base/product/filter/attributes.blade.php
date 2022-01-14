@@ -5,7 +5,7 @@
     @php
         $translate = $item->translate(app()->getLocale());
     @endphp
-    <div class="mb-3">
+    <div class="mb-3 border-bottom pb-3">
         <h4 class="widget-title fs-22 mb-2">{{$translate->name}}</h4>
         @foreach($item->terms as $key => $term)
             @php $translate = $term->translate(app()->getLocale()); @endphp
