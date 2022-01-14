@@ -494,9 +494,11 @@ function slickConfig() {
 }
 slickConfig();
 
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-    return new bootstrap.Tooltip(tooltipTriggerEl)
-})
-
-
+$('.bc-tab-list .nav-item .nav-link').click(function (e) {
+    e.preventDefault();
+    let tab = $(this).attr('data-tab');
+    $('.bc-tab-list .nav-item .nav-link').removeClass('active');
+    $('.bc-tabs .bc-tab').removeClass('active');
+    $(this).addClass('active');
+    $(`#${tab}`).addClass('active');
+});

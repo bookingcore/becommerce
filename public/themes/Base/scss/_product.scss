@@ -1,7 +1,9 @@
 .bc-page-product{
     .bc-product-detail{
-        .bc-product_header{
+        .bc-product_box{
             padding: 30px 20px;
+        }
+        .bc-product_header{
             display: flex;
             flex-flow: row nowrap;
             >*{
@@ -121,8 +123,17 @@
                 }
                 .bc-product_price{
                     .price{
+                        color: #f30;
+                        font-size: 16px;
                         ins{
                             text-decoration: none;
+                            font-weight: 700;
+                            padding-right: 8px;
+                            font-size: 24px;
+                        }
+                        del{
+                            color: #666;
+                            padding-right: 4px;
                         }
                     }
                 }
@@ -168,6 +179,175 @@
                                     background-color: #999;
                                 }
                             }
+                        }
+                    }
+                }
+            }
+            .bc-product_shopping{
+                display: flex;
+                margin-bottom: 30px;
+                padding-bottom: 30px;
+                flex-flow: row nowrap;
+                align-items: flex-end;
+                border-bottom: 1px solid #e1e1e1;
+                >*{
+                    margin-right: 10px;
+                }
+                figure{
+                    flex: 0 0 115px;
+                    max-width: 115px;
+                    figcaption{
+
+                        margin-bottom: 3px;
+                    }
+                }
+                .form-group-number{
+                    position: relative;
+                    button{
+                        background: none;
+                        border: none;
+                        background-color: transparent;
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        width: 20px;
+                        height: 20px;
+                        max-width: 20px;
+                        display: flex;
+                        flex-flow: row nowrap;
+                        justify-content: center;
+                        align-items: center;
+                        color: #000;
+                        font-size: 20px;
+                        line-height: 1em;
+                        i{
+                            color: rgba(0, 0, 0, 0.25);
+                        }
+                        &.down{
+                            left: 10px;
+                        }
+                        &.up{
+                            right: 10px;
+                        }
+                    }
+                    input{
+                        &::-webkit-inner-spin-button,&::-webkit-outer-spin-button{
+                            display: none;
+                        }
+                        text-align: center;
+                        border: 1px solid #ccc;
+                        height: 40px;
+                        padding: 0 25px;
+                        font-size: 14px;
+                        color: #000;
+                        border-radius: 0;
+                        background-color: transparent;
+                    }
+                }
+                .btn{
+                    font-weight: 600;
+                    padding-left: 30px;
+                    padding-right: 30px;
+                    vertical-align: top;
+                    max-height: 50px;
+                    font-size: 18px;
+                    margin-right: 10px;
+                    text-align: center;
+                    color: #ffffff;
+                    transition: all .3s;
+                    &:focus{
+                        box-shadow: none;
+                    }
+                    &.btn-add-to-cart{
+                        &:hover{
+                            background: var(--main-color);
+                        }
+                    }
+                    &.btn-buy-now{
+                        background: var(--main-color);
+                        &:hover{
+                            background: #000000;
+                        }
+                    }
+                }
+                .bc-product_actions{
+                    font-size: 28px;
+                    a{
+                        color: #999;
+                        &.service-wishlist{
+                            margin-right: 10px;
+                        }
+                    }
+                }
+            }
+            .bc-product_specification{
+                font-size: 14px;
+                .categories{
+                    a{
+                        color: var(--main-color);
+                    }
+                }
+                .tags{
+                    a{
+                        color: initial;
+                        &:hover{
+                            color: var(--main-color);
+                        }
+                    }
+                }
+            }
+            .bc-product_sharing{
+                padding-top: 20px;
+                a{
+                    display: inline-block;
+                    width: 40px;
+                    height: 40px;
+                    margin-right: 10px;
+                    vertical-align: top;
+                    text-align: center;
+                    color: white;
+                    &.facebook{
+                        background: #3b5999;
+                    }
+                    &.twitter{
+                        background: #55acee;
+                    }
+                    &.google{
+                        background: #dd4b39;
+                    }
+                    &.linkedin{
+                        background: #0077B5;
+                    }
+                    i{
+                        line-height: 40px;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+        .bc-product_content{
+            .bc-tab-root{
+                .bc-tab-list{
+                    .nav-item{
+                        .nav-link{
+                            background: transparent;
+                            border-radius: 0;
+                            color: #999999;
+                            font-weight: bold;
+                            font-size: 18px;
+                            transition: none;
+                            &.active,&:hover{
+                                color: initial;
+                                border-bottom: 2px solid var(--main-color);
+                            }
+                        }
+                    }
+                }
+                .bc-tabs{
+                    .bc-tab{
+                        display: none;
+                        &.active{
+                            display: block;
                         }
                     }
                 }
