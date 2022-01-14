@@ -1,75 +1,74 @@
 @extends("layouts.app")
 @section('content')
     @include('global.bc')
-    <div class="bc-page--product">
-        <div class="bc-container">
-            <div class="bc-page__container">
-                <div class="bc-page__left">
-                    <div class="bc-product--detail bc-product--fullwidth">
-                        <div class="bc-product__header">
-                            @include('product.details.gallery')
-                            <div class="bc-product__info">
-                                <h1>{{$translation->title}}</h1>
-                                @if($row->brand)
-                                    <div class="bc-product__meta service-review mb-2 d-flex mt-1">
-                                        <p>{{ __("Brand:") }}<a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
-                                        @php
-                                            $reviewData = $row->getScoreReview();
-                                            $score_total = $reviewData['score_total'];
-                                        @endphp
-                                        @if(!empty($reviewData['total_review']))
-                                            <div class="bc-product__rating">
-                                                @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
-                                                <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
-                                            </div>
-                                        @endif
+    <div class="bc-page-product">
+        <div class="container">
+            <div class="bc-product-detail mb-5">
+                <div class="bc-product_header">
+                    @include('product.details.gallery')
+                    <div class="bc-product_info">
+                        <h1>{{$translation->title}}</h1>
+                        @if($row->brand)
+                            <div class="bc-product_meta mb-4 d-flex">
+                                <p>{{ __("Brand:") }}<a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
+                                @php
+                                    $reviewData = $row->getScoreReview();
+                                    $score_total = $reviewData['score_total'];
+                                @endphp
+                                @if(!empty($reviewData['total_review']))
+                                    <div class="bc-product_rating">
+                                        @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
+                                        <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
                                     </div>
                                 @endif
-                                @include('product.details.price')
-                                <div class="bc-product__desc">
-                                    <p>{{__('Sold By:')}}<a href="{{route('user.profile',['id'=>$row->create_user])}}"><strong> {{$row->author->getDisplayName()}} </strong></a></p>
-                                    @if($row->product_type == 'simple')
-                                        @php $stock_status = $row->getStockStatus() @endphp
-                                        <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span>{{$stock_status['stock']}}</span></span>
-                                    @endif
-                                    <div class="bc-list--dot mt-3">
-                                        {!! clean($row->short_desc) !!}
-                                    </div>
-                                </div>
-                                @include('product.details.add-to-cart')
-                                <div class="bc-product__specification">
-                                    @if($row->sku)
-                                        <p><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
-                                    @endif
-                                    @if(!empty($row->categories))
-                                        <p class="categories">
-                                            <strong> {{__("Categories:")}}</strong>
-                                            @foreach($row->categories as $k=>$category)
-                                                @if($k) ,
-                                                @endif
-                                                <a href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
-                                            @endforeach
-                                        </p>
-                                    @endif
-                                    @if(!empty($row->tags))
-                                        <p class="tags">
-                                            <strong> {{ __("Tags") }}</strong>
-                                            @foreach($row->tags as $k=>$category)
-                                                @if($k) ,
-                                                @endif
-                                                <a href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
-                                            @endforeach
-                                        </p>
-                                    @endif
-                                </div>
-                                @include('product.details.share')
+                            </div>
+                        @endif
+                        @include('product.details.price')
+                        <div class="bc-product_desc mb-4">
+                            <div class="desc-heading d-flex">
+                                <p class="sold-by me-5 m-0">{{__('Sold By:')}}<a href="{{route('user.profile',['id'=>$row->create_user])}}"><strong> {{$row->author->getDisplayName()}} </strong></a></p>
+                                @if($row->product_type == 'simple')
+                                    @php $stock_status = $row->getStockStatus() @endphp
+                                    <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span><strong>{{$stock_status['stock']}}</strong></span></span>
+                                @endif
+                            </div>
+                            <div class="bc-list-dot mt-3">
+                                {!! clean($row->short_desc) !!}
                             </div>
                         </div>
-                        @include('product.details.tabs')
+                        @include('product.details.color')
+                        @include('product.details.add-to-cart')
+                        <div class="bc-product__specification">
+                            @if($row->sku)
+                                <p><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
+                            @endif
+                            @if(!empty($row->categories))
+                                <p class="categories">
+                                    <strong> {{__("Categories:")}}</strong>
+                                    @foreach($row->categories as $k=>$category)
+                                        @if($k) ,
+                                        @endif
+                                        <a href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
+                                    @endforeach
+                                </p>
+                            @endif
+                            @if(!empty($row->tags))
+                                <p class="tags">
+                                    <strong> {{ __("Tags") }}</strong>
+                                    @foreach($row->tags as $k=>$category)
+                                        @if($k) ,
+                                        @endif
+                                        <a href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
+                                    @endforeach
+                                </p>
+                            @endif
+                        </div>
+                        @include('product.details.share')
                     </div>
                 </div>
+                @include('product.details.tabs')
             </div>
-            <div class="bc-section--default">
+            {{--<div class="bc-section--default">
                 <div class="bc-section__header">
                     <h3>Related products</h3>
                 </div>
@@ -323,7 +322,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--}}
         </div>
     </div>
 @endsection

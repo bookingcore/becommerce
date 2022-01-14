@@ -123,8 +123,8 @@
                                     <tr>
                                         <td>{{ $taxRate->country_code }}</td>
                                         <td>{{ $taxRate->state }}</td>
-                                        <td>{{ $taxRate->locationPostcodes->location_code ?? '' }}</td>
-                                        <td>{{ $taxRate->locationCities->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->locationPostcode->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->locationCity->location_code ?? '' }}</td>
                                         <td>{{ $taxRate->tax_rate }}</td>
                                         <td>{{ $transition->name }}</td>
                                         <td>{{ $taxRate->priority }}</td>

@@ -57,6 +57,7 @@ class CreateCouponTable extends Migration
             $table->string('object_model')->nullable();
 
             $table->string('coupon_code')->nullable();
+            $table->string('coupon_discount_type',50)->nullable();
             $table->decimal('coupon_amount',10,2)->nullable()->default(0);
             $table->text('coupon_data')->nullable();
 

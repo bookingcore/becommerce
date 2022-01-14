@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/slick/slick.css">
         <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
@@ -53,8 +54,8 @@
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
+            <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
             @yield('footer')

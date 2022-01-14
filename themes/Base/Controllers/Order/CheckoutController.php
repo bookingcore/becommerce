@@ -71,6 +71,7 @@
                 return $this->sendError('', ['errors' => $validator->errors()]);
             }
 
+//            Create order and on-hold order
             $order = CartManager::order();
 
             $order->gateway = $payment_gateway;
@@ -122,7 +123,7 @@
             try {
                 $res = $gatewayObj->process($payment);
 
-            CartManager::clear();
+                CartManager::clear();
 
                 if ($res !== true) {
                     return response()->json($res);
