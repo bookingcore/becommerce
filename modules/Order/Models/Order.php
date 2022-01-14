@@ -18,7 +18,10 @@ class Order extends BaseModel
     const COMPLETED  = 'completed'; //
     const FAILED = 'failed';
     const ON_HOLD = 'on_hold';
+    const PROCESSING = 'processing';
+    const PENDING = 'pending';
     const DRAFT = 'draft';
+    const CANCELLED = 'cancelled';
 
     protected $casts = [
         'billing'=>'array'

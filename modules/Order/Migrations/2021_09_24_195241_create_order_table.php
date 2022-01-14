@@ -77,6 +77,7 @@ class CreateOrderTable extends Migration
 
             $table->decimal('price',10,2)->nullable();
             $table->integer('qty')->default(1)->nullable();
+            $table->integer('reduced_stock')->nullable();
             $table->decimal('subtotal',10,2)->nullable();
             $table->decimal('discount_amount',10,2)->nullable();
             $table->string('status',30)->nullable();
