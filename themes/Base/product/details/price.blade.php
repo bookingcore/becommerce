@@ -15,11 +15,11 @@
         @endif
     @else
         @if(!empty($row->display_sale_price))
-            <p class="price has-sale m-0">
-                <ins>
+            <p class="price has-sale m-0 c-f30 fs-16">
+                <ins class="fs-24 fw-700 text-decoration-none pe-2">
                     <span class="amount">{{$row->display_price}}</span>
                 </ins>
-                <del>
+                <del class="c-666 pe-1">
                     <span class="amount">{{$row->display_sale_price}}</span>
                 </del>
                 @if(!empty($row->discount_percent))

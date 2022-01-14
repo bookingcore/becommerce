@@ -1,8 +1,5 @@
 .bc-page-product{
     .bc-product-detail{
-        .bc-product_box{
-            padding: 30px 20px;
-        }
         .bc-product_header{
             display: flex;
             flex-flow: row nowrap;
@@ -86,7 +83,6 @@
                 padding-left: 30px;
                 h1{
                     margin-bottom: 10px;
-                    font-size: 24px;
                     color: #000;
                     font-weight: 400;
                     line-height: 1.2;
@@ -121,30 +117,9 @@
                         font-size: 13px;
                     }
                 }
-                .bc-product_price{
-                    .price{
-                        color: #f30;
-                        font-size: 16px;
-                        ins{
-                            text-decoration: none;
-                            font-weight: 700;
-                            padding-right: 8px;
-                            font-size: 24px;
-                        }
-                        del{
-                            color: #666;
-                            padding-right: 4px;
-                        }
-                    }
-                }
                 .bc-product_desc{
                     border-bottom: 1px solid #e1e1e1;
                     .desc-heading{
-                        .sold-by{
-                            a{
-                                color: var(--main-color);
-                            }
-                        }
                         .product-stock-status{
                             strong{
                                 color: #ff0000;
