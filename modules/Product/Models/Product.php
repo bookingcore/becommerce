@@ -547,7 +547,15 @@ class Product extends BaseProduct
     public function hasWishList(){
         return $this->hasOne(UserWishList::class, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
     }
-
+    public function isWishList()
+    {
+        if (Auth::id()) {
+            if (!empty($this->hasWishList) and !empty($this->hasWishList->id)) {
+                return 'active';
+            }
+        }
+        return '';
+    }
 
     public static function search($fill)
     {

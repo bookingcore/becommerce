@@ -180,3 +180,13 @@
         }
     }
 }
+.service-wishlist{
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    color: white;
+    cursor: pointer;
+    &.active{
+        color:var(--main-color)
+    }
+}
