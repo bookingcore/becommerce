@@ -9,6 +9,7 @@ use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Listeners\OrderUpdatedNotification;
 use Modules\Order\Listeners\PaymentUpdatedListener;
 use Modules\Order\Listeners\ProductOnHoldListener;
+use Modules\Order\Listeners\ProductStockListener;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,6 +20,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderUpdated::class=>[
             ProductOnHoldListener::class,
+            ProductStockListener::class,
             OrderUpdatedNotification::class,
         ]
     ];

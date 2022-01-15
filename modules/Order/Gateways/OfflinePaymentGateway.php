@@ -16,7 +16,6 @@ class OfflinePaymentGateway extends BaseGateway
         // Simple change status to processing
         $order->markAsProcessing($this);
         $order->sendNewBookingEmails();
-// dang lam toi day. check tiep order status nhu nao
         PaymentUpdated::dispatch($order);
 
         return response()->json([

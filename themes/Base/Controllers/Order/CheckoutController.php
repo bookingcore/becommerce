@@ -129,12 +129,6 @@
                 if ($res !== true) {
                     return response()->json($res);
                 }
-// change order status on-hold
-
-                $order->status = Order::ON_HOLD;
-                $order->save();
-                OrderUpdated::dispatch($order);
-
                 return $this->sendSuccess([
                     'url' => $order->getDetailUrl()
                 ]);

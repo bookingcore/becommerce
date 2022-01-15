@@ -178,17 +178,13 @@ class Order extends BaseModel{
 
     public function markAsPaid()
     {
-
         $this->sendStatusUpdatedEmails();
-
         $this->status = static::PAID;
         $this->save();
     }
 
     public function markAsPaymentFailed(){
-
         $this->sendStatusUpdatedEmails();
-
         $this->status = static::UNPAID;
         $this->save();
 
