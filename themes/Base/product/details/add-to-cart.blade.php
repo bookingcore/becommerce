@@ -1,7 +1,7 @@
 @if($row->stock_status == 'in')
-    <div class="bc-product_shopping">
+    <div class="bc-product_shopping mb-4 pb-4 d-flex">
         <figure class="mb-0">
-            <figcaption class="fs-14">{{ __('Quantity') }}</figcaption>
+            <figcaption class="fs-14 mb-1">{{ __('Quantity') }}</figcaption>
             <div class="form-group-number">
                 <button class="up"><i class="fa fa-plus"></i></button>
                 <button class="down"><i class="fa fa-minus"></i></button>
@@ -9,7 +9,7 @@
             </div>
         </figure>
         <a class="btn btn-black btn-add-to-cart" href="#">{{ __('Add to cart') }}</a>
-        <a class="btn btn-buy-now" href="#">{{ __('Buy Now') }}</a>
+        <a class="btn btn-buy-now bg-main" href="#">{{ __('Buy Now') }}</a>
         <div class="bc-product_actions">
             <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
                 <i class="fa fa-heart"></i>
