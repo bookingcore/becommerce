@@ -15,7 +15,7 @@
     </section>
     <div class="checkout-page" id="bravo-checkout-page" v-cloak>
         <div class="container">
-            @if(!\Modules\Order\Helpers\CartManager::count())
+            @if(\Modules\Order\Helpers\CartManager::count())
             <div class="row">
                 <div class="column col-lg-8 col-md-12 col-sm-12">
                     @include ('order.checkout.billing')

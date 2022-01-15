@@ -120,17 +120,17 @@
             }
             //update or create user billing
             $user->billing_address()->updateOrCreate([],$billing_data);
-
-
             try {
                 $res = $gatewayObj->process($payment);
 
                 CartManager::clear();
+                CartManager::clearCoupon();
 
                 if ($res !== true) {
                     return response()->json($res);
                 }
 // change order status on-hold
+
                 $order->status = Order::ON_HOLD;
                 $order->save();
                 OrderUpdated::dispatch($order);

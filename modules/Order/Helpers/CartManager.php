@@ -22,6 +22,7 @@ class CartManager
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variant_id = false){
 
+        static::clear();
         $items = static::items();
         $item = static::item($product_id,$variant_id);
         if(!$item){
@@ -39,9 +40,7 @@ class CartManager
             $item->qty = $qty;
             $item->price = $price;
         }
-
         session()->put(static::$session_key, $items);
-
         return $item;
     }
 
@@ -128,9 +127,7 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-
         session()->remove(static::$session_key);
-
         return true;
     }
 

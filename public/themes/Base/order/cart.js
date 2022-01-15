@@ -1,39 +1,4 @@
 jQuery(function () {
-    $(document).on('click','.cart-item-qty .up',function (e) {
-        e.preventDefault()
-        let me = $(this)
-        let parent = me.closest('.cart-item-qty');
-        let input = parent.find('input[type=number]')
-        let value = input.val();
-        const min = input.data('min');
-        const max = input.data('max');
-        value = value++;
-        if(value <= min){
-            value = min;
-        }
-        if(value => max){
-            value = max;
-        }
-        input.val(value);
-    })
-    $(document).on('click','.cart-item-qty .down',function (e) {
-        e.preventDefault()
-        let me = $(this)
-        let parent = me.closest('.cart-item-qty');
-        let input = parent.find('input[type=number]')
-        let value = input.val();
-        const min = input.data('min',1);
-        const max = input.data('max',1);
-        value = --value;
-        if(value <= min){
-            value = min;
-        }
-        if(value => max){
-            value = max;
-        }
-        input.val(value);
-    })
-
     $(".bc_apply_coupon").click(function () {
         var parent = $(this).closest('.section-coupon-form');
         parent.find(".group-form .fa-spin").removeClass("d-none");

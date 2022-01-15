@@ -172,7 +172,6 @@ class Order extends BaseModel{
 
     public function markAsProcessing($payment)
     {
-
         $this->status = static::PROCESSING;
         $this->save();
     }
