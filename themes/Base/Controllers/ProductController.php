@@ -159,7 +159,7 @@ class ProductController extends Controller
             return;
         }
         $this->recently_viewed($row->id);
-        $product_variations = $this->product_variations($row);
+        $product_variations = $row->variations;
         $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
@@ -194,8 +194,7 @@ class ProductController extends Controller
             'body_class'=>'is_single full_width style_default',
             'show_breadcrumb' => 0,
             'breadcrumbs'=> $c_breadcrumbs,
-            'variations_product'    =>  json_encode($product_variations['variations_product']),
-            'attrs_list' =>  $product_variations['attr_list'],
+            'product_variations'    =>  $product_variations,
             'is_preview_mode'=>$is_preview_mode
         ];
         $this->setActiveMenu($row);

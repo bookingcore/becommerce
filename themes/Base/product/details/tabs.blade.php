@@ -22,7 +22,7 @@ $score_total = $reviewData['score_total'];
     <div class="bc-tabs">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
-                <div class="bc-tab @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
+                <div class="bc-tab border rounded p-3 @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
                     @if(!empty($tab['content']))
                         {!! clean($tab['content']) !!}
                     @elseif(isset($tab['id']) and view()->exists('product.details.tabs.'.$tab['id']))

@@ -381,28 +381,23 @@ class Product extends BaseProduct
                 'position' => 10
             ],
             [
-                'id' => 'specification',
-                'name' => __('Specification'),
-                'position' => 20
-            ],
-            [
                 'id' => 'vendor',
                 'name' => __('Vendor'),
-                'position' => 30
+                'position' => 20
             ],
             [
                 'id' => 'review',
                 'name' => __('Review'),
-                'position' => 40
+                'position' => 30
             ],
             [
                 'id' => 'policies',
                 'name' => __('Policies'),
-                'position' => 50
+                'position' => 40
             ]
         ];
         if (empty(setting_item('product_enable_review'))){
-            unset($getTabs[3]);
+            unset($getTabs[2]);
         }
         $tabs = $getTabs;
 

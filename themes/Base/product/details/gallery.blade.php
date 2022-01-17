@@ -6,7 +6,7 @@
                     @foreach($row->getGallery() as $key=>$item)
                         <div class="item">
                             <a href="{{$item['thumb']}}">
-                                <img src="{{$item['large']}}" alt="">
+                                <img src="{{$item['large']}}" alt="{{ __("Gallery") }}">
                             </a>
                         </div>
                     @endforeach
@@ -16,7 +16,7 @@
         <div class="bc-product_variants" data-item="4" data-md="4" data-sm="4" data-arrow="false">
             @foreach($row->getGallery() as $key=>$item)
                 <div class="item">
-                    <img src="{{$item['thumb']}}" alt="">
+                    <img src="{{$item['thumb']}}" alt="{{ __("Gallery") }}">
                 </div>
             @endforeach
         </div>
