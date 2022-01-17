@@ -3,7 +3,7 @@
 
 @endsection
 @section('content')
-    @include('global.bc')
+     @include('global.breadcrumb')
     <div class="bc-section-account mb-3 mt-3">
         <div class="container">
             <div class="row">

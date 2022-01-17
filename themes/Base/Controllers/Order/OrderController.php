@@ -19,10 +19,14 @@ class OrderController extends FrontendController
 
         $data = [
             'row'=>$order,
-            'page_title'=>__("Order Detail"),
             'hide_newsletter'=>true,
+            'breadcrumbs'=>[
+                [
+                    'name'=> "Order Detail",
+                ]
+            ],
         ];
-        return view('Order::frontend.detail',$data);
+        return view('order.detail',$data);
     }
 
     public function confirmPayment(Request $request, $gateway)

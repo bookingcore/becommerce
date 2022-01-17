@@ -5,22 +5,27 @@ namespace Modules\Order\Gateways;
 
 
 use Illuminate\Http\Request;
+use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
+use Modules\Order\Models\Payment;
+use Modules\Product\Models\Order;
 
 class OfflinePaymentGateway extends BaseGateway
 {
     public $name = 'Offline Payment';
 
-    public function process(Request $request, $order)
+    public function process(Payment $payment)
     {
+        $order = $payment->order;
+        if (!$payment->amount) {
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
+        }
         // Simple change status to processing
-        $order->markAsProcessing($this);
-        $order->sendNewBookingEmails();
-        PaymentUpdated::dispatch($order);
-
-        return response()->json([
-            'url' => $order->getDetailUrl()
-        ]);
+        $order->markAsProcessing();
+        $payment->status = Order::PROCESSING;
+        $payment->save();
+        PaymentUpdated::dispatch($payment);
+        return true;
     }
 
     public function getOptionsConfigs()

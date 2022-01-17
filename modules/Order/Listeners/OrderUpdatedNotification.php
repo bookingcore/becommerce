@@ -16,13 +16,13 @@ class OrderUpdatedNotification
     {
         $order = $event->_order;
         switch ($order->status) {
+            case Order::PROCESSING:
             case Order::COMPLETED:
                 // Send Email
                 Mail::to($order->customer)->queue(new OrderEmail($order));
                 if(setting_item('admin_email')) {
                     Mail::to(setting_item('admin_email'))->queue(new OrderEmail($order, 'admin'));
                 }
-
             break;
         }
     }

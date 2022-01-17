@@ -5,7 +5,7 @@
             {!! ($row->getProcessedContent()) !!}
         </div>
     @else
-        @include('global.bc')
+         @include('global.breadcrumb')
         <div class="bc-contact-info">
             <div class="container">
                 <div class="bc-section__header">

@@ -29,7 +29,12 @@
                 'hide_newsletter'=>true,
                 'gateways'=>get_payment_gateway_objects(),
                 'user'=>$user,
-                'billing'=>$billing
+                'billing'=>$billing,
+                'breadcrumbs'=>[
+                    [
+                        'name'=> "Checkout",
+                    ]
+                ],
             ];
             return view('order.checkout.index',$data);
         }
@@ -123,8 +128,8 @@
             try {
                 $res = $gatewayObj->process($payment);
 
-                CartManager::clear();
-                CartManager::clearCoupon();
+//                CartManager::clear();
+//                CartManager::clearCoupon();
 
                 if ($res !== true) {
                     return response()->json($res);

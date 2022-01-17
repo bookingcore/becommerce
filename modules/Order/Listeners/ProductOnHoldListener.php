@@ -18,6 +18,7 @@ class ProductOnHoldListener
         $items = $event->_items;
         switch ($order->status) {
             case Order::ON_HOLD:
+            case Order::PROCESSING:
 //              add product on-hold in order item
                 if(!empty($items)){
                     $setting_expired_at = setting_item('product_on_hold_expired_at',1);
@@ -25,13 +26,10 @@ class ProductOnHoldListener
                     foreach ($items as $item) {
                        $model = $item->model();
                        if(!empty($model) and $model instanceof  Product){
-                           $productOnHold = new ProductOnHold();
-                           $productOnHold->order_id = $item->order_id;
-                           $productOnHold->product_id = $item->object_id;
-                           $productOnHold->variant_id = $item->variant_id;
-                           $productOnHold->qty = $item->qty;
-                           $productOnHold->expired_at = $expired_at;
-                           $productOnHold->save();
+                           $productOnHold = ProductOnHold::firstOrCreate(
+                             ['order_id'=>$item->order_id,'product_id'=>$item->object_id,'variant_id'=>$item->variant_id] ,
+                             ['order_id'=>$item->order_id,'product_id'=>$item->object_id,'variant_id'=>$item->variant_id,'qty'=>$item->qty,'expired_at'=>$expired_at]
+                           );
                        }
                     }
                 }
@@ -40,7 +38,6 @@ class ProductOnHoldListener
 //              remove product on-hold in order item
                 ProductOnHold::where('order_id',$order->id)->delete();
                 break;
-            case Order::PROCESSING:
             case Order::CANCELLED:
             case Order::PENDING:
             case Order::FAILED:
