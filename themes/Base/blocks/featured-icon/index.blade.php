@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 @foreach($list_items as $item)
-                    <div class="col-md-4 col-sm-6">
+                    <div class="col-xl-3 col-lg-6 mb-lg-4">
                         <div class="d-flex align-items-center box">
                             <div class="flex-shrink-0">
                                 <div class="round bg-main c-white d-flex align-items-center justify-content-center">
@@ -11,7 +11,7 @@
                                 </div>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h4 class="fs-24">{{ $item['title'] ?? '' }}</h4>
+                                <h4 class="fs-23">{{ $item['title'] ?? '' }}</h4>
                                 <p class="mb-0">{{$item['sub_title'] ?? ''}}</p>
                             </div>
                         </div>
