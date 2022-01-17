@@ -57,7 +57,7 @@ class CartController extends FrontendController
                 'fragments'=>CartManager::get_cart_fragments(),
                 'url'=>$buy_now ? route('checkout') : ''
             ],
-                !$buy_now ? __('":title" has been added to your cart.',['title'=>$this->title]) :''
+                !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
             );
 
         }catch (\Exception $exception){

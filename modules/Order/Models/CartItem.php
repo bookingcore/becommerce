@@ -44,7 +44,6 @@ class CartItem extends Model
         $item->meta = $meta;
         $item->author = $model->author->display_name;
         $item->variant_id = $variant_id;
-
         $item->generateId();
 
         return $item;

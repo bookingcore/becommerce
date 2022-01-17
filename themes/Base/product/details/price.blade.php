@@ -3,13 +3,11 @@
         @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
             <p class="price variable-price m-0">
                 @if($priceRange['min'] == $priceRange['max'])
-                    <ins><span class="amount">{{format_money($priceRange['max'])}}</span></ins>
+                    <span class="amount">{{format_money($priceRange['max'])}}</span>
                 @else
-                    <ins>
-                        <span class="amount">{{format_money($priceRange['min'])}}</span>
-                        -
-                        <span class="amount">{{format_money($priceRange['max'])}}</span>
-                    </ins>
+                    <span class="amount">{{format_money($priceRange['min'])}}</span>
+                    -
+                    <span class="amount">{{format_money($priceRange['max'])}}</span>
                 @endif
             </p>
         @endif

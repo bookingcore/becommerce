@@ -82,12 +82,10 @@ $(document).on('click','.bc_add_to_cart',function(e){
     e.preventDefault();
     $(this).addClass('loading');
     var me = $(this);
-    console.log(
-        $(this).data('product')
-    )
+
     $.ajax({
         url:'/cart/addToCart',
-        data:$(this).data('product'),
+        data:{id:$(this).data('id'),type:$(this).data('type')},
         type:'post',
         dataType:'json',
         success:function(json){
@@ -103,7 +101,6 @@ $(document).on('click','.bc_add_to_cart',function(e){
             if(json.message){
                 BcApp.showAjaxMessage(json);
             }
-
         },
         error:function(err){
             bravo_handle_error_response(err);
@@ -153,7 +150,40 @@ $(document).on('click','.bc_delete_cart_item',function(e){
         }
     })
 })
-
+$(document).on('click','.cart-item-qty .up',function (e) {
+    e.preventDefault()
+    let me = $(this)
+    let parent = me.closest('.cart-item-qty');
+    let input = parent.find('input[type=number]')
+    let value = input.val();
+    const min = input.attr('min');
+    const max = input.attr('max');
+    value++;
+    if(value <= min){
+        value = min;
+    }
+    if(value >= max){
+        value = max;
+    }
+    input.val(value);
+})
+$(document).on('click','.cart-item-qty .down',function (e) {
+    e.preventDefault()
+    let me = $(this)
+    let parent = me.closest('.cart-item-qty');
+    let input = parent.find('input[type=number]')
+    let value = input.val();
+    const min = input.attr('min');
+    const max = input.attr('max');
+    value--;
+    if(value <= min){
+        value = min;
+    }
+    if(value >= max){
+        value = max;
+    }
+    input.val(value);
+})
 var BcApp ={
     showSuccess:function (configs){
         var args = {};

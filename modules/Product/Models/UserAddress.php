@@ -10,6 +10,20 @@ class UserAddress extends BaseModel
 {
 
     protected $table = 'user_address';
+    protected $fillable =[
+        'first_name',
+        'last_name',
+        'company',
+        'address',
+        'address2',
+        'city',
+        'state',
+        'postcode',
+        'country',
+        'email',
+        'phone',
+        'type',
+    ];
 
     public function getHtmlAttribute(){
         $data = [

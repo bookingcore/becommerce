@@ -8,7 +8,7 @@ use Validator;
 use Illuminate\Support\Facades\Log;
 use Modules\Booking\Models\Booking;
 
-class TwoCheckoutGateway extends \Modules\Booking\Gateways\BaseGateway
+class TwoCheckoutGateway extends \Modules\Order\Gateways\BaseGateway
 {
     protected $id   = 'two_checkout_gateway';
     public    $name = 'Two Checkout';

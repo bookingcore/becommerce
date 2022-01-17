@@ -2,7 +2,7 @@
     @php $policies = setting_item_with_lang("product_policies"); @endphp
     @if(!empty($policies))
         @foreach(json_decode($policies) as $item)
-            <h4>{{__($item->title)}}</h4>
+            <h5>{{__($item->title)}}</h5>
             <div class="description">{{__($item->content)}}</div>
         @endforeach
     @endif

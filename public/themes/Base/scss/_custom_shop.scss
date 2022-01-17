@@ -184,6 +184,7 @@
     }
 }
 .service-wishlist{
+    cursor: pointer;
     &.is_loop{
         position: absolute;
         left: 15px;
@@ -191,7 +192,7 @@
         color: white;
         cursor: pointer;
     }
-    &.active{
+    &.active,&:hover{
         color:var(--main-color)
     }
 }
@@ -212,3 +213,18 @@
         line-height: 20px;
     }
 }
+.loading{
+    .fa-spinner{
+        display: block;
+    }
+}
+.bc-product-variations{
+    .variation{
+        span{
+            &:last-child{
+                display: none;
+            }
+        }
+    }
+}
+

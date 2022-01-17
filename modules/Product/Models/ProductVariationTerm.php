@@ -13,6 +13,11 @@ class ProductVariationTerm extends BaseModel
     protected $fillable = [
         'variation_id','term_id','product_id'
     ];
+
+    public function term(){
+        return $this->hasOne(Terms::class, "id",'term_id');
+    }
+
     public function get_term($product_id){
         $variations_id = [];
         $variations = ProductVariation::where('product_id',$product_id)->get();

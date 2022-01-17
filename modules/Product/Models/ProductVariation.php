@@ -32,8 +32,8 @@ class ProductVariation extends BaseModel
         return __("Variable Product");
     }
 
-    public function variations(){
-        return $this->hasMany(ProductVariation::class,'product_id')->orderBy('id','desc');
+    public function variation_terms(){
+        return $this->hasMany(ProductVariationTerm::class,'variation_id','id');
     }
 
     public function getDetailUrl($locale = false)

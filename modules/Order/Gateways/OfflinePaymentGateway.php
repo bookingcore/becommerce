@@ -1,23 +1,26 @@
 <?php
-namespace Modules\Product\Gateways;
+
+
+namespace Modules\Order\Gateways;
+
 
 use Illuminate\Http\Request;
-use Modules\Product\Models\Product;
+use Modules\Order\Events\PaymentUpdated;
 
 class OfflinePaymentGateway extends BaseGateway
 {
     public $name = 'Offline Payment';
 
-    public function process(Request $request, $booking, $service)
+    public function process(Request $request, $order)
     {
-        $service->beforePaymentProcess($booking, $this);
         // Simple change status to processing
-        $booking->markAsProcessing($this, $service);
-        $booking->sendNewBookingEmails();
-        $service->afterPaymentProcess($booking, $this);
+        $order->markAsProcessing($this);
+        $order->sendNewBookingEmails();
+        PaymentUpdated::dispatch($order);
+
         return response()->json([
-            'url' => $booking->getDetailUrl()
-        ])->send();
+            'url' => $order->getDetailUrl()
+        ]);
     }
 
     public function getOptionsConfigs()
@@ -47,3 +50,4 @@ class OfflinePaymentGateway extends BaseGateway
         ];
     }
 }
+
