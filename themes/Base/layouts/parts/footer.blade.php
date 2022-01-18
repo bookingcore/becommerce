@@ -39,7 +39,7 @@
                 @endforeach
             @endif
             @if($footer_info_text = setting_item_with_lang("footer_info_text"))
-                <div class="col-lg-4 col-sm-12 offset-md-1">
+                <div class="col-lg-4 col-sm-12 offset-lg-1">
                     <h5 class="font-21 mb-3">{{ __("Contact us") }}</h5>
                     <div class="content">
                         {!! clean($footer_info_text) !!}

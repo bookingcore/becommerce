@@ -2,9 +2,10 @@
 $categories = \Modules\Product\Models\ProductCategory::getAll();
 if(!isset($current_cat)) $current_cat = null;
 ?>
-<form class="bc-form--quick-search" action="{{route('product.index')}}" method="get">
-    <div class="input-group">
-        <select name="cat_slug" class="form-select f-w-30">
+<form class="bc-form-quick-search d-flex align-items-center justify-content-center" action="{{route('product.index')}}" method="get">
+    <div class="menu-bar d-lg-none d-block fs-24 px-3"><i class="fa fa-bars"></i></div>
+    <div class="form-group d-flex w-100">
+        <select name="cat_slug" class="form-select f-w-30 d-none d-lg-block">
             <option value="">{{__("All")}}</option>
             @php
                 $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {
