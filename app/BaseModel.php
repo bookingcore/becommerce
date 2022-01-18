@@ -112,7 +112,7 @@ class BaseModel extends Model
 
     public function author()
     {
-        return $this->belongsTo("App\User", "author_id", "id");
+        return $this->belongsTo("App\User", "create_user", "id");
     }
 
     public function cacheKey(){

@@ -80,3 +80,8 @@ Route::group(['prefix'=>'order'],function(){
     Route::get('/cancel/{gateway}','Order\OrderController@cancelPayment')->name('order.cancel');
     Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
 });
+
+Route::group(['prefix'=>'profile'],function(){
+    Route::match(['get'],'/{id}','ProfileController@profile')->name("user.frond.profile");
+    Route::match(['get'],'/{id}/reviews','ProfileController@allReviews')->name("user.frond.profile.reviews");
+});

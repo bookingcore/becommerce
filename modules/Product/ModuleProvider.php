@@ -220,9 +220,6 @@ class ModuleProvider extends ModuleServiceProvider
                 'product_hide_products_out_of_stock',
 
                 'product_policies',
-                'shipping_information',
-                'ads_url',
-                'ads_image',
                 'product_sidebar',
                 'list_sliders'
             ],
