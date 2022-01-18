@@ -32,14 +32,14 @@
             @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
                 @php $list_widget_footers = json_decode($list_widget_footers); @endphp
                 @foreach($list_widget_footers as $key=>$item)
-                    <div class="col-2">
+                    <div class="col-lg-2 col-sm-12 mb-4 mb-lg-0">
                         <h5 class="font-21 mb-3">{{$item->title}}</h5>
                         {!! ($item->content) !!}
                     </div>
                 @endforeach
             @endif
             @if($footer_info_text = setting_item_with_lang("footer_info_text"))
-                <div class="col-4 offset-1">
+                <div class="col-lg-4 col-sm-12 offset-md-1">
                     <h5 class="font-21 mb-3">{{ __("Contact us") }}</h5>
                     <div class="content">
                         {!! clean($footer_info_text) !!}

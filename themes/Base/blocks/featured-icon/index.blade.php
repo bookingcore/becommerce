@@ -7,12 +7,12 @@
                         <div class="d-flex align-items-center box">
                             <div class="flex-shrink-0">
                                 <div class="round bg-main c-white d-flex align-items-center justify-content-center">
-                                    <i class="fs-32 {{$item['icon'] ?? 'fa fa-configs'}}"></i>
+                                    <i class="fs-24 {{$item['icon'] ?? 'fa fa-configs'}}"></i>
                                 </div>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h4 class="fs-23">{{ $item['title'] ?? '' }}</h4>
-                                <p class="mb-0">{{$item['sub_title'] ?? ''}}</p>
+                                <h4 class="fs-20">{{ $item['title'] ?? '' }}</h4>
+                                <p class="mb-0 fs-15">{{$item['sub_title'] ?? ''}}</p>
                             </div>
                         </div>
                     </div>
