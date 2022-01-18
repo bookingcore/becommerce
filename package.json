@@ -2,7 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "mix watch",
-        "prod": "npm run production",
+        "prod": "mix --production",
         "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix watch",
         "f-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"
     },
