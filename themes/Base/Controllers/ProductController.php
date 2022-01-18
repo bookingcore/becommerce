@@ -78,6 +78,10 @@ class ProductController extends Controller
             'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
+                    'name'=> __("Shop"),
+                    'url'=>route('product.index')
+                ],
+                [
                     'name'=> $category->name,
                 ]
             ],
@@ -163,22 +167,22 @@ class ProductController extends Controller
         $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
-        $bc = [
-            'url'=>'',
+        $breadcrumbs = [
+            [
+                'name'=> __("Shop"),
+                'url'=>route('product.index')
+            ],
+        ];
+        if ($cats->count()){
+            $breadcrumbs[] = [
+                    'name' => $cats[0]->name,
+                    'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
+                ];
+        }
+        $breadcrumbs[] = [
             'class'=>'active',
             'name'=>$translation->title
         ];
-        if ($cats->count()){
-            $c_breadcrumbs = [
-                [
-                    'name' => $cats[0]->name,
-                    'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
-                ],
-                $bc
-            ];
-        } else {
-            $c_breadcrumbs = [$bc];
-        }
         $is_preview_mode = false;
         if($row->status != 'publish'){
             $is_preview_mode = true;
@@ -193,7 +197,7 @@ class ProductController extends Controller
             'seo_meta'  => $row->getSeoMetaWithTranslation(app()->getLocale(),$translation),
             'body_class'=>'is_single full_width style_default',
             'show_breadcrumb' => 0,
-            'breadcrumbs'=> $c_breadcrumbs,
+            'breadcrumbs'=> $breadcrumbs,
             'product_variations'    =>  $product_variations,
             'is_preview_mode'=>$is_preview_mode
         ];

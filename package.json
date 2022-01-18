@@ -1,11 +1,9 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "watch": "mix watch",
-        "prod": "npm run production",
-        "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix",
-        "f-watch": "npm run f-dev watch",
+        "dev": "mix watch",
+        "prod": "mix --production",
+        "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix watch",
         "f-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"
     },
     "devDependencies": {

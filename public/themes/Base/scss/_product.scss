@@ -212,31 +212,6 @@
                         background-color: transparent;
                     }
                 }
-                .btn{
-                    font-weight: 600;
-                    padding-left: 30px;
-                    padding-right: 30px;
-                    vertical-align: top;
-                    max-height: 50px;
-                    font-size: 18px;
-                    margin-right: 10px;
-                    text-align: center;
-                    color: #ffffff;
-                    transition: all .3s;
-                    &:focus{
-                        box-shadow: none;
-                    }
-                    &.btn-add-to-cart{
-                        &:hover{
-                            background: var(--main-color);
-                        }
-                    }
-                    &.btn-buy-now{
-                        &:hover{
-                            background: #000000;
-                        }
-                    }
-                }
                 .bc-product_actions{
                     font-size: 28px;
                     a{
@@ -259,34 +234,6 @@
             .bc-product_sharing{
                 i{
                     line-height: 40px;
-                }
-            }
-        }
-        .bc-product_content{
-            .bc-tab-root{
-                .bc-tab-list{
-                    .nav-item{
-                        .nav-link{
-                            background: transparent;
-                            border-radius: 0;
-                            color: #999999;
-                            font-weight: bold;
-                            font-size: 18px;
-                            transition: none;
-                            &.active,&:hover{
-                                color: initial;
-                                border-bottom: 2px solid var(--main-color);
-                            }
-                        }
-                    }
-                }
-                .bc-tabs{
-                    .bc-tab{
-                        display: none;
-                        &.active{
-                            display: block;
-                        }
-                    }
                 }
             }
         }

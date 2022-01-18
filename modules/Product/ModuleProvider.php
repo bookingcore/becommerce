@@ -20,7 +20,7 @@ class ModuleProvider extends ModuleServiceProvider
 
         $sitemapHelper->add("product",[Product::class,"getForSitemap"]);
 
-        AdminMenuManager::register("core",[$this,'getAdminMenu']);
+        AdminMenuManager::register("product",[$this,'getAdminMenu']);
 
         SettingManager::register("product",[$this,'getProductSettings']);
         SettingManager::register("store",[$this,'getStoreSettings']);

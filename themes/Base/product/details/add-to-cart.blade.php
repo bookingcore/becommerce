@@ -13,8 +13,8 @@
                 <input class="form-control" name="quantity" type="number" min="1" max="{{ $max }}" value="1">
             </div>
         </figure>
-        <button type="submit" class="btn btn-black btn-add-to-cart bc_add_to_cart"><i class="fa fa-spinner d-none"></i>{{ __('Add to cart') }}</button>
-        <button type="submit" value="buynow" class="btn btn-buy-now bg-main" href="#">{{ __('Buy Now') }}</button>
+        <button type="submit" class="btn btn-outline-primary btn-add-to-cart bc_add_to_cart"><i class="fa fa-spinner d-none"></i>{{ __('Add to cart') }}</button>
+        <button type="submit" value="buynow" class="btn btn-primary btn-buy-now " href="#">{{ __('Buy Now') }}</button>
         <div class="bc-product_actions">
             <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
                 <i class="fa fa-heart"></i>

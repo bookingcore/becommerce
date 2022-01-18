@@ -2,6 +2,7 @@
 namespace Modules\Order;
 
 use Illuminate\Support\ServiceProvider;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
 
@@ -15,7 +16,7 @@ class ModuleProvider extends ModuleServiceProvider
         ]);
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
-
+        AdminMenuManager::register("orders",[$this,'getAdminMenu']);
         SettingManager::register("order",[$this,'getOrderSettings']);
     }
     /**
@@ -36,7 +37,7 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'orders'=>[
                 "position"=>45,
-                'url'        => route('booking.admin.orders'),
+                'url'        => route('order.admin.index'),
                 'title'      => __("Orders"),
                 'icon'       => 'fa fa-dashboard',
                 'permission' => 'report_view',

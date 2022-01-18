@@ -522,14 +522,6 @@ $('.bc-product-detail').each(function () {
     });
 })
 
-$('.bc-tab-list .nav-item .nav-link').click(function (e) {
-    e.preventDefault();
-    let tab = $(this).attr('data-tab');
-    $('.bc-tab-list .nav-item .nav-link').removeClass('active');
-    $('.bc-tabs .bc-tab').removeClass('active');
-    $(this).addClass('active');
-    $(`#${tab}`).addClass('active');
-});
 
 $('.menu-bar').click(function () {
     $('.bc-mobile-nav').toggleClass('active');

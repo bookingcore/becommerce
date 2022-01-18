@@ -7,6 +7,7 @@ namespace Modules\Order\Models;
 use App\BaseModel;
 use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Product\Models\Product;
 
 class OrderItem extends BaseModel
 {
@@ -23,10 +24,11 @@ class OrderItem extends BaseModel
 
     public function model(){
         $keys = get_bookable_services();
-        if(array_key_exists($this->object_model,$keys)){
-            return $keys[$this->object_model]::find($this->object_id);
+        if(!empty($keys[$this->object_model])){
+            return $this->belongsTo($keys[$this->object_model],'object_id');
+        }else{
+            return $this->belongsTo(Product::class,'object_id');
         }
-        return false;
     }
 
     public function order(){

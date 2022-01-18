@@ -249,6 +249,7 @@ import BCAdaterPlugin from './ckeditor/uploadAdapter'
     });
 
     $('.dungdt-apply-form-btn').click(function (e) {
+        e.preventDefault();
         var $this = $(this);
         var action = $this.closest('form').find('[name=action]').val();
         var apply_action = function () {
