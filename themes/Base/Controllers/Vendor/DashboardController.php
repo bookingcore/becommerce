@@ -13,7 +13,7 @@ class DashboardController extends \Modules\FrontendController
             'recent_orders'    => $this->getRecentOrders(),
             'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
             'earning_chart_data'=>[],
-            'page_title'=>__("Vendor Dashboard")
+            'page_title'=>__("Store Dashboard")
         ];
 
         return view('vendor.dashboard',$data);
