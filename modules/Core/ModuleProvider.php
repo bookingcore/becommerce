@@ -26,7 +26,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("advance",[$this,'registerAdvanceSetting']);
         SettingManager::register("style",[$this,'registerStyleSetting']);
 
-        AdminMenuManager::register("product",[$this,'getAdminMenu']);
+        AdminMenuManager::register("setting",[$this,'getAdminMenu']);
     }
     /**
      * Register bindings in the container.
@@ -58,7 +58,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'icon'       => 'icon ion-ios-apps',
                 'permission' => 'menu_view',
             ],
-            'general'=>[
+            'setting'=>[
                 "position"=>80,
                 'url'        => 'admin/module/core/settings/index/general',
                 'title'      => __('Setting'),
