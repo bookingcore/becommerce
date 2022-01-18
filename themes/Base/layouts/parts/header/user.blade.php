@@ -11,7 +11,7 @@
 
         @if(is_vendor_enable() and is_vendor())
             <li><hr class="dropdown-divider"></li>
-            <li><h6 class="dropdown-header">{{__("Vendor Settings")}}</h6></li>
+            <li><h6 class="dropdown-header">{{__("Store Settings")}}</h6></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.dashboard')}}"><i class="fa fa-desktop"></i> {{__("Dashboard")}}</a></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.product')}}"><i class="fa fa-database"></i> {{__("Products")}}</a></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.order')}}"><i class="fa fa-shopping-basket"></i> {{__("Orders")}}</a></li>

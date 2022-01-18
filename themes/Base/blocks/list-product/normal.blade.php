@@ -9,7 +9,7 @@
                 <div class="row">
                     @if(!empty($rows))
                         @foreach($rows as $row)
-                        <div class="col-md-3 mb-3">
+                        <div class="col-lg-3 col-sm-6 mb-3">
                             @include('product.search.loop')
                         </div>
                         @endforeach
