@@ -53,7 +53,7 @@ namespace Database\Seeders;
                     [
                         'name'  => 'footer_info_text',
                         'val'   => '<h3 class="c-main fw-bold">1800 97 97 69</h3>
-<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@martfury.co">contact@martfury.co</a></p>
+<p>502 New Design Str, Melbourne, Australia <br><a href="mailto:contact@becommerce.test">contact@becommerce.test</a></p>
 <div class="socials-list">
     <a href="#"><i class="fa fa-facebook"></i></a>
     <a href="#"><i class="fa fa-linkedin"></i></a>

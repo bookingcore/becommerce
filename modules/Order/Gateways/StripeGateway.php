@@ -2,11 +2,11 @@
 namespace Modules\Order\Gateways;
 
 use Mockery\Exception;
-use Modules\Booking\Events\BookingCreatedEvent;
 use Modules\Order\Events\PaymentUpdated;
+use Modules\Order\Models\Payment;
+use Modules\Product\Models\Order;
 use Omnipay\Omnipay;
 use Omnipay\Common\Exception\InvalidCreditCardException;
-use Illuminate\Support\Facades\Log;
 
 use App\Helpers\Assets;
 
@@ -72,7 +72,7 @@ class StripeGateway extends BaseGateway
         ];
     }
 
-    public function process(\Modules\Order\Models\Payment $payment)
+    public function process(Payment $payment)
     {
 
         if (!$payment->amount) {
@@ -116,7 +116,7 @@ class StripeGateway extends BaseGateway
             if ($response->isSuccessful()) {
 
                 $payment->addMeta('log',$response->getData());
-                $payment->status = 'completed';
+                $payment->status = Order::COMPLETED;
                 $payment->logs = json_encode($response->getData());
                 $payment->save();
 

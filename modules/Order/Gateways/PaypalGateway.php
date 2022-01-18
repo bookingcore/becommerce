@@ -4,13 +4,11 @@ namespace Modules\Order\Gateways;
 use App\Currency;
 use Illuminate\Http\Request;
 use Mockery\Exception;
-use Modules\Booking\Events\BookingUpdatedEvent;
-use Modules\Booking\Models\Booking;
-use Modules\Booking\Models\Payment;
 use Modules\Order\Events\PaymentUpdated;
+use Modules\Order\Models\Payment;
+use Modules\Product\Models\Order;
 use Omnipay\Omnipay;
 use Omnipay\PayPal\ExpressGateway;
-use Illuminate\Support\Facades\Log;
 
 class PaypalGateway extends BaseGateway
 {
@@ -106,7 +104,7 @@ class PaypalGateway extends BaseGateway
         ];
     }
 
-    public function process(\Modules\Order\Models\Payment $payment)
+    public function process(Payment $payment)
     {
         if (!$payment->amount) {
             throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
@@ -120,6 +118,7 @@ class PaypalGateway extends BaseGateway
         if ($response->isRedirect()) {
             $payment->status = $payment::ON_HOLD;
             $payment->save();
+            PaymentUpdated::dispatch($payment);
             return ['url' => $response->getRedirectUrl()];
 
         } else {
@@ -140,7 +139,7 @@ class PaypalGateway extends BaseGateway
             $response = $this->gateway->completePurchase($data)->send();
             if ($response->isSuccessful()) {
                 $payment->addMeta('log',$response->getData());
-                $payment->status = 'completed';
+                $payment->status = Order::COMPLETED;
                 $payment->logs = \GuzzleHttp\json_encode($response->getData());
                 $payment->save();
 

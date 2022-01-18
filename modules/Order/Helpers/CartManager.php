@@ -22,7 +22,6 @@ class CartManager
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variant_id = false){
 
-        static::clear();
         $items = static::items();
         $item = static::item($product_id,$variant_id);
         if(!$item){

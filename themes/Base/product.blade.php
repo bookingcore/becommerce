@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section('content')
-    @include('global.bc')
+     @include('global.breadcrumb')
     <div class="bc-page--shop" id="shop-sidebar">
         <div class="container">
             <form action="" class="bc_form_filter">

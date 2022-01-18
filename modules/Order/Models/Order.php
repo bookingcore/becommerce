@@ -122,48 +122,6 @@ class Order extends BaseModel
         }
     }
 
-    public function reductionStock($items){
-        if(!empty($items)){
-            foreach ($items as $item) {
-                if(empty($item->reduced_stock)){
-                    $model = $item->model();
-                    if(!empty($model) and $model instanceof  Product){
-                        if($model->is_manage_stock){
-                            $model->quantity -= $item->qty;
-                            if($model->quantity <=0){
-                                $model->quantity = 0 ;
-                                $model->stock_status ='out';
-                            }
-                            $model->save();
-                        }
-                    }
-                    $item->reduced_stock = $item->qty;
-                    $item->save();
-                }
-            }
-        }
-    }
-    public function returnStock($items){
-        if(!empty($items)){
-            foreach ($items as $item) {
-                if(empty($item->reduced_stock)){
-                    $model = $item->model();
-                    if(!empty($model) and $model instanceof  Product){
-                        if($model->is_manage_stock){
-                            $model->quantity += $item->reduced_stock;
-                            if($model->quantity<=0){
-                                $model->stock_status ='out';
-                            }
-                            $model->save();
-                        }
-                    }
-                    $item->reduced_stock = null;
-                    $item->save();
-                }
-            }
-        }
-    }
-
 
     public function getDisplayNameAttribute(){
         return $this->first_name.' '.$this->last_name;
@@ -184,7 +142,26 @@ class Order extends BaseModel
 
     public function search($filters){
         $query = parent::query();
-
         return $query;
     }
+
+
+    public function markAsProcessing()
+    {
+        $this->status = static::PROCESSING;
+        $this->save();
+    }
+
+    public function markAsPaid()
+    {
+        $this->status = static::PAID;
+        $this->save();
+    }
+
+    public function markAsPaymentFailed(){
+        $this->status = static::UNPAID;
+        $this->save();
+
+    }
+
 }

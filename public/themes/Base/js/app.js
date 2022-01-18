@@ -78,14 +78,14 @@ window.bravo_handle_error_response = function(e){
     }
 };
 // Cart
-$(document).on('click','.bc_add_to_cart',function(e){
-    e.preventDefault();
-    $(this).addClass('loading');
-    var me = $(this);
 
+$('.bc_form_add_to_cart').on('submit',function(e){
+    e.preventDefault();
+    var me = $(this);
+    me.addClass('loading');
     $.ajax({
         url:'/cart/addToCart',
-        data:{id:$(this).data('id'),type:$(this).data('type')},
+        data:me.serialize(),
         type:'post',
         dataType:'json',
         success:function(json){
@@ -113,11 +113,10 @@ $(document).on('click','.bc_delete_cart_item',function(e){
     var c = confirm("Do you want to delete this cart item?");
     if(!c) return;
     var removeElement = $(this).data('remove');
-    console.log(removeElement);
     var me = $(this);
     var id = $(this).data('id');
     $.ajax({
-        url:'cart/remove_cart_item',
+        url:'/cart/remove_cart_item',
         data:{
             id:id
         },

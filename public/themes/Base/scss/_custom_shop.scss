@@ -213,11 +213,14 @@
         line-height: 20px;
     }
 }
-.loading{
-    .fa-spinner{
-        display: block;
+.bc_form_add_to_cart{
+    &.loading{
+        .fa-spinner{
+            display: block;
+        }
     }
 }
+
 .bc-product-variations{
     .variation{
         span{

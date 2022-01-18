@@ -1,18 +1,6 @@
 @extends("layouts.app")
 @section('content')
-    <section class="page-title">
-        <div class="container">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{home_url()}}">{{__('Home')}}</a></li>
-                    <li class="breadcrumb-item" aria-current="page">{{__("Checkout")}}</li>
-                </ol>
-            </nav>
-            <div class="section-title my-4">
-                <h3>{{__('Checkout')}}</h3>
-            </div>
-        </div>
-    </section>
+    @include('global.breadcrumb')
     <div class="checkout-page" id="bravo-checkout-page" v-cloak>
         <div class="container">
             @if(\Modules\Order\Helpers\CartManager::count())

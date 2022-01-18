@@ -1,6 +1,6 @@
 @extends("layouts.app")
 @section('content')
-    @include('global.bc')
+     @include('global.breadcrumb')
     <div class="bc-page-product">
         <div class="container">
             <div class="bc-product-detail mb-5">

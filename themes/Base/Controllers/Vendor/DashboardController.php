@@ -13,7 +13,7 @@ class DashboardController extends \Modules\FrontendController
             'recent_orders'    => $this->getRecentOrders(),
             'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
             'earning_chart_data'=>[],
-            'page_title'=>__("Vendor Dashboard")
+            'page_title'=>__("Store Dashboard")
         ];
 
         return view('vendor.dashboard',$data);
@@ -37,7 +37,7 @@ class DashboardController extends \Modules\FrontendController
         }
         $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`subtotal` - `discount_amount`) as total_price , sum( `subtotal` - `discount_amount` - `commission_amount` ) AS total_earning ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
         $count_bookings = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->count('id');
-
+        $count_items = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->sum('qty');
         $res[] = [
             'size'   => 6,
             'size_md'=>3,
@@ -64,6 +64,15 @@ class DashboardController extends \Modules\FrontendController
             'amount' => $count_bookings,
             'desc'   => __("Orders this month"),
             'class'  => 'info',
+            'icon'   => 'icon ion-ios-pricetags'
+        ];
+        $res[] = [
+            'size'   => 6,
+            'size_md'=>3,
+            'title'  => __("Items"),
+            'amount' => $count_items,
+            'desc'   => __("Sold this month"),
+            'class'  => 'success',
             'icon'   => 'icon ion-ios-pricetags'
         ];
         return $res;

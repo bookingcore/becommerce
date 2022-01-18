@@ -17,7 +17,11 @@ class CartController extends FrontendController
         $data = [
             'items'=>CartManager::items(),
             'counpon'=>CartManager::getCoupon(),
-            'page_title'=>__("Shopping Cart")
+            'breadcrumbs'=>[
+                [
+                    'name'=> "Shopping Cart",
+                ]
+            ],
         ];
         return view('order.cart.index',$data);
     }
@@ -33,14 +37,20 @@ class CartController extends FrontendController
         }
 
         $validator = Validator::make($request->all(), [
-            'id'   => 'required|integer',
-            'type' => 'required'
+            'object_id'   => 'required|integer',
+            'object_model' => 'required',
+            'quantity' => 'required',
+        ],[
+            'object_model.required'=>__("Service id is required"),
+            'object_id.required'=>__("Service id is required"),
+            'object_id.integer'=>__("Service id is integer"),
         ]);
         if ($validator->fails()) {
             return $this->sendError('', ['errors' => $validator->errors()]);
         }
-        $service_type = $request->input('type');
-        $service_id = $request->input('id');
+        $service_type = $request->input('object_model');
+        $quantity = $request->input('quantity');
+        $service_id = $request->input('object_id');
         $variant_id = $request->input('variant_id');
 
         $allServices = get_bookable_services();
@@ -51,7 +61,7 @@ class CartController extends FrontendController
         $service = $module::find($service_id);
         try {
             $service->addToCartValidate($request->input('qty'),$variant_id);
-            CartManager::add($service);
+            CartManager::add($service,$service->name,$quantity,null,[],$variant_id);
             $buy_now = $request->input('buy_now');
             return $this->sendSuccess([
                 'fragments'=>CartManager::get_cart_fragments(),
