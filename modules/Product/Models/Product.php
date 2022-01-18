@@ -374,21 +374,11 @@ class Product extends BaseProduct
      * Single Tabs
      */
     public function getTabsAttribute(){
-        $getTabs = [
+        $tabs = [
             [
                 'id' => 'content',
                 'name' => __('Description'),
                 'position' => 10
-            ],
-            [
-                'id' => 'vendor',
-                'name' => __('Vendor'),
-                'position' => 20
-            ],
-            [
-                'id' => 'review',
-                'name' => __('Review'),
-                'position' => 30
             ],
             [
                 'id' => 'policies',
@@ -396,10 +386,20 @@ class Product extends BaseProduct
                 'position' => 40
             ]
         ];
-        if (empty(setting_item('product_enable_review'))){
-            unset($getTabs[2]);
+        if(is_vendor_enable()){
+           $tabs[] = [
+                   'id' => 'vendor',
+                   'name' => __('Vendor'),
+                   'position' => 20
+               ];
         }
-        $tabs = $getTabs;
+        if (setting_item('product_enable_review')){
+            $tabs[] =[
+                    'id' => 'review',
+                    'name' => __('Review'),
+                    'position' => 30
+                ];
+        }
 
         return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
             return $value['position'] ?? 10;
