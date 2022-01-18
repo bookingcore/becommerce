@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 @foreach($list_items as $item)
-                    <div class="col-xl-3 col-lg-6 mb-lg-4">
+                    <div class="col-xl-3 col-lg-6 col-sm-6 mb-xl-0 mb-4">
                         <div class="d-flex align-items-center box">
                             <div class="flex-shrink-0">
                                 <div class="round bg-main c-white d-flex align-items-center justify-content-center">

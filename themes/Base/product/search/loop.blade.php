@@ -6,7 +6,7 @@ $score_total = $reviewData['score_total'];
 <div class="bc-loop-product card shadow-sm">
     <div class="bd-placeholder-img card-img-top position-relative">
         <a href="{{$row->getDetailUrl()}}" class="d-block">
-            {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid']) !!}
+            {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
         </a>
         @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
