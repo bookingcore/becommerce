@@ -23,13 +23,13 @@
                 <div class="form-group">
                     <label class="" >{{__("Favicon")}}</label>
                     <div class="form-controls form-group-image">
-                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('site_favicon',$settings['site_favicon'] ?? "") !!}
+                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('site_favicon',setting_item('site_favicon') ?? "") !!}
                     </div>
                 </div>
                 <div class="form-group">
                     <label>{{__("Date format")}}</label>
                     <div class="form-controls">
-                        <input type="text" class="form-control" name="date_format" value="{{$settings['date_format'] ?? 'm/d/Y' }}">
+                        <input type="text" class="form-control" name="date_format" value="{{setting_item('date_format') ?? 'm/d/Y' }}">
                     </div>
                 </div>
                 @endif
@@ -45,7 +45,7 @@
                             <option value="UTC">{{__("-- Default --")}}</option>
                             @if(!empty($timezones))
                                 @foreach($timezones as $item=>$value)
-                                    <option @if($item == ($settings['site_timezone'] ?? '') ) selected @endif value="{{$item}}">{{$value}}</option>
+                                    <option @if($item == (setting_item('site_timezone') ?? '') ) selected @endif value="{{$item}}">{{$value}}</option>
                                 @endforeach
                             @endif
                         </select>
@@ -55,8 +55,8 @@
                     <label>{{__("Change the first day of week for the calendars")}}</label>
                     <div class="form-controls">
                         <select name="site_first_day_of_the_weekin_calendar" class="form-control">
-                            <option @if("1" == ($settings['site_first_day_of_the_weekin_calendar'] ?? '') ) selected @endif value="1">{{__("Monday")}}</option>
-                            <option @if("0" == ($settings['site_first_day_of_the_weekin_calendar'] ?? '') ) selected @endif value="0">{{__("Sunday")}}</option>
+                            <option @if("1" == (setting_item('site_first_day_of_the_weekin_calendar') ?? '') ) selected @endif value="1">{{__("Monday")}}</option>
+                            <option @if("0" == (setting_item('site_first_day_of_the_weekin_calendar') ?? '') ) selected @endif value="0">{{__("Sunday")}}</option>
                         </select>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                                 @endphp
 
                                 @foreach($langs as $lang)
-                                    <option @if($lang->locale == ($settings['site_locale'] ?? '') ) selected @endif value="{{$lang->locale}}">{{$lang->name}} - ({{$lang->locale}})</option>
+                                    <option @if($lang->locale == (setting_item('site_locale') ?? '') ) selected @endif value="{{$lang->locale}}">{{$lang->name}} - ({{$lang->locale}})</option>
                                 @endforeach
                             </select>
                             <p><i><a href="{{url('admin/module/language')}}">{{__("Manage languages here")}}</a></i></p>
@@ -159,7 +159,7 @@
                         <label>{{__("Page for Homepage")}}</label>
                         <div class="form-controls">
                             <?php
-                            $template = !empty($settings['home_page_id']) ? \Modules\Page\Models\Page::find($settings['home_page_id']) : false;
+                            $template = !empty(setting_item('home_page_id')) ? \Modules\Page\Models\Page::find(setting_item('home_page_id')) : false;
 
                             \App\Helpers\AdminForm::select2('home_page_id', [
                                 'configs' => [
@@ -192,7 +192,7 @@
                     <div class="form-group">
                         <label>{{__("Logo")}}</label>
                         <div class="form-controls form-group-image">
-                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_id',$settings['logo_id'] ?? '') !!}
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('logo_id',setting_item('logo_id') ?? '') !!}
                         </div>
                     </div>
                 @endif
@@ -364,23 +364,23 @@
                 <div class="form-group">
                     <label class="">{{__("Iframe google map")}}</label>
                     <div class="form-controls">
-                        <input type="text" class="form-control" name="page_contact_iframe_google_map" value="{{ $settings['page_contact_iframe_google_map'] ?? "" }}">
+                        <input type="text" class="form-control" name="page_contact_iframe_google_map" value="{{ setting_item('page_contact_iframe_google_map') ?? "" }}">
                     </div>
                 </div>
                 @if(is_default_lang())
                     <div class="form-group">
                         <label>{{__("Contact Call To Action")}}</label>
                         <div class="form-controls mb-3">
-                            <input type="text" class="form-control" name="contact_call_to_action_title" placeholder="{{ __('Title') }}" value="{{ $settings['contact_call_to_action_title'] ?? "" }}">
+                            <input type="text" class="form-control" name="contact_call_to_action_title" placeholder="{{ __('Title') }}" value="{{ setting_item('contact_call_to_action_title') ?? "" }}">
                         </div>
                         <div class="form-controls mb-3">
-                            <textarea name="contact_call_to_action_sub_title" class="form-control" placeholder="{{ __('Description') }}">{!! clean($settings['contact_call_to_action_sub_title'] ?? '') !!}</textarea>
+                            <textarea name="contact_call_to_action_sub_title" class="form-control" placeholder="{{ __('Description') }}">{!! clean(setting_item('contact_call_to_action_sub_title') ?? '') !!}</textarea>
                         </div>
                         <div class="form-controls mb-3">
-                            <input type="text" class="form-control" name="contact_call_to_action_button_text" placeholder="{{ __('Button Text') }}" value="{{ $settings['contact_call_to_action_button_text'] ?? "" }}">
+                            <input type="text" class="form-control" name="contact_call_to_action_button_text" placeholder="{{ __('Button Text') }}" value="{{ setting_item('contact_call_to_action_button_text') ?? "" }}">
                         </div>
                         <div class="form-controls mb-3">
-                            <input type="text" class="form-control" name="contact_call_to_action_button_link" placeholder="{{ __('Button Link') }}" value="{{ $settings['contact_call_to_action_button_link'] ?? "" }}">
+                            <input type="text" class="form-control" name="contact_call_to_action_button_link" placeholder="{{ __('Button Link') }}" value="{{ setting_item('contact_call_to_action_button_link') ?? "" }}">
                         </div>
                         <div class="form-controls form-group-image">
                             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('contact_call_to_action_image',setting_item('contact_call_to_action_image')) !!}
