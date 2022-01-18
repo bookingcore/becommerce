@@ -1,5 +1,6 @@
 <?php
 namespace Modules\Coupon;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
 
@@ -9,6 +10,8 @@ class ModuleProvider extends ModuleServiceProvider
     public function boot(SitemapHelper $sitemapHelper){
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
+        AdminMenuManager::register("coupon",[$this,'getAdminMenu']);
+
 
     }
     /**

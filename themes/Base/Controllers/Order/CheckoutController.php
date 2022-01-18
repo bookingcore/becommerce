@@ -9,6 +9,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
+    use Modules\Coupon\Models\CouponOrder;
     use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
     use Modules\Order\Models\Order;
@@ -81,6 +82,7 @@
 //            Create order and on-hold order
             $order = CartManager::order();
 
+
             $order->gateway = $payment_gateway;
             $billing_data = [
                 'first_name'=>$request->input('first_name'),
@@ -118,7 +120,7 @@
             $order->payment_id = $payment->id;
             $order->save();
 
-//            save billing order
+            //            save billing order
             $order->addMeta('billing',$billing_data);
             if(!empty($request->input('billing_id'))){
                 $billing_data['id'] = $request->input('billing_id');
@@ -128,8 +130,8 @@
             try {
                 $res = $gatewayObj->process($payment);
 
-//                CartManager::clear();
-//                CartManager::clearCoupon();
+                CartManager::clear();
+                CartManager::clearCoupon();
 
                 if ($res !== true) {
                     return response()->json($res);

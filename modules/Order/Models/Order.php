@@ -8,6 +8,7 @@ use App\BaseModel;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Events\OrderUpdated;
 use Modules\Product\Models\Product;
 
@@ -38,7 +39,9 @@ class Order extends BaseModel
 
     public function syncTotal(){
         $this->subtotal = $this->items->sum('subtotal');
-        $this->total = $this->subtotal;
+        $discount = $this->items->sum('discount_amount');
+        $shipping  = 0;
+        $this->total = $this->subtotal + $shipping - $discount;
         $this->save();
     }
 
@@ -162,6 +165,10 @@ class Order extends BaseModel
         $this->status = static::UNPAID;
         $this->save();
 
+    }
+
+    public function coupons(){
+        return $this->hasMany(CouponOrder::class,'order_id');
     }
 
 }

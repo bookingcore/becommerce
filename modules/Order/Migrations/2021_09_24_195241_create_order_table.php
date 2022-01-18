@@ -170,6 +170,7 @@ class CreateOrderTable extends Migration
         Schema::dropIfExists('core_orders');
         Schema::dropIfExists('core_order_items');
         Schema::dropIfExists('core_order_meta');
+        Schema::dropIfExists('core_order_item_meta');
         Schema::dropIfExists('core_payments');
         Schema::dropIfExists('core_payment_meta');
     }

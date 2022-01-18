@@ -32,29 +32,27 @@
                                     </div>
                                 </div>
                                 <div class="g-items">
-                                    <?php
-                                    $list_sliders = [];
-                                    if(!empty($settings['list_sliders'])){
-                                    $list_sliders  = $settings['list_sliders'];
-                                    $list_sliders = json_decode(setting_item_with_lang('list_sliders',request()->query('lang'),$settings['list_sliders'] ?? "[]"));
-                                    ?>
-                                    @foreach($list_sliders as $key=>$item)
-                                        <div class="item" data-number="{{$key}}">
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    {!! \Modules\Media\Helpers\FileHelper::fieldUpload('list_sliders['.$key.'][image_id]',$item->image_id) !!}
-                                                </div>
-                                                <div class="col-md-7">
-                                                    <input type="text" name="list_sliders[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
-                                                    <textarea name="list_sliders[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                    @php
+                                    $list_sliders = json_decode(setting_item_with_lang('list_sliders',request()->query('lang'), "[]"));
+                                    @endphp
+                                    @if($list_sliders)
+                                        @foreach($list_sliders as $key=>$item)
+                                            <div class="item" data-number="{{$key}}">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('list_sliders['.$key.'][image_id]',$item->image_id) !!}
+                                                    </div>
+                                                    <div class="col-md-7">
+                                                        <input type="text" name="list_sliders[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
+                                                        <textarea name="list_sliders[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
+                                                    </div>
+                                                    <div class="col-md-1">
+                                                        <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
-                                    <?php } ?>
+                                        @endforeach
+                                    @endif
                                 </div>
                                 <div class="text-right">
                                     <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
@@ -109,7 +107,7 @@
                             @if(is_default_lang())
                                 <div class="form-group form-group-image">
                                     <label class="control-label">{{__("Featured Image")}}</label>
-                                    {!! \Modules\Media\Helpers\FileHelper::fieldUpload('product_page_list_seo_image', $settings['product_page_list_seo_image'] ?? "" ) !!}
+                                    {!! \Modules\Media\Helpers\FileHelper::fieldUpload('product_page_list_seo_image', setting_item('product_page_list_seo_image', "" )) !!}
                                 </div>
                             @endif
                         </div>
@@ -167,7 +165,7 @@
                     <div class="form-group">
                         <label class="" >{{__("Write review")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="product_enable_review" value="1" @if(!empty($settings['product_enable_review'])) checked @endif /> {{__("On Review")}} </label>
+                            <label><input type="checkbox" name="product_enable_review" value="1" @if(!empty(setting_item('product_enable_review'))) checked @endif /> {{__("On Review")}} </label>
                             <br>
                             <small class="form-text text-muted">{{__("Turn on the mode for reviewing product")}}</small>
                         </div>
@@ -175,7 +173,7 @@
                     <div class="form-group" data-condition="product_enable_review:is(1)">
                         <label class="" >{{__('Reviews can only be left by "verified owners"')}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="product_review_verification_required" value="1"  @if(!empty($settings['product_review_verification_required'])) checked @endif /> {{__("On")}} </label>
+                            <label><input type="checkbox" name="product_review_verification_required" value="1"  @if(!empty(setting_item('product_review_verification_required'))) checked @endif /> {{__("On")}} </label>
                             <br>
                             <small class="form-text text-muted">{{__("ON: Only post a review after booking - Off: Post review without booking")}}</small>
                         </div>
@@ -183,7 +181,7 @@
                     <div class="form-group" data-condition="product_enable_review:is(1)">
                         <label class="" >{{__("Review approved")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="product_review_approved" value="1"  @if(!empty($settings['product_review_approved'])) checked @endif /> {{__("On approved")}} </label>
+                            <label><input type="checkbox" name="product_review_approved" value="1"  @if(!empty(setting_item('product_review_approved'))) checked @endif /> {{__("On approved")}} </label>
                             <br>
                             <small class="form-text text-muted">{{__("ON: Review must be approved by admin - OFF: Review is automatically approved")}}</small>
                         </div>
@@ -191,7 +189,7 @@
                     <div class="form-group" data-condition="product_enable_review:is(1)">
                         <label class="" >{{__("Review number per page")}}</label>
                         <div class="form-controls">
-                            <input type="number" class="form-control" name="product_review_number_per_page" value="{{ $settings['product_review_number_per_page'] ?? 5 }}" />
+                            <input type="number" class="form-control" name="product_review_number_per_page" value="{{ setting_item('product_review_number_per_page' , 5) }}" />
                             <small class="form-text text-muted">{{__("Break comments into pages")}}</small>
                         </div>
                     </div>
@@ -215,14 +213,14 @@
                     <div class="form-group">
                         <label class="" >{{__("Enable stock management")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="product_enable_stock_management" value="1" @if(!empty($settings['product_enable_stock_management'])) checked @endif /> {{__("On")}} </label>
+                            <label><input type="checkbox" name="product_enable_stock_management" value="1" @if(!empty(setting_item('product_enable_stock_management'))) checked @endif /> {{__("On")}} </label>
                         </div>
                     </div>
 
                     <div class="form-group" data-condition="product_enable_stock_management:is(1)">
                         <label class="" >{{__("Hold stock (minutes)")}}</label>
                         <div class="form-controls">
-                            <input type="number" class="form-control" name="product_hold_stock" value="{{ $settings['product_hold_stock'] ?? 60 }}" />
+                            <input type="number" class="form-control" name="product_hold_stock" value="{{ setting_item('product_hold_stock', 60) }}" />
                             <small class="form-text text-muted">{{__("Hold stock (for unpaid orders) for x minutes. When this limit is reached, the pending order will be cancelled. Leave blank to disable.")}}</small>
                         </div>
                     </div>
@@ -230,7 +228,7 @@
                     <div class="form-group">
                         <label class="" >{{__("Hide out of stock items from the product page?")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="product_hide_products_out_of_stock" value="1"  @if(!empty($settings['product_hide_products_out_of_stock'])) checked @endif /> {{__("On")}} </label>
+                            <label><input type="checkbox" name="product_hide_products_out_of_stock" value="1"  @if(!empty(setting_item('product_hide_products_out_of_stock'))) checked @endif /> {{__("On")}} </label>
                         </div>
                     </div>
                 </div>
@@ -258,26 +256,24 @@
                                 </div>
                             </div>
                             <div class="g-items">
-                                <?php
-                                $product_policies = [];
-                                if(!empty($settings['product_policies'])){
-                                $product_policies  = $settings['product_policies'];
-                                $product_policies = json_decode(setting_item_with_lang('product_policies',request()->query('lang'),$settings['product_policies'] ?? "[]"));
-                                ?>
-                                @foreach($product_policies as $key=>$item)
-                                    <div class="item" data-number="{{$key}}">
-                                        <div class="row">
-                                            <div class="col-md-11">
-                                                <input type="text" name="product_policies[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
-                                                <textarea name="product_policies[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
-                                            </div>
-                                            <div class="col-md-1">
-                                                <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                @php
+                                $product_policies = json_decode(setting_item_with_lang('product_policies',request()->query('lang'),"[]"));
+                                @endphp
+                                @if(!empty($product_policies) && count($product_policies) > 0)
+                                    @foreach($product_policies as $key=>$item)
+                                        <div class="item" data-number="{{$key}}">
+                                            <div class="row">
+                                                <div class="col-md-11">
+                                                    <input type="text" name="product_policies[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
+                                                    <textarea name="product_policies[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                @endforeach
-                                <?php } ?>
+                                    @endforeach
+                                @endif
                             </div>
                             <div class="text-right">
                                 <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
