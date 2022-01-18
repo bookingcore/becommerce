@@ -11,7 +11,7 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
 {
     public function boot(Request $request){
 
-        AdminMenuManager::register("menu",[$this,'getAdminMenu']);
+        AdminMenuManager::register("theme",[$this,'getAdminMenu']);
 
         if(!is_installed() || strpos($request->path(), 'install') !== false) return false;
 
@@ -48,7 +48,7 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                 'title'=>__("Themes"),
                 'url'=>route("theme.admin.index"),
                 "permission"=>"theme_manage",
-                "position"=>50,
+                "position"=>70,
                 'icon'=>"fa fa-paint-brush"
             ]
         ];

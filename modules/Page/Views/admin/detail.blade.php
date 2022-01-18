@@ -108,22 +108,6 @@
                         @if(is_default_lang())
                             <div class="panel">
                                 <div class="panel-body">
-                                    @php
-                                        $background = $row->c_background;
-                                        $bg_image = (isset($background->image)) ? $background->image : '';
-                                    @endphp
-                                    <h3 class="panel-body-title">{{ __('Content Background')}}</h3>
-                                    <div class="form-group">
-                                        <label>{{ __('Color:') }}</label>
-                                        <input type="color" name="c_background[color]" class="form-control" value="{{(isset($background->color)) ? $background->color : '#FFFFFF'}}">
-                                        <hr>
-                                        <label>{{ __('Image:') }}</label>
-                                        {!! \Modules\Media\Helpers\FileHelper::fieldUpload('c_background[image]',$bg_image) !!}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="panel">
-                                <div class="panel-body">
                                     <h3 class="panel-body-title">{{ __('Feature Image')}}</h3>
                                     <div class="form-group">
                                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',$translation->image_id) !!}
