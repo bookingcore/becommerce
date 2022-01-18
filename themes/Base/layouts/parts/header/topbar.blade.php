@@ -1,7 +1,7 @@
 <div class="bravo_topbar bg-dark py-1">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="topbar-left text-white d-flex align-items-center">
+        <div class="d-flex justify-content-lg-between justify-content-end align-items-center">
+            <div class="topbar-left text-white align-items-center d-none d-lg-flex">
                 {!! clean(setting_item_with_lang("topbar_left_text")) !!}
             </div>
             <div class="topbar-right">

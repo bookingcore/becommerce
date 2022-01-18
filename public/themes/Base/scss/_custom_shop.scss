@@ -231,3 +231,48 @@
     }
 }
 
+.bc-mobile-nav{
+    .bc-mobile-content{
+        max-width: 500px;
+        background-color: red;
+        /* left: -475px; */
+        top: 0;
+        z-index: 9999;
+        transition: transform .35s ease;
+         display: none;
+        .bc-mobile-header{
+            background-color: var(--main-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .bc-mobile-menu{
+            >.nav-item{
+                border-bottom: 1px solid #dedede;
+                &.dropdown{
+                    .nav-link{
+                        &:after{
+                            content: '\f067';
+                            font-family: FontAwesome, "sans-serif";
+                        }
+                    }
+                }
+                .nav-link{
+                    display: flex;
+                    justify-content: space-between;
+                }
+            }
+        }
+    }
+    .bc-mobile-overlay{
+        background-color: rgba(0,0,0,.85);
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9999;
+        //z-index: -1;
+        display: none;
+    }
+}
+
