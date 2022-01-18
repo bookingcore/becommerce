@@ -8,9 +8,10 @@
                     @include('product.details.gallery')
                     <div class="bc-product_info">
                         <h1 class="fs-24 mb-2">{{$translation->title}}</h1>
-                        @if($row->brand)
                             <div class="bc-product_meta mb-4 d-flex">
-                                <p>{{ __("Brand:") }}<a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
+                                @if($row->brand)
+                                <p>{{ __("Brand:") }} <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
+                                @endif
                                 @php
                                     $reviewData = $row->getScoreReview();
                                     $score_total = $reviewData['score_total'];
@@ -22,7 +23,6 @@
                                     </div>
                                 @endif
                             </div>
-                        @endif
                         @include('product.details.price')
                         <div class="bc-product_desc mb-4">
                             <div class="desc-heading d-flex">
