@@ -530,3 +530,23 @@ $('.bc-tab-list .nav-item .nav-link').click(function (e) {
     $(this).addClass('active');
     $(`#${tab}`).addClass('active');
 });
+
+$('.menu-bar').click(function () {
+    $('.bc-mobile-nav').toggleClass('active');
+});
+$('.bc-mobile-nav').each(function () {
+    let me = $(this);
+
+    me.find('.bc-mobile-overlay, .close-bc-mobile').click(function () {
+        $(this).closest('.bc-mobile-nav').toggleClass('active');
+    })
+
+    me.find('.dropdown .nav-link').click(function (e) {
+        let $this = $(this);
+        let depth = $this.parent().attr('class');
+        depth = depth.substr(depth.search(/depth/gi),7);
+        if ($this.parent().hasClass('dropdown')) e.preventDefault();
+        $(`.bc-mobile-menu .dropdown.${depth} .nav-link`).parent().removeClass('active').find('.dropdown-menu').stop().removeAttr('style').slideUp('fast');
+        $this.parent().addClass('active').find('>.dropdown-menu').stop().slideDown('fast');
+    });
+});

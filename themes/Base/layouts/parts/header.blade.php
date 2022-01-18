@@ -52,7 +52,7 @@
         <div class="bc-mobile-content w-100 position-fixed overflow-auto h-100 bg-white">
             <div class="bc-mobile-header p-3">
                 <h2 class="fs-16 color-dark mb-0">{{ __('Main Menu') }}</h2>
-                <a class="close-bc-mobile"><i class="icon-cross"></i></a>
+                <a class="close-bc-mobile c-f30"><i class="fa fa-times"></i></a>
             </div>
             @php generate_menu('primary',['class' => 'bc-mobile-menu d-block my-2']) @endphp
         </div>
