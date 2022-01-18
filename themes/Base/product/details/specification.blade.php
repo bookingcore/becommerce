@@ -1,5 +1,4 @@
 <div class="bc-product_specification mb-2 fs-14">
-    <a class="report c-main" href="#">{{ __('Report Abuse') }}</a>
     @if($row->sku)
         <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
     @endif
