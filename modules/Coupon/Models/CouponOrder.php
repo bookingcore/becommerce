@@ -12,6 +12,7 @@ class CouponOrder extends BaseModel
         'object_id',
         'object_model',
         'coupon_code',
+        'coupon_discount_type',
         'coupon_amount',
         'coupon_data',
     ];

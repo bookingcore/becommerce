@@ -2,6 +2,7 @@
     "private": true,
     "scripts": {
         "dev": "npm run development",
+        "development": "mix",
         "watch": "mix watch",
         "prod": "npm run production",
         "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix",

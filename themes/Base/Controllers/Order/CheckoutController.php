@@ -9,6 +9,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
+    use Modules\Coupon\Models\CouponOrder;
     use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
     use Modules\Order\Models\Order;
@@ -81,6 +82,7 @@
 //            Create order and on-hold order
             $order = CartManager::order();
 
+
             $order->gateway = $payment_gateway;
             $billing_data = [
                 'first_name'=>$request->input('first_name'),
@@ -118,6 +120,23 @@
             $order->payment_id = $payment->id;
             $order->save();
 
+//          order coupon
+            $couponOrderSession = CartManager::getCoupon();
+
+            if(!empty($couponOrderSession)){
+                foreach ($couponOrderSession as $coupon){
+                    $couponOrder = new CouponOrder();
+                    $couponOrder->order_id = $order->id;
+                    $couponOrder->order_status = $order->status;
+                    $couponOrder->coupon_code = $coupon->code;
+                    $couponOrder->coupon_amount = $coupon->amount;
+                    $couponOrder->coupon_discount_type = $coupon->discount_type;
+                    $couponOrder->coupon_data = $coupon->toArray();
+                    $couponOrder->save();
+                }
+            }
+
+
 //            save billing order
             $order->addMeta('billing',$billing_data);
             if(!empty($request->input('billing_id'))){
@@ -128,8 +147,8 @@
             try {
                 $res = $gatewayObj->process($payment);
 
-//                CartManager::clear();
-//                CartManager::clearCoupon();
+                CartManager::clear();
+                CartManager::clearCoupon();
 
                 if ($res !== true) {
                     return response()->json($res);
