@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Models\Settings;
 use Illuminate\Support\Facades\Cache;
@@ -17,7 +18,7 @@ class SettingsController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/core/settings/index/general');
+        AdminMenuManager::setActive('setting');
     }
 
     public function index($group)
