@@ -52,7 +52,7 @@ class ModuleProvider extends ModuleServiceProvider
                 "position"=>0
             ],
             'menu'=>[
-                "position"=>60,
+                "position"=>70,
                 'url'        => 'admin/module/core/menu',
                 'title'      => __("Menu"),
                 'icon'       => 'icon ion-ios-apps',
