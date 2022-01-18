@@ -39,7 +39,9 @@ class Order extends BaseModel
 
     public function syncTotal(){
         $this->subtotal = $this->items->sum('subtotal');
-        $this->total = $this->subtotal;
+        $discount = $this->items->sum('discount_amount');
+        $shipping  = 0;
+        $this->total = $this->subtotal + $shipping - $discount;
         $this->save();
     }
 

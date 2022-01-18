@@ -40,13 +40,11 @@
                                                     </li>
                                                 @endforeach
                                             @endif
-
-                                            @if($row->coupons && is_array(json_decode($row->coupons)))
-                                                @foreach(json_decode($row->coupons) as $coupon)
-                                                    @php $coupon_discount = ($coupon->type == 'percent') ? $coupon->discount/100 : $coupon->discount  @endphp
+                                            @if($row->coupons)
+                                                @foreach($row->coupons as $coupon)
                                                     <li class="info-content info-coupon">
-                                                        <div class="label text-uppercase">{{ __('Coupon: :coupon',['coupon'=>$coupon->name]) }}</div>
-                                                        <div class="val" style="color: red">-{{ ($coupon->type == 'percent') ? format_money($row->total * $coupon_discount) : format_money($coupon_discount) }}</div>
+                                                        <div class="label text-uppercase">{{ __('Coupon: :coupon',['coupon'=>$coupon->code]) }}</div>
+                                                        <div class="val" style="color: red">-{{ format_money($row->items->sum('discount_amount'))}}</div>
                                                     </li>
                                                 @endforeach
                                             @endif

@@ -120,24 +120,7 @@
             $order->payment_id = $payment->id;
             $order->save();
 
-//          order coupon
-            $couponOrderSession = CartManager::getCoupon();
-
-            if(!empty($couponOrderSession)){
-                foreach ($couponOrderSession as $coupon){
-                    $couponOrder = new CouponOrder();
-                    $couponOrder->order_id = $order->id;
-                    $couponOrder->order_status = $order->status;
-                    $couponOrder->coupon_code = $coupon->code;
-                    $couponOrder->coupon_amount = $coupon->amount;
-                    $couponOrder->coupon_discount_type = $coupon->discount_type;
-                    $couponOrder->coupon_data = $coupon->toArray();
-                    $couponOrder->save();
-                }
-            }
-
-
-//            save billing order
+            //            save billing order
             $order->addMeta('billing',$billing_data);
             if(!empty($request->input('billing_id'))){
                 $billing_data['id'] = $request->input('billing_id');

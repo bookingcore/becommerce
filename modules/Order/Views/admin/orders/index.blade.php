@@ -119,15 +119,6 @@
                         </td>
                         <td>{{display_datetime($row->updated_at)}}</td>
                         <td>
-                            @if($row->coupons && is_array(json_decode($row->coupons)))
-                                @foreach(json_decode($row->coupons) as $coupon)
-                                    @php $coupon_discount = ($coupon->type == 'percent') ? $coupon->discount/100 : $coupon->discount  @endphp
-                                    <li class="info-content info-coupon">
-                                        <div class="label text-uppercase">{{ __('Coupon: :coupon',['coupon'=>$coupon->name]) }}</div>
-                                        <div class="val" style="color: red">-{{ ($coupon->type == 'percent') ? format_money($row->total * $coupon_discount) : format_money($coupon_discount) }}</div>
-                                    </li>
-                                @endforeach
-                            @endif
 
                             <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal-order-{{$row->id}}" type="button">{{ __('Detail') }}</button>
                             @includeIf('Order::admin.orders.detail-modal')
