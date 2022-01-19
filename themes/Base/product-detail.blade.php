@@ -46,6 +46,7 @@
                 </div>
                 <div class="bc-product_content">
                     @include('product.details.tabs')
+                    @include('product.details.products-related')
                 </div>
             </div>
         </div>

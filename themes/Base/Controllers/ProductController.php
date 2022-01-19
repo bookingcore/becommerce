@@ -190,6 +190,11 @@ class ProductController extends Controller
             $translation->title = '[Preview mode] '.$translation->title;
         }
 
+        $products_related = $this->product::join(ProductCategoryRelation::getTableName().' as cats_relations','cats_relations.target_id','=','products.id')
+            ->where('products.status','publish')
+            ->where('products.id','!=',$row->id)
+            ->whereIn('cats_relations.cat_id',$cats->pluck('id'))->get();
+
         $data = [
             'row'          => $row,
             'translation'  => $translation,
@@ -199,7 +204,8 @@ class ProductController extends Controller
             'show_breadcrumb' => 0,
             'breadcrumbs'=> $breadcrumbs,
             'product_variations'    =>  $product_variations,
-            'is_preview_mode'=>$is_preview_mode
+            'is_preview_mode'=>$is_preview_mode,
+            'products_related' => $products_related
         ];
         $this->setActiveMenu($row);
         return view('product-detail', $data);
