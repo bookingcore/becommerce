@@ -190,6 +190,7 @@ class ModuleProvider extends ModuleServiceProvider
 
                 'footer_info_text',
                 'list_widget_footer',
+                'page_contact_title',
 
                 'date_format',
                 'site_timezone',

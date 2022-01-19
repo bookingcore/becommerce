@@ -78,7 +78,10 @@ class ContactController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                Contact::where("id", $id)->first()->delete();
+                $query = Contact::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->delete();
+                }
             }
         } else {
             foreach ($ids as $id) {
