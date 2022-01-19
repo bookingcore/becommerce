@@ -35,6 +35,7 @@ class ContactController extends Controller
                 'email'
             ],
             'name'    => ['required'],
+            'subject' => ['required'],
             'message' => ['required']
         ]);
         /**
@@ -43,14 +44,22 @@ class ContactController extends Controller
         if(ReCaptchaEngine::isEnable()){
             $codeCapcha = $request->input('g-recaptcha-response');
             if(!$codeCapcha or !ReCaptchaEngine::verify($codeCapcha)){
-                return redirect()->back()->with('error',__('Please verify the captcha'));
+                $data = [
+                    'status'    => 0,
+                    'message'    => __('Please verify the captcha'),
+                ];
+                return response()->json($data, 200);
             }
         }
         $row = new Contact($request->input());
         $row->status = 'sent';
         if ($row->save()) {
             $this->sendEmail($row);
-            return redirect()->back()->with('success', __('Thank you for contacting us! We will get back to you soon'));
+            $data = [
+                'status'    => 1,
+                'message'    => __('Thank you for contacting us! We will get back to you soon'),
+            ];
+            return response()->json($data, 200);
         }
     }
 

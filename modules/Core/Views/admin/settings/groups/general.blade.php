@@ -285,6 +285,24 @@
         </div>
     </div>
 </div>
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__('Page Contact Settings')}}</h3>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label>{{__("Contact Title")}}</label>
+                    <div class="form-controls">
+                        <input type="text" class="form-control" name="page_contact_title" value="{{setting_item_with_lang('page_contact_title',request()->query('lang')) }}">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @section('script.body')
     <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
