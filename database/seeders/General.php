@@ -97,35 +97,38 @@ namespace Database\Seeders;
             ]);
 
             // Setting Currency
-            DB::table('core_settings')->insert(
+            DB::table('core_settings')->insert([
                 [
-                    [
-                        'name'  => "currency_main",
-                        'val'   => "usd",
-                        'group' => "payment",
-                    ],
-                    [
-                        'name'  => "currency_format",
-                        'val'   => "left",
-                        'group' => "payment",
-                    ],
-                    [
-                        'name'  => "currency_decimal",
-                        'val'   => ".",
-                        'group' => "payment",
-                    ],
-                    [
-                        'name'  => "currency_thousand",
-                        'val'   => ",",
-                        'group' => "payment",
-                    ],
-                    [
-                        'name'  => "currency_no_decimal",
-                        'val'   => "2",
-                        'group' => "payment",
-                    ]
+                    'name'  => "currency_main",
+                    'val'   => "usd",
+                    'group' => "payment",
+                ],
+                [
+                    'name'  => "currency_format",
+                    'val'   => "left",
+                    'group' => "payment",
+                ],
+                [
+                    'name'  => "currency_decimal",
+                    'val'   => ",",
+                    'group' => "payment",
+                ],
+                [
+                    'name'  => "currency_thousand",
+                    'val'   => ".",
+                    'group' => "payment",
+                ],
+                [
+                    'name'  => "currency_no_decimal",
+                    'val'   => "0",
+                    'group' => "payment",
+                ],
+                [
+                    'name'  => "extra_currency",
+                    'val'   => '[{"currency_main":"eur","currency_format":"left","currency_thousand":".","currency_decimal":",","currency_no_decimal":"2","rate":"0.902807"},{"currency_main":"jpy","currency_format":"right_space","currency_thousand":".","currency_decimal":",","currency_no_decimal":"0","rate":"0.00917113"}]',
+                    'group' => "payment",
                 ]
-            );
+            ]);
 
             //MAP
             DB::table('core_settings')->insert(

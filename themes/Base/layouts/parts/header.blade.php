@@ -28,9 +28,12 @@
                                 </span>
                             </a>
                         @else
-                            <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
-                                <i class="fa fa-heart fs-32"></i>
-                                <span class="counter">0</span>
+                            <a  class="position-relative" href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
+                                <i class="fa fa-heart fa-2x c-main"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                    <span class="visually-hidden">{{__("WishList")}}</span>
+                                </span>
                             </a>
                         @endif
                     </div>
