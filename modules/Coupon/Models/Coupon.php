@@ -113,6 +113,20 @@ class Coupon extends Bookable
                 ];
             }
         }
+        if(!empty($this->for_users)){
+            if(empty($user_id = Auth::id())){
+                return [
+                    'status'=>0,
+                    'message'=> __("You need to log in to use the coupon code!")
+                ];
+            }
+            if(!in_array($user_id,$this->for_users)){
+                return [
+                    'status'=>0,
+                    'message'=> __("Coupon code is not applied to your account!")
+                ];
+            }
+        }
         if(!empty($quantity_limit = $this->quantity_limit)){
             $count = CouponOrder::where('coupon_code',$this->code)->whereNotIn('order_status',['draft','unpaid','cancelled'])->count();
             if($quantity_limit <= $count){

@@ -136,6 +136,14 @@
                 if ($res !== true) {
                     return response()->json($res);
                 }
+                if(is_array($res)){
+                    list($status,$messages,$redirect) = $res;
+                    if(!empty($redirect)){
+                        return $this->sendSuccess([
+                            'url' => $order->getDetailUrl()
+                        ]);
+                    }
+                }
                 return $this->sendSuccess([
                     'url' => $order->getDetailUrl()
                 ]);

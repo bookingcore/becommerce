@@ -122,6 +122,13 @@ class Order extends BaseModel
                 $this->items()->update(['status'=>$this->status]);
                 OrderUpdated::dispatch($this);
             break;
+            case self::ON_HOLD:
+                $this->status = $payment->status;
+                $this->payment_id = $payment->id;
+                $this->save();
+                $this->items()->update(['status'=>$this->status]);
+                OrderUpdated::dispatch($this);
+            break;
         }
     }
 
