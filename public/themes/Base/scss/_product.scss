@@ -3,6 +3,9 @@
         .bc-product_header{
             display: flex;
             flex-flow: row nowrap;
+            @media (max-width: 991px){
+                flex-direction: column;
+            }
             >*{
                 width: 100%;
             }
@@ -11,6 +14,9 @@
                 flex-flow: row-reverse nowrap;
                 align-content: flex-start;
                 max-width: 43%;
+                @media (max-width: 991px){
+                    max-width: 100%;
+                }
                 figure{
                     position: relative;
                     display: block;
@@ -60,6 +66,12 @@
                     max-width: 60px;
                     width: 100%;
                     min-width: 60px;
+                    .slick-track{
+                        @media (max-width: 767px){
+                            width: 100%!important;
+                            transform: translate3d(0, 0, 0) !important;
+                        }
+                    }
                     .slick-slide{
                         margin-bottom: 10px;
                         border: 1px solid #d9d9d9;
@@ -83,6 +95,10 @@
             .bc-product_info{
                 max-width: 57%;
                 padding-left: 30px;
+                @media (max-width: 991px){
+                    max-width: 100%;
+                    padding-left: 0;
+                }
                 h1{
                     margin-bottom: 10px;
                     color: #000;
