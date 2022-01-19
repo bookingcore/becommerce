@@ -3,10 +3,10 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{ __('All Vendors')}}</h1>
+            <h1 class="title-bar">{{ __('All Customers')}}</h1>
             <div class="title-actions">
-                <a href="{{route('vendor.admin.create',['user_type'=>"vendor"])}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new vendor')}}</a>
-                <a class="btn btn-warning btn-icon" href="{{ route("vendor.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
+                <a href="{{route('customer.admin.create',['user_type'=>"customer"])}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new customer')}}</a>
+                <a class="btn btn-warning btn-icon" href="{{ route("customer.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
                     <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
                 </a>
             </div>
@@ -15,7 +15,7 @@
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{route('vendor.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{route('customer.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
@@ -45,9 +45,9 @@
                         <thead>
                         <tr>
                             <th width="60px"><input type="checkbox" class="check-all"></th>
-                            <th>{{__('Business Name')}}</th>
+                            <th>{{__('Name')}}</th>
                             <th>{{__('Email')}}</th>
-                            <th width="100">{{__('Email Verified?')}}</th>
+                            <th>{{__('Phone')}}</th>
                             <th width="100">{{__('Status')}}</th>
                             <th class="date" width="100">{{ __('Date')}}</th>
                             <th width="100"></th>
@@ -58,16 +58,10 @@
                             <tr>
                                 <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item"></td>
                                 <td class="title">
-                                    <a href="{{route('vendor.admin.edit',['id'=>$row->id])}}">{{$row->display_name}}</a>
+                                    <a href="{{route('customer.admin.edit',['id'=>$row->id])}}">{{$row->display_name}}</a>
                                 </td>
                                 <td>{{$row->email}}</td>
-                                <td>
-                                    @if($row->hasVerifiedEmail())
-                                        <span class="badge badge-success">{{__('Verified')}}</span>
-                                    @else
-                                        <span class="badge badge-secondary">{{__('Not verified')}}</span>
-                                    @endif
-                                </td>
+                                <td>{{$row->phone}}</td>
                                 <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
                                 </td>
                                 <td>{{ display_date($row->created_at)}}</td>
@@ -77,10 +71,7 @@
                                             {{__("Actions")}}
                                         </button>
                                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <a class="dropdown-item"  href="{{route('vendor.admin.edit',['id'=>$row->id])}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
-                                            @if(!$row->hasVerifiedEmail())
-                                                <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Mark as email-verified')}}</a>
-                                            @endif
+                                            <a class="dropdown-item"  href="{{route('customer.admin.edit',['id'=>$row->id])}}"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
                                             <a class="dropdown-item" href="{{url('admin/module/user/password/'.$row->id)}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
                                         </div>
                                     </div>

@@ -19,12 +19,6 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             'last_name',
             'email',
             'phone',
-            'address',
-            'address2',
-            'city',
-            'state',
-            'country',
-            'zip_code',
             'status',
         ])->get();
     }
@@ -37,12 +31,6 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             ltrim($user->last_name,"=-"),
             ltrim($user->email,"=-"),
             ltrim($user->phone,"=-"),
-            ltrim($user->address,"=-"),
-            ltrim($user->address2,"=-"),
-            ltrim($user->city,"=-"),
-            ltrim($user->state,"=-"),
-            ltrim($user->country,"=-"),
-            ltrim($user->zip_code,"=-"),
             ltrim($user->status,"=-"),
         ];
     }
@@ -55,12 +43,6 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             __('Last name'),
             __('Email'),
             __('Phone'),
-            __('Address'),
-            __('Address 2'),
-            __('City'),
-            __('State'),
-            __('Country'),
-            __('Zip Code'),
             __('Status'),
         ];
     }

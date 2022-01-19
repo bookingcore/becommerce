@@ -150,9 +150,6 @@ class UserController extends AdminController
 
     public function store(Request $request, $id)
     {
-        if(!is_candidate() && !is_admin() && !is_employer()){
-            abort(403);
-        }
         if($id and $id>0){
             $row = User::find($id);
             if(empty($row)){
@@ -161,8 +158,6 @@ class UserController extends AdminController
             if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
                 abort(403);
             }
-
-
         }else{
             $check = Validator::make($request->input(),[
                 'first_name'              => 'required|max:255',
@@ -223,9 +218,17 @@ class UserController extends AdminController
             if($id > 0){
                 return back()->with('success', __('User updated'));
             }else{
-                return redirect()->to('user.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                switch ($request->input('user_type')){
+                    case"customer":
+                        return redirect()->route('customer.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                        break;
+                    case"vendor":
+                        return redirect()->route('vendor.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                        break;
+                    default:
+                        return redirect()->route('user.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                }
             }
-
         }
     }
 
@@ -281,15 +284,10 @@ class UserController extends AdminController
             foreach ($ids as $id) {
                 if($id == Auth::id()) continue;
                 $query = User::where("id", $id)->first();
-                $candidate = Candidate::where("id", $id)->first();
                 if(!empty($query)){
                     $query->email.='_d_'.uniqid().rand(0,99999);
                     $query->save();
                     $query->delete();
-
-                    if(!empty($candidate)){
-                        $candidate->delete();
-                    }
                 }
             }
         } else {

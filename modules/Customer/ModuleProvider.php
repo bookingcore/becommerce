@@ -1,0 +1,43 @@
+<?php
+namespace Modules\Customer;
+
+use App\User;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\ModuleServiceProvider;
+use Modules\Customer\Providers\RouterServiceProvider;
+
+class ModuleProvider extends ModuleServiceProvider
+{
+
+    public function boot(){
+        AdminMenuManager::register("customer",[$this,'addAdminMenu']);
+    }
+    /**
+     * Register bindings in the container.
+     *
+     * @return void
+     */
+    public function register()
+    {
+
+        $this->app->register(RouterServiceProvider::class);
+
+    }
+
+
+    public function addAdminMenu(){
+
+
+        $options = [
+            "position"=>65,
+            'url'        => route('customer.admin.index'),
+            'title'      => __('Customers'),
+            'icon'     =>'icon ion-ios-contact',
+            'permission' => 'customer_view',
+        ];
+
+        return [
+            'customer'=> $options
+        ];
+    }
+}
