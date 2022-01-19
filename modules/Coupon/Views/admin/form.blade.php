@@ -85,20 +85,17 @@
                 <div class="form-group">
                     <label>{{__("Only For User")}}</label>
                     <?php
-                    $user = !empty($row->only_for_user) ? App\User::find($row->only_for_user) : false;
-                    \App\Helpers\AdminForm::select2('only_for_user', [
+                    \App\Helpers\AdminForm::select2('for_users[]', [
                         'configs' => [
                             'ajax'        => [
                                 'url'      => url('/admin/module/user/getForSelect2'),
                                 'dataType' => 'json'
                             ],
                             'allowClear'  => true,
+                            'multiple'    => true,
                             'placeholder' => __('-- Select User --')
                         ]
-                    ], !empty($user->id) ? [
-                        $user->id,
-                        $user->getDisplayName() . ' (#' . $user->id . ')'
-                    ] : false)
+                    ], $row->getForUsersToArray() , true)
                     ?>
                 </div>
             </div>
