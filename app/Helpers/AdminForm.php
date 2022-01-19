@@ -3,13 +3,13 @@ namespace App\Helpers;
 
 class AdminForm{
 
-    public static function select($name,$options,$old = '',$class=''){
+    public static function select($name,$options,$old = '',$class='',$forListItem = false){
         ?>
-        <select class="form-control <?php echo e($class) ?>" name="<?php echo e($name) ?>">
-            <?php
-            if(!empty($options)):
+        <select class="form-control <?php echo e($class) ?>" <?php if($forListItem) echo '__name__'; else echo 'name'; ?>="<?php echo e($name) ?>">
+        <?php
+        if(!empty($options)):
             foreach($options as $option): $selected = ''; if($old == $option['id']) $selected = 'selected' ?>
-            <option value="<?php echo e($option['id']) ?>" <?php echo e($selected) ?>><?php echo e($option['name']) ?></option>
+                <option value="<?php echo e($option['id']) ?>" <?php echo e($selected) ?>><?php echo e($option['name']) ?></option>
             <?php endforeach;endif; ?>
         </select>
         <?php

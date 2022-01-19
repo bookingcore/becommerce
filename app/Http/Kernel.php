@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\SetCurrentCurrency;
 use App\Http\Middleware\SetLanguageForAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
@@ -41,6 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\HideDebugbar::class,
             SetLanguageForAdmin::class,
+            SetCurrentCurrency::class,
         ],
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,

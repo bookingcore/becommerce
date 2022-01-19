@@ -28,9 +28,11 @@ class ModuleProvider extends ModuleServiceProvider
             'currency_format',
             'currency_decimal',
             'currency_thousand',
-            'currency_no_decimal'
+            'currency_no_decimal',
+            'extra_currency'
         ];
-        $all = config('booking.payment_gateways');
+        $all = get_payment_gateways();
+        $languages = \Modules\Language\Models\Language::getActive();
         if (!empty($all)) {
             foreach ($all as $k => $gateway) {
                 if (!class_exists($gateway))
@@ -40,6 +42,12 @@ class ModuleProvider extends ModuleServiceProvider
                 if (!empty($options)) {
                     foreach ($options as $option) {
                         $keys[] = 'g_' . $k . '_' . $option['id'];
+                        if( !empty($option['multi_lang']) && !empty($languages) && setting_item('site_enable_multi_lang') && setting_item('site_locale')){
+                            foreach($languages as $language){
+                                if( setting_item('site_locale') == $language->locale) continue;
+                                $keys[] = 'g_' . $k . '_' . $option['id'].'_'.$language->locale;
+                            }
+                        }
                         if ($option['type'] == 'textarea' && $option['type'] == 'editor') {
                             $htmlKeys[] = 'g_' . $k . '_' . $option['id'];
                         }
