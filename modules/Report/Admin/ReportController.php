@@ -3,13 +3,14 @@ namespace Modules\Report\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 
 class ReportController extends AdminController
 {
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/overview');
+        AdminMenuManager::setActive('report');
     }
 
     public function overview(Request $request){

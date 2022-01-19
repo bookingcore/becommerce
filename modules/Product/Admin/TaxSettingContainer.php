@@ -3,6 +3,7 @@ namespace Modules\Product\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Product\Models\TaxRate;
 use Modules\Product\Models\TaxRateLocation;
 
@@ -11,7 +12,7 @@ class TaxSettingContainer extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/core');
+        AdminMenuManager::setActive('setting');
     }
 
     public function create(Request $request){

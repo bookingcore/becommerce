@@ -20,28 +20,28 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         return [
             'report'=>[
                 "position" => 110,
-                'url'        => 'admin/module/contact',
+                'url'        => route('report.admin.overview'),
                 'title'      =>  __('Reports'),
                 'icon'       => 'icon ion-ios-stats',
                 'permission' => 'report_view',
                 'children'   => [
-                    'overview'=>[
-                        'url'        => 'admin/module/report/overview',
+                    'report_overview'=>[
+                        'url'        => route('report.admin.overview'),
                         'title'      => __('Overview'),
                         'permission' => 'report_view',
                     ],
-                    'products'=>[
-                        'url'        => 'admin/module/report/products',
+                    'report_products'=>[
+                        'url'        => route('report.admin.products'),
                         'title'      => __('Products'),
                         'permission' => 'report_view',
                     ],
-                    'revenue'=>[
-                        'url'        => 'admin/module/report/revenue',
+                    'report_revenue'=>[
+                        'url'        => route('report.admin.revenue'),
                         'title'      => __('Revenue'),
                         'permission' => 'report_view',
                     ],
-                    'orders'=>[
-                        'url'        => 'admin/module/report/orders',
+                    'report_orders'=>[
+                        'url'        => route('report.admin.orders'),
                         'title'      => __('Orders'),
                         'permission' => 'report_view',
                     ]
