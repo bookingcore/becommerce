@@ -16,7 +16,7 @@
 			$items = json_decode($this->menu->items, true);
 			if (!empty($items)) {
                 $options['class'] = (!empty($options['class'])) ? $options['class'] : 'menu';
-				echo "<ul class='nav {$options['class']}'>";
+				echo "<ul class='navbar-nav {$options['class']}'>";
 				$this->generateTree($items);
 				echo '</ul>';
 			}
@@ -42,11 +42,13 @@
 				}
 				if ($this->checkCurrentMenu($item, $url))
 				{
-					$class .= ' current';
+					$class .= ' current c-main';
 					$this->activeItems[] = $parentKey;
 				}
 
+                $toggle = "";
 				if (!empty($item['children'])) {
+                    $toggle = 'data-bs-toggle="dropdown"';
                     $class .= ' dropdown menu-item-has-children';
 					ob_start();
 					$this->generateTree($item['children'],$depth + 1,$parentKey.'_'.$k);
@@ -57,10 +59,14 @@
 				}
 				$class.=' depth-'.($depth);
 				printf('<li class="nav-item %s">', $class);
-				if (!empty($item['children']) and $depth != 0) {
-					$item['name'] .= ' <i class="caret fa fa-angle-right float-right mt-2"></i>';
+				$class_link = "nav-link ps-0 pe-4 ";
+				if ($depth != 0) {
+                    $class_link = "dropdown-item ";
 				}
-				printf('<a class="nav-link c-000000"  target="%s" href="%s" >%s</a>', e($item['target']), e($url), clean($item['name']));
+                if (!empty($item['children'])) {
+                    $class_link .= "dropdown-toggle ";
+                }
+				printf('<a class="%s c-000000 py-2" target="%s" href="%s" %s>%s</a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
 				if (!empty($item['children'])) {
 					echo '<ul class="dropdown-menu">';
 					echo $html;

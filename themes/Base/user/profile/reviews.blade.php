@@ -3,11 +3,11 @@
         @if($rows)
             @foreach($rows as $item)
                 @php $userInfo = $item->author; if(!$userInfo){ continue; }@endphp
-                <div class="review-item border-bottom pt-2 pb-2 mb-3">
+                <div class="review-item border-bottom pt-2 pb-2 mb-3 fs-14">
                     <div class="d-flex align-items-start">
                         <img class="flex-shrink-0 me-3 rounded-circle w-75px h-75px" src="{{$userInfo->avatar_url}}" alt="{{$userInfo->display_name}}">
                         <div>
-                            <p class="mb-0 fs-18">{{$userInfo->getDisplayName()}} - {{display_datetime($item->created_at)}}</p>
+                            <p class="mb-1 fs-16">{{$userInfo->getDisplayName()}} - {{display_datetime($item->created_at)}}</p>
                             @if($item->rate_number)
                                 <div class="d-flex mb-2">
                                     @for( $i = 0 ; $i < 5 ; $i++ )
@@ -19,7 +19,7 @@
                                     @endfor
                                 </div>
                             @endif
-                            <h5 class="mb-0"> {{$item->title}} </h5>
+                            <h5 class="mb-0 fs-18"> {{$item->title}} </h5>
                             <p>
                                 {{$item->content}}
                             </p>

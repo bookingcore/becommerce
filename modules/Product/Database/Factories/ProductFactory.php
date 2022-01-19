@@ -92,6 +92,7 @@ class ProductFactory extends Factory
                     'active'        =>  '1',
                 ]
             ]);
+            $product->update_service_rate();
         });
     }
 }

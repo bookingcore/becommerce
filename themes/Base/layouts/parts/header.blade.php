@@ -20,9 +20,12 @@
                 <div class="col-lg-2 col-6 order-1 order-lg-2 text-end d-flex justify-content-end">
                     <div class="bc-header-wishlist">
                         @if(Auth::user())
-                            <a class="counter-wrap" href="{{route('user.wishList.index')}}">
-                                <i class="fa fa-heart fs-32 c-main"></i>
-                                <span class="counter bg-danger text-center c-white">{{ countWishlist() }}</span>
+                            <a  class="position-relative" href="{{route('user.wishList.index')}}">
+                                <i class="fa fa-heart fa-2x c-main"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {{ countWishlist() }}
+                                    <span class="visually-hidden">{{__("WishList")}}</span>
+                                </span>
                             </a>
                         @else
                             <a href="#login" data-toggle="modal" class="counter-wrap" data-target="#login">
@@ -38,23 +41,13 @@
             </div>
         </div>
     </div>
-    <nav class="navigation py-1 border-bottom d-none d-lg-block">
+    <nav class="navigation py-1 border-bottom">
         <div class="container">
-            <div class="d-flex justify-content-between">
-                <div class="navigation_left">
-                    @php generate_menu('primary') @endphp
+            <nav class="navbar navbar-expand-lg pt-0 pb-0">
+                <div class="collapse navbar-collapse" id="bc-main-menu">
+                    @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
                 </div>
-            </div>
+            </nav>
         </div>
     </nav>
-    <div class="bc-mobile-nav d-lg-none">
-        <div class="bc-mobile-overlay position-fixed"></div>
-        <div class="bc-mobile-content w-100 position-fixed overflow-auto h-100 bg-white">
-            <div class="bc-mobile-header p-3">
-                <h2 class="fs-16 color-dark mb-0">{{ __('Main Menu') }}</h2>
-                <a class="close-bc-mobile c-f30"><i class="fa fa-times"></i></a>
-            </div>
-            @php generate_menu('primary',['class' => 'bc-mobile-menu d-block my-2']) @endphp
-        </div>
-    </div>
 </header>

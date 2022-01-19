@@ -4,13 +4,12 @@ $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
 
-@include('Layout::admin.message')
+@include('global.message')
 <div class="bravo-reviews">
     <div class="review-box">
         <div class="mf-product-rating row">
             @if($score_total > 0)
                 <div class="col-md-5 col-sm-12 col-xs-12 col-average-rating">
-
 
                     <div class="average-rating ">
                         <h6>{{ __('Average Rating') }}</h6>
@@ -18,20 +17,22 @@ $score_total = $reviewData['score_total'];
 
                         <div class="card-rating mb-2 d-flex mt-1 align-items-center">
                             @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
+                            <div class="ms-2">
+                                <span>{{ $review_score['total_review'] }}</span>
+                                <span>{{ $review_score['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
+                            </div>
                         </div>
-                        <span>{{ $review_score['total_review'] }}</span>
-                        <span>{{ $review_score['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
 
                         <div class="review-sumary">
                             @if($review_score['rate_score'])
                                 @php $star = 5 @endphp
                                 @foreach($review_score['rate_score'] as $item)
-                                    <div class="item d-flex">
+                                    <div class="item d-flex align-items-center">
                                         <div class="label">
                                             {{__(':num star',['num'=>$star])}}
                                         </div>
-                                        <div class="progress">
-                                            <div class="percent green" style="width: {{$item['percent']}}%"></div>
+                                        <div class="progress f-w-50 ms-2 me-2 position-relative">
+                                            <div class="percent bg-main h-100  position-absolute zindex-sticky" style="width: {{$item['percent']}}%"></div>
                                         </div>
                                         <div class="number">{{$item['percent']}}%</div>
                                     </div>
@@ -85,48 +86,46 @@ $score_total = $reviewData['score_total'];
             </div>
         </div>
     </div>
-    <div class="comments">
-        <h2 class="reviews-title">{{ ($review_list) ? __('Reviews') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}</h2>
+    <div class="comments fs-14">
+        <div class="reviews-title fs-24 mb-3 border-bottom pb-2">{{ ($review_list) ? __('Reviews from guests') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}</div>
         <div class="review-list">
-                @if($review_list->total())
-                    <div class="bc-review-list">
-                        @if($review_list)
-                            @foreach($review_list as $item)
-                                @php $userInfo = $item->author; if(!$userInfo){ continue; }@endphp
-                                <div class="review-item pt-2 pb-2 ">
-                                    <div class="d-flex align-items-start">
-                                        <img class="flex-shrink-0 me-3 rounded-circle w-75px h-75px" src="{{$userInfo->avatar_url}}" alt="{{$userInfo->display_name}}">
-                                        <div>
-                                            <p class="mb-0 fs-18">{{$userInfo->getDisplayName()}} - {{display_datetime($item->created_at)}}</p>
-                                            @if($item->rate_number)
-                                                <div class="d-flex mb-2">
-                                                    @for( $i = 0 ; $i < 5 ; $i++ )
-                                                        @if($i < $item->rate_number)
-                                                            <i class="fa fa-star me-2 c-fcb800"></i>
-                                                        @else
-                                                            <i class="fa fa-star-o me-2"></i>
-                                                        @endif
-                                                    @endfor
-                                                </div>
-                                            @endif
-                                            <h5 class="mb-0"> {{$item->title}} </h5>
-                                            <p>
-                                                {{$item->content}}
-                                            </p>
-                                        </div>
+            @if($review_list->total())
+                <div class="bc-review-list">
+                    @if($review_list)
+                        @foreach($review_list as $item)
+                            @php $userInfo = $item->author; if(!$userInfo){ continue; }@endphp
+                            <div class="review-item pt-2 pb-2 ">
+                                <div class="d-flex align-items-start">
+                                    <img class="flex-shrink-0 me-3 rounded-circle w-75px h-75px" src="{{$userInfo->avatar_url}}" alt="{{$userInfo->display_name}}">
+                                    <div>
+                                        <p class="mb-1 fs-16">{{$userInfo->getDisplayName()}} - {{display_datetime($item->created_at)}}</p>
+                                        @if($item->rate_number)
+                                            <div class="d-flex mb-2">
+                                                @for( $i = 0 ; $i < 5 ; $i++ )
+                                                    @if($i < $item->rate_number)
+                                                        <i class="fa fa-star me-2 c-fcb800"></i>
+                                                    @else
+                                                        <i class="fa fa-star-o me-2"></i>
+                                                    @endif
+                                                @endfor
+                                            </div>
+                                        @endif
+                                        <h5 class="mb-0 fs-18"> {{$item->title}} </h5>
+                                        <p>
+                                            {{$item->content}}
+                                        </p>
                                     </div>
                                 </div>
-                            @endforeach
-                        @endif
-                    </div>
-
-                    <div class="bravo-pagination">
-                        {{$review_list->appends(request()->query())->links()}}
-                    </div>
-                @else
-                    <div class="alert alert-warning" role="alert">{{__("There are no reviews yet.")}}</div>
-                @endif
-
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+                <div class="bravo-pagination">
+                    {{$review_list->appends(request()->query())->links()}}
+                </div>
+            @else
+                <div class="alert alert-warning" role="alert">{{__("There are no reviews yet.")}}</div>
+            @endif
         </div>
     </div>
 </div>

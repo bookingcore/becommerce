@@ -202,7 +202,6 @@ class ProductSeeder extends Seeder
             'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-1', 'file_path' => 'demo/templates/product-banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-2', 'file_path' => 'demo/templates/product-banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
-        $ads_image = DB::table('media_files')->insertGetId( ['file_name' => 'ads-image', 'file_path' => 'demo/templates/ads-image.png', 'file_type' => 'image/png', 'file_extension' => 'png']);
         DB::table('core_settings')->insertGetId([
             'name'  =>  'product_page_search_title',
             'group' =>  'product',

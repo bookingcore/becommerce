@@ -2,7 +2,7 @@
     <h4 class="widget-title fs-22 mb-2">{{__("By Review")}}</h4>
     @for ($number = 5 ;$number >= 1 ; $number--)
         <div class="bc-checkbox">
-            <input type="checkbox" id="review-{{$number}}" name="review">
+            <input name="review_score[]" id="review-{{$number}}" type="checkbox" value="{{$number}}" @if(  in_array($number , request()->query('review_score',[])) )  checked @endif>
             <label for="review-{{$number}}">
                 <span>
                     @for ($review_score = 1 ;$review_score <= 5 ; $review_score++)

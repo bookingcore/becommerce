@@ -523,6 +523,7 @@ $('.bc-product-detail').each(function () {
 })
 
 
+/*
 $('.menu-bar').click(function () {
     $('.bc-mobile-nav').toggleClass('active');
 });
@@ -540,5 +541,35 @@ $('.bc-mobile-nav').each(function () {
         if ($this.parent().hasClass('dropdown')) e.preventDefault();
         $(`.bc-mobile-menu .dropdown.${depth} .nav-link`).parent().removeClass('active').find('.dropdown-menu').stop().removeAttr('style').slideUp('fast');
         $this.parent().addClass('active').find('>.dropdown-menu').stop().slideDown('fast');
+    });
+});
+*/
+
+//Review
+$('.review-form .review-items .rates .fa').each(function () {
+    var list = $(this).parent(),
+        listItems = list.children(),
+        itemIndex = $(this).index(),
+        parentItem = list.parent();
+    $(this).hover(function () {
+        for (var i = 0; i < listItems.length; i++) {
+            if (i <= itemIndex) {
+                $(listItems[i]).addClass('c-main');
+            } else {
+                break;
+            }
+        }
+        $(this).on('click',function () {
+            for (var i = 0; i < listItems.length; i++) {
+                if (i <= itemIndex) {
+                    $(listItems[i]).addClass('c-fcb800');
+                } else {
+                    $(listItems[i]).removeClass('c-fcb800');
+                }
+            }
+            parentItem.children('.review_stats').val(itemIndex + 1);
+        });
+    }, function () {
+        listItems.removeClass('c-main');
     });
 });
