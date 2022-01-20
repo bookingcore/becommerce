@@ -426,6 +426,12 @@ namespace Database\Seeders;
                             "url" => "/user/profile",
                             "item_model" => "custom",
                             "_open" => false
+                        ],
+                        [
+                            "name" => "Contact",
+                            "url" => "/page/contact",
+                            "item_model" => "custom",
+                            "_open" => false
                         ]
                     ]
                 ],

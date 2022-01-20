@@ -32,7 +32,7 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group mb-3">
                                                         <label class="label mb-1" for="message">{{ __('Message') }}</label>
-                                                        <textarea name="message" cols="40" rows="10" class="form-control textarea" placeholder="{{ __('Message') }}"></textarea>
+                                                        <textarea name="message" cols="20" rows="5" class="form-control textarea" placeholder="{{ __('Message') }}"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -52,7 +52,7 @@
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-5 d-flex align-items-stretch">
-                            <div class="info-wrap bg-main w-100 p-md-4 p-3 c-white">
+                            <div class="info-wrap bg-main w-100 p-md-4 p-3 c-white rounded">
                                 <h3>{{ $title ?? '' }}</h3>
                                 <p class="mb-4">{{ $sub_title ?? '' }}</p>
                                 <div class="ibox w-100 mb-2 d-flex align-items-start">
@@ -73,7 +73,7 @@
                                     <div class="text pl-3">
                                         <p class="mb-0">
                                             <span>{{ __('Phone') }}:</span>
-                                            <a href="{{ $phone ? "tel:$phone" : "" }}">{{ $phone ?? '' }}</a>
+                                            <a class="c-white" href="{{ $phone ? "tel:$phone" : "" }}">{{ $phone ?? '' }}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@
                                     <div class="text pl-3">
                                         <p class="mb-0">
                                             <span>{{ __('Email') }}:</span>
-                                            <a href="{{ $email ? "mailto:$email" : '' }}">{{ $email ?? '' }}</a>
+                                            <a class="c-white" href="{{ $email ? "mailto:$email" : '' }}">{{ $email ?? '' }}</a>
                                         </p>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
                                     <div class="text pl-3">
                                         <p class="mb-0">
                                             <span>{{ __('Website') }}:</span>
-                                            <a href="{{ $website ?? '' }}">{{ $website ?? '' }}</a>
+                                            <a class="c-white" href="{{ $website ?? '' }}">{{ $website ?? '' }}</a>
                                         </p>
                                     </div>
                                 </div>
