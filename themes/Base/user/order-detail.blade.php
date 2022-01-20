@@ -13,33 +13,17 @@
                     </div>
                     <div class="bc-content">
                         <div class="row">
-                            <div class="col-md-4 col-12">
-                                <figure class="bc-block--invoice">
-                                    <figcaption>{{__('Address')}}</figcaption>
-                                    <div class="bc-block__content"><strong>{{$order->shipping_display_name}}</strong>
-                                        <p>{{__('Address')}}: {{$order->shipping_full_address}}</p>
-                                        <p>{{__('Phone')}}: {{$order->phone}}</p>
-                                    </div>
-                                </figure>
+                            <div class="col-md-6 col-12">
+                                <div>{{__('Payment')}}</div>
+                                <strong>{{$order->gateway_obj ? $order->gateway_obj->getDisplayName() : ''}}</strong>
                             </div>
-                            <div class="col-md-4 col-12">
-                                <figure class="bc-block--invoice">
-                                    <figcaption>{{__('Shipping Fee')}}</figcaption>
-                                    <div class="bc-block__content">
-                                        <p></p>
-                                    </div>
-                                </figure>
-                            </div>
-                            <div class="col-md-4 col-12">
-                                <figure class="bc-block--invoice">
-                                    <figcaption>{{__('Payment')}}</figcaption>
-                                    <div class="bc-block__content">
-                                        <p>{{__("Payment Method")}}: {{$order->gateway_name}}</p>
-                                    </div>
-                                </figure>
+                            <div class="col-md-6 col-12">
+                                <div>{{$order->shipping_display_name}}</div>
+                                <div>{{__('Address')}}: {{$order->shipping_full_address}}</div>
+                                <div>{{__('Phone')}}: {{$order->phone}}</div>
                             </div>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive mt-2">
                             <table class="table bc-table">
                                 <thead>
                                 <tr>
@@ -51,19 +35,24 @@
                                 </thead>
                                 <tbody>
                                 @foreach($order->items as $orderItem)
-                                    <?php  $model = $orderItem->model();?>
+                                    @php $model = $orderItem->model; @endphp
                                     <tr>
                                         <td>
-                                            <div class="bc-product--cart">
-                                                <div class="bc-product__thumbnail">
-                                                    <a href="{{$model->getDetailUrl()}}">
-                                                        {!! get_image_tag($model->image_id,'medium') !!}
-                                                    </a>
-                                                </div>
-                                                <div class="bc-product__content"><a href="{{$model->getDetailUrl()}}">{{$model->title}}</a>
-                                                    <p>{{__('Sold By')}}:<strong> {{$model->author->display_name}}</strong></p>
-                                                </div>
-                                            </div>
+                                            <a href="{{$model->getDetailUrl()}}">
+                                                {{$model ? $model->title : $orderItem->name }} x{{$orderItem->qty}}
+                                            </a>
+                                            <p>{{__('Sold By')}}:<strong> {{$model->author->display_name}}</strong></p>
+                                            @if(!empty($orderItem->meta['package']))
+                                                <div class="mt-3">{{__('Package: ')}} {{package_key_to_name($orderItem->meta['package'])}} ({{format_money($orderItem->price)}})</div>
+                                            @endif
+                                            @if(!empty($orderItem->meta['extra_prices']))
+                                                <div class="mt-3"><strong>{{__("Extra Prices:")}}</strong></div>
+                                                <ul class="list-unstyled mt-2">
+                                                    @foreach($orderItem->meta['extra_prices'] as $extra_price)
+                                                        <li>{{$extra_price['name'] ?? ''}} : {{format_money($extra_price['price'] ?? 0)}}</li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
                                         </td>
                                         <td><span>{{format_money($orderItem->price)}}</span></td>
                                         <td>{{$orderItem->qty}}</td>
@@ -74,7 +63,9 @@
                             </table>
                         </div>
                     </div>
-                    <div class="bc-section__footer"><a class="btn btn--sm" href="{{route('user.order.index')}}">{{__('Back to orders')}}</a></div>
+                    <div class="mt-2">
+                        <a class="btn btn-sm btn-primary" href="{{route('user.order.index')}}">{{__('Back to orders')}}</a>
+                    </div>
                 </div>
             </div>
         </div>

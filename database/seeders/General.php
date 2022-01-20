@@ -426,12 +426,6 @@ namespace Database\Seeders;
                             "url" => "/user/profile",
                             "item_model" => "custom",
                             "_open" => false
-                        ],
-                        [
-                            "name" => "Contact",
-                            "url" => "/page/contact",
-                            "item_model" => "custom",
-                            "_open" => false
                         ]
                     ]
                 ],
@@ -453,8 +447,15 @@ namespace Database\Seeders;
                             "url" => "/news/explore-fashion-trending-for-guys-in-autumn-2017",
                             "item_model" => "custom",
                             "_open" => false
-                        ]
+                        ],
                     ]
+                ],
+                [
+                    "name" => "Contact",
+                    "url" => "/page/contact",
+                    "item_model" => "custom",
+                    "_open" => false,
+                    "target" => "",
                 ]
             ];
             //Menu
