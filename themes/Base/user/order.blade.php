@@ -13,7 +13,7 @@
                     </div>
                     <div class="bc-content">
                         <div class="table-responsive">
-                            <table class="table bc-table bc-table--invoices">
+                            <table class="table bc-table">
                                 <thead>
                                 <tr>
                                     <th>{{__("Id")}}</th>
@@ -31,7 +31,7 @@
                                         <td>{{format_money($row->total)}}</td>
                                         <td>{{$row->status_text}}</td>
                                         <td>
-                                            <a class="btn btn--sm" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
+                                            <a class="btn btn-sm btn-primary" href="{{route('user.order.detail',['id'=>$row->id])}}">{{__('View detail')}}</a>
                                         </td>
                                     </tr>
                                 @endforeach

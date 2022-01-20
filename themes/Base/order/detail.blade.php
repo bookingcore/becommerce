@@ -5,7 +5,7 @@
         <div class="container">
             <div class="card">
                 <div class="card-header">
-                    <h4>
+                    <h4 class="fs-24">
                     @switch($row->status)
                         @case('completed')
                         <span class="icon fa fa-check"></span>
@@ -25,7 +25,7 @@
                     </h4>
                 </div>
                 <div class="card-body">
-                    <div class="text h5">
+                    <div class="text h5 fs-18">
                         @switch($row->status)
                             @case('completed')
                             {{__('Thank you. Your order has been received.')}}
@@ -60,8 +60,8 @@
                             <strong>{{$row->status_name}}</strong>
                         </li>
                     </ul>
-                    <div class="order-box">
-                        <h3>{{__('Order details')}}</h3>
+                    <div class="order-box border-top pt-3">
+                        <h4 class="fs-18">{{__('Order details')}}</h4>
                         <table>
                             <thead>
                             <tr>
