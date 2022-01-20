@@ -137,10 +137,9 @@
                     return response()->json($res);
                 }
                 if(is_array($res)){
-                    list($status,$messages,$redirect) = $res;
-                    if(!empty($redirect)){
+                    if(!empty($res['url'])){
                         return $this->sendSuccess([
-                            'url' => $order->getDetailUrl()
+                            'url' => $res['url']
                         ]);
                     }
                 }

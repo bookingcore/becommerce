@@ -123,6 +123,8 @@ class Order extends BaseModel
                 OrderUpdated::dispatch($this);
             break;
             case self::ON_HOLD:
+            case self::PROCESSING:
+            case self::CANCELLED:
                 $this->status = $payment->status;
                 $this->payment_id = $payment->id;
                 $this->save();

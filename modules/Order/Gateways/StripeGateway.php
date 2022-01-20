@@ -121,7 +121,6 @@ class StripeGateway extends BaseGateway
                 $payment->save();
 
                 PaymentUpdated::dispatch($payment);
-
                 return ['url' => $payment->getDetailUrl()];
 
             } else {

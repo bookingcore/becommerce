@@ -1,7 +1,6 @@
 <?php
 namespace Modules\Order\Gateways;
 
-use App\Currency;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
@@ -106,6 +105,15 @@ class PaypalGateway extends BaseGateway
 
     public function process(Payment $payment)
     {
+
+        if (in_array($payment->status, [
+            Order::PAID,
+            Order::COMPLETED,
+            Order::CANCELLED
+        ])) {
+
+            throw new Exception(__("Order status does need to be paid"));
+        }
         if (!$payment->amount) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
@@ -120,7 +128,6 @@ class PaypalGateway extends BaseGateway
             $payment->save();
             PaymentUpdated::dispatch($payment);
             return ['url' => $response->getRedirectUrl()];
-
         } else {
             throw new Exception('Paypal Gateway: ' . $response->getMessage());
         }
@@ -129,7 +136,7 @@ class PaypalGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $c = $request->query('c');
-        $payment = \Modules\Order\Models\Payment::find($c);
+        $payment = Payment::find($c);
         if ($payment) {
             $this->getGateway();
             $data = $this->handlePurchaseData([
@@ -138,15 +145,13 @@ class PaypalGateway extends BaseGateway
             ], $payment);
             $response = $this->gateway->completePurchase($data)->send();
             if ($response->isSuccessful()) {
-                $payment->addMeta('log',$response->getData());
                 $payment->status = Order::COMPLETED;
                 $payment->logs = \GuzzleHttp\json_encode($response->getData());
                 $payment->save();
-
                 PaymentUpdated::dispatch($payment);
-
             } else {
-                $payment->addMeta('log',$response->getData());
+                $payment->logs = \GuzzleHttp\json_encode($response->getData());
+                $payment->save();
             }
 
             return redirect($payment->getDetailUrl());
@@ -186,8 +191,8 @@ class PaypalGateway extends BaseGateway
         $supported = $this->supportedCurrency();
         $convert_to = $this->getOption('convert_to');
         $data['currency'] = $main_currency;
-        $data['returnUrl'] = $this->getReturnUrl() . '?c=' . $payment->id;
-        $data['cancelUrl'] = $this->getCancelUrl() . '?c=' . $payment->id;
+        $data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id;
+        $data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
         if (!array_key_exists($main_currency, $supported)) {
             if (!$convert_to) {
                 throw new Exception(__("PayPal does not support currency: :name", ['name' => $main_currency]));

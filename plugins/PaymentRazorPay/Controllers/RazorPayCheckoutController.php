@@ -10,7 +10,7 @@ use Modules\Order\Models\Payment;
 use Plugins\PaymentRazorPay\Gateway\RazorPayCheckoutGateway;
 
 class RazorPayCheckoutController extends Controller {
-	public function handleCheckout(Request $request, $c, $r,$isNormal=false)
+	public function handleCheckout(Request $request, $c, $r)
 	{
 		if ($c == '' || $r == '') {
 			return redirect("/");
@@ -19,36 +19,24 @@ class RazorPayCheckoutController extends Controller {
 		$keyId = $razorPayGateway->getKeyId();
 		$keySecret = $razorPayGateway->getKeySecret();
 
-		if($isNormal){
-			$payment = Payment::where('code',$c)->first();
-			if (!$payment) {
-				return redirect('/');
-			}
-			$data = $razorPayGateway->handlePurchaseDataNormal([], $payment);
-		}else{
-			$booking = Booking::where('code', $c)->first();
-			if (!$booking) {
-				return redirect("/");
-			}
-			$data = $razorPayGateway->handlePurchaseData([], $booking, $booking->service, $booking->payment);
-
-		}
+        $payment = Payment::find($c);
+        if (!$payment) {
+            return redirect("/");
+        }
+        $data = $razorPayGateway->handlePurchaseData([], $request,$payment);
 		return view("PaymentRazorPay::frontend.razorpaycheckout",
 				[
 						'data'       => $data,
 						'order_id'   => $r,
 						'key'        => $keyId,
 						'secret'     => $keySecret,
-						'callback_url'=>route('processRazorPayGateway',['c'=>$c,'r'=>$r,'is_normal'=>$isNormal])
+						'callback_url'=>route('processRazorPayGateway',['c'=>$c,'r'=>$r])
 				]);
 	}
 
-	public function handleProcess(Request $request, $c, $r,$is_normal=false)
+	public function handleProcess(Request $request, $c, $r)
 	{
 		$razorPayGateway = new RazorPayCheckoutGateway();
-		if($is_normal){
-			return $razorPayGateway->confirmRazorPaymentNormal($request,$c,$r);
-		}
 		return $razorPayGateway->confirmRazorPayment($request, $c, $r);
 	}
 }

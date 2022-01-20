@@ -134,7 +134,7 @@ class StripeCheckoutGateway extends BaseGateway
         $payment->save();
 
         PaymentUpdated::dispatch($payment);
-        return [true, 'Success', $session->url ?? $order->getDetailUrl()];
+        return ['url'=>$session->url ?? $order->getDetailUrl()];
     }
 
     public function confirmPayment(Request $request)

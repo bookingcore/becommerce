@@ -4,7 +4,9 @@ namespace Plugins\PaymentPayPalPro\Gateway;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Booking\Events\BookingCreatedEvent;
+use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Order;
 use Modules\Order\Models\Payment;
 use Omnipay\Common\CreditCard;
 use Omnipay\Omnipay;
@@ -101,17 +103,18 @@ class PayPalProGateway extends BaseGateway
 		];
 	}
 
-    public function process(Request $request, $booking, $service)
+    public function process(Payment $payment)
     {
-        if (in_array($booking->status, [
-            $booking::PAID,
-            $booking::COMPLETED,
-            $booking::CANCELLED
+        $request = request();
+        if (in_array($payment->status, [
+            Order::PAID,
+            Order::COMPLETED,
+            Order::CANCELLED
         ])) {
-            throw new Exception(__("Booking status does need to be paid"));
+            throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$booking->pay_now) {
-            throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
+        if (!$payment->amount) {
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
 	    $rules = [
 		    'bravo_paypal_pro_card_name'    => ['required'],
@@ -124,6 +127,10 @@ class PayPalProGateway extends BaseGateway
 		    return response()->json(['errors'   => $validator->errors() ], 200)->send();
 	    }
 
+        $payment->status = Order::PROCESSING;
+        $payment->save();
+        PaymentUpdated::dispatch($payment);
+
         $this->getGateway();
 	    $card = new CreditCard([
 		    'firstName' => $request->bravo_paypal_pro_card_name,
@@ -132,48 +139,34 @@ class PayPalProGateway extends BaseGateway
 		    'expiryYear' => $request->bravo_paypal_pro_expiryYear,
 		    'cvv' => $request->bravo_paypal_pro_cvv,
 	    ]);
-	    $payment = new Payment();
-	    $payment->booking_id = $booking->id;
-	    $payment->payment_gateway = $this->id;
-	    $payment->status = 'draft';
+	    $order = $payment->order;
 	    $data = $this->handlePurchaseData([
-		    'amount'        => (float)$booking->pay_now,
+		    'amount'        => (float)$payment->amount,
 		    'card'=>$card,
-		    'transactionId' => $booking->code . '.' . time()
-	    ], $booking, $payment);
+		    'transactionId' => $payment->id . '.' . time()
+	    ],  $payment);
 	    $this->gateway->authorize($data);
 	    $response = $this->gateway->purchase($data)->send();
 	    if ($response->isSuccessful()) {
 		    $payment->status = 'completed';
 		    $payment->logs = \GuzzleHttp\json_encode($response->getData());
 		    $payment->save();
-		    $booking->payment_id = $payment->id;
-		    $booking->status = $booking::PAID;
-		    $booking->save();
-		    // redirect to offsite payment gateway
-		    try{
-			    $booking->sendNewBookingEmails();
-			    event(new BookingCreatedEvent($booking));
-		    } catch(\Exception $e){
-			    Log::warning($e->getMessage());
-		    }
-		    response()->json([
-			    'url' => $booking->getDetailUrl()
-		    ])->send();
+		    PaymentUpdated::dispatch($payment);
+            return ['url' => $payment->getDetailUrl()];
 	    } else {
 		    throw new Exception('Paypal Gateway: ' . $response->getMessage());
 	    }
     }
-	public function handlePurchaseData($data, $booking, &$payment = null)
+	public function handlePurchaseData($data, &$payment = null)
 	{
 		$main_currency = setting_item('currency_main');
 		$supported = $this->supportedCurrency();
 		$convert_to = $this->getOption('convert_to');
 		$data['currency'] = $main_currency;
-		$data['returnUrl'] = $this->getReturnUrl() . '?c=' . $booking->code;
-		$data['cancelUrl'] = $this->getCancelUrl() . '?c=' . $booking->code;
-		$data['token'] = $booking->code;
-		$data['description'] = setting_item("site_title")." - #".$booking->id;
+		$data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id;
+		$data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
+		$data['token'] = $payment->id.'.'.uniqid();
+		$data['description'] = setting_item("site_title")." - #".$payment->id;
 		if (!array_key_exists($main_currency, $supported)) {
 			if (!$convert_to) {
 				throw new Exception(__("PayPal does not support currency: :name", ['name' => $main_currency]));
@@ -183,10 +176,10 @@ class PayPalProGateway extends BaseGateway
 			}
 			if ($payment) {
 				$payment->converted_currency = $convert_to;
-				$payment->converted_amount = $booking->pay_now / $exchange_rate;
+				$payment->converted_amount = $payment->amount / $exchange_rate;
 				$payment->exchange_rate = $exchange_rate;
 			}
-			$data['amount'] = number_format( $booking->pay_now / $exchange_rate , 2 );
+			$data['amount'] = number_format( $payment->amount / $exchange_rate , 2 );
 			$data['currency'] = $convert_to;
 
 			return $data;
