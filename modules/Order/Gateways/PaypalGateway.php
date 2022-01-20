@@ -107,7 +107,7 @@ class PaypalGateway extends BaseGateway
     public function process(Payment $payment)
     {
         if (!$payment->amount) {
-            throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
         $this->getGateway();
         $data = $this->handlePurchaseData([

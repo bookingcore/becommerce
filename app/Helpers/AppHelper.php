@@ -1466,6 +1466,8 @@ function get_status_text($status){
     switch ($status){
         case "publish": return __('Publish'); break;
         case "draft": return __('Draft'); break;
+        case "blocked": return __('Block'); break;
+        default: return $status;
     }
 }
 

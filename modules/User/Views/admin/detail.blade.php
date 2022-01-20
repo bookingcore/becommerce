@@ -2,6 +2,7 @@
 
 @section('content')
     <form action="{{url('admin/module/user/store/'.($row->id ?? -1))}}" method="post" class="needs-validation" novalidate>
+        <input type="hidden" name="user_type" value="{{ request()->input("user_type") }}">
         @csrf
         <div class="container-fluid">
             <div class="d-flex justify-content-between mb20">
@@ -85,7 +86,7 @@
                                 <select required class="form-control" name="role_id">
                                     <option value="">{{ __('-- Select --')}}</option>
                                     @foreach($roles as $role)
-                                        <option value="{{$role->id}}" @if(old('role_id',$row->role_id) == $role->id) selected @elseif(old('role_id')  == $role->id ) selected @endif >{{ucfirst($role->name)}}</option>
+                                        <option value="{{$role->id}}" @if(old('role_id',$row->role_id) == $role->id) selected @elseif(old('role_id')  == $role->id ) selected @elseif(request()->input("user_type")  == strtolower($role->name) ) selected @endif >{{ucfirst($role->name)}}</option>
                                     @endforeach
                                 </select>
                             </div>

@@ -34,6 +34,7 @@ class CreateUsersTable extends Migration
             $table->string('vendor_commission_type',30)->nullable();
             $table->string('locale',10)->nullable();
             $table->bigInteger('role_id')->nullable();
+            $table->bigInteger('stripe_customer_id')->nullable();
 
 
             $table->tinyInteger('need_update_pw')->default(0);

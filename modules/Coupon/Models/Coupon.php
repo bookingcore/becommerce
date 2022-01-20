@@ -10,12 +10,14 @@ use Modules\Order\Helpers\CartManager;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
+use Modules\User\Models\User;
 
 class Coupon extends Bookable
 {
     protected $table = 'core_coupons';
     protected $casts = [
         'services'      => 'array',
+        'for_users'      => 'array',
     ];
 
 
@@ -111,6 +113,20 @@ class Coupon extends Bookable
                 ];
             }
         }
+        if(!empty($this->for_users)){
+            if(empty($user_id = Auth::id())){
+                return [
+                    'status'=>0,
+                    'message'=> __("You need to log in to use the coupon code!")
+                ];
+            }
+            if(!in_array($user_id,$this->for_users)){
+                return [
+                    'status'=>0,
+                    'message'=> __("Coupon code is not applied to your account!")
+                ];
+            }
+        }
         if(!empty($quantity_limit = $this->quantity_limit)){
             $count = CouponOrder::where('coupon_code',$this->code)->whereNotIn('order_status',['draft','unpaid','cancelled'])->count();
             if($quantity_limit <= $count){
@@ -154,7 +170,22 @@ class Coupon extends Bookable
         }
         return $data;
     }
+    public function getForUsersToArray(){
 
+        $data = [];
+        if(!empty($this->for_users)){
+            $users = User::whereIn('id',$this->for_users)->get();
+            if(!empty($users)){
+                foreach ($users as $user){
+                    $data[] = [
+                        'id'   => $user->id,
+                        'text' => "(#{$user->id}): {$user->getDisplayName()}"
+                    ];
+                }
+            }
+        }
+        return $data;
+    }
     public function calculatorPrice($price){
 		//for Type Fixed
 	    $coupon_amount = $this->amount;

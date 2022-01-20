@@ -31,7 +31,6 @@ class OrderController extends FrontendController
 
     public function confirmPayment(Request $request, $gateway)
     {
-
         $gateways = get_payment_gateways();
         if (empty($gateways[$gateway]) or !class_exists($gateways[$gateway])) {
             $this->sendError(__("Payment gateway not found"));
@@ -45,7 +44,6 @@ class OrderController extends FrontendController
 
     public function cancelPayment(Request $request, $gateway)
     {
-
         $gateways = get_payment_gateways();
         if (empty($gateways[$gateway]) or !class_exists($gateways[$gateway])) {
             $this->sendError(__("Payment gateway not found"));

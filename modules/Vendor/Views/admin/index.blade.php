@@ -5,7 +5,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{ __('All Vendors')}}</h1>
             <div class="title-actions">
-                <a href="{{route('vendor.admin.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new vendor')}}</a>
+                <a href="{{route('vendor.admin.create',['user_type'=>"vendor"])}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new vendor')}}</a>
                 <a class="btn btn-warning btn-icon" href="{{ route("vendor.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
                     <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
                 </a>

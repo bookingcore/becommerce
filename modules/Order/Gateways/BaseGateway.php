@@ -100,7 +100,7 @@ abstract class BaseGateway
             return route('gateway.confirm',['gateway'=>$this->id]);
         }
         $is_api = request()->segment(1) == 'api';
-        return url(($is_api ? 'api/' : '').app_get_locale(false,false,"/").config('booking.booking_route_prefix') . '/confirm/' . $this->id);
+        return url(($is_api ? 'api/' : '').app_get_locale(false,false,"/").config('order.order_route_prefix') . '/confirm/' . $this->id);
     }
 
     public function getCancelUrl($is_normal = false)
@@ -109,7 +109,7 @@ abstract class BaseGateway
             return route('gateway.cancel',['gateway'=>$this->id]);
         }
         $is_api = request()->segment(1) == 'api';
-        return url(($is_api ? 'api/' : '').app_get_locale(false,false,"/").config('booking.booking_route_prefix') . '/cancel/' . $this->id);
+        return url(($is_api ? 'api/' : '').app_get_locale(false,false,"/").config('order.order_route_prefix') . '/cancel/' . $this->id);
     }
 
     public function getDisplayLogo()

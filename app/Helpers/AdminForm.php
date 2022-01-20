@@ -14,24 +14,22 @@ class AdminForm{
         </select>
         <?php
     }
-
-    public static function select2($name,$options,$old = [], $multiple = false){
+    public static function select2($name,$options,$old = [],$multiple = false){
         ?>
-        <select class="form-control bc-select2" data-options='<?php echo json_encode($options['configs']) ?>' name="<?php echo e($name) ?>" <?php echo ($multiple != false) ? 'multiple="multiple"' : '' ?>>
-            <?php if ($multiple == false) : ?>
+        <select <?php if($multiple)  echo "multiple"; ?> id="select_<?php echo e($name)?>" <?php if(isset($options['required'])) echo 'required'; ?> class="form-control bc-select2 dungdt-select2-field" data-options='<?php echo e(json_encode($options['configs'])) ?>' name="<?php echo e($name) ?>">
+            <?php if($multiple): ?>
+                <?php foreach($old as $item):?>
+                    <option data-value='<?php echo e(json_encode($item)) ?>' value="<?php echo e($item['id']) ?>" selected><?php echo e($item['text']) ?></option>
+                <?php endforeach;?>
+            <?php else:?>
                 <?php if(!empty($old[1])):?>
-                    <option value="<?php echo e($old[0]) ?>" selected><?php echo e($old[1]) ?></option>
+                    <option data-value='<?php echo json_encode($old[2] ?? []) ?>' value="<?php echo e($old[0]) ?>" selected><?php echo e($old[1]) ?></option>
                 <?php endif;?>
-            <?php else : ?>
-                <?php if (!empty($old)) : ?>
-                    <?php foreach ($old as $item) : ?>
-                        <option value="<?php echo e($item[0]) ?>" selected><?php echo e($item[1]) ?></option>
-                    <?php endforeach; ?>
-                <?php endif; ?>
-            <?php endif; ?>
+            <?php endif;?>
         </select>
         <?php
     }
+
 
     public static function generate($options){
         if(!empty($options))

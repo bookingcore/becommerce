@@ -79,4 +79,10 @@ return [
     "enquiry_view",
     "enquiry_update",
     "enquiry_manage_others",
+
+    //Customer
+    "customer_view",
+    "customer_create",
+    "customer_update",
+    "customer_delete",
 ];
