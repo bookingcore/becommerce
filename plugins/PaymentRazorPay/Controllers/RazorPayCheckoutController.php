@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Eluceo\iCal\Property;
 use Illuminate\Http\Request;
 use Modules\Booking\Models\Booking;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 use Plugins\PaymentRazorPay\Gateway\RazorPayCheckoutGateway;
 
 class RazorPayCheckoutController extends Controller {

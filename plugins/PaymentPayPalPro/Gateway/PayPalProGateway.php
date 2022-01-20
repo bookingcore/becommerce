@@ -4,15 +4,14 @@ namespace Plugins\PaymentPayPalPro\Gateway;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Booking\Events\BookingCreatedEvent;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Payment;
 use Omnipay\Common\CreditCard;
 use Omnipay\Omnipay;
-use Omnipay\PayPal\ProGateway;
 use Validator;
 use Illuminate\Support\Facades\Log;
-use Modules\Booking\Models\Booking;
 
-class PayPalProGateway extends \Modules\Booking\Gateways\BaseGateway
+class PayPalProGateway extends BaseGateway
 {
     protected $id   = 'paypal_pro';
     public    $name = 'PayPal Pro Checkout';

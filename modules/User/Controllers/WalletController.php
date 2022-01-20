@@ -6,7 +6,7 @@ namespace Modules\User\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 use Modules\FrontendController;
 use Modules\User\Events\RequestCreditPurchase;
 use Modules\User\Models\Wallet\DepositPayment;

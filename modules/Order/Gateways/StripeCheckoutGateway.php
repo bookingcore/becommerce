@@ -6,8 +6,7 @@ namespace Modules\Order\Gateways;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
-use Modules\Booking\Models\Booking;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Models\Order;
 use Stripe\PaymentIntent;
