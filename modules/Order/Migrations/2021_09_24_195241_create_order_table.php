@@ -31,7 +31,7 @@ class CreateOrderTable extends Migration
 		    $table->decimal('total_before_tax',10,2)->nullable();
 		    $table->decimal('tax_amount',10,2)->nullable();
 
-            $table->decimal('commission_amount',10,2)->nullable();
+            $table->decimal('commission_amount',10,2)->nullable()->default(0);
 
 		    $table->string('email',255)->nullable();
 		    $table->string('first_name',255)->nullable();
@@ -79,13 +79,13 @@ class CreateOrderTable extends Migration
             $table->integer('qty')->default(1)->nullable();
             $table->integer('reduced_stock')->nullable();
             $table->decimal('subtotal',10,2)->nullable();
-            $table->decimal('discount_amount',10,2)->nullable();
+            $table->decimal('discount_amount',10,2)->nullable()->default(0);
             $table->string('status',30)->nullable();
 
             $table->text('meta')->nullable();
 
-            $table->decimal('commission_amount',10,2)->nullable();
-            $table->decimal('tax_amount',10,2)->nullable();
+            $table->decimal('commission_amount',10,2)->nullable()->default(0);
+            $table->decimal('tax_amount',10,2)->nullable()->default(0);
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();

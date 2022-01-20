@@ -304,24 +304,6 @@ class Product extends BaseProduct
         return __(":number Space", ['number' => $number]);
     }
 
-    /**
-     * @param $from
-     * @param $to
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function getBookingsInRange($from,$to){
-
-        $query = $this->bookingClass::query();
-        $query->whereNotIn('status',['draft']);
-        $query->where('start_date','<=',$to)->where('end_date','>=',$from)->take(50);
-
-        $query->where('object_id',$this->id);
-        $query->where('object_model',$this->type);
-
-        return $query->orderBy('id','asc')->get();
-
-    }
-
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
         if ($this->is_manage_stock > 0){

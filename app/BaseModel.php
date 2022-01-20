@@ -199,27 +199,13 @@ class BaseModel extends Model
     }
 
     public function getStatusTextAttribute(){
-        switch ($this->status){
-            case "publish":
-                return __("Publish");
-                break;
-            case "draft":
-                return __("Draft");
-                break;
-            case "pending":
-                return __("Pending");
-                break;
-            case "in-progress":
-                return __("In Progress");
-                break;
-            default:
-                return ucfirst($this->status ?? '');
-                break;
-        }
+        return status_to_text($this->status);
     }
     public function getStatusBadgeAttribute(){
         switch ($this->status){
             case "publish":
+            case "paid":
+            case "completed":
                 return "success";
                 break;
             case "pending":

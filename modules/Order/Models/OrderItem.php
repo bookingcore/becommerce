@@ -35,11 +35,6 @@ class OrderItem extends BaseModel
         return $this->belongsTo(Order::class,'order_id');
     }
 
-    public function getStatusNameAttribute()
-    {
-        return booking_status_to_text($this->status);
-    }
-
     public function getSubtotalAttribute(){
         return $this->price * $this->qty + $this->extra_price_total;
     }
@@ -65,5 +60,9 @@ class OrderItem extends BaseModel
             $query->where('vendor_id',$filters['vendor_id']);
         }
         return $query;
+    }
+
+    public function product(){
+        return $this->belongsTo(Product::class,'product_id');
     }
 }

@@ -60,7 +60,7 @@ class Order extends BaseModel
 
     public function getStatusNameAttribute()
     {
-        return booking_status_to_text($this->status);
+        return status_to_text($this->status);
     }
 
     public function getMeta($key, $default = '')
