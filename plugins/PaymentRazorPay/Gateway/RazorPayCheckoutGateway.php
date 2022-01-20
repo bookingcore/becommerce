@@ -4,13 +4,14 @@ namespace Plugins\PaymentRazorPay\Gateway;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Mockery\Exception;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Payment;
 use Razorpay\Api\Api;
 use Validator;
 use Illuminate\Support\Facades\Log;
 use Modules\Booking\Models\Booking;
 
-class RazorPayCheckoutGateway extends \Modules\Booking\Gateways\BaseGateway
+class RazorPayCheckoutGateway extends BaseGateway
 {
     protected $id   = 'razorpay_gateway';
     public    $name = 'Razorpay Checkout';

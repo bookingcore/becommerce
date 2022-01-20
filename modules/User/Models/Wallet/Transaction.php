@@ -6,7 +6,7 @@ namespace Modules\User\Models\Wallet;
 
 use App\User;
 use Illuminate\Support\Facades\Auth;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 
 class Transaction extends \Bavix\Wallet\Models\Transaction
 {

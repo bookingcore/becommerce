@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 use Modules\Product\Emails\NewBookingEmail;
 use Modules\Product\Emails\StatusUpdatedEmail;
 use Modules\Product\Models\OrderItem;

@@ -6,7 +6,7 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Modules\Booking\Models\Booking;
-    use Modules\Booking\Models\Payment;
+    use Modules\Order\Models\Payment;
     use Plugins\PaymentFlutterWaveCheckout\Gateway\FlutterWaveCheckoutGateway;
 
 

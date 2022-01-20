@@ -3,12 +3,13 @@ namespace Plugins\PaymentTwoCheckout\Gateway;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Payment;
 use Validator;
 use Illuminate\Support\Facades\Log;
 use Modules\Booking\Models\Booking;
 
-class TwoCheckoutGateway extends \Modules\Order\Gateways\BaseGateway
+class TwoCheckoutGateway extends BaseGateway
 {
     protected $id   = 'two_checkout_gateway';
     public    $name = 'Two Checkout';

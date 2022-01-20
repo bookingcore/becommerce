@@ -2,15 +2,11 @@
 namespace Plugins\PaymentFlutterWaveCheckout\Gateway;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use Mockery\Exception;
-use Modules\Booking\Events\BookingCreatedEvent;
-use Modules\Booking\Gateways\BaseGateway;
 use Modules\Booking\Models\Booking;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Payment;
 use Illuminate\Support\Facades\Log;
-use App\Helpers\Assets;
 use SebastianBergmann\Comparator\Book;
 
 class FlutterWaveCheckoutGateway extends BaseGateway

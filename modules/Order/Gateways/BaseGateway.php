@@ -2,7 +2,7 @@
 namespace Modules\Order\Gateways;
 
 use Illuminate\Http\Request;
-use Modules\Booking\Models\Payment;
+use Modules\Order\Models\Payment;
 
 abstract class BaseGateway
 {
