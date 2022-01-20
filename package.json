@@ -1,10 +1,10 @@
 {
     "private": true,
     "scripts": {
-        "dev": "mix watch",
-        "prod": "mix --production",
-        "f-dev": "cross-env process.env.section=frontend NODE_ENV=development mix watch",
-        "f-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"
+        "admin-dev": "mix watch",
+        "admin-prod": "mix --production",
+        "frontend-dev": "cross-env process.env.section=frontend NODE_ENV=development mix watch",
+        "frontend-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.2",

@@ -7,7 +7,7 @@ use Modules\Core\Helpers\SitemapHelper;
 class ModuleProvider extends \Modules\ModuleServiceProvider
 {
     public function boot(){
-        AdminMenuManager::register("news",[$this,'getAdminMenu']);
+        AdminMenuManager::register("report",[$this,'getAdminMenu']);
     }
 
     public function register()
@@ -19,7 +19,7 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
     {
         return [
             'report'=>[
-                "position" => 110,
+                "position" => 60,
                 'url'        => route('report.admin.overview'),
                 'title'      =>  __('Reports'),
                 'icon'       => 'icon ion-ios-stats',

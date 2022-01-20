@@ -28,7 +28,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'coupon'=>[
-                "position"=>41,
+                "position"=>40,
                 'url'        => route('coupon.admin.index'),
                 'title'      => __('Coupon'),
                 'icon'       => 'fa fa-ticket',
