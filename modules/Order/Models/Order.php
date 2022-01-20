@@ -55,7 +55,7 @@ class Order extends BaseModel
     public function getGatewayNameAttribute()
     {
         $obj = $this->gateway_obj;
-        if($obj) return $obj->getName();
+        if($obj) return $obj->getDisplayName();
     }
 
     public function getStatusNameAttribute()
