@@ -96,6 +96,17 @@ namespace Database\Seeders;
                 'created_at'  => date("Y-m-d H:i:s")
             ]);
 
+            DB::table('core_pages')->insert([
+                'title'       => 'Contact',
+                'slug'        => 'contact',
+                'template_id' => '3',
+                'show_template' => '1',
+                'create_user' => '1',
+                'author_id' => 1,
+                'status'      => 'publish',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+
             // Setting Currency
             DB::table('core_settings')->insert([
                 [

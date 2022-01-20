@@ -34,5 +34,14 @@ class TemplateSeeder extends Seeder
                 'created_at' =>  date("Y-m-d H:i:s")
             ]
         );
+
+        DB::table('core_templates')->insert(
+            [
+                'title' =>  'Contact',
+                'content'   =>  '[{"type":"contact_block","name":"Contact Block","model":{"class":"","title":"Let\'s get in touch","right_title":"Get in touch","sub_title":"We\'re open for any suggestion or just to have a chat","address":"198 West 21th Street, Suite 721 New York NY 10016","phone":"1234 5678 89","email":"contact@martfury.co","website":"yoursite.com"},"component":"RegularBlock","open":true}]',
+                'create_user' => '1',
+                'created_at' =>  date("Y-m-d H:i:s")
+            ]
+        );
     }
 }

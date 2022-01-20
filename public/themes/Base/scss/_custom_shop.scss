@@ -230,3 +230,13 @@
         }
     }
 }
+
+.bc-contact-block{
+    &.loading{
+        .submit{
+            i{
+                display: inline-block!important;
+            }
+        }
+    }
+}

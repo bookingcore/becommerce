@@ -22,6 +22,12 @@ class Contact extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
+                    'id'        => 'right_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Right Title')
+                ],
+                [
                     'id'        => 'sub_title',
                     'type'      => 'input',
                     'inputType' => 'text',
@@ -62,7 +68,6 @@ class Contact extends BaseBlock
 
     public function content($model = [])
     {
-//        return view('Contact::frontend.blocks.contact.index', $model);
         return view('blocks.contact.index', $model);
     }
 }

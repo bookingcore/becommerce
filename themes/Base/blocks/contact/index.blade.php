@@ -1,4 +1,4 @@
-<div class="bc-contact-block {{ $class ?? '' }} mb-5">
+<div class="bc-contact-block {{ $class ?? '' }} my-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -13,8 +13,7 @@
                                     </div>
                                     <div class="contact-form">
                                         <div class="contact-header">
-                                            <h3>{{ setting_item_with_lang("page_contact_title") }}</h3>
-                                            <p>{{ setting_item_with_lang("page_contact_sub_title") }}</p>
+                                            <h3>{{ $right_title ?? '' }}</h3>
                                         </div>
                                         <div class="contact-form">
                                             <div class="row">
@@ -40,7 +39,12 @@
                                             <div class="form-group">
                                                 {{recaptcha_field('contact')}}
                                             </div>
-                                            <p><input type="submit" value="{{ __('Send Message') }}" class="form-control submit btn btn-primary w-auto"></p>
+                                            <p>
+                                                <button class="submit btn btn-primary " type="submit">
+                                                    {{ __('Send Message') }}
+                                                    <i class="fa fa-spinner fa-pulse fa-fw d-none"></i>
+                                                </button>
+                                            </p>
                                         </div>
                                     </div>
                                     <div class="form-mess"></div>
