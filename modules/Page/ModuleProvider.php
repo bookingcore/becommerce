@@ -43,7 +43,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'page'=>[
-                "position"=>40,
+                "position"=>20,
                 'url'        => route('page.admin.index'),
                 'title'      => __('Pages'),
                 'icon'  => 'icon ion-ios-bookmarks',

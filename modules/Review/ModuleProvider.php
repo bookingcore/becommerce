@@ -27,7 +27,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'review'=>[
-                "position"=>55,
+                "position"=>50,
                 'url'   => 'admin/module/review',
                 'title' => __("Reviews"),
                 'icon'  => 'icon ion-ios-text',

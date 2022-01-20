@@ -73,19 +73,6 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-    public static function getBookableServices()
-    {
-        return [
-            'news'=>News::class
-        ];
-    }
-
-    public static function getTemplateBlocks(){
-        return [
-            'list_news'=>"\\Modules\\News\\Blocks\\ListNews",
-        ];
-    }
-
     public function getNewsSettings(){
         return [
             'id'   => 'news',
