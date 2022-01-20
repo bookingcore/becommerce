@@ -1116,7 +1116,7 @@ function get_current_currency($need,$default = '')
     return Currency::getCurrent($need,$default);
 }
 
-function booking_status_to_text($status)
+function status_to_text($status)
 {
     switch ($status){
         case "draft":

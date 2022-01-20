@@ -6,10 +6,14 @@
     <section class="bc-dashboard">
         <div class="d-flex mb-3 align-items-center">
             <h1 class="me-3">{{__("Overview")}}</h1>
-            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
-                <i class="fa fa-calendar"></i>&nbsp;
-                <span></span> <i class="fa fa-caret-down"></i>
-            </div>
+            <form action="" method="get">
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                    <input type="hidden" name="from" value="{{request('from')}}">
+                    <input type="hidden" name="to" value="{{request('to')}}">
+                </div>
+            </form>
         </div>
         <div class="row">
             @if(!empty($top_cards))
@@ -38,9 +42,6 @@
                     </div>
                     <div class="panel-body">
                         <canvas id="earning_chart"></canvas>
-                        <script>
-                            var earning_chart_data = {!! json_encode($earning_chart_data) !!};
-                        </script>
                     </div>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                 <div class="panel">
                     <div class="panel-title d-flex justify-content-between">
                         <strong>{{__('Recent Orders')}}</strong>
-                        <a href="{{route('order.admin.index')}}" class="btn-link">{{__("More")}}
+                        <a href="{{route('vendor.order')}}" class="btn-link">{{__("More")}}
                             <i class="icon ion-ios-arrow-forward"></i></a>
                     </div>
                     <div class="panel-body">
@@ -57,7 +58,12 @@
                                 <thead>
                                 <tr>
                                     <th width="60px">#</th>
-                                    <th width="100px">{{__("Total")}}</th>
+                                    <th>{{__("Product")}}</th>
+                                    <th width="100px">{{__("Price")}}</th>
+                                    <th width="100px">{{__("Qty")}}</th>
+                                    <th width="100px">{{__("Subtotal")}}</th>
+                                    <th width="100px">{{__("Commission")}}</th>
+                                    <th width="100px">{{__("Earned")}}</th>
                                     <th width="100px">{{__("Status")}}</th>
                                     <th width="100px">{{__("Created At")}}</th>
                                 </tr>
@@ -67,10 +73,19 @@
                                     @foreach($recent_orders as $order)
                                         <tr>
                                             <td>#{{$order->id}}</td>
-
-                                            <td>{{format_money($order->total)}}</td>
                                             <td>
-                                                <span class="badge badge-{{$order->status_class}}">{{$order->status_name}}</span>
+                                                @if($order->product)
+                                                    <a href="{{$order->product->getDetailUrl()}}">{{$order->product->title}}</a>
+                                                @endif
+                                            </td>
+
+                                            <td>{{format_money($order->price)}}</td>
+                                            <td>{{$order->qty}}</td>
+                                            <td>{{format_money($order->subtotal)}}</td>
+                                            <td>{{format_money($order->commission_amount)}}</td>
+                                            <td>{{format_money($order->subtotal - $order->commission_amount)}}</td>
+                                            <td>
+                                                <span class="badge bg-{{$order->status_badge}}">{{$order->status_text}}</span>
                                             </td>
                                             <td>{{display_datetime($order->created_at)}}</td>
                                         </tr>
@@ -108,8 +123,11 @@
                 '{{__("Last Month")}}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 '{{__("This Year")}}': [moment().startOf('year'), moment().endOf('year')],
                 '{{__('This Week')}}': [moment().startOf('week'), moment()]
-            }
+            },
+            from:"{{request('from',date('Y-m-01'))}}",
+            to:"{{request('to',date('Y-m-d'))}}"
         };
+        var earning_chart_data = {!! json_encode($earning_chart_data) !!}
     </script>
     <script src="{{theme_url('Base/vendor/js/dashboard.js?_ver='.config('app.version'))}}"></script>
 @endsection

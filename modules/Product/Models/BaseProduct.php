@@ -10,8 +10,6 @@ use Modules\Review\Models\Review;
 class BaseProduct extends BaseModel
 {
     public $email_new_booking_file             = '';
-    public $checkout_booking_detail_modal_file = '';
-
 
     protected $reviewClass;
 
@@ -43,12 +41,6 @@ class BaseProduct extends BaseModel
     public function cartExtraParams(Request $request){
         return [];
     }
-
-    public function createDraftBooking()
-    {
-
-    }
-
     /**
      * Is Tax included in Pricing
      */
@@ -75,24 +67,6 @@ class BaseProduct extends BaseModel
 
         $url = FileHelper::url($this->image_id, $size);
         return $url ? $url : '';
-    }
-
-    /**
-     * Get Location
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-//    public function location()
-//    {
-//        return $this->hasOne("Modules\Location\Models\Location", "id", 'location_id');
-//    }
-
-    /**
-     * @todo Simple check before booking for status, etc
-     */
-    public function isBookable()
-    {
-        return true;
     }
 
 
