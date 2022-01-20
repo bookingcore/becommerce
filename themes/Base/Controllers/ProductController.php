@@ -100,61 +100,6 @@ class ProductController extends Controller
         return Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
     }
 
-    public function product_variations($row){
-        $attrs = (!empty($row->attributes_for_variation)) ? Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
-        $terms = ProductTerm::select('*','core_terms.attr_id as attr_id')->join('core_terms','product_term.term_id','=','core_terms.id')->where('target_id',$row->id)->get();
-        $product_variations = ProductVariation::where('product_id',$row->id)->get();
-        $get_variation = [];
-        if (!empty($product_variations)){
-            foreach ($product_variations as $item){
-                $product_variations_term = ProductVariationTerm::where('variation_id',$item->id)->pluck('term_id')->toArray();
-                sort($product_variations_term);
-                array_push($get_variation, [
-                    'variations'   =>  $item->getAttributes(),
-                    'term_id'       =>  $product_variations_term
-                ]);
-            }
-        }
-        $attrs_list = [];
-        if (!empty($attrs)){
-            foreach ($attrs as $attr){
-                $term_list = [];
-                foreach ($terms as $term){
-                    if ($attr->id == $term->attr_id){
-                        array_push($term_list, $term->getAttributes());
-                    }
-                }
-                array_push($attrs_list,[
-                    'attr'      =>  [
-                        'id'    =>  $attr->id,
-                        'name'  =>  $attr->name,
-                        'type'  =>  $attr->display_type
-                    ],
-                    'terms'     =>  $term_list
-                ]);
-            }
-        }
-        return [
-            'attr_list' => $attrs_list,
-            'variations_product' => $get_variation
-        ];
-    }
-
-    public function recently_viewed($row){
-        $p_recently = (!empty(session('product_recently'))) ? session('product_recently') : [];
-        if (count($p_recently)){
-            if (!in_array($row,$p_recently)){
-                array_push($p_recently, $row);
-                session(['product_recently'=>$p_recently]);
-            } else {
-                return false;
-            }
-        } else {
-            $item[] = $row;
-            session(['product_recently'=>$item]);
-        }
-    }
-
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->where("status", "publish")->first();
@@ -162,7 +107,7 @@ class ProductController extends Controller
             abort(404);
             return;
         }
-        $this->recently_viewed($row->id);
+        //$this->recently_viewed($row->id);
         $product_variations = $row->variations;
         $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
@@ -228,8 +173,48 @@ class ProductController extends Controller
     }
 
     public function compare(Request $request){
+
+        // truyền ID
+        $product_id = $request->post('id');
+        // Kiểm tra xem có trong ss hay chưa
+        $compare = (!empty(session('compare'))) ? session('compare') : [];
+        if ($compare){
+            foreach ($compare as $item){
+                if ($item['id'] == $product_id){
+                    return $this->sendSuccess([
+                        'status'   => 1,
+                    ]);
+                }
+            }
+        }
+
+        // Kiểm tra product
         $product = Product::find($request->post('id'));
-        $v_price = ($product->product_type == 'variable') ? getMinMaxPriceProductVariations($product) : [];
+        if(empty($product)){
+            return $this->sendError(__("Service not found!"));
+        }
+        // Lấy data product
+
+        $productArray = $product->getAttributes();
+        $productArray['display_price'] = $product->display_price;
+        $productArray['display_sale_price'] = $product->display_sale_price;
+        //$product['attrs'] = $attrs;
+        $product['brand_name']  = $product->brand->name ?? '';
+        array_push($compare, $productArray);
+        session(['compare' => $compare]);
+        // lấy view
+        $data = [
+            'compare'   =>  session('compare'),
+        ];
+        return $this->sendSuccess([
+            'status'   => 1,
+            'count' =>  count($compare),
+            'view'  =>  view('product.compare.list', $data)->render()
+        ]);
+
+
+
+        /*$v_price = ($product->product_type == 'variable') ? [] : [];
         $compare = (!empty(session('compare'))) ? session('compare') : [];
         $attrs = [];
         $brand = ProductBrand::select('name')->where('id',$product->brand_id)->first();
@@ -276,7 +261,7 @@ class ProductController extends Controller
         return [
             'count' =>  count($compare),
             'view'  =>  view('Product::frontend.layouts.compare', $data)->render()
-        ];
+        ];*/
     }
 
     public function remove_compare(Request $request){
@@ -320,16 +305,4 @@ class ProductController extends Controller
         return view('Product::frontend.your-recent-viewed',$data);
     }
 
-    public function store_list(){
-        $data = [
-            'users'         =>  User::paginate(2),
-            'breadcrumbs'   =>  [
-                [
-                    'url'=>'',
-                    'name'=> __('Store List')
-                ]
-            ]
-        ];
-        return view('Product::frontend.storeList.index', $data);
-    }
 }

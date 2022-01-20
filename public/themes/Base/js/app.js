@@ -522,29 +522,6 @@ $('.bc-product-detail').each(function () {
     });
 })
 
-
-/*
-$('.menu-bar').click(function () {
-    $('.bc-mobile-nav').toggleClass('active');
-});
-$('.bc-mobile-nav').each(function () {
-    let me = $(this);
-
-    me.find('.bc-mobile-overlay, .close-bc-mobile').click(function () {
-        $(this).closest('.bc-mobile-nav').toggleClass('active');
-    })
-
-    me.find('.dropdown .nav-link').click(function (e) {
-        let $this = $(this);
-        let depth = $this.parent().attr('class');
-        depth = depth.substr(depth.search(/depth/gi),7);
-        if ($this.parent().hasClass('dropdown')) e.preventDefault();
-        $(`.bc-mobile-menu .dropdown.${depth} .nav-link`).parent().removeClass('active').find('.dropdown-menu').stop().removeAttr('style').slideUp('fast');
-        $this.parent().addClass('active').find('>.dropdown-menu').stop().slideDown('fast');
-    });
-});
-*/
-
 //Review
 $('.review-form .review-items .rates .fa').each(function () {
     var list = $(this).parent(),
@@ -621,4 +598,68 @@ jQuery(function ($) {
         });
         return false;
     });
+
+
+
+
+    var compare_box = $('.bravo_compare_box').modal();
+
+    console.log("x");
+
+    let compare_count = $('.bc-compare-count .number');
+    //let compare_button = function(id){return $(`.mf-compare-button[data-id=${id}]`);}
+
+    $('.bc-compare-count').on('click',function () {
+        compare_box.show();
+    });
+
+    $(document).on('click','.bc-compare',function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let id = $this.attr('data-id');
+        if ($this.hasClass('browse')){
+            $this.tooltip('hide');
+            compare_box.show();
+        } else {
+            $.ajax({
+                url: BC.url + '/product/compare',
+                method: 'POST',
+                data: {id: id},
+                beforeSend: function () {
+                    $this.tooltip('hide').removeClass('browse').addClass('loading');
+                },
+                success:function (data) {
+                    //compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse').find('.btn-text').text(i18n.browse_compare);
+                    compare_count.text(data.count);
+                    compare_box.find('.compare-list').html(data.view);
+                    compare_box.show();
+
+                }
+            })
+        }
+    })
+
+    /*$('.compare_close, .compare_overlay').on('click',function () {
+        $(this).closest('.bravo_compare_box').removeClass('active');
+    })*/
+    $(document).on('click','.remove_compare',function (e) {
+        e.preventDefault();
+        let $this = $(this);
+        let id = $this.attr('data-id');
+        $.ajax({
+            url: bookingCore.url + '/product/remove_compare',
+            method:'POST',
+            data: {id: id},
+            beforeSend: function () {
+                $this.addClass('loading');
+            },
+            success: function (data) {
+                $this.removeClass('loading');
+                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse').find('.btn-text').text(i18n.add_compare);
+                compare_count.text(data.count);
+                compare_box.find('.compare-list').html(data.view);
+            }
+        })
+    })
+
 })

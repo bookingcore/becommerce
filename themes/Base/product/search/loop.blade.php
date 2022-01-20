@@ -19,6 +19,10 @@ $score_total = $reviewData['score_total'];
         <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
             <i class="fa fa-heart"></i>
         </div>
+
+        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer" data-toggle="tooltip" data-original-title="{{ __("Compare") }}" data-id="{{$row->id}}">
+            <i class="fa fa-bar-chart" aria-hidden="true"></i>
+        </div>
     </div>
     <div class="card-body">
         <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>

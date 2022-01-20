@@ -7,6 +7,10 @@ Route::get('/product','ProductController@index')->name('product.index');
 Route::get('/product/{slug}','ProductController@detail')->name('product.detail');
 Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.category.index');
 
+Route::post('/product/compare','ProductController@compare')->name('product.compare');
+Route::post('/product/remove_compare','ProductController@remove_compare')->name('product.remove.compare');
+
+
 
 Route::group(['prefix'=>'news'],function(){
     Route::get('/','NewsController@index')->name('news');

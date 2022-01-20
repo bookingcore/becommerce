@@ -18,6 +18,14 @@
                     @include('layouts.parts.header.search')
                 </div>
                 <div class="col-lg-2 col-6 order-1 order-lg-2 text-end d-flex justify-content-end">
+                    <div class="bc-compare-count">
+                        <a  class="position-relative">
+                            <i class="fa fa-bar-chart fa-2x c-main"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger number">
+                                0
+                            </span>
+                        </a>
+                    </div>
                     <div class="bc-header-wishlist">
                         @if(Auth::user())
                             <a  class="position-relative" href="{{route('user.wishList.index')}}">

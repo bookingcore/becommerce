@@ -57,7 +57,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                 </div>
             @else
                 <div class="bc-cart-items">
-                    <p class="text-center font-weight-bold">{{__("Your cart is empty")}}</p>
+                    <div class="text-center font-weight-bold">{{__("Your cart is empty")}}</div>
                 </div>
             @endif
         </div>
