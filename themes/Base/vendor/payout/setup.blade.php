@@ -18,9 +18,8 @@ $vendor_payout_methods = setting_item_array('vendor_payout_methods');
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">{{__("Setup payout accounts")}}</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
             </div>
             <div class="modal-body ">
                 <table class="table table-bordered">
@@ -51,7 +50,7 @@ $vendor_payout_methods = setting_item_array('vendor_payout_methods');
                 <div class="message_box alert d-none"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Close')}}</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
                 <button type="button" class="btn btn-success " onclick="vendorPayout.saveAccounts(this)">{{__('Save changes')}}
                     <i class="fa fa-spinner"></i>
                 </button>

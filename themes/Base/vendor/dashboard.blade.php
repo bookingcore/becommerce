@@ -6,10 +6,14 @@
     <section class="bc-dashboard">
         <div class="d-flex mb-3 align-items-center">
             <h1 class="me-3">{{__("Overview")}}</h1>
-            <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
-                <i class="fa fa-calendar"></i>&nbsp;
-                <span></span> <i class="fa fa-caret-down"></i>
-            </div>
+            <form action="" method="get">
+                <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
+                    <i class="fa fa-calendar"></i>&nbsp;
+                    <span></span> <i class="fa fa-caret-down"></i>
+                    <input type="hidden" name="from" value="{{request('from')}}">
+                    <input type="hidden" name="to" value="{{request('to')}}">
+                </div>
+            </form>
         </div>
         <div class="row">
             @if(!empty($top_cards))
@@ -38,9 +42,6 @@
                     </div>
                     <div class="panel-body">
                         <canvas id="earning_chart"></canvas>
-                        <script>
-                            var earning_chart_data = {!! json_encode($earning_chart_data) !!};
-                        </script>
                     </div>
                 </div>
             </div>
@@ -122,8 +123,11 @@
                 '{{__("Last Month")}}': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
                 '{{__("This Year")}}': [moment().startOf('year'), moment().endOf('year')],
                 '{{__('This Week')}}': [moment().startOf('week'), moment()]
-            }
+            },
+            from:"{{request('from',date('Y-m-01'))}}",
+            to:"{{request('to',date('Y-m-d'))}}"
         };
+        var earning_chart_data = {!! json_encode($earning_chart_data) !!}
     </script>
     <script src="{{theme_url('Base/vendor/js/dashboard.js?_ver='.config('app.version'))}}"></script>
 @endsection

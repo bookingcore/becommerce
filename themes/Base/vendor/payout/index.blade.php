@@ -74,5 +74,4 @@
 @endsection
 
 @section('footer')
-    <script src="{{theme_url('Base/vendor/js/dashboard.js?_ver='.config('app.version'))}}"></script>
 @endsection

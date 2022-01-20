@@ -43,8 +43,8 @@ jQuery(function ($) {
             }
         }
     });
-    var start = moment().startOf('month');
-    var end = moment();
+    var start = moment(dashboard.from);
+    var end = moment(dashboard.to);
 
     function cb(start, end) {
         $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
@@ -62,6 +62,7 @@ jQuery(function ($) {
 }, cb).on('apply.daterangepicker', function (ev, picker) {
         $('#reportrange input[name=from]').val(picker.startDate.format('YYYY-MM-DD'));
         $('#reportrange input[name=to]').val(picker.endDate.format('YYYY-MM-DD'));
+        $('#reportrange').closest('form').submit();
     });
     cb(start, end);
 })
