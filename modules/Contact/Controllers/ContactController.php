@@ -35,7 +35,6 @@ class ContactController extends Controller
                 'email'
             ],
             'name'    => ['required'],
-            'subject' => ['required'],
             'message' => ['required']
         ]);
         /**
