@@ -18,15 +18,15 @@
                     @include('layouts.parts.header.search')
                 </div>
                 <div class="col-lg-2 col-6 order-1 order-lg-2 text-end d-flex justify-content-end">
-                    <div class="bc-compare-count">
-                        <a  class="position-relative">
+                    <div class="bc-compare-count me-4">
+                        <a  class="position-relative c-main-hover">
                             <i class="fa fa-bar-chart fa-2x c-main"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger number">
-                                0
+                                {{ count(session('compare')) }}
                             </span>
                         </a>
                     </div>
-                    <div class="bc-header-wishlist">
+                    <div class="bc-header-wishlist me-4">
                         @if(Auth::user())
                             <a  class="position-relative" href="{{route('user.wishList.index')}}">
                                 <i class="fa fa-heart fa-2x c-main"></i>

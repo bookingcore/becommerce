@@ -7,14 +7,14 @@
             </div>
             <div class="modal-body">
                 <div class="table-responsive">
-                    <table class="table table-striped">
+                    <table class="table table-striped compare-list">
                         @if($compare = session('compare'))
                             @include('product.compare.list')
                         @else
                             <tbody>
-                            <tr class="no-products" role="row">
-                                <td>{{ __('No products added in the compare table') }}</td>
-                            </tr>
+                                <tr class="no-products" role="row">
+                                    <td>{{ __('No products added in the compare table') }}</td>
+                                </tr>
                             </tbody>
                         @endif
                     </table>

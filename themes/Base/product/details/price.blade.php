@@ -1,4 +1,4 @@
-<h4 class="bc-product_price mb-4">
+<div class="bc-product-price">
     @if($row->product_type=='variable')
         @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
             <p class="price variable-price m-0">
@@ -14,10 +14,10 @@
     @else
         @if(!empty($row->display_sale_price))
             <p class="price has-sale m-0 c-f30 fs-16">
-                <ins class="fs-24 fw-700 text-decoration-none pe-2">
+                <ins class="fs-18 fw-700 text-decoration-none pe-1">
                     <span class="amount">{{$row->display_price}}</span>
                 </ins>
-                <del class="c-666 pe-1">
+                <del class="c-000000 pe-1">
                     <span class="amount">{{$row->display_sale_price}}</span>
                 </del>
                 @if(!empty($row->discount_percent))
@@ -30,5 +30,5 @@
             </p>
         @endif
     @endif
-</h4>
+</div>
 

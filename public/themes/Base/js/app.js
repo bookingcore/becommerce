@@ -604,13 +604,13 @@ jQuery(function ($) {
 
     var compare_box = $('.bravo_compare_box').modal();
 
-    console.log("x");
-
-    let compare_count = $('.bc-compare-count .number');
-    //let compare_button = function(id){return $(`.mf-compare-button[data-id=${id}]`);}
+    var compare_count = $('.bc-compare-count .number');
 
     $('.bc-compare-count').on('click',function () {
-        compare_box.show();
+        compare_box.modal("show");
+    });
+    $(".bravo_compare_box .btn-close").click(function () {
+        compare_box.modal("hide");
     });
 
     $(document).on('click','.bc-compare',function (e) {
@@ -618,8 +618,7 @@ jQuery(function ($) {
         let $this = $(this);
         let id = $this.attr('data-id');
         if ($this.hasClass('browse')){
-            $this.tooltip('hide');
-            compare_box.show();
+            compare_box.modal("show");
         } else {
             $.ajax({
                 url: BC.url + '/product/compare',
@@ -629,25 +628,19 @@ jQuery(function ($) {
                     $this.tooltip('hide').removeClass('browse').addClass('loading');
                 },
                 success:function (data) {
-                    //compare_button(id).attr('data-original-title',i18n.browse_compare).removeClass('loading').addClass('browse').find('.btn-text').text(i18n.browse_compare);
-                    compare_count.text(data.count);
+                    compare_count.html(data.count);
                     compare_box.find('.compare-list').html(data.view);
-                    compare_box.show();
-
+                    compare_box.modal("show")
                 }
             })
         }
     })
-
-    /*$('.compare_close, .compare_overlay').on('click',function () {
-        $(this).closest('.bravo_compare_box').removeClass('active');
-    })*/
-    $(document).on('click','.remove_compare',function (e) {
+    $(document).on('click','.bc-remove-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
         $.ajax({
-            url: bookingCore.url + '/product/remove_compare',
+            url: BC.url + '/product/remove_compare',
             method:'POST',
             data: {id: id},
             beforeSend: function () {
@@ -655,11 +648,13 @@ jQuery(function ($) {
             },
             success: function (data) {
                 $this.removeClass('loading');
-                compare_button(id).attr('data-original-title',i18n.add_compare).removeClass('browse').find('.btn-text').text(i18n.add_compare);
-                compare_count.text(data.count);
+                compare_count.html(data.count);
                 compare_box.find('.compare-list').html(data.view);
             }
         })
     })
-
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
 })

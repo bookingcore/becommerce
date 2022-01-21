@@ -16,11 +16,11 @@ $score_total = $reviewData['score_total'];
             <span class="badge out-stock">{{__('Out Of Stock')}}</span>
         @endif
 
-        <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
+        <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}" data-bs-toggle="tooltip"  title="{{ __("Wishlist") }}">
             <i class="fa fa-heart"></i>
         </div>
 
-        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer" data-toggle="tooltip" data-original-title="{{ __("Compare") }}" data-id="{{$row->id}}">
+        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer" data-bs-toggle="tooltip" title="{{ __("Compare") }}" data-id="{{$row->id}}">
             <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </div>
     </div>
@@ -38,11 +38,8 @@ $score_total = $reviewData['score_total'];
                 </span>
             </div>
         @endif
-        <div class="card-price fs-18 fw-600 @if($row->display_sale_price) sale @endif">
-            {{$row->display_price}}
-            @if($row->display_sale_price)
-                <del>{{$row->display_sale_price}} </del>
-            @endif
+        <div class="card-price fs-18 fw-600">
+            @include('product.details.price')
         </div>
     </div>
 </div>
