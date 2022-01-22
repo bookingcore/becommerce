@@ -22,7 +22,7 @@
                         <a  class="position-relative c-main-hover">
                             <i class="fa fa-bar-chart fa-2x c-main"></i>
                             <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger number">
-                                {{ count(session('compare')) }}
+                                {{ !empty(session('compare')) ? count(session('compare')) : "0" }}
                             </span>
                         </a>
                     </div>

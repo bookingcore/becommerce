@@ -20,7 +20,7 @@ $score_total = $reviewData['score_total'];
             <i class="fa fa-heart"></i>
         </div>
 
-        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer" data-bs-toggle="tooltip" title="{{ __("Compare") }}" data-id="{{$row->id}}">
+        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer c-main-hover" data-bs-toggle="tooltip" title="{{ __("Compare") }}" data-id="{{$row->id}}">
             <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </div>
     </div>
