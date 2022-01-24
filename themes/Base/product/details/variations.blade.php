@@ -6,7 +6,7 @@
                 @php $term_ids = $variation->term_ids @endphp
                 <div class="col-lg-6">
                     <div class="variation mb-2">
-                        <input id="variation-{{ $variation->id }}" type="radio" name="variation" value="{{ $variation->id }}">
+                        <input id="variation-{{ $variation->id }}" type="radio" name="variant_id" value="{{ $variation->id }}">
                         <label for="variation-{{ $variation->id }}">
                             @foreach($row->attributes_for_variation_data as $item)
                                 @foreach($item['terms'] as $term)
