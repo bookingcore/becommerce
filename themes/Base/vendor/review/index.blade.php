@@ -7,6 +7,7 @@
 
     @include('global.message')
 
+    @include('vendor.review.filter')
     <div class="bc-section__content">
         <div class="table-responsive">
             <table class="table bc-table">

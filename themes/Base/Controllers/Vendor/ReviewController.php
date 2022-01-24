@@ -23,6 +23,11 @@ class ReviewController extends FrontendController
 
         $query = Review::query();
         $query->where('vendor_id',auth()->id())->orderBy('id', 'desc');
+        if (!empty($search_name = $request->input('s'))) {
+            $search_name = "%".$search_name."%";
+            $query->whereRaw(" ( title LIKE ? OR author_ip LIKE ? OR content LIKE ? ) ",[$search_name,$search_name,$search_name]);
+            $query->orderBy('title', 'asc');
+        }
         $data = [
             'rows'=>$query->paginate(20),
             'page_title'=>__("Manage Reviews"),
