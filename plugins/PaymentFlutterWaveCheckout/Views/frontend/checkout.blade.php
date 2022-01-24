@@ -25,13 +25,13 @@
             // country: "US",
             payment_options: "1",
             customer: {
-                email: "{{$booking->email}}",
-                phone_number: "{{$booking->phone}}",
-                name: "{{__(':first_name :last_name',['first_name'=>$booking->first_name,'last_name'=>$booking->last_name])}}",
+                email: "{{$billing['email']??""}}",
+                phone_number: "{{$billing['phone']??""}}",
+                name: "{{__(':first_name :last_name',['first_name'=>$billing['first_name']??"",'last_name'=>$billing['last_name']??])}}",
             },
             callback: function (data) { // specified callback function
                 data['checkoutNormal']  = "{{$data['checkoutNormal']}}"
-                $.post("{{route('confirmFlutterWaveGateway',['code'=>$booking->code])}}", data).promise().then((result) => {
+                $.post("{{route('confirmFlutterWaveGateway',['payment_id'=>$payment->id])}}", data).promise().then((result) => {
                     if(result.message){
                         alert(result.message);
                     }
@@ -47,22 +47,4 @@
             },
         });
     }
-</script>
-<form id="checkoutForm" method="POST" action="{{route('confirmFlutterWaveGateway',['code'=>$code])}}">
-{{--<form id="checkoutForm" method="POST" action="/charge">--}}
-    {{csrf_field()}}
-    <input type="hidden" name="omiseToken">
-    <input type="hidden" name="omiseSource">
-    <input type="hidden" name="checkoutNormal" value="{{$data['checkoutNormal']??0}}">
-</form>
-<script type="text/javascript" src="https://cdn.omise.co/omise.js"
-{{--        data-key="{{$data['api_key']}}"--}}
-{{--        data-amount="{{$data['amount']}}"--}}
-{{--        data-currency="{{$data['currency']}}"--}}
-{{--        data-frame-label="{{setting_item('site_title')}}"--}}
-{{--        data-image="{{get_file_url(setting_item('logo_id'),'full')}}"--}}
-{{--        data-button-label="{{__('Pay now')}}"--}}
-{{--        data-submit-label="{{__('Submit')}}"--}}
-{{--        data-other-payment-methods="{{$data['defaultPaymentMethod']}}"--}}
->
 </script>
