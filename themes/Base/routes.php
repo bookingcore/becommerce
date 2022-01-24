@@ -54,7 +54,7 @@ Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
    Route::get('/payout','Vendor\PayoutController@index')->name('vendor.payout');
    Route::get('/payout/account/store','Vendor\PayoutController@storePayoutAccount')->name('vendor.payout.account.store');
 
-
+    Route::get('/review','Vendor\ReviewController@index')->name('vendor.review');
 });
 Route::group(['prefix'=>'store','middleware'=>'auth'],function(){
    Route::get('/{slug}','Vendor\StoreController@index')->name('store');

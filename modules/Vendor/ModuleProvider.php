@@ -88,6 +88,11 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'=>route('vendor.payout'),
                 'title'=>__("Payouts"),
                 "icon"=>"fa fa-credit-card"
+            ],
+            'review'=>[
+                'url'=>route('vendor.review'),
+                'title'=>__("Reviews"),
+                "icon"=>"fa fa-commenting"
             ]
         ];
     }

@@ -16,6 +16,7 @@
             <li class=""><a class="dropdown-item" href="{{route('vendor.product')}}"><i class="fa fa-database"></i> {{__("Products")}}</a></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.order')}}"><i class="fa fa-shopping-basket"></i> {{__("Orders")}}</a></li>
             <li class=""><a class="dropdown-item" href="{{route('vendor.payout')}}"><i class="fa fa-credit-card"></i> {{__("Payouts")}}</a></li>
+            <li class=""><a class="dropdown-item" href="{{route('vendor.review')}}"><i class="fa fa-commenting"></i> {{__("Reviews")}}</a></li>
         @endif
         @if(Auth::user()->hasPermission('setting_update'))
             <li><hr class="dropdown-divider"></li>
