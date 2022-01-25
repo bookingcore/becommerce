@@ -74,6 +74,11 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function addVendorMenu(){
         return [
+            'profile'=>[
+                'url'=>route('vendor.profile'),
+                'title'=>__("Vendor Profile"),
+                "icon"=>"fa fa-user"
+            ],
             'product'=>[
                 'url'=>route('vendor.product'),
                 'title'=>__("Products"),

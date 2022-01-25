@@ -92,7 +92,7 @@
                             @endif
                         </td>
                         <td>
-                            <a href="" class="badge badge-{{ $row->status }}">{{ $row->status }}</a>
+                            <span class="">{{ $row->status }}</span>
                         </td>
                         <td>{{ display_datetime($row->updated_at)}}</td>
                     </tr>

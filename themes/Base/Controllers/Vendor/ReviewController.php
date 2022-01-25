@@ -31,7 +31,6 @@ class ReviewController extends FrontendController
         $data = [
             'rows'=>$query->paginate(20),
             'page_title'=>__("Manage Reviews"),
-            'page_subtitle'=>__('Product Listings')
         ];
 
         return view('vendor.review.index',$data);
