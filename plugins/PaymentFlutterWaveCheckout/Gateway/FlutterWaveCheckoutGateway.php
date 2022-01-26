@@ -4,7 +4,9 @@ namespace Plugins\PaymentFlutterWaveCheckout\Gateway;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Booking\Models\Booking;
+use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Gateways\BaseGateway;
+use Modules\Order\Models\Order;
 use Modules\Order\Models\Payment;
 use Illuminate\Support\Facades\Log;
 use SebastianBergmann\Comparator\Book;
@@ -58,148 +60,95 @@ class FlutterWaveCheckoutGateway extends BaseGateway
         ];
     }
 
-    public function process(Request $request, $booking, $service)
+    public function process(Payment $payment)
     {
-        if (in_array($booking->status, [
-            $booking::PAID,
-            $booking::COMPLETED,
-            $booking::CANCELLED
+        if (in_array($payment->status, [
+            Order::PAID,
+            Order::COMPLETED,
+            Order::CANCELLED
         ])) {
-            throw new Exception(__("Booking status does need to be paid"));
+            throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$booking->total) {
-            throw new Exception(__("Booking total is zero. Can not process payment gateway!"));
+        if (!$payment->amount) {
+            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
-        $payment = new Payment();
-        $payment->booking_id = $booking->id;
-        $payment->payment_gateway = $this->id;
-
+        $payment->status = Order::PROCESSING;
         $payment->save();
-        $booking->status = $booking::UNPAID;
-        $booking->payment_id = $payment->id;
-        $booking->save();
-        response()->json(['url' => route('checkoutFlutterWaveGateway',['order_id'=>$booking->code])])->send();
+        PaymentUpdated::dispatch($payment);
+        return ['url'=>route('checkoutFlutterWaveGateway',['payment_id'=>$payment->code])];
     }
 
-    public function handlePurchaseData($data, $booking,  $service)
+    public function handlePurchaseData($data, $payment)
     {
         $data['public_key']= $this->getOption('flutter_wave_api_key');
-        $data['amount'] = ((float)$booking->pay_now);
+        $data['amount'] = ((float)$payment->amount);
         $data['currency'] = setting_item('currency_main');
-        $data['tx_ref'] = $booking->code;
-        $data['description'] = setting_item("site_title")." - #".$booking->id;
-        $data['service_title'] = $service->title;
+        $data['tx_ref'] = $payment->id;
+        $data['description'] = setting_item("site_title")." - #".$payment->id;
+        $data['service_title'] = setting_item("site_title")." - #".$payment->id;
         $data['checkoutNormal'] = 0;
-        $data['returnUrl'] = $this->getReturnUrl() . '?c=' . $booking->code ;
-        $data['cancelUrl'] = $this->getCancelUrl() . '?c=' . $booking->code;
+        $data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id ;
+        $data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
         return $data;
     }
 
-    public function processNormal($payment)
-    {
-        if (in_array($payment->status, [
-            Booking::PAID,
-            Booking::COMPLETED,
-            Booking::CANCELLED
-        ])) {
-            throw new Exception(__("Payment status does need to be paid"));
-        }
-        $redirect_url = route('checkoutNormalFlutterWaveGateway',['order_id'=>$payment->code]);
-        return [true,'',$redirect_url];
-    }
 
     public function cancelPayment(Request $request)
     {
-        $c = $request->query('c');
-        $booking = Booking::where('code', $c)->first();
-        if (!empty($booking) and in_array($booking->status, [$booking::UNPAID])) {
-            $payment = $booking->payment;
-            if ($payment) {
-                $payment->status = 'cancel';
+        $pid = $request->query('pid');
+        $payment = Payment::find($pid);
+        if (!empty($payment)) {
+            if(in_array($payment->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])){
+                $payment->status = Order::CANCELLED;
                 $payment->logs = \GuzzleHttp\json_encode([
                     'customer_cancel' => 1
                 ]);
                 $payment->save();
+                return redirect($payment->getDetailUrl())->with("error", __("You cancelled the payment"));
+            }else{
+                return redirect($payment->getDetailUrl());
             }
-            return redirect($booking->getDetailUrl())->with("error", __("You cancelled the payment"));
-        }
-        if (!empty($booking)) {
-            return redirect($booking->getDetailUrl());
-        } else {
+        }else {
             return redirect(url('/'));
         }
     }
 
     public function confirmPayment(Request $request){
-        $c = $request->query('code');
-        if(!empty($request->checkoutNormal)){
-            return $this->confirmNormalPayment();
-        }
-        $booking = Booking::where('code', $c)->first();
-        if(empty($booking)){
+        $pid = $request->query('pid');
+        $payment = Payment::find($pid);
+        if(empty($payment)){
             if($request->ajax()){
                 return response()->json(['status'=>0,'message'=>'','url_redirect'=>url('/')]);
             }
             return redirect(url('/'));
         }
-        if (in_array($booking->status, [$booking::UNPAID])) {
+        if (in_array($payment->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])) {
             if ($request->query('status') =='successful') {
-                $payment = $booking->payment;
-                if ($payment) {
-                    $payment->status = 'completed';
+                    $payment->status = Order::COMPLETED;
                     $payment->logs = \GuzzleHttp\json_encode($request->all());
                     $payment->save();
-                }
-                try{
-                    $booking->paid +=$booking->pay_now;
-                    $booking->markAsPaid();
-                } catch(\Swift_TransportException $e){
-                    Log::warning($e->getMessage());
-                }
+                    PaymentUpdated::dispatch($payment);
                 if($request->ajax()){
-                    return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$booking->getDetailUrl()]);
+                    return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$payment->getDetailUrl()]);
                 }
-                return redirect($booking->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
             } else {
-                $payment = $booking->payment;
-                if ($payment) {
-                    $payment->status = 'fail';
+                    $payment->status =Order::FAILED;
                     $payment->logs = \GuzzleHttp\json_encode($request->all());
                     $payment->save();
-                }
-                try{
-                    $booking->markAsPaymentFailed();
-                } catch(\Swift_TransportException $e){
-                    Log::warning($e->getMessage());
-                }
+                PaymentUpdated::dispatch($payment);
                 if($request->ajax()){
-                    return response()->json(['status'=>0,'message'=>'You payment Failed','url_redirect'=>$booking->getDetailUrl()]);
+                    return response()->json(['status'=>0,'message'=>'You payment Failed','url_redirect'=>$payment->getDetailUrl()]);
                 }
-                return redirect($booking->getDetailUrl())->with("error", __("Payment Failed"));
+                return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
             }
         }
 
         if($request->ajax()){
-            return response()->json(['status'=>1,'message'=>'','url_redirect'=>$booking->getDetailUrl()]);
+            return response()->json(['status'=>1,'message'=>'','url_redirect'=>$payment->getDetailUrl()]);
         }
-        return redirect($booking->getDetailUrl())->with("error", __("Payment Failed"));
+        return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
     }
 
-
-    public function confirmNormalPayment()
-    {
-        $request = \request();
-        $c = $request->query('code');
-
-        $payment = Payment::where('code', $c)->first();
-        if (!empty($payment) and in_array($payment->status,['draft'])) {
-            if ($request->query('status') == 'successful') {
-                return $payment->markAsCompleted();
-            } else {
-                return $payment->markAsFailed();
-            }
-        }
-        return [false];
-    }
 
 }

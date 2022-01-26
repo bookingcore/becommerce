@@ -12,79 +12,48 @@
 
     class FlutterWaveCheckoutController extends Controller
     {
-        protected $booking;
-        /**
-         * @var string
-         */
         private $payment;
 
         public function __construct()
         {
-            $this->booking = Booking::class;
             $this->payment = Payment::class;
         }
 
-        public function handleCheckout(Request $request, $code)
+        public function handleCheckout(Request $request, $payment_id)
         {
-            if (!empty($code)) {
-                $booking = $this->booking::where('code', $code)->first();
-                if (empty($booking)) {
+            if (!empty($payment_id)) {
+                $payment = $this->payment::find($payment_id);
+                if (empty($payment)) {
                     return redirect('/');
                 }
-                if ($booking->customer_id != Auth::id()) {
+                $order = $payment->order;
+                if ($order->customer_id != Auth::id()) {
                     return redirect('/');
                 }
-
-//                if ($booking->status == 'draft') {
-//                    return redirect('/');
-//                }
+                $billing = $order->getJsonMeta('billing');
                 $gateway = new FlutterWaveCheckoutGateway();
-                $data = $gateway->handlePurchaseData([], $booking, $booking->service);
-                return view("PaymentFlutterWaveCheckout::frontend.checkout", ['booking' => $booking, 'data' => $data, 'code' => $code]);
+                $data = $gateway->handlePurchaseData([], $payment);
+                return view("PaymentFlutterWaveCheckout::frontend.checkout", ['payment' => $payment, 'data' => $data,'billing' => $billing]);
             } else {
                 return redirect('/');
             }
         }
 
-        public function handleCheckoutNormal(Request $request, $code)
-        {
-            if (!empty($code)) {
-                $booking = $this->payment::where('code', $code)->first();
-                if (empty($booking)) {
-                    return redirect('/');
-                }
-                if ($booking->create_user != Auth::id()) {
-                    return redirect('/');
-                }
 
-                $gateway = new FlutterWaveCheckoutGateway();
-                $data = $gateway->handlePurchaseData($booking);
-                $data['checkoutNormal']  = 1;
-                return view("PaymentFlutterWaveCheckout::frontend.checkout", ['booking' => $booking, 'data' => $data, 'code' => $code]);
-            } else {
-                return redirect('/');
-            }
-        }
-
-        public function confirmCheckout(Request $request, $code)
+        public function confirmCheckout(Request $request, $payment_id)
         {
             $FlutterWaveCheckoutGateway = new FlutterWaveCheckoutGateway();
-            $request->merge(['code'=>$code]);
+            $request->merge(['pid'=>$payment_id]);
             return $FlutterWaveCheckoutGateway->confirmPayment($request);
-
         }
 
         public function webhookCheckout(){
             $request = \request();
             $data = $request->query('data',[]);
-            $code = $data['tx_ref']??"";
-            if(!empty($code)){
+            $pid = $data['tx_ref']??"";
+            if(!empty($pid)){
                 $FlutterWaveCheckoutGateway = new FlutterWaveCheckoutGateway();
-                $request->merge(['code'=>$code]);
-                $payment = Payment::where('code',$code)->where('booking_id',null)->first();
-                if(!empty($payment)){
-                    $request->merge(['checkoutNormal'=>1]);
-                }
+                $request->merge(['pid'=>$pid]);
                 return $FlutterWaveCheckoutGateway->confirmPayment($request);
             }
         }

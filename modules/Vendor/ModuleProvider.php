@@ -74,6 +74,11 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function addVendorMenu(){
         return [
+            'profile'=>[
+                'url'=>route('vendor.profile'),
+                'title'=>__("Vendor Profile"),
+                "icon"=>"fa fa-user"
+            ],
             'product'=>[
                 'url'=>route('vendor.product'),
                 'title'=>__("Products"),
@@ -88,6 +93,11 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'=>route('vendor.payout'),
                 'title'=>__("Payouts"),
                 "icon"=>"fa fa-credit-card"
+            ],
+            'review'=>[
+                'url'=>route('vendor.review'),
+                'title'=>__("Reviews"),
+                "icon"=>"fa fa-commenting"
             ]
         ];
     }
