@@ -32,9 +32,7 @@ class CartItem extends Model
     public static function fromProduct(Product $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
 
         $item = new self();
-
         $item->class_name = get_class($model);
-
         $item->product_id = $model->id;
         $item->qty = $qty;
         $item->name = $model->title;
@@ -45,7 +43,6 @@ class CartItem extends Model
         $item->author = $model->author->display_name;
         $item->variant_id = $variant_id;
         $item->generateId();
-
         return $item;
     }
     public static function fromModel(Bookable $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){

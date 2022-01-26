@@ -29,7 +29,6 @@ class CartManager
                 $item = CartItem::fromModel($product_id,$qty,$price,$meta, $variant_id);
             }elseif ($product_id instanceof Product){
                 $item = CartItem::fromProduct($product_id,$qty,$price,$meta, $variant_id);
-
             }else{
                 $item = CartItem::fromAttribute($product_id,$name,$qty,$price, $meta, $variant_id);
             }

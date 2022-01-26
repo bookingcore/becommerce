@@ -1,5 +1,8 @@
 @if($row->stock_status == 'in')
     <form class="bc_form_add_to_cart" action="{{route('cart.addToCart')}}">
+        @if($row->product_type == 'variable')
+            @include('product.details.variations')
+        @endif
         @csrf
         <input type="hidden" name="object_model" value="product">
         <input type="hidden" name="object_id" value="{{$row->id}}">

@@ -23,6 +23,7 @@ class CartController extends FrontendController
                 ]
             ],
         ];
+
         return view('order.cart.index',$data);
     }
 

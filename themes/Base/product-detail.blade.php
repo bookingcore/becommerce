@@ -36,9 +36,7 @@
                                 {!! clean($row->short_desc) !!}
                             </div>
                         </div>
-                        @if($row->product_type == 'variable')
-                            @include('product.details.variations')
-                        @endif
+
                         @include('product.details.add-to-cart')
                         @include('product.details.specification')
                         @include('product.details.share')
