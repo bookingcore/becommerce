@@ -657,4 +657,91 @@ jQuery(function ($) {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-})
+
+    $(document).on('click','.bc-product-variations .item-disable',function (e) {
+        $('.bc-product-variations input').prop('checked', false);
+        $(this).find('input').prop('checked', true);
+        $('.bc-product-variations .item-disable').removeClass("item-disable");
+        $('.bc-product-variations input').trigger('change');
+    });
+
+
+    $('.bc-product-variations input').on('change', function() {
+
+
+
+        var list_attribute_selected = [];
+        $('.item-attribute:checked', '.bc-product-variations').each(function () {
+            list_attribute_selected.push( parseInt( $(this).val() ));
+
+        });
+
+        // Tim variation ID
+        var list_variations = JSON.parse( $('.bc_variations').attr("data-variations") );
+        var variation_id = '';
+        for (var id in list_variations){
+            var variation = list_variations[id];
+            // Lấy ra terms dạng mảng
+            var terms = [];
+             for(var id2 in variation['terms']){
+                var term = variation['terms'][id2];
+                 terms.push( term.id );
+            }
+             // so sánh mảng giữa item đã pic và term của variation
+            let intersection = terms.filter(x => !list_attribute_selected.includes(x));
+             // nếu tìm đc mảng khớp thì lấy ID
+            if(intersection == ""){
+                variation_id = variation["variation_id"];
+            }
+        }
+        console.log("variation_id:" + variation_id);
+        $('.bc-product-variations input[name=variation_id]').val(variation_id);
+
+
+
+        // Check ẩn hiện
+        var list_atttributes = [];
+        // lấy toàn bộ variation for ra từng cái
+        // lấy attr đã pic
+        for (var id in list_variations){
+            var variation = list_variations[id];
+            var check = false;
+            for(var id3 in variation['terms']){
+                var term = variation['terms'][id3];
+                // so sánh nếu có 1 cái attr đã píc trùng vs term của variation
+                for (var id4 in list_attribute_selected){
+                    var attribute = list_attribute_selected[id4];
+                    if(attribute === term.id){
+                        check = true;
+                    }
+                }
+            }
+            if(check){
+                // lấy toàn bộ term của nó
+                for(var id25 in variation['terms']){
+                    var term5 = variation['terms'][id25];
+                    list_atttributes.push( term5.id );
+                    //
+                }
+            }
+        }
+
+
+
+        // thì lấy toàn bộ term của nó để show
+        console.log(list_atttributes);
+        $('.bc-product-variations .item-attribute').each(function () {
+            var check = false;
+            for ( var id in list_atttributes ){
+                var term_id = list_atttributes[id];
+                if(  $(this).val() ==  term_id ){
+                    check = true;
+                }
+            }
+            if(!check){
+                $(this).closest(".item").addClass("item-disable");
+            }
+        });
+    });
+
+});
