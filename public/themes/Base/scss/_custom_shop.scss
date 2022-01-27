@@ -214,11 +214,12 @@
         }
     }
     .item-disable{
-         opacity: 0.7;
+         opacity: 0.3;
     }
     .item-active{
-        border-color: var(--main-color);
-        color:var(--main-color)
+        border-color: var(--main-color) !important;
+        color:var(--main-color) !important;
+        box-shadow: 0 0 5px var(--main-color)!important;
     }
 }
 
