@@ -1,5 +1,6 @@
 <?php
 return [
+    'active_theme'=>env('BC_DEFAULT_THEME','base'),
     "media"=>[
         "groups"=>[
             "default"=>[
