@@ -5,7 +5,7 @@
     "description": "A sample theme for Elementor.",
     "version": "1.0.0",
     "scripts": {
-        "watch-css": "sass -I node_modules/bourbon/core -I node_modules/susy/sass assets:../../public/themes/Axtronic/ --style expanded --watch --source-map-urls=relative"
+        "watch": "sass -I node_modules/bourbon/core -I node_modules/susy/sass assets:../../public/themes/Axtronic/ --style expanded --watch --source-map-urls=relative"
     },
     "devDependencies": {
         "autoprefixer": "~8.5.2",

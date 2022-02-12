@@ -1,0 +1,19 @@
+#masthead{
+    .header-wrap{
+        display: flex;
+        .site-branding,
+        .site-navigation{
+
+        }
+
+        .site-branding{
+            flex: 0 0 215px;
+            max-width: 215px;
+        }
+
+        .site-navigation{
+            flex: 0 0 calc(100% - 215px);
+            max-width: calc(100% - 215px);
+        }
+    }
+}

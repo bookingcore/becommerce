@@ -7,13 +7,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.carousel.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.theme.default.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.css">
-        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/slick/slick.css">
-        <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
+        <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
@@ -30,11 +24,10 @@
         </script>
         @yield('head')
     </head>
-    <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
+    <body class="{{$body_class ?? ''}}">
+        @include('layouts.parts.header')
         <main class="flex-shrink-0">
-            @include('layouts.parts.header')
             @yield('content')
-
         </main>
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')

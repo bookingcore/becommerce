@@ -315,7 +315,7 @@
 	width: 100%;
 	max-width: var(--container);
 
-	@media(min-width: $tablet) and (max-width: 1380px) {
+	@media(min-width: 768px) and (max-width: 1380px) {
 		padding-left: var(--grid-gutter);
 		padding-right: var(--grid-gutter);
 		width: auto;
