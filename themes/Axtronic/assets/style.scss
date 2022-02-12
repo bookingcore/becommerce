@@ -17,6 +17,14 @@
 // Vendors
 // External libraries and frameworks.
 @import 'scss/vendors/modular-scale';
+@import 'scss/icons/icons';
 
 @import 'scss/vendors/normalize';
 @import 'scss/utils/mixins';
+
+@import "scss/animation";
+@import "scss/typography";
+
+@import "scss/main-navigation";
+@import "scss/header";
+
