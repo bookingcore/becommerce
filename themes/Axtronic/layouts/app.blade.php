@@ -8,6 +8,9 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}

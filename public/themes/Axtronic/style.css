@@ -1163,7 +1163,7 @@ th {
   --container: 1440px;
   --grid-gutter: 24px;
   --heading-weight: 600;
-  --base-font: "Poppins", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  --base-font: "Be Vietnam Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
   --heading-font: "Poppins", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   --media-desktop: 1440px;
   --media-laptop: 1024px;
@@ -1879,6 +1879,8 @@ a:not(.button):hover {
   border-color: #0F2437;
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   padding: 10px 0px 10px 0px;
+  font-size: 14px;
+  font-weight: 400;
 }
 #masthead .bravo_topbar .topbar-left {
   width: 50%;
@@ -1892,6 +1894,7 @@ a:not(.button):hover {
 #masthead .bravo_topbar ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
   font-size: 14px;
   display: flex;
   float: right;
@@ -1902,7 +1905,7 @@ a:not(.button):hover {
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
   display: none;
   position: absolute;
-  right: -25px;
+  right: 0px;
   z-index: 999;
   text-align: left;
   top: calc(90% + 5px);
@@ -1932,18 +1935,20 @@ a:not(.button):hover {
 }
 #masthead .header-wrap {
   display: flex;
+  padding: 30px 0px 30px 0px;
 }
 #masthead .header-wrap .site-branding {
   flex: 0 0 215px;
   max-width: 215px;
 }
 #masthead .header-wrap .site-navigation {
-  flex: 0 0 calc(100% - 215px);
-  max-width: calc(100% - 215px);
+  flex: 0 0 calc(100% - 525px);
+  max-width: calc(100% - 525px);
 }
 #masthead .header-wrap .site-navigation ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
   font-size: 14px;
   display: flex;
 }
@@ -1953,7 +1958,7 @@ a:not(.button):hover {
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
   display: none;
   position: absolute;
-  right: -25px;
+  left: 0px;
   z-index: 999;
   text-align: left;
   top: calc(90% + 5px);
@@ -1978,7 +1983,62 @@ a:not(.button):hover {
   margin-right: 12.5px;
   margin-left: 12.5px;
 }
+#masthead .header-wrap .site-navigation ul li a {
+  font-size: 16px;
+  line-height: 1.5555;
+  font-weight: 600;
+}
 #masthead .header-wrap .site-navigation ul li a:hover {
+  color: var(--primary_hover);
+}
+#masthead .header-wrap .site-member {
+  width: 310px !important;
+}
+#masthead .header-wrap .site-member ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  float: right;
+}
+#masthead .header-wrap .site-member ul li.dropdown {
+  position: relative;
+}
+#masthead .header-wrap .site-member ul li.dropdown ul.dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 0px;
+  z-index: 999;
+  text-align: left;
+  top: calc(90% + 5px);
+  padding: 10px 0;
+  background-color: var(--background2);
+  box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.05);
+}
+#masthead .header-wrap .site-member ul li.dropdown ul.dropdown-menu a:not(.button) {
+  color: var(--e-global-color-accent);
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 12px;
+}
+#masthead .header-wrap .site-member ul li.dropdown ul.dropdown-menu a:hover, #masthead .header-wrap .site-member ul li.dropdown ul.dropdown-menu a:focus {
+  color: var(--primary_hover);
+}
+#masthead .header-wrap .site-member ul li.dropdown:hover ul.dropdown-menu {
+  display: block;
+}
+#masthead .header-wrap .site-member ul li {
+  margin-right: 12.5px;
+  margin-left: 12.5px;
+}
+#masthead .header-wrap .site-member ul li a {
+  font-size: 16px;
+  line-height: 1.5555;
+  font-weight: 600;
+}
+#masthead .header-wrap .site-member ul li a:hover {
   color: var(--primary_hover);
 }
 
