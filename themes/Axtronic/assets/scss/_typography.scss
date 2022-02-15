@@ -1,0 +1,303 @@
+:root {
+    --primary: #DD2955;
+    --primary_hover: #F1592A;
+    --secondary: #A864FF;
+    --secondary_hover: #7075F1;
+    --text: #6A7285;
+    --accent: #13172B;
+    --light: #b3b4b7;
+    --dark: #031424;
+    --border: #E9ECF2;
+    --background: #ffffff;
+    --background2: #EFF5F8;
+    --container: 1440px;
+    --grid-gutter: 24px;
+    --heading-weight: 600;
+    --base-font: "Be Vietnam Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
+    --heading-font: 'Poppins', 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
+    --media-desktop: 1440px;
+    --media-laptop: 1024px;
+    --media-tablet: 758px;
+    --media-handheld: 568px;
+    --e-global-color-accent:#13172B;
+}
+
+body {
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+    //cursor: none!important;
+
+    //*{
+    //    cursor: none!important;
+    //}
+}
+
+
+body,
+button,
+input,
+textarea {
+    font-size: 16px;
+    color: var(--text);
+    font-family: var(--base-font);
+    line-height: 1.6666667;
+    text-rendering: optimizeLegibility;
+}
+
+input[type="button"],
+input[type="submit"]
+button,
+.elementor-button {
+    font-weight: 600;
+}
+
+select {
+    color: initial;
+    font-family: var(--base-font);
+    max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    clear: both;
+    margin: 0 0 ms(-1);
+    color: var(--accent);
+    font-family: var(--heading-font);
+    font-weight: var(--heading-weight);
+    line-height: 1.3;
+
+    .comment-body .comment-text & {
+        padding: 1em 0 0;
+    }
+}
+
+h1,
+.alpha {
+    font-size: ms(5);
+}
+
+h2,
+.beta {
+    font-size: 2em;
+}
+
+h3,
+.gamma {
+    font-size: 26px;
+}
+
+h4,
+.delta {
+    font-size: 22px;
+}
+
+h5 {
+    font-size: 20px;
+}
+
+h6 {
+    font-size: 18px;
+}
+
+.alpha,
+.beta,
+.gamma,
+.delta {
+    display: block;
+}
+
+p,
+ul,
+ol,
+table,
+blockquote,
+form {
+    & + h2,
+    & + header h2,
+    & + h3,
+    & + h4 {
+        margin-top: ms(1);
+    }
+}
+
+hr {
+    background-color: #ccc;
+    border: 0;
+    height: 1px;
+    margin: 0 0 ms(1);
+}
+
+p {
+    margin: 0 0 ms(1);
+}
+
+ul,
+ol {
+    margin: 0 0 ms(1) 3em;
+    padding: 0;
+}
+
+ul {
+    list-style: disc;
+}
+
+ol {
+    list-style: decimal;
+}
+
+dt {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+dd {
+    margin: 0 0 ms(2);
+}
+
+b,
+strong {
+    font-weight: 600;
+    color: var(--accent);
+}
+
+dfn,
+cite,
+em,
+i {
+    font-style: italic;
+}
+
+blockquote {
+    font-size: 18px;
+    font-family: var(--heading-font);
+    color: var(--accent);
+    font-style: italic;
+    background: var(--background2);
+    padding: var(--grid-gutter);
+    border-radius: 8px;
+    p {
+        position: relative;
+
+        &:first-child:before {
+            @include themecustom-icon();
+            content: themecustom-char(quote);
+            color: var(--primary);
+            font-style: normal;
+            font-size: 61px;
+            font-weight: 600;
+            position: absolute;
+            top: -35px;
+            left: -70px;
+            text-shadow: none;
+            z-index: 1;
+        }
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+address {
+    margin: 0 0 ms(1);
+}
+
+pre {
+    background: rgba(#000, 0.1);
+    font-family: 'Courier 10 Pitch', Courier, monospace;
+    margin-bottom: ms(3);
+    padding: ms(3);
+    overflow: auto;
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+code,
+kbd,
+tt,
+var {
+    font-family: Monaco, Consolas, 'Andale Mono', 'DejaVu Sans Mono', monospace;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 0.202em ms(-3);
+}
+
+abbr,
+acronym {
+    border-bottom: 1px dotted #666;
+    cursor: help;
+}
+
+mark,
+ins {
+    text-decoration: none;
+    font-weight: 600;
+    background: transparent;
+}
+
+sup,
+sub {
+    font-size: 75%;
+    height: 0;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sup {
+    bottom: 1ex;
+}
+
+sub {
+    top: 0.5ex;
+}
+
+small {
+    font-size: 75%;
+}
+
+big {
+    font-size: 125%;
+}
+
+figure {
+    margin: 0;
+}
+
+table {
+    margin: 0 0 ms(2);
+    width: 100%;
+}
+
+img {
+    height: auto; // Make sure images are scaled correctly.
+    max-width: 100%; // Adhere to container width.
+    display: block;
+}
+
+a {
+    &:not(.button) {
+        color: var(--primary);
+
+        &:hover {
+            color: var(--primary_hover);
+        }
+
+        text-decoration: none;
+    }
+}
+
+:focus {
+    outline: none;
+}
+
+// Wait, what..?
+.axtronic-cute * {
+    font-family: 'Comic Sans MS', sans-serif;
+}

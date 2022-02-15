@@ -66,7 +66,8 @@
                 if (!empty($item['children'])) {
                     $class_link .= "dropdown-toggle ";
                 }
-				printf('<a class="%s c-000000 py-2" target="%s" href="%s" %s>%s</a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
+                printf('<a class="%s c-000000 py-2" target="%s" href="%s" %s>%s <i class="axtronic-icon-angle-down"></i> </a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
+				// printf('<a class="%s c-000000 py-2" target="%s" href="%s" %s>%s </a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
 				if (!empty($item['children'])) {
 					echo '<ul class="dropdown-menu">';
 					echo $html;

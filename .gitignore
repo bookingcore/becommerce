@@ -26,3 +26,5 @@ yarn-error.log
 .yarnrc.yml
 public/dist/
 public/themes/Base/dist
+themes/Axtronic/package-lock.json
+themes/Axtronic/node_modules

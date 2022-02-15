@@ -6,12 +6,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Mockery\Exception;
-use Modules\Booking\BravoCart;
-use Modules\Product\Models\Order;
-use Modules\Product\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
-use Modules\Tour\Models\TourDate;
 use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Models\User;
 use Validator;
@@ -20,7 +16,6 @@ use Illuminate\Support\Facades\Auth;
 use Modules\Booking\Models\Booking;
 use App\Helpers\ReCaptchaEngine;
 use Gloudemans\Shoppingcart\Facades\Cart;
-use Modules\Product\Models\Coupon;
 
 class BookingController extends \App\Http\Controllers\Controller
 {

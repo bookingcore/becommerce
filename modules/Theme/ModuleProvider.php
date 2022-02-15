@@ -15,16 +15,17 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
 
         if(!is_installed() || strpos($request->path(), 'install') !== false) return false;
 
-        \Illuminate\Support\Facades\Config::set('bc.active_theme', JsonConfigManager::get('active_theme','base'));
+        \Illuminate\Support\Facades\Config::set('bc.active_theme', env('BC_DEFAULT_THEME') ? env('BC_DEFAULT_THEME') : JsonConfigManager::get('active_theme','base'));
 
-//        Base Theme require
-	    View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
-
-//	    load Theme overwrite
+        //	 load Theme overwrite
 	    $active = ThemeManager::current();
+
 	    if(strtolower($active) != "base"){
-            View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR.ucfirst($active)));
+            View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($active)));
         }
+
+        // Base Theme require
+        View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
 
     }
     public function register()

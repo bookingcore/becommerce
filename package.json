@@ -23,6 +23,7 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.4.0",
         "@tinymce/tinymce-vue": "^3.2.1",
+        "bourbon": "^7.0.0",
         "font-awesome": "^4.7.0",
         "he-tree-vue": "^1.1.4",
         "ionicons": "^4.6.3",

@@ -657,4 +657,66 @@ jQuery(function ($) {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-})
+
+    $(document).on('click','.bc-product-variations .item-disable',function (e) {
+        $('.bc-product-variations input').prop('checked', false);
+        $(this).find('input').prop('checked', true);
+        $('.bc-product-variations .item-disable').removeClass("item-disable");
+        $('.bc-product-variations input').trigger('change');
+    });
+
+    $('.bc-product-variations input').on('change', function() {
+
+        $('.bc-product-variations .item').removeClass("item-active");
+        var list_attribute_selected = [];
+        $('.item-attribute:checked', '.bc-product-variations').each(function () {
+            list_attribute_selected.push( parseInt( $(this).val() ));
+            $(this).closest(".item").addClass("item-active");
+        });
+
+        // Find variation ID
+        var list_variations = JSON.parse( $('.bc_variations').val() );
+        var variation_id = '';
+        for (var id in list_variations){
+            var variation = list_variations[id];
+            var terms = [];
+             for(var id2 in variation['terms']){
+                var term = variation['terms'][id2];
+                 terms.push( term.id );
+            }
+            let intersection = terms.filter(x => !list_attribute_selected.includes(x));
+            if(intersection == ""){
+                variation_id = variation["variation_id"];
+            }
+        }
+        console.log("Variation_id:" + variation_id);
+        $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
+
+        // Check show - hidden attribute
+        var list_atttributes = [];
+        for (var id in list_variations){
+            var variation = list_variations[id];
+            var cache = [];
+            for(var id2 in variation['terms']) {
+                var term = variation['terms'][id2];
+                cache.push( term.id );
+            }
+            let intersection = cache.filter(x => list_attribute_selected.includes(x));
+            if(intersection.length == list_attribute_selected.length){
+                list_atttributes = list_atttributes.concat(cache);
+            }
+        }
+        $('.bc-product-variations .item-attribute').each(function () {
+            var check = false;
+            for ( var id in list_atttributes ){
+                if(  $(this).val() == list_atttributes[id] ){
+                    check = true;
+                }
+            }
+            if(!check){
+                $(this).closest(".item").addClass("item-disable");
+            }
+        });
+    });
+
+});

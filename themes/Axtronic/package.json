@@ -1,0 +1,23 @@
+{
+    "name": "axtronic-theme",
+    "slug": "axtronic-theme",
+    "homepage": "https://elementor.com/",
+    "description": "A sample theme for Elementor.",
+    "version": "1.0.0",
+    "scripts": {
+        "watch": "sass -I node_modules/bourbon/core -I node_modules/susy/sass assets:../../public/themes/Axtronic/ --style expanded --watch --source-map-urls=relative"
+    },
+    "devDependencies": {
+        "autoprefixer": "~8.5.2",
+        "bourbon": "^5.1.0",
+        "cssnano": "~3.10.0",
+        "glob": "^7.2.0",
+        "gulp": "^4.0.2",
+        "gulp-iconfont": "^11.0.1",
+        "gulp-iconfont-css": "^3.0.0",
+        "node-sass": "^4.13.1",
+        "sass": "~1.32.11",
+        "susy": "2.2.14"
+    },
+    "dependencies": {}
+}
