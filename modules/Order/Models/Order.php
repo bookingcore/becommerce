@@ -191,10 +191,12 @@ class Order extends BaseModel
         if($this->customer) {
             Mail::to($this->customer)->queue(new OrderEmail($this));
         }
-        $vendors = $this->items->pluck('vendor_id')->all();
-        if($vendors){
-            foreach ($vendors as $vendor){
-                Mail::to($vendor)->queue(new OrderEmail($this, 'vendor',$vendor));
+        if(is_vendor_enable()) {
+            $vendors = $this->items->pluck('vendor_id')->all();
+            if ($vendors) {
+                foreach ($vendors as $vendor) {
+                    Mail::to($vendor)->queue(new OrderEmail($this, 'vendor', $vendor));
+                }
             }
         }
 

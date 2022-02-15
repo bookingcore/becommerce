@@ -182,65 +182,6 @@ class UserController extends FrontendController
         return view('User::frontend.bookingHistory', $data);
     }
 
-    public function userLogin(Request $request)
-    {
-        $rules = [
-            'email'    => 'required|email',
-            'password' => 'required'
-        ];
-        $messages = [
-            'email.required'    => __('Email is required field'),
-            'email.email'       => __('Email invalidate'),
-            'password.required' => __('Password is required field'),
-        ];
-        if (ReCaptchaEngine::isEnable() and setting_item("user_enable_login_recaptcha")) {
-            $codeCapcha = $request->input('g-recaptcha-response');
-            if (!$codeCapcha or !ReCaptchaEngine::verify($codeCapcha)) {
-                $errors = new MessageBag(['message_error' => __('Please verify the captcha')]);
-                return response()->json([
-                    'error'    => true,
-                    'messages' => $errors
-                ], 200);
-            }
-        }
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return response()->json([
-                'error'    => true,
-                'messages' => $validator->errors()
-            ], 200);
-        } else {
-            $email = $request->input('email');
-            $password = $request->input('password');
-            if (Auth::attempt([
-                'email'    => $email,
-                'password' => $password
-            ], $request->has('remember'))) {
-                if (in_array(Auth::user()->status, ['blocked'])) {
-                    Auth::logout();
-                    $errors = new MessageBag(['email' => __('Your account has been blocked')]);
-                    return response()->json([
-                        'error'    => true,
-                        'messages' => $errors,
-                        'redirect' => false
-                    ], 200);
-                }
-                return response()->json([
-                    'error'    => false,
-                    'messages' => false,
-                    'redirect' => $request->input('redirect') ?? $request->headers->get('referer') ?? url(app_get_locale(false, '/'))
-                ], 200);
-            } else {
-                $errors = new MessageBag(['email' => __('Email or password incorrect')]);
-                return response()->json([
-                    'error'    => true,
-                    'messages' => $errors,
-                    'redirect' => false
-                ], 200);
-            }
-        }
-    }
-
     public function userRegister(Request $request)
     {
         $rules = [

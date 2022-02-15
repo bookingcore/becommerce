@@ -46,7 +46,7 @@ function setting_item_with_lang($item,$locale = '',$default = '',$withOrigin = t
         $locale = '';
     }
 
-    return Settings::item($item.($locale ? '_'.$locale : ''),$withOrigin ? setting_item($item,$default) : $default);
+    return Settings::item($item.($locale ? '_'.$locale : ''),($locale and $withOrigin ) ? setting_item($item,$default) : $default);
 
 }
 function setting_item_with_lang_arr($item,$locale = '',$default = []){

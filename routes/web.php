@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-\Illuminate\Support\Facades\Auth::routes(['verify'=>true]);
 
 Route::get('/intro','LandingpageController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
