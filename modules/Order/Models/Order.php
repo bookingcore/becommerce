@@ -202,8 +202,5 @@ class Order extends BaseModel
             Mail::to(setting_item('admin_email'))->queue(new OrderEmail($this, 'admin'));
         }
     }
-    public function vendor(){
-        return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
-    }
 
 }
