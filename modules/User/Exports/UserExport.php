@@ -11,16 +11,27 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
 {
     use Exportable;
 
+    protected $role_id = false;
+
+    public function __construct($role_id = false){
+        $this->role_id = $role_id;
+    }
+
     public function collection()
     {
-        return User::select([
+        $user = User::query()->select([
             'business_name',
             'first_name',
             'last_name',
             'email',
             'phone',
+            'email_verified_at',
             'status',
-        ])->get();
+        ]);
+        if($this->role_id){
+            $user->where('role_id', $this->role_id);
+        }
+        return $user->get();
     }
 
     public function map($user): array
@@ -31,6 +42,7 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             ltrim($user->last_name,"=-"),
             ltrim($user->email,"=-"),
             ltrim($user->phone,"=-"),
+            $user->hasVerifiedEmail() ? '1' : '0',
             ltrim($user->status,"=-"),
         ];
     }
@@ -43,6 +55,7 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             __('Last name'),
             __('Email'),
             __('Phone'),
+            __('Email Verified?'),
             __('Status'),
         ];
     }
