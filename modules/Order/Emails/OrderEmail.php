@@ -15,11 +15,13 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
 
     protected $_order;
     protected $email_to;
+    protected $vendor;
 
-    public function __construct(Order $order,$to = 'customer')
+    public function __construct(Order $order,$to = 'customer',$vendor = null)
     {
         $this->_order = $order;
         $this->email_to = $to;
+        $this->vendor = $vendor;
     }
 
     /**

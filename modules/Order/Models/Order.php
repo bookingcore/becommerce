@@ -3,14 +3,13 @@
 
 namespace Modules\Order\Models;
 
-
 use App\BaseModel;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Modules\Coupon\Models\CouponOrder;
+use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderUpdated;
-use Modules\Product\Models\Product;
 
 class Order extends BaseModel
 {
@@ -24,6 +23,8 @@ class Order extends BaseModel
     const PENDING = 'pending';
     const DRAFT = 'draft';
     const CANCELLED = 'cancelled';
+    const PAID = 'paid';
+    const UNPAID = 'unpaid';
 
     protected $casts = [
         'billing'=>'array'
@@ -180,4 +181,25 @@ class Order extends BaseModel
         return $this->hasMany(CouponOrder::class,'order_id');
     }
 
+    public function vendors(){
+        return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
+    }
+
+    public function sendNewOrderEmails(){
+
+        // Send Email
+        if($this->customer) {
+            Mail::to($this->customer)->queue(new OrderEmail($this));
+        }
+        $vendors = $this->items->pluck('vendor_id')->all();
+        if($vendors){
+            foreach ($vendors as $vendor){
+                Mail::to($vendor)->queue(new OrderEmail($this, 'vendor',$vendor));
+            }
+        }
+
+        if(setting_item('admin_email')) {
+            Mail::to(setting_item('admin_email'))->queue(new OrderEmail($this, 'admin'));
+        }
+    }
 }
