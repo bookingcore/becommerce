@@ -1616,3 +1616,6 @@ function countWishlist(){
     }
     return $count;
 }
+function main_locale(){
+    return setting_item('site_locale','en');
+}
