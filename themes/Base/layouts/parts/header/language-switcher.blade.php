@@ -12,7 +12,7 @@
                         <span class="flag-icon flag-icon-{{$language->flag}}"></span>
                     @endif
                     {{$language->name}}
-                   <i class="axtronic-icon-angle-down"></i>
+                   <i class="fa fa-angle-down"></i>
                 </a>
             @endif
         @endforeach

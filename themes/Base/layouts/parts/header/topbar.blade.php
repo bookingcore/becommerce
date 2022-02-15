@@ -13,6 +13,17 @@
                             <a href="{{route('vendor.register')}}" class="login nav-link text-white">{{__('Sell on Us!')}}</a>
                         </li>
                     @endif
+                    @if(!Auth::id())
+                        <li class="login-item">
+                            <a href="#login" data-bs-toggle="modal" data-target="#login" class="login nav-link text-white">{{__('Login')}}</a>
+                        </li>
+                        <li class="signup-item">
+                            <a href="#register" data-bs-toggle="modal" data-target="#register" class="signup  nav-link  text-white">{{__('Sign Up')}}</a>
+                        </li>
+                    @else
+                        @include('layouts.parts.header.notification')
+                        @include('layouts.parts.header.user')
+                    @endif
                 </ul>
             </div>
         </div>
