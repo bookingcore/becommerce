@@ -6,7 +6,7 @@ use App\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Models\SEO;
-use Spatie\Permission\Models\Role;
+use Modules\User\Models\Role;
 
 class VendorRequest extends BaseModel
 {
