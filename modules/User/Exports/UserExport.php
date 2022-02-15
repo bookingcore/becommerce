@@ -3,11 +3,14 @@ namespace Modules\User\Exports;
 
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithColumnFormatting;
 use Maatwebsite\Excel\Concerns\WithMapping;
 use App\User;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use PhpOffice\PhpSpreadsheet\Cell\DataType;
 
-class UserExport implements FromCollection, WithHeadings, WithMapping
+class UserExport implements FromCollection, WithHeadings, WithMapping, ShouldAutoSize, WithColumnFormatting
 {
     use Exportable;
 
@@ -57,6 +60,13 @@ class UserExport implements FromCollection, WithHeadings, WithMapping
             __('Phone'),
             __('Email Verified?'),
             __('Status'),
+        ];
+    }
+
+    public function columnFormats(): array
+    {
+        return [
+            'E' => '@'
         ];
     }
 }
