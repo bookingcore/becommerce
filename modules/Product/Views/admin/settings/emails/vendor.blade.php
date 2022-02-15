@@ -4,18 +4,15 @@
         <p class="form-group-desc">{{__('Set up emails for Vendor')}}</p>
     </div>
     <div class="col-sm-8">
-        <div class="panel">
-            <div class="panel-title"><strong>{{__("Email for Admin")}}</strong></div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <div id="accordion">
+        <div class="form-group">
+                    <div id="v_accordion">
                         <div class="card mb-1">
                             <div class="card-header p-0 email-settings-header">
-                                <h6 class="mb-0 p-3 d-flex align-items-center" data-toggle="collapse" data-target="#new_order" aria-expanded="true" aria-controls="new_order">
+                                <h6 class="mb-0 p-3 d-flex align-items-center" data-toggle="collapse" data-target="#v_new_order" aria-expanded="true" aria-controls="new_order">
                                     <i class="icon-check icon ion-ios-checkmark-circle mr-2 @if(setting_item('email_v_new_order_enable')) text-success @endif"></i> {{ __("New order") }}
                                 </h6>
                             </div>
-                            <div id="new_order" class="collapse show" data-parent="#accordion">
+                            <div id="v_new_order" class="collapse show" data-parent="#accordion">
                                 <div class="card-body">
                                     @if(is_default_lang())
                                         <div class="form-group">
@@ -38,7 +35,5 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>

@@ -4,10 +4,7 @@
         <p class="form-group-desc">{{__('Set up emails for Customer')}}</p>
     </div>
     <div class="col-sm-8">
-        <div class="panel">
-            <div class="panel-title"><strong>{{__("Email for Customer")}}</strong></div>
-            <div class="panel-body">
-                <div class="form-group">
+        <div class="form-group">
                     <div id="accordion">
                         <div class="card mb-1">
                             <div class="card-header p-0 email-settings-header">
@@ -240,7 +237,5 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
     </div>
 </div>
