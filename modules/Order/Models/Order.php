@@ -180,4 +180,8 @@ class Order extends BaseModel
         return $this->hasMany(CouponOrder::class,'order_id');
     }
 
+    public function vendor(){
+        return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
+    }
+
 }
