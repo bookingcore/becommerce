@@ -122,6 +122,7 @@
 
             //            save billing order
             $order->addMeta('billing',$billing_data);
+            $order->addMeta('shipping_address',[]);
             if(!empty($request->input('billing_id'))){
                 $billing_data['id'] = $request->input('billing_id');
             }

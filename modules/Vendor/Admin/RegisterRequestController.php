@@ -27,8 +27,7 @@ class RegisterRequestController extends AdminController
         $listUser = VendorRequest::query();
         $data = [
             'rows' => $listUser->with(['user','role','approvedBy'])->orderBy('id','desc')->paginate(20),
-            'roles' => Role::all(),
-
+            'roles' => Role::all()
         ];
         return view('Vendor::admin.register-request', $data);
     }
