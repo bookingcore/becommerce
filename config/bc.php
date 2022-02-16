@@ -37,5 +37,10 @@ return [
         ],
         "optimize_image"=>env('BC_MEDIA_OPTIMIZE_IMAGE',true),
         "preview_direct"=>env("BC_MEDIA_PREVIEW_DIRECT",true)
+    ],
+    'email'=>[
+        "css_files"=>[
+            '/themes/Base/module/email/css/style.css'
+        ]
     ]
 ];

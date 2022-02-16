@@ -4,13 +4,24 @@
 namespace Modules\Email;
 
 
+use Illuminate\Mail\MailManager;
 use Modules\Core\Helpers\SettingManager;
+use Modules\Email\Plugins\CssInlinerPlugin;
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
 {
 
     public function boot(){
+
+        $this->app->singleton(CssInlinerPlugin::class, function ($app) {
+            return new CssInlinerPlugin();
+        });
+
+        $this->app->afterResolving('mail.manager', function (MailManager $mailManager) {
+            $mailManager->getSwiftMailer()->registerPlugin($this->app->make(CssInlinerPlugin::class));
+            return $mailManager;
+        });
 
         SettingManager::register("email",[$this,'getEmailSettings']);
     }

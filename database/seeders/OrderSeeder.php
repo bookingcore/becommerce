@@ -16,8 +16,8 @@ class OrderSeeder extends Seeder
      */
     public function run()
     {
-        Order::query()->delete();
-        OrderItem::query()->delete();
+        Order::query()->forceDelete();
+        OrderItem::query()->forceDelete();
         $all_status = [
             'completed'
         ];
@@ -26,6 +26,7 @@ class OrderSeeder extends Seeder
             $order->customer_id = 1;
             $order->status = $all_status[rand(0,count($all_status) - 1)];
             $order->created_at = date('Y-m-').rand(1,20);
+            $order->gateway = 'paypal';
             $order->save();
 
             $t = 0;
