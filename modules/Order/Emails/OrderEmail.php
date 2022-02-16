@@ -35,11 +35,23 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
             'email_to'=>$this->email_to,
             'row'=>$this->_order,
         ];
-        $subject = __("Thank you for your order: :id",['id'=>'#'.$this->_order->id]);
-        if($this->email_to == 'admin'){
-            $subject = __("New order: :id from :name",['id'=>'#'.$this->_order->id,'name'=>$this->_order->customer->dislay_name ?? '']);
-        }
+        $subject = $this->getSubject();
+
         return $this->subject($subject)->view('Order::emails.order',$data);
     }
 
+    public function getSubject(){
+        switch ($this->email_to){
+            case "admin":
+                return setting_item_with_lang('email_a_new_order_subject');
+                break;
+            case "vendor":
+                return setting_item_with_lang('email_v_new_order_subject');
+                break;
+            case "customer":
+            default:
+                return setting_item_with_lang('email_c_new_order_subject');
+                break;
+        }
+    }
 }

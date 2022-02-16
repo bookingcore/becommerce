@@ -19,7 +19,7 @@
         {!! \App\Helpers\Assets::js() !!}
         <script>
             var BC = {
-                url: '{{url( app_get_locale() )}}',
+                url: '{{url()}}',
             }
             var i18n = {
                 warning:"{{__("Warning")}}",

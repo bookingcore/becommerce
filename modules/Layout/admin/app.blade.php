@@ -49,6 +49,9 @@
             pusher_cluster : '{{setting_item("pusher_cluster")}}',
             isAdmin : {{is_admin() ? 1 : 0}},
             currentUser: {{(int)Auth::id()}},
+            media:{
+                groups:{!! json_encode(config('bc.media.groups')) !!}
+            }
         };
         var i18n = {
             warning:"{{__("Warning")}}",

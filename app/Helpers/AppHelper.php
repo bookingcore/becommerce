@@ -46,7 +46,7 @@ function setting_item_with_lang($item,$locale = '',$default = '',$withOrigin = t
         $locale = '';
     }
 
-    return Settings::item($item.($locale ? '_'.$locale : ''),$withOrigin ? setting_item($item,$default) : $default);
+    return Settings::item($item.($locale ? '_'.$locale : ''),($locale and $withOrigin ) ? setting_item($item,$default) : $default);
 
 }
 function setting_item_with_lang_arr($item,$locale = '',$default = []){
@@ -1615,4 +1615,7 @@ function countWishlist(){
         $count = UserWishList::select('object_id')->where('create_user', $auth)->count();
     }
     return $count;
+}
+function main_locale(){
+    return setting_item('site_locale','en');
 }
