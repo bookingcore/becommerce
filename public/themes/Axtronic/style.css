@@ -1986,10 +1986,58 @@ a:not(.button):hover {
   left: 0px;
   z-index: 999;
   text-align: left;
-  top: calc(90% + 5px);
-  padding: 10px 0;
-  background-color: var(--background2);
+  top: calc(95% + 15px);
+  padding: 0;
+  background-color: var(--background);
   box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.05);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  border-top: 2px solid var(--primary);
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item {
+  display: block;
+  min-width: 260px;
+  position: relative;
+  text-align: left;
+  margin: 0;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item a {
+  position: relative;
+  padding: 10px 40px 10px 25px;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--body);
+  transition: all 0.3s ease;
+  border-bottom: 1px solid var(--border);
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover {
+  background: var(--background2);
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover a {
+  color: var(--primary);
+  padding-left: 40px;
+  padding-right: 20px;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover > a:before {
+  content: "";
+  width: 9px;
+  height: 1px;
+  background: #cdaa7c;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  left: 25px;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu a:not(.button) {
   color: var(--e-global-color-accent);
@@ -2012,6 +2060,7 @@ a:not(.button):hover {
   font-size: 16px;
   line-height: 1.5555;
   font-weight: 600;
+  padding: 1em 1.1em;
 }
 #masthead .header-wrap .site-navigation ul li a:hover {
   color: var(--primary_hover);
