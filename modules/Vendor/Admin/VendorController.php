@@ -11,6 +11,7 @@ use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\User\Admin\UserController;
 use Modules\User\Events\VendorApproved;
+use Modules\User\Exports\UserExport;
 use Modules\User\Models\Role;
 use Modules\Vendor\Models\VendorRequest;
 
@@ -119,5 +120,9 @@ class VendorController extends UserController
         return response()->json([
             'results' => $data
         ]);
+    }
+
+    public function export(){
+        return (new UserExport(3))->download('vendor-' . date('M-d-Y') . '.xlsx');
     }
 }

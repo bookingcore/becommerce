@@ -23,7 +23,8 @@ export default function(){
             },
             uploadConfigs:{
 
-            }
+            },
+            accept_type:BC.media.groups.default.mime.join(',')
         },
         mounted(){
             let me = this;

@@ -23,7 +23,8 @@ window.uploaderModal = new Vue({
         },
         uploadConfigs:{
 
-        }
+        },
+        accept_type:BC.media.groups.default.mime.join(',')
     },
     mounted(){
         let me = this;

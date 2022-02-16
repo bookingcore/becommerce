@@ -53,7 +53,9 @@
                                     <td>{{$row->user->email}}</td>
                                     <td>{{ display_date($row->created_at)}}</td>
                                     <td>{{ $row->approved_time ? display_date($row->approved_time) : ''}}</td>
-                                    <td>{{ $row->approvedBy->getDisplayName()}}</td>
+                                    <td>
+                                        {{ $row->approvedBy ? $row->approvedBy->getDisplayName() : '' }}
+                                    </td>
                                     <td class="status"><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
                                     <td>
                                         @if($row->status!='approved')

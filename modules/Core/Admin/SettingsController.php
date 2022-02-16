@@ -68,6 +68,9 @@ class SettingsController extends AdminController
 
         $lang = $request->input('lang');
         if(is_default_lang($lang)) $lang = false;
+        else{
+            if(!empty($group_data['translation_keys'])) $keys = $group_data['translation_keys'];
+        }
 
         if (!empty($request->input())) {
             if (!empty($keys)) {

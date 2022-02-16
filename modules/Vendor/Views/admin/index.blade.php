@@ -47,7 +47,7 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th>{{__('Business Name')}}</th>
                             <th>{{__('Email')}}</th>
-                            <th width="100">{{__('Email Verified?')}}</th>
+                            <th width="150">{{__('Email Verified?')}}</th>
                             <th width="100">{{__('Status')}}</th>
                             <th class="date" width="100">{{ __('Date')}}</th>
                             <th width="100"></th>

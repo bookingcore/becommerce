@@ -356,6 +356,7 @@ import BCAdaterPlugin from './ckeditor/uploadAdapter'
             showEventTooltip    : true,
             classNotAvailable   : ['disabled', 'off'],
             disableHightLight: true,
+            showDropdowns : true,
             locale:{
                 format:'YYYY/MM/DD'
             }
