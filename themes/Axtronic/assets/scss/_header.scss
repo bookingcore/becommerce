@@ -33,6 +33,10 @@
             float: right;
             li.dropdown {
                 position: relative;
+                a.dropdown-toggle:after {
+                    @include themecustom-icon;
+                    content: themecustom-char(angle-down);
+                }
                 ul.dropdown-menu {
                     display: none;
                     position: absolute;
@@ -84,16 +88,20 @@
 
         .site-navigation{
             flex: 0 0 calc(100% - 525px);
-            max-width: calc(100% - 525px);
+            width: calc(100% - 525px);
             ul {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
                 font-size: 14px;
                 display: flex;
+                justify-content: center;
                  li.dropdown {
                     position: relative;
-
+                    a.dropdown-toggle:after {
+                        @include themecustom-icon;
+                        content: themecustom-char(angle-down);
+                    }
                      ul.dropdown-menu {
                         display: none;
                         position: absolute;
@@ -146,7 +154,6 @@
                float: right;
                  li.dropdown {
                     position: relative;
-
                      ul.dropdown-menu {
                         display: none;
                         position: absolute;

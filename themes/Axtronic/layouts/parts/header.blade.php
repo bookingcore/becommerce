@@ -16,7 +16,9 @@
                 </div>
             </div>
             <div class="site-navigation">
-                @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
+                <div class="site-main-menu">
+                  @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
+                </div>
             </div>
             <div class="site-member">
                 <ul class="topbar-items nav">

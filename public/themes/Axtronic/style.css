@@ -1902,6 +1902,18 @@ a:not(.button):hover {
 #masthead .bravo_topbar ul li.dropdown {
   position: relative;
 }
+#masthead .bravo_topbar ul li.dropdown a.dropdown-toggle:after {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "\e002";
+}
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
   display: none;
   position: absolute;
@@ -1943,7 +1955,7 @@ a:not(.button):hover {
 }
 #masthead .header-wrap .site-navigation {
   flex: 0 0 calc(100% - 525px);
-  max-width: calc(100% - 525px);
+  width: calc(100% - 525px);
 }
 #masthead .header-wrap .site-navigation ul {
   list-style-type: none;
@@ -1951,9 +1963,22 @@ a:not(.button):hover {
   margin: 0;
   font-size: 14px;
   display: flex;
+  justify-content: center;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown {
   position: relative;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown a.dropdown-toggle:after {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "\e002";
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
   display: none;
