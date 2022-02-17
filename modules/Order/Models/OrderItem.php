@@ -52,7 +52,7 @@ class OrderItem extends BaseModel
 
     public function search($filters = [])
     {
-        $query = parent::query()->select(['core_oder_items.*','core_orders.customer_id']);
+        $query = parent::query()->select(['core_order_items.*','core_orders.customer_id']);
         $query->join('core_orders','core_orders.id','=','core_order_items.order_id');
 
         if(!empty($filters['vendor_id']))
