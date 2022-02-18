@@ -43,6 +43,7 @@
         </div>
         <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
         <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
+        <script src="{{asset('libs/lodash.min.js')}}"></script>
         <script>
 
             window.lazyLoadOptions = {

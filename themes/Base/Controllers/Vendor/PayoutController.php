@@ -36,7 +36,7 @@ class PayoutController extends FrontendController
 
     public function storePayoutAccount(Request $request){
 
-        $this->checkPermission('dashboard_vendor_access');
+        $this->checkPermission('product_create');
 
         $request->validate([
             'payout_method'=>"required",

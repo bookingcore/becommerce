@@ -101,5 +101,5 @@
         </div>
     </div>
 </div>
-<hr>
+@include('Vendor::admin.settings.payout')
 

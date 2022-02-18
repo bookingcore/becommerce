@@ -63,7 +63,9 @@ class ModuleProvider extends ModuleServiceProvider
                 'vendor_commission_amount',
                 'vendor_auto_approved',
                 'vendor_role',
-                'vendor_register_captcha'
+                'vendor_register_captcha',
+                'vendor_payout_methods',
+                'disable_payout'
             ],
             'html_keys' => [
 
