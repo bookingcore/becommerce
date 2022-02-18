@@ -9,14 +9,6 @@
                 <div class="panel-title"><strong>{{__("Payout Options")}}</strong></div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <div class="form-controls">
-                            <label ><strong>{{__("Disable Payout Module?")}}</strong></label>
-                            <div class="form-group">
-                                <label> <input type="checkbox" @if(setting_item('disable_payout') == 1) checked @endif name="disable_payout" value="1"> {{__("Yes, please disable it")}}</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
                         <label><strong>{{__("Payout Methods")}}</strong></label>
                         <div class="form-controls">
                             <div class="form-group-item">
@@ -43,15 +35,15 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <label >{{__("Name")}}</label>
-                                                        <input type="text" name="vendor_payout_methods[{{$key}}][name]" class="form-control" value="{{$item->name}}">
+                                                        <input type="text" name="vendor_payout_methods[{{$key}}][name]" class="form-control" value="{{$item->name ?? ''}}">
                                                         <label >{{__("Description")}}</label>
-                                                        <textarea  name="vendor_payout_methods[{{$key}}][desc]" class="form-control" cols="30" rows="4">{{$item->desc}}</textarea>
+                                                        <textarea  name="vendor_payout_methods[{{$key}}][desc]" class="form-control" cols="30" rows="4">{{$item->desc ?? ''}}</textarea>
                                                         <label >{{__("Minimum to pay")}}</label>
                                                         <input type="text" name="vendor_payout_methods[{{$key}}][min]" class="form-control" value="{{$item->min ?? ''}}">
                                                     </div>
 
                                                     <div class="col-md-2">
-                                                        <input type="number" name="vendor_payout_methods[{{$key}}][order]" class="form-control" value="{{$item->order}}" >
+                                                        <input type="number" name="vendor_payout_methods[{{$key}}][order]" class="form-control" value="{{$item->order ?? ''}}" >
                                                     </div>
                                                     <div class="col-md-1">
                                                         <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
@@ -88,6 +80,16 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+
+                    <div class="form-group">
+                        <div class="form-controls">
+                            <label ><strong>{{__("Disable Payout Module?")}}</strong></label>
+                            <div class="form-group">
+                                <label> <input type="checkbox" @if(setting_item('disable_payout') == 1) checked @endif name="disable_payout" value="1"> {{__("Yes, please disable it")}}</label>
                             </div>
                         </div>
                     </div>

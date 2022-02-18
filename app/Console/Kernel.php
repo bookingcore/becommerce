@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Modules\Vendor\Commands\CreatePayoutsCommand;
 
 class Kernel extends ConsoleKernel
 {
@@ -17,6 +18,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command(CreatePayoutsCommand::class)->monthlyOn(15);
     }
 
     /**
@@ -27,6 +29,8 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+
+        $this->load(base_path('/modules/Vendor/Commands'));
 
         require base_path('routes/console.php');
     }

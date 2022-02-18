@@ -16,7 +16,7 @@ class VendorPayout extends BaseModel
 
     const PENDING = 'pending';
 
-    protected $table = 'user_payouts';
+    protected $table = 'vendor_payouts';
 
     public static function getAllStatuses(){
         return [

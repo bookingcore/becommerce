@@ -75,7 +75,7 @@ class ModuleProvider extends ModuleServiceProvider
 
 
     public function addVendorMenu(){
-        return [
+        $items =  [
             'profile'=>[
                 'url'=>route('vendor.profile'),
                 'title'=>__("Vendor Profile"),
@@ -91,17 +91,20 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'=>__("Orders"),
                 "icon"=>"fa fa-shopping-basket"
             ],
-            'payout'=>[
-                'url'=>route('vendor.payout'),
-                'title'=>__("Payouts"),
-                "icon"=>"fa fa-credit-card"
-            ],
             'review'=>[
                 'url'=>route('vendor.review'),
                 'title'=>__("Reviews"),
                 "icon"=>"fa fa-commenting"
             ]
         ];
+        if(is_payout_enable()){
+            $items['payout'] = [
+                'url'=>route('vendor.payout'),
+                'title'=>__("Payouts"),
+                "icon"=>"fa fa-credit-card"
+            ];
+        }
+        return $items;
     }
 
     public function addAdminMenu(){

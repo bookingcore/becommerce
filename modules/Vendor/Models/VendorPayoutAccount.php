@@ -9,7 +9,7 @@ use App\BaseModel;
 class VendorPayoutAccount extends BaseModel
 {
 
-    protected $table = 'user_payout_accounts';
+    protected $table = 'vendor_payout_accounts';
 
     protected $fillable = ['payout_method','account_info'];
 

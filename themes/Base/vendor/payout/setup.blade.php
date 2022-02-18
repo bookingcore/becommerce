@@ -17,36 +17,31 @@ $vendor_payout_methods = setting_item_array('vendor_payout_methods');
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">{{__("Setup payout accounts")}}</h5>
+                <h5 class="modal-title">{{__("Setup payout account")}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
             </div>
             <div class="modal-body ">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>{{__("Method")}}</th>
-                            <th>{{__("Your account")}}</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        @foreach($vendor_payout_methods as $k=>$method)
-                            @php ($method_id = $method->id)
-                            <tr>
-                                <td>#{{$k+1}}</td>
-                                <td>
-                                    <span class="method-name"><strong>{{$method->name}}</strong></span>
-                                    <div class="method-desc">{!! clean($method->desc) !!}</div>
-                                </td>
-                                <td>
-                                    <textarea name="payout_accounts[{{$method->id}}]" class="form-control" cols="30" rows="3" placeholder="{{__("Your account info")}}">{{$payout_accounts->$method_id ?? ''}}</textarea>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="accordion" id="accordionExample">
+                    @foreach($vendor_payout_methods as $k=>$method)
+                        @php ($method_id = $method['id'])
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading_{{$k}}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$k}}" aria-expanded="true" aria-controls="collapseOne">
+                                    <span class="form-check">
+                                        <input id="{{$method_id}}" name="payout_method" value="{{$method_id}}" type="radio" class="form-check-input" required="">
+                                        <label class="form-check-label" for="{{$method_id}}">{{$method['name'] ?? ''}}</label>
+                                    </span>
+                                </button>
+                            </h2>
+                            <div id="collapse_{{$k}}" class="accordion-collapse collapse" aria-labelledby="heading_{{$k}}" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <textarea name="account_info[{{$method_id}}]" class="form-control" cols="30" rows="3" placeholder="{{__("Your account info")}}">{{$payout_account->$method_id ?? ''}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
                 <div class="message_box alert d-none"></div>
             </div>
             <div class="modal-footer">

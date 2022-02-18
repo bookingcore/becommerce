@@ -44,15 +44,21 @@ class PayoutController extends FrontendController
         ]);
 
         $user = Auth::user();
-        $payout_account = $user->payout_account();
+        $payout_account = $user->payout_account;
         if(!$payout_account){
             $payout_account = new VendorPayoutAccount();
             $payout_account->vendor_id = $user->id;
         }
 
+        $account_info = $request->input('account_info');
+        $payout_method = $request->input('payout_method');
+        if(empty($account_info[$payout_method])){
+            return $this->sendError(__("Please enter payout account info"));
+        }
+
         $data = [
             'payout_method'=>$request->input('payout_method'),
-            'account_info'=>$request->input('account_info','[]')
+            'account_info'=>[$account_info[$payout_method]]
         ];
         $payout_account->fillByAttr(array_keys($data),$data);
 

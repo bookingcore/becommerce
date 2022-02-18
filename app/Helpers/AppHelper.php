@@ -1619,3 +1619,6 @@ function countWishlist(){
 function main_locale(){
     return setting_item('site_locale','en');
 }
+function is_payout_enable(){
+    return !setting_item('disable_payout',0);
+}

@@ -13,7 +13,7 @@ class CreatePayoutTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_payouts', function (Blueprint $table) {
+        Schema::create('vendor_payouts', function (Blueprint $table) {
             $table->id();
 
             $table->bigInteger('vendor_id')->index();
@@ -38,7 +38,7 @@ class CreatePayoutTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-        Schema::create('user_payout_accounts', function (Blueprint $table) {
+        Schema::create('vendor_payout_accounts', function (Blueprint $table) {
             $table->id();
 
             $table->bigInteger('vendor_id')->index();
@@ -60,7 +60,7 @@ class CreatePayoutTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_payouts');
-        Schema::dropIfExists('user_payout_accounts');
+        Schema::dropIfExists('vendor_payouts');
+        Schema::dropIfExists('vendor_payout_accounts');
     }
 }
