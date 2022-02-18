@@ -99,7 +99,7 @@ $('.bc_form_add_to_cart').on('submit',function(e){
                 window.location.href = json.url;
             }
             if(json.message){
-                BcApp.showAjaxMessage(json);
+                BCApp.showAjaxMessage(json);
             }
         },
         error:function(err){
@@ -135,7 +135,7 @@ $(document).on('click','.bc_delete_cart_item',function(e){
                 window.location.reload();
             }
             if(json.message){
-                BcApp.showAjaxMessage(json);
+                BCApp.showAjaxMessage(json);
             }
 
             if(typeof removeElement !='undefined'){
@@ -183,7 +183,7 @@ $(document).on('click','.cart-item-qty .down',function (e) {
     }
     input.val(value);
 })
-var BcApp ={
+var BCApp ={
     showSuccess:function (configs){
         var args = {};
         if(typeof configs == 'object')
@@ -196,7 +196,7 @@ var BcApp ={
             args.title = i18n.success;
         }
         args.centerVertical = true;
-        bootbox.alert(args);
+        alert(args.message);
     },
     showError:function (configs) {
         var args = {};
@@ -210,7 +210,7 @@ var BcApp ={
             args.title = i18n.warning;
         }
         args.centerVertical = true;
-        bootbox.alert(args);
+        alert(args.message);
     },
     showAjaxError:function (e) {
         var json = e.responseJSON;

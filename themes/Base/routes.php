@@ -19,7 +19,7 @@ Route::group(['prefix'=>'news'],function(){
     Route::get('/tag/{slug}','NewsController@tag')->name('news.tag');
 });
 
-Route::group(['prefix'=>'user','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'user','middleware'=>['auth','verified']],function(){
    Route::get('/profile','User\ProfileController@index')->name('user.profile');
    Route::post('/profile/store','User\ProfileController@store')->name('user.profile.store');
    Route::get('/order','User\OrderController@index')->name('user.order.index');
@@ -42,7 +42,7 @@ Route::group(['prefix'=>'vendor'],function(){
    Route::post('/register/store','Vendor\RegisterController@store')->name('vendor.register.store');
 });
 
-Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
    Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
    Route::get('/product','Vendor\ProductController@index')->name('vendor.product');
    Route::get('/product/create','Vendor\ProductController@create')->name('vendor.product.create');
@@ -52,14 +52,16 @@ Route::group(['prefix'=>'vendor','middleware'=>'auth'],function(){
    Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
 
    Route::get('/payout','Vendor\PayoutController@index')->name('vendor.payout');
-   Route::get('/payout/account/store','Vendor\PayoutController@storePayoutAccount')->name('vendor.payout.account.store');
+   Route::post('/payout/account/store','Vendor\PayoutController@storePayoutAccount')->name('vendor.payout.account.store');
 
    Route::get('/review','Vendor\ReviewController@index')->name('vendor.review');
    Route::get('/profile','Vendor\StoreController@profile')->name('vendor.profile');
    Route::post('/profile/store','Vendor\StoreController@profileStore')->name('vendor.profileStore');
 });
-Route::group(['prefix'=>'store','middleware'=>'auth'],function(){
+
+Route::group(['prefix'=>'store'],function(){
    Route::get('/{slug}','Vendor\StoreController@index')->name('store');
+    Route::get('/{slug}/reviews','Vendor\StoreController@allReviews')->name("store.reviews");
 });
 
 Route::group(['prefix'=>'pos'],function(){
@@ -68,7 +70,7 @@ Route::group(['prefix'=>'pos'],function(){
 
 Route::get('page/{slug}','PageController@detail')->name('page.detail');
 
-Route::group(['prefix'=>config('order.cart_route_prefix'),'middleware'=>'auth'],function(){
+Route::group(['prefix'=>config('order.cart_route_prefix')],function(){
     Route::get('/','Order\CartController@index')->name('cart');
     Route::post('/addToCart','Order\CartController@addToCart')->name('cart.addToCart');
     Route::post('/remove_cart_item','Order\CartController@removeCartItem')->name('cart.remove_cart_item');
@@ -78,7 +80,7 @@ Route::group(['prefix'=>config('order.cart_route_prefix'),'middleware'=>'auth'],
     Route::post('/apply_coupon','Order\CouponController@applyCoupon')->name('cart.coupon.apply');
     Route::post('/remove_coupon','Order\CouponController@removeCoupon')->name('cart.coupon.remove');
 });
-Route::group(['prefix'=>'checkout','middleware'=>'auth'],function(){
+Route::group(['prefix'=>'checkout'],function(){
     Route::get('/','Order\CheckoutController@index')->name('checkout');
     Route::post('/process','Order\CheckoutController@process')->name('checkout.process');
 });
@@ -88,9 +90,4 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::get('/cancel/{gateway}','Order\OrderController@cancelPayment')->name('order.cancel');
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
     Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
-});
-
-Route::group(['prefix'=>'profile'],function(){
-    Route::match(['get'],'/{id}','ProfileController@profile')->name("user.frond.profile");
-    Route::match(['get'],'/{id}/reviews','ProfileController@allReviews')->name("user.frond.profile.reviews");
 });

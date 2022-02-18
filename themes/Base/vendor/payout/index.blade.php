@@ -74,4 +74,5 @@
 @endsection
 
 @section('footer')
+    <script src="{{asset('module/vendor/js/payout.js')}}"></script>
 @endsection
