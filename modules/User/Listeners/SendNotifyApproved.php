@@ -2,7 +2,6 @@
 
     namespace Modules\User\Listeners;
 
-    use App\Notifications\AdminChannelServices;
     use App\Notifications\PrivateChannelServices;
     use Modules\User\Events\NewVendorRegistered;
     use Modules\User\Events\VendorApproved;

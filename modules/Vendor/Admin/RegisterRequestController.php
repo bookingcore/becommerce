@@ -24,9 +24,22 @@ class RegisterRequestController extends AdminController
     public function index(Request $request)
     {
         $this->checkPermission('vendor_register_approve');
-        $listUser = VendorRequest::query();
+        $listUser = VendorRequest::with(['user','role','approvedBy']);
+        $name = $request->query('s');
+        if (!empty($name)) {
+            $listUser->whereHas('user', function($query) use($name){
+                $query->where('first_name', 'LIKE', '%' . $name . '%');
+                $query->orWhere('id',  $name);
+                $query->orWhere('phone',  $name);
+                $query->orWhere('email', 'LIKE', '%' . $name . '%');
+                $query->orWhere('first_name', 'LIKE', '%' . $name . '%');
+                $query->orWhere('last_name', 'LIKE', '%' . $name . '%');
+                $query->orWhere('business_name', 'LIKE', '%' . $name . '%');
+            });
+        }
+        $listUser = $listUser->orderBy('id','desc')->paginate(20);
         $data = [
-            'rows' => $listUser->with(['user','role','approvedBy'])->orderBy('id','desc')->paginate(20),
+            'rows' => $listUser,
             'roles' => Role::all()
         ];
         return view('Vendor::admin.register-request', $data);
@@ -59,7 +72,7 @@ class RegisterRequestController extends AdminController
                         $vendorRequest->update(['status' => $action,'approved_time'=>now(),'approved_by'=>Auth::id()]);
                         $user = User::find($vendorRequest->user_id);
                         if(!empty($user)){
-                            $user->syncRoles($vendorRequest->role_request);
+                            $user->assignRole($vendorRequest->role_request);
                         }
                         event(new VendorApproved($user,$vendorRequest));
                     }
@@ -80,7 +93,7 @@ class RegisterRequestController extends AdminController
             $vendorRequest->update(['status' => 'approved','approved_time'=>now(),'approved_by'=>Auth::id()]);
             $user = User::find($vendorRequest->user_id);
             if(!empty($user)){
-                $user->syncRoles($vendorRequest->role_request);
+                $user->assignRole($vendorRequest->role_request);
             }
 
             event(new VendorApproved($user,$vendorRequest));

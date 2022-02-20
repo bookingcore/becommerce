@@ -16,9 +16,15 @@
                             <option value="approved">{{__(" Approved ")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
-                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                     </form>
                 @endif
+            </div>
+            <div class="col-left">
+                <form method="get" class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
+                    <input type="text" name="s" value="{{ request()->query('s') }}" placeholder="{{__('Search by name, email,...')}}" class="form-control">
+                    <button class="btn-default btn btn-icon btn_search" type="submit">{{__('Search')}}</button>
+                </form>
             </div>
 
         </div>
