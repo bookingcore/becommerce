@@ -15,10 +15,7 @@
                         <th>{{__('ID')}}</th>
                         <th>{{__('Name')}}</th>
                         <th>{{__('SKU')}}</th>
-                        <th>{{__('Stock')}}</th>
-                        <th>{{__('Price')}}</th>
-                        <th>{{__('Categories')}}</th>
-                        <th>{{__('Type')}}</th>
+                        <th>{{__('Total')}}</th>
                         <th>{{__('Status')}}</th>
                         <th>{{__('Date')}}</th>
                         <th></th>
@@ -29,20 +26,13 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <a href="{{route('vendor.product.edit',['id'=>$row->id])}}">
                                 <span class="d-flex">
-                                    <div class="me-3">
-                                        <img src="{{get_file_url($row->image_id)}}" width="60">
-                                    </div>
-                                    <strong>{{$row->title}}</strong>
+                                    <strong>{{$row->model->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
                                 </span>
-                                </a>
                             </td>
-                            <td>{{$row->sku}}</td>
-                            <td>{{$row->stock}}</td>
-                            <td><strong>{{format_money($row->price)}}</strong></td>
-                            <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
-                            <td>{{$row::getTypeName()}}</td>
+                            <td>{{$row->model->sku ?? ''}}</td>
+                            <td><strong>{{$row->subtotal}}</strong>
+                            </td>
                             <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                             <td>{{display_datetime($row->created_at)}}</td>
                             <td>

@@ -12,7 +12,7 @@ class OrderController extends FrontendController
     public function index(Request $request){
         $orders = OrderItem::search([
             'vendor_id'=>auth()->id()
-        ]);
+        ])->orderByDesc('id');
         $data = [
             'rows'=>$orders->paginate(20),
             'page_title'=>__("Order Management")
