@@ -672,6 +672,7 @@ th.slug{ width: 20%}
 }
 .image-item{
     img{
-
+        max-width: 100%;
+        height: auto;
     }
 }
