@@ -9,146 +9,20 @@
             </div>
         </form>
         <hr>
-        <div class="row pt-2 mb-4">
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Total sales</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-pricetags"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Net sales</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-pricetags"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Orders</span>
-                        <span class="card-amount">0</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-cart"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Products sold</span>
-                        <span class="card-amount">0</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-cart"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Returns</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-undo"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Total tax</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-cash"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Shipping</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-cash"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="summary-card card mb-3">
-                    <div class="card-content">
-                        <span class="card-title">Coupons</span>
-                        <span class="card-amount">$0.00</span>
-                    </div>
-                    <div class="card-media">
-                        <i class="icon ion-ios-pricetag"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
 
         <div class="row mb-4 mt-4">
-            <div class="col-md-6">
+            <div class="col-md-2">
                 <div class="panel">
-                    <div class="panel-title d-flex justify-content-between align-items-center">
-                        <strong>{{__('Total sales')}}</strong>
-                    </div>
-                    <div class="panel-body">
-                        <canvas class="report_chart" data-chart="" ></canvas>
-                    </div>
+
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-10">
                 <div class="panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
                         <strong>{{__('Net sales')}}</strong>
                     </div>
                     <div class="panel-body">
                         <canvas class="report_chart" data-chart="" ></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="row mb-4 mt-4">
-            <div class="col-md-6">
-                <div class="panel">
-                    <div class="panel-title d-flex justify-content-between align-items-center">
-                        <strong>{{__('Top products')}}</strong>
-                    </div>
-                    <div class="panel-body">
-                        <div class="mt-5 mb-5 text-center">
-                            {{ __("No data recorded for this time period.") }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel">
-                    <div class="panel-title d-flex justify-content-between align-items-center">
-                        <strong>{{__('Top categories')}}</strong>
-                    </div>
-                    <div class="panel-body">
-                        <div class="mt-5 mb-5 text-center">
-                            {{ __("No data recorded for this time period.") }}
-                        </div>
                     </div>
                 </div>
             </div>
