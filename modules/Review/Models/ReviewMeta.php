@@ -1,9 +1,9 @@
 <?php
 namespace Modules\Review\Models;
 
-use Modules\Booking\Models\Bookable;
+use App\BaseModel;
 
-class ReviewMeta extends Bookable
+class ReviewMeta extends BaseModel
 {
     protected $table    = 'core_review_meta';
     protected $fillable = [

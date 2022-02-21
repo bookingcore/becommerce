@@ -3,16 +3,13 @@ namespace Modules\Coupon\Models;
 use App\BaseModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Booking\Models\Bookable;
-use Modules\Booking\Models\Booking;
-use Modules\Booking\Models\Service;
 use Modules\Order\Helpers\CartManager;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\User\Models\User;
 
-class Coupon extends Bookable
+class Coupon extends BaseModel
 {
     protected $table = 'core_coupons';
     protected $casts = [

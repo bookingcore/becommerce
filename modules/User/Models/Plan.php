@@ -4,10 +4,10 @@
 namespace Modules\User\Models;
 
 
+use App\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Booking\Models\Bookable;
 
-class Plan extends Bookable
+class Plan extends BaseModel
 {
 
     use SoftDeletes;

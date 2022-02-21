@@ -4,15 +4,12 @@
 namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
-use Modules\Booking\Models\Bookable;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductLicense;
-use Modules\Product\Models\ProductOnHold;
 
 class CartManager
 {
@@ -25,9 +22,7 @@ class CartManager
         $items = static::items();
         $item = static::item($product_id,$variant_id);
         if(!$item){
-            if($product_id instanceof Bookable){
-                $item = CartItem::fromModel($product_id,$qty,$price,$meta, $variant_id);
-            }elseif ($product_id instanceof Product){
+            if ($product_id instanceof Product){
                 $item = CartItem::fromProduct($product_id,$qty,$price,$meta, $variant_id);
             }else{
                 $item = CartItem::fromAttribute($product_id,$name,$qty,$price, $meta, $variant_id);
@@ -43,19 +38,16 @@ class CartManager
     }
 
     /**
-     * Get Cart Item by Product ID (Or Bookable) and Variation ID
+     * Get Cart Item by Product ID and Variation ID
      *
-     * @param int|Bookable $product_id
+     * @param int|Product $product_id
      * @param false $variant_id
      * @return CartItem|null
      */
     public static function item($product_id, $variant_id = false){
 
         $currentItems  = static::items();
-        if($product_id instanceof Bookable){
-            $items =  $currentItems->where('product_id',$product_id->id);
-        }
-        elseif($product_id instanceof Product){
+        if($product_id instanceof Product){
             $items =  $currentItems->where('product_id',$product_id->id);
         }else{
             $items =  $currentItems->where('product_id',$product_id);

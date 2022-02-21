@@ -4,7 +4,6 @@
 namespace Modules\Order\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Modules\Booking\Models\Bookable;
 use Modules\Product\Models\Product;
 
 class CartItem extends Model
@@ -45,7 +44,7 @@ class CartItem extends Model
         $item->generateId();
         return $item;
     }
-    public static function fromModel(Bookable $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
+    public static function fromModel(Product $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
 
         $item = new self();
 

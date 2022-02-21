@@ -1,9 +1,9 @@
 <?php
 namespace Modules\Core\Models;
 
-use Modules\Booking\Models\Bookable;
+use App\BaseModel;
 
-class SEO extends Bookable
+class SEO extends BaseModel
 {
     protected $table    = 'core_seo';
     protected $fillable = [
