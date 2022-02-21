@@ -10,10 +10,16 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductAttr;
 use Modules\Product\Models\ProductBrand;
 use Modules\Review\Models\Review;
+use Modules\Vendor\VendorMenuManager;
 use Themes\Base\Controllers\FrontendController;
 
 class StoreController extends FrontendController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        VendorMenuManager::setActive('profile');
+    }
 
     public function index(Request $request,$slug){
         $user = User::where('username', '=', $slug)->first();
@@ -75,7 +81,7 @@ class StoreController extends FrontendController
     {
         $data = [
             'row'=> auth()->user(),
-            'page_title'=>__("Vendor profile"),
+            'page_title'=>__("Store settings"),
         ];
 
         return view('vendor.store.profile',$data);
@@ -90,7 +96,7 @@ class StoreController extends FrontendController
         $vendor->business_name = $request->input('business_name');
         $vendor->avatar_id = $request->input('avatar_id');
         if ($vendor->save()) {
-            return redirect()->route('vendor.profile')->with('success',__("Vendor updated"));
+            return redirect()->route('vendor.profile')->with('success',__("Store updated"));
         }
     }
 }

@@ -56,7 +56,7 @@ Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
 
    Route::get('/review','Vendor\ReviewController@index')->name('vendor.review');
    Route::get('/profile','Vendor\StoreController@profile')->name('vendor.profile');
-   Route::post('/profile/store','Vendor\StoreController@profileStore')->name('vendor.profileStore');
+   Route::post('/profile/store','Vendor\StoreController@profileStore')->name('vendor.profile.store');
 });
 
 Route::group(['prefix'=>'store'],function(){

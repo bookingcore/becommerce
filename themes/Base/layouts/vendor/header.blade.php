@@ -9,7 +9,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
             <span class="w-30px h-30px circle me-2 d-block">
                 <img src="{{$user->avatar_url}}" alt="{{$user->display_name}}" class="object-cover w-30px h-30px">
             </span>
-            {{__("Store Dashboard")}}
+            {{$user->display_name  ? $user->display_name : __("Store Dashboard")}}
         </span>
     </a>
     <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">

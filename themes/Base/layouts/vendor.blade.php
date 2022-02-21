@@ -17,7 +17,15 @@
         {!! \App\Helpers\Assets::js() !!}
         <script>
             var BC = {
-                url:'{{url('/')}}'
+                url:'{{url('/')}}',
+                media:{
+                    routes:{
+                        removeFiles:'{{route('media.removeFiles')}}',
+                        store:'{{route('media.store')}}',
+                        getLists:'{{route('media.getLists')}}',
+                    },
+                    groups:{!! json_encode(config('bc.media.groups')) !!}
+                }
             }
             var i18n = {
                 warning:"{{__("Warning")}}",
@@ -41,9 +49,11 @@
                 @yield('content')
             </main>
         </div>
+        @include('Media::browser',['bs'=>5])
         <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
         <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
         <script src="{{asset('libs/lodash.min.js')}}"></script>
+        <script src="{{asset('libs/vue/vue.min.js')}}"></script>
         <script>
 
             window.lazyLoadOptions = {
@@ -60,6 +70,7 @@
         <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
         <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="{{ theme_url('Base') }}/js/condition.js"></script>
+        <script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
         <!-- custom scripts-->
         <script  src="{{ theme_url('Base/js/app.js') }}"></script>
         @yield('footer')

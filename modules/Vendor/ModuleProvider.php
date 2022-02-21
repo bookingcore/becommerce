@@ -76,12 +76,6 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function addVendorMenu(){
         $items =  [
-            'profile'=>[
-                'url'=>route('vendor.profile'),
-                'title'=>__("Vendor Profile"),
-                "icon"=>"fa fa-user",
-                'position'=>10
-            ],
             'product'=>[
                 'url'=>route('vendor.product'),
                 'title'=>__("Products"),
@@ -98,15 +92,21 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'=>route('vendor.review'),
                 'title'=>__("Reviews"),
                 "icon"=>"fa fa-commenting",
-                'position'=>50
-            ]
+                'position'=>40
+            ],
+            'profile'=>[
+                'url'=>route('vendor.profile'),
+                'title'=>__("Store Settings"),
+                "icon"=>"fa fa-user",
+                'position'=>60
+            ],
         ];
         if(is_payout_enable()){
             $items['payout'] = [
                 'url'=>route('vendor.payout'),
                 'title'=>__("Payouts"),
                 "icon"=>"fa fa-credit-card",
-                'position'=>40
+                'position'=>50
             ];
         }
         return $items;

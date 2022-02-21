@@ -270,4 +270,6 @@ return [
 
     'version'=>"1.0.0",
 
+    'asset_version'=>'1.0.0'
+
 ];
