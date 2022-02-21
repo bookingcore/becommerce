@@ -29,7 +29,7 @@
             </div>
             <div class="col-left">
                 <form method="get" class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
+                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name, email,...')}}" class="form-control">
                     <button class="btn-default btn btn-icon btn_search" type="submit">{{__('Search')}}</button>
                 </form>
             </div>

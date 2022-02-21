@@ -19,6 +19,7 @@ use Modules\User\Events\UserVerificationSubmit;
 use Modules\User\Events\VendorApproved;
 use Modules\User\Listeners\SendAdminUpdateVerifyDataEmail;
 use Modules\User\Listeners\SendMailUserRegisteredListen;
+use Modules\User\Listeners\SendNotifyApproved;
 use Modules\User\Listeners\SendNotifyRequestCreditPurchase;
 use Modules\User\Listeners\SendNotifyUpdateCreditPurchase;
 use Modules\User\Listeners\SendNotifyUpdateVerificationData;
@@ -58,6 +59,10 @@ class EventServiceProvider extends ServiceProvider
         ],
         OrderUpdated::class=>[
             UpdateUserPlanListener::class
+        ],
+        VendorApproved::class => [
+            SendVendorApprovedMail::class,
+//            SendNotifyApproved::class
         ]
     ];
 
