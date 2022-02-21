@@ -22,8 +22,8 @@ class CreatePayoutTable extends Migration
             $table->string("payout_method",50)->nullable();
             $table->text("account_info")->nullable();
 
-            $table->tinyInteger('month')->nullable();
-            $table->tinyInteger('year')->nullable();
+            $table->smallInteger('month')->nullable();
+            $table->smallInteger('year')->nullable();
 
             $table->text("note_to_admin")->nullable();
             $table->text("note_to_vendor")->nullable();

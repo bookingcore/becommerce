@@ -22,7 +22,6 @@ class PayoutController extends FrontendController
     public function index(){
 
         $user = Auth::user();
-
         $data = [
             'page_title'=>__('Payouts'),
             'payouts'=>$user->payouts()->orderBy('id','desc')->paginate(20),

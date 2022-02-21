@@ -47,6 +47,9 @@ class CreatePayoutForVendorJob implements ShouldQueue
         $vendor = User::find($this->vendor_id);
         if(!$vendor) return;
 
+        $payout_account = $vendor->payout_account;
+        if(!$payout_account) return;
+
         $where = [
             'year'=>$this->year,
             'month'=>$this->month,
@@ -57,6 +60,10 @@ class CreatePayoutForVendorJob implements ShouldQueue
             $find = new VendorPayout();
             $find->fillByAttr(array_keys($where),$where);
             $find->status = VendorPayout::PENDING;
+
+            $find->payout_method = $payout_account->payout_method;
+            $find->account_info = $payout_account->account_info;
+
             $find->save();
 
             // Update Order Items
@@ -65,9 +72,9 @@ class CreatePayoutForVendorJob implements ShouldQueue
                 ->where('status',Order::COMPLETED)
                 ->where('created_at','<',$invoice_month->lastOfMonth()->format('Y-m-d 23:59:59'))
                 ->whereNull('payout_id')
-                ->whereNull('vendor_id',$this->vendor_id)
+                ->where('vendor_id',$this->vendor_id)
                 ->update([
-                    'vendor_id'=>$find->id
+                    'payout_id'=>$find->id
                 ]);
             // Now recalculate total
             $find->calculateTotal();

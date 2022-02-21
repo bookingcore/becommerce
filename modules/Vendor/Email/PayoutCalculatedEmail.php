@@ -38,7 +38,10 @@ class PayoutCalculatedEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('.orders.shipped');
+        return $this->subject(__('Your Market Earnings have been calculated'))->view('vendor.email.payout',[
+            'payout'=>$this->payout,
+            'vendor'=>$this->payout->vendor
+        ]);
     }
 
 }

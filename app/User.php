@@ -10,12 +10,14 @@
     use Illuminate\Support\Facades\Mail;
     use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\HasApiTokens;
+    use Modules\Order\Models\OrderItem;
     use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\EmailUserVerifyRegister;
     use Modules\User\Emails\ResetPasswordToken;
     use Modules\User\Models\UserWishList;
     use Modules\User\Traits\HasRoles;
+    use Modules\Vendor\Models\VendorPayout;
     use Modules\Vendor\Models\VendorRequest;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
@@ -227,61 +229,6 @@
         }
         public function vendorRequest(){
             return $this->hasOne(VendorRequest::class);
-        }
-
-        public function getPayoutAccountsAttribute(){
-            return json_decode($this->getMeta('vendor_payout_accounts'));
-        }
-
-        /**
-         * Get total available amount for payout at current time
-         */
-        public function getAvailablePayoutAmountAttribute(){
-            $status = setting_item_array('vendor_payout_booking_status');
-            if(empty($status)) return 0;
-
-            $query = Booking::query();
-
-            $total =  $query
-                ->whereIn('status',$status)
-                ->where('vendor_id',$this->id)
-                ->sum(DB::raw('total_before_fees - commission + vendor_service_fee_amount')) - $this->total_paid;
-            return max(0,$total);
-        }
-
-        public function getTotalPaidAttribute(){
-            return VendorPayout::query()->where('status','!=','rejected')->where([
-                'vendor_id'=>$this->id
-            ])->sum('amount');
-        }
-
-        public function getAvailablePayoutMethodsAttribute()
-        {
-            $vendor_payout_methods = json_decode(setting_item('vendor_payout_methods'));
-            if(!is_array($vendor_payout_methods)) $vendor_payout_methods = [];
-
-            $vendor_payout_methods = array_values(\Illuminate\Support\Arr::sort($vendor_payout_methods, function ($value) {
-                return $value->order ?? 0;
-            }));
-
-            $res = [];
-
-            $accounts = $this->payout_accounts;
-
-            if(!empty($vendor_payout_methods) and !empty($accounts))
-            {
-                foreach ($vendor_payout_methods as $vendor_payout_method) {
-                    $id = $vendor_payout_method->id;
-
-                    if(!empty($accounts->$id))
-                    {
-                        $vendor_payout_method->user = $accounts->$id;
-                        $res[$id] = $vendor_payout_method;
-                    }
-                }
-            }
-
-            return $res;
         }
 
 

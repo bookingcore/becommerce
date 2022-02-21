@@ -4,9 +4,11 @@ $vendor_payout_methods = setting_item_array('vendor_payout_methods');
 @if($payout_account)
     <h4>{{__('Payout Account')}}</h4>
 
-    @foreach($payout_account->account_info as $val)
-        {{$val}}
-    @endforeach
+    <pre>
+@foreach($payout_account->account_info as $val)
+{{$val}}
+@endforeach
+    </pre>
 @else
     <div class="alert bg-warning">{{__('Please setup your payout account')}}</div>
 @endif
@@ -27,16 +29,16 @@ $vendor_payout_methods = setting_item_array('vendor_payout_methods');
                         @php ($method_id = $method['id'])
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="heading_{{$k}}">
-                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$k}}" aria-expanded="true" aria-controls="collapseOne">
+                                <button class="accordion-button @if($payout_account and $payout_account->payout_method != $method_id) collapsed @endif" type="button" data-bs-toggle="collapse" data-bs-target="#collapse_{{$k}}" aria-expanded="true" aria-controls="collapseOne">
                                     <span class="form-check">
-                                        <input id="{{$method_id}}" name="payout_method" value="{{$method_id}}" type="radio" class="form-check-input" required="">
+                                        <input id="{{$method_id}}" @if($payout_account and $payout_account->payout_method == $method_id) checked @endif name="payout_method" value="{{$method_id}}" type="radio" class="form-check-input" required="">
                                         <label class="form-check-label" for="{{$method_id}}">{{$method['name'] ?? ''}}</label>
                                     </span>
                                 </button>
                             </h2>
-                            <div id="collapse_{{$k}}" class="accordion-collapse collapse" aria-labelledby="heading_{{$k}}" data-bs-parent="#accordionExample">
+                            <div id="collapse_{{$k}}" class="accordion-collapse collapse @if($payout_account and $payout_account->payout_method == $method_id) show @endif" aria-labelledby="heading_{{$k}}" data-bs-parent="#accordionExample">
                                 <div class="accordion-body">
-                                    <textarea name="account_info[{{$method_id}}]" class="form-control" cols="30" rows="3" placeholder="{{__("Your account info")}}">{{$payout_account->$method_id ?? ''}}</textarea>
+                                    <textarea name="account_info[{{$method_id}}]" class="form-control" cols="30" rows="3" placeholder="{{__("Your account info")}}">{{$payout_account->account_info[0] ?? ''}}</textarea>
                                 </div>
                             </div>
                         </div>

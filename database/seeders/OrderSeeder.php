@@ -25,7 +25,7 @@ class OrderSeeder extends Seeder
             $order = new Order();
             $order->customer_id = 1;
             $order->status = $all_status[rand(0,count($all_status) - 1)];
-            $order->created_at = date('Y-m-').rand(1,20);
+            $order->created_at = date('Y-01-').rand(1,20);
             $order->gateway = 'paypal';
             $order->save();
 

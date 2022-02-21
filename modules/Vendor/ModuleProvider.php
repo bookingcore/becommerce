@@ -79,29 +79,34 @@ class ModuleProvider extends ModuleServiceProvider
             'profile'=>[
                 'url'=>route('vendor.profile'),
                 'title'=>__("Vendor Profile"),
-                "icon"=>"fa fa-user"
+                "icon"=>"fa fa-user",
+                'position'=>10
             ],
             'product'=>[
                 'url'=>route('vendor.product'),
                 'title'=>__("Products"),
-                "icon"=>"fa fa-database"
+                "icon"=>"fa fa-database",
+                'position'=>20
             ],
             'order'=>[
                 'url'=>route('vendor.order'),
                 'title'=>__("Orders"),
-                "icon"=>"fa fa-shopping-basket"
+                "icon"=>"fa fa-shopping-basket",
+                'position'=>30
             ],
             'review'=>[
                 'url'=>route('vendor.review'),
                 'title'=>__("Reviews"),
-                "icon"=>"fa fa-commenting"
+                "icon"=>"fa fa-commenting",
+                'position'=>50
             ]
         ];
         if(is_payout_enable()){
             $items['payout'] = [
                 'url'=>route('vendor.payout'),
                 'title'=>__("Payouts"),
-                "icon"=>"fa fa-credit-card"
+                "icon"=>"fa fa-credit-card",
+                'position'=>40
             ];
         }
         return $items;

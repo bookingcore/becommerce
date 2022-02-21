@@ -40,7 +40,7 @@ class CreatePayoutsCommand extends Command
         $invoice_month = now()->firstOfMonth();
         $prevMonth = now()->subMonth();
         // Get all vendor have completed order item this month
-        $query = OrderItem::query()->select('vendor_id')
+        $query = OrderItem::query()->select(['id','vendor_id'])
                         ->where('status',Order::COMPLETED)
                         ->where('created_at','<',$invoice_month->format('Y-m-d 00:00:00'))
                         ->whereNull('payout_id')

@@ -9,10 +9,12 @@
         @if($payout_account)
             <div class="row">
                 <div class="col-md-8">
-                    @if($current_payout)
                     <h4 class="mb-4">{{__("Next Payout")}}</h4>
-                    <p>{{format_money($current_payout->total)}}</p>
-                    <p>{{__("via :method_name",['method_name'=>$current_payout->payout_method])}}</p>
+                    @if($current_payout)
+                        <p class="lead">{{format_money($current_payout->total)}}</p>
+                        <p class="lead">{{__("via :method_name",['method_name'=>$current_payout->method_name])}}</p>
+                    @else
+                        <p class="lead">{{__("You currently have :amount in earnings for next month's payout.",['amount'=>format_money($currentUser->availablePayoutAmount)])}}</p>
                     @endif
                 </div>
                 <div class="col-md-4">
@@ -22,7 +24,6 @@
         @else
             @include("vendor.payout.setup")
         @endif
-        @if(count($payouts))
             <hr>
             <h4>{{__("Payout history")}}</h4>
             <div class="table-responsive">
@@ -32,9 +33,7 @@
                         <th width="2%">{{__("#")}}</th>
                         <th>{{__("Amount")}}</th>
                         <th>{{__("Payout Method")}}</th>
-                        <th>{{__("Date Request")}}</th>
-                        <th>{{__("Notes")}}</th>
-                        <th>{{__("Date Processed")}}</th>
+                        <th>{{__("Date Created")}}</th>
                         <th>{{__("Status")}}</th>
                     </tr>
                     </thead>
@@ -42,24 +41,11 @@
                     @foreach($payouts as $payout)
                         <tr>
                             <td>#{{$payout->id}}</td>
-                            <th>{{format_money($payout->amount)}}</th>
+                            <th>{{format_money($payout->total)}}</th>
                             <td>
-                                {{__(':name to :info',['name'=>$payout->payout_method_name,'info'=>$payout->account_info])}}
+                                {{$payout->method_name}}
                             </td>
                             <td>{{display_date($payout->created_at)}}</td>
-                            <td>
-                                @if($payout->note_to_admin)
-                                    <label ><strong>{{__("To admin:")}}</strong></label>
-                                    <br>
-                                    <div>{{$payout->note_to_admin}}</div>
-                                @endif
-                                @if($payout->note_to_vendor)
-                                    <label ><strong>{{__("To vendor:")}}</strong></label>
-                                    <br>
-                                    <div>{{$payout->note_to_vendor}}</div>
-                                @endif
-                            </td>
-                            <td>{{$payout->pay_date ? display_date($payout->pay_date) : ''}}</td>
                             <td>{{$payout->status_text}}</td>
                         </tr>
                     @endforeach
@@ -69,7 +55,6 @@
             <div class="bravo-pagination">
                 {{$payouts->appends(request()->query())->links()}}
             </div>
-        @endif
     </section>
 @endsection
 
