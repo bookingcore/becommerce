@@ -898,12 +898,12 @@ function get_payment_gateway_obj($payment_gateway){
 
     $gateways = get_payment_gateways();
 
-    if(empty($gateways[$payment_gateway]) or !class_exists($gateways[$payment_gateway]))
+    if(empty($gateways[$payment_gateway]))
     {
         return false;
     }
 
-    $gatewayObj = new $gateways[$payment_gateway]($payment_gateway);
+    $gatewayObj = $gateways[$payment_gateway];
 
     return $gatewayObj;
 

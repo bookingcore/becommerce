@@ -28,7 +28,7 @@
                 'items'=>CartManager::items(),
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
-                'gateways'=>get_payment_gateway_objects(),
+                'gateways'=>get_payment_gateways(),
                 'user'=>$user,
                 'billing'=>$billing,
                 'breadcrumbs'=>[

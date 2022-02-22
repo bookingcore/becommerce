@@ -7,8 +7,8 @@ namespace Modules\Order\Gateways;
 use Illuminate\Http\Request;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
+use Modules\Order\Models\Order;
 use Modules\Order\Models\Payment;
-use Modules\Product\Models\Order;
 
 class OfflinePaymentGateway extends BaseGateway
 {
