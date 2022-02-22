@@ -1,6 +1,37 @@
 (function ($) {
     'use strict';
 
+    $('.ajax-add-term input').on('keypress',function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            ajaxAddTerm($(this).closest('.ajax-add-term'));
+            return false;
+        }
+    });
+    $('.ajax-add-term .btn').on('click',function (e) {
+        ajaxAddTerm($(this).closest('.ajax-add-term'));
+    });
+
+    function ajaxAddTerm(p) {
+        if(p.find('input').val().trim() && p.data('attr-id')){
+            $.ajax({
+                url:BC.url+'/admin/module/product/ajaxAddTerm',
+                data:{
+                    name:p.find('input').val().trim(),
+                    attr_id:p.data('attr-id')
+                },
+                type:'post',
+                success:function (json) {
+                    if(json.status){
+                        var newOption = new Option(json.name, json.id, true, true);
+                        p.closest('.controls').find('.bc-select2').append(newOption).trigger('change');
+                        p.find('input').val('');
+                    }
+                }
+            })
+        }
+    }
 	// Product Variations
 	$("[href='#variations']").on('shown.bs.tab', function (e) {
 		reloadVariations();

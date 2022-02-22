@@ -210,7 +210,7 @@ class AttributeController extends AdminController
         }
         $row->fill($request->input());
         $row->image_id = $request->input('image_id');
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
         if ($res) {
             return redirect()->back()->with('success', __('Term saved'));
         }
@@ -225,7 +225,7 @@ class AttributeController extends AdminController
         $row = new Terms($request->input());
         $row->attr_id = $request->input('attr_id');
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
         if ($res) {
             return $this->sendSuccess([
                 'id'=>$row->id,
