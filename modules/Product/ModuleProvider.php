@@ -238,7 +238,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'store_address',
                 'store_city',
                 'store_country',
-                'store_postcode'
+                'store_postcode',
+                'guest_checkout'
             ],
             'html_keys' => [
 

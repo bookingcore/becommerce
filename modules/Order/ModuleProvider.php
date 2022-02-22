@@ -5,6 +5,10 @@ use Illuminate\Support\ServiceProvider;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\ModuleServiceProvider;
+use Modules\Order\Gateways\OfflinePaymentGateway;
+use Modules\Order\Gateways\PaypalGateway;
+use Modules\Order\Gateways\StripeCheckoutGateway;
+use Modules\Order\Helpers\PaymentGatewayManager;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -18,6 +22,11 @@ class ModuleProvider extends ModuleServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         AdminMenuManager::register("orders",[$this,'getAdminMenu']);
         SettingManager::register("order",[$this,'getOrderSettings']);
+        SettingManager::register("payment",[$this,'getPaymentSettings']);
+
+        PaymentGatewayManager::register('offline',OfflinePaymentGateway::class);
+        PaymentGatewayManager::register('paypal',PaypalGateway::class);
+        PaymentGatewayManager::register('stripe',StripeCheckoutGateway::class);
     }
     /**
      * Register bindings in the container.
@@ -66,6 +75,48 @@ class ModuleProvider extends ModuleServiceProvider
             'filter_demo_mode'=>[
                 'order_term_conditions',
                 'invoice_company_info',
+            ]
+        ];
+    }
+
+    public function getPaymentSettings(){
+        $keys = [
+            'currency_main',
+            'currency_format',
+            'currency_decimal',
+            'currency_thousand',
+            'currency_no_decimal',
+            'extra_currency'
+        ];
+
+        $gateways = PaymentGatewayManager::all();
+        foreach ($gateways as $k=>$gateway){
+            $options = $gateway->getOptionsConfigs();
+            if (!empty($options)) {
+                foreach ($options as $option) {
+                    $keys[] = 'g_' . $k . '_' . $option['id'];
+                    if( !empty($option['multi_lang']) && !empty($languages) && setting_item('site_enable_multi_lang') && setting_item('site_locale')){
+                        foreach($languages as $language){
+                            if( setting_item('site_locale') == $language->locale) continue;
+                            $keys[] = 'g_' . $k . '_' . $option['id'].'_'.$language->locale;
+                        }
+                    }
+                    if ($option['type'] == 'textarea' && $option['type'] == 'editor') {
+                        $htmlKeys[] = 'g_' . $k . '_' . $option['id'];
+                    }
+                }
+            }
+        }
+        return [
+            'id'   => 'payment',
+            'title' => __("Payment Settings"),
+            'position'=>40,
+            'view'=>"Order::admin.settings.payment",
+            "keys"=>$keys,
+            'html_keys'=>[
+
+            ],
+            'filter_demo_mode'=>[
             ]
         ];
     }

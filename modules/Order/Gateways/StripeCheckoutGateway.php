@@ -18,7 +18,7 @@ class StripeCheckoutGateway extends BaseGateway
 {
     protected $id = 'stripe_checkout';
 
-    public $name = 'Stripe Checkout V2';
+    public $name = 'Stripe Checkout';
 
     protected $gateway;
 
@@ -28,7 +28,7 @@ class StripeCheckoutGateway extends BaseGateway
             [
                 'type' => 'checkbox',
                 'id' => 'enable',
-                'label' => __('Enable Stripe Checkout V2?')
+                'label' => __('Enable Stripe Checkout?')
             ],
             [
                 'type' => 'input',

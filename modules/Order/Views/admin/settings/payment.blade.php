@@ -223,10 +223,8 @@
         @php
             $all = get_payment_gateways();
         @endphp
-        @foreach($all as $k=>$gateway)
+        @foreach($all as $k=>$obj)
             @php
-                if(!class_exists($gateway)) continue;
-                $obj = new $gateway($k);
                 $options = $obj->getOptionsConfigsFormatted();
             @endphp
             <div class="panel">

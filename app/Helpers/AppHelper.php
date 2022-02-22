@@ -1063,52 +1063,7 @@ function size_unit_format($number=''){
 }
 
 function get_payment_gateways(){
-    //getBlocks
-    $gateways = config('booking.payment_gateways');
-    // Modules
-    $custom_modules = \Modules\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
-                if(!empty($gateway)){
-                    $gateways = array_merge($gateways,$gateway);
-                }
-            }
-        }
-    }
-    //Plugin
-    $plugin_modules = \Plugins\ServiceProvider::getModules();
-    if(!empty($plugin_modules)){
-        foreach($plugin_modules as $module){
-            $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
-                if(!empty($gateway)){
-                    $gateways = array_merge($gateways,$gateway);
-                }
-            }
-        }
-    }
-
-    //Custom
-    $custom_modules = \Custom\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $gateway = call_user_func([$moduleClass,'getPaymentGateway']);
-                if(!empty($gateway)){
-                    $gateways = array_merge($gateways,$gateway);
-                }
-            }
-        }
-    }
-    return $gateways;
+    return \Modules\Order\Helpers\PaymentGatewayManager::all();
 }
 
 function get_current_currency($need,$default = '')
@@ -1251,7 +1206,7 @@ function duration_format($hour,$is_full = false)
     return $tmp;
 }
 function is_enable_guest_checkout(){
-    return setting_item('booking_guest_checkout');
+    return setting_item('guest_checkout',1);
 }
 
 function handleVideoUrl($string,$video_id = false)

@@ -223,6 +223,8 @@ class ProductSeeder extends Seeder
 
     public function seedSettings(){
         $settings = [
+            'guest_checkout'=>1,
+
             'email_c_new_order_enable'=>1,
             'email_c_new_order_subject'=>__("Thanks for shopping with us"),
 

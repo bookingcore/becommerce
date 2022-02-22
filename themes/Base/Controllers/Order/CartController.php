@@ -29,7 +29,7 @@ class CartController extends FrontendController
 
     public function addToCart(Request $request)
     {
-        if(!Auth::check()){
+        if(!is_enable_guest_checkout() and !Auth::check()){
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 
@@ -64,6 +64,7 @@ class CartController extends FrontendController
             $service->addToCartValidate($request->input('qty'),$variant_id);
             CartManager::add($service,$service->name,$quantity,null,[],$variant_id);
             $buy_now = $request->input('buy_now');
+
             return $this->sendSuccess([
                 'fragments'=>CartManager::get_cart_fragments(),
                 'url'=>$buy_now ? route('checkout') : ''
@@ -91,9 +92,10 @@ class CartController extends FrontendController
             'reload'=>CartManager::count()  ? false: true,
         ],__("Item removed"));
     }
+
     public function updateCartItem(Request $request){
 
-        if(!Auth::check()){
+        if(!is_enable_guest_checkout() and !Auth::check()){
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 

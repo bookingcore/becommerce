@@ -42,3 +42,25 @@
         </div>
     </div>
 </div>
+@if(is_default_lang())
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Guest Checkout")}}</h3>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    <label class="">{{__("Allow customers to place orders without an account?")}}</label>
+                    <div class="form-controls">
+                        <label >
+                            <input type="checkbox" value="1" @if(setting_item('guest_checkout')) checked @endif class="form-control" name="guest_checkout" /> {{__("Yes, please")}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
