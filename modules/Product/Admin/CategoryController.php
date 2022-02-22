@@ -89,7 +89,9 @@ class CategoryController extends AdminController
         $row->fillByAttr([
             'name','content','image_id','parent_id'
         ],$request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $res = $row->saveWithTranslation($request->input('lang'));
+        $row->saveSEO($request,$request->input('lang'));
+
 
         if ($res) {
             return back()->with('success',  __('Category saved') );

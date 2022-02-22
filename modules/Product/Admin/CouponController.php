@@ -180,7 +180,7 @@ class CouponController extends AdminController
 
         $row->fillByAttr($dataKeys,$newCoupon);
 
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
             if(!$request->input('lang') or is_default_lang($request->input('lang'))) {
