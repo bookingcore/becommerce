@@ -103,9 +103,9 @@ class RegisterController extends FrontendController
         }
 
         if(is_vendor()){
-            return redirect('vendor.dashboard')->with("success",__("Thank you for register. Now you can start selling with us!"));
+            return redirect(route('vendor.dashboard'))->with("success",__("Thank you for register. Now you can start selling with us!"));
         }else{
-            return redirect('user.profile')->with("success",__("Register success. Please wait for approval"));
+            return redirect(route('user.profile'))->with("success",__("Register success. Please wait for approval"));
         }
 
     }
