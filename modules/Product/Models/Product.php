@@ -464,6 +464,12 @@ class Product extends BaseProduct
         if($this->price == null && $this->sale_price == null){
             throw  new \Exception('This content must set price. Please contact with author.');
         }
+        if(!empty($variant_id)){
+            $variation = $this->variations()->where('id',$variant_id)->first();
+            if(!$variation){
+                throw  new \Exception('This variation not found. Please contact with author.');
+            }
+        }
 //        gop chung bang product va variant product
         switch ($this->product_type){
             case 'variable':

@@ -62,7 +62,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         VendorApproved::class => [
             SendVendorApprovedMail::class,
-//            SendNotifyApproved::class
+            SendNotifyApproved::class
         ]
     ];
 
