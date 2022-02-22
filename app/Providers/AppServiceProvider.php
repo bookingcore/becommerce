@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(FortifyServiceProvider::class);
     }
 
     /**
@@ -43,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
             $this->initConfigFromDB();
         }
         Paginator::useBootstrap();
+
     }
 
     protected function initConfigFromDB(){

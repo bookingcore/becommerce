@@ -17,10 +17,9 @@ class SetLanguageForAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed')) {
+        $locale = $request->segment(1);
+        if (strpos($request->path(), 'install') === false && file_exists(storage_path() . '/installed') and $locale == 'admin') {
 
-            $request = \request();
-            $locale = $request->segment(1);
             $languages = \Modules\Language\Models\Language::getActive();
             $localeCodes = Arr::pluck($languages,'locale');
             // For Admin
