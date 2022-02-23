@@ -63,7 +63,7 @@ $('.bc-form-login').on('submit',function (e) {
             form.removeClass('loading')
             var html = ajax_error_to_string(e);
             if(html){
-                form.find('.message-error').show().html('<div class="alert alert-danger"><p>' + html + '</p></div>');
+                form.find('.message-error').show().html('<div class="alert alert-danger">' + html + '</div>');
             }
         }
     });

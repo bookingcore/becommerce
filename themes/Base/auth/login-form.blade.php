@@ -7,10 +7,12 @@
                 <h5>{{$form_title}}</h5>
             @endif
             <div class="form-group mb-3">
-                <input class="form-control" type="email" name="email" placeholder="Email address">
+                <input class="form-control" type="email" name="email" placeholder="{{__('Email address')}}">
+                <p class="error-email"></p>
             </div>
             <div class="form-group mb-3">
-                <input class="form-control" type="password" name="password" placeholder="Password">
+                <input class="form-control" type="password" name="password" placeholder="{{__('Password')}}">
+                <p class="error-password"></p>
             </div>
             @if(setting_item("user_enable_login_recaptcha"))
                 <div class="form-group">

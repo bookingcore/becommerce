@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/slick/slick.css">
-        <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
+        <link href="{{ theme_url('Base/dist/css/app.css?_v='.config('app.asset_version')) }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
@@ -63,7 +63,7 @@
             <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
-            <script  src="{{ theme_url('Base/js/app.js') }}"></script>
+            <script  src="{{ theme_url('Base/js/app.js?_v='.config('app.asset_version')) }}"></script>
             @yield('footer')
         </footer>
     </body>
