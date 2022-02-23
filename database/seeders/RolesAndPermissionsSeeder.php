@@ -34,6 +34,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'product_update',
             'product_delete',
             'pos_access',
+            'vendor_access'
         ]);
 
         setting_update_item('vendor_role',$vendor->id);
