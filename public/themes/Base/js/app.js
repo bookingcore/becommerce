@@ -27,7 +27,7 @@ function ajax_error_to_string(e){
         }
     }
 }
-$('.bravo-form-login').on('submit',function (e) {
+$('.bc-form-login').on('submit',function (e) {
     e.preventDefault();
     var form = $(this);
     var data = form.serialize()
@@ -45,14 +45,14 @@ $('.bravo-form-login').on('submit',function (e) {
             form.find('.icon-loading').hide();
             if(typeof data =='undefined') return;
             if (data.error === true) {
-                if (data.messages !== undefined) {
-                    for(var item in data.messages) {
-                        var msg = data.messages[item];
+                if (data.errors !== undefined) {
+                    for(var item in data.errors) {
+                        var msg = data.errors[item];
                         form.find('.error-'+item).show().text(msg[0]);
                     }
                 }
-                if (data.messages.message_error !== undefined) {
-                    form.find('.message-error').show().html('<div class="alert alert-danger">' + data.messages.message_error[0] + '</div>');
+                if (data.message !== undefined) {
+                    form.find('.message-error').show().html('<div class="alert alert-danger">' + data.message + '</div>');
                 }
             }
             if (typeof data.redirect !== 'undefined' && data.redirect) {

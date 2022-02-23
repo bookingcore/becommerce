@@ -1,4 +1,4 @@
-<form class="bc-form {{$class ?? ''}}" method="POST" action="{{ route('login') }}">
+<form class="bc-form bc-form-login {{$class ?? ''}}" method="POST" action="{{ route('login') }}">
     <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
     @csrf
     <div class="{{$inner_class ?? ''}}">
