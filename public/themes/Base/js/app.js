@@ -58,6 +58,9 @@ $('.bc-form-login').on('submit',function (e) {
             if (typeof data.redirect !== 'undefined' && data.redirect) {
                 window.location.href = data.redirect
             }
+            if(typeof data.two_factor === 'undefined' || !data.two_factor){
+                window.location.reload();
+            }
         },
         error:function (e){
             form.removeClass('loading')
