@@ -7,11 +7,11 @@ $seo_share = $meta_seo['seo_share'] ?? false;
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
-                <div class="form-group mb-3 @if(!is_default_lang()) d-none @endif ">
+                <div class="mb-3 @if(!is_default_lang()) d-none @endif ">
                     <label class="control-label mb-2">
                         {{__("Allow search engines to show this service in search results?")}}
                     </label>
-                    <select name="seo_index" class="form-control">
+                    <select name="seo_index" class="form-control form-select">
                         <option value="1" @if(isset($meta_seo['seo_index']) and $meta_seo['seo_index'] == 1) selected @endif>{{__("Yes")}}</option>
                         <option value="0" @if(isset($meta_seo['seo_index']) and $meta_seo['seo_index'] == 0) selected @endif>{{__("No")}}</option>
                     </select>
