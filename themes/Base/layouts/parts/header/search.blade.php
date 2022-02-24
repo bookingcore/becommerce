@@ -27,7 +27,7 @@ if(!isset($current_cat)) $current_cat = null;
                 $traverse($categories,'&#8211;');
             @endphp
         </select>
-        <input name="s" class="form-control me-1" type="text" placeholder="{{ __("I'm shopping for...") }}">
+        <input name="s" class="form-control me-1" type="text" placeholder="{{ __("I'm shopping for...") }}" value="{{ request()->input("s") }}">
         <button type="submit" class="btn bg-main c-white">{{ __("Search") }}</button>
     </div>
 </form>
