@@ -59,7 +59,13 @@ $('.bc-form-login').on('submit',function (e) {
                 window.location.href = data.redirect
             }
             if(typeof data.two_factor === 'undefined' || !data.two_factor){
-                window.location.reload();
+                var redirect = form.find('[name=redirect]').val();
+                console.log(redirect);
+                if(redirect){
+                    window.location.href = redirect;
+                }else{
+                    window.location.reload();
+                }
             }
         },
         error:function (e){

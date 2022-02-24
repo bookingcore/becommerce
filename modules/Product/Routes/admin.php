@@ -12,6 +12,7 @@ Route::get('/ajaxVariationList/{id}','VariationController@ajaxVariationList')->n
 Route::post('/ajaxAddVariation','VariationController@ajaxAddVariation')->name('product.admin.variation.ajaxAddVariation');
 Route::post('/ajaxDeleteVariation','VariationController@ajaxDeleteVariation')->name('product.admin.variation.ajaxDeleteVariation');
 Route::post('/ajaxSaveVariations','VariationController@ajaxSaveVariations')->name('product.admin.variation.ajaxSaveVariations');
+Route::post('/ajaxSaveTerms','ProductController@ajaxSaveTerms')->name('product.admin.ajaxSaveTerms');
 
 Route::group(['prefix'=>'category'],function (){
     Route::get('/','CategoryController@index')->name('product.admin.category.index');

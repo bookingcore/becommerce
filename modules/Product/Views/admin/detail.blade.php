@@ -56,8 +56,8 @@ $tabs = get_admin_product_tabs();
                             <div class="panel-body no-padding">
                                 <input type="hidden" name="tab" value="{{request('tab')}}">
                                 <div class="row">
-                                    <div class="col-md-2 col-nav">
-                                        <ul class="nav nav-tabs  flex-column vertical-nav">
+                                    <div class="col-xl-2 col-nav">
+                                        <ul class="nav nav-tabs flex-column vertical-nav">
                                             @php $i = 0; $active_tab = '' @endphp
                                             @foreach($tabs as $tab_id=>$tab)
                                                 @php if(!$i) $active_tab = $tab_id @endphp
@@ -71,7 +71,7 @@ $tabs = get_admin_product_tabs();
                                             @endforeach
                                         </ul>
                                     </div>
-                                    <div class="col-md-10 col-content">
+                                    <div class="col-xl-10 col-content">
                                         <div class="tab-content">
                                             @php $i = 0 @endphp
                                             @foreach($tabs as $tab_id=>$tab)

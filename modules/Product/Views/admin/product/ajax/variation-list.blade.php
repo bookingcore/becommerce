@@ -22,7 +22,7 @@
             <div class="variation-body-inner">
                 <input type="hidden" name="variations[{{$variation->id}}][id]" value="{{$variation->id}}">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <div class="form-group mb-3 align-items-center">
                             <label class="control-label mb-2">{{__('Enabled?')}}</label>
                             <div class="controls">
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('variations['.$variation->id.'][image_id]',$variation->image_id) !!}
                     </div>
                 </div>

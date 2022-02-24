@@ -253,6 +253,32 @@ class ProductController extends AdminController
         }
     }
 
+    public function ajaxSaveTerms(Request $request){
+
+        $product_id = request()->input('product_id');
+        if(empty($product_id))
+        {
+            return $this->sendError(__("Product id is required"));
+        }
+        $query = Product::where('id',$product_id);
+        if(!$this->hasPermission('product_manage_others')){
+            $query->where('create_user',Auth::id());
+        }
+        $product = $query->first();
+
+        if(empty($product))
+        {
+            return $this->sendError(__("Product not found"));
+        }
+
+        $product->attributes_for_variation = $request->input('attributes_for_variation');
+        $product->save();
+
+        $this->saveTerms($product,$request);
+
+        return $this->sendSuccess([],__('Attribute data saved'));
+    }
+
     public function saveCategory($row, $request){
         if (empty($request->input('category_ids'))) {
             $this->product_cat_relation::query()->where('target_id',$row->id)->delete();

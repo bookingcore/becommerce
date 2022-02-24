@@ -56,8 +56,8 @@
                                     </div>
                                     <div class="panel-body no-padding">
                                         <div class="row">
-                                            <div class="col-md-2 col-nav">
-                                                <ul class="nav nav-tabs  flex-column vertical-nav">
+                                            <div class="col-xs-2 col-nav">
+                                                <ul class="nav nav-tabs">
                                                     @php $i = 0 @endphp
                                                     @foreach($tabs as $tab_id=>$tab)
                                                         <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
@@ -70,7 +70,7 @@
                                                     @endforeach
                                                 </ul>
                                             </div>
-                                            <div class="col-md-10 col-content">
+                                            <div class="col-xs-10 col-content">
                                                 <div class="tab-content">
                                                     @php $i = 0 @endphp
                                                     @foreach($tabs as $tab_id=>$tab)
