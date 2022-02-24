@@ -31,7 +31,7 @@
                             <a  class="position-relative" href="{{route('user.wishList.index')}}">
                                 <i class="fa fa-heart fa-2x c-main"></i>
                                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    {{ countWishlist() }}
+                                    <span class="wishlist_count">{{ countWishlist() }}</span>
                                     <span class="visually-hidden">{{__("WishList")}}</span>
                                 </span>
                             </a>

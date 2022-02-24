@@ -446,6 +446,11 @@ jQuery(function ($) {
                 if(res.status){
                     $this.toggleClass('active');
                 }
+                if(res.fragments){
+                    for(var k in res.fragments){
+                        $(k).html(res.fragments[k]);
+                    }
+                }
             },
             error:function (e) {
                 if(e.status === 401){
