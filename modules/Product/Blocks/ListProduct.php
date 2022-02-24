@@ -123,7 +123,7 @@ class ListProduct extends BaseBlock
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
-        $list = Product::search($model);
+        $list = Product::search($model)->paginate($model['limit']);
         $data = [
             'rows'       => $list,
             'title'      => $model['title'] ?? "",

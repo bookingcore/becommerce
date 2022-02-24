@@ -622,8 +622,7 @@ class Product extends BaseProduct
                 $query->orderBy("id", "desc");
         }
         $query->groupBy("products.id");
-        $limit = $filters['limit'] ?? 12;
-        return $query->with(['hasWishList','brand'])->paginate($limit);
+        return $query->with(['hasWishList','brand']);
     }
 
 

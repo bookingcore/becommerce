@@ -38,7 +38,7 @@ class ProductController extends Controller
         }
         $list = $this->product::search($request->input());
         $data = [
-            'rows'               => $list,
+            'rows'               => $list->paginate(setting_item('product_per_page',12)),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),
@@ -71,7 +71,7 @@ class ProductController extends Controller
         $list = $this->product::search($param);
 
         $data = [
-            'rows'               => $list,
+            'rows'               => $list->paginate(setting_item('product_per_page',12)),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),

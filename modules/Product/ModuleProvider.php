@@ -184,7 +184,7 @@ class ModuleProvider extends ModuleServiceProvider
             'view'=>"Product::admin.settings.product",
             "keys"=>[
                 'product_page_search_title',
-                'products_per_page',
+                'product_per_page',
                 'product_page_list_seo_title',
                 'product_page_list_seo_desc',
                 'product_page_list_seo_image',

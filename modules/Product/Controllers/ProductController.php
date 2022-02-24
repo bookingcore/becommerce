@@ -32,7 +32,7 @@ class ProductController extends Controller
         $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
 
         $data = [
-            'rows'               => $list,
+            'rows'               => $list->paginate(setting_item('product_per_page',12)),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => $categories,
@@ -61,7 +61,7 @@ class ProductController extends Controller
         $getCats = ProductCategory::where('slug',$slug)->first();
         $param = $request->input();
         $param['cat_id'] = $getCats->id;
-        $data = $this->product::search($param);
+        $data = $this->product::search($param)->paginate(setting_item('product_per_page',12));
         return view('Product::frontend.categories', (isset($data)) ? $data : []);
     }
 

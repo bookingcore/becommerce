@@ -33,7 +33,7 @@ class StoreController extends FrontendController
         $param['limit'] = 6;
         $param['vendor_id'] = $user->id;
         $data = [
-            'rows'               => Product::search($param),
+            'rows'               => Product::search($param)->paginate(setting_item('product_per_page',12)),
             'user'               => $user,
             'product_min_max_price' => Product::getMinMaxPrice(),
             'breadcrumbs'=>[
