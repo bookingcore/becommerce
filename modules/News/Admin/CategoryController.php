@@ -84,7 +84,7 @@ class CategoryController extends AdminController
 
         $row->fill($request->input());
         $row->slug = $request->input('slug');
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
             if($id > 0 ){
