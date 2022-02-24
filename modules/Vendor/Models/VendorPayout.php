@@ -25,11 +25,8 @@ class VendorPayout extends BaseModel
 
     public static function getAllStatuses(){
         return [
-            'initial'=>[
-                'title'=>__("Initial")
-            ],
-            'confirmed'=>[
-                'title'=>__("Confirmed")
+            'pending'=>[
+                'title'=>__("Pending")
             ],
             'paid'=>[
                 'title'=>__("Paid")

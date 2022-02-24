@@ -55,7 +55,6 @@
                                 <th width="60px"><input type="checkbox" class="check-all"></th>
                                 <th  width="80px"> {{ __('ID')}}</th>
                                 <th> {{ __('Vendor')}}</th>
-                                <th>{{__("Note")}}</th>
                                 <th width="200px"> {{ __('Amount')}}</th>
                                 <th width="230px"> {{ __('Payout Method')}}</th>
                                 <th width="130px"> {{ __('Created At')}}</th>
@@ -72,21 +71,9 @@
                                         <td>
                                             <a target="_blank" href="{{ url("admin/module/user/edit/".$payout->vendor_id) }}">{{$payout->vendor->display_name}}</a>
                                         </td>
+                                        <td>{{format_money($payout->total)}}</td>
                                         <td>
-                                            @if($payout->note_to_admin)
-                                                <label ><strong>{{__("To admin:")}}</strong></label>
-                                                <br>
-                                                <div>{{$payout->note_to_admin}}</div>
-                                            @endif
-                                            @if($payout->note_to_vendor)
-                                                <label ><strong>{{__("To vendor:")}}</strong></label>
-                                                <br>
-                                                <div>{{$payout->note_to_vendor}}</div>
-                                            @endif
-                                        </td>
-                                        <td>{{format_money($payout->amount)}}</td>
-                                        <td>
-                                            {{__(':name to :info',['name'=>$payout->payout_method_name,'info'=>$payout->account_info])}}
+                                            {{__(':name to :info',['name'=>$payout->payout_method,'info'=>$payout->account_info[0]])}}
                                         </td>
                                         <td>{{display_date($payout->created_at)}}</td>
                                         <td>{{$payout->status_text}}</td>
