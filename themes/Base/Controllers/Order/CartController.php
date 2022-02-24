@@ -62,7 +62,7 @@ class CartController extends FrontendController
         $service = $module::find($service_id);
         try {
             $service->addToCartValidate($request->input('qty'),$variant_id);
-            CartManager::add($service,$service->name,$quantity,null,[],$variant_id);
+            CartManager::add($service,$service->name,$quantity,$service->price,[],$variant_id);
             $buy_now = $request->input('buy_now');
 
             return $this->sendSuccess([
