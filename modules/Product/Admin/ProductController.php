@@ -140,6 +140,8 @@ class ProductController extends AdminController
 
         $request->validate([
             'title'=>'required'
+        ],[
+            'title.required'=>__("Product name is required")
         ]);
 
         if($id>0){
