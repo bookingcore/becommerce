@@ -15,9 +15,10 @@
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
-                            <option value="publish">{{__(" Publish ")}}</option>
-                            <option value="draft">{{__(" Move to Draft ")}}</option>
-                            <option value="delete">{{__(" Delete ")}}</option>
+                            <option value="publish">{{__("Move to Publish")}}</option>
+                            <option value="pending">{{__("Move to Pending")}}</option>
+                            <option value="draft">{{__("Move to Draft")}}</option>
+                            <option value="delete">{{__("Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
                     </form>
