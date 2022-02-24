@@ -31,6 +31,7 @@ class StoreController extends FrontendController
 
         $param = $request->input();
         $param['limit'] = 6;
+        $param['vendor_id'] = $user->id;
         $data = [
             'rows'               => Product::search($param),
             'user'               => $user,

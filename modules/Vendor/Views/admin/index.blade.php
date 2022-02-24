@@ -81,6 +81,7 @@
                                             @if(!$row->hasVerifiedEmail())
                                                 <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Mark as email-verified')}}</a>
                                             @endif
+                                            <a class="dropdown-item"  href="{{$row->getStoreUrl()}}"><i class="fa fa-eye"></i> {{__('View Store')}}</a>
                                             <a class="dropdown-item" href="{{url('admin/module/user/password/'.$row->id)}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
                                         </div>
                                     </div>

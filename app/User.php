@@ -2,6 +2,7 @@
 
     namespace App;
 
+    use App\Traits\HasSlug;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Notifications\Notifiable;
@@ -10,14 +11,13 @@
     use Illuminate\Support\Facades\Mail;
     use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\HasApiTokens;
-    use Modules\Order\Models\OrderItem;
     use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\EmailUserVerifyRegister;
     use Modules\User\Emails\ResetPasswordToken;
+    use Modules\User\Models\UserPlan;
     use Modules\User\Models\UserWishList;
     use Modules\User\Traits\HasRoles;
-    use Modules\Vendor\Models\VendorPayout;
     use Modules\Vendor\Models\VendorRequest;
     use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
@@ -30,6 +30,7 @@
         use HasRoles;
         use HasAddress;
         use HasPayout;
+        use HasSlug;
 
         /**
          * The attributes that are mass assignable.
@@ -73,6 +74,10 @@
         protected $attributes = [
             'status'=>'publish'
         ];
+
+        protected $slugField = 'username';
+        protected $slugFromField = 'display_name';
+
 
         public function getMeta($key, $default = '')
         {
@@ -205,7 +210,7 @@
 
         public function getDisplayNameAttribute()
         {
-            $name = $this->name;
+            $name = '';
             if (!empty($this->first_name) or !empty($this->last_name)) {
                 $name = implode(' ', [$this->first_name, $this->last_name]);
             }
@@ -345,10 +350,6 @@
 
         public function getWishlistCountAttribute(){
             return UserWishList::query()->where('user_id',$this->id)->count('id');
-        }
-
-        public function getDetailUrl(){
-            return route('user.profile',['id'=>$this->user_name ? $this->user_name : $this->id]);
         }
 
         public function user_plan(){

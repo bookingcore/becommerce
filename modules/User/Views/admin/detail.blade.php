@@ -7,7 +7,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between mb20">
                 <div class="">
-                    <h1 class="title-bar">{{$row->id ? 'Edit: '.$row->getDisplayName() : 'Add new user'}}</h1>
+                    <h1 class="title-bar">{{$row->id ? 'Edit: '.$row->display_name : 'Add new'}}</h1>
                 </div>
             </div>
             @include('admin.message')
@@ -40,7 +40,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>{{__("Display name")}} <span class="text-danger">*</span></label>
-                                        <input type="text" required value="{{old('business_name',$row->business_name ? $row->business_name : $row->display_name)}}" name="business_name" class="form-control">
+                                        <input type="text" required value="{{old('business_name',$row->display_name)}}" name="business_name" class="form-control">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -73,7 +73,7 @@
                         <div class="panel-title"><strong>{{ __('Publish')}}</strong></div>
                         <div class="panel-body">
                             <div class="form-group">
-                                <label>{{__('Status')}}</label>
+                                <label>{{__('Status')}} <span class="text-danger">*</span></label>
                                 <select required class="custom-select" name="status">
                                     <option value="">{{ __('-- Select --')}}</option>
                                     <option @if(old('status',$row->status) =='publish') selected @endif value="publish">{{ __('Publish')}}</option>
@@ -88,6 +88,13 @@
                                     @foreach($roles as $role)
                                         <option value="{{$role->id}}" @if(old('role_id',$row->role_id) == $role->id) selected @elseif(old('role_id')  == $role->id ) selected @elseif(request()->input("user_type")  == strtolower($role->name) ) selected @endif >{{ucfirst($role->name)}}</option>
                                     @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>{{__('Email Verified?')}}</label>
+                                <select  class="form-control" name="is_email_verified">
+                                    <option value="">{{ __('No')}}</option>
+                                    <option @if(old('is_email_verified',$row->email_verified_at ? 1 : 0)) selected @endif value="1">{{__('Yes')}}</option>
                                 </select>
                             </div>
                             @endif
