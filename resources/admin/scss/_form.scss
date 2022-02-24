@@ -456,6 +456,10 @@ th.slug{ width: 20%}
 }
 
 .product-information-tabs.panel{
+    .col-nav{
+
+        border-right: 1px solid #dee2e6;
+    }
     .panel-title{
         justify-content: flex-start;
         align-items: center;
@@ -538,6 +542,9 @@ th.slug{ width: 20%}
                     }
                 }
             }
+        }
+        .nav-link i{
+            display: none;
         }
     }
 }
