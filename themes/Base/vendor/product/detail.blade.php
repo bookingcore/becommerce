@@ -2,6 +2,11 @@
 @section('head')
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     <link rel="stylesheet" href="{{ asset('libs/select2/css/select2.min.css') }}" />
+    <style>
+        body{
+            background: #f8f9fa;
+        }
+    </style>
 @endsection
 @section('content')
     <section class="bc-items-listing">
@@ -27,57 +32,121 @@
             @endif
             <form action="{{route('vendor.product.store',['id'=>$row->id])}}" method="post">
                 @csrf
-            <div class="@if($row->id) lang-content-box @endif">
-                <div class="panel product-information-tabs">
-                    <div class="panel-title d-flex justify-content-between">
-                        <div class="d-flex justify-content-center align-items-center">
-                            <strong class="flex-shrink-0 me-3">{{__("Product Information")}}</strong>
-                            <select @if(!is_default_lang()) readonly="" disabled @endif class="form-select" name="product_type">
-                                <optgroup label="{{__("Product Type")}}">
-                                    @foreach(get_product_types() as $type_id=>$type)
-                                        <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{__('Save changes')}} </button>
-                    </div>
-                    <div class="panel-body no-padding">
-                        <div class="row">
-                            <div class="col-md-2 col-nav">
-                                <ul class="nav nav-tabs  flex-column vertical-nav">
-                                    @php $i = 0 @endphp
-                                    @foreach($tabs as $tab_id=>$tab)
-                                        <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
-                                                @if(!empty($tab['icon']))
-                                                    <i class="nav-icon {{$tab['icon']}}"></i>
-                                                @endif
-                                                {{$tab['title']}}</a>
-                                        </li>
-                                        @php $i++ @endphp
-                                    @endforeach
-                                </ul>
-                            </div>
-                            <div class="col-md-10 col-content">
-                                <div class="tab-content">
-                                    @php $i = 0 @endphp
-                                    @foreach($tabs as $tab_id=>$tab)
-                                        <div data-product-id="{{$row->id}}" class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
-                                            @include($tab['view'],['product'=>$product])
-                                        </div>
-                                        @php $i++ @endphp
-                                    @endforeach
+                <div class="@if($row->id) lang-content-box @endif">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("General Information")}}</strong></div>
+                                <div class="panel-body">
+                                    @include('Product::admin.product.general')
                                 </div>
                             </div>
+                            <div class="panel product-information-tabs">
+                                    <div class="panel-title d-flex justify-content-between">
+                                        <div class="d-flex justify-content-center align-items-center">
+                                            <strong class="flex-shrink-0 me-3">{{__("Product Information")}}</strong>
+                                            <select @if(!is_default_lang()) readonly="" disabled @endif class="form-select" name="product_type">
+                                                <optgroup label="{{__("Product Type")}}">
+                                                    @foreach(get_product_types() as $type_id=>$type)
+                                                        <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body no-padding">
+                                        <div class="row">
+                                            <div class="col-md-2 col-nav">
+                                                <ul class="nav nav-tabs  flex-column vertical-nav">
+                                                    @php $i = 0 @endphp
+                                                    @foreach($tabs as $tab_id=>$tab)
+                                                        <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
+                                                                @if(!empty($tab['icon']))
+                                                                    <i class="nav-icon {{$tab['icon']}}"></i>
+                                                                @endif
+                                                                {{$tab['title']}}</a>
+                                                        </li>
+                                                        @php $i++ @endphp
+                                                    @endforeach
+                                                </ul>
+                                            </div>
+                                            <div class="col-md-10 col-content">
+                                                <div class="tab-content">
+                                                    @php $i = 0 @endphp
+                                                    @foreach($tabs as $tab_id=>$tab)
+                                                        <div data-product-id="{{$row->id}}" class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
+                                                            @include($tab['view'],['product'=>$product])
+                                                        </div>
+                                                        @php $i++ @endphp
+                                                    @endforeach
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel-footer">
+                                        <div class="text-end">
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Short Desc & Gallery")}}</strong></div>
+                                <div class="panel-body">
+                                    @if(is_default_lang())
+                                        <div class="form-group mb-3">
+                                            <label class="control-label mb-2">{{__("Gallery")}}</label>
+                                            {!! \Modules\Media\Helpers\FileHelper::fieldGalleryUpload('gallery',$row->gallery) !!}
+                                        </div>
+                                    @endif
+                                    <div class="form-group mb-3">
+                                        <label class="control-label mb-2">{{__("Short Desc")}}</label>
+                                        <textarea name="short_desc" class="d-none has-tinymce" cols="30"  >{{old('short_desc',$translation->short_desc)}}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            @include("Core::admin.seo-meta.seo-meta")
                         </div>
-                    </div>
-                    <div class="panel-footer">
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-success btn-sm"><i class="fa fa-save"></i> {{__('Save changes')}} </button>
+                        <div class="col-md-3">
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__('Publish')}}</strong></div>
+                                <div class="panel-body">
+                                    @if(is_default_lang())
+                                        <div class="form-group">
+                                            <label class="control-label mb-2">{{__('Status')}}</label>
+                                            <select name="status" class="custom-select form-select">
+                                                <option value="">{{__("-- Please Select --")}}</option>
+                                                <option value="publish">{{__("Publish")}}</option>
+                                                <option disabled @if($row->status=='pending') selected @endif value="pending">{{__("Pending")}}</option>
+                                                <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>
+                                            </select>
+                                        </div>
+                                    @endif
+                                </div>
+                                <div class="panel-footer">
+                                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                                </div>
+                            </div>
+                            @if(is_default_lang())
+                                <div class="panel">
+                                    <div class="panel-title"> <strong>{{ __('Category')}}</strong></div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            @include('Product::admin.product.categories')
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="panel">
+                                    <div class="panel-title"> <strong>{{ __('Feature Image')}}</strong></div>
+                                    <div class="panel-body">
+                                        <div class="form-group">
+                                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',$row->image_id) !!}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-            </div>
 
             </form>
         </div>

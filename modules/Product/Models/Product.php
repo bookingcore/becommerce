@@ -461,8 +461,12 @@ class Product extends BaseProduct
 
     public function addToCartValidate($qty=1, $variant_id=null)
     {
+        if($this->status != 'publish'){
+
+            throw  new \Exception(__("Product is not published yet"));
+        }
         if($this->price == null && $this->sale_price == null){
-            throw  new \Exception('This content must set price. Please contact with author.');
+            throw  new \Exception(__('This content must set price. Please contact with author.'));
         }
         if(!empty($variant_id)){
             $variation = $this->variations()->where('id',$variant_id)->first();
