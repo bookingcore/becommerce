@@ -38,10 +38,10 @@ class StoreController extends FrontendController
             'product_min_max_price' => Product::getMinMaxPrice(),
             'breadcrumbs'=>[
                 [
-                    'name'=> $user->getDisplayName(),
+                    'name'=> $user->display_name,
                 ]
             ],
-            "page_title"           => $user->getDisplayName(),
+            "page_title"           => $user->display_name,
         ];
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
@@ -66,10 +66,10 @@ class StoreController extends FrontendController
             'user'               => $user,
             'product_min_max_price' => Product::getMinMaxPrice(),
             'breadcrumbs'=>[
-                ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
+                ['name'=>$user->display_name,'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
                 ['name'=>__('Reviews from guests'),'url'=>''],
             ],
-            "page_title"           => __(':name - reviews from guests',['name'=>$user->getDisplayName()]),
+            "page_title"           => __(':name - reviews from guests',['name'=>$user->display_name]),
             "show_review"           =>1,
         ];
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();

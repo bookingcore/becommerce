@@ -66,7 +66,7 @@
                                             ]
                                         ], !empty($user->id) ? [
                                             $user->id,
-                                            $user->getDisplayName() . ' (#' . $user->id . ')'
+                                            $user->display_name . ' (#' . $user->id . ')'
                                         ] : false)
                                         ?>
                                     </div>

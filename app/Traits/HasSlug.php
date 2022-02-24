@@ -21,6 +21,7 @@ trait HasSlug
 
     public function maybeGenerateSlug(){
         if ($this->slugField && $this->slugFromField && (!$this->getAttribute($this->slugField) or $this->isDirty($this->slugField))) {
+            $slug = $this->generateSlug($this->getAttribute($this->slugField));
             $this->setAttribute($this->slugField,$this->generateSlug($this->getAttribute($this->slugField)));
         }
     }
@@ -30,7 +31,6 @@ trait HasSlug
         $slugFromField = $this->slugFromField;
         if (empty($string))
             $string = $this->getAttribute($slugFromField);
-
         $slug = $newSlug = $this->strToSlug($string);
         $newSlug = $slug . ($count ? '-' . $count : '');
         $model = static::select('count(id)');

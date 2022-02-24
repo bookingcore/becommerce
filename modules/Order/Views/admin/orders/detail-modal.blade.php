@@ -34,7 +34,7 @@
                                                     <li class="info-content">
                                                         <div class="label">
                                                             <div class="name">{{ $item->model->title }} x {{ $item->qty }}</div>
-                                                            <div class="sold-by"><span style="font-weight: 600">{{ __('Sold by:') }}</span> {{$model->author->getDisplayName()}}</div>
+                                                            <div class="sold-by"><span style="font-weight: 600">{{ __('Sold by:') }}</span> {{$model->author->display_name}}</div>
                                                         </div>
                                                         <div class="val" style="color: red">{{format_money($item->qty * $item->price)}}</div>
                                                     </li>

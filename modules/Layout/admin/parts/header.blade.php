@@ -128,11 +128,11 @@ $locale = App::getLocale();
                      @if($avatar_url = $user->getAvatarUrl())
                         <div class="avatar avatar-cover" style="background-image: url('{{$user->getAvatarUrl()}}')"></div>
                     @else
-                        <span class="avatar-text">{{ucfirst($user->getDisplayName()[0])}}</span>
+                        <span class="avatar-text">{{ucfirst($user->display_name[0])}}</span>
                     @endif
                 </span>
                 <div class="user-info flex-grow-1">
-                    <div class="user-name">{{$user->getDisplayName()}}</div>
+                    <div class="user-name">{{$user->display_name}}</div>
                     <div class="user-role">{{ucfirst($user->roles[0]->name ?? '')}}</div>
                 </div>
                 <i class="fa fa-angle-down"></i>

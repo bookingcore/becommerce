@@ -70,7 +70,7 @@
                                         </td>
                                         <td>#{{$payout->id}}</td>
                                         <td>
-                                            <a target="_blank" href="{{ url("admin/module/user/edit/".$payout->vendor_id) }}">{{$payout->vendor->getDisplayName()}}</a>
+                                            <a target="_blank" href="{{ url("admin/module/user/edit/".$payout->vendor_id) }}">{{$payout->vendor->display_name}}</a>
                                         </td>
                                         <td>
                                             @if($payout->note_to_admin)

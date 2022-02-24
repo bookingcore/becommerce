@@ -6,7 +6,7 @@
         <div class="container">
             <div class="d-flex justify-content-between mb20">
                 <div class="">
-                    <h1 class="title-bar">{{$row->id ? 'Verify Request: '.$row->getDisplayName() : 'Add new user'}}</h1>
+                    <h1 class="title-bar">{{$row->id ? 'Verify Request: '.$row->display_name : 'Add new user'}}</h1>
                 </div>
             </div>
             @include('admin.message')

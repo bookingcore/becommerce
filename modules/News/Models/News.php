@@ -118,7 +118,7 @@ class News extends BaseModel
             'category'=>NewsCategory::selectRaw("id,name,slug")->find($this->cat_id) ?? null,
             'created_at'=>display_date($this->created_at),
             'author'=>[
-                'display_name'=>$this->author->getDisplayName(),
+                'display_name'=>$this->author->display_name,
                 'avatar_url'=>$this->author->getAvatarUrl()
             ],
             'url'=>$this->getDetailUrl()

@@ -26,7 +26,7 @@
                         @include('product.details.price')
                         <div class="bc-product_desc mb-4">
                             <div class="desc-heading d-flex">
-                                <p class="sold-by me-5 m-0">{{__('Sold By:')}}<a class="c-main" href="{{route('store',['slug'=>$row->create_user])}}"><strong> {{$row->author->getDisplayName()}} </strong></a></p>
+                                <p class="sold-by me-5 m-0">{{__('Sold By:')}}<a class="c-main" href="{{route('store',['slug'=>$row->create_user])}}"><strong> {{$row->author->display_name}} </strong></a></p>
                                 @if($row->product_type == 'simple')
                                     @php $stock_status = $row->getStockStatus() @endphp
                                     <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span><strong>{{$stock_status['stock']}}</strong></span></span>

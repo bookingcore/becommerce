@@ -236,7 +236,7 @@ class UserController extends AdminController
                     if($item->hasPermission("dashboard_vendor_access")){
                         $data[] = [
                             'id'   => $item->id,
-                            'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                            'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                         ];
                     }
                 }
@@ -245,7 +245,7 @@ class UserController extends AdminController
                 foreach ($res as $item) {
                     $data[] = [
                         'id'   => $item->id,
-                        'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                        'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                     ];
                 }
             }

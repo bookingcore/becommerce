@@ -115,7 +115,7 @@ class VendorController extends UserController
             foreach ($res as $item) {
                 $data[] = [
                     'id'   => $item->id,
-                    'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                    'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                 ];
             }
         }
