@@ -64,7 +64,7 @@
 					// reloadVariations();
 				}
 				if(json.message){
-					BCApp.showSuccess(json);
+					//BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
@@ -91,7 +91,7 @@
 					// reloadVariations();
 				}
 				if(json.message){
-					BCApp.showSuccess(json);
+					//BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
