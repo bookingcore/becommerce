@@ -97,7 +97,7 @@ class PlanController extends AdminController
             'annual_price'
         ],$request->input());
 
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
             return back()->with('success',  __('Plan saved') );

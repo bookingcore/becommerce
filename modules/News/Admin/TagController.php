@@ -81,7 +81,8 @@ class TagController extends AdminController
         }
 
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
+
 
         if ($res) {
             if($id > 0 ){
