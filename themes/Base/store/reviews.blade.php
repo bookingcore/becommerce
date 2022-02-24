@@ -7,7 +7,7 @@
                     <div class="d-flex align-items-start">
                         <img class="flex-shrink-0 me-3 rounded-circle w-75px h-75px" src="{{$userInfo->avatar_url}}" alt="{{$userInfo->display_name}}">
                         <div>
-                            <p class="mb-1 fs-16">{{$userInfo->getDisplayName()}} - {{display_datetime($item->created_at)}}</p>
+                            <p class="mb-1 fs-16">{{$userInfo->display_name}} - {{display_datetime($item->created_at)}}</p>
                             @if($item->rate_number)
                                 <div class="d-flex mb-2">
                                     @for( $i = 0 ; $i < 5 ; $i++ )

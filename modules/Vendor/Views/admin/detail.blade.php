@@ -6,7 +6,7 @@
         <div class="container-fluid">
             <div class="d-flex justify-content-between mb20">
                 <div class="">
-                    <h1 class="title-bar">{{$row->id ? 'Edit: '.$row->getDisplayName() : 'Add new user'}}</h1>
+                    <h1 class="title-bar">{{$row->id ? 'Edit: '.$row->display_name : 'Add new user'}}</h1>
                 </div>
             </div>
             @include('admin.message')

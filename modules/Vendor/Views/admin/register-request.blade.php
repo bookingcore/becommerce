@@ -54,13 +54,13 @@
                                 <tr>
                                     <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item"></td>
                                     <td class="title">
-                                        <a href="{{url('admin/module/user/edit/'.$row->user->id)}}">{{@$row->user->getDisplayName()}}</a>
+                                        <a href="{{url('admin/module/user/edit/'.$row->user->id)}}">{{@$row->user->display_name}}</a>
                                     </td>
                                     <td>{{$row->user->email}}</td>
                                     <td>{{ display_date($row->created_at)}}</td>
                                     <td>{{ $row->approved_time ? display_date($row->approved_time) : ''}}</td>
                                     <td>
-                                        {{ $row->approvedBy ? $row->approvedBy->getDisplayName() : '' }}
+                                        {{ $row->approvedBy ? $row->approvedBy->display_name : '' }}
                                     </td>
                                     <td class="status"><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
                                     <td>

@@ -88,7 +88,7 @@
                                     <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ' '}}</td>
                                     <td>
                                         @if(!empty($row->author))
-                                            {{$row->author->getDisplayName()}}
+                                            {{$row->author->display_name}}
                                         @else
                                             {{__("[Author Deleted]")}}
                                         @endif

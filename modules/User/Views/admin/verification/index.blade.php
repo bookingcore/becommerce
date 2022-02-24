@@ -62,7 +62,7 @@
                                         <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item">
                                         </td>
                                         <td class="title">
-                                            <a href="{{route('user.admin.verification.detail',['id'=>$row->id])}}">{{$row->getDisplayName()}}</a>
+                                            <a href="{{route('user.admin.verification.detail',['id'=>$row->id])}}">{{$row->display_name}}</a>
                                         </td>
                                         <td>{{$row->email}}</td>
                                         <td>{{$row->phone}}</td>

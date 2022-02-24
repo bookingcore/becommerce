@@ -150,6 +150,7 @@ class UserController extends AdminController
 
     public function store(Request $request, $id)
     {
+
         if($id and $id>0){
             $row = User::find($id);
             if(empty($row)){
@@ -159,26 +160,8 @@ class UserController extends AdminController
                 abort(403);
             }
         }else{
-            $check = Validator::make($request->input(),[
-                'first_name'              => 'required|max:255',
-                'last_name'              => 'required|max:255',
-                'status'              => 'required|max:50',
-                'phone'              => 'required',
-                'role_id'              => 'sometimes|required|max:11',
-                'email'              =>[
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')
-                ],
-            ]);
-
-            if(!$check->validated()){
-                return back()->withInput($request->input());
-            }
-
+            $this->checkPermission('user_manage');
             $row = new User();
-            $row->email = $request->input('email');
         }
 
         $request->validate([
@@ -186,13 +169,12 @@ class UserController extends AdminController
             'last_name'              => 'required|max:255',
             'business_name'              => 'required|max:255',
             'status'              => 'required|max:50',
-            'phone'              => 'required',
             'role_id'              => 'required|max:11',
             'email'              =>[
                 'required',
                 'email',
                 'max:255',
-                Rule::unique('users')->ignore($row->id)
+                $id > 0 ? Rule::unique('users')->ignore($row->id) : Rule::unique('users')
             ],
         ],[
             'business_name.required'=>__("Display name is a required field")
@@ -208,10 +190,14 @@ class UserController extends AdminController
         $row->avatar_id = $request->input('avatar_id');
         $row->email = $request->input('email');
         $row->business_name = $request->input('business_name');
-        $row->username = $row->email;
 
         if($this->hasPermission('user_manage')) {
             $row->role_id = $request->input('role_id');
+            if($request->input('is_email_verified')){
+                if(!$row->email_verified_at) $row->email_verified_at = date('Y-m-d H:i:s');
+            }else{
+                $row->email_verified_at = null;
+            }
         }
 
         if ($row->save()) {
@@ -220,10 +206,10 @@ class UserController extends AdminController
             }else{
                 switch ($request->input('user_type')){
                     case"customer":
-                        return redirect()->route('customer.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                        return redirect()->route('customer.admin.edit',['id'=>$row->id])->with('success',__("Customer created"));
                         break;
                     case"vendor":
-                        return redirect()->route('vendor.admin.edit',['id'=>$row->id])->with('success',__("User created"));
+                        return redirect()->route('vendor.admin.edit',['id'=>$row->id])->with('success',__("Vendor created"));
                         break;
                     default:
                         return redirect()->route('user.admin.edit',['id'=>$row->id])->with('success',__("User created"));
@@ -250,7 +236,7 @@ class UserController extends AdminController
                     if($item->hasPermission("dashboard_vendor_access")){
                         $data[] = [
                             'id'   => $item->id,
-                            'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                            'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                         ];
                     }
                 }
@@ -259,7 +245,7 @@ class UserController extends AdminController
                 foreach ($res as $item) {
                     $data[] = [
                         'id'   => $item->id,
-                        'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                        'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                     ];
                 }
             }

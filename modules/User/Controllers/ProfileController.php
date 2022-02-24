@@ -28,7 +28,7 @@ class ProfileController extends FrontendController
             return redirect('/');
         }
         $data['user'] = $user;
-        $data['page_title'] = $user->getDisplayName();
+        $data['page_title'] = $user->display_name;
         $this->registerCss('dist/frontend/module/user/css/profile.css');
         return view('User::frontend.profile.profile',$data);
     }
@@ -42,9 +42,9 @@ class ProfileController extends FrontendController
             abort(404);
         }
         $data['user'] = $user;
-        $data['page_title'] = __(':name - reviews from guests',['name'=>$user->getDisplayName()]);
+        $data['page_title'] = __(':name - reviews from guests',['name'=>$user->display_name]);
         $data['breadcrumbs'] = [
-            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
+            ['name'=>$user->display_name,'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
             ['name'=>__('Reviews from guests'),'url'=>''],
         ];
         $this->registerCss('dist/frontend/module/user/css/profile.css');
@@ -59,9 +59,9 @@ class ProfileController extends FrontendController
             abort(404);
         }
         $data['user'] = $user;
-        $data['page_title'] = __(':name',['name'=>$user->getDisplayName()]);
+        $data['page_title'] = __(':name',['name'=>$user->display_name]);
         $data['breadcrumbs'] = [
-            ['name'=>$user->getDisplayName(),'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
+            ['name'=>$user->display_name,'url'=>route('user.profile',['id'=>$user->user_name ?? $user->id])],
             ['name'=>__(':type by :first_name',['type'=>"Gig",'first_name'=>$user->first_name]),'url'=>''],
         ];
         $data['type'] = 'gig';

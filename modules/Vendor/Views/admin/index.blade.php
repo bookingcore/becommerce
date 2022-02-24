@@ -20,7 +20,7 @@
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="publish">{{__("Mark as Publish")}}</option>
-                            <option value="blocked">{{__("Mark as Blocked")}}</option>
+                            <option value="blocked">{{__("Mark as Block")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
@@ -45,7 +45,7 @@
                         <thead>
                         <tr>
                             <th width="60px"><input type="checkbox" class="check-all"></th>
-                            <th>{{__('Business Name')}}</th>
+                            <th>{{__('Display Name')}}</th>
                             <th>{{__('Email')}}</th>
                             <th width="150">{{__('Email Verified?')}}</th>
                             <th width="100">{{__('Status')}}</th>
@@ -81,6 +81,7 @@
                                             @if(!$row->hasVerifiedEmail())
                                                 <a class="dropdown-item"  href="{{route('user.admin.verifyEmail',$row)}}"><i class="fa fa-edit"></i> {{__('Mark as email-verified')}}</a>
                                             @endif
+                                            <a class="dropdown-item"  href="{{$row->getStoreUrl()}}"><i class="fa fa-eye"></i> {{__('View Store')}}</a>
                                             <a class="dropdown-item" href="{{url('admin/module/user/password/'.$row->id)}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
                                         </div>
                                     </div>

@@ -30,7 +30,8 @@ class UserExport implements FromCollection, WithHeadings, WithMapping, ShouldAut
             'phone',
             'email_verified_at',
             'status',
-        ]);
+        ])->orderByDesc('id');
+
         if($this->role_id){
             $user->where('role_id', $this->role_id);
         }
@@ -53,7 +54,7 @@ class UserExport implements FromCollection, WithHeadings, WithMapping, ShouldAut
     public function headings(): array
     {
         return [
-            __('Business Name'),
+            __('Display Name'),
             __('First name'),
             __('Last name'),
             __('Email'),

@@ -10,6 +10,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attributes;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
@@ -19,8 +20,6 @@ use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
-use Modules\Product\Models\VariableProduct;
-use Modules\Product\Models\Coupon;
 
 class CouponController extends AdminController
 {
@@ -42,7 +41,7 @@ class CouponController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product/coupon');
+        AdminMenuManager::setActive('coupon');
         $this->product = Product::class;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
@@ -50,7 +49,6 @@ class CouponController extends AdminController
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag = ProductTag::class;
         $this->variable_product = ProductVariation::class;
-        $this->coupon = Coupon::class;
     }
 
     public function index(Request $request)

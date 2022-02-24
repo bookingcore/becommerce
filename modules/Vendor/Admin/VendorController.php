@@ -55,13 +55,14 @@ class VendorController extends UserController
             'roles' => Role::all(),
             'breadcrumbs'=>[
                 [
-                    'name'=>__("Users"),
-                    'url'=>'admin/module/user'
+                    'name'=>__("Vendors"),
+                    'url'=>route('vendor.admin.index')
                 ],
                 [
-                    'name'=>__("Create new User"),
+                    'name'=>__("Create new Vendor"),
                 ],
-            ]
+            ],
+            'page_title'=>__("Create new Vendor")
         ];
         return view('User::admin.detail', $data);
     }
@@ -70,7 +71,7 @@ class VendorController extends UserController
     {
         $row = User::find($id);
         if (empty($row)) {
-            return redirect('admin/module/user');
+            return redirect(route('vendor.admin.index'));
         }
         if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
@@ -80,14 +81,15 @@ class VendorController extends UserController
             'roles' => Role::all(),
             'breadcrumbs'=>[
                 [
-                    'name'=>__("Users"),
-                    'url'=>'admin/module/user'
+                    'name'=>__("Vendors"),
+                    'url'=>route('vendor.admin.index')
                 ],
                 [
-                    'name'=>__("Edit User: #:id",['id'=>$row->id]),
+                    'name'=>__("Edit Vendor: #:id",['id'=>$row->id]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__("Edit Vendor: #:id",['id'=>$row->id])
         ];
         return view('User::admin.detail', $data);
     }
@@ -113,7 +115,7 @@ class VendorController extends UserController
             foreach ($res as $item) {
                 $data[] = [
                     'id'   => $item->id,
-                    'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
+                    'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
                 ];
             }
         }
