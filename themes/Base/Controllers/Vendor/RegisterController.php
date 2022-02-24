@@ -91,11 +91,11 @@ class RegisterController extends FrontendController
             $dataVendor['status']='pending';
         }
         $dataVendor['role_request']= setting_item('vendor_role',3);
-        $user->assignRole($dataVendor['role_request']);
+        $user->assignRole((int)$dataVendor['role_request']);
 
         $user->vendorRequest()->save( new VendorRequest($dataVendor));
 
-        if(\auth()->check()) {
+        if(!\auth()->check()) {
             Auth::login($user);
             event(new VendorRegisteredEvent($user, $user->vendorRequest));
         }else{
