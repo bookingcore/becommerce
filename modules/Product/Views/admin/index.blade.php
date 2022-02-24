@@ -90,8 +90,6 @@
                                     <td>
                                         @if(!empty($row->author))
                                             {{$row->author->display_name}}
-                                        @else
-                                            {{__("[Author Deleted]")}}
                                         @endif
                                     </td>
                                     <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>

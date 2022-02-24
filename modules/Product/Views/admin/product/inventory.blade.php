@@ -1,3 +1,4 @@
+@if(is_default_lang())
 <div class="form-group mb-3">
     <label class="control-label mb-2">{{__('SKU')}}</label>
     <div class="controls">
@@ -29,3 +30,4 @@
         <input type="number" min="0" class="form-control" value="{{$product->quantity}}" name="quantity">
     </div>
 </div>
+@endif

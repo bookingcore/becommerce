@@ -1,6 +1,5 @@
 (function ($) {
     'use strict';
-
     $('.ajax-add-term input').on('keypress',function (e) {
         var code = e.keyCode || e.which;
         if (code == 13) {

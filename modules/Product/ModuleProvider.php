@@ -126,39 +126,26 @@ class ModuleProvider extends ModuleServiceProvider
 
     public static function getAdminProductTabs(){
         return [
-            "general"=>[
+            "pricing"=>[
                 'position'=>10,
-                "icon"=>"fa fa-home",
-                "title"=>__("General"),
-                "view"=>"Product::admin.product.general"
+                "icon"=>"fa fa-money",
+                "title"=>__("Pricing"),
+                "view"=>"Product::admin.product.pricing",
+                "hide_in_sub_language"=>1
             ],
             "external"=>[
-                'position'=>15,
+                'position'=>20,
                 "icon"=>"fa fa-external-link",
                 "title"=>__("External"),
                 "view"=>"Product::admin.product.external",
                 "hide_in_sub_language"=>1,
                 "condition"=>"product_type:is(external)",
             ],
-            "pricing"=>[
-                'position'=>20,
-                "icon"=>"fa fa-money",
-                "title"=>__("Pricing"),
-                "view"=>"Product::admin.product.pricing",
-                "hide_in_sub_language"=>1
-            ],
             "inventory"=>[
                 'position'=>30,
                 "icon"=>"fa fa-archive",
                 "title"=>__("Inventory"),
                 "view"=>"Product::admin.product.inventory",
-                "hide_in_sub_language"=>1
-            ],
-            "categories"=>[
-                'position'=>40,
-                "icon"=>"fa fa-book",
-                "title"=>__("Categories"),
-                "view"=>"Product::admin.product.categories",
                 "hide_in_sub_language"=>1
             ],
             "attributes"=>[
@@ -175,12 +162,6 @@ class ModuleProvider extends ModuleServiceProvider
                 "view"=>"Product::admin.product.variations",
                 "condition"=>"product_type:is(variable)",
                 "hide_in_sub_language"=>1
-            ],
-            "seo"=>[
-                'position'=>70,
-                "icon"=>"fa fa-flag",
-                "title"=>__("SEO"),
-                "view"=>"Core::admin.seo-meta.seo-meta"
             ],
 
         ];
