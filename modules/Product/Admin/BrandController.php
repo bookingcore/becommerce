@@ -3,6 +3,7 @@ namespace Modules\Product\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductBrandTranslation;
 
@@ -11,7 +12,7 @@ class BrandController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
     }
 
     public function index(Request $request)
