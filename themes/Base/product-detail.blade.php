@@ -23,7 +23,7 @@
                                     </div>
                                 @endif
                             </div>
-                        @include('product.details.price')
+                        @include('product.details.price',['show_discount_percent'=>1])
                         <div class="bc-product_desc mb-4">
                             <div class="desc-heading d-flex">
                                 <p class="sold-by me-5 m-0">{{__('Sold By:')}}<a class="c-main" href="{{route('store',['slug'=>$row->create_user])}}"><strong> {{$row->author->display_name}} </strong></a></p>
