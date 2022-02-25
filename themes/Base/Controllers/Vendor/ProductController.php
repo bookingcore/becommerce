@@ -162,6 +162,17 @@ class ProductController extends FrontendController
         return redirect(route('vendor.product.edit',$row->id))->with('success', $id ? __('Product updated') : __("Product created") );
 
     }
+
+    public function delete($id)
+    {
+        $this->checkPermission('product_delete');
+        $query = Product::where("author_id", auth()->id())->where("id", $id)->first();
+        if (!empty($query)) {
+            $query->delete();
+        }
+        return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
+    }
+
     public function saveTags($row, $tags_name, $tag_ids)
     {
         if (empty($tag_ids))
