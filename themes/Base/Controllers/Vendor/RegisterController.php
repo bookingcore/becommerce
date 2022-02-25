@@ -1,9 +1,5 @@
 <?php
-
-
 namespace Themes\Base\Controllers\Vendor;
-
-
 use App\Helpers\ReCaptchaEngine;
 use App\User;
 use Illuminate\Http\Request;
@@ -55,7 +51,7 @@ class RegisterController extends FrontendController
             'password'=>'required|confirmed|min:6',
             'term'=>'required'
         ];
-        if(Auth::check()){
+        if(\auth()->user()){
             unset($validates['email']);
             unset($validates['password']);
         }
@@ -77,7 +73,7 @@ class RegisterController extends FrontendController
             'status'     => 'publish'
         ];
 
-        if(Auth::check()){
+        if(\auth()->user()){
             $user = \auth()->user();
             unset($data['password']);
             unset($data['status']);
