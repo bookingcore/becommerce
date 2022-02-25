@@ -91,3 +91,6 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
     Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
 });
+
+
+Route::post('register','UserController@register')->name('register');

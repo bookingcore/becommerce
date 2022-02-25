@@ -32,7 +32,7 @@ $('.bc-form-login').on('submit',function (e) {
     var form = $(this);
     var data = form.serialize()
     $.ajax({
-        'url': '/login',
+        'url':  BC.routes.login,
         'data': data,
         'type': 'POST',
         beforeSend: function () {
@@ -71,6 +71,43 @@ $('.bc-form-login').on('submit',function (e) {
         }
     });
     return false;
+});
+$('.bc-form-register').on('submit',function (e) {
+    e.preventDefault();
+    let form = $(this);
+    var data = form.serialize()
+    $.ajax({
+        'url':  BC.routes.register,
+        'data': data,
+        'type': 'POST',
+        beforeSend: function () {
+            form.addClass('loading');
+            form.find('.error').hide();
+            form.find('.icon-loading').css("display", 'inline-block');
+        },
+        success: function (data) {
+            form.removeClass('loading')
+            form.find('.icon-loading').hide();
+            if(typeof data =='undefined') return;
+            if (data.error === true) {
+                if (data.errors !== undefined) {
+                    for(var item in data.errors) {
+                        var msg = data.errors[item];
+                        form.find('.error-'+item).show().text(msg[0]);
+                    }
+                }
+            }
+            if (typeof data.redirect !== 'undefined' && data.redirect) {
+                window.location.href = data.redirect
+            }
+        },
+        error:function (e) {
+            form.find('.icon-loading').hide();
+            if(typeof e.responseJSON !== "undefined" && typeof e.responseJSON.message !='undefined'){
+                form.find('.message-error').show().html('<div class="alert alert-danger">' + e.responseJSON.message + '</div>');
+            }
+        }
+    });
 })
 window.bravo_handle_error_response = function(e){
     switch (e.status) {

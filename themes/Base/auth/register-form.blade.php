@@ -1,4 +1,4 @@
-<form class="bc-form {{$class ?? ''}}" method="post">
+<form class="bc-form bc-form-register {{$class ?? ''}}" method="post">
     @csrf
     <div class="bc-form__content">
         <div class="row">

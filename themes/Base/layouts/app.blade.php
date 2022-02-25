@@ -20,6 +20,10 @@
         <script>
             var BC = {
                 url: '{{url('/')}}',
+                routes:{
+                    login:'{{route('login')}}',
+                    register:'{{route('register')}}',
+                },
             }
             var i18n = {
                 warning:"{{__("Warning")}}",
