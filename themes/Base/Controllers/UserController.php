@@ -34,7 +34,8 @@ class UserController extends FrontendController
             ],
             'password'   => [
                 'required',
-                'string'
+                'string',
+                'min:6'
             ],
             'term'       => ['required'],
         ];

@@ -45,16 +45,21 @@ class RegisterController extends FrontendController
             'business_name.required'  => __('The business name is required field'),
             'term.required'       => __('Please read and accept terms and conditions'),
         ];
-        $request->validate([
+        $validates = [
             'first_name'=>'required',
             'last_name'=>'required',
             'business_name'=>'required',
             'email'=>[
                 'required','email',Rule::unique('users')
             ],
-            'password'=>'required|confirmed|min:8',
+            'password'=>'required|confirmed|min:6',
             'term'=>'required'
-        ],$messages);
+        ];
+        if(Auth::check()){
+            unset($validates['email']);
+            unset($validates['password']);
+        }
+        $request->validate($validates,$messages);
 
         if (ReCaptchaEngine::isEnable() and setting_item("vendor_enable_register_recaptcha")) {
             $codeCapcha = $request->input('g-recaptcha-response');
@@ -72,7 +77,7 @@ class RegisterController extends FrontendController
             'status'     => 'publish'
         ];
 
-        if(\auth()->check()){
+        if(Auth::check()){
             $user = \auth()->user();
             unset($data['password']);
             unset($data['status']);
