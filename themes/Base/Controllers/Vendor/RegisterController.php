@@ -20,7 +20,8 @@ class RegisterController extends FrontendController
 
     public function index(){
 
-        $this->validateRequest();
+        $check = $this->validateRequest();
+        if($check !== true) return $check;
 
         $data = [
             'page_title'=>__("Sell on Us")
@@ -29,7 +30,9 @@ class RegisterController extends FrontendController
     }
 
     public function store(Request $request){
-        $this->validateRequest();
+
+        $check = $this->validateRequest();
+        if($check !== true) return $check;
 
         $messages = [
             'email.required'      => __('Email is required field'),
@@ -92,15 +95,16 @@ class RegisterController extends FrontendController
             $dataVendor['status']='pending';
         }
         $dataVendor['role_request']= setting_item('vendor_role',3);
+        $dataVendor['user_id'] = $user->id;
         $user->assignRole((int)$dataVendor['role_request']);
 
-        $user->vendorRequest()->save( new VendorRequest($dataVendor));
+        $vendor_request = VendorRequest::create($dataVendor);
 
         if(!\auth()->check()) {
             Auth::login($user);
-            event(new VendorRegisteredEvent($user, $user->vendorRequest));
+            event(new VendorRegisteredEvent($user, $vendor_request));
         }else{
-            event(new UpgradeRequestCreated($user, $user->vendorRequest));
+            event(new UpgradeRequestCreated($user, $vendor_request));
         }
 
         if(is_vendor()){
@@ -125,6 +129,7 @@ class RegisterController extends FrontendController
             }
         }
 
+        return true;
     }
 
 }

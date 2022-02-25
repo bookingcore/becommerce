@@ -47,6 +47,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'        => route('page.admin.index'),
                 'title'      => __('Pages'),
                 'icon'  => 'icon ion-ios-bookmarks',
+                "permission"=>"page_manage"
             ],
         ];
     }
