@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
+use Laravel\Fortify\Http\Responses\LoginResponse;
 
 class FortifyServiceProvider extends ServiceProvider
 {
@@ -21,7 +22,6 @@ class FortifyServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(\Laravel\Fortify\Http\Requests\LoginRequest::class, \App\Fortify\LoginRequest::class);
     }
 
     /**
@@ -49,7 +49,11 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::requestPasswordResetLinkView(function () {
             return view('auth.passwords.email');
         });
-
+        Fortify::resetPasswordView(function () {
+            return view('auth.passwords.reset',[
+                'request'=>request()
+            ]);
+        });
 
         Fortify::confirmPasswordView(function () {
             return view('auth.confirm-password');
@@ -67,5 +71,7 @@ class FortifyServiceProvider extends ServiceProvider
             return view('auth.verify');
         });
 
+        $this->app->bind(\Laravel\Fortify\Http\Requests\LoginRequest::class, \App\Fortify\LoginRequest::class);
+        $this->app->bind(\Laravel\Fortify\Contracts\LoginResponse::class, \App\Fortify\LoginResponse::class);
     }
 }

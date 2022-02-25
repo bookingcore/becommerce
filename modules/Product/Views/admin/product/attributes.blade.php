@@ -23,6 +23,7 @@
             </div>
             <hr>
         @endforeach
+        <a href="#" class="btn btn-primary btn-sm btn-save-attributes"><i class="fa fa-save"></i> {{__('Save attributes')}}</a>
     @else
         <div class="alert alert-warning">
             <div>{!!__('No attribute found. You can :link here',['link'=>'<a href="'.route('product.admin.attribute.index').'" >'.__('add attribute').'</a>'])!!}</div>

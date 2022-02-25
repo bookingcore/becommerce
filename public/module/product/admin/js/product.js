@@ -64,7 +64,34 @@
 					// reloadVariations();
 				}
 				if(json.message){
-					BCApp.showSuccess(json);
+					//BCApp.showSuccess(json);
+				}
+			},
+			error:function (e) {
+				gr.removeClass('loading');
+				BCApp.showAjaxError(e);
+			}
+		});
+	});
+
+	$('.btn-save-attributes').on('click',function(e){
+		e.preventDefault();
+		var p = $(this).closest('.tab-pane');
+		var gr = p.closest('.product-information-tabs');
+		gr.addClass('loading');
+		var data = p.find('input,textarea,select').serialize();
+		data+='&product_id=' + p.data('product-id');
+		$.ajax({
+			url:BC.url+'/admin/module/product/ajaxSaveTerms',
+			data:data,
+			type:'post',
+			success:function (json) {
+				gr.removeClass('loading');
+				if(json.status){
+					// reloadVariations();
+				}
+				if(json.message){
+					//BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {

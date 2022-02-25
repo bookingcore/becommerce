@@ -174,6 +174,9 @@ class VariationController extends AdminController
             return $this->sendError(__("Product not found"));
         }
 
+        $product->product_type = 'variable';
+        $product->save();
+
         $variations = request()->input('variations');
         if(empty($variations) or !\is_array($variations))
         {

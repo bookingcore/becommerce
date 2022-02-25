@@ -42,52 +42,50 @@
                                 </div>
                             </div>
                             <div class="panel product-information-tabs">
-                                    <div class="panel-title d-flex justify-content-between">
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <strong class="flex-shrink-0 me-3">{{__("Product Information")}}</strong>
-                                            <select @if(!is_default_lang()) readonly="" disabled @endif class="form-select" name="product_type">
-                                                <optgroup label="{{__("Product Type")}}">
-                                                    @foreach(get_product_types() as $type_id=>$type)
-                                                        <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
-                                                    @endforeach
-                                                </optgroup>
-                                            </select>
-                                        </div>
+                                <div class="panel-title d-flex justify-content-between">
+                                    <div class="d-flex justify-content-center align-items-center">
+                                        <strong class="flex-shrink-0 mr-3">{{__("Product Information")}}</strong>
+                                        <select @if(!is_default_lang()) readonly="" disabled @endif class="form-select" name="product_type">
+                                            <optgroup label="{{__("Product Type")}}">
+                                                @foreach(get_product_types() as $type_id=>$type)
+                                                    <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
+                                                @endforeach
+                                            </optgroup>
+                                        </select>
                                     </div>
-                                    <div class="panel-body no-padding">
-                                        <div class="row">
-                                            <div class="col-md-2 col-nav">
-                                                <ul class="nav nav-tabs  flex-column vertical-nav">
-                                                    @php $i = 0 @endphp
-                                                    @foreach($tabs as $tab_id=>$tab)
-                                                        <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
-                                                                @if(!empty($tab['icon']))
-                                                                    <i class="nav-icon {{$tab['icon']}}"></i>
-                                                                @endif
-                                                                {{$tab['title']}}</a>
-                                                        </li>
-                                                        @php $i++ @endphp
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                            <div class="col-md-10 col-content">
-                                                <div class="tab-content">
-                                                    @php $i = 0 @endphp
-                                                    @foreach($tabs as $tab_id=>$tab)
-                                                        <div data-product-id="{{$row->id}}" class="tab-pane fade @if(!$i) show active @endif" id="{{$tab_id}}">
-                                                            @include($tab['view'],['product'=>$product])
-                                                        </div>
-                                                        @php $i++ @endphp
-                                                    @endforeach
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="panel-body no-padding">
+                                    <input type="hidden" name="tab" value="{{request('tab')}}">
+                                    <div class="row">
+                                        <div class="col-xl-2 col-nav">
+                                            <ul class="nav nav-tabs flex-column vertical-nav">
+                                                @php $i = 0; $active_tab = '' @endphp
+                                                @foreach($tabs as $tab_id=>$tab)
+                                                    @php if(!$i) $active_tab = $tab_id @endphp
+                                                    <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
+                                                            @if(!empty($tab['icon']))
+                                                                <i class="nav-icon {{$tab['icon']}}"></i>
+                                                            @endif
+                                                            {{$tab['title']}}</a>
+                                                    </li>
+                                                    @php $i++ @endphp
+                                                @endforeach
+                                            </ul>
                                         </div>
-                                    </div>
-                                    <div class="panel-footer">
-                                        <div class="text-end">
+                                        <div class="col-xl-10 col-content">
+                                            <div class="tab-content">
+                                                @php $i = 0 @endphp
+                                                @foreach($tabs as $tab_id=>$tab)
+                                                    <div data-product-id="{{$row->id}}" class="tab-pane fade @if($active_tab == $tab_id) show active @endif" id="{{$tab_id}}">
+                                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
+                                                    </div>
+                                                    @php $i++ @endphp
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__("Short Desc & Gallery")}}</strong></div>
                                 <div class="panel-body">
