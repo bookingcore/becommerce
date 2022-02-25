@@ -10,7 +10,7 @@
 
     @include('vendor.product.filter')
     <div class="bc-section__content">
-        <div class="table-responsive">
+        <div class="table-responsive mih-200">
             <table class="table bc-table">
                 <thead>
                 <tr>
