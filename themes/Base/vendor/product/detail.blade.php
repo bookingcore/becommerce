@@ -111,7 +111,6 @@
                                         <div class="form-group">
                                             <label class="control-label mb-2">{{__('Status')}}</label>
                                             <select name="status" class="custom-select form-select">
-                                                <option value="">{{__("-- Please Select --")}}</option>
                                                 <option value="publish">{{__("Publish")}}</option>
                                                 <option disabled @if($row->status=='pending') selected @endif value="pending">{{__("Pending")}}</option>
                                                 <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>

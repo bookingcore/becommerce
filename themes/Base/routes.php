@@ -48,6 +48,7 @@ Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
    Route::get('/product/create','Vendor\ProductController@create')->name('vendor.product.create');
    Route::get('/product/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
    Route::post('/product/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
+   Route::get('/product/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
 
    Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
 
