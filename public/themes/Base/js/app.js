@@ -770,4 +770,10 @@ jQuery(function ($) {
         });
     });
 
+    $(document).on('click','.btn-confirm-del',function (e) {
+        var c = confirm(i18n.confirm_delete);
+        if(!c){
+            return false;
+        }
+    })
 });

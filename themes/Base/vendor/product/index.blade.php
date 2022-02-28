@@ -10,7 +10,7 @@
 
     @include('vendor.product.filter')
     <div class="bc-section__content">
-        <div class="table-responsive mih-200">
+        <div class="table-responsive mih-300">
             <table class="table bc-table">
                 <thead>
                 <tr>
@@ -55,7 +55,7 @@
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
                                     @if(auth()->user()->hasPermission('product_delete'))
-                                        <a class="dropdown-item" href="{{route('vendor.product.delete',['id'=>$row->id])}}">{{__("Delete")}}</a>
+                                        <a class="dropdown-item btn-confirm-del" href="{{route('vendor.product.delete',['id'=>$row->id])}}">{{__("Delete")}}</a>
                                     @endif
                                     <a class="dropdown-item" target="_blank" href="{{$row->getDetailUrl()}}">{{__("View")}}</a>
                                 </div>
