@@ -14,7 +14,9 @@
         <th></th>
         @foreach ($compare as $row)
             <td>
-                <img src="{{ get_file_url($row['image_id']) }}" alt="{{$row['title']}}">
+                @if(!empty($img = get_file_url($row['image_id'])))
+                    <img src="{{ $img }}" alt="{{$row['title']}}">
+                @endif
             </td>
         @endforeach
     </tr>
