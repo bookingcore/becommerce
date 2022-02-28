@@ -3,6 +3,7 @@
 namespace Themes\Base\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Modules\News\Models\News;
 use Modules\News\Models\NewsCategory;
 use Modules\News\Models\Tag;
@@ -78,19 +79,27 @@ class NewsController extends FrontendController
     }
 
     public function detail(Request $request,$slug){
-        $news = News::query()->isActive()->where('slug',$slug)->with(['tags','tags.translation'])->first();
-        $related_post = $news->where('cat_id',$news->cat_id)->where('slug','!=',$slug)->get();
-        if(!$news){
+        $news = News::query()->where('slug',$slug)->with(['tags','tags.translation'])->first();
+        if(empty($news) or (!empty($news) and $news->status != 'publish' and  Auth::id() != $news->create_user)){
             abort(404);
+            return;
         }
+        $related_post = $news->where('cat_id',$news->cat_id)->where('slug','!=',$slug)->get();
         $translation = $news->translate();
+        $is_preview_mode = false;
+        if($news->status != 'publish'){
+            $is_preview_mode = true;
+            $news->title = '[Preview mode] '.$news->title;
+            $translation->title = '[Preview mode] '.$translation->title;
+        }
         $data = [
             'row'=>$news,
             "seo_meta" => $news->me,
             'translation'=>$translation,
             'page_title'=>$translation->title,
             'header_title'=>$translation->title,
-            'related_post' => $related_post
+            'related_post' => $related_post,
+            'is_preview_mode'    => $is_preview_mode,
         ];
         return view('news-detail',$data);
     }
