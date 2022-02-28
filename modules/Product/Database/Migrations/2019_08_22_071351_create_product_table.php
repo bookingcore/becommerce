@@ -246,7 +246,7 @@ class CreateProductTable extends Migration
 		    $table->string('email')->nullable();
 		    $table->string('phone')->nullable();
 
-		    $table->tinyInteger('type')->nullable()->default(1)->comment('1: Billing, 2: Shipping');
+		    $table->tinyInteger('address_type')->nullable()->default(1)->comment('1: Billing, 2: Shipping');
 		    $table->tinyInteger('is_default')->nullable()->default(0);
 		    $table->integer('create_user')->nullable();
 		    $table->integer('update_user')->nullable();
