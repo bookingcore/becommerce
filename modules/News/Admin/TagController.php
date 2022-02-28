@@ -4,6 +4,7 @@ namespace Modules\News\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\News\Models\Tag;
 use Illuminate\Support\Str;
 use Modules\News\Models\TagTranslation;
@@ -13,8 +14,8 @@ class TagController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/news');
         parent::__construct();
+        AdminMenuManager::setActive('news');
     }
 
     public function index(Request $request)
