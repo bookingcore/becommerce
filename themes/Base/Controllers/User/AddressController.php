@@ -79,7 +79,7 @@ class AddressController extends FrontendController
 
         if(!$address){
             $address = new UserAddress();
-            $address->type = $type == 'billing' ? 1 : 2;
+            $address->setAttribute('type',$type == 'billing' ? 1 : 2);
             $address->user_id = $user->id;
             $address->is_default = 1;
         }
