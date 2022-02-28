@@ -50,3 +50,19 @@
         </div>
     </div>
 @endsection
+@section('footer')
+    <script>
+        jQuery(function ($) {
+            $(window).on("load", function () {
+                var urlHash = window.location.href.split("#")[1];
+                if (urlHash &&  $('.' + urlHash).length ){
+                    new bootstrap.Tab(document.querySelector('#tab-review')).show();
+                    var offset_other = 70;
+                    $('html,body').animate({
+                        scrollTop: $('.' + urlHash).offset().top - offset_other
+                    }, 1000);
+                }
+            });
+        })
+    </script>
+@endsection
