@@ -318,6 +318,23 @@ class Product extends BaseProduct
         return __(":number Space", ['number' => $number]);
     }
 
+    public function getStockStatus(){
+        $stock = ''; $in_stock = true;
+        if ($this->is_manage_stock and $this->quantity){
+            $stock = __('In Stock');
+        } elseif(!$this->is_manage_stock and $this->stock_status == 'in') {
+            $stock = __('In Stock');
+        }else{
+            $stock = __('Out Of Stock');
+            $in_stock = false;
+        }
+
+        return [
+            'stock'     =>  $stock,
+            'in_stock'  =>  $in_stock
+        ];
+    }
+
 
     /**
      * Single Tabs
