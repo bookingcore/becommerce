@@ -3,8 +3,9 @@
         $list_variations = [];
         $list_attributes = [];
         foreach($product_variations as  $variation){
+            if(empty($variation->active)) continue;
             $term_ids = $variation->term_ids;
-            $list_variations[$variation->id] = ['variation_id'=>$variation->id];
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail()];
             foreach($row->attributes_for_variation_data as $item){
                 foreach($item['terms'] as $term){
                     if(in_array($term->id,$term_ids)){
@@ -47,5 +48,19 @@
                 </div>
             @endforeach
         @endif
+        <div class="mb-2">
+            <p class="mb-0 quantity d-none">
+                <span class="value"></span>
+                {{__("in stock")}}
+            </p>
+            <p class="mb-0 price d-none">
+                {{__("Price: ")}}
+                <span class="value"></span>
+            </p>
+            <p class="mb-0 sku d-none">
+                {{__("SKU: ")}}
+                <span class="value"></span>
+            </p>
+        </div>
     </div>
 @endif

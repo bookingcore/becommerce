@@ -728,6 +728,7 @@ jQuery(function ($) {
         // Find variation ID
         var list_variations = JSON.parse( $('.bc_variations').val() );
         var variation_id = '';
+        var variation_selected = '';
         for (var id in list_variations){
             var variation = list_variations[id];
             var terms = [];
@@ -738,11 +739,30 @@ jQuery(function ($) {
             let intersection = terms.filter(x => !list_attribute_selected.includes(x));
             if(intersection == ""){
                 variation_id = variation["variation_id"];
+                variation_selected = variation['variation'];
             }
         }
         console.log("Variation_id:" + variation_id);
         $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
-
+        // For show SKU PRICE IMAGE
+        if(variation_selected !== ""){
+            $('.bc-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
+            $('.bc-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
+            if(variation_selected.is_manage_stock){
+                $('.bc-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+            }else{
+                $('.bc-product-variations .quantity').addClass("d-none");
+            }
+            if(variation_selected.image){
+                var old = $(".bc-product_thumbnail .item-0 img").attr("src");
+                $(".bc-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
+            }
+        }else{
+            if($(".bc-product_thumbnail .item-0 img").attr("data-old")){
+                $(".bc-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
+            }
+            $('.bc-product-variations .price,.bc-product-variations .sku,.bc-product-variations .quantity').addClass('d-none');
+        }
         // Check show - hidden attribute
         var list_atttributes = [];
         for (var id in list_variations){
