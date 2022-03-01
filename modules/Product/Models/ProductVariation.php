@@ -171,6 +171,23 @@ class ProductVariation extends BaseProduct
         ];
     }
 
+    public function getAttributesForDetail()
+    {
+        return [
+            'product_id'=>$this->product_id,
+            'shipping_class'=>$this->shipping_class,
+            'name'=>$this->name,
+            'position'=>$this->position,
+            'sku'=>$this->sku,
+            'image'=>get_file_url($this->image_id,"full") ?? "",
+            'price'=>format_money($this->price),
+            'sold'=>$this->sold,
+            'quantity'=>$this->quantity,
+            'is_manage_stock'=>$this->is_manage_stock,
+            'stock_status'=>$this->stock_status,
+        ];
+    }
+
     // ham nay de lay gia ban, vi deu dung chung field la price nen a ko can viet vao day, neu ko phai la price thi co the doi o day
 //    public function getBuyablePrice($options = NULL){
 //
