@@ -44,7 +44,7 @@
                         <td>{{$row->stock}}</td>
                         <td><strong>{{format_money($row->price)}}</strong></td>
                         <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
-                        <td>{{$row::getTypeName()}}</td>
+                        <td>{{$row->type_name}}</td>
                         <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                         <td>{{display_datetime($row->created_at)}}</td>
                         <td>

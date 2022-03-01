@@ -81,6 +81,20 @@ class Product extends BaseProduct
         return __('Simple Product');
     }
 
+    public function getTypeNameAttribute(){
+        switch ($this->product_type){
+            case "simple":
+                return __('Simple Product');
+                break;
+            case "variable":
+                return __('Variable Product');
+                break;
+            case "external":
+                return __('External Product');
+                break;
+        }
+    }
+
     /**
      * Get SEO fop page list
      *

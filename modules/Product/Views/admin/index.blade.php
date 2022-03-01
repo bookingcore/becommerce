@@ -85,7 +85,7 @@
                                     <td class="title">
                                         <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
                                     </td>
-                                    <td>{{$row::getTypeName()}}</td>
+                                    <td>{{$row->type_name}}</td>
                                     <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ' '}}</td>
                                     <td>
                                         @if(!empty($row->author))
