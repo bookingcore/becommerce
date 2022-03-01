@@ -34,4 +34,13 @@ class PaymentGatewayManager
 
         return static::$_cached;
     }
+    public static function available(){
+        $all = static::all();
+        foreach ($all as $k=>$item){
+            if(!$item->isAvailable()){
+                unset($all[$k]);
+            }
+        }
+        return $all;
+    }
 }

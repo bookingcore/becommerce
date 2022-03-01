@@ -28,7 +28,7 @@
                 'items'=>CartManager::items(),
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
-                'gateways'=>get_payment_gateways(),
+                'gateways'=>get_active_payment_gateways(),
                 'user'=>$user,
                 'billing'=>$billing,
                 'breadcrumbs'=>[
@@ -96,12 +96,12 @@
                 'zip_code'=>$request->input('zip_code'),
             ];
 
-            $gateways = get_payment_gateways();
-            $gatewayObj = new $gateways[$payment_gateway]($payment_gateway);
+            $gateways = get_active_payment_gateways();
             if (!empty($rules['payment_gateway'])) {
-                if (empty($gateways[$payment_gateway]) or !class_exists($gateways[$payment_gateway])) {
+                if (empty($gateways[$payment_gateway])) {
                     return $this->sendError(__("Payment gateway not found"));
                 }
+                $gatewayObj = $gateways[$payment_gateway];
                 if (!$gatewayObj->isAvailable()) {
                     return $this->sendError(__("Payment gateway is not available"));
                 }
