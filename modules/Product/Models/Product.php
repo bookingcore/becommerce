@@ -318,53 +318,6 @@ class Product extends BaseProduct
         return __(":number Space", ['number' => $number]);
     }
 
-    public function getStockStatus(){
-        $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock > 0){
-            if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
-            }
-        } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
-            $stock = __('Out Of Stock');
-            $in_stock = false;
-        }
-        return [
-            'stock'     =>  $stock,
-            'in_stock'  =>  $in_stock
-        ];
-    }
-
-    public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
-
-        }
-    }
-    public function getStockStatusTextAttribute(){
-        if(!$this->manage_stock){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 1:
-                return __('In Stock');
-                break;
-            case 0:
-                return __("Out Stock");
-                break;
-
-        }
-    }
 
     /**
      * Single Tabs

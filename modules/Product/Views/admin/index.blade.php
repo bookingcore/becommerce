@@ -63,9 +63,11 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th width="100px"> {{ __('Picture')}}</th>
                             <th> {{ __('Name')}}</th>
-                            <th>{{__('Type')}}</th>
-                            <th>{{__('Category')}}</th>
+                            <th>{{__('SKU')}}</th>
+                            <th>{{__('Stock')}}</th>
+                            <th width="130px">{{__('Category')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
+                            <th>{{__('Type')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
                             @if(vendor_product_need_approve())
                                 <th > {{ __('Approved?')}}</th>
@@ -89,13 +91,24 @@
                                     <td class="title">
                                         <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
                                     </td>
-                                    <td>{{$row->type_name}}</td>
+                                    <td>{{$row->sku}}</td>
+                                    <td>
+                                        @if($row->is_manage_stock and $row->quantity)
+                                            <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
+
+                                        @elseif(!$row->is_manage_stock and $row->stock_status == 'in')
+                                            <strong class="text-success">{{__("In stock")}}</strong>
+                                        @else
+                                            <strong class="text-danger">{{__("Of of stock")}}</strong>
+                                        @endif
+                                    </td>
                                     <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ' '}}</td>
                                     <td>
                                         @if(!empty($row->author))
                                             {{$row->author->display_name}}
                                         @endif
                                     </td>
+                                    <td>{{$row->type_name}}</td>
                                     <td><span class="badge badge-{{ $row->status_badge }}">{{ $row->status }}</span></td>
                                     @if(vendor_product_need_approve())
                                         <td >
