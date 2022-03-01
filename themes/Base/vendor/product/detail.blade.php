@@ -107,12 +107,11 @@
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__('Publish')}}</strong></div>
                                 <div class="panel-body">
-                                    @if(is_default_lang())
+                                    @if(is_default_lang() and $row->is_approved)
                                         <div class="form-group">
                                             <label class="control-label mb-2">{{__('Status')}}</label>
                                             <select name="status" class="custom-select form-select">
                                                 <option value="publish">{{__("Publish")}}</option>
-                                                <option disabled @if($row->status=='pending') selected @endif value="pending">{{__("Pending")}}</option>
                                                 <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>
                                             </select>
                                         </div>

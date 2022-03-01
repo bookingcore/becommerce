@@ -17,6 +17,7 @@
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="publish">{{__("Move to Publish")}}</option>
                             <option value="pending">{{__("Move to Pending")}}</option>
+                            <option value="rejected">{{__("Move to Rejected")}}</option>
                             <option value="draft">{{__("Move to Draft")}}</option>
                             <option value="delete">{{__("Delete ")}}</option>
                         </select>
@@ -66,6 +67,9 @@
                             <th>{{__('Category')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
+                            @if(vendor_product_need_approve())
+                                <th > {{ __('Approved?')}}</th>
+                            @endif
                             <th width="100px"> {{ __('Reviews')}}</th>
                             <th width="100px"> {{ __('Date')}}</th>
                             <th width="100px"></th>
@@ -92,7 +96,12 @@
                                             {{$row->author->display_name}}
                                         @endif
                                     </td>
-                                    <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
+                                    <td><span class="badge badge-{{ $row->status_badge }}">{{ $row->status }}</span></td>
+                                    @if(vendor_product_need_approve())
+                                        <td >
+                                            <span class="badge badge-{{ $row->is_approved ? 'success' : 'draft' }}">{{ $row->is_approved  ? __("Approved") : '' }}</span>
+                                        </td>
+                                    @endif
                                     <td>
                                         <a target="_blank" href="{{ url("/admin/module/review?service_id=".$row->id) }}" class="review-count-approved">
                                             {{ $row->getNumberReviewsInService() }}

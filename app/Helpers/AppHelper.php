@@ -1110,6 +1110,9 @@ function status_to_text($status)
         case "fail":
             return __('Failed');
             break;
+        case "rejected":
+            return __('Rejected');
+            break;
         default:
             return ucfirst($status ?? '');
             break;
@@ -1566,4 +1569,7 @@ function main_locale(){
 }
 function is_payout_enable(){
     return !setting_item('disable_payout',0);
+}
+function vendor_product_need_approve(){
+    return (bool) setting_item('vendor_product_need_approve');
 }

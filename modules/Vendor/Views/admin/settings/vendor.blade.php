@@ -101,5 +101,6 @@
         </div>
     </div>
 </div>
+@include('Vendor::admin.settings.product')
 @include('Vendor::admin.settings.payout')
 

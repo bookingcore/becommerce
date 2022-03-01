@@ -61,6 +61,9 @@ class CreateProductTable extends Migration
             $table->string('external_url')->nullable();
             $table->string('button_text')->nullable();
 
+            //
+            $table->tinyInteger('is_approved')->nullable()->default(1);
+
             $table->bigInteger('author_id')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();

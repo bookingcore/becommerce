@@ -196,7 +196,8 @@ class ProductController extends AdminController
             'stock_status',
             'quantity',
             'button_text',
-            'external_url'
+            'external_url',
+            'is_approved'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
@@ -333,7 +334,15 @@ class ProductController extends AdminController
                         $query->where("author_id", Auth::id());
                         $this->checkPermission('product_update');
                     }
-                    $query->update(['status' => $action]);
+                    $data =['status' => $action];
+
+                    if(in_array($action,['rejected','pending'])){
+                        $data['is_approved'] = 0;
+                    }
+                    if(in_array($action,['publish'])){
+                        $data['is_approved'] = 1;
+                    }
+                    $query->update($data);
                 }
                 return redirect()->back()->with('success', __('Update success!'));
                 break;

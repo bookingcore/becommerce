@@ -42,31 +42,32 @@ class ModuleProvider extends ModuleServiceProvider
 
     public static function getAdminMenu()
     {
+        $count_pending = Product::query()->where('status','pending')->count('id');
         return [
             'product'=>[
                 "position"=>30,
-                'url'        => 'admin/module/product',
-                'title'      => __('Products'),
+                'url'        => route('product.admin.index'),
+                'title'      => __('Products :count',['count'=>$count_pending ? '<span class="badge badge-warning">'.$count_pending.'</span>' : '']),
                 'icon'       => 'icon ion-ios-cart',
                 'permission' => 'product_view',
                 'children'   => [
                     'add'=>[
-                        'url'        => 'admin/module/product',
+                        'url'        => route('product.admin.index'),
                         'title'      => __('All Products'),
                         'permission' => 'product_view',
                     ],
                     'create'=>[
-                        'url'        => 'admin/module/product/create',
+                        'url'        => route('product.admin.create'),
                         'title'      => __('Add new Product'),
                         'permission' => 'product_create',
                     ],
                     'category'=>[
-                        'url'        => 'admin/module/product/category',
+                        'url'        => route('product.admin.category.index'),
                         'title'      => __('Categories'),
                         'permission' => 'product_manage_others',
                     ],
                     'tag'=>[
-                        'url'        => 'admin/module/product/tag',
+                        'url'        => route('product.admin.tag.index'),
                         'title'      => __('Tags'),
                         'permission' => 'product_manage_others',
                     ],
@@ -76,7 +77,7 @@ class ModuleProvider extends ModuleServiceProvider
 	                    'permission' => 'product_manage_others',
                     ],
                     'attribute'=>[
-                        'url'        => 'admin/module/product/attribute',
+                        'url'        => route('product.admin.attribute.index'),
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
