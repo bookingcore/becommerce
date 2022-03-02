@@ -14,6 +14,6 @@ class VerifyEmail extends  \Illuminate\Auth\Notifications\VerifyEmail
     {
         return (new MailMessage)
             ->subject(__('Verify Email Address'))
-            ->view('user.verify-email',['url'=>$url]);
+            ->view('user.emails.verify-email',['url'=>$url]);
     }
 }

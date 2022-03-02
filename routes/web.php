@@ -48,9 +48,3 @@ Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@inde
 
 Route::get('/install','HomeController@redirectToRequirement')->name('LaravelInstaller::welcome');
 Route::get('/install/environment','HomeController@redirectToWizard')->name('LaravelInstaller::environment');
-
-Route::get('test',function(){
-    return (new MailMessage)
-        ->subject(__('Verify Email Address'))
-        ->view('user.emails.verify-email',['url'=>uniqid()]);
-});
