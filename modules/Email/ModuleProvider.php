@@ -5,6 +5,7 @@ namespace Modules\Email;
 
 
 use Illuminate\Mail\MailManager;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Email\Plugins\CssInlinerPlugin;
 use Modules\ModuleServiceProvider;
@@ -102,7 +103,12 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'html_keys' => [
 
-            ]
+            ],
+            'after_saving'=>[$this,'queueRestart']
         ];
+    }
+
+    public function queueRestart(){
+        Artisan::call('queue:restart');
     }
 }
