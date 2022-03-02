@@ -51,7 +51,7 @@ class ContactController extends Controller
             }
         }
         $row = new Contact($request->input());
-        $row->status = 'sent';
+        $row->status = 'new';
         if ($row->save()) {
             $this->sendEmail($row);
             $data = [
