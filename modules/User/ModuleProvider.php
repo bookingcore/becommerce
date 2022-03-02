@@ -144,9 +144,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'admin_content_email_user_registered',
                 'user_content_email_forget_password',
                 'inbox_enable',
-                'subject_email_verify_register_user',
-                'content_email_verify_register_user',
-                'enable_verify_email_register_user',
+                'enable_email_verification',
             ],
             'html_keys'=>[
 

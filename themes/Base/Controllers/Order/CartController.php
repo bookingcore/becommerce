@@ -33,7 +33,7 @@ class CartController extends FrontendController
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 
-        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_verify_email_register_user')==1){
+        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
             return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
         }
 
@@ -99,7 +99,7 @@ class CartController extends FrontendController
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 
-        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_verify_email_register_user')==1){
+        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
             return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
         }
 

@@ -16,9 +16,9 @@
                     <p>{{__("You have new order. Here is the order information:")}}</p>
                 @break
             @endswitch
-            @include('Order::emails.parts.order-detail')
-            @include('Order::emails.parts.customer-detail')
-            @include('Order::emails.parts.order-address')
+            @include('order.emails.parts.order-detail')
+            @include('order.emails.parts.customer-detail')
+            @include('order.emails.parts.order-address')
         </div>
     </div>
 @endsection

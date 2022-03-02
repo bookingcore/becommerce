@@ -73,7 +73,7 @@ class UserController extends FrontendController
                 'status'   => 'publish'
             ]);
 
-            if(!setting_item('enable_verify_email_register_user')){
+            if(!setting_item('enable_email_verification')){
                 $user->email_verified_at = Carbon::now();
             }
             $user->save();
