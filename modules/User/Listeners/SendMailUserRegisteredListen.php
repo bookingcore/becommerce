@@ -2,6 +2,7 @@
 
     namespace Modules\User\Listeners;
 
+    use Illuminate\Auth\Events\Registered;
     use Illuminate\Support\Facades\Mail;
     use Modules\User\Emails\RegisteredEmail;
     use Modules\User\Events\SendMailUserRegistered;
@@ -33,10 +34,10 @@
         /**
          * Handle the event.
          *
-         * @param Event $event
+         * @param Registered $event
          * @return void
          */
-        public function handle(SendMailUserRegistered $event)
+        public function handle(Registered $event)
         {
             if($event->user->locale){
                 $old = app()->getLocale();

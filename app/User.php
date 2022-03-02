@@ -278,12 +278,6 @@
             return parent::query()->whereIn('verify_submit_status',['new','partial'])->count(['id']);
         }
 
-        public function sendEmailVerificationNotification(){
-        	$actionUrl = $this->verificationUrl();
-	        Mail::to($this->email)->send(new EmailUserVerifyRegister($this, $actionUrl));
-        }
-
-
         public function verificationUrl(){
 	        return URL::temporarySignedRoute(
 		        'verification.verify',

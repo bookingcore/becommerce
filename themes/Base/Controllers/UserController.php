@@ -3,6 +3,8 @@
 namespace Themes\Base\Controllers;
 
 use App\Helpers\ReCaptchaEngine;
+use Carbon\Carbon;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -63,23 +65,27 @@ class UserController extends FrontendController
                 'errors' => $validator->errors()
             ]);
         } else {
-            $user = \App\User::create([
+            $user = new \App\User([
                 'first_name'     => strip_tags($request->input('first_name')),
                 'last_name'     => strip_tags($request->input('last_name')),
                 'email'    => strip_tags($request->input('email')),
                 'password' => strip_tags(Hash::make($request->input('password'))),
                 'status'   => 'publish'
             ]);
-            Auth::loginUsingId($user->id);
-            try {
 
-                event(new SendMailUserRegistered($user));
-
-            }catch (Exceptio $exception){
-                Log::warning("SendMailUserRegistered: ".$exception->getMessage());
+            if(!setting_item('enable_verify_email_register_user')){
+                $user->email_verified_at = Carbon::now();
             }
+            $user->save();
+
+            Auth::loginUsingId($user->id);
+
+            event(new Registered($user));
+
             $user->assignRole('customer');
+
             $url = $request->headers->get('referer');
+
             return $this->sendSuccess([
                 'error'    => false,
                 'messages'  => false,

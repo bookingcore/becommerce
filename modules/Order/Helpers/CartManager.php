@@ -256,6 +256,7 @@ class CartManager
         $order = new Order();
         $order->customer_id = auth()->id();
         $order->status = Order::DRAFT;
+        $order->locale = app()->getLocale();
         $order->save();
 
         $items = static::items();
@@ -271,6 +272,7 @@ class CartManager
             $order_item->status = Order::DRAFT;
             $order_item->meta = $item->meta;
             $order_item->variant_id = $item->variant_id;
+            $order_item->locale = app()->getLocale();
             $order_item->save();
         }
         $order->syncTotal();

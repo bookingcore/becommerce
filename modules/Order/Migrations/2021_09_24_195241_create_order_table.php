@@ -37,23 +37,8 @@ class CreateOrderTable extends Migration
 		    $table->string('first_name',255)->nullable();
 		    $table->string('last_name',255)->nullable();
 		    $table->string('phone',255)->nullable();
-		    $table->string('billing_address',255)->nullable();
-		    $table->string('billing_address2',255)->nullable();
-		    $table->string('billing_city',255)->nullable();
-		    $table->string('billing_state',255)->nullable();
-		    $table->string('billing_postcode',255)->nullable();
-		    $table->string('billing_country',255)->nullable();
-		    $table->string('billing_company',255)->nullable();
 
-	        $table->string('shipping_first_name',255)->nullable();
-		    $table->string('shipping_last_name',255)->nullable();
-		    $table->string('shipping_address',255)->nullable();
-		    $table->string('shipping_address2',255)->nullable();
-		    $table->string('shipping_city',255)->nullable();
-		    $table->string('shipping_state',255)->nullable();
-		    $table->string('shipping_postcode',255)->nullable();
-		    $table->string('shipping_country',255)->nullable();
-		    $table->string('shipping_company',255)->nullable();
+            $table->string('locale',10)->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
@@ -86,6 +71,8 @@ class CreateOrderTable extends Migration
 
             $table->decimal('commission_amount',10,2)->nullable()->default(0);
             $table->decimal('tax_amount',10,2)->nullable()->default(0);
+
+            $table->string('locale',10)->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();

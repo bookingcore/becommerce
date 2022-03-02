@@ -189,7 +189,7 @@ class Order extends BaseModel
 
         // Send Email
         if(setting_item('email_c_new_order_enable') and $this->customer) {
-            Mail::to($this->customer)->locale(main_locale())->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
+            Mail::to($this->customer)->locale($this->locale)->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
         }
         if(setting_item('email_v_new_order_enable') and is_vendor_enable()) {
             $vendors = $this->items->pluck('vendor_id')->all();

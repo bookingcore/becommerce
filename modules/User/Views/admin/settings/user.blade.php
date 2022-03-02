@@ -52,8 +52,8 @@
 <hr>
 <div class="row">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__('Content Email User Registered')}}</h3>
-        <div class="form-group-desc">{{ __('Content email send to Customer or Administrator when user registered.')}}
+        <h3 class="form-group-title">{{__('Registration')}}</h3>
+        <div class="form-group-desc">{{ __('Email send to Customer or Administrator when user registered.')}}
             @foreach(\Modules\User\Listeners\SendMailUserRegisteredListen::CODE as $item=>$value)
                 <div><code>{{$value}}</code></div>
             @endforeach
@@ -109,8 +109,8 @@
 <hr>
 <div class="row">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__('Content Email User Verify Registered')}}</h3>
-        <div class="form-group-desc">{{ __('Content email verify send to Customer when user registered.')}}
+        <h3 class="form-group-title">{{__('Email Verification')}}</h3>
+        <div class="form-group-desc">{{ __('Email verify send to Customer when user registered.')}}
             @foreach(\Modules\User\Emails\EmailUserVerifyRegister::CODE as $item=>$value)
                 <div><code>{{$value}}</code></div>
             @endforeach
@@ -121,7 +121,7 @@
             <div class="panel-body">
                 @if(is_default_lang())
                     <div class="form-group">
-                        <label> <input type="checkbox" @if($settings['enable_verify_email_register_user'] ?? '' == 1) checked @endif name="enable_verify_email_register_user" value="1"> {{__("Enable must verify email when customer registered ?")}}</label>
+                        <label> <input type="checkbox" @if(setting_item('enable_verify_email_register_user')) checked @endif name="enable_verify_email_register_user" value="1"> {{__("Yes, user must verify email after registration")}}</label>
                     </div>
                 @else
                     <div class="form-group">
