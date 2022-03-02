@@ -50,13 +50,13 @@ class ModuleProvider extends ModuleServiceProvider
 
         $options = [
             "position"=>70,
-            'url'        => 'admin/module/user',
+            'url'        => route('user.admin.index'),
             'title'      => __('Users :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'       => 'icon ion-ios-contacts',
             'permission' => 'user_manage',
             'children'   => [
                 'user'=>[
-                    'url'   => 'admin/module/user',
+                    'url'   => route('user.admin.index'),
                     'title' => __('All Users'),
                     'icon'  => 'fa fa-user',
                 ],
@@ -68,20 +68,26 @@ class ModuleProvider extends ModuleServiceProvider
                     'permission' => 'user_manage',
                 ],
                 'role'=>[
-                    'url'        => 'admin/module/user/role',
+                    'url'        => route('user.admin.role.index'),
                     'title'      => __('Role Manager'),
                     'permission' => 'role_manage',
                     'icon'       => 'fa fa-lock',
                 ],
                 'subscriber'=>[
-                    'url'        => 'admin/module/user/subscriber',
+                    'url'        => route('user.admin.subscriber.index'),
                     'title'      => __('Subscribers'),
                     'permission' => 'newsletter_manage',
                 ],
+                'contact'=>[
+                    'url'        => route('contact.admin.index'),
+                    'title'      => __('Contact'),
+                    'icon'       => 'fa fa-envelope',
+                    'permission' => 'contact_manage',
+                ]
             ]
         ];
         return [
-            'users'=> $options,
+            'user'=> $options,
         ];
     }
     public static function getUserMenu()

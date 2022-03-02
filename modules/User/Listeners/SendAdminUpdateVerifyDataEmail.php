@@ -30,7 +30,7 @@ class SendAdminUpdateVerifyDataEmail
      */
     public function handle(AdminUpdateVerificationData $event)
     {
-        Mail::to($event->user->email)->send(new AdminUpdateVerifyDataToUser($event->user,$event->is_update_full));
+        Mail::to($event->user->email)->queue(new AdminUpdateVerifyDataToUser($event->user,$event->is_update_full));
 
     }
 

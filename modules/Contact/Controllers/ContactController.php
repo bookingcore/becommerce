@@ -65,7 +65,7 @@ class ContactController extends Controller
     protected function sendEmail($contact){
         if($admin_email = setting_item('admin_email')){
             try {
-                Mail::to($admin_email)->send(new NotificationToAdmin($contact));
+                Mail::to($admin_email)->queue(new NotificationToAdmin($contact));
             }catch (Exception $exception){
                 Log::warning("Contact Send Mail: ".$exception->getMessage());
             }

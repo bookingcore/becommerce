@@ -3,6 +3,7 @@ namespace Modules\User\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Gig\Models\GigCategory;
 use Modules\Gig\Models\GigCategoryTranslation;
 use Modules\User\Models\Plan;
@@ -15,7 +16,7 @@ class PlanController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu(route('user.admin.plan.index'));
+        AdminMenuManager::setActive('user');
         $this->planClass = Plan::class;
     }
 

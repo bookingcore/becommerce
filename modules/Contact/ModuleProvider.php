@@ -14,8 +14,6 @@ class ModuleProvider extends ModuleServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         $sitemapHelper->add("contact",[Contact::class,"getForSitemap"]);
         BlockManager::register("contact_block",Contact::class);
-
-        AdminMenuManager::register("contact",[$this,'getAdminMenu']);
     }
 
     /**
@@ -31,19 +29,6 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getTemplateBlocks(){
         return [
             'contact_block'=>"\\Modules\\Contact\\Blocks\\Contact",
-        ];
-    }
-
-    public static function getAdminMenu()
-    {
-        return [
-            'contact'=>[
-                "position"=>60,
-                'url'        => route('contact.admin.index'),
-                'title'      => __('Contact'),
-                'icon'       => 'fa fa-envelope',
-                'permission' => 'contact_manage',
-            ],
         ];
     }
 }
