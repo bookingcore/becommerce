@@ -1914,6 +1914,7 @@ a:not(.button):hover {
   line-height: 1;
   vertical-align: middle;
   content: "\e002";
+  border-top: 0;
 }
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
   display: none;
@@ -1965,6 +1966,7 @@ a:not(.button):hover {
   font-size: 14px;
   display: flex;
   justify-content: center;
+  flex-direction: unset;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown {
   position: relative;
@@ -1980,6 +1982,7 @@ a:not(.button):hover {
   line-height: 1;
   vertical-align: middle;
   content: "\e002";
+  border-top: 0;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
   display: none;
