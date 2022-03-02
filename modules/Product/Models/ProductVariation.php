@@ -159,16 +159,31 @@ class ProductVariation extends BaseProduct
                 $stock = __(':count in stock',['count'=>$this->quantity]);
             }
         } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
-            $stock = __('Out Of Stock');
-            $in_stock = false;
+            if (  $this->stock_status == 'out'){
+                $stock = __('Out Of Stock');
+                $in_stock = false;
+            }else{
+                $stock = __('In Stock');
+            }
         }
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
+    }
+
+    public function isActive(){
+        if(empty($this->active)){
+            return false;
+        }
+        if ($this->is_manage_stock > 0){
+
+        }else{
+            if ($this->stock_status == 'out'){
+                return false;
+            }
+        }
+        return true;
     }
 
     public function getAttributesForDetail()
@@ -184,7 +199,7 @@ class ProductVariation extends BaseProduct
             'sold'=>$this->sold,
             'quantity'=>$this->quantity,
             'is_manage_stock'=>$this->is_manage_stock,
-            'stock_status'=>$this->stock_status,
+            'stock'=>$this->getStockStatus(),
         ];
     }
 
