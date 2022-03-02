@@ -11,7 +11,7 @@
             <div class="panel-body">
                 <div class="form-group">
                     <div class="form-controls">
-                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),$settings['currency_main'] ?? 'usd','bc-select2') !!}
+                        {!! \App\Helpers\AdminForm::select('currency_main',\App\Currency::getAll(),setting_item('currency_main','usd') ,'bc-select2') !!}
                     </div>
                 </div>
                 <div class="row">
@@ -228,7 +228,9 @@
                 $options = $obj->getOptionsConfigsFormatted();
             @endphp
             <div class="panel">
-                <div class="panel-title"><strong>{{$obj->name}}</strong>
+                <div class="panel-title">
+                    <i style="font-size: 20px" class="icon-check icon ion-ios-checkmark-circle mr-2  @if($obj->isAvailable()) text-success @endif"></i>
+                    <strong>{{$obj->name}}</strong>
                     <span data-toggle="collapse" href="#gateway_{{$k}}" class="panel-toggle btn btn-sm" ><i class="fa fa-chevron-down"></i></span>
                 </div>
                 <div class="panel-body collapse" id="gateway_{{$k}}">
