@@ -195,24 +195,11 @@ class ProductSeeder extends Seeder
 //            ]
 //        );
 
-
-
-
-
         //product search Sliders
-        $p_slider = [
-            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-1', 'file_path' => 'demo/templates/product-banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-banner-2', 'file_path' => 'demo/templates/product-banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-        ];
         DB::table('core_settings')->insertGetId([
             'name'  =>  'product_page_search_title',
             'group' =>  'product',
             'val'   =>  'Shop'
-        ]);
-        DB::table('core_settings')->insertGetId([
-            'name'  =>  'list_sliders',
-            'group' =>  'product',
-            'val'   =>  '[{"image_id":"'.$p_slider['image-1'].'","title":"banner 1","content":null},{"image_id":"'.$p_slider['image-2'].'","title":"Banner 2","content":null}]'
         ]);
         DB::table('core_settings')->insertGetId([
             'name'  =>  'product_policies',

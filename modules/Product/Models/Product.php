@@ -135,11 +135,13 @@ class Product extends BaseProduct
         $items = explode(",", $this->gallery);
         foreach ($items as $k => $item) {
             $large = FileHelper::url($item, 'full');
-            $thumb = FileHelper::url($item, 'thumb');
-            $list_item[] = [
-                'large' => $large,
-                'thumb' => $thumb
-            ];
+            if (!empty($large)){
+                $thumb = FileHelper::url($item, 'thumb');
+                $list_item[] = [
+                    'large' => $large,
+                    'thumb' => $thumb
+                ];
+            }
         }
         return $list_item;
     }

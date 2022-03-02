@@ -201,7 +201,6 @@ class ModuleProvider extends ModuleServiceProvider
 
                 'product_policies',
                 'product_sidebar',
-                'list_sliders'
             ],
             'html_keys'=>[
 
