@@ -19,6 +19,8 @@
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
+                                    <input type="hidden" name="from" value="{{ request()->get('from') ?? date('Y-m-0') }}">
+                                    <input type="hidden" name="to" value="{{ request()->get('to') ?? date('Y-m-d') }}">
                                     <button class="btn btn-default" type="submit">{{ __("OK") }}</button>
                                 </form>
                             </li>
@@ -141,8 +143,8 @@
             });
         });
 
-        var start = moment().startOf('month');
-        var end = moment();
+        var start = moment('{{ request()->get('from', date('Y-m-0')) }}');
+        var end = moment('{{ request()->get('to', date('Y-m-d')) }}');
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
@@ -154,7 +156,8 @@
             "showDropdowns": true
         }, cb).on('apply.daterangepicker', function (ev, picker) {
             // Reload Earning JS
-            console.log(112);
+            $('input[name="from"]').val(picker.startDate.format('YYYY-MM-DD'))
+            $('input[name="to"]').val(picker.endDate.format('YYYY-MM-DD'))
         });
         cb(start, end);
     </script>

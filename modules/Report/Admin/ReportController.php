@@ -28,17 +28,24 @@ class ReportController extends AdminController
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
                 for ($i = strtotime(date('Y-'.$last_month.'-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-'.$last_month.'-t')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d/m', $i);
+                    $labels[] = date('d M', $i);
                 }
             break;
             case 'this-month';
                 for ($i = strtotime(date('Y-m-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d/m', $i);
+                    $labels[] = date('d M', $i);
                 }
             break;
+            case 'custom';
+                $from = $request->get('from', date('Y-m-0'));
+                $to = $request->get('to', date('Y-m-d'));
+                for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
+                    $labels[] = date('d M', $i);
+                }
+                break;
             default;
                 for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d/m', $i);
+                    $labels[] = date('d M', $i);
                 }
             break;
         }
