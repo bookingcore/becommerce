@@ -5,7 +5,7 @@
         <input type="text" class="form-control" value="{{$product->sku}}" name="sku">
     </div>
 </div>
-<div class="form-group mb-3 align-items-center">
+<div class="form-group mb-3 align-items-center" data-condition="product_type:is(simple)">
     <label class="control-label mb-2">{{__('Manage Stock?')}}</label>
     <div class="controls">
         <label >
@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="form-group mb-3" data-condition="is_manage_stock:is()">
+<div class="form-group mb-3" data-condition="is_manage_stock:is(),product_type:is(simple)">
     <label class="control-label mb-2">{{__('Stock status')}}</label>
     <div class="controls">
         <select name="stock_status" class="form-control">
@@ -24,7 +24,7 @@
     </div>
 </div>
 
-<div class="form-group mb-3" data-condition="is_manage_stock:is(1)">
+<div class="form-group mb-3" data-condition="is_manage_stock:is(1),product_type:is(simple)">
     <label class="control-label mb-2">{{__('Stock quantity')}}</label>
     <div class="controls">
         <input type="number" min="0" class="form-control" value="{{$product->quantity}}" name="quantity">
