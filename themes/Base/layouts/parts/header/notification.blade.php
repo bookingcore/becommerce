@@ -79,7 +79,7 @@ $countUnread = $checkNotify->where('read_at', null)->count();
             @endif
         </div>
         <div class="dropdown-footer text-end mt-3 fs-14">
-            <a class="btn btn-primary fs-14 c-white" href="{{route('core.notification.loadNotify')}}">{{__('View More')}}</a>
+            <a class="btn btn-primary fs-14 c-white" href="{{route('user.notification')}}">{{__('View More')}}</a>
         </div>
     </ul>
 </li>

@@ -182,6 +182,9 @@ class BaseModel extends Model
             case "pending":
                 return "warning";
                 break;
+            case "rejected":
+                return "danger";
+                break;
             case "draft":
             default:
                 return "secondary";

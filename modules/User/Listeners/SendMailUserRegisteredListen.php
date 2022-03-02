@@ -45,7 +45,7 @@
 
             if (!empty(setting_item('enable_mail_user_registered'))) {
                 $body = $this->replaceContentEmail($event, setting_item_with_lang('user_content_email_registered',app()->getLocale()));
-                Mail::to($event->user->email)->send(new RegisteredEmail($event->user, $body, 'customer'));
+                Mail::to($event->user->email)->queue(new RegisteredEmail($event->user, $body, 'customer'));
             }
 
             if(!empty($old)){
@@ -54,7 +54,7 @@
 
             if (!empty(setting_item('admin_email') and !empty(setting_item_with_lang('admin_enable_mail_user_registered',app()->getLocale())))) {
                 $body = $this->replaceContentEmail($event, setting_item_with_lang('admin_content_email_user_registered',app()->getLocale()));
-                Mail::to(setting_item('admin_email'))->send(new RegisteredEmail($event->user, $body, 'admin'));
+                Mail::to(setting_item('admin_email'))->queue(new RegisteredEmail($event->user, $body, 'admin'));
             }
 
 

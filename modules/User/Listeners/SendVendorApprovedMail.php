@@ -46,7 +46,7 @@ class SendVendorApprovedMail
             app()->setLocale($event->user->locale);
         }
 
-        Mail::to($event->user->email)->send(new VendorApprovedEmail($event->user));
+        Mail::to($event->user->email)->queue(new VendorApprovedEmail($event->user));
 
         if(!empty($old)){
             app()->setLocale($old);

@@ -22,6 +22,9 @@
                     <th>{{__('Categories')}}</th>
                     <th>{{__('Type')}}</th>
                     <th>{{__('Status')}}</th>
+                    @if(vendor_product_need_approve())
+                        <th > {{ __('Approved?')}}</th>
+                    @endif
                     <th>{{__('Date')}}</th>
                     <th></th>
                 </tr>
@@ -41,11 +44,25 @@
                             </a>
                         </td>
                         <td>{{$row->sku}}</td>
-                        <td>{{$row->stock}}</td>
+                        <td>
+                            @if($row->is_manage_stock and $row->quantity)
+                                <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
+
+                            @elseif(!$row->is_manage_stock and $row->stock_status == 'in')
+                                <strong class="text-success">{{__("In stock")}}</strong>
+                            @else
+                                <strong class="text-danger">{{__("Of of stock")}}</strong>
+                            @endif
+                        </td>
                         <td><strong>{{format_money($row->price)}}</strong></td>
                         <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
-                        <td>{{$row::getTypeName()}}</td>
+                        <td>{{$row->type_name}}</td>
                         <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
+                        @if(vendor_product_need_approve())
+                            <td >
+                                <span class="badge bg-{{ $row->is_approved ? 'success' : 'secondary' }}">{{ $row->is_approved  ? __("Approved") : '' }}</span>
+                            </td>
+                        @endif
                         <td>{{display_datetime($row->created_at)}}</td>
                         <td>
                             <div class="dropdown">

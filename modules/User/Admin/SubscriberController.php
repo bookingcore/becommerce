@@ -2,6 +2,7 @@
 namespace Modules\User\Admin;
 
 use App\User;
+use Modules\Core\Helpers\AdminMenuManager;
 use function Clue\StreamFilter\fun;
 use Illuminate\Http\Request;
 use Modules\AdminController;
@@ -13,6 +14,7 @@ class SubscriberController extends AdminController
     public function __construct()
     {
         parent::__construct();
+        AdminMenuManager::setActive('user');
     }
 
     public function index(Request $request)

@@ -36,6 +36,7 @@
                 a.dropdown-toggle:after {
                     @include themecustom-icon;
                     content: themecustom-char(angle-down);
+                    border-top: 0;
                 }
                 ul.dropdown-menu {
                     display: none;
@@ -96,11 +97,13 @@
                 font-size: 14px;
                 display: flex;
                 justify-content: center;
+                flex-direction: unset;
                  li.dropdown {
                     position: relative;
                     a.dropdown-toggle:after {
                         @include themecustom-icon;
                         content: themecustom-char(angle-down);
+                        border-top: 0;
                     }
                      ul.dropdown-menu {
                         display: none;

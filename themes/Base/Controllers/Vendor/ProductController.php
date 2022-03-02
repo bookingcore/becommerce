@@ -128,6 +128,13 @@ class ProductController extends FrontendController
             $this->checkPermission('product_update');
         }
 
+        if(vendor_product_need_approve() and !$row->id){
+            $row->status = 'pending';
+        }
+        if($row->status == 'rejected'){
+            $row->status = 'pending';
+        }
+
         $dataKeys = [
             'title',
             'content',
@@ -147,6 +154,9 @@ class ProductController extends FrontendController
             'button_text',
             'external_url'
         ];
+        if($row->is_approved){
+            $dataKeys[] = 'status';
+        }
         $row->fillByAttr($dataKeys,$request->input());
 
         $row->saveWithTranslation($request->input('lang'));

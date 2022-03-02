@@ -22,7 +22,6 @@ Route::get('social-callback/{provider}', 'Auth\LoginController@socialCallBack');
 Route::match(['get'],'/contact','\Modules\Contact\Controllers\ContactController@index'); // Contact
 Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactController@store'); // Contact
 
-Route::get('/test_functions', 'HomeController@test');
 
 //Homepage
 Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');

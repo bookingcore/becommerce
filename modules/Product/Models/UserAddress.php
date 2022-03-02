@@ -31,7 +31,6 @@ class UserAddress extends BaseModel
             $this->company,
             $this->address,
             $this->address2,
-            $this->address2,
             $this->city.', '.$this->state.' '.$this->post_code,
             get_country_name($this->country)
         ];

@@ -81,6 +81,20 @@ class Product extends BaseProduct
         return __('Simple Product');
     }
 
+    public function getTypeNameAttribute(){
+        switch ($this->product_type){
+            case "simple":
+                return __('Simple Product');
+                break;
+            case "variable":
+                return __('Variable Product');
+                break;
+            case "external":
+                return __('External Product');
+                break;
+        }
+    }
+
     /**
      * Get SEO fop page list
      *
@@ -308,51 +322,21 @@ class Product extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock > 0){
-            if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
-            }
-        } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
+        if ($this->is_manage_stock and $this->quantity){
+            $stock = __('In Stock');
+        } elseif(!$this->is_manage_stock and $this->stock_status == 'in') {
+            $stock = __('In Stock');
+        }else{
             $stock = __('Out Of Stock');
             $in_stock = false;
         }
+
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
     }
 
-    public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
-
-        }
-    }
-    public function getStockStatusTextAttribute(){
-        if(!$this->manage_stock){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 1:
-                return __('In Stock');
-                break;
-            case 0:
-                return __("Out Stock");
-                break;
-
-        }
-    }
 
     /**
      * Single Tabs

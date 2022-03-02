@@ -111,7 +111,7 @@
 		var p = $(this).closest('.tab-pane');
 		var gr = p.closest('.product-information-tabs');
 		BCApp.showConfirm({
-			message:i18n.delete_confirm,
+			message:i18n.confirm_delete,
 			callback:function(result){
 				if(!result) return;
 				gr.addClass('loading');

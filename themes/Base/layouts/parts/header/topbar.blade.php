@@ -21,7 +21,6 @@
                             <a href="#register" data-bs-toggle="modal" data-target="#register" class="signup  nav-link  text-white">{{__('Sign Up')}}</a>
                         </li>
                     @else
-                        @include('layouts.parts.header.notification')
                         @include('layouts.parts.header.user')
                     @endif
                 </ul>

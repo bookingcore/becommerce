@@ -7,7 +7,6 @@ Route::get('/custom-css','StyleController@customCss')->name('core.style.customCs
 Route::group(['prefix'=>'notify','middleware'=>'auth'],function(){
     Route::post('markAsRead','NotificationController@markAsRead')->name('core.notification.markAsRead');
     Route::post('markAllAsRead','NotificationController@markAllAsRead')->name('core.notification.markAllAsRead');
-    Route::get('notifications','NotificationController@loadNotify')->name('core.notification.loadNotify');
 });
 
 Route::get('sitemap.xml','SitemapController@index')->name('sitemap.index');

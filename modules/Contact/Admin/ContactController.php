@@ -7,6 +7,7 @@
  */
 namespace Modules\Contact\Admin;
 
+use Modules\Core\Helpers\AdminMenuManager;
 use function Clue\StreamFilter\fun;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +18,7 @@ class ContactController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/report');
+        AdminMenuManager::setActive('user');
         parent::__construct();
     }
 
@@ -26,7 +27,7 @@ class ContactController extends AdminController
         $this->checkPermission('contact_manage');
 
         $s = $request->query('s');
-        $datapage = New Contact;
+        $datapage = Contact::query();
         if ($s) {
             $datapage->where(function ($query) use ($s){
                 $query->where('name', 'LIKE', '%' . $s . '%')
@@ -40,7 +41,7 @@ class ContactController extends AdminController
             'breadcrumbs' => [
                 [
                     'name' => __('Contact Submissions'),
-                    'url'  => 'admin/module/contact'
+                    'url'  => route('contact.admin.index')
                 ],
                 [
                     'name'  => __('All'),
