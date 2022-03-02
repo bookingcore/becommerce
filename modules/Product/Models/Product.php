@@ -81,6 +81,20 @@ class Product extends BaseProduct
         return __('Simple Product');
     }
 
+    public function getTypeNameAttribute(){
+        switch ($this->product_type){
+            case "simple":
+                return __('Simple Product');
+                break;
+            case "variable":
+                return __('Variable Product');
+                break;
+            case "external":
+                return __('External Product');
+                break;
+        }
+    }
+
     /**
      * Get SEO fop page list
      *
@@ -306,51 +320,21 @@ class Product extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock > 0){
-            if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
-            }
-        } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
+        if ($this->is_manage_stock and $this->quantity){
+            $stock = __('In Stock');
+        } elseif(!$this->is_manage_stock and $this->stock_status == 'in') {
+            $stock = __('In Stock');
+        }else{
             $stock = __('Out Of Stock');
             $in_stock = false;
         }
+
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
     }
 
-    public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
-
-        }
-    }
-    public function getStockStatusTextAttribute(){
-        if(!$this->manage_stock){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 1:
-                return __('In Stock');
-                break;
-            case 0:
-                return __("Out Stock");
-                break;
-
-        }
-    }
 
     /**
      * Single Tabs
@@ -461,13 +445,15 @@ class Product extends BaseProduct
 
     public function addToCartValidate($qty=1, $variant_id=null)
     {
-        if($this->price == null && $this->sale_price == null){
-            throw  new \Exception('This content must set price. Please contact with author.');
+        if($this->status != 'publish'){
+
+            throw  new \Exception(__("Product is not published yet"));
         }
+
         if(!empty($variant_id)){
             $variation = $this->variations()->where('id',$variant_id)->first();
             if(!$variation){
-                throw  new \Exception('This variation not found. Please contact with author.');
+                throw  new \Exception('Variation not found..');
             }
         }
 //        gop chung bang product va variant product
@@ -536,25 +522,25 @@ class Product extends BaseProduct
         return '';
     }
 
-    public static function search($fill)
+    public static function search($filters)
     {
 
         $query = parent::query()->select("products.*");
 
         $query->where("products.status", "publish");
 
-        if (!empty($fill['min_price']) and !empty($fill['max_price'])) {
+        if (!empty($filters['min_price']) and !empty($filters['max_price'])) {
             $raw_sql_min_max = "( products.price >= ? and products.price <= ? )";
-            $query->whereRaw($raw_sql_min_max,[$fill['min_price'],$fill['max_price']]);
+            $query->whereRaw($raw_sql_min_max,[$filters['min_price'],$filters['max_price']]);
         }
 
-        if (!empty($fill['terms']) and is_array($fill['terms'])) {
-            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $fill['terms']);
+        if (!empty($filters['terms']) and is_array($filters['terms'])) {
+            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $filters['terms']);
         }
 
-        if (!empty($fill['review_score']) && is_array($fill['review_score'])) {
+        if (!empty($filters['review_score']) && is_array($filters['review_score'])) {
             $where_review_score = [];
-            foreach ($fill['review_score'] as $number){
+            foreach ($filters['review_score'] as $number){
                 $decrease_number = $number - 1;
                 $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
             }
@@ -562,39 +548,44 @@ class Product extends BaseProduct
             $query->WhereRaw($sql_where_review_score);
         }
 
-        if (!empty($fill['brand']) && is_array($fill['brand'])){
-            $query->whereIn('products.brand_id', $fill['brand']);
+        if (!empty($filters['brand']) && is_array($filters['brand'])){
+            $query->whereIn('products.brand_id', $filters['brand']);
         }
 
-        if (!empty($fill['tag'])){
-            $tag_id = Tag::select('id')->where('slug',$fill['tag'])->first()->getAttribute('id');
+        if (!empty($filters['tag'])){
+            $tag_id = Tag::select('id')->where('slug',$filters['tag'])->first()->getAttribute('id');
             $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
         }
 
-        if (!empty($fill['cat_ids'])) {
-            $category_ids = $fill['cat_ids'];
+        if (!empty($filters['cat_ids'])) {
+            $category_ids = $filters['cat_ids'];
             $query->join('product_category_relations', function ($join) use ($category_ids) {
                 $join->on('products.id', '=', 'product_category_relations.target_id')
                     ->whereIn('product_category_relations.cat_id', $category_ids);
             });
         }
 
-        if (!empty($fill['category_id'])){
-            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $fill['category_id']);
+        if (!empty($filters['category_id'])){
+            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $filters['category_id']);
         }
 
-        if (!empty($fill['s'])){
-            $search = $fill['s'];
+        if (!empty($filters['s'])){
+            $search = $filters['s'];
             $query->where('products.title','LIKE',"%$search%");
         }
 
-        if(!empty($fill['is_featured']))
+        if(!empty($filters['is_featured']))
         {
             $query->where('products.is_featured',1);
         }
 
-        $orderby = $fill['order_by'] ?? "desc";
-        $order = $fill['order'] ?? $fill['sort'] ?? "id";
+        if(!empty($filters['vendor_id']))
+        {
+            $query->where('products.author_id',$filters['vendor_id']);
+        }
+
+        $orderby = $filters['order_by'] ?? "desc";
+        $order = $filters['order'] ?? $filters['sort'] ?? "id";
 
         switch ($order){
             case "price_asc":
@@ -615,8 +606,7 @@ class Product extends BaseProduct
                 $query->orderBy("id", "desc");
         }
         $query->groupBy("products.id");
-        $limit = $fill['limit'] ?? 12;
-        return $query->with(['hasWishList','brand'])->paginate($limit);
+        return $query->with(['hasWishList','brand']);
     }
 
 

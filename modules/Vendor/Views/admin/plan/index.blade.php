@@ -10,15 +10,15 @@
         </div>
         @include('Layout::admin.message')
         <div class="filter-div d-flex justify-content-between ">
-            <div class="col-left"> 
+            <div class="col-left">
                 @if(!empty($rows))
                 <form method="post" action="{{url('admin/module/vendor/plan/bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                     {{csrf_field()}}
                     <select name="action" class="form-control">
                         <option value="">{{__(" Bulk Actions ")}}</option>
-                        <option value="publish">{{__(" Publish ")}}</option> 
+                        <option value="publish">{{__(" Publish ")}}</option>
                         <option value="draft">{{__(" Move to Draft ")}}</option>
-                        <option value="delete">{{__(" Delete ")}}</option> 
+                        <option value="delete">{{__(" Delete ")}}</option>
                     </select>
                     <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
                 </form>
@@ -31,7 +31,7 @@
                 </form>
             </div>
         </div>
-        <div class="panel"> 
+        <div class="panel">
             <div class="panel-body">
                 <form action="" class="bravo-form-item">
                     <table class="table table-hover">
@@ -52,7 +52,7 @@
                                         <td class="title">
                                             <a href="{{url('admin/module/vendor/plan/edit/'.$row->id)}}"> {{$row->name}}  </a>
                                         </td>
-                                        <td class="author">{{$row->getAuthor->getDisplayName() ?? ''}} </td>
+                                        <td class="author">{{$row->getAuthor->display_name ?? ''}} </td>
                                         <td class="date">{{ display_date($row->updated_at)}}</td>
                                         <td> <span class="badge badge-{{ $row->status }}">{{ $row->status }}</span> </td>
                                     </tr>

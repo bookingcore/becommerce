@@ -82,7 +82,7 @@ class RouterServiceProvider extends ServiceProvider
      */
     protected function mapAdminRoutes()
     {
-        Route::middleware(['web','dashboard'])
+        Route::middleware(['web','dashboard','verified'])
             ->namespace($this->adminModuleNamespace)
             ->prefix('admin/module/product')
             ->group(__DIR__ . '/Routes/admin.php');

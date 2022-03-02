@@ -4,6 +4,7 @@ namespace Modules\News\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\News\Models\NewsCategory;
 use Illuminate\Support\Str;
 use Modules\News\Models\NewsCategoryTranslation;
@@ -12,8 +13,8 @@ class CategoryController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/news');
         parent::__construct();
+        AdminMenuManager::setActive('news');
     }
 
     public function index(Request $request)
@@ -84,7 +85,7 @@ class CategoryController extends AdminController
 
         $row->fill($request->input());
         $row->slug = $request->input('slug');
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
             if($id > 0 ){

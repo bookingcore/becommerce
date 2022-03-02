@@ -72,7 +72,7 @@
                     <div class="form-group">
                         <div class="form-controls">
                             <div class="form-group">
-                                <label> <input type="checkbox" @if($settings['vendor_auto_approved'] ?? '' == 1) checked @endif name="vendor_auto_approved" value="1"> {{__("Vendor Auto Approved?")}}</label>
+                                <label> <input type="checkbox" @if(setting_item('vendor_auto_approved')) checked @endif name="vendor_auto_approved" value="1"> {{__("Vendor Auto Approved?")}}</label>
                             </div>
                         </div>
                     </div>
@@ -101,5 +101,6 @@
         </div>
     </div>
 </div>
+@include('Vendor::admin.settings.product')
 @include('Vendor::admin.settings.payout')
 

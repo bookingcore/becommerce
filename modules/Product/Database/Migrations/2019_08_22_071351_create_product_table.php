@@ -61,6 +61,9 @@ class CreateProductTable extends Migration
             $table->string('external_url')->nullable();
             $table->string('button_text')->nullable();
 
+            //
+            $table->tinyInteger('is_approved')->nullable()->default(1);
+
             $table->bigInteger('author_id')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
@@ -246,7 +249,7 @@ class CreateProductTable extends Migration
 		    $table->string('email')->nullable();
 		    $table->string('phone')->nullable();
 
-		    $table->tinyInteger('type')->nullable()->default(1)->comment('1: Billing, 2: Shipping');
+		    $table->tinyInteger('address_type')->nullable()->default(1)->comment('1: Billing, 2: Shipping');
 		    $table->tinyInteger('is_default')->nullable()->default(0);
 		    $table->integer('create_user')->nullable();
 		    $table->integer('update_user')->nullable();

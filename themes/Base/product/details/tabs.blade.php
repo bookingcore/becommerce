@@ -14,7 +14,7 @@ $score_total = $reviewData['score_total'];
                     @endphp
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link @if(!$k) active @endif" data-bs-toggle="tab" data-bs-target="#tab_{{$k}}" aria-current="page" href="#">{{ $tab_name }}</a>
+                    <a id="tab-{{ $tab['id'] }}" class="nav-link @if(!$k) active @endif tab-{{ $tab['id'] }}" data-bs-toggle="tab" data-bs-target="#tab_{{$k}}" aria-current="page" href="#tab_{{$k}}">{{ $tab_name }}</a>
                 </li>
             @endforeach
         @endif

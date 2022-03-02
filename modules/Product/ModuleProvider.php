@@ -42,31 +42,32 @@ class ModuleProvider extends ModuleServiceProvider
 
     public static function getAdminMenu()
     {
+        $count_pending = Product::query()->where('status','pending')->count('id');
         return [
             'product'=>[
                 "position"=>30,
-                'url'        => 'admin/module/product',
-                'title'      => __('Products'),
+                'url'        => route('product.admin.index'),
+                'title'      => __('Products :count',['count'=>$count_pending ? '<span class="badge badge-warning">'.$count_pending.'</span>' : '']),
                 'icon'       => 'icon ion-ios-cart',
                 'permission' => 'product_view',
                 'children'   => [
                     'add'=>[
-                        'url'        => 'admin/module/product',
+                        'url'        => route('product.admin.index'),
                         'title'      => __('All Products'),
                         'permission' => 'product_view',
                     ],
                     'create'=>[
-                        'url'        => 'admin/module/product/create',
+                        'url'        => route('product.admin.create'),
                         'title'      => __('Add new Product'),
                         'permission' => 'product_create',
                     ],
                     'category'=>[
-                        'url'        => 'admin/module/product/category',
+                        'url'        => route('product.admin.category.index'),
                         'title'      => __('Categories'),
                         'permission' => 'product_manage_others',
                     ],
                     'tag'=>[
-                        'url'        => 'admin/module/product/tag',
+                        'url'        => route('product.admin.tag.index'),
                         'title'      => __('Tags'),
                         'permission' => 'product_manage_others',
                     ],
@@ -76,7 +77,7 @@ class ModuleProvider extends ModuleServiceProvider
 	                    'permission' => 'product_manage_others',
                     ],
                     'attribute'=>[
-                        'url'        => 'admin/module/product/attribute',
+                        'url'        => route('product.admin.attribute.index'),
                         'title'      => __('Attributes'),
                         'permission' => 'product_manage_attributes',
                     ],
@@ -126,39 +127,26 @@ class ModuleProvider extends ModuleServiceProvider
 
     public static function getAdminProductTabs(){
         return [
-            "general"=>[
+            "pricing"=>[
                 'position'=>10,
-                "icon"=>"fa fa-home",
-                "title"=>__("General"),
-                "view"=>"Product::admin.product.general"
+                "icon"=>"fa fa-money",
+                "title"=>__("Pricing"),
+                "view"=>"Product::admin.product.pricing",
+                "hide_in_sub_language"=>1
             ],
             "external"=>[
-                'position'=>15,
+                'position'=>20,
                 "icon"=>"fa fa-external-link",
                 "title"=>__("External"),
                 "view"=>"Product::admin.product.external",
                 "hide_in_sub_language"=>1,
                 "condition"=>"product_type:is(external)",
             ],
-            "pricing"=>[
-                'position'=>20,
-                "icon"=>"fa fa-money",
-                "title"=>__("Pricing"),
-                "view"=>"Product::admin.product.pricing",
-                "hide_in_sub_language"=>1
-            ],
             "inventory"=>[
                 'position'=>30,
                 "icon"=>"fa fa-archive",
                 "title"=>__("Inventory"),
                 "view"=>"Product::admin.product.inventory",
-                "hide_in_sub_language"=>1
-            ],
-            "categories"=>[
-                'position'=>40,
-                "icon"=>"fa fa-book",
-                "title"=>__("Categories"),
-                "view"=>"Product::admin.product.categories",
                 "hide_in_sub_language"=>1
             ],
             "attributes"=>[
@@ -175,12 +163,6 @@ class ModuleProvider extends ModuleServiceProvider
                 "view"=>"Product::admin.product.variations",
                 "condition"=>"product_type:is(variable)",
                 "hide_in_sub_language"=>1
-            ],
-            "seo"=>[
-                'position'=>70,
-                "icon"=>"fa fa-flag",
-                "title"=>__("SEO"),
-                "view"=>"Core::admin.seo-meta.seo-meta"
             ],
 
         ];
@@ -203,7 +185,7 @@ class ModuleProvider extends ModuleServiceProvider
             'view'=>"Product::admin.settings.product",
             "keys"=>[
                 'product_page_search_title',
-                'products_per_page',
+                'product_per_page',
                 'product_page_list_seo_title',
                 'product_page_list_seo_desc',
                 'product_page_list_seo_image',

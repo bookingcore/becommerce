@@ -10,11 +10,19 @@ class DashboardController extends AdminController
     public function index()
     {
         $f = strtotime('monday this week');
-        $data = [
-            'recent_orders'    => $this->getRecentOrders(),
-            'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
-            'earning_chart_data' => [],//Order::getDashboardChartData($f, time())
-        ];
+        if(!is_admin()){
+            $data = [
+                'recent_orders'    => [],
+                'top_cards'          => [],
+                'earning_chart_data' => [],//Order::getDashboardChartData($f, time())
+            ];
+        }else{
+            $data = [
+                'recent_orders'    => $this->getRecentOrders(),
+                'top_cards'          => $this->getTopCardsReport(['range_type'=>'this_month']),
+                'earning_chart_data' => [],//Order::getDashboardChartData($f, time())
+            ];
+        }
         return view('Dashboard::index', $data);
     }
 

@@ -1,4 +1,4 @@
-<form class="bc-form {{$class ?? ''}}" method="post">
+<form class="bc-form bc-form-register {{$class ?? ''}}" method="post">
     @csrf
     <div class="bc-form__content">
         <div class="row">
@@ -26,7 +26,7 @@
         <div class="form-group mb-3">
             <label for="term2">
                 <input id="term2" type="checkbox" name="term" class="mr5">
-                {!! __("I have read and accept the <a href=':link' target='_blank'>Terms and Privacy Policy</a>",['link'=>get_page_url(setting_item('booking_term_conditions'))]) !!}
+                {!! __("I have read and accept the <a href=':link' target='_blank'>Terms and Privacy Policy</a>",['link'=>get_page_url(setting_item('order_term_conditions'))]) !!}
                 <span class="checkmark fcheckbox"></span>
             </label>
             <div><span class="invalid-feedback error error-term"></span></div>
@@ -48,6 +48,6 @@
     @include("auth.social")
     <div class="c-grey f14 text-center mb-5">
        {{__(" Already have an account?")}}
-        <a href="#" data-target="#login" data-toggle="modal">{{__("Log In")}}</a>
+        <a href="#login" data-target="#login" data-bs-toggle="modal">{{__("Log In")}}</a>
     </div>
 </form>

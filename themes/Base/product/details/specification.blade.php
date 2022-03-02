@@ -1,6 +1,9 @@
 <div class="bc-product_specification mb-2 fs-14">
-    @if($row->sku)
+    @if($row->sku and $row->product_type != "variable")
         <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
+    @endif
+    @if($row->quantity and $row->product_type == "simple" and $row->is_manage_stock)
+        <p class="mb-0"><strong>{{__("Quantity: ")}}</strong> {{$row->quantity}} {{__("in stock")}}</p>
     @endif
     @if(!empty($row->categories))
         <p class="categories mb-0">

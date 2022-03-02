@@ -4,6 +4,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryTranslation;
 
@@ -12,7 +13,7 @@ class CategoryController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
     }
 
     public function index(Request $request)

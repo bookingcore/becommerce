@@ -3,6 +3,7 @@ namespace Modules\News\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Language\Models\Language;
 use Modules\News\Models\NewsCategory;
 use Modules\News\Models\News;
@@ -12,8 +13,8 @@ class NewsController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/news');
         parent::__construct();
+        AdminMenuManager::setActive('news');
     }
 
     public function index(Request $request)

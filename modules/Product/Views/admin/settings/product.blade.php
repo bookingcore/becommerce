@@ -17,7 +17,7 @@
                     <div class="form-group">
                         <label class="" >{{__("Products Per Page")}}</label>
                         <div class="form-controls">
-                            <input type="number" name="products_per_page" value="{{setting_item_with_lang('products_per_page',request()->query('lang'), 12)}}" class="form-control">
+                            <input type="number" name="product_per_page" value="{{setting_item('product_per_page',12)}}" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

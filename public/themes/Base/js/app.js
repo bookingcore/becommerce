@@ -32,7 +32,7 @@ $('.bc-form-login').on('submit',function (e) {
     var form = $(this);
     var data = form.serialize()
     $.ajax({
-        'url': '/login',
+        'url':  BC.routes.login,
         'data': data,
         'type': 'POST',
         beforeSend: function () {
@@ -59,7 +59,13 @@ $('.bc-form-login').on('submit',function (e) {
                 window.location.href = data.redirect
             }
             if(typeof data.two_factor === 'undefined' || !data.two_factor){
-                window.location.reload();
+                var redirect = form.find('[name=redirect]').val();
+                console.log(redirect);
+                if(redirect){
+                    window.location.href = redirect;
+                }else{
+                    window.location.reload();
+                }
             }
         },
         error:function (e){
@@ -71,6 +77,43 @@ $('.bc-form-login').on('submit',function (e) {
         }
     });
     return false;
+});
+$('.bc-form-register').on('submit',function (e) {
+    e.preventDefault();
+    let form = $(this);
+    var data = form.serialize()
+    $.ajax({
+        'url':  BC.routes.register,
+        'data': data,
+        'type': 'POST',
+        beforeSend: function () {
+            form.addClass('loading');
+            form.find('.error').hide();
+            form.find('.icon-loading').css("display", 'inline-block');
+        },
+        success: function (data) {
+            form.removeClass('loading')
+            form.find('.icon-loading').hide();
+            if(typeof data =='undefined') return;
+            if (data.error === true) {
+                if (data.errors !== undefined) {
+                    for(var item in data.errors) {
+                        var msg = data.errors[item];
+                        form.find('.error-'+item).show().text(msg[0]);
+                    }
+                }
+            }
+            if (typeof data.redirect !== 'undefined' && data.redirect) {
+                window.location.href = data.redirect
+            }
+        },
+        error:function (e) {
+            form.find('.icon-loading').hide();
+            if(typeof e.responseJSON !== "undefined" && typeof e.responseJSON.message !='undefined'){
+                form.find('.message-error').show().html('<div class="alert alert-danger">' + e.responseJSON.message + '</div>');
+            }
+        }
+    });
 })
 window.bravo_handle_error_response = function(e){
     switch (e.status) {
@@ -446,6 +489,11 @@ jQuery(function ($) {
                 if(res.status){
                     $this.toggleClass('active');
                 }
+                if(res.fragments){
+                    for(var k in res.fragments){
+                        $(k).html(res.fragments[k]);
+                    }
+                }
             },
             error:function (e) {
                 if(e.status === 401){
@@ -680,6 +728,7 @@ jQuery(function ($) {
         // Find variation ID
         var list_variations = JSON.parse( $('.bc_variations').val() );
         var variation_id = '';
+        var variation_selected = '';
         for (var id in list_variations){
             var variation = list_variations[id];
             var terms = [];
@@ -690,11 +739,30 @@ jQuery(function ($) {
             let intersection = terms.filter(x => !list_attribute_selected.includes(x));
             if(intersection == ""){
                 variation_id = variation["variation_id"];
+                variation_selected = variation['variation'];
             }
         }
         console.log("Variation_id:" + variation_id);
         $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
-
+        // For show SKU PRICE IMAGE
+        if(variation_selected !== ""){
+            $('.bc-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
+            $('.bc-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
+            if(variation_selected.is_manage_stock){
+                $('.bc-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+            }else{
+                $('.bc-product-variations .quantity').addClass("d-none");
+            }
+            if(variation_selected.image){
+                var old = $(".bc-product_thumbnail .item-0 img").attr("src");
+                $(".bc-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
+            }
+        }else{
+            if($(".bc-product_thumbnail .item-0 img").attr("data-old")){
+                $(".bc-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
+            }
+            $('.bc-product-variations .price,.bc-product-variations .sku,.bc-product-variations .quantity').addClass('d-none');
+        }
         // Check show - hidden attribute
         var list_atttributes = [];
         for (var id in list_variations){
@@ -722,4 +790,10 @@ jQuery(function ($) {
         });
     });
 
+    $(document).on('click','.btn-confirm-del',function (e) {
+        var c = confirm(i18n.confirm_delete);
+        if(!c){
+            return false;
+        }
+    })
 });

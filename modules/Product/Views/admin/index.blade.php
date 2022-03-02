@@ -15,9 +15,11 @@
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
-                            <option value="publish">{{__(" Publish ")}}</option>
-                            <option value="draft">{{__(" Move to Draft ")}}</option>
-                            <option value="delete">{{__(" Delete ")}}</option>
+                            <option value="publish">{{__("Move to Publish")}}</option>
+                            <option value="pending">{{__("Move to Pending")}}</option>
+                            <option value="rejected">{{__("Move to Rejected")}}</option>
+                            <option value="draft">{{__("Move to Draft")}}</option>
+                            <option value="delete">{{__("Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
                     </form>
@@ -61,10 +63,15 @@
                             <th width="60px"><input type="checkbox" class="check-all"></th>
                             <th width="100px"> {{ __('Picture')}}</th>
                             <th> {{ __('Name')}}</th>
-                            <th>{{__('Type')}}</th>
-                            <th>{{__('Category')}}</th>
+                            <th>{{__('SKU')}}</th>
+                            <th>{{__('Stock')}}</th>
+                            <th width="130px">{{__('Category')}}</th>
                             <th width="130px"> {{ __('Author')}}</th>
+                            <th>{{__('Type')}}</th>
                             <th width="100px"> {{ __('Status')}}</th>
+                            @if(vendor_product_need_approve())
+                                <th > {{ __('Approved?')}}</th>
+                            @endif
                             <th width="100px"> {{ __('Reviews')}}</th>
                             <th width="100px"> {{ __('Date')}}</th>
                             <th width="100px"></th>
@@ -84,16 +91,30 @@
                                     <td class="title">
                                         <a href="{{route('product.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
                                     </td>
-                                    <td>{{$row::getTypeName()}}</td>
+                                    <td>{{$row->sku}}</td>
+                                    <td>
+                                        @if($row->is_manage_stock and $row->quantity)
+                                            <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
+
+                                        @elseif(!$row->is_manage_stock and $row->stock_status == 'in')
+                                            <strong class="text-success">{{__("In stock")}}</strong>
+                                        @else
+                                            <strong class="text-danger">{{__("Of of stock")}}</strong>
+                                        @endif
+                                    </td>
                                     <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ' '}}</td>
                                     <td>
                                         @if(!empty($row->author))
-                                            {{$row->author->getDisplayName()}}
-                                        @else
-                                            {{__("[Author Deleted]")}}
+                                            {{$row->author->display_name}}
                                         @endif
                                     </td>
-                                    <td><span class="badge badge-{{ $row->status }}">{{ $row->status }}</span></td>
+                                    <td>{{$row->type_name}}</td>
+                                    <td><span class="badge badge-{{ $row->status_badge }}">{{ $row->status }}</span></td>
+                                    @if(vendor_product_need_approve())
+                                        <td >
+                                            <span class="badge badge-{{ $row->is_approved ? 'success' : 'draft' }}">{{ $row->is_approved  ? __("Approved") : '' }}</span>
+                                        </td>
+                                    @endif
                                     <td>
                                         <a target="_blank" href="{{ url("/admin/module/review?service_id=".$row->id) }}" class="review-count-approved">
                                             {{ $row->getNumberReviewsInService() }}

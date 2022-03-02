@@ -1,9 +1,5 @@
 <?php
-
-
 namespace Themes\Base\Controllers\Vendor;
-
-
 use App\Helpers\ReCaptchaEngine;
 use App\User;
 use Illuminate\Http\Request;
@@ -24,7 +20,8 @@ class RegisterController extends FrontendController
 
     public function index(){
 
-        $this->validateRequest();
+        $check = $this->validateRequest();
+        if($check !== true) return $check;
 
         $data = [
             'page_title'=>__("Sell on Us")
@@ -33,7 +30,9 @@ class RegisterController extends FrontendController
     }
 
     public function store(Request $request){
-        $this->validateRequest();
+
+        $check = $this->validateRequest();
+        if($check !== true) return $check;
 
         $messages = [
             'email.required'      => __('Email is required field'),
@@ -45,16 +44,21 @@ class RegisterController extends FrontendController
             'business_name.required'  => __('The business name is required field'),
             'term.required'       => __('Please read and accept terms and conditions'),
         ];
-        $request->validate([
+        $validates = [
             'first_name'=>'required',
             'last_name'=>'required',
             'business_name'=>'required',
             'email'=>[
                 'required','email',Rule::unique('users')
             ],
-            'password'=>'required|confirmed|min:8',
+            'password'=>'required|confirmed|min:6',
             'term'=>'required'
-        ],$messages);
+        ];
+        if(\auth()->user()){
+            unset($validates['email']);
+            unset($validates['password']);
+        }
+        $request->validate($validates,$messages);
 
         if (ReCaptchaEngine::isEnable() and setting_item("vendor_enable_register_recaptcha")) {
             $codeCapcha = $request->input('g-recaptcha-response');
@@ -72,7 +76,7 @@ class RegisterController extends FrontendController
             'status'     => 'publish'
         ];
 
-        if(\auth()->check()){
+        if(\auth()->user()){
             $user = \auth()->user();
             unset($data['password']);
             unset($data['status']);
@@ -91,15 +95,16 @@ class RegisterController extends FrontendController
             $dataVendor['status']='pending';
         }
         $dataVendor['role_request']= setting_item('vendor_role',3);
-        $user->assignRole($dataVendor['role_request']);
+        $dataVendor['user_id'] = $user->id;
+        $user->assignRole((int)$dataVendor['role_request']);
 
-        $user->vendorRequest()->save( new VendorRequest($dataVendor));
+        $vendor_request = VendorRequest::create($dataVendor);
 
-        if(\auth()->check()) {
+        if(!\auth()->check()) {
             Auth::login($user);
-            event(new VendorRegisteredEvent($user, $user->vendorRequest));
+            event(new VendorRegisteredEvent($user, $vendor_request));
         }else{
-            event(new UpgradeRequestCreated($user, $user->vendorRequest));
+            event(new UpgradeRequestCreated($user, $vendor_request));
         }
 
         if(is_vendor()){
@@ -124,6 +129,7 @@ class RegisterController extends FrontendController
             }
         }
 
+        return true;
     }
 
 }

@@ -4,6 +4,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attributes;
 use Modules\Core\Models\AttributesTranslation;
 use Modules\Core\Models\Terms;
@@ -14,7 +15,7 @@ class AttributeController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
         parent::__construct();
     }
 

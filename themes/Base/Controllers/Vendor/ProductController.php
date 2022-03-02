@@ -128,6 +128,13 @@ class ProductController extends FrontendController
             $this->checkPermission('product_update');
         }
 
+        if(vendor_product_need_approve() and !$row->id){
+            $row->status = 'pending';
+        }
+        if($row->status == 'rejected'){
+            $row->status = 'pending';
+        }
+
         $dataKeys = [
             'title',
             'content',
@@ -147,6 +154,9 @@ class ProductController extends FrontendController
             'button_text',
             'external_url'
         ];
+        if($row->is_approved){
+            $dataKeys[] = 'status';
+        }
         $row->fillByAttr($dataKeys,$request->input());
 
         $row->saveWithTranslation($request->input('lang'));
@@ -162,6 +172,17 @@ class ProductController extends FrontendController
         return redirect(route('vendor.product.edit',$row->id))->with('success', $id ? __('Product updated') : __("Product created") );
 
     }
+
+    public function delete($id)
+    {
+        $this->checkPermission('product_delete');
+        $query = Product::where("author_id", auth()->id())->where("id", $id)->first();
+        if (!empty($query)) {
+            $query->delete();
+        }
+        return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
+    }
+
     public function saveTags($row, $tags_name, $tag_ids)
     {
         if (empty($tag_ids))

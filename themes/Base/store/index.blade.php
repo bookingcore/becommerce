@@ -9,7 +9,7 @@
                     @include("store.sidebar")
                 </div>
                 <div class="col-md-8">
-                    <h3 class="mb-2">{{__("Hi, I'm :name",['name'=>$user->getDisplayName()])}}</h3>
+                    <h3 class="mb-2">{{__("Hi, I'm :name",['name'=>$user->display_name])}}</h3>
                     <div class="mb-3">{!! $user->bio !!}</div>
                     <div class="div">
                         <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3">

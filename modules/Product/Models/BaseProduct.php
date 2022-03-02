@@ -164,6 +164,10 @@ class BaseProduct extends BaseModel
     {
         return $this->productOnHold()->sum('qty');
     }
+    public function getRemainStockAttribute()
+    {
+        return $this->quantity - $this->on_hold;
+    }
 
     public function stockValidation($qty)
     {

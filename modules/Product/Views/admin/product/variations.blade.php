@@ -1,6 +1,6 @@
 <div class="variation-actions">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-xl-8">
             <div class="d-flex align-items-center">
                 <div class="mr-3 flex-shrink-0" ><strong>{{__('Bulk Action')}}: </strong></div>
                 <div class="input-group ajax-bulk-action-variations" >
@@ -20,4 +20,4 @@
 
 </div>
 <hr>
-<a href="#" class="btn btn-primary btn-sm btn-save-variations">{{__('Save variations')}}</a>
+<a href="#" class="btn btn-primary btn-sm btn-save-variations"><i class="fa fa-save"></i> {{__('Save variations')}}</a>

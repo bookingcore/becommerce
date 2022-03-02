@@ -1,6 +1,5 @@
 (function ($) {
     'use strict';
-
     $('.ajax-add-term input').on('keypress',function (e) {
         var code = e.keyCode || e.which;
         if (code == 13) {
@@ -65,7 +64,34 @@
 					// reloadVariations();
 				}
 				if(json.message){
-					BCApp.showSuccess(json);
+					//BCApp.showSuccess(json);
+				}
+			},
+			error:function (e) {
+				gr.removeClass('loading');
+				BCApp.showAjaxError(e);
+			}
+		});
+	});
+
+	$('.btn-save-attributes').on('click',function(e){
+		e.preventDefault();
+		var p = $(this).closest('.tab-pane');
+		var gr = p.closest('.product-information-tabs');
+		gr.addClass('loading');
+		var data = p.find('input,textarea,select').serialize();
+		data+='&product_id=' + p.data('product-id');
+		$.ajax({
+			url:BC.url+'/admin/module/product/ajaxSaveTerms',
+			data:data,
+			type:'post',
+			success:function (json) {
+				gr.removeClass('loading');
+				if(json.status){
+					// reloadVariations();
+				}
+				if(json.message){
+					//BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
@@ -85,7 +111,7 @@
 		var p = $(this).closest('.tab-pane');
 		var gr = p.closest('.product-information-tabs');
 		BCApp.showConfirm({
-			message:i18n.delete_confirm,
+			message:i18n.confirm_delete,
 			callback:function(result){
 				if(!result) return;
 				gr.addClass('loading');

@@ -1065,6 +1065,9 @@ function size_unit_format($number=''){
 function get_payment_gateways(){
     return \Modules\Order\Helpers\PaymentGatewayManager::all();
 }
+function get_active_payment_gateways(){
+    return \Modules\Order\Helpers\PaymentGatewayManager::available();
+}
 
 function get_current_currency($need,$default = '')
 {
@@ -1106,6 +1109,9 @@ function status_to_text($status)
             break;
         case "fail":
             return __('Failed');
+            break;
+        case "rejected":
+            return __('Rejected');
             break;
         default:
             return ucfirst($status ?? '');
@@ -1357,20 +1363,7 @@ function block_attrs( $pairs, $models ) {
 function home_url(){
     return url(app_get_locale(false,'/'));
 }
-function get_payment_gateway_objects(){
 
-    $all = get_payment_gateways();
-    $res = [];
-    foreach ($all as $k => $item) {
-        if (class_exists($item)) {
-            $obj = new $item($k);
-            if ($obj->isAvailable()) {
-                $res[$k] = $obj;
-            }
-        }
-    }
-    return $res;
-}
 
 function cancellation_reason($key = false){
     $cr = [
@@ -1576,4 +1569,7 @@ function main_locale(){
 }
 function is_payout_enable(){
     return !setting_item('disable_payout',0);
+}
+function vendor_product_need_approve(){
+    return (bool) setting_item('vendor_product_need_approve');
 }

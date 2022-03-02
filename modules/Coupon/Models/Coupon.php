@@ -176,7 +176,7 @@ class Coupon extends BaseModel
                 foreach ($users as $user){
                     $data[] = [
                         'id'   => $user->id,
-                        'text' => "(#{$user->id}): {$user->getDisplayName()}"
+                        'text' => "(#{$user->id}): {$user->display_name}"
                     ];
                 }
             }
