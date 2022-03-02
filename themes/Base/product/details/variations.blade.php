@@ -3,7 +3,7 @@
         $list_variations = [];
         $list_attributes = [];
         foreach($product_variations as  $variation){
-            if(empty($variation->active)) continue;
+            if(empty($variation->isActive())) continue;
             $term_ids = $variation->term_ids;
             $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail()];
             foreach($row->attributes_for_variation_data as $item){

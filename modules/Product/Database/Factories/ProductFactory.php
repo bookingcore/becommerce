@@ -87,7 +87,7 @@ class ProductFactory extends Factory
             );
             $product->variations()->createMany([
                 [
-                    'price'         =>  '22',
+                    'price'         =>  '',
                     'stock_status'  =>  'in',
                     'active'        =>  '1',
                 ]
