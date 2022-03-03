@@ -16,8 +16,49 @@ class ReportController extends AdminController
     public function overview(Request $request){
 
         $this->checkPermission('report_view');
+        $range = $request->get('range', 'last7days');
+        $labels = [];
+        switch ($range){
+            case 'year';
+                $year = date("Y");
+                for ($month = 1; $month <= 12; $month++){
+                    $labels[] = date('F', strtotime($year . "-" . $month . "-01"));
+                }
+                break;
+            case 'last-month';
+                $last_month = Date("m", strtotime("first day of previous month"));
+                for ($i = strtotime(date('Y-'.$last_month.'-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-'.$last_month.'-t')); $i += DAY_IN_SECONDS ){
+                    $labels[] = date('d M', $i);
+                }
+            break;
+            case 'this-month';
+                for ($i = strtotime(date('Y-m-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
+                    $labels[] = date('d M', $i);
+                }
+            break;
+            case 'custom';
+                $from = $request->get('from', date('Y-m-0'));
+                $to = $request->get('to', date('Y-m-d'));
+                for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
+                    $labels[] = date('d M', $i);
+                }
+                break;
+            default;
+                for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
+                    $labels[] = date('d M', $i);
+                }
+            break;
+        }
+
+        $report_chart_data = [
+            'labels' => $labels,
+            'datasets' => [
+                []
+            ]
+        ];
 
         $data = [
+            'report_chart_data' => $report_chart_data,
             'breadcrumbs'        => [
                 [
                     'name'  => __('Overview'),
