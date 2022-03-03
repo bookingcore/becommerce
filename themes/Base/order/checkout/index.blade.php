@@ -7,6 +7,17 @@
             @if(\Modules\Order\Helpers\CartManager::count())
             <div class="row">
                 <div class="column col-lg-8 col-md-12 col-sm-12">
+                    @if(!auth()->check())
+                        <div class="card">
+                            <div class="card-header">
+                                {{__("Already have an account")}}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{__('Login to save your order')}}</h5>
+                                <a href="#" class="btn btn-primary">{{__("Login now")}}</a>
+                            </div>
+                        </div>
+                    @endif
                     @include ('order.checkout.billing')
                     @include ('order.checkout.shipping')
                 </div>

@@ -6,6 +6,8 @@
 
     use App\Currency;
     use App\Helpers\ReCaptchaEngine;
+    use App\User;
+    use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
@@ -79,10 +81,8 @@
             if ($validator->fails()) {
                 return $this->sendError('', ['errors' => $validator->errors()]);
             }
-
 //            Create order and on-hold order
             $order = CartManager::order();
-
 
             $order->gateway = $payment_gateway;
             $billing_data = [
@@ -98,6 +98,7 @@
                 'postcode'=>$request->input('billing_postcode'),
                 'company'=>$request->input('billing_company'),
             ];
+            $billing_data['email'] = trim(strtolower($billing_data['email']));
             $shipping_data = [
                 'email'=>$request->input('shipping_email'),
                 'first_name'=>$request->input('shipping_first_name'),
@@ -134,15 +135,20 @@
             $payment->save();
 
             $order->payment_id = $payment->id;
+
+            if($user) {
+                //update or create user billing
+                $user->billing_address()->updateOrCreate([], $billing_data);
+                $user->shipping_address()->updateOrCreate([], $shipping_data);
+            }else{
+                $user = $this->tryCreateUser($billing_data);
+            }
+            $order->customer_id = $user->id;
             $order->save();
 
             //            save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
-
-            //update or create user billing
-            $user->billing_address()->updateOrCreate([],$billing_data);
-            $user->shipping_address()->updateOrCreate([],$shipping_data);
             try {
                 $res = $gatewayObj->process($payment);
 
@@ -164,7 +170,31 @@
                 ]);
 
             }catch (\Throwable $throwable){
-                return $this->sendError($throwable->getMessage());
+                return $this->sendError($throwable->getMessage(),[
+                    'url' => $order->getDetailUrl()
+                ]);
             }
+        }
+
+        protected function tryCreateUser($billing_data){
+            $user = User::query()->where('email',$billing_data['email']);
+            if($user){
+                return $user;
+            }
+            $data = [
+                'first_name'=>$billing_data['first_name'],
+                'last_name'=>$billing_data['last_name'],
+                'phone'=>$billing_data['phone'],
+                'email'=>$billing_data['email'],
+                'status'=>'publish'
+            ];
+            $user = new User();
+            $user->fillByAttr(array_keys($data),$data);
+            if(!setting_item('enable_email_verification')){
+                $user->email_verified_at = Carbon::now();
+            }
+            $user->save();
+
+            return $user;
         }
     }
