@@ -2,7 +2,7 @@
     <div class="bc-review-list">
         @if($rows)
             @foreach($rows as $item)
-                @php $userInfo = $item->author; if(!$userInfo){ continue; }@endphp
+                @php $userInfo = $item->vendor; if(!$userInfo){ continue; }@endphp
                 <div class="review-item border-bottom pt-2 pb-2 mb-3 fs-14">
                     <div class="d-flex align-items-start">
                         <img class="flex-shrink-0 me-3 rounded-circle w-75px h-75px" src="{{$userInfo->avatar_url}}" alt="{{$userInfo->display_name}}">
