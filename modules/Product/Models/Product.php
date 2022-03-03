@@ -36,7 +36,7 @@ class Product extends BaseProduct
         'video',
         'price',
         'sale_price',
-        'status'
+        'status',
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
