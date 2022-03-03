@@ -200,7 +200,7 @@ class ProductController extends Controller
         }
         session(['compare' => $compare]);
         $data = [
-            'compare'   =>  session('compare'),
+            'compare' => get_compare_details(),
         ];
         return [
             'count' =>  count($compare),
