@@ -163,7 +163,7 @@
                     <div class="form-group">
                         <div class="form-controls">
                             <label class="">{{__("Email")}}</label>
-                            <input type="email" class="form-control" id="to-email-testing" name="to_email_test"/>
+                            <input type="email" class="form-control" autocomplete="none" id="to-email-testing" name="to_email_test"/>
                         </div>
                         <div class="form-controls">
                             <br>
@@ -193,13 +193,13 @@
                     <div class="form-group">
                         <label>{{__("Admin Email")}}</label>
                         <div class="form-controls">
-                            <input type="email" class="form-control" name="admin_email" value="{{ setting_item('admin_email') }}">
+                            <input type="email" class="form-control" autocomplete="off" name="admin_email" value="{{ setting_item('admin_email') }}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label>{{__("Email From Name")}}</label>
                         <div class="form-controls">
-                            <input type="text" class="form-control" name="email_from_name" value="{{ setting_item('email_from_name') }}">
+                            <input type="text" class="form-control" autocomplete="false" name="email_from_name" value="{{ setting_item('email_from_name') }}">
                         </div>
                     </div>
                     <div class="form-group">
