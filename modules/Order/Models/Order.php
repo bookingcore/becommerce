@@ -205,4 +205,40 @@ class Order extends BaseModel
         }
     }
 
+    public function getOrderReportData($from, $to){
+        $report_data = new \stdClass();
+        $dataOrder = parent::query()
+            ->selectRaw('sum(`total`) as total_price')
+            ->whereBetween('created_at', [$from, $to])
+            ->where('status', self::COMPLETED)
+            ->first();
+
+        //Gross Sales
+        $report_data->gloss_sales = $dataOrder->total_price ?? 0;
+
+        //Net Sales
+        $report_data->net_sales = 0;
+
+        //Orders Placed
+        $report_data->orders_placed = parent::query()
+            ->whereBetween('created_at', [$from, $to])
+            ->where('status', self::COMPLETED)
+            ->get()->count();
+
+        //Items Purchased
+        $report_data->items_purchased = OrderItem::query()
+            ->whereHas('order', function ($q) use ($from, $to){
+                $q->whereBetween('created_at', [$from, $to]);
+                $q->where('status', self::COMPLETED);
+            })->get()->count();
+
+        //Charged for shipping
+        $report_data->total_shipping = 0;
+
+        //Worth of coupons used
+        $report_data->coupons_used = 0;
+
+        return $report_data;
+    }
+
 }

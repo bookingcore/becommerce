@@ -1595,3 +1595,12 @@ function get_compare_details(){
     }
     return $compare;
 }
+
+function report_set_data_chart(&$chart_data, $report_data){
+    $chart_data['datasets'][0]['data'][] = $report_data->gloss_sales;
+    $chart_data['datasets'][1]['data'][] = $report_data->net_sales;
+    $chart_data['datasets'][2]['data'][] = $report_data->orders_placed;
+    $chart_data['datasets'][3]['data'][] = $report_data->items_purchased;
+    $chart_data['datasets'][4]['data'][] = $report_data->total_shipping;
+    $chart_data['datasets'][5]['data'][] = $report_data->coupons_used;
+}
