@@ -1,5 +1,5 @@
 <div class="order-box">
-    <h3>{{__('Your Order')}}</h3>
+    <h3>{{__('Summary')}}</h3>
     <table class="table">
         <thead>
         <tr>
@@ -14,6 +14,14 @@
             <td class="product-name">
                 {{$cartItem->name}}
 
+                @if($variation = $cartItem->variation and $terms = $variation->terms())
+                    &mdash;
+                    @foreach($terms as $k=>$term)
+                        @if($k) - @endif
+                        {{$term->attribute->name}}: {{$term->name}}
+                    @endforeach
+
+                @endif
                 @if(!empty($cartItem->meta['package']))
                     <div class="mt-3">{{__('Package: ')}} {{package_key_to_name($cartItem->meta['package'])}} ({{format_money($cartItem->price)}})</div>
                 @endif

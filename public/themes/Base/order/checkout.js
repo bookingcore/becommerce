@@ -7,7 +7,8 @@
             message:{
                 content:'',
                 type:false
-            }
+            },
+            shipping_same_address:1
         },
         methods:{
             doCheckout(){
@@ -76,4 +77,5 @@
             }
         }
     })
+
 })(jQuery)
