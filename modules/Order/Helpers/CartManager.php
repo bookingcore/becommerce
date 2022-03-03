@@ -33,7 +33,7 @@ class CartManager
             }
             static::pushItem($item);
         }else{
-            $item->qty += 1;
+            $item->qty += $qty;
             $item->updatePrice();
 
             static::save();;
