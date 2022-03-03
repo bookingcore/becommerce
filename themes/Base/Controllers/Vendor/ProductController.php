@@ -6,7 +6,7 @@ namespace Themes\Base\Controllers\Vendor;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
@@ -76,7 +76,7 @@ class ProductController extends FrontendController
             'tabs' => get_admin_product_tabs(),
             'categories'  => ProductCategory::get()->toTree(),
             "selected_terms" => $row->terms->pluck('term_id'),
-            'attributes'     => Attributes::query()->where('service', 'product')->get(),
+            'attributes'     => Attribute::query()->where('service', 'product')->get(),
             'product'=>$row
         ];
         return view('vendor.product.detail', $data);
@@ -104,7 +104,7 @@ class ProductController extends FrontendController
             'tabs' => get_admin_product_tabs(),
             'categories'  => ProductCategory::get()->toTree(),
             "selected_terms" => [],
-            'attributes'     => Attributes::query()->where('service', 'product')->get(),
+            'attributes'     => Attribute::query()->where('service', 'product')->get(),
             'product'=>$row
         ];
         return view('vendor.product.detail', $data);

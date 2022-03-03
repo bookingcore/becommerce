@@ -5,10 +5,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\AttributesTranslation;
-use Modules\Core\Models\Terms;
-use Modules\Core\Models\TermsTranslation;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\AttributeTranslation;
+use Modules\Core\Models\Term;
+use Modules\Core\Models\TermTranslation;
 use Illuminate\Support\Facades\DB;
 
 class AttributeController extends AdminController
@@ -22,15 +22,15 @@ class AttributeController extends AdminController
     public function index(Request $request)
     {
         $this->checkPermission('product_manage_attributes');
-        $listAttr = Attributes::where("service", 'product');
+        $listAttr = Attribute::where("service", 'product');
         if (!empty($search = $request->query('s'))) {
             $listAttr->where('name', 'LIKE', '%' . $search . '%');
         }
         $listAttr->orderBy('created_at', 'desc');
         $data = [
             'rows'        => $listAttr->get(),
-            'row'         => new Attributes(),
-            'translation'    => new AttributesTranslation(),
+            'row'         => new Attribute(),
+            'translation'    => new AttributeTranslation(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -47,7 +47,7 @@ class AttributeController extends AdminController
 
     public function edit(Request $request, $id)
     {
-        $row = Attributes::find($id);
+        $row = Attribute::find($id);
         if (empty($row)) {
             abort(404);
         }
@@ -56,7 +56,7 @@ class AttributeController extends AdminController
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
-            'rows'        => Attributes::where("service", 'product')->get(),
+            'rows'        => Attribute::where("service", 'product')->get(),
             'row'         => $row,
             'breadcrumbs' => [
                 [
@@ -85,12 +85,12 @@ class AttributeController extends AdminController
         ]);
         $id = $request->input('id');
         if ($id) {
-            $row = Attributes::find($id);
+            $row = Attribute::find($id);
             if (empty($row)) {
                 abort(404);
             }
         } else {
-            $row = new Attributes($request->input());
+            $row = new Attribute($request->input());
             $row->service = 'product';
         }
         $row->fill($request->input());
@@ -116,7 +116,7 @@ class AttributeController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = Attributes::where("id", $id);
+                $query = Attribute::where("id", $id);
                 $query->first()->delete();
             }
         }
@@ -126,11 +126,11 @@ class AttributeController extends AdminController
     public function terms(Request $request, $attr_id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Attributes::find($attr_id);
+        $row = Attribute::find($attr_id);
         if (empty($row)) {
             abort(404);
         }
-        $listTerms = Terms::where("attr_id", $attr_id);
+        $listTerms = Term::where("attr_id", $attr_id);
         if (!empty($search = $request->query('s'))) {
             $listTerms->where('name', 'LIKE', '%' . $search . '%');
         }
@@ -138,8 +138,8 @@ class AttributeController extends AdminController
         $data = [
             'rows'        => $listTerms->paginate(20),
             'attr'        => $row,
-            "row"         => new Terms(),
-            'translation'    => new TermsTranslation(),
+            "row"         => new Term(),
+            'translation'    => new TermTranslation(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -161,7 +161,7 @@ class AttributeController extends AdminController
     public function term_edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Attributes::select('core_terms.*','core_attrs.name as attr_name','core_attrs.display_type')->from('core_attrs')->join('core_terms','core_terms.attr_id','=','core_attrs.id')->where('core_terms.id',$id)->first();
+        $row = Attribute::select('core_terms.*','core_attrs.name as attr_name','core_attrs.display_type')->from('core_attrs')->join('core_terms','core_terms.attr_id','=','core_attrs.id')->where('core_terms.id',$id)->first();
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
         }
@@ -201,12 +201,12 @@ class AttributeController extends AdminController
         ]);
         $id = $request->input('id');
         if ($id) {
-            $row = Terms::find($id);
+            $row = Term::find($id);
             if (empty($row)) {
                 abort(404);
             }
         } else {
-            $row = new Terms($request->input());
+            $row = new Term($request->input());
             $row->attr_id = $request->input('attr_id');
         }
         $row->fill($request->input());
@@ -223,7 +223,7 @@ class AttributeController extends AdminController
             'name' => 'required',
             'attr_id'=>'required'
         ]);
-        $row = new Terms($request->input());
+        $row = new Term($request->input());
         $row->attr_id = $request->input('attr_id');
         $row->fill($request->input());
         $res = $row->saveWithTranslation($request->input('lang'));
@@ -249,7 +249,7 @@ class AttributeController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = Terms::where("id", $id);
+                $query = Term::where("id", $id);
                 $query->first()->delete();
             }
         }
@@ -264,7 +264,7 @@ class AttributeController extends AdminController
         if($pre_selected && $selected){
             if(is_array($selected))
             {
-                $query = Terms::getForSelect2Query('product');
+                $query = Term::getForSelect2Query('product');
                 $items = $query->whereIn('core_terms.id',$selected)->take(50)->get();
                 return response()->json([
                     'items'=>$items
@@ -282,7 +282,7 @@ class AttributeController extends AdminController
             }
         }
         $q = $request->query('q');
-        $query = Terms::getForSelect2Query('product',$q);
+        $query = Term::getForSelect2Query('product',$q);
         $res = $query->orderBy('core_terms.id', 'desc')->limit(20)->get();
         return response()->json([
             'results' => $res

@@ -3,8 +3,8 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\Terms;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\Term;
 
 class ProductVariationTerm extends BaseModel
 {
@@ -15,7 +15,7 @@ class ProductVariationTerm extends BaseModel
     ];
 
     public function term(){
-        return $this->hasOne(Terms::class, "id",'term_id');
+        return $this->hasOne(Term::class, "id",'term_id');
     }
 
     public function get_term($product_id){
@@ -33,14 +33,14 @@ class ProductVariationTerm extends BaseModel
                 array_push($term_id, $item->term_id);
             }
         }
-        $variations_attr = Terms::select('id','name','attr_id')->whereIn('id',$term_id)->get();
+        $variations_attr = Term::select('id','name','attr_id')->whereIn('id',$term_id)->get();
 
         return $variations_attr;
     }
 
     public function get_attrs($product_id){
         $variations_attr = $this->get_term($product_id);
-        $attrs = Attributes::select('id','name')->get();
+        $attrs = Attribute::select('id','name')->get();
         $newAttrs = [];
         if (!empty($attrs)){
             foreach ($attrs as $item){

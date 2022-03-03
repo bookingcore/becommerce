@@ -3,7 +3,7 @@ namespace Modules\Core\Models;
 
 use App\BaseModel;
 
-class AttributesTranslation extends BaseModel
+class AttributeTranslation extends BaseModel
 {
     protected $table = 'core_attrs_translations';
     protected $fillable = [

@@ -3,7 +3,7 @@ namespace Modules\Core\Models;
 
 use App\BaseModel;
 
-class TermsTranslation extends BaseModel
+class TermTranslation extends BaseModel
 {
     protected $table = 'core_terms_translations';
     protected $fillable = [

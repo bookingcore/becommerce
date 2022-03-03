@@ -2,7 +2,7 @@
 
 namespace Modules\Product\Models;
 
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 
 class ProductAttr extends Attributes
 {
