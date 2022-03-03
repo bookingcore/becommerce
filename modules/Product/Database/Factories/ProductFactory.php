@@ -69,7 +69,7 @@ class ProductFactory extends Factory
                        'status'        =>  'approved',
                        'create_user'   =>  1,
                        'update_user'   =>  1,
-                       'vendor_id'     =>  2
+                       'vendor_id'     =>  1
                    ],
                    [
                        'object_model'         =>  $product->type,
@@ -80,7 +80,7 @@ class ProductFactory extends Factory
                        'status'        =>  'approved',
                        'create_user'   =>  1,
                        'update_user'   =>  1,
-                       'vendor_id'     =>  2
+                       'vendor_id'     =>  1
                    ]
                ]
             );
