@@ -336,4 +336,11 @@ class CartManager
             }
         }
     }
+    public static function validateItem(CartItem $item,$qty){
+        $model = $item->model;
+        if($model){
+            $model->addToCartValidate($qty,$item->variation_id);
+        }
+        return true;
+    }
 }

@@ -105,9 +105,22 @@ class CartController extends FrontendController
         }
 
         $itemsRequest = $request->input('cart_item');
-        foreach ($itemsRequest as $item=>$value){
-            $qty = $value['qty'];
-            CartManager::update($item,$qty);
+        try {
+            foreach ($itemsRequest as $item_id => $value) {
+                $qty = $value['qty'];
+                $cartItem = CartManager::item($item_id);
+                if(!$cartItem){
+                    CartManager::remove($item_id);
+                }else{
+                    if(CartManager::validateItem($cartItem, $qty)){
+                        CartManager::update($item_id,$qty);
+                    }
+                }
+
+            }
+        }catch (\Exception $exception)
+        {
+            return back()->with('error',$exception->getMessage());
         }
         return back()->with('success','Your cart updated');
 
