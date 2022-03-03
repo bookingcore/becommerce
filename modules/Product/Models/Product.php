@@ -459,13 +459,11 @@ class Product extends BaseProduct
                 throw  new \Exception('Variation not found..');
             }
         }
-//        gop chung bang product va variant product
         switch ($this->product_type){
             case 'variable':
                     $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
                         if(!empty($this->is_manage_stock)){
-//                            Nếu SP cha bật quản lý stock	remain_stock = stock - on_hold của sản phẩm cha
                             $onHold = $this->on_hold;
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
@@ -476,7 +474,7 @@ class Product extends BaseProduct
                                 throw new \Exception(__('Out of stock'));
                             }
                         }else{
-//                            Nếu SP cha không bật	remain_stock = stock - on_hodl riêng của từng variant
+
                             $variant->stockValidation($qty);
                         }
                     }else{

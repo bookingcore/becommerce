@@ -77,7 +77,14 @@
             if ($validator->fails()) {
                 return $this->sendError('', ['errors' => $validator->errors()]);
             }
-//            Create order and on-hold order
+            // Validate again before checkout
+            try{
+                CartManager::validate();
+            }catch (\Exception $exception){
+                return $this->sendError($exception->getMessage());
+            }
+
+            // Create order and on-hold order
             $order = CartManager::order();
 
             $order->gateway = $payment_gateway;
@@ -95,19 +102,23 @@
                 'company'=>$request->input('billing_company'),
             ];
             $billing_data['email'] = trim(strtolower($billing_data['email']));
-            $shipping_data = [
-                'email'=>$request->input('shipping_email'),
-                'first_name'=>$request->input('shipping_first_name'),
-                'last_name'=>$request->input('shipping_last_name'),
-                'phone'=>$request->input('shipping_phone'),
-                'country'=>$request->input('shipping_country'),
-                'address'=>$request->input('shipping_address'),
-                'address2'=>$request->input('shipping_address2'),
-                'state'=>$request->input('shipping_state'),
-                'city'=>$request->input('shipping_city'),
-                'postcode'=>$request->input('shipping_postcode'),
-                'company'=>$request->input('shipping_company'),
-            ];
+            if($request->input('shipping_same_address')){
+                $shipping_data = $billing_data;
+            }else{
+                $shipping_data = [
+                    'email'=>$request->input('shipping_email'),
+                    'first_name'=>$request->input('shipping_first_name'),
+                    'last_name'=>$request->input('shipping_last_name'),
+                    'phone'=>$request->input('shipping_phone'),
+                    'country'=>$request->input('shipping_country'),
+                    'address'=>$request->input('shipping_address'),
+                    'address2'=>$request->input('shipping_address2'),
+                    'state'=>$request->input('shipping_state'),
+                    'city'=>$request->input('shipping_city'),
+                    'postcode'=>$request->input('shipping_postcode'),
+                    'company'=>$request->input('shipping_company'),
+                ];
+            }
 
             $gateways = get_active_payment_gateways();
             if (!empty($rules['payment_gateway'])) {
@@ -121,6 +132,10 @@
             }
 
             $order->addMeta('locale',app()->getLocale());
+            $order->email = $billing_data['email'];
+            $order->phone = $billing_data['phone'];
+            $order->first_name = $billing_data['first_name'];
+            $order->last_name = $billing_data['last_name'];
 
             $payment = new Payment();
             $payment->object_id = $order->id;

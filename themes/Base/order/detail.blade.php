@@ -62,7 +62,7 @@
                     </ul>
                     <div class="order-box border-top pt-3">
                         <h4 class="fs-18">{{__('Order details')}}</h4>
-                        <table>
+                        <table class="table">
                             <thead>
                             <tr>
                                 <th><strong>{{__('Product')}}</strong></th>
@@ -100,6 +100,8 @@
                             </tfoot>
                         </table>
                     </div>
+                    <hr>
+                    @include('order.emails.parts.order-address',['order'=>$row])
                 </div>
             </div>
         </div>

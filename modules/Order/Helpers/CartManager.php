@@ -328,4 +328,12 @@ class CartManager
         session()->put(static::$session_key, static::items()->toArray());
     }
 
+    public static function validate(){
+        foreach (static::items() as $item){
+            $model = $item->model;
+            if($model){
+                $model->addToCartValidate($item->qty,$item->variation_id);
+            }
+        }
+    }
 }
