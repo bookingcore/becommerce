@@ -22,17 +22,13 @@
     {
         public function index(){
             $user = Auth::user();
-            $billing  = $user->billing_address;
-            if(empty($billing)){
-                $billing = new UserAddress();
-            }
             $data = [
                 'items'=>CartManager::items(),
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
                 'gateways'=>get_active_payment_gateways(),
                 'user'=>$user,
-                'billing'=>$billing,
+                'billing'=>$user->billing_address ?? new UserAddress(),
                 'shipping'=>$user->shipping_address ?? new UserAddress(),
                 'breadcrumbs'=>[
                     [
