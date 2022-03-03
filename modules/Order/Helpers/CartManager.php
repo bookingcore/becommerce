@@ -50,7 +50,7 @@ class CartManager
      */
     public static function item($cartItemId){
 
-       return static::items()->find($cartItemId);
+       return static::items()->where('id',$cartItemId)->first();
     }
 
     /**
@@ -86,28 +86,15 @@ class CartManager
      */
     public static function update($cart_item_id,$qty = 1,$price = false, $meta = [], $variation_id = false){
 
-        $items = static::items();
-        $find = $items->where('id',$cart_item_id)->first();
+        $find = static::item($cart_item_id);
         if($find){
             $find->qty = $qty;
-            if(!empty($price)){
-                $find->price = $price;
-            }
-            if(!empty($variation_id)){
-                $find->variation_id = $variation_id;
-            }
-            if(!empty($meta)){
-                $find->meta = $meta;
-            }
 
             if($qty <= 0){
                 return static::remove($cart_item_id);
             }else{
-                $items->put($cart_item_id,$find);
                 static::save();
             }
-
-            return $find;
         }
 
         return null;
