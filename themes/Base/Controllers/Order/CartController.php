@@ -62,13 +62,17 @@ class CartController extends FrontendController
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
         try {
-            $service->addToCartValidate($request->input('qty'),$variation_id);
+            $cartItem = CartManager::findItem($service,$variation_id);
+
+            $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
+
             CartManager::add($service,$service->name,$quantity,$service->price,[],$variation_id);
+
             $buy_now = $request->input('buy_now');
 
             return $this->sendSuccess([
                 'fragments'=>CartManager::fragments(),
-                'url'=>$buy_now ? route('checkout') : ''
+                'url'=>$buy_now ? route('checkout') : '',
             ],
                 !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
             );
@@ -122,7 +126,7 @@ class CartController extends FrontendController
         {
             return back()->with('error',$exception->getMessage());
         }
-        return back()->with('success','Your cart updated');
+        return back()->with('success','Cart updated');
 
     }
 
