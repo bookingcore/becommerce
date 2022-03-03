@@ -478,7 +478,7 @@ class Product extends BaseProduct
                             $variant->stockValidation($qty);
                         }
                     }else{
-                        throw new \Exception(__('Product not found'));
+                        throw new \Exception(__('Please select a variation'));
                     }
                 break;
             case 'external':
