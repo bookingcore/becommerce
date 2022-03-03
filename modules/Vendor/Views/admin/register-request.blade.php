@@ -54,9 +54,11 @@
                                 <tr>
                                     <td><input type="checkbox" name="ids[]" value="{{$row->id}}" class="check-item"></td>
                                     <td class="title">
+                                        @if($row->user)
                                         <a href="{{url('admin/module/user/edit/'.$row->user->id)}}">{{@$row->user->display_name}}</a>
+                                        @endif
                                     </td>
-                                    <td>{{$row->user->email}}</td>
+                                    <td>{{$row->user->email ?? ''}}</td>
                                     <td>{{ display_date($row->created_at)}}</td>
                                     <td>{{ $row->approved_time ? display_date($row->approved_time) : ''}}</td>
                                     <td>

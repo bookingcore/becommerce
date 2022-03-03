@@ -75,8 +75,8 @@ class RegisterRequestController extends AdminController
                             $user->assignRole($vendorRequest->role_request);
                             $user->email_verified_at = now();
                             $user->save();
+                            event(new VendorApproved($user,$vendorRequest));
                         }
-                        event(new VendorApproved($user,$vendorRequest));
                     }
                 }
                 return redirect()->back()->with('success', __('Updated successfully!'));
@@ -96,9 +96,9 @@ class RegisterRequestController extends AdminController
             $user = User::find($vendorRequest->user_id);
             if(!empty($user)){
                 $user->assignRole($vendorRequest->role_request);
+                event(new VendorApproved($user,$vendorRequest));
             }
 
-            event(new VendorApproved($user,$vendorRequest));
         }
         return redirect()->back()->with('success', __('Updated successfully!'));
     }
