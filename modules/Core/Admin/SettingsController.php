@@ -95,6 +95,10 @@ class SettingsController extends AdminController
             }
             //Clear Cache for currency
             Session::put('core_current_currency',"");
+            if(!empty($group_data['after_saving']) and is_callable($group_data['after_saving']))
+            {
+                call_user_func($group_data['after_saving']);
+            }
 
             return redirect()->back()->with('success', __('Settings Saved'));
         }

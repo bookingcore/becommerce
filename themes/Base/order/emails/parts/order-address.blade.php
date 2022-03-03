@@ -1,6 +1,6 @@
 <?php
-$billing_address = $order->getJsonMeta('billing_address');
-$shipping_address = $order->getJsonMeta('shipping_address');
+$billing_address = $order->getJsonMeta('billing');
+$shipping_address = $order->getJsonMeta('shipping');
 $fields = [
     'company',
     'address',

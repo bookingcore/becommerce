@@ -2135,5 +2135,74 @@ a:not(.button):hover {
 .page-template-content .bc-list-products .bc-content .row {
   --grid-gutter: 0;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product {
+  position: relative;
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+  background: var(--background);
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .product-labels {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .product-labels .product-label {
+  padding: 1px 10px;
+  text-transform: uppercase;
+  font-size: 11px;
+  color: #fff;
+  margin-bottom: 8px;
+  line-height: 22px;
+  min-width: 38px;
+  border-radius: 10px;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .product-labels .product-label.onsale {
+  background: #ef4914;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img {
+  overflow: hidden;
+  position: relative;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body {
+  padding: 0;
+  padding-top: 10px;
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 {
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 5px;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 a.card-title {
+  color: var(--accent);
+  font-weight: 400;
+  text-decoration: none;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 .card-title:hover {
+  color: #DD2955;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-price {
+  display: block;
+  color: #DD2955;
+  font-size: 14px;
+  font-weight: 500;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-price del {
+  color: var(--light);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img {
+  border-color: #DD2955;
+}
 
 /*# sourceMappingURL=style.css.map */

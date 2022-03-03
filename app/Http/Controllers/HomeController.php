@@ -48,7 +48,6 @@ class HomeController extends Controller
                 'p_style' => $page->page_style,
                 'show_breadcrumb'  => $page->show_breadcrumb,
                 'is_homepage'  => true,
-                'compare'      => (session('compare')) ? session('compare') : '',
                 'breadcrumbs' => [
                     ['name' => $page->title,'class' => 'active'],
                 ],

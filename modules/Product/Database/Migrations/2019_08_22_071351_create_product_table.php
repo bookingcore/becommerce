@@ -67,6 +67,9 @@ class CreateProductTable extends Migration
             $table->bigInteger('author_id')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->index('author_id');
+            $table->index('status');
             $table->timestamps();
         });
 
@@ -82,6 +85,9 @@ class CreateProductTable extends Migration
             $table->bigInteger('update_user')->nullable();
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
+
+            $table->unique(['origin_id','locale']);
+
             $table->softDeletes();
             $table->timestamps();
         });
@@ -125,6 +131,9 @@ class CreateProductTable extends Migration
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->unique(['term_id','target_id']);
+
             $table->timestamps();
 
         });
@@ -159,12 +168,16 @@ class CreateProductTable extends Migration
         });
         Schema::create('product_variation_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('origin_id')->nullable();
+            $table->string('locale',10)->nullable();
 
-            $table->integer('variation_id')->nullable();
             $table->string('name',255)->nullable();
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->index(['origin_id','locale']);
+
             $table->timestamps();
 
         });
@@ -177,6 +190,9 @@ class CreateProductTable extends Migration
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->unique(['variation_id','term_id']);
+
             $table->timestamps();
 
         });
@@ -188,6 +204,8 @@ class CreateProductTable extends Migration
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->unique(['tag_id','target_id']);
             $table->timestamps();
 
         });
@@ -200,6 +218,8 @@ class CreateProductTable extends Migration
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->unique(['cat_id','target_id']);
             $table->timestamps();
 
         });

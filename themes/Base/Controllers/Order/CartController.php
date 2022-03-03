@@ -22,6 +22,7 @@ class CartController extends FrontendController
                     'name'=> "Shopping Cart",
                 ]
             ],
+            'page_title'=>__("Shopping Cart")
         ];
 
         return view('order.cart.index',$data);
@@ -33,7 +34,7 @@ class CartController extends FrontendController
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 
-        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_verify_email_register_user')==1){
+        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
             return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
         }
 
@@ -52,7 +53,7 @@ class CartController extends FrontendController
         $service_type = $request->input('object_model');
         $quantity = $request->input('quantity');
         $service_id = $request->input('object_id');
-        $variant_id = $request->input('variant_id');
+        $variation_id = $request->input('variation_id');
 
         $allServices = get_bookable_services();
         if (empty($allServices[$service_type])) {
@@ -61,12 +62,12 @@ class CartController extends FrontendController
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
         try {
-            $service->addToCartValidate($request->input('qty'),$variant_id);
-            CartManager::add($service,$service->name,$quantity,$service->price,[],$variant_id);
+            $service->addToCartValidate($request->input('qty'),$variation_id);
+            CartManager::add($service,$service->name,$quantity,$service->price,[],$variation_id);
             $buy_now = $request->input('buy_now');
 
             return $this->sendSuccess([
-                'fragments'=>CartManager::get_cart_fragments(),
+                'fragments'=>CartManager::fragments(),
                 'url'=>$buy_now ? route('checkout') : ''
             ],
                 !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
@@ -88,7 +89,7 @@ class CartController extends FrontendController
         CartManager::remove($request->input('id'));
 
         return $this->sendSuccess([
-            'fragments'=> CartManager::get_cart_fragments(),
+            'fragments'=> CartManager::fragments(),
             'reload'=>CartManager::count()  ? false: true,
         ],__("Item removed"));
     }
@@ -99,7 +100,7 @@ class CartController extends FrontendController
             return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
         }
 
-        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_verify_email_register_user')==1){
+        if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
             return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
         }
 

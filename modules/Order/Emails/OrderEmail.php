@@ -44,7 +44,7 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
             'email_type'=>$this->email_type
         ];
         $subject = $this->getSubject();
-        $view = 'Order::emails.'.$this->email_type;
+        $view = 'order.emails.'.$this->email_type;
         return $this->subject($subject)->view($view,$data);
     }
 

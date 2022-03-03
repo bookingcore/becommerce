@@ -5,7 +5,7 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class Terms extends BaseModel
+class Term extends BaseModel
 {
     use SoftDeletes;
     protected $table = 'core_terms';
@@ -18,7 +18,7 @@ class Terms extends BaseModel
     protected $slugField     = 'slug';
     protected $slugFromField = 'name';
 
-    protected $translation_class = TermsTranslation::class;
+    protected $translation_class = TermTranslation::class;
 
     /**
      * @param $term_IDs array or number
@@ -42,7 +42,7 @@ class Terms extends BaseModel
 
     public function attribute()
     {
-        return $this->hasOne("Modules\Core\Models\Attributes", "id" , "attr_id");
+        return $this->hasOne(\Modules\Core\Models\Attribute::class, "id" , "attr_id");
     }
 
 

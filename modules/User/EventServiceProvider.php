@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\Booking\Events\VendorLogPayment;
-use Modules\Booking\Listeners\VendorLogPaymentListen;
 use Modules\Order\Events\OrderUpdated;
 use Modules\User\Events\AdminUpdateVerificationData;
 use Modules\User\Events\NewVendorRegistered;
@@ -29,8 +27,6 @@ use Modules\User\Listeners\SendVendorApprovedMail;
 use Modules\User\Listeners\SendVendorRegisterdEmail;
 use Modules\User\Listeners\UpdateUserPlanListener;
 use Modules\User\Listeners\UserSubscriberSubmitListeners;
-use Modules\Vendor\Events\PayoutRequestEvent;
-use Modules\Vendor\Listeners\PayoutRequestNotificationListener;
 
 class EventServiceProvider extends ServiceProvider
 {

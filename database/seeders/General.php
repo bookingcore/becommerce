@@ -204,7 +204,7 @@ namespace Database\Seeders;
 				],
 				[
 					'name'  => "email_footer",
-					'val'   => '<p class="" style="text-align: center">&copy; 2019 Becommerce. All rights reserved</p>',
+					'val'   => '<p class="" style="text-align: center">&copy; 2022 BeCommerce. All rights reserved</p>',
 					'group' => "general",
 				],
 				[

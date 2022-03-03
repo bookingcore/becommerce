@@ -7,13 +7,10 @@
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Foundation\Auth\User as Authenticatable;
-    use Illuminate\Support\Carbon;
     use Illuminate\Support\Facades\Mail;
-    use Illuminate\Support\Facades\URL;
     use Laravel\Sanctum\HasApiTokens;
     use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
-    use Modules\User\Emails\EmailUserVerifyRegister;
     use Modules\User\Emails\ResetPasswordToken;
     use Modules\User\Models\UserPlan;
     use Modules\User\Models\UserWishList;
@@ -278,14 +275,14 @@
             return parent::query()->whereIn('verify_submit_status',['new','partial'])->count(['id']);
         }
 
-        public function verificationUrl(){
-	        return URL::temporarySignedRoute(
-		        'verification.verify',
-		        Carbon::now()->addMinutes(config('auth.verification.expire', 60)),
-		        ['id' => $this->id,
-                 'hash' => sha1($this->getEmailForVerification()),
-                ]
-	        );
+        /**
+         * Send the email verification notification.
+         *
+         * @return void
+         */
+        public function sendEmailVerificationNotification()
+        {
+            $this->notify(new \App\Notifications\VerifyEmail());
         }
 
         public function getJWTIdentifier()

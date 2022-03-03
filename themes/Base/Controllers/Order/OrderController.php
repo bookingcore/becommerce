@@ -25,6 +25,7 @@ class OrderController extends FrontendController
                     'name'=> "Order Detail",
                 ]
             ],
+            'page_title'=>__("Thank you for your order")
         ];
         return view('order.detail',$data);
     }

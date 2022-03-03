@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
@@ -45,7 +45,7 @@ class CouponController extends AdminController
         $this->product = Product::class;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
-        $this->attributes = Attributes::class;
+        $this->attributes = Attribute::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag = ProductTag::class;
         $this->variable_product = ProductVariation::class;

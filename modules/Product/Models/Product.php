@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\Terms;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\Term;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Product\Database\Factories\ProductFactory;
@@ -36,13 +36,14 @@ class Product extends BaseProduct
         'video',
         'price',
         'sale_price',
-        'status'
+        'status',
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $seo_type = 'product';
     protected $casts = [
-        'attributes_for_variation'=>'array'
+        'attributes_for_variation'=>'array',
+        'price'=>'float'
     ];
 
     protected $cleanFields = [
@@ -378,7 +379,7 @@ class Product extends BaseProduct
         return $this->belongsToMany(ProductCategory::class,ProductCategoryRelation::getTableName(),'target_id','cat_id');
     }
     public function termSeeder(){
-        return $this->belongsToMany(Terms::class,ProductTerm::getTableName(),'target_id','term_id');
+        return $this->belongsToMany(Term::class,ProductTerm::getTableName(),'target_id','term_id');
     }
     public function tagsSeeder(){
         return $this->belongsToMany(Tag::class,ProductTag::getTableName(),'target_id','tag_id');
@@ -411,14 +412,14 @@ class Product extends BaseProduct
 
 	public function getProductJsAdminDataAttribute(){
         return [
-            'attributes'=>Attributes::query()->ofType($this->type)->get(),
+            'attributes'=>Attribute::query()->ofType($this->type)->get(),
             'attributes_for_variation'=>$this->attributes_for_variation
         ];
     }
 
     public function getTermsOfAttr($attr_id)
     {
-         return Terms::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
+         return Term::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
     }
 
     public function getAttributesForVariationDataAttribute(){
@@ -426,7 +427,7 @@ class Product extends BaseProduct
 	    if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
         {
             foreach ($this->attributes_for_variation as $attr_id) {
-                $attr = Attributes::find($attr_id);
+                $attr = Attribute::find($attr_id);
                 if(empty($attr)) continue;
 
                 $res[$attr_id] = [
@@ -458,13 +459,11 @@ class Product extends BaseProduct
                 throw  new \Exception('Variation not found..');
             }
         }
-//        gop chung bang product va variant product
         switch ($this->product_type){
             case 'variable':
                     $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
                         if(!empty($this->is_manage_stock)){
-//                            Nếu SP cha bật quản lý stock	remain_stock = stock - on_hold của sản phẩm cha
                             $onHold = $this->on_hold;
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
@@ -472,14 +471,14 @@ class Product extends BaseProduct
                                     throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
                                 }
                             }else{
-                                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+                                throw new \Exception(__('Out of stock'));
                             }
                         }else{
-//                            Nếu SP cha không bật	remain_stock = stock - on_hodl riêng của từng variant
+
                             $variant->stockValidation($qty);
                         }
                     }else{
-                        $this->stockValidation($qty);
+                        throw new \Exception(__('Please select a variation'));
                     }
                 break;
             case 'external':
@@ -492,7 +491,7 @@ class Product extends BaseProduct
 
     }
     public function list_attrs(){
-        return Attributes::select('id','name','slug')->get();
+        return Attribute::select('id','name','slug')->get();
     }
 
     public function get_variable($id){
