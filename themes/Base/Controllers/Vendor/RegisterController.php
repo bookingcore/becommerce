@@ -2,6 +2,7 @@
 namespace Themes\Base\Controllers\Vendor;
 use App\Helpers\ReCaptchaEngine;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -85,6 +86,9 @@ class RegisterController extends FrontendController
             $user = new User($data);
         }
         $user->fillByAttr(array_keys($data),$data);
+        if(!setting_item('enable_email_verification')){
+            $user->email_verified_at = Carbon::now();
+        }
         $user->save();
 
         $vendorAutoApproved = setting_item('vendor_auto_approved');

@@ -5,6 +5,7 @@ namespace Modules\Product\Models;
 use App\BaseModel;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Modules\Core\Models\Term;
 
 class ProductVariation extends BaseProduct
 {
@@ -19,7 +20,8 @@ class ProductVariation extends BaseProduct
     ];
 
     protected $casts = [
-        'dimensions'=>'array'
+        'dimensions'=>'array',
+        'price'=>'float'
     ];
 
     public static function getModelName()
@@ -34,6 +36,12 @@ class ProductVariation extends BaseProduct
 
     public function variation_terms(){
         return $this->hasMany(ProductVariationTerm::class,'variation_id','id');
+    }
+    public function terms(){
+        $ids = $this->variation_terms->pluck('term_id')->all();
+        if(empty($ids)) return null;
+
+        return Term::query()->whereIn('id',$ids)->with(['attribute'])->get();
     }
 
     public function getDetailUrl($locale = false)
@@ -159,16 +167,31 @@ class ProductVariation extends BaseProduct
                 $stock = __(':count in stock',['count'=>$this->quantity]);
             }
         } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
-            $stock = __('Out Of Stock');
-            $in_stock = false;
+            if (  $this->stock_status == 'out'){
+                $stock = __('Out Of Stock');
+                $in_stock = false;
+            }else{
+                $stock = __('In Stock');
+            }
         }
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
+    }
+
+    public function isActive(){
+        if(empty($this->active)){
+            return false;
+        }
+        if ($this->is_manage_stock > 0){
+
+        }else{
+            if ($this->stock_status == 'out'){
+                return false;
+            }
+        }
+        return true;
     }
 
     public function getAttributesForDetail()
@@ -184,20 +207,8 @@ class ProductVariation extends BaseProduct
             'sold'=>$this->sold,
             'quantity'=>$this->quantity,
             'is_manage_stock'=>$this->is_manage_stock,
-            'stock_status'=>$this->stock_status,
+            'stock'=>$this->getStockStatus(),
         ];
     }
 
-    // ham nay de lay gia ban, vi deu dung chung field la price nen a ko can viet vao day, neu ko phai la price thi co the doi o day
-//    public function getBuyablePrice($options = NULL){
-//
-//       return $this->custom_price_col;// ten cua col price
-//    }
-//
-//    // tuogn tu neu ten san p ham ko phai la title thi co the custom bang cach overide function
-//    public function getBuyableDescription($options = NULL){
-//        return $this->ten_san_pham;
-//    }
-
-    // hieu chua, nhung do 2 bang do ten field giong nhau nen a ko can overide function, su dung lai dc
 }

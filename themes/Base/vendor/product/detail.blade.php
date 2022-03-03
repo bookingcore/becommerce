@@ -107,7 +107,7 @@
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__('Publish')}}</strong></div>
                                 <div class="panel-body">
-                                    @if(is_default_lang() and $row->is_approved)
+                                    @if(is_default_lang() and (!vendor_product_need_approve() or $row->is_approved))
                                         <div class="form-group">
                                             <label class="control-label mb-2">{{__('Status')}}</label>
                                             <select name="status" class="custom-select form-select">
@@ -149,6 +149,7 @@
     </section>
 @endsection
 @section('footer')
+    <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
     <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>
     <script src="{{asset('module/product/admin/js/product.js')}}"></script>

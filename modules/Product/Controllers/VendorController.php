@@ -4,7 +4,7 @@ namespace Modules\Product\Controllers;
 use Modules\FrontendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Order;
 use Modules\Product\Models\OrderItem;
@@ -34,7 +34,7 @@ class VendorController extends FrontendController
         $this->product_term = ProductTerm::class;
         $this->product_tag = ProductTag::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
-        $this->attributes = Attributes::class;
+        $this->attributes = Attribute::class;
         $this->setActiveMenu(route('product.vendor.index'));
     }
 

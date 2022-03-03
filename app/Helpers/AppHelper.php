@@ -3,6 +3,7 @@ use Modules\Core\Models\Settings;
 use App\Currency;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Cache;
+use Modules\Product\Models\Product;
 use Modules\User\Models\UserWishList;
 
 //include '../../custom/Helpers/CustomHelper.php';
@@ -1485,16 +1486,6 @@ function get_admin_product_tabs(){
     return $all;
 }
 
-function list_compare_id(){
-    $compare = (!empty(session('compare'))) ? session('compare') : '';
-    $l_compare = [];
-    if (!empty($compare)){
-        foreach ($compare as $list){
-            array_push($l_compare, $list['id']);
-        }
-    }
-    return $l_compare;
-}
 function theme_url($path){
     return asset("themes/".trim("$path","/\\"));
 }
@@ -1572,4 +1563,35 @@ function is_payout_enable(){
 }
 function vendor_product_need_approve(){
     return (bool) setting_item('vendor_product_need_approve');
+}
+
+function get_compare_details(){
+    $compare = [];
+    $compare_ids = (!empty(session('compare'))) ? session('compare') : [];
+    if ($compare_ids){
+        foreach ($compare_ids as $item){
+            $product = Product::find($item['id']);
+            if(empty($product)){
+                continue;
+            }
+            $attrs = [];
+            foreach( $product->variations as $variation){
+                $term_ids = $variation->term_ids;
+                foreach($product->attributes_for_variation_data as $item){
+                    foreach($item['terms'] as $term){
+                        if(in_array($term->id,$term_ids)){
+                            $attrs[$variation->id][] = $item['attr']->name.": ".$term->name;
+                        }
+                    }
+                }
+            }
+            $productArray = $product->getAttributes();
+            $productArray['price_html'] = view('product.details.price', ["row"=>$product])->render();
+            $productArray['detail_url'] = $product->getDetailUrl();
+            $productArray['attrs'] = $attrs;
+            $productArray['brand_name']  = $product->brand->name ?? '';
+            array_push($compare, $productArray);
+        }
+    }
+    return $compare;
 }

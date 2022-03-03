@@ -17,10 +17,10 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                         <div class="bc-product-cart-mobile d-flex">
                             @if($cartItem->model)
                                 <div class="bc-product-thumbnail">
-                                    <a href="{{$cartItem->model->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a></div>
+                                    <a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a></div>
                                 <div class="bc-product-content">
-                                    <a href="{{$cartItem->model->getDetailUrl()}}">{{$cartItem->model->title}}</a>
-                                    @if(!empty($cartItem->author))
+                                    <a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->model->title}}</a>
+                                    @if(is_vendor_enable() and !empty($cartItem->author))
                                         <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
                                     @endif
                                     <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>

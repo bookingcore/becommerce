@@ -26,28 +26,35 @@
                                 @foreach(\Modules\Order\Helpers\CartManager::items() as $cartItem)
                                     <tr>
                                         @if($cartItem->model)
-                                            <th scope="row">
+                                            <td scope="row">
                                                 <div class="d-flex align-items-center">
-                                                    @if($cartItem->model->image_id)
+                                                    @if(!empty($cartItem->model->image_id))
                                                         <a href="{{$cartItem->getDetailUrl()}}"> {!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'img-fluid rounded-3 w-75px'])!!}</a>
                                                     @endif
                                                     <div class="flex-column ms-4">
-                                                        <p class="mb-2"><a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->name}}</a></p>
-                                                        @if(!empty($cartItem->author))
+                                                        <p class="mb-2"><a href="{{$cartItem->getDetailUrl()}}"><strong>{{$cartItem->name}}</strong></a></p>
+                                                        @if($variation = $cartItem->variation and $terms = $variation->terms())
+                                                            <ul class="mb-2">
+                                                                @foreach($terms as $term)
+                                                                    <li><span>{{$term->attribute->name}}:</span> {{$term->name}}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        @endif
+                                                        @if(is_vendor_enable() and !empty($cartItem->author))
                                                             <p class="mb-0 small">{{__('Sold By:')}} {{$cartItem->author}}</p>
                                                         @endif
                                                     </div>
                                                 </div>
-                                            </th>
+                                            </td>
                                         @else
-                                            <th scope="row">
+                                            <td scope="row">
                                                 <div class="d-flex align-items-center">
                                                     <div></div>
                                                     <div class="flex-column ms-4">
                                                         <p class="mb-2">{{$cartItem->name}}</p>
                                                     </div>
                                                 </div>
-                                            </th>
+                                            </td>
                                         @endif
 
                                         <td class="align-middle">
@@ -162,14 +169,16 @@
                                             <p class="mb-1"><b>{{format_money(0)}}</b></p>
                                         </div>
                                     </div>
+                                    @if($discount = \Modules\Order\Helpers\CartManager::discountTotal())
                                     <div class="row justify-content-between">
                                         <div class="col-4">
                                             <p><b>{{__("Discount")}}</b></p>
                                         </div>
                                         <div class="flex-sm-col col-auto">
-                                            <p class="mb-1"><b>- {{format_money(\Modules\Order\Helpers\CartManager::discountTotal())}}</b></p>
+                                            <p class="mb-1"><b>- {{format_money($discount)}}</b></p>
                                         </div>
                                     </div>
+                                    @endif
                                     <hr class="my-3">
                                     <div class="row justify-content-between">
                                         <div class="col-4">

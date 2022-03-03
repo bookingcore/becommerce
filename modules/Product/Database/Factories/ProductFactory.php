@@ -2,7 +2,7 @@
 namespace Modules\Product\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Core\Models\Terms;
+use Modules\Core\Models\Term;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
@@ -42,12 +42,11 @@ class ProductFactory extends Factory
             'short_desc'  => '<ul><li>Unrestrained and portable active stereo speaker</li><li>Free from the confines of wires and chords</li><li>20 hours of portable capabilities</li><li>Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li><li>3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>',
             'brand_id'    => '',
             'gallery'     => '',
-            'sale_price'=>$price,
             'price'=>$sale_price,
             'origin_price'  => $price,
             'status'      => 'publish',
             'stock_status'=> 'in',
-            'product_type'=> 'simple',
+            'product_type'=> ['simple','variable'][rand(0,1)],
             'create_user' => '1',
             'author_id'=>1
         ];
@@ -57,7 +56,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product){
             $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(1,3))->pluck('id'));
-            $product->termSeeder()->attach(Terms::inRandomOrder()->take(random_int(1,3))->pluck('id'));
+            $product->termSeeder()->attach(Term::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->tagsSeeder()->attach(Tag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->review()->createMany(
                [
@@ -70,7 +69,7 @@ class ProductFactory extends Factory
                        'status'        =>  'approved',
                        'create_user'   =>  1,
                        'update_user'   =>  1,
-                       'vendor_id'     =>  2
+                       'vendor_id'     =>  1
                    ],
                    [
                        'object_model'         =>  $product->type,
@@ -81,13 +80,13 @@ class ProductFactory extends Factory
                        'status'        =>  'approved',
                        'create_user'   =>  1,
                        'update_user'   =>  1,
-                       'vendor_id'     =>  2
+                       'vendor_id'     =>  1
                    ]
                ]
             );
             $product->variations()->createMany([
                 [
-                    'price'         =>  '22',
+                    'price'         =>  rand(100,300),
                     'stock_status'  =>  'in',
                     'active'        =>  '1',
                 ]

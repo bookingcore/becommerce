@@ -103,4 +103,9 @@ class Review extends BaseModel
         }
         return $check;
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo("App\User", "vendor_id");
+    }
 }

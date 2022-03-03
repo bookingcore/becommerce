@@ -56,7 +56,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'        => 'admin/module/core/menu',
                 'title'      => __("Menu"),
                 'icon'       => 'icon ion-ios-apps',
-                'permission' => 'menu_view',
+                'permission' => 'menu_manage',
             ],
             'setting'=>[
                 "position"=>80,

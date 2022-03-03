@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\User\Helpers\PermissionHelper;
 use \Modules\User\Models\Role;
 
@@ -16,6 +17,7 @@ class RoleController extends AdminController
     {
         parent::__construct();
         $this->role_class = Role::class;
+        AdminMenuManager::setActive('user');
     }
 
     public function index()
