@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "axtronic-icon";
   src: url("./fonts/axtronic-icon.eot?zmkabw");
@@ -16,399 +17,399 @@
 }
 
 .axtronic-icon-airpods:before {
-  content: "\e001";
+  content: "";
 }
 
 .axtronic-icon-angle-down:before {
-  content: "\e002";
+  content: "";
 }
 
 .axtronic-icon-angle-left:before {
-  content: "\e003";
+  content: "";
 }
 
 .axtronic-icon-angle-right:before {
-  content: "\e004";
+  content: "";
 }
 
 .axtronic-icon-angle-up:before {
-  content: "\e005";
+  content: "";
 }
 
 .axtronic-icon-arrow-circle-down:before {
-  content: "\e006";
+  content: "";
 }
 
 .axtronic-icon-arrow-circle-left:before {
-  content: "\e007";
+  content: "";
 }
 
 .axtronic-icon-arrow-circle-right:before {
-  content: "\e008";
+  content: "";
 }
 
 .axtronic-icon-arrow-circle-up:before {
-  content: "\e009";
+  content: "";
 }
 
 .axtronic-icon-arrow-down:before {
-  content: "\e00a";
+  content: "";
 }
 
 .axtronic-icon-arrow-left:before {
-  content: "\e00b";
+  content: "";
 }
 
 .axtronic-icon-arrow-right:before {
-  content: "\e00c";
+  content: "";
 }
 
 .axtronic-icon-arrow-up:before {
-  content: "\e00d";
+  content: "";
 }
 
 .axtronic-icon-buliding:before {
-  content: "\e00e";
+  content: "";
 }
 
 .axtronic-icon-call-calling:before {
-  content: "\e00f";
+  content: "";
 }
 
 .axtronic-icon-call-calling2:before {
-  content: "\e010";
+  content: "";
 }
 
 .axtronic-icon-circle-phone:before {
-  content: "\e011";
+  content: "";
 }
 
 .axtronic-icon-discount-shape:before {
-  content: "\e012";
+  content: "";
 }
 
 .axtronic-icon-electricity:before {
-  content: "\e013";
+  content: "";
 }
 
 .axtronic-icon-eye:before {
-  content: "\e014";
+  content: "";
 }
 
 .axtronic-icon-gameboy:before {
-  content: "\e015";
+  content: "";
 }
 
 .axtronic-icon-glass:before {
-  content: "\e016";
+  content: "";
 }
 
 .axtronic-icon-grid:before {
-  content: "\e017";
+  content: "";
 }
 
 .axtronic-icon-group:before {
-  content: "\e018";
+  content: "";
 }
 
 .axtronic-icon-heart-circle:before {
-  content: "\e019";
+  content: "";
 }
 
 .axtronic-icon-heart:before {
-  content: "\e01a";
+  content: "";
 }
 
 .axtronic-icon-house-2:before {
-  content: "\e01b";
+  content: "";
 }
 
 .axtronic-icon-list:before {
-  content: "\e01c";
+  content: "";
 }
 
 .axtronic-icon-medal-star:before {
-  content: "\e01d";
+  content: "";
 }
 
 .axtronic-icon-menu-right-1:before {
-  content: "\e01e";
+  content: "";
 }
 
 .axtronic-icon-minus-square:before {
-  content: "\e01f";
+  content: "";
 }
 
 .axtronic-icon-mobile:before {
-  content: "\e020";
+  content: "";
 }
 
 .axtronic-icon-monitor-mobbile:before {
-  content: "\e021";
+  content: "";
 }
 
 .axtronic-icon-plus-square:before {
-  content: "\e022";
+  content: "";
 }
 
 .axtronic-icon-search:before {
-  content: "\e023";
+  content: "";
 }
 
 .axtronic-icon-shopping-cart:before {
-  content: "\e024";
+  content: "";
 }
 
 .axtronic-icon-sms:before {
-  content: "\e025";
+  content: "";
 }
 
 .axtronic-icon-square-check:before {
-  content: "\e026";
+  content: "";
 }
 
 .axtronic-icon-star-sharp:before {
-  content: "\e027";
+  content: "";
 }
 
 .axtronic-icon-tablet:before {
-  content: "\e028";
+  content: "";
 }
 
 .axtronic-icon-trash:before {
-  content: "\e029";
+  content: "";
 }
 
 .axtronic-icon-user:before {
-  content: "\e02a";
+  content: "";
 }
 
 .axtronic-icon-wallet:before {
-  content: "\e02b";
+  content: "";
 }
 
 .axtronic-icon-watch:before {
-  content: "\e02c";
+  content: "";
 }
 
 .axtronic-icon-360:before {
-  content: "\e02d";
+  content: "";
 }
 
 .axtronic-icon-bars:before {
-  content: "\e02e";
+  content: "";
 }
 
 .axtronic-icon-calendar:before {
-  content: "\e02f";
+  content: "";
 }
 
 .axtronic-icon-cart-empty:before {
-  content: "\e030";
+  content: "";
 }
 
 .axtronic-icon-check:before {
-  content: "\e031";
+  content: "";
 }
 
 .axtronic-icon-cloud-download-alt:before {
-  content: "\e032";
+  content: "";
 }
 
 .axtronic-icon-comment:before {
-  content: "\e033";
+  content: "";
 }
 
 .axtronic-icon-comments:before {
-  content: "\e034";
+  content: "";
 }
 
 .axtronic-icon-credit-card:before {
-  content: "\e035";
+  content: "";
 }
 
 .axtronic-icon-edit:before {
-  content: "\e036";
+  content: "";
 }
 
 .axtronic-icon-envelope:before {
-  content: "\e037";
+  content: "";
 }
 
 .axtronic-icon-expand-alt:before {
-  content: "\e038";
+  content: "";
 }
 
 .axtronic-icon-external-link-alt:before {
-  content: "\e039";
+  content: "";
 }
 
 .axtronic-icon-facebook:before {
-  content: "\e03a";
+  content: "";
 }
 
 .axtronic-icon-file-alt:before {
-  content: "\e03b";
+  content: "";
 }
 
 .axtronic-icon-file-archive:before {
-  content: "\e03c";
+  content: "";
 }
 
 .axtronic-icon-folder-open:before {
-  content: "\e03d";
+  content: "";
 }
 
 .axtronic-icon-folder:before {
-  content: "\e03e";
+  content: "";
 }
 
 .axtronic-icon-frown:before {
-  content: "\e03f";
+  content: "";
 }
 
 .axtronic-icon-gift:before {
-  content: "\e040";
+  content: "";
 }
 
 .axtronic-icon-google-plus:before {
-  content: "\e041";
+  content: "";
 }
 
 .axtronic-icon-history:before {
-  content: "\e042";
+  content: "";
 }
 
 .axtronic-icon-home:before {
-  content: "\e043";
+  content: "";
 }
 
 .axtronic-icon-info-circle:before {
-  content: "\e044";
+  content: "";
 }
 
 .axtronic-icon-instagram:before {
-  content: "\e045";
+  content: "";
 }
 
 .axtronic-icon-linkedin:before {
-  content: "\e046";
+  content: "";
 }
 
 .axtronic-icon-map-marker-check:before {
-  content: "\e047";
+  content: "";
 }
 
 .axtronic-icon-meh:before {
-  content: "\e048";
+  content: "";
 }
 
 .axtronic-icon-minus:before {
-  content: "\e049";
+  content: "";
 }
 
 .axtronic-icon-money-bill:before {
-  content: "\e04a";
+  content: "";
 }
 
 .axtronic-icon-moon:before {
-  content: "\e04b";
+  content: "";
 }
 
 .axtronic-icon-pencil-alt:before {
-  content: "\e04c";
+  content: "";
 }
 
 .axtronic-icon-pinterest-p:before {
-  content: "\e04d";
+  content: "";
 }
 
 .axtronic-icon-plus:before {
-  content: "\e04e";
+  content: "";
 }
 
 .axtronic-icon-quote:before {
-  content: "\e04f";
+  content: "";
 }
 
 .axtronic-icon-random:before {
-  content: "\e050";
+  content: "";
 }
 
 .axtronic-icon-reply-all:before {
-  content: "\e051";
+  content: "";
 }
 
 .axtronic-icon-reply:before {
-  content: "\e052";
+  content: "";
 }
 
 .axtronic-icon-router:before {
-  content: "\e053";
+  content: "";
 }
 
 .axtronic-icon-sign-out-alt:before {
-  content: "\e054";
+  content: "";
 }
 
 .axtronic-icon-smile:before {
-  content: "\e055";
+  content: "";
 }
 
 .axtronic-icon-spinner:before {
-  content: "\e056";
+  content: "";
 }
 
 .axtronic-icon-square:before {
-  content: "\e057";
+  content: "";
 }
 
 .axtronic-icon-star:before {
-  content: "\e058";
+  content: "";
 }
 
 .axtronic-icon-store:before {
-  content: "\e059";
+  content: "";
 }
 
 .axtronic-icon-sun:before {
-  content: "\e05a";
+  content: "";
 }
 
 .axtronic-icon-sync:before {
-  content: "\e05b";
+  content: "";
 }
 
 .axtronic-icon-tachometer-alt:before {
-  content: "\e05c";
+  content: "";
 }
 
 .axtronic-icon-tag:before {
-  content: "\e05d";
+  content: "";
 }
 
 .axtronic-icon-thumbtack:before {
-  content: "\e05e";
+  content: "";
 }
 
 .axtronic-icon-times-circle:before {
-  content: "\e05f";
+  content: "";
 }
 
 .axtronic-icon-times:before {
-  content: "\e060";
+  content: "";
 }
 
 .axtronic-icon-truck:before {
-  content: "\e061";
+  content: "";
 }
 
 .axtronic-icon-twitter:before {
-  content: "\e062";
+  content: "";
 }
 
 .axtronic-icon-video:before {
-  content: "\e063";
+  content: "";
 }
 
 /**
@@ -1353,7 +1354,7 @@ blockquote p:first-child:before {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "\e04f";
+  content: "";
   color: var(--primary);
   font-style: normal;
   font-size: 61px;
@@ -1912,7 +1913,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "\e002";
+  content: "";
 }
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
   display: none;
@@ -1939,8 +1940,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .bravo_topbar ul li {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
+  margin-right: calc(25px/2);
+  margin-left: calc(25px/2);
 }
 #masthead .bravo_topbar ul li a:hover {
   color: var(--primary_hover);
@@ -1978,7 +1979,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "\e002";
+  content: "";
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
   display: none;
@@ -2053,8 +2054,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-navigation ul li {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
+  margin-right: calc(25px/2);
+  margin-left: calc(25px/2);
 }
 #masthead .header-wrap .site-navigation ul li a {
   font-size: 16px;
@@ -2104,8 +2105,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-member ul li {
-  margin-right: 12.5px;
-  margin-left: 12.5px;
+  margin-right: calc(25px/2);
+  margin-left: calc(25px/2);
 }
 #masthead .header-wrap .site-member ul li a {
   font-size: 16px;
