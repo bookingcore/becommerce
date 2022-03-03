@@ -149,6 +149,7 @@
     </section>
 @endsection
 @section('footer')
+    <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
     <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>
     <script src="{{asset('module/product/admin/js/product.js')}}"></script>
