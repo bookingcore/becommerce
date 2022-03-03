@@ -25,7 +25,7 @@ class SendUserSubmitVerifyDataEmail
     {
         if (!empty(setting_item('admin_email'))) {
 
-            Mail::to(setting_item('admin_email'))->send(new UserVerificationSubmitToAdmin($event->user));
+            Mail::to(setting_item('admin_email'))->queue(new UserVerificationSubmitToAdmin($event->user));
         }
 
     }

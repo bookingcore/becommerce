@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,6 @@ Route::get('social-callback/{provider}', 'Auth\LoginController@socialCallBack');
 Route::match(['get'],'/contact','\Modules\Contact\Controllers\ContactController@index'); // Contact
 Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactController@store'); // Contact
 
-Route::get('/test_functions', 'HomeController@test');
 
 //Homepage
 Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');
@@ -47,4 +48,3 @@ Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@inde
 
 Route::get('/install','HomeController@redirectToRequirement')->name('LaravelInstaller::welcome');
 Route::get('/install/environment','HomeController@redirectToWizard')->name('LaravelInstaller::environment');
-

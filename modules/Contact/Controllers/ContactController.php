@@ -51,7 +51,7 @@ class ContactController extends Controller
             }
         }
         $row = new Contact($request->input());
-        $row->status = 'sent';
+        $row->status = 'new';
         if ($row->save()) {
             $this->sendEmail($row);
             $data = [
@@ -65,7 +65,7 @@ class ContactController extends Controller
     protected function sendEmail($contact){
         if($admin_email = setting_item('admin_email')){
             try {
-                Mail::to($admin_email)->send(new NotificationToAdmin($contact));
+                Mail::to($admin_email)->queue(new NotificationToAdmin($contact));
             }catch (Exception $exception){
                 Log::warning("Contact Send Mail: ".$exception->getMessage());
             }

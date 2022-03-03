@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\Terms;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\Term;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Product\Database\Factories\ProductFactory;
@@ -42,7 +42,8 @@ class Product extends BaseProduct
     protected $slugFromField = 'title';
     protected $seo_type = 'product';
     protected $casts = [
-        'attributes_for_variation'=>'array'
+        'attributes_for_variation'=>'array',
+        'price'=>'float'
     ];
 
     protected $cleanFields = [
@@ -79,6 +80,20 @@ class Product extends BaseProduct
 
     public static function getTypeName(){
         return __('Simple Product');
+    }
+
+    public function getTypeNameAttribute(){
+        switch ($this->product_type){
+            case "simple":
+                return __('Simple Product');
+                break;
+            case "variable":
+                return __('Variable Product');
+                break;
+            case "external":
+                return __('External Product');
+                break;
+        }
     }
 
     /**
@@ -135,11 +150,13 @@ class Product extends BaseProduct
         $items = explode(",", $this->gallery);
         foreach ($items as $k => $item) {
             $large = FileHelper::url($item, 'full');
-            $thumb = FileHelper::url($item, 'thumb');
-            $list_item[] = [
-                'large' => $large,
-                'thumb' => $thumb
-            ];
+            if (!empty($large)){
+                $thumb = FileHelper::url($item, 'thumb');
+                $list_item[] = [
+                    'large' => $large,
+                    'thumb' => $thumb
+                ];
+            }
         }
         return $list_item;
     }
@@ -306,51 +323,21 @@ class Product extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock > 0){
-            if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
-            }
-        } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
+        if ($this->is_manage_stock and $this->quantity){
+            $stock = __('In Stock');
+        } elseif(!$this->is_manage_stock and $this->stock_status == 'in') {
+            $stock = __('In Stock');
+        }else{
             $stock = __('Out Of Stock');
             $in_stock = false;
         }
+
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
     }
 
-    public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
-
-        }
-    }
-    public function getStockStatusTextAttribute(){
-        if(!$this->manage_stock){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 1:
-                return __('In Stock');
-                break;
-            case 0:
-                return __("Out Stock");
-                break;
-
-        }
-    }
 
     /**
      * Single Tabs
@@ -392,7 +379,7 @@ class Product extends BaseProduct
         return $this->belongsToMany(ProductCategory::class,ProductCategoryRelation::getTableName(),'target_id','cat_id');
     }
     public function termSeeder(){
-        return $this->belongsToMany(Terms::class,ProductTerm::getTableName(),'target_id','term_id');
+        return $this->belongsToMany(Term::class,ProductTerm::getTableName(),'target_id','term_id');
     }
     public function tagsSeeder(){
         return $this->belongsToMany(Tag::class,ProductTag::getTableName(),'target_id','tag_id');
@@ -425,14 +412,14 @@ class Product extends BaseProduct
 
 	public function getProductJsAdminDataAttribute(){
         return [
-            'attributes'=>Attributes::query()->ofType($this->type)->get(),
+            'attributes'=>Attribute::query()->ofType($this->type)->get(),
             'attributes_for_variation'=>$this->attributes_for_variation
         ];
     }
 
     public function getTermsOfAttr($attr_id)
     {
-         return Terms::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
+         return Term::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
     }
 
     public function getAttributesForVariationDataAttribute(){
@@ -440,7 +427,7 @@ class Product extends BaseProduct
 	    if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
         {
             foreach ($this->attributes_for_variation as $attr_id) {
-                $attr = Attributes::find($attr_id);
+                $attr = Attribute::find($attr_id);
                 if(empty($attr)) continue;
 
                 $res[$attr_id] = [
@@ -486,14 +473,14 @@ class Product extends BaseProduct
                                     throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
                                 }
                             }else{
-                                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+                                throw new \Exception(__('Out of stock'));
                             }
                         }else{
 //                            Nếu SP cha không bật	remain_stock = stock - on_hodl riêng của từng variant
                             $variant->stockValidation($qty);
                         }
                     }else{
-                        $this->stockValidation($qty);
+                        throw new \Exception(__('Product not found'));
                     }
                 break;
             case 'external':
@@ -506,7 +493,7 @@ class Product extends BaseProduct
 
     }
     public function list_attrs(){
-        return Attributes::select('id','name','slug')->get();
+        return Attribute::select('id','name','slug')->get();
     }
 
     public function get_variable($id){

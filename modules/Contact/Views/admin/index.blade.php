@@ -7,9 +7,9 @@
         </div>
         @include('admin.message')
         <div class="filter-div d-flex justify-content-between ">
-            <div class="col-left"> 
+            <div class="col-left">
                 @if(!empty($rows))
-                <form method="post" action="{{url('admin/module/contact/bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                <form method="post" action="{{route('contact.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                     {{csrf_field()}}
                     <select name="action" class="form-control">
                         <option value="">{{__(" Bulk Actions ")}}</option>
@@ -20,13 +20,13 @@
                @endif
             </div>
             <div class="col-left">
-               <form method="get" action="{{url('/admin/module/contact/')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
+               <form method="get" action="{{route('contact.admin.index')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
                     <input  type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search...')}}" class="form-control">
                     <button class="btn-info btn btn-icon btn_search"  type="submit">{{__('Search')}}</button>
                 </form>
             </div>
         </div>
-        <div class="panel"> 
+        <div class="panel">
             <div class="panel-body">
                 <form action="" class="bravo-form-item">
                     <table class="table table-hover">

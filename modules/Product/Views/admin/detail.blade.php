@@ -116,6 +116,13 @@ $tabs = get_admin_product_tabs();
                                         </select>
                                 </div>
                                 <div class="form-group">
+                                    <label>{{__('Is Approved?')}}</label>
+                                    <select name="is_approved" class="custom-select form-select">
+                                        <option @if($row->status=='1') selected @endif value="1">{{__("Yes")}}</option>
+                                        <option @if($row->status=='0') selected @endif value="0">{{__("No")}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
                                     <div class="controls">
                                         <label class="mb-0">
                                             <input type="checkbox" name="is_featured" @if($row->is_featured) checked @endif value="1"> {{__("This is a featured product")}}

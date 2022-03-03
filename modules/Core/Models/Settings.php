@@ -11,6 +11,7 @@ class Settings extends BaseModel
     use HasEvents;
 
     protected $table = 'core_settings';
+    protected static $_cached = [];
 
     public static function getSettings($keys)
     {
@@ -26,10 +27,17 @@ class Settings extends BaseModel
 
     public static function item($item, $default = false)
     {
+        if(isset(static::$_cached[$item])){
+            return static::$_cached[$item];
+        }
+
         $value = Cache::rememberForever('setting_' . $item, function () use ($item ,$default) {
             $val = Settings::where('name', $item)->first();
             return ($val and $val['val'] != null) ? $val['val'] : $default;
         });
+
+        static::$_cached[$item] = $value;
+
         return $value;
     }
 
@@ -45,6 +53,8 @@ class Settings extends BaseModel
             $check->name = $key;
             $check->save();
         }
+
+        if(isset(static::$_cached[$key])) unset(static::$_cached[$key]);
 
         Cache::forget('setting_' . $key);
     }

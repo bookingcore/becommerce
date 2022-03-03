@@ -61,7 +61,7 @@ class CssInlinerPlugin implements \Swift_Events_SendListener
     protected function concatCss(): string
     {
         $output = '';
-        foreach (config('bc.emails.css_files') as $cssResource) {
+        foreach (config('bc.email.css_files') as $cssResource) {
             $output.= $this->fetchCss($cssResource);
         }
 

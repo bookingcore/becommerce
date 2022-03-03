@@ -14,7 +14,7 @@ use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
 use Illuminate\Http\Request;
 use Modules\Review\Models\Review;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\User\Models\User;
 
 class ProductController extends Controller
@@ -97,7 +97,7 @@ class ProductController extends Controller
     }
 
     public function attrs($row){
-        return Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
+        return Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
     }
 
     public function detail(Request $request, $slug)

@@ -13,49 +13,66 @@ use Modules\Product\Models\Product;
 
 class CartManager
 {
-    protected static $session_key='core_carts';
+    protected static $session_key='bc_carts';
 
-    protected static $session_coupon_key = 'core_coupon_cart';
+    protected static $session_coupon_key = 'bc_coupon_cart';
 
-    public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variant_id = false){
+    /**
+     * @var array | Collection
+     */
+    protected static $_items = [];
 
-        $items = static::items();
-        $item = static::item($product_id,$variant_id);
+    public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
+
+        $item = static::findItem($product_id,$variation_id);
         if(!$item){
             if ($product_id instanceof Product){
-                $item = CartItem::fromProduct($product_id,$qty,$price,$meta, $variant_id);
+                $item = CartItem::fromProduct($product_id,$qty,$price,$meta, $variation_id);
             }else{
-                $item = CartItem::fromAttribute($product_id,$name,$qty,$price, $meta, $variant_id);
+                $item = CartItem::fromAttribute($product_id,$name,$qty,$price, $meta, $variation_id);
             }
-            $items->put($item->id, $item);
-
+            static::pushItem($item);
         }else{
-            $item->qty = $qty;
-            $item->price = $price;
+            $item->qty += 1;
+            $item->updatePrice();
+
+            static::save();;
         }
-        session()->put(static::$session_key, $items);
+
         return $item;
+    }
+
+    /**
+     * Get Cart Item by ID
+     *
+     * @param int $cartItemId
+     * @return CartItem|null
+     */
+    public static function item($cartItemId){
+
+       return static::items()->where('id',$cartItemId)->first();
     }
 
     /**
      * Get Cart Item by Product ID and Variation ID
      *
      * @param int|Product $product_id
-     * @param false $variant_id
+     * @param int|false $variation_id
      * @return CartItem|null
      */
-    public static function item($product_id, $variant_id = false){
+    public static function findItem($product_id, $variation_id = false){
 
         $currentItems  = static::items();
+
         if($product_id instanceof Product){
-            $items =  $currentItems->where('product_id',$product_id->id);
+            $currentItems = $currentItems->where('product_id',$product_id->id);
         }else{
-            $items =  $currentItems->where('product_id',$product_id);
+            $currentItems = $currentItems->where('product_id',$product_id);
         }
-        if($variant_id){
-            $items->where('variant_id',$variant_id);
+        if($variation_id){
+            $currentItems = $currentItems->where('variation_id',$variation_id);
         }
-        return $items->first();
+        return $currentItems->first();
     }
 
     /**
@@ -64,33 +81,20 @@ class CartManager
      * @param $cart_item_id
      * @param int $qty
      * @param false $price
-     * @param false $variant_id
+     * @param false $variation_id
      * @return bool|Collection|null
      */
-    public static function update($cart_item_id,$qty = 1,$price = false, $meta = [], $variant_id = false){
+    public static function update($cart_item_id,$qty = 1,$price = false, $meta = [], $variation_id = false){
 
-        $items = static::items();
-        $find = $items->where('id',$cart_item_id)->first();
+        $find = static::item($cart_item_id);
         if($find){
             $find->qty = $qty;
-            if(!empty($price)){
-                $find->price = $price;
-            }
-            if(!empty($variant_id)){
-                $find->variant_id = $variant_id;
-            }
-            if(!empty($meta)){
-                $find->meta = $meta;
-            }
 
             if($qty <= 0){
                 return static::remove($cart_item_id);
             }else{
-                $items->put($cart_item_id,$find);
-                session()->put(static::$session_key, $items);
+                static::save();
             }
-
-            return $find;
         }
 
         return null;
@@ -105,9 +109,11 @@ class CartManager
      */
     public static function remove($cart_item_id){
 
-        $items = static::items();
-        $items->pull($cart_item_id);
-        session()->put(static::$session_key, $items);
+        $removed = static::items()->reject(function($item) use ($cart_item_id){
+            return $item->id == $cart_item_id;
+        });
+        static::$_items = $removed;
+        static::save();
 
         return true;
 
@@ -128,11 +134,30 @@ class CartManager
      * @return Collection
      */
     public static function items(){
-        $items = session()->get(static::$session_key);
-        if(!$items or !$items instanceof Collection){
-            return new Collection([]);
+
+        if(!empty(static::$_items)){
+            return static::$_items;
         }
-        return $items;
+
+        $raw = static::rawItems();
+        $items = collect();
+        foreach ($raw as $rawItem){
+            if(isset($rawItem['model'])) unset($rawItem['model']);
+            $cartItem = new CartItem();
+
+            foreach ($rawItem as $k=>$v){
+                $cartItem->setAttribute($k,$v);
+            }
+            $items->push($cartItem);
+        }
+
+        static::$_items = $items;
+        return static::$_items;
+    }
+
+    protected static function rawItems(){
+        $items = session()->get(static::$session_key);
+        return $items ?? [];
     }
 
     /**
@@ -172,7 +197,7 @@ class CartManager
         return $subTotal + $shipping - $discount;
     }
 
-    public static function get_cart_fragments(){
+    public static function fragments(){
         return [
             '.header_content .bc-mini-cart'=>view('order.cart.mini-cart')->render(),
         ];
@@ -223,7 +248,7 @@ class CartManager
                             $item->discount_amount = 0;
                         }
                         $items->put($cart_item_id,$item);
-                        session()->put(static::$session_key, $items);
+                        static::save();
                     }
                 }
             }else{
@@ -237,7 +262,7 @@ class CartManager
                             $item->discount_amount = 0;
                         }
                         $items->put($cart_item_id,$item);
-                        session()->put(static::$session_key, $items);
+                        static::save();
                 }
             }
 		}
@@ -256,6 +281,7 @@ class CartManager
         $order = new Order();
         $order->customer_id = auth()->id();
         $order->status = Order::DRAFT;
+        $order->locale = app()->getLocale();
         $order->save();
 
         $items = static::items();
@@ -270,7 +296,8 @@ class CartManager
             $order_item->subtotal = $item->subtotal;
             $order_item->status = Order::DRAFT;
             $order_item->meta = $item->meta;
-            $order_item->variant_id = $item->variant_id;
+            $order_item->variation_id = $item->variation_id;
+            $order_item->locale = app()->getLocale();
             $order_item->save();
         }
         $order->syncTotal();
@@ -292,6 +319,13 @@ class CartManager
         return $order;
     }
 
+    public static function pushItem($cartItem){
+        static::items()->push($cartItem);
+        static::save();
+    }
 
+    public static function save(){
+        session()->put(static::$session_key, static::items()->toArray());
+    }
 
 }

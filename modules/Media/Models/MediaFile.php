@@ -19,11 +19,6 @@ class MediaFile extends BaseModel
         return MediaFile::where("file_name", $name)->firstOrFail();
     }
 
-    public function cacheKey()
-    {
-        return sprintf("%s/%s", $this->getTable(), $this->getKey());
-    }
-
     public static function saveUploadFile($file,$group = 'image'){
 
         if (empty($file)) {
@@ -74,5 +69,11 @@ class MediaFile extends BaseModel
         }else{
             return asset('images/file_icon.png');
         }
+    }
+
+    public function forceDelete()
+    {
+        Cache::forget($this->cacheKey() . ':' . $this->id);
+        return parent::forceDelete();
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\User\Events\VendorApproved;
 use Modules\User\Exports\UserExport;
 use Modules\User\Models\Role;
@@ -21,7 +22,7 @@ class UserController extends AdminController
 
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/user');
+        AdminMenuManager::setActive('user');
         parent::__construct();
     }
 

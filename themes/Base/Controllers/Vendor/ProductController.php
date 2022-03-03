@@ -6,7 +6,7 @@ namespace Themes\Base\Controllers\Vendor;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
@@ -76,7 +76,7 @@ class ProductController extends FrontendController
             'tabs' => get_admin_product_tabs(),
             'categories'  => ProductCategory::get()->toTree(),
             "selected_terms" => $row->terms->pluck('term_id'),
-            'attributes'     => Attributes::query()->where('service', 'product')->get(),
+            'attributes'     => Attribute::query()->where('service', 'product')->get(),
             'product'=>$row
         ];
         return view('vendor.product.detail', $data);
@@ -104,7 +104,7 @@ class ProductController extends FrontendController
             'tabs' => get_admin_product_tabs(),
             'categories'  => ProductCategory::get()->toTree(),
             "selected_terms" => [],
-            'attributes'     => Attributes::query()->where('service', 'product')->get(),
+            'attributes'     => Attribute::query()->where('service', 'product')->get(),
             'product'=>$row
         ];
         return view('vendor.product.detail', $data);
@@ -128,6 +128,13 @@ class ProductController extends FrontendController
             $this->checkPermission('product_update');
         }
 
+        if(vendor_product_need_approve() and !$row->id){
+            $row->status = 'pending';
+        }
+        if($row->status == 'rejected'){
+            $row->status = 'pending';
+        }
+
         $dataKeys = [
             'title',
             'content',
@@ -147,6 +154,9 @@ class ProductController extends FrontendController
             'button_text',
             'external_url'
         ];
+        if($row->is_approved){
+            $dataKeys[] = 'status';
+        }
         $row->fillByAttr($dataKeys,$request->input());
 
         $row->saveWithTranslation($request->input('lang'));

@@ -89,7 +89,7 @@ class AdminForm{
                         <div class="form-group" <?php if(!empty($option['condition'])) echo 'data-condition="'.e($option['condition']).'"'; ?>  >
                             <label class="" ><?php echo e($option['label']) ?></label>
                             <div class="form-controls">
-                                <textarea name="<?php echo e($option['id']) ?>" class="has-ckeditor"  cols="30" rows="7"><?php echo clean($option['value']) ?></textarea>
+                                <textarea name="<?php echo e($option['id']) ?>" class="has-tinymce"  cols="30" rows="7"><?php echo clean($option['value']) ?></textarea>
                             </div>
                         </div>
                         <?php

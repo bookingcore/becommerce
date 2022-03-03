@@ -11,7 +11,7 @@ use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
 use Illuminate\Http\Request;
 use Modules\Review\Models\Review;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\User\Models\User;
 
 class ProductController extends Controller
@@ -48,7 +48,7 @@ class ProductController extends Controller
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translations')->get();
+        $data['attributes'] = Attribute::where('service', 'product')->with('terms.translations')->get();
         $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
             $item->count_product  = count($item->products);
             return $item;
@@ -66,11 +66,11 @@ class ProductController extends Controller
     }
 
     public function attrs($row){
-        return Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
+        return Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
     }
 
     public function product_variations($row){
-        $attrs = (!empty($row->attributes_for_variation)) ? Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
+        $attrs = (!empty($row->attributes_for_variation)) ? Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
         $terms = ProductTerm::select('*','core_terms.attr_id as attr_id')->join('core_terms','product_term.term_id','=','core_terms.id')->where('target_id',$row->id)->get();
         $product_variations = ProductVariation::where('product_id',$row->id)->get();
         $get_variation = [];
@@ -247,7 +247,7 @@ class ProductController extends Controller
     public function remove_compare(Request $request){
         $compare = session('compare');
         $n_compare = [];
-        $listAttr = Attributes::all();
+        $listAttr = Attribute::all();
         if (!empty($compare)){
             foreach ($compare as $row){
                 if ($row['id'] == $request->post('id')){

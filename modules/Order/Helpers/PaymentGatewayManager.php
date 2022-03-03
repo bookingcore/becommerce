@@ -25,7 +25,7 @@ class PaymentGatewayManager
 
         $all = [];
         foreach (static::$_all as $id=>$config){
-            $all[$id] = new $config['class'];
+            $all[$id] = new $config['class']($id);
         }
 
         static::$_cached = \Illuminate\Support\Arr::sort($all, function ($value) {

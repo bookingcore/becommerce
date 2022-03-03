@@ -6,6 +6,8 @@
 
     use App\Currency;
     use App\Helpers\ReCaptchaEngine;
+    use App\User;
+    use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Validator;
@@ -31,6 +33,7 @@
                 'gateways'=>get_active_payment_gateways(),
                 'user'=>$user,
                 'billing'=>$billing,
+                'shipping'=>$user->shipping_address ?? new UserAddress(),
                 'breadcrumbs'=>[
                     [
                         'name'=> "Checkout",
@@ -59,12 +62,12 @@
             }
 
             $rules = [
-                'first_name'      => 'required|string|max:255',
-                'last_name'       => 'required|string|max:255',
-                'phone'           => 'required|string|max:255',
-                'country' => 'required',
-                'address' => 'required',
-                'zip_code' => 'required',
+                'billing_first_name'      => 'required|string|max:255',
+                'billing_last_name'       => 'required|string|max:255',
+                'billing_email'           => 'required|email|max:255',
+                'billing_phone'           => 'required|string|max:255',
+                'billing_country' => 'required',
+                'billing_address' => 'required',
                 'payment_gateway' => 'required',
                 'term_conditions' => 'required',
             ];
@@ -78,22 +81,36 @@
             if ($validator->fails()) {
                 return $this->sendError('', ['errors' => $validator->errors()]);
             }
-
 //            Create order and on-hold order
             $order = CartManager::order();
 
-
             $order->gateway = $payment_gateway;
             $billing_data = [
-                'first_name'=>$request->input('first_name'),
-                'last_name'=>$request->input('last_name'),
-                'phone'=>$request->input('phone'),
-                'country'=>$request->input('country'),
-                'address'=>$request->input('address'),
-                'address2'=>$request->input('address2'),
-                'state'=>$request->input('state'),
-                'city'=>$request->input('city'),
-                'zip_code'=>$request->input('zip_code'),
+                'email'=>$request->input('billing_email'),
+                'first_name'=>$request->input('billing_first_name'),
+                'last_name'=>$request->input('billing_last_name'),
+                'phone'=>$request->input('billing_phone'),
+                'country'=>$request->input('billing_country'),
+                'address'=>$request->input('billing_address'),
+                'address2'=>$request->input('billing_address2'),
+                'state'=>$request->input('billing_state'),
+                'city'=>$request->input('billing_city'),
+                'postcode'=>$request->input('billing_postcode'),
+                'company'=>$request->input('billing_company'),
+            ];
+            $billing_data['email'] = trim(strtolower($billing_data['email']));
+            $shipping_data = [
+                'email'=>$request->input('shipping_email'),
+                'first_name'=>$request->input('shipping_first_name'),
+                'last_name'=>$request->input('shipping_last_name'),
+                'phone'=>$request->input('shipping_phone'),
+                'country'=>$request->input('shipping_country'),
+                'address'=>$request->input('shipping_address'),
+                'address2'=>$request->input('shipping_address2'),
+                'state'=>$request->input('shipping_state'),
+                'city'=>$request->input('shipping_city'),
+                'postcode'=>$request->input('shipping_postcode'),
+                'company'=>$request->input('shipping_company'),
             ];
 
             $gateways = get_active_payment_gateways();
@@ -118,16 +135,20 @@
             $payment->save();
 
             $order->payment_id = $payment->id;
+
+            if($user) {
+                //update or create user billing
+                $user->billing_address()->updateOrCreate([], $billing_data);
+                $user->shipping_address()->updateOrCreate([], $shipping_data);
+            }else{
+                $user = $this->tryCreateUser($billing_data);
+            }
+            $order->customer_id = $user->id;
             $order->save();
 
             //            save billing order
             $order->addMeta('billing',$billing_data);
-            $order->addMeta('shipping_address',[]);
-            if(!empty($request->input('billing_id'))){
-                $billing_data['id'] = $request->input('billing_id');
-            }
-            //update or create user billing
-            $user->billing_address()->updateOrCreate([],$billing_data);
+            $order->addMeta('shipping',$shipping_data);
             try {
                 $res = $gatewayObj->process($payment);
 
@@ -149,7 +170,31 @@
                 ]);
 
             }catch (\Throwable $throwable){
-                return $this->sendError($throwable->getMessage());
+                return $this->sendError($throwable->getMessage(),[
+                    'url' => $order->getDetailUrl()
+                ]);
             }
+        }
+
+        protected function tryCreateUser($billing_data){
+            $user = User::query()->where('email',$billing_data['email']);
+            if($user){
+                return $user;
+            }
+            $data = [
+                'first_name'=>$billing_data['first_name'],
+                'last_name'=>$billing_data['last_name'],
+                'phone'=>$billing_data['phone'],
+                'email'=>$billing_data['email'],
+                'status'=>'publish'
+            ];
+            $user = new User();
+            $user->fillByAttr(array_keys($data),$data);
+            if(!setting_item('enable_email_verification')){
+                $user->email_verified_at = Carbon::now();
+            }
+            $user->save();
+
+            return $user;
         }
     }

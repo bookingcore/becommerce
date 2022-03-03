@@ -8,19 +8,21 @@
                 <div class="panel report-panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
                         <ul class="select-date-ranger">
-                            <li><a href="#">Year</a></li>
-                            <li><a href="#">Last month</a></li>
-                            <li><a href="#">This month</a></li>
-                            <li class="active"><a href="#">Last 7 days</a></li>
-                            <li>
+                            <li class="@if(request()->get('range') == 'year') active @endif"><a href="{{ route('report.admin.overview').'?range=year' }}">{{ __("Year") }}</a></li>
+                            <li class="@if(request()->get('range') == 'last-month') active @endif"><a href="{{ route('report.admin.overview').'?range=last-month' }}">{{ __("Last month") }}</a></li>
+                            <li class="@if(request()->get('range') == 'this-month') active @endif"><a href="{{ route('report.admin.overview').'?range=this-month' }}">{{ __("This month") }}</a></li>
+                            <li class="@if(request()->get('range') == 'last7days') active @endif"><a href="{{ route('report.admin.overview').'?range=last7days' }}">{{ __("Last 7 days") }}</a></li>
+                            <li class="@if(request()->get('range') == 'custom') active @endif">
                                 <form method="GET" action="{{ route('report.admin.overview') }}" class="filter-form filter-form-left d-flex justify-content-start">
+                                    <input type="hidden" name="range" value="custom">
                                     <div id="reportrange" class="mr-2" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
+                                    <input type="hidden" name="from" value="{{ request()->get('from') ?? date('Y-m-0') }}">
+                                    <input type="hidden" name="to" value="{{ request()->get('to') ?? date('Y-m-d') }}">
                                     <button class="btn btn-default" type="submit">{{ __("OK") }}</button>
                                 </form>
-
                             </li>
                         </ul>
                     </div>
@@ -31,25 +33,25 @@
                                     <li>
                                         <div>
                                             <strong>$0.00</strong>
-                                            <span>gross sales in this period</span>
+                                            <span>{{ __("gross sales in this period") }}</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong>$0.00</strong>
-                                            <span>net sales in this period</span>
+                                            <span>{{ __("net sales in this period") }}</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong>0</strong>
-                                            <span>orders placed</span>
+                                            <span>{{ __("orders placed") }}</span>
                                         </div>
                                     </li>
                                     <li>
                                         <div>
                                             <strong>0</strong>
-                                            <span>items purchased</span>
+                                            <span>{{ __("items purchased") }}</span>
                                         </div>
                                     </li>
                                     <li>
@@ -72,8 +74,12 @@
                                     </li>
                                 </ul>
                             </div>
+
                             <div class="report-chart">
                                 <canvas class="report_chart" data-chart="" ></canvas>
+                                <script>
+                                    var report_chart_data = {!! json_encode($report_chart_data) !!};
+                                </script>
                             </div>
                         </div>
                     </div>
@@ -91,16 +97,13 @@
     <script>
 
         $('.report_chart').each(function () {
+            console.log(report_chart_data);
             var ctx = $(this)[0].getContext('2d');
             window.myMixedChart = new Chart(ctx, {
                 type: 'bar',
-                data: $(this).attr('data-chart'),
+                data: report_chart_data,
                 options: {
                     responsive: true,
-                    tooltips: {
-                        mode: 'index',
-                        intersect: true
-                    },
                     scales: {
                         xAxes: [{
                             stacked: true,
@@ -123,6 +126,8 @@
                         }]
                     },
                     tooltips: {
+                        mode: 'index',
+                        intersect: true,
                         callbacks: {
                             label: function (tooltipItem, data) {
                                 var label = data.datasets[tooltipItem.datasetIndex].label || '';
@@ -138,8 +143,8 @@
             });
         });
 
-        var start = moment().startOf('month');
-        var end = moment();
+        var start = moment('{{ request()->get('from', date('Y-m-0')) }}');
+        var end = moment('{{ request()->get('to', date('Y-m-d')) }}');
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
@@ -151,7 +156,8 @@
             "showDropdowns": true
         }, cb).on('apply.daterangepicker', function (ev, picker) {
             // Reload Earning JS
-            console.log(112);
+            $('input[name="from"]').val(picker.startDate.format('YYYY-MM-DD'))
+            $('input[name="to"]').val(picker.endDate.format('YYYY-MM-DD'))
         });
         cb(start, end);
     </script>

@@ -5,14 +5,11 @@ namespace Modules\Order\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 
 class CartItem extends Model
 {
     public $incrementing = false;
-
-    protected $class_name;
-
-
 
     protected $attributes = [
         "name"=>"",
@@ -25,26 +22,28 @@ class CartItem extends Model
         "discount_amount"=>0, // counpon discount amount
         "shipping_amount"=>0, // shipping amount nếu có
         "author"=>"",
-        "variant_id"=>""
+        "variation_id"=>"",
+        'class_name' => Product::class
     ];
 
-    public static function fromProduct(Product $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
+    public static function fromProduct(Product $model,$qty = 1,$price = 0, $meta = [],$variation_id = ''){
 
         $item = new self();
         $item->class_name = get_class($model);
         $item->product_id = $model->id;
         $item->qty = $qty;
         $item->name = $model->title;
-        $item->price = $price ? $price : $model->price ;
+        $item->price = $variation_id ? ProductVariation::find($variation_id)->price ?? 0 : $model->price ;
         $item->object_id = $model->id;
         $item->object_model = $model->type;
         $item->meta = $meta;
         $item->author = $model->author->display_name;
-        $item->variant_id = $variant_id;
+        $item->variation_id = (int) $variation_id;
         $item->generateId();
         return $item;
     }
-    public static function fromModel(Product $model,$qty = 1,$price = 0, $meta = [],$variant_id = ''){
+
+    public static function fromModel(Product $model,$qty = 1,$price = 0, $meta = [],$variation_id = ''){
 
         $item = new self();
 
@@ -58,14 +57,14 @@ class CartItem extends Model
         $item->object_model = $model->type;
         $item->meta = $meta;
         $item->author = $model->author->display_name;
-        $item->variant_id = $variant_id;
+        $item->variation_id = $variation_id;
 
         $item->generateId();
 
         return $item;
     }
 
-    public static function fromAttribute($id,$name = '', $qty = 1, $price = 0, $meta = [],$variant_id = ''){
+    public static function fromAttribute($id,$name = '', $qty = 1, $price = 0, $meta = [],$variation_id = ''){
         $item = new self();
 
         $item->product_id = $id;
@@ -73,7 +72,7 @@ class CartItem extends Model
         $item->name = $name;
         $item->meta = $meta;
         $item->price = $price;
-        $item->variant_id = $variant_id;
+        $item->variation_id = $variation_id;
 
         $item->generateId();
 
@@ -83,7 +82,9 @@ class CartItem extends Model
     public function model(){
         return $this->belongsTo($this->class_name,'object_id');
     }
-
+    public function variation(){
+        return $this->belongsTo(ProductVariation::class,'variation_id');
+    }
 
     protected function generateId(){
         if(!$this->id)
@@ -113,5 +114,15 @@ class CartItem extends Model
             }
         }
         return $t;
+    }
+
+    public function updatePrice(){
+        if($this->model){
+            if($this->variation_id){
+                $this->price = ProductVariation::find($this->variation_id)->price ?? 0;
+            }else{
+                $this->price = $this->model->price;
+            }
+        }
     }
 }
