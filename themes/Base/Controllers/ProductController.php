@@ -103,8 +103,6 @@ class ProductController extends Controller
             abort(404);
             return;
         }
-
-        $product_variations = $row->variations;
         $translation = $row->translate(app()->getLocale());
         $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $breadcrumbs = [
@@ -142,7 +140,6 @@ class ProductController extends Controller
             'body_class'         => 'is_single',
             'show_breadcrumb'    => 0,
             'breadcrumbs'        => $breadcrumbs,
-            'product_variations' => $product_variations,
             'is_preview_mode'    => $is_preview_mode,
             'products_related'   => $products_related
         ];
