@@ -36,7 +36,7 @@ class JsonConfigManager
     public static function all(){
         if(empty(static::$_all)){
             try {
-                if(static::storage()->exists(static::file())){
+                if(!static::storage()->exists(static::file())){
                     static::save([]);
                 }
                 static::$_all = json_decode(static::storage()->get(static::file()), true);
