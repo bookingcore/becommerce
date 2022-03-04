@@ -28,6 +28,12 @@ $score_total = $reviewData['score_total'];
         <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer c-main-hover" data-bs-toggle="tooltip" title="{{ __("Compare") }}" data-id="{{$row->id}}">
             <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </div> -->
+        <div class="shop-action">
+            <button class="btn-tooltips btn-addtocart tooltipstered" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
+            <button class="btn-tooltips btn-wishlist tooltipstered" ><i class="fa fa-heart-o" aria-hidden="true"></i></button>
+            <button class="btn-tooltips btn-quickview tooltipstered" ><i class="fa fa-eye" aria-hidden="true"></i></button>
+            <button class="btn-tooltips btn-compare " ><i class="fa fa-refresh" aria-hidden="true"></i></button>
+        </div>
     </div>
     <div class="card-body">
         <h2>
