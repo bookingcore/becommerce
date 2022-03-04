@@ -23,13 +23,11 @@
     "dependencies": {
         "@tailwindcss/forms": "^0.4.0",
         "@tinymce/tinymce-vue": "^3.2.1",
-        "bourbon": "^7.0.0",
         "font-awesome": "^4.7.0",
         "he-tree-vue": "^1.1.4",
         "ionicons": "^4.6.3",
         "raw-loader": "^2.0.0",
         "style-loader": "^0.23.1",
-        "swiper": "^8.0.6",
         "vue-draggable-nested-tree": "^2.2.20",
         "vue-form-generator": "^2.3.4",
         "vue-loader": "^15.9.8",
