@@ -34,8 +34,15 @@ class FileHelper
             return false;
         }
         if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
-            $url = static::maybeResize($file, $size,$resize);
-            return $url;
+            if(env('CF_ENABLE_IMAGE_RESIZE') and !in_array(strtolower($file->file_extension),['svg']))
+            {
+                $width = static::$defaultSize[$size][0] ?? $size;
+                if($width == 'full') $width = '';
+                return '/cdn-cgi/image/'.($width ? 'width='.$width : '').',quality=70,f=auto/uploads/'.$file->file_path;
+            }else{
+                $url = static::maybeResize($file, $size,$resize);
+                return $url;
+            }
         }
         return asset('uploads/' . $file->file_path);
     }
