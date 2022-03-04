@@ -8,7 +8,8 @@
                 content:'',
                 type:false
             },
-            shipping_same_address:1
+            shipping_same_address:1,
+            errors:{}
         },
         methods:{
             doCheckout(){
@@ -19,16 +20,15 @@
                 if(!this.validate()) return false;
 
                 this.onSubmit = true;
-
                 $.ajax({
-                    url:'/checkout/process',
+                    url:BC.routes.checkout.process,
                     data:$('#bravo-checkout-page').find('input,textarea,select').serialize(),
                     method:"post",
                     success:function (res) {
+                        $('#bravo-checkout-page').find('.input-error').remove();
                         if(!res.status && !res.url){
                             me.onSubmit = false;
                         }
-
 
                         if(res.elements){
                             for(var k in res.elements){
@@ -51,6 +51,7 @@
                             var html = '';
                             for(var i in res.errors){
                                 html += res.errors[i]+'<br>';
+                                $('[name='+i+']').after('<span class="text-danger input-error">'+res.errors[i][0]+'</span>');
                             }
                             me.message.content = html;
                         }
