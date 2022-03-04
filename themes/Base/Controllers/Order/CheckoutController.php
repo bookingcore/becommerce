@@ -44,6 +44,7 @@
 
             $user = auth()->user();
             $items = CartManager::items();
+            $payment_gateway = $request->input('payment_gateway');
             if(empty($items)){
                 return $this->sendError(__("Your cart is empty"));
             }
@@ -65,10 +66,19 @@
                 'billing_phone'           => 'required|string|max:255',
                 'billing_country' => 'required',
                 'billing_address' => 'required',
-                'payment_gateway' => 'required',
-                'term_conditions' => 'required',
             ];
-            $payment_gateway = $request->input('payment_gateway');
+            if(!$request->input('shipping_same_address')){
+                $rules = array_merge($rules,[
+                    'shipping_first_name'      => 'required|string|max:255',
+                    'shipping_last_name'       => 'required|string|max:255',
+                    'shipping_email'           => 'required|email|max:255',
+                    'shipping_phone'           => 'required|string|max:255',
+                    'shipping_country' => 'required',
+                    'shipping_address' => 'required',
+                ]);
+            }
+            $rules['payment_gateway'] = 'required';
+            $rules['term_conditions'] = 'required';
 
             $messages = [
                 'term_conditions.required'    => __('Please read and accept Term conditions'),
