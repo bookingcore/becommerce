@@ -11,7 +11,7 @@
                             <li class="@if(request()->get('range') == 'year') active @endif"><a href="{{ route('report.admin.overview').'?range=year' }}">{{ __("Year") }}</a></li>
                             <li class="@if(request()->get('range') == 'last-month') active @endif"><a href="{{ route('report.admin.overview').'?range=last-month' }}">{{ __("Last month") }}</a></li>
                             <li class="@if(request()->get('range') == 'this-month') active @endif"><a href="{{ route('report.admin.overview').'?range=this-month' }}">{{ __("This month") }}</a></li>
-                            <li class="@if(request()->get('range') == 'last7days') active @endif"><a href="{{ route('report.admin.overview').'?range=last7days' }}">{{ __("Last 7 days") }}</a></li>
+                            <li class="@if(request()->get('range', 'last7days') == 'last7days') active @endif"><a href="{{ route('report.admin.overview').'?range=last7days' }}">{{ __("Last 7 days") }}</a></li>
                             <li class="@if(request()->get('range') == 'custom') active @endif">
                                 <form method="GET" action="{{ route('report.admin.overview') }}" class="filter-form filter-form-left d-flex justify-content-start">
                                     <input type="hidden" name="range" value="custom">
@@ -19,7 +19,7 @@
                                         <i class="fa fa-calendar"></i>&nbsp;
                                         <span></span> <i class="fa fa-caret-down"></i>
                                     </div>
-                                    <input type="hidden" name="from" value="{{ request()->get('from') ?? date('Y-m-0') }}">
+                                    <input type="hidden" name="from" value="{{ request()->get('from') ?? date('Y-m-01') }}">
                                     <input type="hidden" name="to" value="{{ request()->get('to') ?? date('Y-m-d') }}">
                                     <button class="btn btn-default" type="submit">{{ __("OK") }}</button>
                                 </form>
@@ -30,46 +30,40 @@
                         <div class="report-body-tab">
                             <div class="report-sidebar">
                                 <ul class="chart-list-item">
-                                    <li>
+                                    <li style="border-left: 5px solid #b1d4ea">
                                         <div>
-                                            <strong>$0.00</strong>
+                                            <strong>{{ format_money($data_total['gloss_sales'] ?? 0) }}</strong>
                                             <span>{{ __("gross sales in this period") }}</span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="border-left: 5px solid #3498db">
                                         <div>
-                                            <strong>$0.00</strong>
+                                            <strong>{{ format_money($data_total['net_sales'] ?? 0) }}</strong>
                                             <span>{{ __("net sales in this period") }}</span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="border-left: 5px solid #dbe1e3">
                                         <div>
-                                            <strong>0</strong>
+                                            <strong>{{ $data_total['orders_placed'] ?? 0 }}</strong>
                                             <span>{{ __("orders placed") }}</span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="border-left: 5px solid #ecf0f1">
                                         <div>
-                                            <strong>0</strong>
+                                            <strong>{{ $data_total['items_purchased'] ?? 0 }}</strong>
                                             <span>{{ __("items purchased") }}</span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="border-left: 5px solid #5cc488">
                                         <div>
-                                            <strong>$0.00</strong>
-                                            <span>refunded 0 orders (0 items)</span>
+                                            <strong>{{ format_money($data_total['total_shipping'] ?? 0) }}</strong>
+                                            <span>{{ __("charged for shipping") }}</span>
                                         </div>
                                     </li>
-                                    <li>
+                                    <li style="border-left: 5px solid #f1c40f">
                                         <div>
-                                            <strong>$0.00</strong>
-                                            <span>charged for shipping</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <strong>$0.00</strong>
-                                            <span>worth of coupons used</span>
+                                            <strong>{{ format_money($data_total['coupons_used'] ?? 0) }}</strong>
+                                            <span>{{ __("worth of coupons used") }}</span>
                                         </div>
                                     </li>
                                 </ul>
@@ -97,7 +91,6 @@
     <script>
 
         $('.report_chart').each(function () {
-            console.log(report_chart_data);
             var ctx = $(this)[0].getContext('2d');
             window.myMixedChart = new Chart(ctx, {
                 type: 'bar',
@@ -113,17 +106,34 @@
                                 labelString: '{{__("Timeline")}}'
                             }
                         }],
-                        yAxes: [{
-                            stacked: true,
-                            display: true,
-                            scaleLabel: {
+                        yAxes: [
+                            {
+                                stacked: true,
                                 display: true,
-                                labelString: '{{__("Currency: :currency_main",['currency_main'=>setting_item('currency_main')])}}'
+                                position: 'left',
+                                id: 'y-axis-1',
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '{{__("Currency: :currency_main",['currency_main'=>setting_item('currency_main')])}}'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                }
                             },
-                            ticks: {
-                                beginAtZero: true,
+                            {
+                                stacked: false,
+                                display: true,
+                                position: 'right',
+                                id: 'y-axis-2',
+                                scaleLabel: {
+                                    display: true,
+                                    labelString: '{{__("Items")}}'
+                                },
+                                ticks: {
+                                    beginAtZero: true,
+                                }
                             }
-                        }]
+                        ],
                     },
                     tooltips: {
                         mode: 'index',
@@ -143,7 +153,7 @@
             });
         });
 
-        var start = moment('{{ request()->get('from', date('Y-m-0')) }}');
+        var start = moment('{{ request()->get('from', date('Y-m-01')) }}');
         var end = moment('{{ request()->get('to', date('Y-m-d')) }}');
         function cb(start, end) {
             $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));

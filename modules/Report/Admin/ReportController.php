@@ -4,6 +4,7 @@ namespace Modules\Report\Admin;
 use Illuminate\Http\Request;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Order\Models\Order;
 
 class ReportController extends AdminController
 {
@@ -16,49 +17,114 @@ class ReportController extends AdminController
     public function overview(Request $request){
 
         $this->checkPermission('report_view');
+        $order = new Order();
+        $chart_data = [
+            'labels'   => [],
+            'datasets' => [
+                [
+                    'label'           => __("Gross sales"),
+                    'data'            => [],
+                    'borderColor' => '#b1d4ea',
+                    'backgroundColor' => 'transparent',
+                    'type' => 'line',
+                    'yAxisID' => 'y-axis-1',
+                ],
+                [
+                    'label'           => __("Net sales"),
+                    'data'            => [],
+                    'borderColor' => '#3498db',
+                    'backgroundColor' => 'transparent',
+                    'type' => 'line',
+                    'yAxisID' => 'y-axis-1',
+                ],
+                [
+                    'label'           => __("Orders placed"),
+                    'data'            => [],
+                    'backgroundColor' => '#dbe1e3',
+                    'yAxisID' => 'y-axis-2',
+                ],
+                [
+                    'label'           => __("Items purchased"),
+                    'data'            => [],
+                    'backgroundColor' => '#ecf0f1',
+                    'yAxisID' => 'y-axis-2',
+                ],
+                [
+                    'label'           => __("Charged for shipping"),
+                    'data'            => [],
+                    'borderColor' => '#5cc488',
+                    'backgroundColor' => 'transparent',
+                    'type' => 'line',
+                    'yAxisID' => 'y-axis-1',
+                ],
+                [
+                    'label'           => __("Worth of coupons used"),
+                    'data'            => [],
+                    'borderColor' => '#f1c40f',
+                    'backgroundColor' => 'transparent',
+                    'type' => 'line',
+                    'yAxisID' => 'y-axis-1',
+                ]
+            ]
+        ];
         $range = $request->get('range', 'last7days');
-        $labels = [];
+
         switch ($range){
             case 'year';
                 $year = date("Y");
                 for ($month = 1; $month <= 12; $month++){
-                    $labels[] = date('F', strtotime($year . "-" . $month . "-01"));
+                    $m = date('F', strtotime($year . "-" . $month . "-01"));
+                    $chart_data['labels'][] = $m;
+                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', strtotime($year . "-" . $month . "-01 ")), date('Y-m-d 23:59:59', strtotime('last day of '.$m, time())));
+                    report_set_data_chart($chart_data, $report_data);
                 }
                 break;
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
-                for ($i = strtotime(date('Y-'.$last_month.'-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-'.$last_month.'-t')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d M', $i);
+                $m = Date("F", strtotime("first day of previous month"));
+                for ($i = strtotime(date('Y-'.$last_month.'-01 00:00:00')); $i <= strtotime('last day of '.$m, time()); $i += DAY_IN_SECONDS ){
+                    $chart_data['labels'][] = date('d M', $i);
+                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
+                    report_set_data_chart($chart_data, $report_data);
                 }
             break;
             case 'this-month';
-                for ($i = strtotime(date('Y-m-0')) + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d M', $i);
+                for ($i = strtotime(date('Y-m-01')); $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
+                    $chart_data['labels'][] = date('d M', $i);
+                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
+                    report_set_data_chart($chart_data, $report_data);
                 }
             break;
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
                 for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d M', $i);
+                    $chart_data['labels'][] = date('d M', $i);
+                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
+                    report_set_data_chart($chart_data, $report_data);
                 }
                 break;
             default;
-                for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d')); $i += DAY_IN_SECONDS ){
-                    $labels[] = date('d M', $i);
+                for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
+                    $chart_data['labels'][] = date('d M', $i);
+                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
+                    report_set_data_chart($chart_data, $report_data);
                 }
             break;
         }
 
-        $report_chart_data = [
-            'labels' => $labels,
-            'datasets' => [
-                []
-            ]
+        $data_total = [
+            'gloss_sales' => array_sum($chart_data['datasets'][0]['data']),
+            'net_sales' => array_sum($chart_data['datasets'][1]['data']),
+            'orders_placed' => array_sum($chart_data['datasets'][2]['data']),
+            'items_purchased' => array_sum($chart_data['datasets'][3]['data']),
+            'total_shipping' => array_sum($chart_data['datasets'][4]['data']),
+            'coupons_used' => array_sum($chart_data['datasets'][5]['data'])
         ];
 
         $data = [
-            'report_chart_data' => $report_chart_data,
+            'report_chart_data' => $chart_data,
+            'data_total' => $data_total,
             'breadcrumbs'        => [
                 [
                     'name'  => __('Overview'),

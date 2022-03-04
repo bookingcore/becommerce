@@ -2,6 +2,7 @@
 @section('content')
     @includeIf('global.breadcrumb')
     <div class="container">
+        @include('global.message')
         @if(\Modules\Order\Helpers\CartManager::count())
 
             <div class="section-title my-4">

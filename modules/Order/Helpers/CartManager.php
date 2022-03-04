@@ -33,7 +33,9 @@ class CartManager
             }
             static::pushItem($item);
         }else{
-            $item->qty += 1;
+
+            $item->qty += $qty;
+
             $item->updatePrice();
 
             static::save();;
@@ -328,4 +330,19 @@ class CartManager
         session()->put(static::$session_key, static::items()->toArray());
     }
 
+    public static function validate(){
+        foreach (static::items() as $item){
+            $model = $item->model;
+            if($model){
+                $model->addToCartValidate($item->qty,$item->variation_id);
+            }
+        }
+    }
+    public static function validateItem(CartItem $item,$qty){
+        $model = $item->model;
+        if($model){
+            $model->addToCartValidate($qty,$item->variation_id);
+        }
+        return true;
+    }
 }

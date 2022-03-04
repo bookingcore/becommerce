@@ -128,9 +128,11 @@ class ProductController extends FrontendController
             $this->checkPermission('product_update');
         }
 
+        $row->is_approved = vendor_product_need_approve() ? 0 : 1;
         if(vendor_product_need_approve() and !$row->id){
             $row->status = 'pending';
         }
+
         if($row->status == 'rejected'){
             $row->status = 'pending';
         }

@@ -96,10 +96,6 @@ class ProductController extends Controller
         return view('product', $data);
     }
 
-    public function attrs($row){
-        return Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
-    }
-
     public function detail(Request $request, $slug)
     {
         $row = $this->product::where('slug', $slug)->first();
@@ -170,41 +166,21 @@ class ProductController extends Controller
     }
 
     public function compare(Request $request){
-        $product_id = $request->post('id');
+        $product_id = $request->input('id');
         $compare = (!empty(session('compare'))) ? session('compare') : [];
-        if ($compare){
-            foreach ($compare as $item){
-                if ($item['id'] == $product_id){
+        if ($compare) {
+            foreach ($compare as $item) {
+                if ($item['id'] == $product_id) {
                     return $this->sendSuccess([
-                        'status'   => 1,
+                        'status' => 1,
                     ]);
                 }
             }
         }
-        $product = Product::find($request->post('id'));
-        if(empty($product)){
-            return $this->sendError(__("Service not found!"));
-        }
-        $attrs = [];
-        foreach( $product->variations as $variation){
-            $term_ids = $variation->term_ids;
-            foreach($product->attributes_for_variation_data as $item){
-                foreach($item['terms'] as $term){
-                    if(in_array($term->id,$term_ids)){
-                        $attrs[$variation->id][] = $item['attr']->name.": ".$term->name;
-                    }
-                }
-            }
-        }
-        $productArray = $product->getAttributes();
-        $productArray['price_html'] = view('product.details.price', ["row"=>$product])->render();
-        $productArray['detail_url'] = $product->getDetailUrl();
-        $productArray['attrs'] = $attrs;
-        $productArray['brand_name']  = $product->brand->name ?? '';
-        array_push($compare, $productArray);
+        array_push($compare, ['id' => $product_id]);
         session(['compare' => $compare]);
         $data = [
-            'compare'   =>  session('compare'),
+            'compare' => get_compare_details(),
         ];
         return $this->sendSuccess([
             'status'   => 1,
@@ -224,7 +200,7 @@ class ProductController extends Controller
         }
         session(['compare' => $compare]);
         $data = [
-            'compare'   =>  session('compare'),
+            'compare' => get_compare_details(),
         ];
         return [
             'count' =>  count($compare),

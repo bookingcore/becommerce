@@ -1,4 +1,4 @@
-<div class="bc-newsletter">
+<div class="bc-newsletter mt-5">
     <div class="container">
         <div class="bc-form-newsletter">
             <div class="row align-content-center align-items-center">

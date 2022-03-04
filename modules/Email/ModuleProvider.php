@@ -26,6 +26,12 @@ class ModuleProvider extends ModuleServiceProvider
 
         SettingManager::register("email",[$this,'getEmailSettings']);
     }
+    public function register()
+    {
+
+        $this->app->register(RouterServiceProvider::class);
+
+    }
 
     public function getEmailSettings(){
         return [

@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="table-responsive">
                     <table class="table table-striped compare-list">
-                        @if($compare = session('compare'))
+                        @if($compare = get_compare_details())
                             @include('product.compare.list')
                         @else
                             <tbody>
