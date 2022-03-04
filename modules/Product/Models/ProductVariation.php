@@ -70,10 +70,10 @@ class ProductVariation extends BaseProduct
         }
         switch ($this->stock_status){
             case 'in':
-                return 'in_stock';
+                return __("In Stock");
                 break;
             case 'out':
-                return 'out_stock';
+                return __("Out Stock");
                 break;
 
         }
@@ -180,34 +180,36 @@ class ProductVariation extends BaseProduct
         ];
     }
 
-    public function isActive(){
+    public function isActive($parent_manage = false){
         if(empty($this->active)){
             return false;
         }
-        if ($this->is_manage_stock > 0){
+        if($parent_manage == false){
+            if ($this->is_manage_stock > 0){
+                // get booking and check out of
 
-        }else{
-            if ($this->stock_status == 'out'){
+                //return false;
+            }else if ($this->stock_status == 'out'){
                 return false;
             }
         }
         return true;
     }
 
-    public function getAttributesForDetail()
+    public function getAttributesForDetail($parent_manage = false)
     {
         return [
-            'product_id'=>$this->product_id,
-            'shipping_class'=>$this->shipping_class,
-            'name'=>$this->name,
-            'position'=>$this->position,
-            'sku'=>$this->sku,
-            'image'=>get_file_url($this->image_id,"full") ?? "",
-            'price'=>format_money($this->price),
-            'sold'=>$this->sold,
-            'quantity'=>$this->quantity,
-            'is_manage_stock'=>$this->is_manage_stock,
-            'stock'=>$this->getStockStatus(),
+            'product_id'      => $this->product_id,
+            'shipping_class'  => $this->shipping_class,
+            'name'            => $this->name,
+            'position'        => $this->position,
+            'sku'             => $this->sku,
+            'image'           => get_file_url($this->image_id, "full") ?? "",
+            'price'           => format_money($this->price),
+            'sold'            => $this->sold,
+            'quantity'        => $parent_manage == false ? $this->quantity : null,
+            'is_manage_stock' => $parent_manage == false ? $this->is_manage_stock : 0,
+            'stock'           => $this->getStockStatus(),
         ];
     }
 

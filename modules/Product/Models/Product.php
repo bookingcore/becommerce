@@ -610,7 +610,33 @@ class Product extends BaseProduct
         return $query->with(['hasWishList','brand']);
     }
 
-
+    public function getVariationsFormBook(){
+        if(empty($data_variations = $this->variations))
+            return false;
+        $list_variations = $list_attributes=  [];
+        foreach($data_variations as  $variation){
+            if(empty($variation->isActive($this->is_manage_stock))) continue;
+            $term_ids = $variation->term_ids;
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->is_manage_stock)];
+            foreach($this->attributes_for_variation_data as $item){
+                foreach($item['terms'] as $term){
+                    if(in_array($term->id,$term_ids)){
+                        $list_variations[$variation->id]['terms'][] = ["id"=>$term->id,"title"=> $term->name];
+                        $list_attributes[ $item['attr']->name ][$term->id] = [
+                            'name'=>$term->name,
+                            'color'=>$term->content,
+                            'image'=>"",
+                            'type'=>$item['attr']->display_type,
+                        ];
+                    }
+                }
+            }
+        }
+        return [
+            'variations'=>$list_variations,
+            'attributes'=>$list_attributes,
+        ];
+    }
 
 
 }
