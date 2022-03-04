@@ -10,6 +10,7 @@
     use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Validator;
     use Modules\Coupon\Models\CouponOrder;
     use Modules\Order\Events\OrderUpdated;
@@ -157,7 +158,7 @@
             $order->customer_id = $user->id;
             $order->save();
 
-            //            save billing order
+            // save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
             try {
@@ -181,6 +182,7 @@
                 ]);
 
             }catch (\Throwable $throwable){
+                Log::error("Checkout: ". $throwable->getMessage());
                 return $this->sendError($throwable->getMessage(),[
                     'url' => $order->getDetailUrl()
                 ]);
