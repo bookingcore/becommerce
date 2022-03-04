@@ -25,7 +25,7 @@
                     data:$('#bravo-checkout-page').find('input,textarea,select').serialize(),
                     method:"post",
                     success:function (res) {
-                        $('#bravo-checkout-page').find('.input-error').remove();
+                        $('#bravo-checkout-page').find('.input-error').html('');
                         if(!res.status && !res.url){
                             me.onSubmit = false;
                         }
@@ -51,7 +51,7 @@
                             var html = '';
                             for(var i in res.errors){
                                 html += res.errors[i]+'<br>';
-                                $('[name='+i+']').after('<span class="text-danger input-error">'+res.errors[i][0]+'</span>');
+                                $('.input-error.'+i).html('<span class="text-danger input-error">'+res.errors[i][0]+'</span>');
                             }
                             me.message.content = html;
                         }
