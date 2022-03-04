@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "axtronic-icon";
   src: url("./fonts/axtronic-icon.eot?zmkabw");
@@ -17,399 +16,399 @@
 }
 
 .axtronic-icon-airpods:before {
-  content: "";
+  content: "\e001";
 }
 
 .axtronic-icon-angle-down:before {
-  content: "";
+  content: "\e002";
 }
 
 .axtronic-icon-angle-left:before {
-  content: "";
+  content: "\e003";
 }
 
 .axtronic-icon-angle-right:before {
-  content: "";
+  content: "\e004";
 }
 
 .axtronic-icon-angle-up:before {
-  content: "";
+  content: "\e005";
 }
 
 .axtronic-icon-arrow-circle-down:before {
-  content: "";
+  content: "\e006";
 }
 
 .axtronic-icon-arrow-circle-left:before {
-  content: "";
+  content: "\e007";
 }
 
 .axtronic-icon-arrow-circle-right:before {
-  content: "";
+  content: "\e008";
 }
 
 .axtronic-icon-arrow-circle-up:before {
-  content: "";
+  content: "\e009";
 }
 
 .axtronic-icon-arrow-down:before {
-  content: "";
+  content: "\e00a";
 }
 
 .axtronic-icon-arrow-left:before {
-  content: "";
+  content: "\e00b";
 }
 
 .axtronic-icon-arrow-right:before {
-  content: "";
+  content: "\e00c";
 }
 
 .axtronic-icon-arrow-up:before {
-  content: "";
+  content: "\e00d";
 }
 
 .axtronic-icon-buliding:before {
-  content: "";
+  content: "\e00e";
 }
 
 .axtronic-icon-call-calling:before {
-  content: "";
+  content: "\e00f";
 }
 
 .axtronic-icon-call-calling2:before {
-  content: "";
+  content: "\e010";
 }
 
 .axtronic-icon-circle-phone:before {
-  content: "";
+  content: "\e011";
 }
 
 .axtronic-icon-discount-shape:before {
-  content: "";
+  content: "\e012";
 }
 
 .axtronic-icon-electricity:before {
-  content: "";
+  content: "\e013";
 }
 
 .axtronic-icon-eye:before {
-  content: "";
+  content: "\e014";
 }
 
 .axtronic-icon-gameboy:before {
-  content: "";
+  content: "\e015";
 }
 
 .axtronic-icon-glass:before {
-  content: "";
+  content: "\e016";
 }
 
 .axtronic-icon-grid:before {
-  content: "";
+  content: "\e017";
 }
 
 .axtronic-icon-group:before {
-  content: "";
+  content: "\e018";
 }
 
 .axtronic-icon-heart-circle:before {
-  content: "";
+  content: "\e019";
 }
 
 .axtronic-icon-heart:before {
-  content: "";
+  content: "\e01a";
 }
 
 .axtronic-icon-house-2:before {
-  content: "";
+  content: "\e01b";
 }
 
 .axtronic-icon-list:before {
-  content: "";
+  content: "\e01c";
 }
 
 .axtronic-icon-medal-star:before {
-  content: "";
+  content: "\e01d";
 }
 
 .axtronic-icon-menu-right-1:before {
-  content: "";
+  content: "\e01e";
 }
 
 .axtronic-icon-minus-square:before {
-  content: "";
+  content: "\e01f";
 }
 
 .axtronic-icon-mobile:before {
-  content: "";
+  content: "\e020";
 }
 
 .axtronic-icon-monitor-mobbile:before {
-  content: "";
+  content: "\e021";
 }
 
 .axtronic-icon-plus-square:before {
-  content: "";
+  content: "\e022";
 }
 
 .axtronic-icon-search:before {
-  content: "";
+  content: "\e023";
 }
 
 .axtronic-icon-shopping-cart:before {
-  content: "";
+  content: "\e024";
 }
 
 .axtronic-icon-sms:before {
-  content: "";
+  content: "\e025";
 }
 
 .axtronic-icon-square-check:before {
-  content: "";
+  content: "\e026";
 }
 
 .axtronic-icon-star-sharp:before {
-  content: "";
+  content: "\e027";
 }
 
 .axtronic-icon-tablet:before {
-  content: "";
+  content: "\e028";
 }
 
 .axtronic-icon-trash:before {
-  content: "";
+  content: "\e029";
 }
 
 .axtronic-icon-user:before {
-  content: "";
+  content: "\e02a";
 }
 
 .axtronic-icon-wallet:before {
-  content: "";
+  content: "\e02b";
 }
 
 .axtronic-icon-watch:before {
-  content: "";
+  content: "\e02c";
 }
 
 .axtronic-icon-360:before {
-  content: "";
+  content: "\e02d";
 }
 
 .axtronic-icon-bars:before {
-  content: "";
+  content: "\e02e";
 }
 
 .axtronic-icon-calendar:before {
-  content: "";
+  content: "\e02f";
 }
 
 .axtronic-icon-cart-empty:before {
-  content: "";
+  content: "\e030";
 }
 
 .axtronic-icon-check:before {
-  content: "";
+  content: "\e031";
 }
 
 .axtronic-icon-cloud-download-alt:before {
-  content: "";
+  content: "\e032";
 }
 
 .axtronic-icon-comment:before {
-  content: "";
+  content: "\e033";
 }
 
 .axtronic-icon-comments:before {
-  content: "";
+  content: "\e034";
 }
 
 .axtronic-icon-credit-card:before {
-  content: "";
+  content: "\e035";
 }
 
 .axtronic-icon-edit:before {
-  content: "";
+  content: "\e036";
 }
 
 .axtronic-icon-envelope:before {
-  content: "";
+  content: "\e037";
 }
 
 .axtronic-icon-expand-alt:before {
-  content: "";
+  content: "\e038";
 }
 
 .axtronic-icon-external-link-alt:before {
-  content: "";
+  content: "\e039";
 }
 
 .axtronic-icon-facebook:before {
-  content: "";
+  content: "\e03a";
 }
 
 .axtronic-icon-file-alt:before {
-  content: "";
+  content: "\e03b";
 }
 
 .axtronic-icon-file-archive:before {
-  content: "";
+  content: "\e03c";
 }
 
 .axtronic-icon-folder-open:before {
-  content: "";
+  content: "\e03d";
 }
 
 .axtronic-icon-folder:before {
-  content: "";
+  content: "\e03e";
 }
 
 .axtronic-icon-frown:before {
-  content: "";
+  content: "\e03f";
 }
 
 .axtronic-icon-gift:before {
-  content: "";
+  content: "\e040";
 }
 
 .axtronic-icon-google-plus:before {
-  content: "";
+  content: "\e041";
 }
 
 .axtronic-icon-history:before {
-  content: "";
+  content: "\e042";
 }
 
 .axtronic-icon-home:before {
-  content: "";
+  content: "\e043";
 }
 
 .axtronic-icon-info-circle:before {
-  content: "";
+  content: "\e044";
 }
 
 .axtronic-icon-instagram:before {
-  content: "";
+  content: "\e045";
 }
 
 .axtronic-icon-linkedin:before {
-  content: "";
+  content: "\e046";
 }
 
 .axtronic-icon-map-marker-check:before {
-  content: "";
+  content: "\e047";
 }
 
 .axtronic-icon-meh:before {
-  content: "";
+  content: "\e048";
 }
 
 .axtronic-icon-minus:before {
-  content: "";
+  content: "\e049";
 }
 
 .axtronic-icon-money-bill:before {
-  content: "";
+  content: "\e04a";
 }
 
 .axtronic-icon-moon:before {
-  content: "";
+  content: "\e04b";
 }
 
 .axtronic-icon-pencil-alt:before {
-  content: "";
+  content: "\e04c";
 }
 
 .axtronic-icon-pinterest-p:before {
-  content: "";
+  content: "\e04d";
 }
 
 .axtronic-icon-plus:before {
-  content: "";
+  content: "\e04e";
 }
 
 .axtronic-icon-quote:before {
-  content: "";
+  content: "\e04f";
 }
 
 .axtronic-icon-random:before {
-  content: "";
+  content: "\e050";
 }
 
 .axtronic-icon-reply-all:before {
-  content: "";
+  content: "\e051";
 }
 
 .axtronic-icon-reply:before {
-  content: "";
+  content: "\e052";
 }
 
 .axtronic-icon-router:before {
-  content: "";
+  content: "\e053";
 }
 
 .axtronic-icon-sign-out-alt:before {
-  content: "";
+  content: "\e054";
 }
 
 .axtronic-icon-smile:before {
-  content: "";
+  content: "\e055";
 }
 
 .axtronic-icon-spinner:before {
-  content: "";
+  content: "\e056";
 }
 
 .axtronic-icon-square:before {
-  content: "";
+  content: "\e057";
 }
 
 .axtronic-icon-star:before {
-  content: "";
+  content: "\e058";
 }
 
 .axtronic-icon-store:before {
-  content: "";
+  content: "\e059";
 }
 
 .axtronic-icon-sun:before {
-  content: "";
+  content: "\e05a";
 }
 
 .axtronic-icon-sync:before {
-  content: "";
+  content: "\e05b";
 }
 
 .axtronic-icon-tachometer-alt:before {
-  content: "";
+  content: "\e05c";
 }
 
 .axtronic-icon-tag:before {
-  content: "";
+  content: "\e05d";
 }
 
 .axtronic-icon-thumbtack:before {
-  content: "";
+  content: "\e05e";
 }
 
 .axtronic-icon-times-circle:before {
-  content: "";
+  content: "\e05f";
 }
 
 .axtronic-icon-times:before {
-  content: "";
+  content: "\e060";
 }
 
 .axtronic-icon-truck:before {
-  content: "";
+  content: "\e061";
 }
 
 .axtronic-icon-twitter:before {
-  content: "";
+  content: "\e062";
 }
 
 .axtronic-icon-video:before {
-  content: "";
+  content: "\e063";
 }
 
 /**
@@ -1355,7 +1354,7 @@ blockquote p:first-child:before {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e04f";
   color: var(--primary);
   font-style: normal;
   font-size: 61px;
@@ -1914,7 +1913,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e002";
   border-top: 0;
 }
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
@@ -1942,8 +1941,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .bravo_topbar ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .bravo_topbar ul li a:hover {
   color: var(--primary_hover);
@@ -1982,7 +1981,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e002";
   border-top: 0;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
@@ -2058,8 +2057,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-navigation ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .header-wrap .site-navigation ul li a {
   font-size: 16px;
@@ -2109,8 +2108,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-member ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .header-wrap .site-member ul li a {
   font-size: 16px;
@@ -2170,6 +2169,29 @@ a:not(.button):hover {
   border-radius: 12px;
   border: 1px solid var(--border);
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  transition: all ease 0.3s;
+  z-index: 7;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-tooltips {
+  z-index: 7;
+  padding: 0;
+  font-size: 20px;
+  color: #13172B;
+  border: 1px solid #e2e5eb;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  background: #fff;
+  right: -55px;
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body {
   padding: 0;
   padding-top: 10px;
@@ -2204,6 +2226,14 @@ a:not(.button):hover {
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img {
   border-color: #DD2955;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img .shop-action button.btn-tooltips {
+  right: 0;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img .shop-action button.btn-tooltips:hover {
+  background: linear-gradient(225deg, #F1592A 0%, #DD2955 100%);
+  border-color: #DD2955;
+  color: #fff;
 }
 
 .swiper-zoom-container {
