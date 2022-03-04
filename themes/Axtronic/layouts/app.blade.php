@@ -12,6 +12,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
@@ -53,6 +54,7 @@
 
             </script>
 
+            <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -61,6 +63,30 @@
             <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
+
+            <script>
+                const swiper = new Swiper('.swiper', {
+                    // Optional parameters
+                    direction: 'horizontal',
+                    loop: true,
+
+                    // If we need pagination
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+
+                    // Navigation arrows
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+
+                    // And if we need scrollbar
+                    scrollbar: {
+                        el: '.swiper-scrollbar',
+                    },
+                });
+            </script>
             @yield('footer')
         </footer>
     </body>

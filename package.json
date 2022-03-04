@@ -29,6 +29,7 @@
         "ionicons": "^4.6.3",
         "raw-loader": "^2.0.0",
         "style-loader": "^0.23.1",
+        "swiper": "^8.0.6",
         "vue-draggable-nested-tree": "^2.2.20",
         "vue-form-generator": "^2.3.4",
         "vue-loader": "^15.9.8",

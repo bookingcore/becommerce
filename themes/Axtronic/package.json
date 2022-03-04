@@ -19,5 +19,7 @@
         "sass": "~1.32.11",
         "susy": "2.2.14"
     },
-    "dependencies": {}
+    "dependencies": {
+        "swiper": "^8.0.6"
+    }
 }
