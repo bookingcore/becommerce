@@ -2192,6 +2192,18 @@ a:not(.button):hover {
   background: #fff;
   right: -55px;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-addtocart {
+  transition: all 0.2s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-wishlist {
+  transition: all 0.35s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-quickview {
+  transition: all 0.45s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-compare {
+  transition: all 0.55s ease-in-out;
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body {
   padding: 0;
   padding-top: 10px;
