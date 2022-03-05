@@ -16,3 +16,4 @@
         </li>
     @endforeach
 </ul>
+<span class="input-error payment_gateway"></span>
