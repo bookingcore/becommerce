@@ -1,0 +1,21 @@
+.bc-site-features i {
+  font-size: 48px;
+  fill: var(--primary);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+.bc-site-features h4 {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.5em;
+  margin-bottom: 5px;
+  color: var(--accent);
+}
+.bc-site-features p {
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+
+/*# sourceMappingURL=featured.css.map */

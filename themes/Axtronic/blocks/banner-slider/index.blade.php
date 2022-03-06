@@ -7,7 +7,7 @@
             <div class="axtronic-box">
                 <div class="axtronic-box-inner">
                     <div class="slide-bg-wrap axtronic-image">
-                        <div class="slide-bg image"></div>
+                        <div class="slide-bg image" style="background-image: url('https://demo.leebrosus.com/axtronic/wp-content/uploads/2022/02/mainslider-1.jpg')"></div>
                     </div>
                     <div class="slide-content">
                         <div class="slide-layers">
@@ -140,7 +140,5 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
 
-    <!-- If we need scrollbar -->
-    <div class="swiper-scrollbar"></div>
 </div>
 
