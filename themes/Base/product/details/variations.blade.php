@@ -1,25 +1,7 @@
-@if(!empty($product_variations))
+@if(!empty($data_variations = $row->getVariationsFormBook()))
     @php
-        $list_variations = [];
-        $list_attributes = [];
-        foreach($product_variations as  $variation){
-            if(empty($variation->isActive())) continue;
-            $term_ids = $variation->term_ids;
-            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail()];
-            foreach($row->attributes_for_variation_data as $item){
-                foreach($item['terms'] as $term){
-                    if(in_array($term->id,$term_ids)){
-                        $list_variations[$variation->id]['terms'][] = ["id"=>$term->id,"title"=> $term->name];
-                        $list_attributes[ $item['attr']->name ][$term->id] = [
-                            'name'=>$term->name,
-                            'color'=>$term->content,
-                            'image'=>"",
-                            'type'=>$item['attr']->display_type,
-                        ];
-                    }
-                }
-            }
-        }
+        $list_variations = $data_variations["variations"];
+        $list_attributes = $data_variations['attributes'];
     @endphp
     <div class="bc-product-variations mb-2">
         <input type="hidden" class="bc_variations" value="{{ json_encode($list_variations) }}">

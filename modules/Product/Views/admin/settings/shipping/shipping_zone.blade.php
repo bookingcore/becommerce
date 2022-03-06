@@ -40,7 +40,7 @@
                                                         @php
                                                             if(!empty($row->locations)){
                                                                 foreach ($row->locations as $key => $loc){
-                                                                    $old_regions[] = [$loc->location_code, get_country_name($loc->location_code)];
+                                                                    $old_regions[] = ["id" => $loc->location_code, "text" => get_country_name($loc->location_code)];
                                                                 }
                                                             }
                                                             \App\Helpers\AdminForm::select2('zone_regions[]',
@@ -48,7 +48,7 @@
                                                                 'data' => get_country_lists_select2(),
                                                                 'allowClear'  => true,
                                                                 'placeholder' => __('-- Select regions --')
-                                                            ]], $old_regions ?? false, true)
+                                                            ]], $old_regions ?? [], true)
                                                         @endphp
                                                     </div>
                                                 </div>

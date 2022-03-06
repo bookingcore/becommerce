@@ -746,15 +746,14 @@ jQuery(function ($) {
         $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
         // For show SKU PRICE IMAGE
         if(variation_selected !== ""){
-            console.log(variation_selected.quantity);
-            $(".bc_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
-            if($(".bc_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
-                $(".bc_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
-            }
             $('.bc-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
             $('.bc-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
             if(variation_selected.is_manage_stock){
                 $('.bc-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+                $(".bc_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
+                if($(".bc_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
+                    $(".bc_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
+                }
             }else{
                 $('.bc-product-variations .quantity').addClass("d-none");
             }

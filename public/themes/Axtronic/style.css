@@ -2170,6 +2170,41 @@ a:not(.button):hover {
   border-radius: 12px;
   border: 1px solid var(--border);
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  transition: all ease 0.3s;
+  z-index: 7;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-tooltips {
+  z-index: 7;
+  padding: 0;
+  font-size: 20px;
+  color: #13172B;
+  border: 1px solid #e2e5eb;
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  display: block;
+  position: relative;
+  border-radius: 50%;
+  margin-bottom: 12px;
+  background: #fff;
+  right: -55px;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-addtocart {
+  transition: all 0.2s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-wishlist {
+  transition: all 0.35s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-quickview {
+  transition: all 0.45s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-compare {
+  transition: all 0.55s ease-in-out;
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body {
   padding: 0;
   padding-top: 10px;
@@ -2204,6 +2239,14 @@ a:not(.button):hover {
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img {
   border-color: #DD2955;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img .shop-action button.btn-tooltips {
+  right: 0;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img .shop-action button.btn-tooltips:hover {
+  background: linear-gradient(225deg, #F1592A 0%, #DD2955 100%);
+  border-color: #DD2955;
+  color: #fff;
 }
 
 .swiper-zoom-container {

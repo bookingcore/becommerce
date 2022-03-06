@@ -10,6 +10,7 @@
     use Carbon\Carbon;
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
+    use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Validator;
     use Modules\Coupon\Models\CouponOrder;
     use Modules\Order\Events\OrderUpdated;
@@ -43,6 +44,7 @@
 
             $user = auth()->user();
             $items = CartManager::items();
+            $payment_gateway = $request->input('payment_gateway');
             if(empty($items)){
                 return $this->sendError(__("Your cart is empty"));
             }
@@ -64,10 +66,19 @@
                 'billing_phone'           => 'required|string|max:255',
                 'billing_country' => 'required',
                 'billing_address' => 'required',
-                'payment_gateway' => 'required',
-                'term_conditions' => 'required',
             ];
-            $payment_gateway = $request->input('payment_gateway');
+            if(!$request->input('shipping_same_address')){
+                $rules = array_merge($rules,[
+                    'shipping_first_name'      => 'required|string|max:255',
+                    'shipping_last_name'       => 'required|string|max:255',
+                    'shipping_email'           => 'required|email|max:255',
+                    'shipping_phone'           => 'required|string|max:255',
+                    'shipping_country' => 'required',
+                    'shipping_address' => 'required',
+                ]);
+            }
+            $rules['payment_gateway'] = 'required';
+            $rules['term_conditions'] = 'required';
 
             $messages = [
                 'term_conditions.required'    => __('Please read and accept Term conditions'),
@@ -157,7 +168,7 @@
             $order->customer_id = $user->id;
             $order->save();
 
-            //            save billing order
+            // save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
             try {
@@ -181,6 +192,7 @@
                 ]);
 
             }catch (\Throwable $throwable){
+                Log::error("Checkout: ". $throwable->getMessage());
                 return $this->sendError($throwable->getMessage(),[
                     'url' => $order->getDetailUrl()
                 ]);
