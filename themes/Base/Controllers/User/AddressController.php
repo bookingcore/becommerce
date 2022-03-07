@@ -75,6 +75,10 @@ class AddressController extends FrontendController
             'phone'=>'required|max:190',
             'email'=>'required|email',
         ];
+        if($type == 'shipping'){
+            unset($rules['phone']);
+            unset($rules['email']);
+        }
         $request->validate($rules);
 
         if(!$address){

@@ -1,5 +1,3 @@
-import BCAdaterPlugin from './ckeditor/uploadAdapter'
-
 (function ($) {
 
     function makeid(length) {
@@ -254,7 +252,7 @@ import BCAdaterPlugin from './ckeditor/uploadAdapter'
         var action = $this.closest('form').find('[name=action]').val();
         var apply_action = function () {
             let ids = '';
-            $(".bravo-form-item .check-item").each(function () {
+            $(".BC-form-item .check-item").each(function () {
                 if($(this).is(":checked")){
                     ids += '<input type="hidden" name="ids[]" value="'+$(this).val()+'">';
                 }
@@ -364,4 +362,64 @@ import BCAdaterPlugin from './ckeditor/uploadAdapter'
             $(this).val(picker.startDate.format('YYYY/MM/DD'));
         });
     })
+
+    window.bc_format_money =  function($money) {
+
+        if (!$money) {
+
+        }
+
+        $money            = bc_number_format($money, BC.booking_decimals, BC.decimal_separator, BC.thousand_separator);
+        var $symbol       = BC.currency_symbol;
+        var $money_string = '';
+
+        switch (BC.currency_position) {
+            case "right":
+                $money_string = $money + $symbol;
+                break;
+            case "left_space":
+                $money_string = $symbol + " " + $money;
+                break;
+
+            case "right_space":
+                $money_string = $money + " " + $symbol;
+                break;
+            case "left":
+            default:
+                $money_string = $symbol + $money;
+                break;
+        }
+
+        return $money_string;
+    }
+
+    window.bc_number_format = function (number, decimals, dec_point, thousands_sep) {
+
+
+        number         = (number + '')
+            .replace(/[^0-9+\-Ee.]/g, '');
+        var n          = !isFinite(+number) ? 0 : +number,
+            prec       = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+            sep        = (typeof thousands_sep === 'undefined') ? ',' : thousands_sep,
+            dec        = (typeof dec_point === 'undefined') ? '.' : dec_point,
+            s          = '',
+            toFixedFix = function (n, prec) {
+                var k = Math.pow(10, prec);
+                return '' + (Math.round(n * k) / k)
+                    .toFixed(prec);
+            };
+        // Fix for IE parseFloat(0.55).toFixed(0) = 0;
+        s              = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
+            .split('.');
+        if (s[0].length > 3) {
+            s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+        }
+        if ((s[1] || '')
+            .length < prec) {
+            s[1] = s[1] || '';
+            s[1] += new Array(prec - s[1].length + 1)
+                .join('0');
+        }
+        return s.join(dec);
+    }
 })(jQuery);
