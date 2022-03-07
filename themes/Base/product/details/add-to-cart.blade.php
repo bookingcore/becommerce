@@ -10,10 +10,10 @@
             <figure class="mb-0">
                 <figcaption class="fs-14 mb-1">{{ __('Quantity') }}</figcaption>
                 <div class="form-group-number cart-item-qty">
-                    @php($max = $row->is_manage_stock > 0 ? $row->quantity : 100)
+                    @php($max = $row->is_manage_stock > 0 ? $row->quantity : false)
                     <button class="up"><i class="fa fa-plus"></i></button>
                     <button class="down"><i class="fa fa-minus"></i></button>
-                    <input class="form-control" name="quantity" type="number" min="1" max="{{ $max }}" value="1">
+                    <input class="form-control" name="quantity" type="number" min="1" @if($max ) max="{{ $max }}" @endif value="1">
                 </div>
             </figure>
             <button type="submit" class="btn btn-outline-primary btn-add-to-cart bc_add_to_cart">

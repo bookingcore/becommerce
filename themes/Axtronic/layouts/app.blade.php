@@ -7,13 +7,13 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+        <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
         {!! \App\Helpers\Assets::css() !!}
         {!! \App\Helpers\Assets::js() !!}
@@ -68,9 +68,12 @@
             <script>
                 const swiper = new Swiper('.swiper', {
                     // Optional parameters
-                    direction: 'horizontal',
                     loop: true,
-
+                    effect: "fade",
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
                     // If we need pagination
                     pagination: {
                         el: '.swiper-pagination',
@@ -82,10 +85,7 @@
                         prevEl: '.swiper-button-prev',
                     },
 
-                    // And if we need scrollbar
-                    scrollbar: {
-                        el: '.swiper-scrollbar',
-                    },
+
                 });
             </script>
             @yield('footer')

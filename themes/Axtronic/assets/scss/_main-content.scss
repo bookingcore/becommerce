@@ -70,7 +70,18 @@
 						    background: #fff;
 						    right: -55px;
 					    }
-					    
+					    .btn-addtocart {
+					    	transition: all .2s ease-in-out;
+					    }
+					    .btn-wishlist {
+					    	transition: all .35s ease-in-out;
+					    }
+					    .btn-quickview {
+					    	transition: all .45s ease-in-out;
+					    }
+					    .btn-compare {
+				    	    transition: all .55s ease-in-out;
+					    }
 				    }
 			    }
 			    .card-body {
