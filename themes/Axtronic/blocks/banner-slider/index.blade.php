@@ -1,15 +1,15 @@
 <!-- Slider main container -->
 <div class="container">
 
-    <div class="swiper swiper-container">
+    <div class="banner-slider swiper-container">
         <!-- Additional required wrapper -->
-        <div class="swiper-wrapper axtronic-modern-slider">
+        <div class="swiper-wrapper axtronic-modern-slider ">
             <!-- Slides -->
             <div class="swiper-slide">
                 <div class="axtronic-box">
                     <div class="axtronic-box-inner">
                         <div class="slide-bg-wrap axtronic-image">
-                            <div class="slide-bg image" style="background-image: url('https://demo.leebrosus.com/axtronic/wp-content/uploads/2022/02/mainslider-1.jpg')"></div>
+                            <div class="slide-bg image" style="background-image: url('{{ theme_url('Axtronic/images/mainslider-1.jpg') }}')"></div>
                         </div>
                         <div class="slide-content">
                             <div class="slide-layers">
@@ -41,7 +41,7 @@
                 <div class="axtronic-box">
                     <div class="axtronic-box-inner">
                         <div class="slide-bg-wrap axtronic-image">
-                            <div class="slide-bg image"></div>
+                            <div class="slide-bg image" style="background-image: url('{{ theme_url('Axtronic/images/mainslider-2.jpg') }}')"></div>
                         </div>
                         <div class="slide-content">
                             <div class="slide-layers">
@@ -73,7 +73,7 @@
                 <div class="axtronic-box">
                     <div class="axtronic-box-inner">
                         <div class="slide-bg-wrap axtronic-image">
-                            <div class="slide-bg image"></div>
+                            <div class="slide-bg image" style="background-image: url('{{ theme_url('Axtronic/images/mainslider-3.jpg') }}')"></div>
                         </div>
                         <div class="slide-content">
                             <div class="slide-layers">

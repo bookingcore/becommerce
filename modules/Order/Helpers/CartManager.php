@@ -4,18 +4,22 @@
 namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ShippingZone;
+use Modules\Product\Models\ShippingZoneLocation;
 
 class CartManager
 {
     protected static $session_key='bc_carts';
 
     protected static $session_coupon_key = 'bc_coupon_cart';
+    protected static $session_shipping_key = 'bc_shipping_cart';
 
     /**
      * @var array | Collection
@@ -344,5 +348,70 @@ class CartManager
             $model->addToCartValidate($qty,$item->variation_id);
         }
         return true;
+    }
+
+
+    public static function getShipping(){
+        return session()->get(static::$session_shipping_key,[]);
+    }
+
+    //Shipping
+    public static function calculateShipping($params,$shipping_method_selected = false){
+        // tìm shipping by country
+        $zone_location = ShippingZoneLocation::where("location_code",$params['shipping_country'])->first();
+        if(!empty($zone_location)){
+            $zone = ShippingZone::find($zone_location->zone_id);
+            $shipping_methods = $zone->shippingMethodsAvailable;
+
+            if(empty($shipping_methods)){
+                return ['status' => 0, 'message' => __("No shipping method were found")];
+            }
+
+            // Danh sách cách đơn vị vận chuyển
+            dump($shipping_methods);
+
+
+            // nếu có $shipping_method_selected lấy theo cái đã chọn
+            // Lấy secssion shipping
+
+            //nếu đã lưu shipping_method_selected vào session thì lấy theo  session
+            // nếu không có 2 cái trên thì lấy $shipping_methods đầu tiên
+
+            // Find $shipping_method_selected
+            if(!empty($shipping_method_selected)){
+                // for change
+            }else{
+
+                // for session
+                $shipping_data = static::getShipping();
+                if(!empty($shipping_data['method_selected'])){
+                    $shipping_method_selected = $shipping_data['method_selected'];
+                }
+                // for first method available
+
+                if(empty($shipping_method_selected)){
+                    $shipping_method_selected = $shipping_methods[0]->method_id;
+                }
+            }
+
+            // cal total
+            foreach ( $shipping_methods as $method ){
+                if($method['method_id'] ==  $shipping_method_selected){
+
+                }
+            }
+
+            //Lấy item trong cart ra xem có shipping class k
+            // lấy shipping amount
+            // save shippong to cart
+
+            dd($shipping_method_selected);
+
+
+        }
+
+        return ['status' => 0, 'message' => __("No shipping options were found")];
+
+
     }
 }

@@ -12,13 +12,10 @@
             <div class="col-md-12 mb-3">
                 <a href="{{ route('product.shipping.edit', ['id' => $zone_id]) }}" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-o-left"></i> {{ __("Zone") }}: {{ $shippingZone->name ?? __("Locations not covered by your other zones") }}</a>
             </div>
-
             <div class="col-md-12">
                 <form action="{{ route('product.shipping.method.store') }}" method="post" autocomplete="off">
                     @csrf
-
                     @include('Language::admin.navigation')
-
                     <div class="lang-content-box">
                         <div class="row">
                             <div class="col-sm-12">
@@ -47,112 +44,18 @@
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <div class="form-group" data-condition="method_id:is(flat_rate)">
-                                                <label class="">{{__("Tax status")}}</label>
-                                                <div class="form-controls">
-                                                    <select class="form-control" name="flat_rate_status">
-                                                        <option value="taxable" @if(($method_settings['flat_rate_status'] ?? old('flat_rate_status')) == 'taxable') selected @endif >{{ __("Taxable") }}</option>
-                                                        <option value="none" @if(($method_settings['flat_rate_status'] ?? old('flat_rate_status')) == 'none') selected @endif>{{ __("None") }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
                                             <div class="form-group" data-condition="method_id:is(flat_rate)">
                                                 <label class="">{{__("Cost")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="flat_rate_cost" value="{{ $method_settings['flat_rate_cost'] ?? old('flat_rate_cost', 0) }}">
+                                                    <input type="text" class="form-control" name="flat_rate_cost" value="{{ $row->cost ?? 0 }}">
                                                 </div>
                                             </div>
-
-                                            <div class="form-group" data-condition="method_id:is(free_shipping)">
-                                                <label class="">{{__("Free shipping requires")}}</label>
-                                                <div class="form-controls">
-                                                    <select class="form-control" name="free_shipping_requires">
-                                                        <option value="" @if(($method_settings['free_shipping_requires'] ?? old('free_shipping_requires')) == '') selected @endif >{{ __("N/A") }}</option>
-                                                        <option value="coupon" @if(($method_settings['free_shipping_requires'] ?? old('free_shipping_requires')) == 'coupon') selected @endif >{{ __("A valid free shipping coupon") }}</option>
-                                                        <option value="min_amount" @if(($method_settings['free_shipping_requires'] ?? old('free_shipping_requires')) == 'min_amount') selected @endif>{{ __("A minimum order amount") }}</option>
-                                                        <option value="either" @if(($method_settings['free_shipping_requires'] ?? old('free_shipping_requires')) == 'either') selected @endif>{{ __("A minimum order amount OR a coupon") }}</option>
-                                                        <option value="both" @if(($method_settings['free_shipping_requires'] ?? old('free_shipping_requires')) == 'both') selected @endif>{{ __("A minimum order amount AND a coupon") }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" data-operator="or" data-condition="free_shipping_requires:is(min_amount),free_shipping_requires:is(either),free_shipping_requires:is(both)">
-                                                <label class="">{{__("Minimum order amount")}}</label>
-                                                <div class="form-controls">
-                                                    <input type="text" class="form-control" name="free_shipping_min_amount" value="{{ $method_settings['free_shipping_min_amount'] ?? old('free_shipping_min_amount', 0) }}">
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" data-operator="or" data-condition="free_shipping_requires:is(min_amount),free_shipping_requires:is(either),free_shipping_requires:is(both)">
-                                                <label class="">{{__("Coupons discounts")}}</label>
-                                                <div class="form-controls">
-                                                    <label>
-                                                        <input type="checkbox" name="free_shipping_ignore_discounts" @if(($method_settings['free_shipping_ignore_discounts'] ?? old('free_shipping_ignore_discounts')) == 1 ) checked @endif value="1"> {{ __("Apply minimum order rule before coupon discount") }}
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" data-condition="method_id:is(local_pickup)">
-                                                <label class="">{{__("Tax status")}}</label>
-                                                <div class="form-controls">
-                                                    <select class="form-control" name="local_pickup_status">
-                                                        <option value="taxable" @if(($method_settings['local_pickup_status'] ?? old('local_pickup_status')) == 'taxable') selected @endif >{{ __("Taxable") }}</option>
-                                                        <option value="none" @if(($method_settings['local_pickup_status'] ?? old('local_pickup_status')) == 'none') selected @endif >{{ __("None") }}</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group" data-condition="method_id:is(local_pickup)">
-                                                <label class="">{{__("Cost")}}</label>
-                                                <div class="form-controls">
-                                                    <input type="text" class="form-control" name="local_pickup_cost" value="{{ $method_settings['local_pickup_cost'] ?? old('local_pickup_cost', 0) }}">
-                                                </div>
-                                            </div>
-
-                                            @if(!empty($shipping_classes) && $shipping_classes->count() > 0)
-                                                <div class="card" data-condition="method_id:is(flat_rate)">
-                                                    <div class="card-header">
-                                                        <b>{{ __("Shipping class costs") }}</b>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        @foreach($shipping_classes as $key => $shipping_class)
-                                                            @php $name = 'flat_rate_class_cost_'.$shipping_class->id; @endphp
-                                                            <div class="form-group">
-                                                                <label class=""><span class="fw-600">"{{ $shipping_class->name }}"</span> {{__("shipping class cost")}}</label>
-                                                                <div class="form-controls">
-                                                                    <input type="text" class="form-control" name="{{$name}}" value="{{ $method_settings[$name] ?? old($name, 0) }}">
-                                                                </div>
-                                                            </div>
-                                                        @endforeach
-
-                                                        <div class="form-group">
-                                                            <label class="">{{__("No shipping class cost")}}</label>
-                                                            <div class="form-controls">
-                                                                <input type="text" class="form-control" name="flat_rate_no_class_cost" value="{{ $method_settings['flat_rate_no_class_cost'] ?? old('flat_rate_no_class_cost', 0) }}">
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label class="">{{__("Calculation type")}}</label>
-                                                            <div class="form-controls">
-                                                                <select class="form-control" name="flat_rate_type">
-                                                                    <option value="class" @if(($method_settings['flat_rate_type'] ?? old('flat_rate_type')) == 'class') selected @endif >{{ __("Per class: Charge shipping for each shipping class individually") }}</option>
-                                                                    <option value="order" @if(($method_settings['flat_rate_type'] ?? old('flat_rate_type')) == 'order') selected @endif >{{ __("Per order: Charge shipping for the most expensive shipping class") }}</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            @endif
-
                                         @endif
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span></span>

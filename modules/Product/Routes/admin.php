@@ -71,20 +71,20 @@ Route::group(['prefix'=>'coupon'],function (){
 });
 
 Route::group(['prefix' => 'settings/shipping'], function (){
-    Route::get('/shipping-zone/create', 'ShippingSettingContainer@zoneCreate')->name('product.shipping.create');
-    Route::get('/shipping-zone/edit/{id}', 'ShippingSettingContainer@zoneEdit')->name('product.shipping.edit');
-    Route::post('/shipping-zone/store', 'ShippingSettingContainer@zoneStore')->name('product.shipping.store');
-    Route::get('/shipping-zone/delete/{id}', 'ShippingSettingContainer@zoneDelete')->name('product.shipping.delete');
+    Route::get('/shipping-zone/create', 'ShippingController@zoneCreate')->name('product.shipping.create');
+    Route::get('/shipping-zone/edit/{id}', 'ShippingController@zoneEdit')->name('product.shipping.edit');
+    Route::post('/shipping-zone/store', 'ShippingController@zoneStore')->name('product.shipping.store');
+    Route::get('/shipping-zone/delete/{id}', 'ShippingController@zoneDelete')->name('product.shipping.delete');
 
-    Route::get('/shipping-zone/{zone_id}/shipping-method/create', 'ShippingSettingContainer@methodCreate')->name('product.shipping.method.create');
-    Route::get('/shipping-zone/{zone_id}/shipping-method/edit/{id}', 'ShippingSettingContainer@methodEdit')->name('product.shipping.method.edit');
-    Route::post('/shipping-zone/shipping-method/store', 'ShippingSettingContainer@methodStore')->name('product.shipping.method.store');
-    Route::get('/shipping-zone/shipping-method/delete/{id}', 'ShippingSettingContainer@methodDelete')->name('product.shipping.method.delete');
+    Route::get('/shipping-zone/{zone_id}/shipping-method/create', 'ShippingController@methodCreate')->name('product.shipping.method.create');
+    Route::get('/shipping-zone/{zone_id}/shipping-method/edit/{id}', 'ShippingController@methodEdit')->name('product.shipping.method.edit');
+    Route::post('/shipping-zone/shipping-method/store', 'ShippingController@methodStore')->name('product.shipping.method.store');
+    Route::get('/shipping-zone/shipping-method/delete/{id}', 'ShippingController@methodDelete')->name('product.shipping.method.delete');
 
-    Route::get('/shipping-class/create', 'ShippingSettingContainer@shippingClassCreate')->name('product.shipping.class.create');
-    Route::get('/shipping-class/edit/{id}', 'ShippingSettingContainer@shippingClassEdit')->name('product.shipping.class.edit');
-    Route::post('/shipping-class/store', 'ShippingSettingContainer@shippingClassStore')->name('product.shipping.class.store');
-    Route::get('/shipping-class/delete/{id}', 'ShippingSettingContainer@shippingClassDelete')->name('product.shipping.class.delete');
+    Route::get('/shipping-class/create', 'ShippingController@shippingClassCreate')->name('product.shipping.class.create');
+    Route::get('/shipping-class/edit/{id}', 'ShippingController@shippingClassEdit')->name('product.shipping.class.edit');
+    Route::post('/shipping-class/store', 'ShippingController@shippingClassStore')->name('product.shipping.class.store');
+    Route::get('/shipping-class/delete/{id}', 'ShippingController@shippingClassDelete')->name('product.shipping.class.delete');
 
     Route::get('/tax/create', 'TaxSettingContainer@create')->name('product.tax.create');
     Route::get('/tax/edit/{id}', 'TaxSettingContainer@edit')->name('product.tax.edit');

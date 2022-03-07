@@ -66,7 +66,7 @@
             <script  src="{{ theme_url('Base/js/app.js') }}"></script>
 
             <script>
-                const swiper = new Swiper('.swiper', {
+                const swiperBannerSlider = new Swiper('.banner-slider', {
                     // Optional parameters
                     loop: true,
                     effect: "fade",
@@ -84,8 +84,64 @@
                         nextEl: '.swiper-button-next',
                         prevEl: '.swiper-button-prev',
                     },
-
-
+                });
+                const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
+                    // Optional parameters
+                    loop: true,
+                    cssMode: true,
+                    slidesPerView: 7,
+                    spaceBetween: 30,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    // Navigation arrows
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+                const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
+                    // Optional parameters
+                    loop: true,
+                    cssMode: true,
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    // If we need pagination
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                });
+                const swiperSliderNews = new Swiper('.swiper-slider-news', {
+                    // Optional parameters
+                    loop: true,
+                    cssMode: true,
+                    slidesPerView: 3,
+                    spaceBetween: 30,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
+                    // If we need pagination
+                    pagination: {
+                        clickable: true,
+                        el: '.swiper-pagination',
+                    },
+                });
+                const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
+                    // Optional parameters
+                    loop: true,
+                    cssMode: true,
+                    slidesPerView: 6,
+                    spaceBetween: 30,
+                    autoplay: {
+                        delay: 5000,
+                        disableOnInteraction: false,
+                    },
                 });
             </script>
             @yield('footer')

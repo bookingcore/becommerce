@@ -11,17 +11,4 @@ use Themes\Base\Controllers\FrontendController;
 class ShippingController extends FrontendController
 {
 
-    public function calculateShipping(Request $request){
-        $validator = \Validator::make($request->all(), [
-            'country' => 'required',
-        ]);
-
-        $shipping = new ShippingZone();
-        $res = $shipping->calculateShipping($request->input());
-        if($res['status']==1){
-            $res['reload'] = 1;
-        }
-        return $this->sendSuccess($res);
-    }
-
 }

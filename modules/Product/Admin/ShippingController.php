@@ -9,7 +9,7 @@ use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
 use Modules\Product\Models\ShippingZoneMethod;
 
-class ShippingSettingContainer extends AdminController
+class ShippingController extends AdminController
 {
     public function __construct()
     {
@@ -19,9 +19,7 @@ class ShippingSettingContainer extends AdminController
 
     public function zoneCreate(Request $request)
     {
-
         $this->checkPermission('setting_manage');
-
         $data = [
             'enable_multi_lang' => true,
             'breadcrumbs'        => [
