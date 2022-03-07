@@ -24,14 +24,9 @@ class ShippingZone extends BaseModel
         return $this->hasMany(ShippingZoneMethod::class,'zone_id','id');
     }
 
-    public function calculateShipping($params){
-        dd($params);
-        // tìm shipping by country
-        $zone_location = ShippingZoneLocation::where("location_code",$params['country'])->get();
-
-        //Lấy item trong cart ra xem có shipping class k
-        // lấy shipping amount
-        // save shippong to cart
+    public function shippingMethodsAvailable(){
+        return $this->hasMany(ShippingZoneMethod::class,'zone_id','id')->where('is_enabled',1)->orderBy("order","asc");
     }
+
 
 }

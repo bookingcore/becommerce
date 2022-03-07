@@ -306,6 +306,7 @@ class CreateProductTable extends Migration
             $table->string('method_id')->nullable();
             $table->integer('order')->nullable();
             $table->tinyInteger('is_enabled')->nullable();
+            $table->tinyInteger('cost')->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
