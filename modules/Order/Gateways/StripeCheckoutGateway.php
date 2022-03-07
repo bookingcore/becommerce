@@ -157,8 +157,7 @@ class StripeCheckoutGateway extends BaseGateway
                     if (empty($stripe_charge_id = $payment->getMeta('stripe_charge_id'))) {
                         $payment->addMeta('stripe_charge_id',$this->getChargeId($session->payment_intent));
                     }
-                    $order->paid += (float)$payment->amount;
-                    $order->markAsPaid();
+
                     $payment->addMeta('stripe_setup_intent', $session->setup_intent);
                     $payment->addMeta('stripe_intent_id', $session->payment_intent);
                     $payment->addMeta('stripe_cs_complete', 1);
