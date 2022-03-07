@@ -23,4 +23,10 @@ class ShippingZone extends BaseModel
     public function shippingMethods(){
         return $this->hasMany(ShippingZoneMethod::class,'zone_id','id');
     }
+
+    public function shippingMethodsAvailable(){
+        return $this->hasMany(ShippingZoneMethod::class,'zone_id','id')->where('is_enabled',1)->orderBy("order","asc");
+    }
+
+
 }

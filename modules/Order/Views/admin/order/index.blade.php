@@ -3,6 +3,9 @@
 <div class="container-fluid">
     <div class="d-flex justify-content-between mb20">
         <h1 class="title-bar">{{__('All Orders')}}</h1>
+        @has_permission('order_create')
+            <a href="{{route('order.admin.create')}}" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i> {{__("Create order")}}</a>
+        @end_has_permission
     </div>
     @include('Layout::admin.message')
     <div class="filter-div d-flex justify-content-between">
@@ -18,7 +21,7 @@
                     @endif
                     <option value="delete">{{__("DELETE orders")}}</option>
                 </select>
-                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
             </form>
         </div>
         <div class="col-left">
@@ -43,7 +46,7 @@
                 ?>
                 @endif
                 <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
-                <button class="btn-info btn btn-icon" type="submit">{{__('Filter')}}</button>
+                <button class="btn-default btn btn-icon" type="submit">{{__('Filter')}}</button>
             </form>
         </div>
     </div>
@@ -119,9 +122,17 @@
                         </td>
                         <td>{{display_datetime($row->updated_at)}}</td>
                         <td>
-
-                            <button class="btn btn-secondary btn-sm" data-toggle="modal" data-target="#modal-order-{{$row->id}}" type="button">{{ __('Detail') }}</button>
-                            @includeIf('Order::admin.orders.detail-modal')
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    {{__('Actions')}}
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#modal-order" data-id="{{$row->id}}" data-ajax="{{route('order.modal',['id'=>$row->id])}}" type="button"><i class="fa fa-eye"></i> {{ __('Detail') }}</a>
+                                    @has_permission('order_update')
+                                        <a class="dropdown-item" href="{{route('order.admin.edit',['id'=>$row->id])}}"><i class="fa fa-edit"></i> {{__("Edit")}}</a>
+                                    @end_has_permission
+                                </div>
+                            </div>
                         </td>
                     </tr>
                     @endforeach
@@ -134,4 +145,37 @@
         {{$rows->links()}}
     </div>
 </div>
+<div class="modal" tabindex="-1" id="modal-order">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{__('Order ID: #')}} <span class="order_id"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">{{__("Loading...")}}</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('Close')}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
+@section('footer')
+<script>
+
+    $('#order').on('show.bs.modal',function (e){
+        var btn = $(e.relatedTarget);
+        $(this).find('.order_id').html(btn.data('id'));
+        $(this).find('.modal-body').html('<div class="d-flex justify-content-center">{{__("Loading...")}}</div>');
+        var modal = $(this);
+        $.get(btn.data('ajax'), function (html){
+                modal.find('.modal-body').html(html);
+            }
+        )
+    })
+</script>
 @endsection

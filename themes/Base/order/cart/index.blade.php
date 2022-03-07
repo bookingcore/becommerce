@@ -126,24 +126,24 @@
                     </div>
                 </div>
                 <div class="col-12 col-lg-4">
-                    <div class="card">
+                    <div class="card section-shipping-form">
                         <div class="card-header font-weight-bold">{{__('Calculate shipping')}}</div>
                         <div class="card-body">
                             <div class="form-group mb-3">
-                                <select class="form-control">
-                                    <option value="1">America</option>
-                                    <option value="2">Italia</option>
-                                    <option value="3">Vietnam</option>
+                                <select class="form-control" name="shipping_country">
+                                    @foreach(get_country_lists() as $key => $val)
+                                        <option value="{{ $key }}">{{$val}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group mb-3">
-                                <input class="form-control" type="text" placeholder="Town/City">
+                                <input class="form-control" type="text" name="shipping_city" placeholder="{{ __("Town/City") }}">
                             </div>
                             <div class="form-group mb-3">
-                                <input class="form-control" type="text" placeholder="Postcode/Zip">
+                                <input class="form-control" type="text" name="shipping_zip" placeholder="{{ __("Postcode/Zip") }}">
                             </div>
                             <div class="form-group text-end">
-                                <button class="btn btn-primary">{{__('Update')}}</button>
+                                <button class="btn btn-primary bc_calculate_shipping">{{__('Update')}}</button>
                             </div>
                         </div>
                     </div>

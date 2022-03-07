@@ -7,4 +7,7 @@
  */
 use Illuminate\Support\Facades\Route;
 Route::get('/','OrderController@index')->name('order.admin.index');
+Route::get('/edit/{order}','OrderController@edit')->name('order.admin.edit');
+Route::get('/create','OrderController@edit')->name('order.admin.create');
+Route::post('/store/{order}','OrderController@store')->name('order.admin.store');
 Route::post('post/bulkEdit','OrderController@bulkEdit')->name('order.admin.bulkEdit');

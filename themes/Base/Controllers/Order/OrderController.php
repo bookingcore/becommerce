@@ -55,15 +55,9 @@ class OrderController extends FrontendController
         }
         return $gatewayObj->cancelPayment($request);
     }
-    public function history(Request $request)
-    {
 
-        $data = [
-            'page'=>__('Order History'),
-            'rows'=>OrderItem::query()->with(['order'])->paginate(20)
-        ];
 
-        return view('Order::frontend.user.history',$data);
+    public function modal(Order $order){
+        return view('order.detail.modal',['order'=>$order]);
     }
-
 }

@@ -12,11 +12,32 @@ class OrderController extends AdminController
 {
 
     public function index(){
-        $this->checkPermission('report_view');
+        $this->checkPermission('order_view');
         $data = [
-            'rows'=>Order::query()->with('items.model.author')->orderBy('id','desc')->paginate(20)
+            'rows'=>Order::query()->with('items.model.author')->orderBy('id','desc')->paginate(20),
+            'page_title'=>__("Manage Orders"),
         ];
-        return view('Order::admin.orders.index',$data);
+        return view('Order::admin.order.index',$data);
+    }
+
+    public function create(Request $request){
+        $this->checkPermission('order_create');
+        $data = [
+            'order'=>new Order(),
+            'page_title'=>__("Create Order"),
+            'statues'=>app()->make(Order::class)->statues()
+        ];
+        return view('Order::admin.order.detail',$data);
+    }
+
+    public function edit(Request $request,Order $order){
+        $this->checkPermission('order_view');
+        $data = [
+            'order'=>$order,
+            'page_title'=>__("Edit Order"),
+            'statues'=>app()->make(Order::class)->statues()
+        ];
+        return view('Order::admin.order.detail',$data);
     }
 
     public function bulkEdit(Request $request)
