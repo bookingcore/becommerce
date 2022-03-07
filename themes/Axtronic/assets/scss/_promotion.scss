@@ -1,0 +1,79 @@
+.axtronic-promotions{
+    .promotions-item{
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: var(--bs-gutter-x);
+        &:hover{
+            .item-bg{
+                -ms-transform: scale(1.2);
+                -o-transform: scale(1.2);
+                -moz-transform: scale(1.2);
+                -webkit-transform: scale(1.2);
+                transform: scale(1.2);
+            }
+        }
+        .item-bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            transition: transform calc(700ms * 1.5) cubic-bezier(.19,1,.22,1);
+            transition: all .2s ease;
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transition-duration: 300ms;
+        }
+        .item-content{
+            min-height: 334px;
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+
+            color: #ffffff;
+            .sub-title{
+                padding: 4px 8px;
+                background-color: #ffffff33;
+                border-radius: 100px 100px 100px 100px;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.25em;
+                color: #fff;
+            }
+            h3{
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 1.5em;
+                color: #fff;
+            }
+            p{
+                color: #FFFFFF;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                span{
+                    font-weight: bold;
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    opacity: 1;
+                    color: #94989E;
+                }
+            }
+            a.item-button{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                color: #ffffff;
+                text-decoration-line: underline;
+                &:hover{
+                    color: var( --primary );
+                }
+            }
+        }
+    }
+}
