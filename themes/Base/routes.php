@@ -94,6 +94,7 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::get('/cancel/{gateway}','Order\OrderController@cancelPayment')->name('order.cancel');
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
     Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
+    Route::get('/modal/{id}','Order\OrderController@modal')->name('order.modal')->middleware('auth');
 });
 
 
