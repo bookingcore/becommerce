@@ -48,4 +48,30 @@ jQuery(function () {
             }
         });
     });
+
+    $(".bc_calculate_shipping").click(function () {
+        var parent = $(this).closest('.section-shipping-form');
+        parent.find(".group-form .fa-spin").removeClass("d-none");
+        parent.find(".message").html('');
+        $.ajax({
+            'url': BC.url+'/cart/calculate_shipping',
+            'data': parent.find('input,textarea,select').serialize(),
+            'cache': false,
+            'method':"post",
+            success: function (res) {
+                parent.find(".group-form .fa-spin").addClass("d-none");
+                if (res.reload !== undefined) {
+                    window.location.reload();
+                }
+                if(res.message && res.status === 1)
+                {
+                    parent.find('.message').html('<div class="alert alert-success">' + res.message+ '</div>');
+                }
+                if(res.message && res.status === 0)
+                {
+                    parent.find('.message').html('<div class="alert alert-danger">' + res.message+ '</div>');
+                }
+            }
+        });
+    });
 })
