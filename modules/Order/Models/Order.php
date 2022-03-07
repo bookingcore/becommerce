@@ -7,9 +7,11 @@ use App\BaseModel;
 use App\User;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
+use Modules\Core\Helpers\HookManager;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderUpdated;
+use Modules\Order\Resources\Admin\OrderItemResource;
 
 class Order extends BaseModel
 {
@@ -240,6 +242,18 @@ class Order extends BaseModel
         $report_data->coupons_used = 0;
 
         return $report_data;
+    }
+
+    public function statues(){
+        $order_statuses = array(
+            static::PENDING    => __( 'Pending'  ),
+            static::PROCESSING => __( 'Processing'  ),
+            static::ON_HOLD    => __( 'On hold'  ),
+            static::COMPLETED  => __( 'Completed'  ),
+            static::CANCELLED  => __( 'Cancelled'  ),
+            static::FAILED     => __( 'Failed'  ),
+        );
+        return apply_filters('order_statues',$order_statuses);
     }
 
 }

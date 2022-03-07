@@ -51,7 +51,8 @@
             currentUser: {{(int)Auth::id()}},
             media:{
                 groups:{!! json_encode(config('bc.media.groups')) !!}
-            }
+            },
+            routes:{}
         };
         var i18n = {
             warning:"{{__("Warning")}}",
@@ -94,63 +95,6 @@
             ],
         };
 
-        /*var image_editer = {
-            language: '{{ app()->getLocale() }}',
-            translations: {
-                {{ app()->getLocale() }}: {
-                    'header.image_editor_title': '{{ __('Image Editor') }}',
-                    'header.toggle_fullscreen': '{{ __('Toggle fullscreen') }}',
-                    'header.close': '{{ __('Close') }}',
-                    'header.close_modal': '{{ __('Close window') }}',
-                    'toolbar.download': '{{ __('Save Change') }}',
-                    'toolbar.save': '{{ __('Save') }}',
-                    'toolbar.apply': '{{ __('Apply') }}',
-                    'toolbar.saveAsNewImage': '{{ __('Save As New Image') }}',
-                    'toolbar.cancel': '{{ __('Cancel') }}',
-                    'toolbar.go_back': '{{ __('Go Back') }}',
-                    'toolbar.adjust': '{{ __('Adjust') }}',
-                    'toolbar.effects': '{{ __('Effects') }}',
-                    'toolbar.filters': '{{ __('Filters') }}',
-                    'toolbar.orientation': '{{ __('Orientation') }}',
-                    'toolbar.crop': '{{ __('Crop') }}',
-                    'toolbar.resize': '{{ __('Resize') }}',
-                    'toolbar.watermark': '{{ __('Watermark') }}',
-                    'toolbar.focus_point': '{{ __('Focus point') }}',
-                    'toolbar.shapes': '{{ __('Shapes') }}',
-                    'toolbar.image': '{{ __('Image') }}',
-                    'toolbar.text': '{{ __('Text') }}',
-                    'adjust.brightness': '{{ __('Brightness') }}',
-                    'adjust.contrast': '{{ __('Contrast') }}',
-                    'adjust.exposure': '{{ __('Exposure') }}',
-                    'adjust.saturation': '{{ __('Saturation') }}',
-                    'orientation.rotate_l': '{{ __('Rotate Left') }}',
-                    'orientation.rotate_r': '{{ __('Rotate Right') }}',
-                    'orientation.flip_h': '{{ __('Flip Horizontally') }}',
-                    'orientation.flip_v': '{{ __('Flip Vertically') }}',
-                    'pre_resize.title': '{{ __('Would you like to reduce resolution before editing the image?') }}',
-                    'pre_resize.keep_original_resolution': '{{ __('Keep original resolution') }}',
-                    'pre_resize.resize_n_continue': '{{ __('Resize & Continue') }}',
-                    'footer.reset': '{{ __('Reset') }}',
-                    'footer.undo': '{{ __('Undo') }}',
-                    'footer.redo': '{{ __('Redo') }}',
-                    'spinner.label': '{{ __('Processing...') }}',
-                    'warning.too_big_resolution': '{{ __('The resolution of the image is too big for the web. It can cause problems with Image Editor performance.') }}',
-                    'common.x': '{{ __('x') }}',
-                    'common.y': '{{ __('y') }}',
-                    'common.width': '{{ __('width') }}',
-                    'common.height': '{{ __('height') }}',
-                    'common.custom': '{{ __('custom') }}',
-                    'common.original': '{{ __('original') }}',
-                    'common.square': '{{ __('square') }}',
-                    'common.opacity': '{{ __('Opacity') }}',
-                    'common.apply_watermark': '{{ __('Apply watermark') }}',
-                    'common.url': '{{ __('URL') }}',
-                    'common.upload': '{{ __('Upload') }}',
-                    'common.gallery': '{{ __('Gallery') }}',
-                    'common.text': '{{ __('Text') }}',
-                }
-            }
-        };*/
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     @yield('script.head')

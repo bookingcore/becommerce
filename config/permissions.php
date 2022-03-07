@@ -4,12 +4,20 @@ return [
     //Theme Management
     "theme_manage",
 
+    // Product
     "product_view",
     "product_create",
     "product_update",
     "product_delete",
     "product_manage_others",
     "product_manage_attributes",
+
+    // Order
+    "order_view",
+    "order_create",
+    "order_update",
+    "order_delete",
+    "order_manage_others",
 
     "coupon_view",
     "coupon_update",
@@ -19,7 +27,7 @@ return [
     // POS
     "pos_access",
 
-    // POS
+    // Vendor
     "vendor_view",
     "vendor_create",
     "vendor_update",
