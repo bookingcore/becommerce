@@ -12,7 +12,7 @@
                 @endif
                 </div>
             </div>
-            <div class="col-xl-6 col-sm-12">
+            <div class="col-xl-5 col-sm-12">
                 <div class="widget-footer">
                     <div class="row">
                         @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
@@ -27,32 +27,30 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-12">
-                <div class="row">
-                    <div class="row align-content-center align-items-center">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <h3>{{ __("Newsletter") }}</h3>
-                            <p>{{ __("Subcribe to get information about products and coupons") }}</p>
-                        </div>
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                            <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bc-subscribe-form">
-                                @csrf
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
-                                    <button class="btn miw-120 btn-primary" type="submit">
-                                        {{ __("Subscribe") }}
-                                        <i class="fa fa-spinner fa-pulse fa-fw"></i>
-                                    </button>
-                                </div>
-                                <div class="form-mess mt-1 fs-12"></div>
-                            </form>
+            <div class="col-xl-4 col-sm-12">
+                <div class="bc-form-newsletter">
+                    <div class="">
+                        <div class="align-content-center align-items-center">
+                            <div class="">
+                                <h3>{{ __("Newsletter") }}</h3>
+                                <p>{{ __("Subcribe to get information about products and coupons") }}</p>
+                            </div>
+                            <div class="form-newsletter">
+                                <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bc-subscribe-form">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
+                                        <button class="btn miw-120 btn-primary" type="submit">
+                                            
+                                        </button>
+                                    </div>
+                                    <div class="form-mess mt-1 fs-12"></div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="bc-form-newsletter">
-            
         </div>
     </div>
 </div>
