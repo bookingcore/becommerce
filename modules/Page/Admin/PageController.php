@@ -13,7 +13,7 @@ class PageController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/page');
+        $this->setActiveMenu('page');
         parent::__construct();
     }
 
@@ -32,7 +32,7 @@ class PageController extends AdminController
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('All'),
@@ -58,7 +58,7 @@ class PageController extends AdminController
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('Add Page'),
@@ -76,7 +76,7 @@ class PageController extends AdminController
         $row = Page::find($id);
 
         if (empty($row)) {
-            return redirect('admin/module/page');
+            return redirect(route('page.admin.index'));
         }
         $translation = $row->translate($request->query('lang'));
 
@@ -86,7 +86,7 @@ class PageController extends AdminController
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('Edit Page'),
@@ -103,7 +103,7 @@ class PageController extends AdminController
         $row = Page::find($id);
 
         if (empty($row)) {
-            return redirect('admin/module/page');
+            return redirect(route('page.admin.index'));
         }
         if(!$row->template_id){
             $temp = new Template(

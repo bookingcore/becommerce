@@ -11,6 +11,12 @@ use Modules\Order\Models\Order;
 class OrderController extends AdminController
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setActiveMenu('order');
+    }
+
     public function index(){
         $this->checkPermission('order_view');
         $data = [

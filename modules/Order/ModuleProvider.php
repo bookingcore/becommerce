@@ -46,7 +46,7 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getAdminMenu()
     {
         return [
-            'orders'=>[
+            'order'=>[
                 "position"=>45,
                 'url'        => route('order.admin.index'),
                 'title'      => __("Orders"),
