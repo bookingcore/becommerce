@@ -47,6 +47,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __("News"),
                 'icon'       => 'ion-md-bookmarks',
                 'permission' => 'news_manage',
+                "group"=>'content',
                 'children'   => [
                     'news_manage'=>[
                         'url'        => 'admin/module/news',

@@ -21,6 +21,7 @@ class ModuleProvider extends ModuleServiceProvider
         $sitemapHelper->add("product",[Product::class,"getForSitemap"]);
 
         AdminMenuManager::register("product",[$this,'getAdminMenu']);
+        AdminMenuManager::register_group('catalog',__('Catalog'));
 
         SettingManager::register("product",[$this,'getProductSettings']);
         SettingManager::register("store",[$this,'getStoreSettings']);
@@ -50,6 +51,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __('Products :count',['count'=>$count_pending ? '<span class="badge badge-warning">'.$count_pending.'</span>' : '']),
                 'icon'       => 'icon ion-ios-cart',
                 'permission' => 'product_view',
+                'group'=>'catalog',
                 'children'   => [
                     'add'=>[
                         'url'        => route('product.admin.index'),

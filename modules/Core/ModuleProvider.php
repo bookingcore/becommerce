@@ -27,6 +27,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("style",[$this,'registerStyleSetting']);
 
         AdminMenuManager::register("setting",[$this,'getAdminMenu']);
+        AdminMenuManager::register_group('system',__('System'),50);
     }
     /**
      * Register bindings in the container.
@@ -57,6 +58,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __("Menu"),
                 'icon'       => 'icon ion-ios-apps',
                 'permission' => 'menu_manage',
+                "group"=>"system"
             ],
             'setting'=>[
                 "position"=>80,
@@ -64,13 +66,15 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __('Setting'),
                 'icon'       => 'icon ion-ios-cog',
                 'permission' => 'setting_update',
-                'children'   => \Modules\Core\Helpers\SettingManager::menus()
+                'children'   => \Modules\Core\Helpers\SettingManager::menus(),
+                "group"=>"system"
             ],
             'tools'=>[
                 "position"=>90,
                 'url'      => 'admin/module/core/tools',
                 'title'    => __("Tools"),
                 'icon'     => 'icon ion-ios-hammer',
+                "group"=>"system",
                 'children' => [
                     'language'=>[
                         'url'        => 'admin/module/language',
@@ -94,21 +98,6 @@ class ModuleProvider extends ModuleServiceProvider
             ],
         ];
         return $menus;
-    }
-
-
-    public static function getAdminSubmenu()
-    {
-        return [
-            [
-                'id'=>'plugin',
-                'parent'=>'tools',
-                'title'=>__("Plugins"),
-                'url'=>'admin/module/core/plugins',
-                'icon'=>'icon ion-md-color-wand',
-                'permission'=>'setting_manage'
-            ]
-        ];
     }
 
     public function registerAdvanceSetting(){

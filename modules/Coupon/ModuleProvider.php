@@ -33,6 +33,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __('Coupon'),
                 'icon'       => 'fa fa-ticket',
                 'permission' => 'coupon_view',
+                "group"=>"sale",
             ],
         ];
     }

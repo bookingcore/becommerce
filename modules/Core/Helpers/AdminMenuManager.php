@@ -12,6 +12,19 @@ class AdminMenuManager
 
     protected static $_active;
 
+    protected static $_groups = [
+        'default'=>[
+            'position'=>100
+        ]
+    ];
+
+    public static function register_group($group,$name,$position = 10){
+        static::$_groups[$group] = [
+            'name'=>$name,
+            'position'=>$position
+        ];
+    }
+
     public static function register($id,$callable,$priority = 1){
         if(isset(static::$_all[$id]) and (static::$_all[$id]['priority'] ?? 1) > $priority) return;
         static::$_all[$id] = [
@@ -39,12 +52,29 @@ class AdminMenuManager
         return static::$_cached;
     }
 
+
     public static function menus(){
         $all = static::all();
         foreach ($all as $k=>$item)
         {
             $all[$k]['icon'] = $item['icon'] ?? '';
         }
+        return $all;
+    }
+
+    public static function groups(){
+        $all = static::$_groups;
+
+        $menu_items = collect(static::menus());
+
+        foreach ($all as $id=>$option){
+            $all[$id]['menus'] = $menu_items->where('group',$id)->all();
+        }
+        $all['default']['menus'] = $menu_items->where('group','')->all();
+
+        $all = \Illuminate\Support\Arr::sort($all, function ($value) {
+            return $value['position'] ?? 0;
+        });
         return $all;
     }
 

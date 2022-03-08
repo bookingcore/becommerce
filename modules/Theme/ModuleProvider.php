@@ -50,7 +50,8 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                 'url'=>route("theme.admin.index"),
                 "permission"=>"theme_manage",
                 "position"=>70,
-                'icon'=>"fa fa-paint-brush"
+                'icon'=>"fa fa-paint-brush",
+                "group"=>"system",
             ]
         ];
     }

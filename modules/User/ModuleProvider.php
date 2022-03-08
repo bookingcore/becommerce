@@ -56,6 +56,7 @@ class ModuleProvider extends ModuleServiceProvider
             'title'      => __('Users :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'       => 'icon ion-ios-contacts',
             'permission' => 'user_manage',
+            "group"=>"system",
             'children'   => [
                 'user'=>[
                     'url'   => route('user.admin.index'),

@@ -21,6 +21,8 @@ class ModuleProvider extends ModuleServiceProvider
 
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
         AdminMenuManager::register("orders",[$this,'getAdminMenu']);
+        AdminMenuManager::register_group('sale',__("Sales"),20);
+
         SettingManager::register("order",[$this,'getOrderSettings']);
         SettingManager::register("payment",[$this,'getPaymentSettings']);
 
@@ -50,6 +52,7 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __("Orders"),
                 'icon'       => 'fa fa-dashboard',
                 'permission' => 'report_view',
+                'group'=>'sale'
             ]
         ];
     }

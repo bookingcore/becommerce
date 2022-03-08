@@ -23,7 +23,7 @@ class ModuleProvider extends ModuleServiceProvider
         ]);
 
         AdminMenuManager::register("page",[$this,'getAdminMenu']);
-
+        AdminMenuManager::register_group('content',__("Content"),30);
     }
     /**
      * Register bindings in the container.
@@ -47,7 +47,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'url'        => route('page.admin.index'),
                 'title'      => __('Pages'),
                 'icon'  => 'icon ion-ios-bookmarks',
-                "permission"=>"page_manage"
+                "permission"=>"page_manage",
+                "group"=>'content'
             ],
         ];
     }

@@ -34,6 +34,7 @@ class ModuleProvider extends ModuleServiceProvider
             'title'      => __('Customers'),
             'icon'     =>'icon ion-ios-contact',
             'permission' => 'customer_view',
+            "group"=>"sale",
         ];
 
         return [
