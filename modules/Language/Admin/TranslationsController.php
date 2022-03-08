@@ -18,7 +18,7 @@ class TranslationsController extends AdminController
             'languages'  => Language::paginate(20),
             'total_text' => Translation::where('locale', 'raw')->count()
         ];
-        $this->setActiveMenu('admin/module/core/tools');
+        $this->setActiveMenu('tools');
         return view('Language::translations.index', $data);
     }
 

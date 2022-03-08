@@ -57,7 +57,7 @@ class ModuleProvider extends ModuleServiceProvider
             'setting'=>[
                 "position"=>80,
                 'url'        => route('core.admin.setting',['group'=>'general']),
-                'title'      => __('Setting'),
+                'title'      => __('Settings'),
                 'icon'       => 'icon ion-ios-cog',
                 'permission' => 'setting_update',
                 "group"=>"system"

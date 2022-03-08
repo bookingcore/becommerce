@@ -9,6 +9,12 @@ use Modules\Language\Models\Language;
 
 class LanguageController extends AdminController
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->setActiveMenu('tools');
+    }
+
     public function index(Request $request)
     {
         $this->checkPermission('language_manage');
@@ -49,7 +55,6 @@ class LanguageController extends AdminController
                 ],
             ]
         ];
-        $this->setActiveMenu('admin/module/core/tools');
         return view('Language::admin.language.index', $data);
     }
 
@@ -98,7 +103,6 @@ class LanguageController extends AdminController
                 ],
             ]
         ];
-        $this->setActiveMenu('admin/module/core/tools');
         return view('Language::admin.language.detail', $data);
     }
 
