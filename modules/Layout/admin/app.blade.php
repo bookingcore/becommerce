@@ -49,6 +49,12 @@
             pusher_cluster : '{{setting_item("pusher_cluster")}}',
             isAdmin : {{is_admin() ? 1 : 0}},
             currentUser: {{(int)Auth::id()}},
+            booking_decimals:{{(int)get_current_currency('currency_no_decimal',2)}},
+            thousand_separator:'{{get_current_currency('currency_thousand')}}',
+            decimal_separator:'{{get_current_currency('currency_decimal')}}',
+            currency_position:'{{get_current_currency('currency_format')}}',
+            currency_symbol:'{{currency_symbol()}}',
+			currency_rate:'{{get_current_currency('rate',1)}}',
             media:{
                 groups:{!! json_encode(config('bc.media.groups')) !!}
             },

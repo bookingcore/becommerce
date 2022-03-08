@@ -7,6 +7,7 @@ namespace Themes\Base\Controllers\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Product\Models\ShippingZone;
 use Themes\Base\Controllers\FrontendController;
 use Modules\Order\Helpers\CartManager;
 
@@ -131,4 +132,15 @@ class CartController extends FrontendController
     }
 
 
+    public function calculateShipping(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'shipping_country' => 'required',
+        ]);
+
+        $res = CartManager::calculateShipping($request->input());
+        if($res['status']==1){
+            $res['reload'] = 1;
+        }
+        return $this->sendSuccess($res,$res['message']);
+    }
 }

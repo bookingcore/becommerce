@@ -21,9 +21,9 @@ class PaypalGateway extends BaseGateway
     {
         return [
             [
-                'type'  => 'checkbox',
-                'id'    => 'enable',
-                'label' => __('Enable Paypal Standard?')
+                'type' => 'checkbox',
+                'id' => 'enable',
+                'label' => __('Enable PayPal?')
             ],
             [
                 'type'       => 'input',
@@ -117,44 +117,66 @@ class PaypalGateway extends BaseGateway
         if (!$payment->amount) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
-        $this->getGateway();
         $data = $this->handlePurchaseData([
             'amount'        => (float)$payment->amount,
-            'transactionId' => $payment->id.'.'.uniqid()
+            'reference_id' => $payment->id
         ], $payment);
-        $response = $this->gateway->purchase($data)->send();
-        if ($response->isRedirect()) {
+        $response = $this->createOrder($data);
+        $json = $response->json();
+        if ($response->successful() and !empty($json['status']) and $json['status'] == 'CREATED') {
+            $url  ='';
+            foreach ($json['links'] as $link) {
+                if ($link['rel'] == 'approve') {
+                    $url = $link['href'];
+                }
+            }
             $payment->status = $payment::ON_HOLD;
             $payment->save();
             PaymentUpdated::dispatch($payment);
-            return ['url' => $response->getRedirectUrl()];
+            return ['url' => $url];
         } else {
-            throw new Exception('Paypal Gateway: ' . $response->getMessage());
+            if (!empty($json['error_description'])) {
+                $message = $json['error_description'];
+            }
+            if (!empty($json['message'])) {
+                $message = $json['message'];
+            }
+            throw new Exception('Paypal Gateway: ' . $message);
         }
     }
 
     public function confirmPayment(Request $request)
     {
-        $c = $request->query('c');
-        $payment = Payment::find($c);
+        $pid = $request->query('pid');
+        $payment = Payment::find($pid);
         if ($payment) {
-            $this->getGateway();
-            $data = $this->handlePurchaseData([
-                'amount'        => (float)$payment->amount,
-                'transactionId' => $payment->id . '.' . uniqid()
-            ], $payment);
-            $response = $this->gateway->completePurchase($data)->send();
-            if ($response->isSuccessful()) {
-                $payment->status = Order::COMPLETED;
-                $payment->logs = \GuzzleHttp\json_encode($response->getData());
-                $payment->save();
-                PaymentUpdated::dispatch($payment);
+            $order = $payment->order;
+            $response = $this->detailOrder($request->input('token'));
+            $json = $response->json();
+            if ($response->successful() and !empty($json['status'])) {
+                switch ($json['status']) {
+                    case 'COMPLETED';
+                        $payment->status = Order::COMPLETED;
+                        $payment->logs = \GuzzleHttp\json_encode($json);
+                        $payment->save();
+                        PaymentUpdated::dispatch($payment);
+                        return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                        break;
+                    case 'VOIDED':
+                        $payment->status = Order::FAILED;
+                        $payment->logs = \GuzzleHttp\json_encode($request->all());
+                        $payment->save();
+                        PaymentUpdated::dispatch($payment);
+                        return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+                        break;
+                    default:
+                        return redirect($payment->getDetailUrl())->with("success", __("You payment is being processed"));
+                }
             } else {
                 $payment->logs = \GuzzleHttp\json_encode($response->getData());
                 $payment->save();
+                return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
             }
-
-            return redirect($payment->getDetailUrl());
         }
     }
 
@@ -169,21 +191,36 @@ class PaypalGateway extends BaseGateway
 
     }
 
-    public function getGateway()
+    public function callbackPayment(Request $request)
     {
+        $event_type = $request->input('event_type');
+        try {
+            switch ($event_type) {
+                case 'CHECKOUT.ORDER.COMPLETED':
+                    $purchase_units = $request->input('purchase_units');
+                    if (!empty($purchase_units)) {
+                        foreach ($purchase_units as $purchase) {
+                            $reference_id = $purchase['reference_id'];
+                            $payment = Payment::find($reference_id);
+                            if (!empty($payment)) {
+                                $payment->status = Order::COMPLETED;
+                                $payment->logs = \GuzzleHttp\json_encode($request->all());
+                                $payment->save();
+                                PaymentUpdated::dispatch($payment);
+                            }
+                        }
+                    }
+                    break;
+            }
+            return response()->json(['status'=>1,'message'=>'Success']);
 
-        $this->gateway = Omnipay::create('PayPal_Express');
-        $this->gateway->setUsername($this->getOption('account'));
-        $this->gateway->setPassword($this->getOption('client_id'));
-        $this->gateway->setSignature($this->getOption('client_secret'));
-        $this->gateway->setTestMode(false);
-        if ($this->getOption('test')) {
-            $this->gateway->setUsername($this->getOption('test_account'));
-            $this->gateway->setPassword($this->getOption('test_client_id'));
-            $this->gateway->setSignature($this->getOption('test_client_secret'));
-            $this->gateway->setTestMode(true);
+        }catch (\Exception $e){
+            return response()->json(['status'=>0,'message'=>$e->getMessage()]);
         }
+
     }
+
+
 
     public function handlePurchaseData($data, $payment = null)
     {
@@ -191,8 +228,8 @@ class PaypalGateway extends BaseGateway
         $supported = $this->supportedCurrency();
         $convert_to = $this->getOption('convert_to');
         $data['currency'] = $main_currency;
-        $data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id;
-        $data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
+        $data['return_url'] = $this->getReturnUrl() . '?pid=' . $payment->id;
+        $data['cancel_url'] = $this->getCancelUrl() . '?pid=' . $payment->id;
         if (!array_key_exists($main_currency, $supported)) {
             if (!$convert_to) {
                 throw new Exception(__("PayPal does not support currency: :name", ['name' => $main_currency]));
@@ -211,7 +248,89 @@ class PaypalGateway extends BaseGateway
         }
         return $data;
     }
+    public function createOrder($data = [])
+    {
+        $accessToken = $this->getAccessToken();
+        $this->access_token = $accessToken;
+        $params = [
+            "intent" => "CAPTURE",
+            'purchase_units' => [
+                [
+                    'reference_id' => $data['reference_id'],
+                    'amount' => [
+                        "currency_code" => Str::upper($data['currency']),
+                        'value' => (string)$data['amount']
+                    ]
+                ]
+            ],
+            'application_context' => [
+                'return_url' => $data['return_url'],
+                'cancel_url' => $data['cancel_url'],
+            ],
+        ];
+        $response = Http::withHeaders(['Accept' => 'application/json', 'content-type' => 'application/json', 'Accept-Language' => 'en_US'])
+            ->withToken($accessToken['access_token'])
+            ->post($this->getUrl('v2/checkout/orders'), $params);
+        return $response;
+    }
 
+    public function detailOrder($orderId)
+    {
+        $accessToken = $this->getAccessToken();
+        $response = Http::withHeaders(['Accept' => 'application/json', 'content-type' => 'application/json', 'Accept-Language' => 'en_US'])
+            ->withToken($accessToken['access_token'])
+            ->get($this->getUrl('v2/checkout/orders/' . $orderId));
+        return $response;
+
+    }
+
+    public function getAccessToken()
+    {
+        $clientId = $this->getClientId();
+        $secret = $this->getClientSecret();
+        $response = Http::withHeaders(['Accept' => 'application/json', 'Accept-Language' => 'en_US'])
+            ->withBasicAuth($clientId, $secret)
+            ->asForm()
+            ->post($this->getUrl('v1/oauth2/token'), ['grant_type' => 'client_credentials']);
+        $json = $response->json();
+        if ($response->successful() and !empty($json['access_token'])) {
+            return $json;
+        } else {
+            if (!empty($json['error_description'])) {
+                $message = $json['error_description'];
+            }
+            if (!empty($json['message'])) {
+                $message = $json['message'];
+            }
+            throw new \Exception($message);
+        }
+    }
+
+    public function getClientId()
+    {
+        $clientId = $this->getOption('client_id');
+        if ($this->getOption('test')) {
+            $clientId = $this->getOption('test_client_id');
+        }
+        return $clientId;
+    }
+
+    public function getClientSecret()
+    {
+        $secret = $this->getOption('client_secret');
+        if ($this->getOption('test')) {
+            $secret = $this->getOption('test_client_secret');
+        }
+        return $secret;
+    }
+
+    public function getUrl($path)
+    {
+        if ($this->getOption('test')) {
+            return 'https://api-m.sandbox.paypal.com/' . $path;
+        }
+        return 'https://api-m.paypal.com/' . $path;
+    }
     public function supportedCurrency()
     {
         return [

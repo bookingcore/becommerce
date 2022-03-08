@@ -38,14 +38,6 @@
             <input type="text" class="form-control mt-3 " name="address2" placeholder="{{__('Apartment, suite, unit, etc. (optional)')}}" value="{{old('address2',$address->address2 ?? '')}}">
         </div>
     </div>
-    <div class="col-sm-12">
-        <div class="form-group mb-3 ">
-            <label class="">
-                {{__('Postcode / ZIP (optional)')}}
-            </label>
-            <input type="text" class="form-control " name="postcode"  value="{{old('postcode',$address->postcode ?? '')}}">
-        </div>
-    </div>
     <div class="col-sm-6">
         <div class="form-group mb-3">
             <label>{{__('City')}} <span class="text-danger">*</span></label>
@@ -58,6 +50,15 @@
             <input class="form-control" type="text" name="state" value="{{old('state',$address->state ?? '')}}">
         </div>
     </div>
+    <div class="col-sm-12">
+        <div class="form-group mb-3 ">
+            <label class="">
+                {{__('Postcode / ZIP (optional)')}}
+            </label>
+            <input type="text" class="form-control " name="postcode"  value="{{old('postcode',$address->postcode ?? '')}}">
+        </div>
+    </div>
+    @if($type == 'billing')
     <div class="col-sm-12">
         <div class="form-group mb-3 ">
             <label class="">
@@ -74,4 +75,5 @@
             <input type="email" class="form-control" name="email" required  value="{{old('email',$address->email ?? '')}}">
         </div>
     </div>
+    @endif
 </div>

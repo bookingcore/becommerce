@@ -17,7 +17,7 @@
                                     <h3>{{$page_title}}</h3>
                                 </div>
                                 <div class="bc-section__content">
-                                    @include("user.address.billing-form")
+                                    @include("user.address.billing-form",['type'=>$type])
                                 </div>
                                 <div class="form-group submit">
                                     <button class="btn btn-success">{{__('Update')}}</button>

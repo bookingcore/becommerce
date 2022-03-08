@@ -82,7 +82,7 @@ Route::group(['prefix'=>config('order.cart_route_prefix')],function(){
     Route::post('/remove_coupon','Order\CouponController@removeCoupon')->name('cart.coupon.remove');
 
     //Shipping
-    Route::post('/calculate_shipping','Order\ShippingController@calculateShipping')->name('cart.calculate.shipping');
+    Route::post('/calculate_shipping','Order\CartController@calculateShipping')->name('cart.calculate.shipping');
 });
 Route::group(['prefix'=>'checkout'],function(){
     Route::get('/','Order\CheckoutController@index')->name('checkout');

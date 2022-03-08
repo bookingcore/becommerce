@@ -15,6 +15,7 @@ use Modules\Core\Helpers\AdminMenuManager;
 use Modules\User\Events\VendorApproved;
 use Modules\User\Exports\UserExport;
 use Modules\User\Models\Role;
+use Modules\User\Resources\UserResource;
 
 class UserController extends AdminController
 {
@@ -228,32 +229,14 @@ class UserController extends AdminController
                 $query->where('first_name', 'like', '%' . $q . '%')->orWhere('last_name', 'like', '%' . $q . '%')->orWhere('email', 'like', '%' . $q . '%')->orWhere('id', $q)->orWhere('phone', 'like', '%' . $q . '%');
             });
         }
-        $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
-        $data = [];
-        if (!empty($res)) {
-            if($request->query("user_type") == "vendor"){
-                //for only vendor
-                foreach ($res as $item) {
-                    if($item->hasPermission("dashboard_vendor_access")){
-                        $data[] = [
-                            'id'   => $item->id,
-                            'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
-                        ];
-                    }
-                }
-            }else{
-                //for all
-                foreach ($res as $item) {
-                    $data[] = [
-                        'id'   => $item->id,
-                        'text' => $item->display_name ? $item->display_name . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
-                    ];
-                }
-            }
+        if($request->query("user_type") == "vendor"){
+            $query->where('role_id',3);
         }
-        return response()->json([
-            'results' => $data
-        ]);
+        $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
+
+        return [
+            'results'=>UserResource::collection($res)
+        ];
     }
 
     public function bulkEdit(Request $request)
