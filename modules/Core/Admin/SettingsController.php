@@ -21,7 +21,15 @@ class SettingsController extends AdminController
         AdminMenuManager::setActive('setting');
     }
 
-    public function index($group)
+    public function index()
+    {
+        $data = [
+            'settings'=>SettingManager::all(),
+            'page_title'    =>__("Settings"),
+        ];
+        return view('Core::admin.settings.index', $data);
+    }
+    public function group($group)
     {
 
         if(empty($this->groups)){
@@ -45,7 +53,7 @@ class SettingsController extends AdminController
             'group'         => $this->groups[$group],
             'enable_multi_lang'=>true
         ];
-        return view('Core::admin.settings.index', $data);
+        return view('Core::admin.settings.group', $data);
     }
 
     public function store(Request $request, $group)

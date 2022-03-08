@@ -1,51 +1,33 @@
-@extends('admin.layouts.app')
-@section('content')
+@extends ('admin.layouts.app')
+@section ('content')
     <div class="container">
-        <div class="mb40">
-            <div class="d-flex justify-content-between">
-                <h1 class="title-bar">{{$group['title']}}</h1>
-            </div>
-            <hr>
-        </div>
-        @include('admin.message')
         <div class="row">
-            <div class="col-md-3 d-none">
+            <div class="col-md-1"></div>
+            <div class="col-md-10">
+                <div class="d-flex justify-content-between mb20">
+                    <h1 class="title-bar">{{__('Settings')}}</h1>
+                </div>
                 <div class="panel">
-                    <div class="panel-title">{{__('Settings Groups')}}</div>
-                    <div class="panel-body">
-                        <ul class="panel-navs">
-                            @foreach($groups as $k=>$row)
-                                <li class="@if($current_group == $k) active @endif"><a href="{{url('admin/module/core/settings/index/'.$k)}}">
-                                    @if(!empty($row['icon']))
-                                    <i class="{{$row['icon']}}"></i>
-                                    @endif
-                                    {{$row['title']}}
-                                </a></li>
+                    <div class="panel-body pd15">
+                        <div class="row area-setting-row">
+                            @foreach($settings as $id=>$setting)
+                                <div class="col-md-4">
+                                    <div class="area-setting-item">
+                                        <a class="setting-item-link" href="{{route('core.admin.setting',['group'=>$id])}}">
+                                            <span class="setting-item-media">
+                                                <i class="icon ion-ios-globe"></i>
+                                            </span>
+                                            <span class="setting-item-info">
+                                                <span class="setting-item-title">{{$setting['title']}}</span>
+                                                <span class="setting-item-desc">{{__("Manage languages of your website")}}</span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </div>
                             @endforeach
-                        </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <form action="{{url('admin/module/core/settings/store/'.$current_group)}}" method="post" autocomplete="off">
-                    @csrf
-
-                    @include('Language::admin.navigation')
-
-                    <div class="lang-content-box">
-                        @if(empty($group['view']))
-                            @include ('Core::admin.settings.groups.'.$current_group)
-                        @else
-                            @include ($group['view'])
-                        @endif
-                    </div>
-
-                    <hr>
-                    <div class="d-flex justify-content-between">
-                        <span></span>
-                        <button class="btn btn-primary" type="submit">{{__('Save settings')}}</button>
-                    </div>
-                </form>
             </div>
         </div>
     </div>

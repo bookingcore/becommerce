@@ -62,11 +62,10 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'setting'=>[
                 "position"=>80,
-                'url'        => 'admin/module/core/settings/index/general',
+                'url'        => route('core.admin.setting.index'),
                 'title'      => __('Setting'),
                 'icon'       => 'icon ion-ios-cog',
                 'permission' => 'setting_update',
-                'children'   => \Modules\Core\Helpers\SettingManager::menus(),
                 "group"=>"system"
             ],
             'tools'=>[
