@@ -27,11 +27,12 @@ class ModuleProvider extends ModuleServiceProvider
     {
         return [
             'review'=>[
-                "position"=>50,
-                'url'   => 'admin/module/review',
+                "position"=>80,
+                'url'   => route('review.admin.index'),
                 'title' => __("Reviews"),
                 'icon'  => 'icon ion-ios-text',
                 'permission' => 'review_manage_others',
+                'group'=>'sale'
             ],
         ];
     }

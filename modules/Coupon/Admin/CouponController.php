@@ -14,7 +14,7 @@ class CouponController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu(route('coupon.admin.index'));
+        $this->setActiveMenu('coupon');
     }
     public function callAction($method, $parameters)
     {

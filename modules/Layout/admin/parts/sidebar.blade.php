@@ -2,6 +2,11 @@
 $groups = \Modules\Core\Helpers\AdminMenuManager::groups();
 ?>
 <ul class="main-menu pb-5">
+    <li class="{{request()->route()->getName() == 'admin.dashboard.index' ? 'active' : ''}}"><a href="{{ url('admin') }}">
+            <span class="icon text-center"><i class="icon ion-ios-desktop"></i></span>
+            {{__("Dashboard")}}
+        </a>
+    </li>
     @foreach($groups as $group_id=>$group)
         @if(!empty($group['name']))
             <li class="group">

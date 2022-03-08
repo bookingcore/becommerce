@@ -4,14 +4,15 @@ namespace Modules\Review\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Review\Models\Review;
 
 class ReviewController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/review');
         parent::__construct();
+        AdminMenuManager::setActive('review');
     }
 
     public function index(Request $request)

@@ -123,7 +123,7 @@ class ModuleProvider extends ModuleServiceProvider
         $noti = $noti_verify + $noti_upgrade;
 
         $options = [
-            "position"=>60,
+            "position"=>90,
             'url'        => route('vendor.admin.index'),
             'title'      => __('Vendors :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'     =>'icon ion-ios-basket',
@@ -144,7 +144,8 @@ class ModuleProvider extends ModuleServiceProvider
                     'title'      => __('Signup Request :count',['count'=>$noti_upgrade ? sprintf('<span class="badge badge-warning">%d</span>',$noti_upgrade) : '']),
                     'permission' => 'vendor_view',
                 ],
-            ]
+            ],
+            "group"=>"sale"
         ];
 
         return [

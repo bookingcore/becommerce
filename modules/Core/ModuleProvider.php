@@ -46,12 +46,6 @@ class ModuleProvider extends ModuleServiceProvider
     public static function getAdminMenu(){
 
         $menus = [
-            'admin'=>[
-                'url'   => 'admin',
-                'title' => __("Dashboard"),
-                'icon'  => 'icon ion-ios-desktop',
-                "position"=>0
-            ],
             'menu'=>[
                 "position"=>70,
                 'url'        => 'admin/module/core/menu',
@@ -62,7 +56,7 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'setting'=>[
                 "position"=>80,
-                'url'        => route('core.admin.setting.index'),
+                'url'        => route('core.admin.setting',['group'=>'general']),
                 'title'      => __('Setting'),
                 'icon'       => 'icon ion-ios-cog',
                 'permission' => 'setting_update',
