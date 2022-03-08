@@ -16,6 +16,7 @@ class TemplateController extends AdminController
     public function __construct()
     {
         parent::__construct();
+        $this->setActiveMenu('page');
         $this->templateClass = Template::class;
         $this->templateTranslationClass = TemplateTranslation::class;
     }
@@ -23,7 +24,6 @@ class TemplateController extends AdminController
     public function index(Request $request)
     {
         $this->checkPermission('template_manage');
-        $this->setActiveMenu('admin/module/template');
         $query = $this->templateClass::query() ;
         $query->orderBy('id', 'desc');
         if (!empty($tour_name = $request->input('s'))) {
@@ -39,7 +39,6 @@ class TemplateController extends AdminController
 
     public function create(Request $request)
     {
-        $this->setActiveMenu('admin/module/template');
         $this->checkPermission('template_manage');
         $row = new $this->templateClass();
         $data = [
@@ -63,7 +62,6 @@ class TemplateController extends AdminController
     public function edit(Request $request, $id)
     {
         $this->checkPermission('template_manage');
-        $this->setActiveMenu('admin/module/template');
         $row = $this->templateClass::find($id);
         if (empty($row)) {
             return redirect('admin/module/template');
