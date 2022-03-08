@@ -29,10 +29,10 @@ $score_total = $reviewData['score_total'];
             <i class="fa fa-bar-chart" aria-hidden="true"></i>
         </div> -->
         <div class="shop-action">
-            <button class="btn-tooltips btn-addtocart tooltipstered" ><i class="fa fa-shopping-cart" aria-hidden="true"></i></button>
-            <button class="btn-tooltips btn-wishlist tooltipstered" ><i class="fa fa-heart-o" aria-hidden="true"></i></button>
-            <button class="btn-tooltips btn-quickview tooltipstered" ><i class="fa fa-eye" aria-hidden="true"></i></button>
-            <button class="btn-tooltips btn-compare " ><i class="fa fa-refresh" aria-hidden="true"></i></button>
+            <button class="btn-tooltips btn-addtocart tooltipstered" ></button>
+            <button class="btn-tooltips btn-wishlist tooltipstered" ></button>
+            <button class="btn-tooltips btn-quickview tooltipstered" ></button>
+            <button class="btn-tooltips btn-compare " ></button>
         </div>
     </div>
     <div class="card-body">

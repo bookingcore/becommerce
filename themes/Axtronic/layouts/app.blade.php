@@ -35,7 +35,7 @@
         <main class="flex-shrink-0">
             @yield('content')
         </main>
-        <footer class="footer mt-auto py-3">
+        <footer class="footer">
             @include('layouts.parts.footer')
             @include('product.compare.compare-modal')
 

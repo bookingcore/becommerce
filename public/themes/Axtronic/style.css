@@ -1,4 +1,3 @@
-@charset "UTF-8";
 @font-face {
   font-family: "axtronic-icon";
   src: url("./fonts/axtronic-icon.eot?zmkabw");
@@ -17,399 +16,399 @@
 }
 
 .axtronic-icon-airpods:before {
-  content: "";
+  content: "\e001";
 }
 
 .axtronic-icon-angle-down:before {
-  content: "";
+  content: "\e002";
 }
 
 .axtronic-icon-angle-left:before {
-  content: "";
+  content: "\e003";
 }
 
 .axtronic-icon-angle-right:before {
-  content: "";
+  content: "\e004";
 }
 
 .axtronic-icon-angle-up:before {
-  content: "";
+  content: "\e005";
 }
 
 .axtronic-icon-arrow-circle-down:before {
-  content: "";
+  content: "\e006";
 }
 
 .axtronic-icon-arrow-circle-left:before {
-  content: "";
+  content: "\e007";
 }
 
 .axtronic-icon-arrow-circle-right:before {
-  content: "";
+  content: "\e008";
 }
 
 .axtronic-icon-arrow-circle-up:before {
-  content: "";
+  content: "\e009";
 }
 
 .axtronic-icon-arrow-down:before {
-  content: "";
+  content: "\e00a";
 }
 
 .axtronic-icon-arrow-left:before {
-  content: "";
+  content: "\e00b";
 }
 
 .axtronic-icon-arrow-right:before {
-  content: "";
+  content: "\e00c";
 }
 
 .axtronic-icon-arrow-up:before {
-  content: "";
+  content: "\e00d";
 }
 
 .axtronic-icon-buliding:before {
-  content: "";
+  content: "\e00e";
 }
 
 .axtronic-icon-call-calling:before {
-  content: "";
+  content: "\e00f";
 }
 
 .axtronic-icon-call-calling2:before {
-  content: "";
+  content: "\e010";
 }
 
 .axtronic-icon-circle-phone:before {
-  content: "";
+  content: "\e011";
 }
 
 .axtronic-icon-discount-shape:before {
-  content: "";
+  content: "\e012";
 }
 
 .axtronic-icon-electricity:before {
-  content: "";
+  content: "\e013";
 }
 
 .axtronic-icon-eye:before {
-  content: "";
+  content: "\e014";
 }
 
 .axtronic-icon-gameboy:before {
-  content: "";
+  content: "\e015";
 }
 
 .axtronic-icon-glass:before {
-  content: "";
+  content: "\e016";
 }
 
 .axtronic-icon-grid:before {
-  content: "";
+  content: "\e017";
 }
 
 .axtronic-icon-group:before {
-  content: "";
+  content: "\e018";
 }
 
 .axtronic-icon-heart-circle:before {
-  content: "";
+  content: "\e019";
 }
 
 .axtronic-icon-heart:before {
-  content: "";
+  content: "\e01a";
 }
 
 .axtronic-icon-house-2:before {
-  content: "";
+  content: "\e01b";
 }
 
 .axtronic-icon-list:before {
-  content: "";
+  content: "\e01c";
 }
 
 .axtronic-icon-medal-star:before {
-  content: "";
+  content: "\e01d";
 }
 
 .axtronic-icon-menu-right-1:before {
-  content: "";
+  content: "\e01e";
 }
 
 .axtronic-icon-minus-square:before {
-  content: "";
+  content: "\e01f";
 }
 
 .axtronic-icon-mobile:before {
-  content: "";
+  content: "\e020";
 }
 
 .axtronic-icon-monitor-mobbile:before {
-  content: "";
+  content: "\e021";
 }
 
 .axtronic-icon-plus-square:before {
-  content: "";
+  content: "\e022";
 }
 
 .axtronic-icon-search:before {
-  content: "";
+  content: "\e023";
 }
 
 .axtronic-icon-shopping-cart:before {
-  content: "";
+  content: "\e024";
 }
 
 .axtronic-icon-sms:before {
-  content: "";
+  content: "\e025";
 }
 
 .axtronic-icon-square-check:before {
-  content: "";
+  content: "\e026";
 }
 
 .axtronic-icon-star-sharp:before {
-  content: "";
+  content: "\e027";
 }
 
 .axtronic-icon-tablet:before {
-  content: "";
+  content: "\e028";
 }
 
 .axtronic-icon-trash:before {
-  content: "";
+  content: "\e029";
 }
 
 .axtronic-icon-user:before {
-  content: "";
+  content: "\e02a";
 }
 
 .axtronic-icon-wallet:before {
-  content: "";
+  content: "\e02b";
 }
 
 .axtronic-icon-watch:before {
-  content: "";
+  content: "\e02c";
 }
 
 .axtronic-icon-360:before {
-  content: "";
+  content: "\e02d";
 }
 
 .axtronic-icon-bars:before {
-  content: "";
+  content: "\e02e";
 }
 
 .axtronic-icon-calendar:before {
-  content: "";
+  content: "\e02f";
 }
 
 .axtronic-icon-cart-empty:before {
-  content: "";
+  content: "\e030";
 }
 
 .axtronic-icon-check:before {
-  content: "";
+  content: "\e031";
 }
 
 .axtronic-icon-cloud-download-alt:before {
-  content: "";
+  content: "\e032";
 }
 
 .axtronic-icon-comment:before {
-  content: "";
+  content: "\e033";
 }
 
 .axtronic-icon-comments:before {
-  content: "";
+  content: "\e034";
 }
 
 .axtronic-icon-credit-card:before {
-  content: "";
+  content: "\e035";
 }
 
 .axtronic-icon-edit:before {
-  content: "";
+  content: "\e036";
 }
 
 .axtronic-icon-envelope:before {
-  content: "";
+  content: "\e037";
 }
 
 .axtronic-icon-expand-alt:before {
-  content: "";
+  content: "\e038";
 }
 
 .axtronic-icon-external-link-alt:before {
-  content: "";
+  content: "\e039";
 }
 
 .axtronic-icon-facebook:before {
-  content: "";
+  content: "\e03a";
 }
 
 .axtronic-icon-file-alt:before {
-  content: "";
+  content: "\e03b";
 }
 
 .axtronic-icon-file-archive:before {
-  content: "";
+  content: "\e03c";
 }
 
 .axtronic-icon-folder-open:before {
-  content: "";
+  content: "\e03d";
 }
 
 .axtronic-icon-folder:before {
-  content: "";
+  content: "\e03e";
 }
 
 .axtronic-icon-frown:before {
-  content: "";
+  content: "\e03f";
 }
 
 .axtronic-icon-gift:before {
-  content: "";
+  content: "\e040";
 }
 
 .axtronic-icon-google-plus:before {
-  content: "";
+  content: "\e041";
 }
 
 .axtronic-icon-history:before {
-  content: "";
+  content: "\e042";
 }
 
 .axtronic-icon-home:before {
-  content: "";
+  content: "\e043";
 }
 
 .axtronic-icon-info-circle:before {
-  content: "";
+  content: "\e044";
 }
 
 .axtronic-icon-instagram:before {
-  content: "";
+  content: "\e045";
 }
 
 .axtronic-icon-linkedin:before {
-  content: "";
+  content: "\e046";
 }
 
 .axtronic-icon-map-marker-check:before {
-  content: "";
+  content: "\e047";
 }
 
 .axtronic-icon-meh:before {
-  content: "";
+  content: "\e048";
 }
 
 .axtronic-icon-minus:before {
-  content: "";
+  content: "\e049";
 }
 
 .axtronic-icon-money-bill:before {
-  content: "";
+  content: "\e04a";
 }
 
 .axtronic-icon-moon:before {
-  content: "";
+  content: "\e04b";
 }
 
 .axtronic-icon-pencil-alt:before {
-  content: "";
+  content: "\e04c";
 }
 
 .axtronic-icon-pinterest-p:before {
-  content: "";
+  content: "\e04d";
 }
 
 .axtronic-icon-plus:before {
-  content: "";
+  content: "\e04e";
 }
 
 .axtronic-icon-quote:before {
-  content: "";
+  content: "\e04f";
 }
 
 .axtronic-icon-random:before {
-  content: "";
+  content: "\e050";
 }
 
 .axtronic-icon-reply-all:before {
-  content: "";
+  content: "\e051";
 }
 
 .axtronic-icon-reply:before {
-  content: "";
+  content: "\e052";
 }
 
 .axtronic-icon-router:before {
-  content: "";
+  content: "\e053";
 }
 
 .axtronic-icon-sign-out-alt:before {
-  content: "";
+  content: "\e054";
 }
 
 .axtronic-icon-smile:before {
-  content: "";
+  content: "\e055";
 }
 
 .axtronic-icon-spinner:before {
-  content: "";
+  content: "\e056";
 }
 
 .axtronic-icon-square:before {
-  content: "";
+  content: "\e057";
 }
 
 .axtronic-icon-star:before {
-  content: "";
+  content: "\e058";
 }
 
 .axtronic-icon-store:before {
-  content: "";
+  content: "\e059";
 }
 
 .axtronic-icon-sun:before {
-  content: "";
+  content: "\e05a";
 }
 
 .axtronic-icon-sync:before {
-  content: "";
+  content: "\e05b";
 }
 
 .axtronic-icon-tachometer-alt:before {
-  content: "";
+  content: "\e05c";
 }
 
 .axtronic-icon-tag:before {
-  content: "";
+  content: "\e05d";
 }
 
 .axtronic-icon-thumbtack:before {
-  content: "";
+  content: "\e05e";
 }
 
 .axtronic-icon-times-circle:before {
-  content: "";
+  content: "\e05f";
 }
 
 .axtronic-icon-times:before {
-  content: "";
+  content: "\e060";
 }
 
 .axtronic-icon-truck:before {
-  content: "";
+  content: "\e061";
 }
 
 .axtronic-icon-twitter:before {
-  content: "";
+  content: "\e062";
 }
 
 .axtronic-icon-video:before {
-  content: "";
+  content: "\e063";
 }
 
 /**
@@ -1355,7 +1354,7 @@ blockquote p:first-child:before {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e04f";
   color: var(--primary);
   font-style: normal;
   font-size: 61px;
@@ -1914,7 +1913,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e002";
   border-top: 0;
 }
 #masthead .bravo_topbar ul li.dropdown ul.dropdown-menu {
@@ -1942,8 +1941,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .bravo_topbar ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .bravo_topbar ul li a:hover {
   color: var(--primary_hover);
@@ -1982,7 +1981,7 @@ a:not(.button):hover {
   font-weight: normal;
   line-height: 1;
   vertical-align: middle;
-  content: "";
+  content: "\e002";
   border-top: 0;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
@@ -2058,8 +2057,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-navigation ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .header-wrap .site-navigation ul li a {
   font-size: 16px;
@@ -2109,8 +2108,8 @@ a:not(.button):hover {
   display: block;
 }
 #masthead .header-wrap .site-member ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
+  margin-right: 12.5px;
+  margin-left: 12.5px;
 }
 #masthead .header-wrap .site-member ul li a {
   font-size: 16px;
@@ -2193,17 +2192,46 @@ a:not(.button):hover {
   background: #fff;
   right: -55px;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-tooltips:before {
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: axtronic-icon;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: middle;
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-addtocart {
   transition: all 0.2s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-addtocart:before {
+  content: "\e024";
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-wishlist {
   transition: all 0.35s ease-in-out;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-wishlist:before {
+  content: "\e01a";
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-quickview {
   transition: all 0.45s ease-in-out;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-quickview:before {
+  content: "\e014";
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action .btn-compare {
   transition: all 0.55s ease-in-out;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .bd-placeholder-img .shop-action button.btn-compare:before {
+  content: "\e05b";
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body {
   padding: 0;
@@ -2246,6 +2274,131 @@ a:not(.button):hover {
 .page-template-content .bc-list-products .bc-content .bc-loop-product:hover .bd-placeholder-img .shop-action button.btn-tooltips:hover {
   background: linear-gradient(225deg, #F1592A 0%, #DD2955 100%);
   border-color: #DD2955;
+  color: #fff;
+}
+
+.footer {
+  background-color: #031424;
+}
+.footer .bc-footer {
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 80px 0 60px;
+}
+.footer .bc-footer .address h3 {
+  margin-bottom: 10px;
+  font-family: "Be Vietnam Pro", Sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.5em;
+  color: #DD2955;
+}
+.footer .bc-footer .address p {
+  color: #94989e;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-bottom: 40px;
+}
+.footer .bc-footer .address .socials-list a {
+  margin-right: 10px;
+}
+.footer .bc-footer .widget-footer h5 {
+  color: #fff;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.footer .bc-footer .widget-footer ul {
+  list-style: none;
+  margin-left: 0;
+}
+.footer .bc-footer .widget-footer ul li a {
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+.footer .bc-footer .widget-footer ul li a:hover {
+  color: var(--primary) !important;
+}
+.footer .bc-footer .bc-form-newsletter h3 {
+  color: #fff;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+}
+.footer .bc-footer .bc-form-newsletter p {
+  color: #94989e;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter {
+  position: relative;
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group input {
+  border-radius: 30px;
+  font-size: 15px;
+  padding: 12px 1em;
+  background-color: #ffffff;
+  color: #6A7285;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #e2e5eb;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  font-weight: 400;
+  outline: 0;
+  transition: all ease-in-out 0.3s;
+  line-height: 24px;
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group button {
+  position: absolute;
+  top: 5px;
+  right: 6px;
+  padding: 0 12px;
+  color: #fff;
+  cursor: pointer;
+  height: calc(100% - 10px);
+  border-radius: 30px;
+  margin-left: 8px;
+  background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group button:before {
+  content: "\e00c";
+  font-family: axtronic-icon;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: middle;
+  line-height: 24px;
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group button:hover {
+  background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
+}
+.footer .copy-right {
+  padding: 10px 0;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px 0 0;
+  border-color: #31353d;
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 20px 0 10px;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5em;
   color: #fff;
 }
 
@@ -2605,7 +2758,7 @@ a:not(.button):hover {
   right: 0;
   bottom: 0;
   width: 100%;
-  transition: transform calc(700ms * 1.5) cubic-bezier(0.19, 1, 0.22, 1);
+  transition: transform 1050ms cubic-bezier(0.19, 1, 0.22, 1);
   -webkit-background-size: cover;
   background-size: cover;
   background-position: center;
@@ -2863,7 +3016,7 @@ a:not(.button):hover {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
-  margin-bottom: calc(var(--grid-gutter)/2);
+  margin-bottom: calc(var(--grid-gutter) / 2);
 }
 .swiper-slider-news .post-thumbnail .posted-on-square {
   width: 50px;
