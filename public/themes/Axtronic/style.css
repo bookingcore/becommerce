@@ -2369,7 +2369,7 @@ a:not(.button):hover {
   height: calc(100% - 10px);
   border-radius: 30px;
   margin-left: 8px;
-  background-color: #DD2955;
+  background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
 }
 .footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group button:before {
   content: "\e00c";
@@ -2383,6 +2383,23 @@ a:not(.button):hover {
   line-height: 1;
   vertical-align: middle;
   line-height: 24px;
+}
+.footer .bc-footer .bc-form-newsletter .form-newsletter form .input-group button:hover {
+  background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
+}
+.footer .copy-right {
+  padding: 10px 0;
+  text-align: center;
+  border-style: solid;
+  border-width: 1px 0 0;
+  border-color: #31353d;
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 20px 0 10px;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5em;
+  color: #fff;
 }
 
 .banner-slider {

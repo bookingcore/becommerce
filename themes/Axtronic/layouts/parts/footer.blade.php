@@ -58,8 +58,8 @@
 <div id="back2top"><i class="icon icon-arrow-up"></i></div>
 
 <div class="container">
-    <footer class="">
-        <div class="d-flex justify-content-between py-4 border-top">
+    <div class="copy-right">
+        <div class="">
             {!! setting_item_with_lang("copyright") !!}
         </div>
     </footer>
