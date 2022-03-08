@@ -137,10 +137,10 @@ class CartController extends FrontendController
             'shipping_country' => 'required',
         ]);
 
-        $res = CartManager::calculateShipping($request->input());
+        $res = CartManager::calculateShipping($request->input(),$request->input('method_id') );
         if($res['status']==1){
             $res['reload'] = 1;
         }
-        return $this->sendSuccess($res,$res['message']);
+        return $this->sendSuccess($res);
     }
 }

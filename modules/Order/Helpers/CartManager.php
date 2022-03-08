@@ -13,6 +13,7 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
+use Modules\Product\Models\ShippingZoneMethod;
 
 class CartManager
 {
@@ -188,7 +189,9 @@ class CartManager
         return static::items()->sum('discount_amount');
     }
     public static function shippingTotal(){
-        return static::items()->sum('shipping_amount');
+        // session shipping cart
+        $shipping  = static::getShipping();
+        return static::items()->sum('shipping_amount') + ( !empty($shipping['cost_amount']) ? $shipping['cost_amount'] : 0);
     }
 
     /**
@@ -352,23 +355,40 @@ class CartManager
 
 
     public static function getShipping(){
-        return session()->get(static::$session_shipping_key,[]);
+        //session()->forget(static::$session_shipping_key);
+        return session()->get(static::$session_shipping_key, []);
+    }
+    public static function storeShipping($shipping){
+        session()->put(static::$session_shipping_key,$shipping);
+    }
+
+    public static function getMethodShipping($country){
+        // Method for country
+        $zone_location = ShippingZoneLocation::where("location_code",$country)->first();
+        if(!empty($zone_location)) {
+            $zone = ShippingZone::find($zone_location->zone_id);
+            $shipping_methods = $zone->shippingMethodsAvailable;
+            return $shipping_methods;
+        }
+        // Method default
+        if(!empty($shipping_methods = ShippingZoneMethod::where("zone_id",0)->where('is_enabled',1)->orderBy("order","asc")->get())){
+            return $shipping_methods;
+        }
+        return false;
     }
 
     //Shipping
     public static function calculateShipping($params,$shipping_method_selected = false){
         // tìm shipping by country
-        $zone_location = ShippingZoneLocation::where("location_code",$params['shipping_country'])->first();
-        if(!empty($zone_location)){
-            $zone = ShippingZone::find($zone_location->zone_id);
-            $shipping_methods = $zone->shippingMethodsAvailable;
-
-            if(empty($shipping_methods)){
-                return ['status' => 0, 'message' => __("No shipping method were found")];
-            }
-
+        $shipping_data = [
+            'shipping_country' => $params['shipping_country'] ?? "",
+            'shipping_city'    => $params['shipping_city'] ?? "",
+            'shipping_zip'     => $params['shipping_zip'] ?? "",
+        ];
+        $shipping_methods = static::getMethodShipping($params['shipping_country']);
+        if(!empty($shipping_methods)){
             // Danh sách cách đơn vị vận chuyển
-            dump($shipping_methods);
+            //dump($shipping_methods);
 
 
             // nếu có $shipping_method_selected lấy theo cái đã chọn
@@ -378,40 +398,26 @@ class CartManager
             // nếu không có 2 cái trên thì lấy $shipping_methods đầu tiên
 
             // Find $shipping_method_selected
-            if(!empty($shipping_method_selected)){
-                // for change
-            }else{
-
+            if(empty($shipping_method_selected)){
                 // for session
-                $shipping_data = static::getShipping();
-                if(!empty($shipping_data['method_selected'])){
-                    $shipping_method_selected = $shipping_data['method_selected'];
+                $shipping_session = static::getShipping();
+                if(!empty($shipping_session['method_selected'])){
+                    $shipping_method_selected = $shipping_session['method_selected'];
                 }
                 // for first method available
-
                 if(empty($shipping_method_selected)){
                     $shipping_method_selected = $shipping_methods[0]->method_id;
                 }
             }
-
-            // cal total
-            foreach ( $shipping_methods as $method ){
-                if($method['method_id'] ==  $shipping_method_selected){
-
+            // Data method
+            foreach ($shipping_methods as $method) {
+                if ($method['method_id'] == $shipping_method_selected) {
+                    $shipping_data['method_selected'] = $shipping_method_selected;
+                    $shipping_data['cost_amount'] = $method->cost ?? 0;
                 }
             }
-
-            //Lấy item trong cart ra xem có shipping class k
-            // lấy shipping amount
-            // save shippong to cart
-
-            dd($shipping_method_selected);
-
-
         }
-
-        return ['status' => 0, 'message' => __("No shipping options were found")];
-
-
+        static::storeShipping($shipping_data);
+        return ['status' => 1];
     }
 }

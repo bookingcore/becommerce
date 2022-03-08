@@ -11,6 +11,7 @@ class ShippingZoneMethod extends BaseModel
         'zone_id',
         'method_id',
         'order',
+        'cost',
         'is_enabled'
     ];
 

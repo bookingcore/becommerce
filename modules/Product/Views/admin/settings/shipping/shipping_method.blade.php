@@ -44,10 +44,10 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="form-group" data-condition="method_id:is(flat_rate)">
+                                            <div class="form-group" data-condition="method_id:not(free_shipping)">
                                                 <label class="">{{__("Cost")}}</label>
                                                 <div class="form-controls">
-                                                    <input type="text" class="form-control" name="flat_rate_cost" value="{{ $row->cost ?? 0 }}">
+                                                    <input type="text" class="form-control" name="cost" value="{{ $row->cost ?? 0 }}">
                                                 </div>
                                             </div>
                                         @endif

@@ -156,7 +156,7 @@ class ShippingController extends AdminController
                 ],
                 [
                     'name'  => __('Shipping Zone'),
-                    'url'  => 'admin/module/product/settings/shipping/shipping-zone/edit/' . $zone_id
+                    'url'  => 'admin/module/product/settings/shipping/zone/edit/' . $zone_id
                 ],
                 [
                     'name'  => __('Shipping Method'),
@@ -200,7 +200,7 @@ class ShippingController extends AdminController
                 ],
                 [
                     'name'  => __('Shipping Zone'),
-                    'url'  => 'admin/module/product/settings/shipping/shipping-zone/edit/' . $zone_id
+                    'url'  => 'admin/module/product/settings/shipping/zone/edit/' . $zone_id
                 ],
                 [
                     'name'  => __('Shipping Method'),
@@ -212,13 +212,10 @@ class ShippingController extends AdminController
     }
 
     public function methodStore(Request $request){
-
         $this->checkPermission('setting_manage');
-
         $request->validate([
             'title'=>'required'
         ]);
-
         $zone_id = $request->input('zone_id');
         $shippingZone = ShippingZone::find($zone_id);
         if (empty($shippingZone) && $zone_id != 'other' ) {
@@ -230,63 +227,29 @@ class ShippingController extends AdminController
         }else{
             $shippingMethod = new ShippingZoneMethod();
         }
-
         $dataKeys = [
             'zone_id',
             'title',
             'is_enabled',
             'order',
-            'method_id'
+            'method_id',
+            'cost',
         ];
-
         if($request->input('zone_id') != 'other'){
             $dataKeys[] = 'zone_id';
         }
-
         $shippingMethod->fillByAttr($dataKeys, $request->input());
-
+        if($shippingMethod->method_id == "free_shipping"){
+            $shippingMethod->cost = 0;
+        }
         $res = $shippingMethod->saveWithTranslation();
-
         if($res){
-            $lang = $request->get('lang');
-            if((empty($lang) or $lang == setting_item('site_locale'))) {
-                $sz_settings = ['method_id' => $shippingMethod->method_id];
-                if ($shippingMethod->method_id == 'flat_rate') {
-                    $sz_settings['flat_rate_status'] = $request->input('flat_rate_status');
-                    $sz_settings['flat_rate_cost'] = $request->input('flat_rate_cost');
-
-                    //Save shipping class cost
-                    $shipping_classes = ShippingClass::all();
-                    if (!empty($shipping_classes) && $shipping_classes->count() > 0) {
-                        foreach ($shipping_classes as $key => $shipping_class) {
-                            $name = 'flat_rate_class_cost_' . $shipping_class->id;
-                            $sz_settings[$name] = $request->input($name);
-                        }
-
-                        $sz_settings['flat_rate_no_class_cost'] = $request->input('flat_rate_no_class_cost');
-                        $sz_settings['flat_rate_type'] = $request->input('flat_rate_type');
-                    }
-                }
-                if ($shippingMethod->method_id == 'free_shipping') {
-                    $sz_settings['free_shipping_requires'] = $request->input('free_shipping_requires');
-                    $sz_settings['free_shipping_min_amount'] = $request->input('free_shipping_min_amount');
-                    $sz_settings['free_shipping_ignore_discounts'] = $request->input('free_shipping_ignore_discounts');
-                }
-                if ($shippingMethod->method_id == 'local_pickup') {
-                    $sz_settings['local_pickup_status'] = $request->input('local_pickup_status');
-                    $sz_settings['local_pickup_cost'] = $request->input('local_pickup_cost');
-                }
-
-                setting_update_item('shipping_method_' . $shippingMethod->id . '_settings', $sz_settings);
-            }
-
             if($zone_method_id > 0 ){
                 return back()->with('success',  __('Shipping method updated') );
             }else{
                 return redirect(route('product.shipping.method.edit', ['zone_id' => $zone_id, 'id' => $shippingMethod->id]))->with('success', __('Shipping method created') );
             }
         }
-
     }
 
     public function methodDelete(Request $request, $id){
