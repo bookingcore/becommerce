@@ -72,15 +72,15 @@ Route::group(['prefix'=>'coupon'],function (){
 });
 
 Route::group(['prefix' => 'settings/shipping'], function (){
-    Route::get('/shipping-zone/create', 'ShippingController@zoneCreate')->name('product.shipping.create');
-    Route::get('/shipping-zone/edit/{id}', 'ShippingController@zoneEdit')->name('product.shipping.edit');
-    Route::post('/shipping-zone/store', 'ShippingController@zoneStore')->name('product.shipping.store');
-    Route::get('/shipping-zone/delete/{id}', 'ShippingController@zoneDelete')->name('product.shipping.delete');
+    Route::get('/zone/create', 'ShippingController@zoneCreate')->name('product.shipping.create');
+    Route::get('/zone/edit/{id}', 'ShippingController@zoneEdit')->name('product.shipping.edit');
+    Route::post('/zone/store', 'ShippingController@zoneStore')->name('product.shipping.store');
+    Route::get('/zone/delete/{id}', 'ShippingController@zoneDelete')->name('product.shipping.delete');
 
-    Route::get('/shipping-zone/{zone_id}/shipping-method/create', 'ShippingController@methodCreate')->name('product.shipping.method.create');
-    Route::get('/shipping-zone/{zone_id}/shipping-method/edit/{id}', 'ShippingController@methodEdit')->name('product.shipping.method.edit');
-    Route::post('/shipping-zone/shipping-method/store', 'ShippingController@methodStore')->name('product.shipping.method.store');
-    Route::get('/shipping-zone/shipping-method/delete/{id}', 'ShippingController@methodDelete')->name('product.shipping.method.delete');
+    Route::get('/zone/{zone_id}/method/create', 'ShippingController@methodCreate')->name('product.shipping.method.create');
+    Route::get('/zone/{zone_id}/method/edit/{id}', 'ShippingController@methodEdit')->name('product.shipping.method.edit');
+    Route::post('/zone/method/store', 'ShippingController@methodStore')->name('product.shipping.method.store');
+    Route::get('/zone/method/delete/{id}', 'ShippingController@methodDelete')->name('product.shipping.method.delete');
 
     Route::get('/shipping-class/create', 'ShippingController@shippingClassCreate')->name('product.shipping.class.create');
     Route::get('/shipping-class/edit/{id}', 'ShippingController@shippingClassEdit')->name('product.shipping.class.edit');
