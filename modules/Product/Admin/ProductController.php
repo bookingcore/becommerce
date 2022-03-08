@@ -21,6 +21,7 @@ use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\VariableProduct;
+use Modules\Product\Resources\ProductResource;
 
 class ProductController extends AdminController
 {
@@ -349,5 +350,15 @@ class ProductController extends AdminController
         }
 
 
+    }
+
+    public function getForSelect2(Request $request){
+        $query = Product::query()->orderBy('title')->where('status','publish');
+
+        if($s = $request->query('s')){
+            $query->where('title','like','%'.$s.'%s');
+        }
+
+        return ProductResource::collection($query->paginate(20));
     }
 }

@@ -6,6 +6,7 @@ use \Illuminate\Support\Facades\Route;
 Route::get('/','ProductController@index')->name('product.admin.index');
 Route::get('/create','ProductController@create')->name('product.admin.create');
 Route::get('/edit/{id}','ProductController@edit')->name('product.admin.edit');
+Route::get('/getForSelect2','ProductController@getForSelect2')->name('product.admin.getForSelect2');
 Route::post('/store/{id}','ProductController@store')->name('product.admin.store');
 Route::post('/bulkEdit','ProductController@bulkEdit')->name('product.admin.bulkEdit');
 Route::get('/ajaxVariationList/{id}','VariationController@ajaxVariationList')->name('product.admin.ajaxVariationList');

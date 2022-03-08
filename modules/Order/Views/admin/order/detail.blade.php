@@ -44,6 +44,9 @@
         BC.routes.customer = {
             getForSelect2:"{{route('customer.admin.getForSelect2',['need_address'=>1])}}"
         };
+        BC.routes.product = {
+            getForSelect2: "{!! route('product.admin.getForSelect2',['need_variations'=>1,'select2'=>1]) !!}"
+        }
         var bc_order = {!! json_encode(new \Modules\Order\Resources\Admin\OrderResource($order)) !!}
         var bc_country_list = {!! json_encode(get_country_lists()) !!}
     </script>
