@@ -1,10 +1,10 @@
-<div class="bc-newsletter mt-5">
+<div class="bc-footer">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-sm-12">
                 @if($footer_info_text = setting_item_with_lang("footer_info_text"))
-                    <div class="">
-                        <h5 class="font-21 mb-3">{{ __("Contact us") }}</h5>
+                    <div class="address">
+                        <!-- <h5 class="font-21 mb-3">{{ __("Contact us") }}</h5> -->
                         <div class="content">
                             {!! clean($footer_info_text) !!}
                         </div>
@@ -13,16 +13,18 @@
                 </div>
             </div>
             <div class="col-xl-6 col-sm-12">
-                <div class="row">
-                    @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
-                        @php $list_widget_footers = json_decode($list_widget_footers); @endphp
-                        @foreach($list_widget_footers as $key=>$item)
-                            <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
-                                <h5 class="font-21 mb-3">{{$item->title}}</h5>
-                                {!! ($item->content) !!}
-                            </div>
-                        @endforeach
-                    @endif
+                <div class="widget-footer">
+                    <div class="row">
+                        @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
+                            @php $list_widget_footers = json_decode($list_widget_footers); @endphp
+                            @foreach($list_widget_footers as $key=>$item)
+                                <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
+                                    <h5 class="">{{$item->title}}</h5>
+                                    {!! ($item->content) !!}
+                                </div>
+                            @endforeach
+                        @endif
+                    </div>
                 </div>
             </div>
             <div class="col-xl-3 col-sm-12">
@@ -58,12 +60,8 @@
 <div id="back2top"><i class="icon icon-arrow-up"></i></div>
 
 <div class="container">
-    <footer class="py-5">
-        <div class="row">
-            
-            
-        </div>
-        <div class="d-flex justify-content-between py-4 my-4 border-top">
+    <footer class="">
+        <div class="d-flex justify-content-between py-4 border-top">
             {!! setting_item_with_lang("copyright") !!}
         </div>
     </footer>

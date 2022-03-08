@@ -2280,6 +2280,50 @@ a:not(.button):hover {
 .footer {
   background-color: #031424;
 }
+.footer .bc-footer {
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 80px 0 60px;
+}
+.footer .bc-footer .address h3 {
+  margin-bottom: 10px;
+  font-family: "Be Vietnam Pro", Sans-serif;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.5em;
+  color: #DD2955;
+}
+.footer .bc-footer .address p {
+  color: #94989e;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+  margin-bottom: 40px;
+}
+.footer .bc-footer .address .socials-list a {
+  margin-right: 10px;
+}
+.footer .bc-footer .widget-footer h5 {
+  color: #fff;
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.footer .bc-footer .widget-footer ul {
+  list-style: none;
+  margin-left: 0;
+}
+.footer .bc-footer .widget-footer ul li a {
+  font-family: be vietnam pro, Sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+}
+.footer .bc-footer .widget-footer ul li a:hover {
+  color: var(--primary) !important;
+}
 
 .banner-slider {
   padding-bottom: 0;
