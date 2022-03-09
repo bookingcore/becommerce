@@ -38,6 +38,7 @@ class CartItem extends Model
         $item->object_model = $model->type;
         $item->meta = $meta;
         $item->author = $model->author->display_name;
+        $item->author_id = $model->author_id;
         $item->variation_id = (int) $variation_id;
         $item->generateId();
         return $item;

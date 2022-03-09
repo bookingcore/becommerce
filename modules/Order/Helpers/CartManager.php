@@ -306,6 +306,7 @@ class CartManager
             $order_item->status = Order::DRAFT;
             $order_item->meta = $item->meta;
             $order_item->variation_id = $item->variation_id;
+            $order_item->vendor_id = $item->author_id;
             $order_item->locale = app()->getLocale();
             $order_item->save();
         }
