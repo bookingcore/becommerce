@@ -86,14 +86,22 @@ new Vue({
         },
         formatMoney:function(f){
             return bc_format_money(f);
+        },
+        changeItem:function(key,data){
+            console.log('change')
+            this.$set(this.items,key,data);
         }
     },
     computed:{
         subtotal:function(){
-            return 0
+            var t = 0;
+            this.items.map(function(item){
+                t += item.qty * item.price;
+            })
+            return t;
         },
         total:function(){
-            return 0;
+            return this.subtotal;
         }
     }
 })

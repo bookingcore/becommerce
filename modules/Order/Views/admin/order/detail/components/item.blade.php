@@ -2,7 +2,7 @@
     <div class="item" data-number="1">
         <div class="row">
             <div class="col-md-4">
-                <bc-select2 placeholder="{{__('-- Select Product --')}}" :settings="product_settings" v-model="item.product_id" @select="productChange"/>
+                <bc-select2 placeholder="{{__('-- Select Product --')}}" :settings="product_settings" :options="product_options" v-model="item.product_id" @select="productChangeEvent"/>
             </div>
             <div class="col-md-2">
                 <select class="form-control" v-show="product.product_type == 'variable'" v-model="item.variation_id" @change="variationChange">
@@ -10,7 +10,7 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" min="1" step="1" class="form-control" v-model="item.qty">
+                <input type="number" min="1" :max="remain_stock" step="1" class="form-control" v-model="item.qty">
             </div>
             <div class="col-md-2">
                 <input type="number" min="0" step="any" class="form-control" v-model="item.price">
@@ -31,13 +31,6 @@
         data() {
             return {
                 select2: null,
-                item:{
-                    id:'',
-                    price:0,
-                    qty:1,
-                    variation_id:0,
-                    product_id:0
-                },
                 type:'billing',
                 countries:[],
                 active:0,
@@ -55,14 +48,30 @@
                         }
                     }
                 },
-                index:'',
+                product_options:[
+                ],
                 product:{
                     type:''
                 },
-                variations:[]
+                variations:[],
+                remain_stock : 0
             };
         },
         props: {
+            index:{
+                type:Number,
+                default:''
+            },
+            item:{
+                type:Object,
+                default:{
+                    id:'',
+                    price:0,
+                    qty:1,
+                    variation_id:0,
+                    product_id:0
+                }
+            },
         },
         watch: {
         },
@@ -78,10 +87,9 @@
             del:function(){
                 this.$emit('del',this.index)
             },
-            save:function(e){
-                e.preventDefault();
-                this.$emit('save',this.type,Object.assign({},this.fields));
-                this.hide();
+            save:function(){
+                console.log(this.index,Object.assign({},this.item))
+                this.$emit('change',this.index,Object.assign({},this.item));
             },
             show(type,fields){
                 $('#modal-address').modal('show');
@@ -97,30 +105,42 @@
                 this.variations = this.product.variations ?? [];
                 if(data.product_type == 'simple'){
                     this.item.price = data.price;
+                    this.remain_stock = data.remain_stock;
+                    if(!data.is_manage_stock && data.stock_status == 'in'){
+                        this.remain_stock = null;
+                    }
+                }else{
+                    this.item.price = 0;
+                    this.remain_stock = 0;
                 }
             },
-            variationChange:function (variation_id) {
-                var find = _.find(this.variations,{id:variation_id});
+            productChangeEvent:function(data){
+                this.productChange(data)
+                this.save();
+            },
+            variationChange:function (e) {
+                var find = this.variations.find(function(item){
+                    return item.id == e.target.value;
+                })
                 if(find){
                     this.item.price = find.price;
+                    this.remain_stock = find.remain_stock;
+                    if(!find.is_manage_stock && find.stock_status == 'in'){
+                        this.remain_stock = null;
+                    }
+                    this.save();
                 }
             }
         },
         mounted() {
             var me = this;
-            var tmp = [];
-            for(var k in bc_country_list){
-                tmp.push({
-                    id:k,
-                    text:bc_country_list[k]
+            if(this.item.product_id){
+                this.product_options.push({
+                    id:this.item.product_id,
+                    text:this.item.title
                 })
+                this.productChange(this.item.product)
             }
-            this.countries = tmp;
-            this.$nextTick(function(){
-                $('#modal-address').on('hide.bs.modal',function(){
-                    me.active = 0
-                })
-            })
         },
         beforeDestroy() {
         }

@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="g-items">
-        <bc-order-item v-for="(item,index) in items" :key="index" :item="item" @del="delItem"></bc-order-item>
+        <bc-order-item v-for="(item,index) in items" :key="index" :index="index" :item="item" @del="delItem" @change="changeItem"></bc-order-item>
         <div class="item" style="background: #f7f7f7;">
             <div class="row">
                 <div class="col-md-6">
