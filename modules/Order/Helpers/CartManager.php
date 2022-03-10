@@ -189,9 +189,7 @@ class CartManager
         return static::items()->sum('discount_amount');
     }
     public static function shippingTotal(){
-        // session shipping cart
-        $shipping  = static::getShipping();
-        return static::items()->sum('shipping_amount') + ( !empty($shipping['cost_amount']) ? $shipping['cost_amount'] : 0);
+        return static::items()->sum('shipping_amount');
     }
 
     /**
@@ -354,71 +352,34 @@ class CartManager
         return true;
     }
 
-
-    public static function getShipping(){
-        //session()->forget(static::$session_shipping_key);
-        return session()->get(static::$session_shipping_key, []);
-    }
-    public static function storeShipping($shipping){
-        session()->put(static::$session_shipping_key,$shipping);
-    }
-
     public static function getMethodShipping($country){
+        $data = [
+            'status' => 0,
+            'shipping_methods' => [],
+            'message' => __("There are no shipping options available."),
+        ];
+        $shipping_methods = [];
         // Method for country
         $zone_location = ShippingZoneLocation::where("location_code",$country)->first();
         if(!empty($zone_location)) {
             $zone = ShippingZone::find($zone_location->zone_id);
             $shipping_methods = $zone->shippingMethodsAvailable;
-            return $shipping_methods;
+        }elseif(!empty($shipping_methods_default = ShippingZoneMethod::where("zone_id",0)->where('is_enabled',1)->orderBy("order","asc")->get())){
+            // Method default
+            $shipping_methods = $shipping_methods_default;
         }
-        // Method default
-        if(!empty($shipping_methods = ShippingZoneMethod::where("zone_id",0)->where('is_enabled',1)->orderBy("order","asc")->get())){
-            return $shipping_methods;
-        }
-        return false;
-    }
-
-    //Shipping
-    public static function calculateShipping($params,$shipping_method_selected = false){
-        // tìm shipping by country
-        $shipping_data = [
-            'shipping_country' => $params['shipping_country'] ?? "",
-            'shipping_city'    => $params['shipping_city'] ?? "",
-            'shipping_zip'     => $params['shipping_zip'] ?? "",
-        ];
-        $shipping_methods = static::getMethodShipping($params['shipping_country']);
         if(!empty($shipping_methods)){
-            // Danh sách cách đơn vị vận chuyển
-            //dump($shipping_methods);
-
-
-            // nếu có $shipping_method_selected lấy theo cái đã chọn
-            // Lấy secssion shipping
-
-            //nếu đã lưu shipping_method_selected vào session thì lấy theo  session
-            // nếu không có 2 cái trên thì lấy $shipping_methods đầu tiên
-
-            // Find $shipping_method_selected
-            if(empty($shipping_method_selected)){
-                // for session
-                $shipping_session = static::getShipping();
-                if(!empty($shipping_session['method_selected'])){
-                    $shipping_method_selected = $shipping_session['method_selected'];
-                }
-                // for first method available
-                if(empty($shipping_method_selected)){
-                    $shipping_method_selected = $shipping_methods[0]->method_id;
-                }
-            }
-            // Data method
-            foreach ($shipping_methods as $method) {
-                if ($method['method_id'] == $shipping_method_selected) {
-                    $shipping_data['method_selected'] = $shipping_method_selected;
-                    $shipping_data['cost_amount'] = $method->cost ?? 0;
-                }
+            foreach ( $shipping_methods as $method){
+                $translate = $method->translate();
+                $data['status'] = 1;
+                $data['message'] = "";
+                $data['shipping_methods'][] = [
+                    'method_id'=>$method->id,
+                    'method_title'=>$translate->title,
+                    'method_cost'=>$method->cost,
+                ];
             }
         }
-        static::storeShipping($shipping_data);
-        return ['status' => 1];
+        return $data;
     }
 }

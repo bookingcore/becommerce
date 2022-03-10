@@ -4,8 +4,8 @@
         <thead>
         <tr>
             <th><strong>{{__('Product')}}</strong></th>
-            <th width="10%"><strong>{{__('Quality')}}</strong></th>
-            <th width="20%"><strong>{{__('Subtotal')}}</strong></th>
+            <th width="25%" class="text-center"><strong>{{__('Quality')}}</strong></th>
+            <th width="25%" class="text-end"><strong>{{__('Subtotal')}}</strong></th>
         </tr>
         </thead>
         <tbody>
@@ -40,6 +40,7 @@
         @endforeach
         </tbody>
         <tfoot>
+        @include ('order.checkout.shipping-method')
         <tr class="order-total">
             <td>{{__('Total')}}</td>
             <td></td>

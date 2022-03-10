@@ -131,16 +131,8 @@ class CartController extends FrontendController
 
     }
 
-
-    public function calculateShipping(Request $request){
-        $validator = \Validator::make($request->all(), [
-            'shipping_country' => 'required',
-        ]);
-
-        $res = CartManager::calculateShipping($request->input(),$request->input('method_id') );
-        if($res['status']==1){
-            $res['reload'] = 1;
-        }
-        return $this->sendSuccess($res);
+    public function getShippingMethod(Request $request){
+        $res = CartManager::getMethodShipping($request->input('shipping_country'));
+        return $this->sendSuccess($res,$res['message'] ?? "");
     }
 }
