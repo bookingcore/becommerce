@@ -41,10 +41,23 @@
         </tbody>
         <tfoot>
         @include ('order.checkout.shipping-method')
+        <tr v-if="discount_amount > 0">
+            <td>{{__('Discount')}}</td>
+            <td></td>
+            <td class="text-end">
+                <span class="amount">
+                    -@{{ discount_amount_html }}
+                </span>
+            </td>
+        </tr>
         <tr class="order-total">
             <td>{{__('Total')}}</td>
             <td></td>
-            <td class="text-end"><span class="amount">{{format_money(\Modules\Order\Helpers\CartManager::total())}}</span></td>
+            <td class="text-end">
+                <span class="amount">
+                    @{{ total_amount_html }}
+                </span>
+            </td>
         </tr>
         </tfoot>
     </table>

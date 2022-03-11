@@ -14,8 +14,12 @@
             onGetShippingMethod:false,
             shipping_methods:[],
             shipping_message:"",
+            subtotal_amount:0,
         },
         created:function(){
+            for(var k in bc_order_data){
+                this[k] = bc_order_data[k];
+            }
             var me = this;
             this.$nextTick(function(){
                 $(document).on("change","[name=shipping_same_address]",function(){
@@ -46,7 +50,33 @@
             }
         },
         computed:{
-
+            total_amount:function(){
+                var me = this;
+                var total_amount = me.subtotal_amount;
+                //Shipping
+                if(me.shipping_method_selected !== false){
+                    for (var ix in me.shipping_methods){
+                        var item = me.shipping_methods[ix];
+                        if(item.method_id == me.shipping_method_selected){
+                            total_amount +=  parseFloat(item.method_cost);
+                        }
+                    }
+                }
+                //Tax
+                //Discount
+                if(me.discount_amount > 0){
+                    total_amount -=  me.discount_amount;
+                }
+                return total_amount;
+            },
+            total_amount_html:function(){
+                if(!this.total_amount) return '';
+                return window.bc_format_money(this.total_amount);
+            },
+            discount_amount_html:function(){
+                if(!this.discount_amount) return '';
+                return window.bc_format_money(this.discount_amount);
+            },
         },
         mounted() {
 

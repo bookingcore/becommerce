@@ -382,4 +382,14 @@ class CartManager
         }
         return $data;
     }
+
+    public static function getOrderData(){
+        $data = [
+            'total_amount' => static::total(),
+            'subtotal_amount' => static::subtotal(),
+            'discount_amount' => static::discountTotal(),
+            'shipping_item_amount' => static::shippingTotal(),
+        ];
+        return $data;
+    }
 }

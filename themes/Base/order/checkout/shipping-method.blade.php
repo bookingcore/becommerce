@@ -16,6 +16,6 @@
                 </label>
             </div>
         </div>
-        <p class="text" > @{{ shipping_message }}</p>
+        <p class="text text-end mb-0" > @{{ shipping_message }}</p>
     </td>
 </tr>
