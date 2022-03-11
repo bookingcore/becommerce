@@ -49,11 +49,35 @@ $score_total = $reviewData['score_total'];
                     {{ __("Review") }}
                 @endif
             </span> -->
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star checked"></span>
-            <span class="fa fa-star"></span>
-            <span class="fa fa-star"></span>
+            <div class="star-rating" title="70%">
+                <div class="back-stars">
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    <i class="fa fa-star" aria-hidden="true"></i>
+                    
+                    <div class="front-stars" style="width: 70%">
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="fa fa-star" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+            <script>
+                const numberInput = document.querySelector('input');
+                const starRatingWrapper = document.querySelector('.star-rating');
+                const frontStars =  document.querySelector('.front-stars');
+
+                const rate = e => {
+                    const percentage = e.target.value + '%';
+                    
+                    starRatingWrapper.title = percentage;
+                    frontStars.style.width = percentage;
+                };
+            </script>
         </div>
         @endif
         <div class="card-price fs-18 fw-600">

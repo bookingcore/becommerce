@@ -2254,6 +2254,31 @@ a:not(.button):hover {
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 .card-title:hover {
   color: #DD2955;
 }
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .fa-star:before {
+  text-shadow: -1px 0 #abadb1, 0 1px #abadb1, 1px 0 #abadb1, 0 -1px #abadb1;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .star-rating {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  justify-content: center;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .back-stars {
+  display: flex;
+  color: #fff;
+  position: relative;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .front-stars {
+  display: flex;
+  color: #FFBC0B;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .front-stars .fa-star:before {
+  text-shadow: -1px 0 #FFBC0B, 0 1px #FFBC0B, 1px 0 #FFBC0B, 0 -1px #FFBC0B;
+}
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-price {
   display: block;
   color: #DD2955;
