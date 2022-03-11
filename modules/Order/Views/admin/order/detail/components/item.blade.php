@@ -69,7 +69,7 @@
                     id:'',
                     price:0,
                     qty:1,
-                    variation_id:0,
+                    variation_id:'',
                     product_id:0
                 }
             },
