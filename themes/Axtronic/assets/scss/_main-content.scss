@@ -124,6 +124,7 @@
 			    	    font-size: 14px;
 					    line-height: 20px;
 					    margin-bottom: 5px;
+					    font-family: var(--base-font);
 				    	a.card-title {
 			    		    color: var(--accent);
 						    font-weight: 400;
@@ -132,6 +133,33 @@
 				    	.card-title:hover {
 				    		color: #DD2955;
 				    	}
+				    }
+				    .card-rating {
+				    	.fa-star:before {
+				    		text-shadow: -1px 0 #abadb1, 0 1px #abadb1, 1px 0 #abadb1, 0 -1px #abadb1;
+				    	}
+				    	.star-rating {
+						    display: flex;
+						    align-items: center;
+						    font-size: 16px;
+						    justify-content: center;
+						}
+						.back-stars {
+						    display: flex;
+						    color: #fff;
+						    position: relative;
+						}
+						.front-stars {
+						    display: flex;
+						    color: #FFBC0B;
+						    overflow: hidden;
+						    position: absolute;
+						    top: 0;
+						    transition: all .5s;
+						    .fa-star:before {
+					    		text-shadow: -1px 0 #FFBC0B, 0 1px #FFBC0B, 1px 0 #FFBC0B, 0 -1px #FFBC0B;
+					    	}
+						}
 				    }
 				    .card-price {
 			    	    display: block;
@@ -158,6 +186,31 @@
 							border-color: #DD2955;
 							color: #fff;
 					    }
+					}
+				}
+			}
+			.bc-carousel {
+				overflow: hidden;
+				.owl-stage-outer {
+					.owl-stage {
+						display: flex;
+					}
+				}
+				.owl-nav {
+					display: none;
+				}
+				.owl-dots {
+					text-align: center;
+					button.owl-dot {
+					    width: 10px;
+					    height: 12px;
+					    border: 0;
+					    background: #abadb1;
+					    border-radius: 50%;
+					    margin: 0 6px;
+					}
+					button.active {
+						background: var(--primary);
 					}
 				}
 			}

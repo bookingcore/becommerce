@@ -7,9 +7,6 @@ use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
-use Modules\Core\Models\SEO;
 use Modules\Media\Helpers\FileHelper;
 use Modules\User\Models\UserWishList;
 
@@ -207,4 +204,5 @@ class BaseModel extends Model
         }
         return $res;
     }
+
 }

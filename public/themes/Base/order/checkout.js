@@ -4,14 +4,87 @@
         el:'#bravo-checkout-page',
         data:{
             onSubmit:false,
+            errors:{},
             message:{
                 content:'',
                 type:false
             },
-            shipping_same_address:1,
-            errors:{}
+            shipping_same_address:true,
+            shipping_method_selected:false,
+            onGetShippingMethod:false,
+            shipping_methods:[],
+            shipping_message:"",
+        },
+        created:function(){
+            var me = this;
+            this.$nextTick(function(){
+                $(document).on("change","[name=shipping_same_address]",function(){
+                    me.shipping_same_address = this.checked ? true : false;
+                });
+                $(document).on("change","[name=shipping_country]",function(){
+                    me.getShippingMethod( $(this).val() );
+                });
+                $(document).on("change","[name=billing_country]",function(){
+                    if(me.shipping_same_address){
+                        me.getShippingMethod( $(this).val() );
+                    }
+                });
+                $(document).on("change","[name=method_id]",function(){
+                    me.shipping_method_selected = $(this).val();
+                });
+                $("[name=shipping_same_address]").trigger('change');
+            });
+        },
+        watch:{
+            shipping_same_address(){
+                var me = this;
+                if(me.shipping_same_address === true){
+                    $("[name=billing_country]").trigger('change');
+                }else{
+                    $("[name=shipping_country]").trigger('change');
+                }
+            }
+        },
+        computed:{
+
+        },
+        mounted() {
+
         },
         methods:{
+            getShippingMethod(country){
+                var me = this;
+                me.shipping_message = "";
+                if(this.onGetShippingMethod) return false;
+                me.onGetShippingMethod = true;
+                $.ajax({
+                    'url': BC.url+'/cart/get_shipping_method',
+                    data:{
+                        shipping_country: country
+                    },
+                    method:"post",
+                    success:function (res) {
+                        me.onGetShippingMethod = false;
+                        if(res.message)
+                        {
+                            me.shipping_message = res.message;
+                        }
+                        if(res.shipping_methods){
+                            me.shipping_methods = res.shipping_methods;
+                        }
+                    },
+                    error:function (e) {
+                        me.onSubmit = false;
+                        if(e.responseJSON){
+                            me.shipping_message = e.responseJSON.message ? e.responseJSON.message : '';
+                        }else{
+                            if(e.responseText){
+                                me.shipping_message = e.responseText;
+                            }
+                        }
+                    }
+                })
+            },
             doCheckout(){
                 var me = this;
 
@@ -73,10 +146,16 @@
                     }
                 })
             },
+            formatMoney: function (m) {
+                return window.bc_format_money(m);
+            },
             validate(){
                 return true;
             }
         }
     })
 
+
+    //Shipping
+    //billing_country
 })(jQuery)

@@ -71,4 +71,11 @@ class OrderController extends AdminController
                 break;
         }
     }
+
+    public function store(Request $request,Order $order = null){
+
+        $request->validate([
+
+        ]);
+    }
 }

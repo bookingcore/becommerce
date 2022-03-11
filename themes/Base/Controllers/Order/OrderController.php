@@ -56,7 +56,6 @@ class OrderController extends FrontendController
         return $gatewayObj->cancelPayment($request);
     }
 
-
     public function modal(Order $order){
         return view('order.detail.modal',['order'=>$order]);
     }

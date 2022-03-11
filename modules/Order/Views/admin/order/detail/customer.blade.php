@@ -5,7 +5,8 @@
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="mb-3" ><strong>{{__("Select Customer")}}</strong></label>
-                    <bc-select2 v-model="customer.id" @select="selectCustomer" :settings="custom_select2" placeholder="{{__("-- Please select --")}}"></bc-select2>
+                    <bc-select2 v-model="customer.id" :options="[{text:customer.display_name,id:customer.id}]" @select="selectCustomer" :settings="custom_select2" placeholder="{{__("-- Please select --")}}"></bc-select2>
+                    <a href="#" @click.prevent="reloadCustomerAddress" class="mt-1"><i>{{__('Copy customer address')}}</i></a>
                 </div>
             </div>
             <div class="col-md-4">

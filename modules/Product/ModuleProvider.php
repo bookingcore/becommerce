@@ -39,6 +39,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(RepositoryServiceProvider::class);
     }
 
     public static function getAdminMenu()

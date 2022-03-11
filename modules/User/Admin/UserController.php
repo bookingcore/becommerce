@@ -235,7 +235,7 @@ class UserController extends AdminController
         $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
 
         return [
-            'results'=>UserResource::collection($res)
+            'results'=>UserResource::collection($res,['address'])
         ];
     }
 
