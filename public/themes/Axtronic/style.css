@@ -2276,6 +2276,29 @@ a:not(.button):hover {
   border-color: #DD2955;
   color: #fff;
 }
+.page-template-content .bc-list-products .bc-content .bc-carousel {
+  overflow: hidden;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-stage-outer .owl-stage {
+  display: flex;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-nav {
+  display: none;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots {
+  text-align: center;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.owl-dot {
+  width: 10px;
+  height: 12px;
+  border: 0;
+  background: #abadb1;
+  border-radius: 50%;
+  margin: 0 6px;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.active {
+  background: var(--primary);
+}
 
 .footer {
   background-color: #031424;

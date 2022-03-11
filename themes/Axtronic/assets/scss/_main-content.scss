@@ -161,6 +161,31 @@
 					}
 				}
 			}
+			.bc-carousel {
+				overflow: hidden;
+				.owl-stage-outer {
+					.owl-stage {
+						display: flex;
+					}
+				}
+				.owl-nav {
+					display: none;
+				}
+				.owl-dots {
+					text-align: center;
+					button.owl-dot {
+					    width: 10px;
+					    height: 12px;
+					    border: 0;
+					    background: #abadb1;
+					    border-radius: 50%;
+					    margin: 0 6px;
+					}
+					button.active {
+						background: var(--primary);
+					}
+				}
+			}
 		}
 	}
 }
