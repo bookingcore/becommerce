@@ -33,7 +33,7 @@
                         me.getShippingMethod( $(this).val() );
                     }
                 });
-                $(document).on("change","[name=method_id]",function(){
+                $(document).on("change","[name=shipping_method_id]",function(){
                     me.shipping_method_selected = $(this).val();
                 });
                 $("[name=shipping_same_address]").trigger('change');
@@ -125,7 +125,7 @@
                 this.onSubmit = true;
                 $.ajax({
                     url:BC.routes.checkout.process,
-                    data:$('#bravo-checkout-page').find('input,textarea,select').serialize(),
+                    data:$('#bravo-checkout-page').find('input,textarea,select,radio').serialize(),
                     method:"post",
                     success:function (res) {
                         $('#bravo-checkout-page').find('.input-error').html('');

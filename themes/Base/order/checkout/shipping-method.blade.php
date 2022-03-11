@@ -10,7 +10,7 @@
         </div>
         <div class="method float-end">
             <div class="form-check mb-1 mt-1" v-for="(item,index) in shipping_methods">
-                <input class="form-check-input" type="radio" name="method_id" :id="index" :value="item.method_id">
+                <input class="form-check-input" type="radio" name="shipping_method_id" :id="index" :value="item.method_id">
                 <label class="form-check-label" :for="index">
                     @{{ item.method_title }} <span v-if="item.method_cost > 0">@{{ formatMoney(item.method_cost) }}</span>
                 </label>

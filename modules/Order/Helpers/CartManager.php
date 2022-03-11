@@ -20,12 +20,12 @@ class CartManager
     protected static $session_key='bc_carts';
 
     protected static $session_coupon_key = 'bc_coupon_cart';
-    protected static $session_shipping_key = 'bc_shipping_cart';
 
     /**
      * @var array | Collection
      */
     protected static $_items = [];
+    protected static $_shipping_amount = 0;
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
@@ -189,7 +189,7 @@ class CartManager
         return static::items()->sum('discount_amount');
     }
     public static function shippingTotal(){
-        return static::items()->sum('shipping_amount');
+        return static::items()->sum('shipping_amount') + static::$_shipping_amount;
     }
 
     /**
@@ -381,6 +381,26 @@ class CartManager
             }
         }
         return $data;
+    }
+
+    public static function addShipping($country , $shipping_method){
+        // if no zone setting
+        if( ShippingZone::query()->count() == 0){
+            return true;
+        }
+        // find method in zone
+        $list_methods = static::getMethodShipping($country);
+        if(!empty($list_methods['shipping_methods']) and !empty($shipping_method))
+        {
+            foreach ( $list_methods['shipping_methods'] as $method){
+                if($method['method_id'] == $shipping_method){
+                    static::$_shipping_amount = $method['method_cost'];
+                    return true;
+                }
+            }
+        }
+        // if method not in zone
+        return false;
     }
 
     public static function getOrderData(){

@@ -58,7 +58,7 @@
                     return $this->sendError(__("Please verify the captcha"));
                 }
             }
-
+            $shipping_country = $request->input('billing_country');
             $rules = [
                 'billing_first_name'      => 'required|string|max:255',
                 'billing_last_name'       => 'required|string|max:255',
@@ -76,6 +76,7 @@
                     'shipping_country' => 'required',
                     'shipping_address' => 'required',
                 ]);
+                $shipping_country = $request->input('shipping_country');
             }
             $rules['payment_gateway'] = 'required';
             $rules['term_conditions'] = 'required';
@@ -93,6 +94,11 @@
                 CartManager::validate();
             }catch (\Exception $exception){
                 return $this->sendError($exception->getMessage());
+            }
+
+            // CartManager add shipping
+            if(!CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
+                return $this->sendError( __("There are no shipping options available."));
             }
 
             // Create order and on-hold order
