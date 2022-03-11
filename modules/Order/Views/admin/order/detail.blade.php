@@ -36,6 +36,9 @@
     </div>
 @endsection
 @section('script.body')
+    <?php
+    \Modules\Order\Resources\Admin\OrderResource::$needs = ['items'];
+    ?>
     @include('Layout::admin.components.datepicker')
     @include('Layout::admin.components.select2')
     @include('Order::admin.order.detail.components.modal-address')

@@ -4,9 +4,9 @@
 namespace Modules\Product\Resources;
 
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Resources\BaseJsonResource;
 
-class ProductResource extends JsonResource
+class ProductResource extends BaseJsonResource
 {
 
     public function toArray($request)
@@ -17,7 +17,7 @@ class ProductResource extends JsonResource
             'price'=>$this->price,
             'price_html'=>format_money($this->price),
             'image_url'=>get_file_url($this->image_id,'medium'),
-            'variations'=>$this->when(request('need_variations'),VariationResource::collection($this->variations)),
+            'variations'=>$this->whenNeed('variations',VariationResource::collection($this->variations)),
             'text'=>$this->when(request('select2'),$this->title.' - #'.$this->id),
             'product_type'=>$this->product_type,
             'remain_stock'=>$this->remain_stock,

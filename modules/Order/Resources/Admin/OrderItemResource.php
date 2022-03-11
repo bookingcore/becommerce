@@ -12,13 +12,17 @@ class OrderItemResource extends JsonResource
     public function toArray($request)
     {
         $model = $this->model;
+        ProductResource::$needs = [
+            'variations'
+        ];
         return [
             'id'=>$this->id,
             'product_id'=>$this->object_id,
             'qty'=>$this->qty,
             'price'=>$this->price,
             'title'=>!empty($model->title) ? $model->title.' - #'.$this->object_id : '',
-            'product'=> $model ? New ProductResource($model) : null
+            'product'=> $model ? new ProductResource($model) : null,
+            'variation_id'=>$this->variation_id
         ];
     }
 

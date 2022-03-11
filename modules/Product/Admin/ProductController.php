@@ -20,7 +20,6 @@ use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
-use Modules\Product\Models\VariableProduct;
 use Modules\Product\Resources\ProductResource;
 
 class ProductController extends AdminController
@@ -359,6 +358,9 @@ class ProductController extends AdminController
             $query->where('title','like','%'.$s.'%s');
         }
 
-        return ProductResource::collection($query->paginate(20));
+        ProductResource::$needs = [
+            'variations'
+        ];
+        return ProductResource::collection($query->paginate(10));
     }
 }
