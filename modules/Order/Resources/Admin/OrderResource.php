@@ -14,7 +14,9 @@ class OrderResource extends BaseJsonResource
     {
         return [
             'id'=>$this->id,
-            'items'=> $this->whenNeed('items',OrderItemResource::collection($this->items)),
+            'items'=> $this->whenNeed('items',function(){
+                return OrderItemResource::collection($this->items);
+            }),
             'customer'=>[
                 'id'=>$this->customer_id,
                 'display_name'=>($this->customer) ? $this->customer->display_name .' ('.$this->customer_id.')' : ''
