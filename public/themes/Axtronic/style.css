@@ -1163,7 +1163,7 @@ th {
   --container: 1440px;
   --grid-gutter: 24px;
   --heading-weight: 600;
-  --base-font: "Be Vietnam Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
+  --base-font: "Be VietNam Pro", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
   --heading-font: "Poppins", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   --media-desktop: 1440px;
   --media-laptop: 1024px;
@@ -2245,6 +2245,7 @@ a:not(.button):hover {
   font-size: 14px;
   line-height: 20px;
   margin-bottom: 5px;
+  font-family: var(--base-font);
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 a.card-title {
   color: var(--accent);
@@ -2253,6 +2254,31 @@ a:not(.button):hover {
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body h2 .card-title:hover {
   color: #DD2955;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .fa-star:before {
+  text-shadow: -1px 0 #abadb1, 0 1px #abadb1, 1px 0 #abadb1, 0 -1px #abadb1;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .star-rating {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  justify-content: center;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .back-stars {
+  display: flex;
+  color: #fff;
+  position: relative;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .front-stars {
+  display: flex;
+  color: #FFBC0B;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s;
+}
+.page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-rating .front-stars .fa-star:before {
+  text-shadow: -1px 0 #FFBC0B, 0 1px #FFBC0B, 1px 0 #FFBC0B, 0 -1px #FFBC0B;
 }
 .page-template-content .bc-list-products .bc-content .bc-loop-product .card-body .card-price {
   display: block;
@@ -2275,6 +2301,29 @@ a:not(.button):hover {
   background: linear-gradient(225deg, #F1592A 0%, #DD2955 100%);
   border-color: #DD2955;
   color: #fff;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel {
+  overflow: hidden;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-stage-outer .owl-stage {
+  display: flex;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-nav {
+  display: none;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots {
+  text-align: center;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.owl-dot {
+  width: 10px;
+  height: 12px;
+  border: 0;
+  background: #abadb1;
+  border-radius: 50%;
+  margin: 0 6px;
+}
+.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.active {
+  background: var(--primary);
 }
 
 .footer {

@@ -6,6 +6,7 @@
             </div>
             <div class="col-md-2">
                 <select class="form-control" v-show="product.product_type == 'variable'" v-model="item.variation_id" @change="variationChange">
+                    <option value="">{{__("-- Select Variation --")}}</option>
                     <option v-for="v in variations" :value="v.id">@{{ v.name }}</option>
                 </select>
             </div>
@@ -118,9 +119,9 @@
                 this.productChange(data)
                 this.save();
             },
-            variationChange:function (e) {
+            variationChange:function (variation_id) {
                 var find = this.variations.find(function(item){
-                    return item.id == e.target.value;
+                    return item.id == variation_id;
                 })
                 if(find){
                     this.item.price = find.price;
@@ -128,9 +129,12 @@
                     if(!find.is_manage_stock && find.stock_status == 'in'){
                         this.remain_stock = null;
                     }
-                    this.save();
                 }
-            }
+            },
+            variationChangeEvent:function (e) {
+                this.variationChange(e.target.value);
+                this.save();
+            },
         },
         mounted() {
             var me = this;
@@ -140,6 +144,10 @@
                     text:this.item.title
                 })
                 this.productChange(this.item.product)
+                if(typeof this.item.product !='undefined' && typeof this.item.product.product_type == 'variable'){
+                    this.variations = this.item.product.variations;
+                    this.variationChange(this.item.variation_id);
+                }
             }
         },
         beforeDestroy() {
