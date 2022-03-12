@@ -2,6 +2,8 @@
 namespace Modules\Order\Gateways;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Models\Payment;
@@ -71,13 +73,13 @@ class PaypalGateway extends BaseGateway
             [
                 'type'      => 'input',
                 'id'        => 'test_client_id',
-                'label'     => __('Sandbox API Password'),
+                'label'     => __('Sandbox Client Id'),
                 'condition' => 'g_paypal_test:is(1)'
             ],
             [
                 'type'      => 'input',
                 'id'        => 'test_client_secret',
-                'label'     => __('Sandbox Signature'),
+                'label'     => __('Sandbox Client Secret'),
                 'std'       => '',
                 'condition' => 'g_paypal_test:is(1)'
             ],
@@ -90,13 +92,13 @@ class PaypalGateway extends BaseGateway
             [
                 'type'      => 'input',
                 'id'        => 'client_id',
-                'label'     => __('API Password'),
+                'label'     => __('Client Id'),
                 'condition' => 'g_paypal_test:is()'
             ],
             [
                 'type'      => 'input',
                 'id'        => 'client_secret',
-                'label'     => __('Signature'),
+                'label'     => __('Client Secret'),
                 'std'       => '',
                 'condition' => 'g_paypal_test:is()'
             ],
@@ -151,7 +153,7 @@ class PaypalGateway extends BaseGateway
         $payment = Payment::find($pid);
         if ($payment) {
             $order = $payment->order;
-            $response = $this->detailOrder($request->input('token'));
+            $response = $this->captureOrder($request->input('token'));
             $json = $response->json();
             if ($response->successful() and !empty($json['status'])) {
                 switch ($json['status']) {
@@ -283,6 +285,18 @@ class PaypalGateway extends BaseGateway
         return $response;
 
     }
+
+    public function captureOrder($orderId)
+    {
+        $accessToken = $this->getAccessToken();
+        $response = Http::withHeaders(['Accept' => 'application/json', 'content-type' => 'application/json', 'Accept-Language' => 'en_US'])
+            ->withToken($accessToken['access_token'])
+            ->asForm()
+            ->post($this->getUrl('v2/checkout/orders/' . $orderId.'/capture'));
+        return $response;
+
+    }
+
 
     public function getAccessToken()
     {

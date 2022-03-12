@@ -405,9 +405,13 @@
     padding: 30px 0;
     .swiper-slide{
         text-align: center;
+        .item-brand{
+            text-align: center;
+        }
         img{
             -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
             filter: grayscale(100%);
+            margin: 0 auto;
         }
         &:hover{
             img{

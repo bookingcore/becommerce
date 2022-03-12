@@ -11,7 +11,6 @@
                     {{strtoupper($currency['currency_main'])}}
                 @endif
             @endforeach
-                <i class="fa fa-angle-down"></i>
         </a>
         <ul class="dropdown-menu text-left">
             @foreach($actives as $currency)
