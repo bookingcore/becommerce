@@ -1,8 +1,24 @@
-<div class="bravo_topbar bg-dark py-1">
+<div class="axtronic_topbar">
     <div class="container">
-        <div class="d-flex justify-content-lg-between justify-content-end align-items-center">
-            <div class="topbar-left text-white align-items-center d-none d-lg-flex">
-                {!! clean(setting_item_with_lang("topbar_left_text")) !!}
+        <div class="topbar-box d-flex justify-content-lg-between justify-content-end align-items-center">
+            <div class="topbar-left align-items-center d-none d-md-flex">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Support
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Featured Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            FAQ
+                        </a>
+                    </li>
+                </ul>
             </div>
             <div class="topbar-right">
                 <ul class="topbar-items nav">

@@ -89,11 +89,21 @@
                     // Optional parameters
                     loop: true,
                     cssMode: true,
-                    slidesPerView: 7,
                     spaceBetween: 30,
                     autoplay: {
                         delay: 5000,
                         disableOnInteraction: false,
+                    },
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 1,
+                        },
+                        768: {
+                            slidesPerView: 2,
+                        },
+                        1024: {
+                            slidesPerView: 7
+                        },
                     },
                     // Navigation arrows
                     navigation: {
@@ -105,11 +115,18 @@
                     // Optional parameters
                     loop: true,
                     cssMode: true,
-                    slidesPerView: 3,
                     spaceBetween: 30,
                     autoplay: {
                         delay: 5000,
                         disableOnInteraction: false,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 1,
+                        },
+                        1024: {
+                            slidesPerView: 3
+                        },
                     },
                     // If we need pagination
                     pagination: {
@@ -120,11 +137,18 @@
                     // Optional parameters
                     loop: true,
                     cssMode: true,
-                    slidesPerView: 3,
                     spaceBetween: 30,
                     autoplay: {
                         delay: 5000,
                         disableOnInteraction: false,
+                    },
+                    breakpoints: {
+                        768: {
+                            slidesPerView: 1,
+                        },
+                        1024: {
+                            slidesPerView: 3
+                        },
                     },
                     // If we need pagination
                     pagination: {
@@ -136,8 +160,18 @@
                     // Optional parameters
                     loop: true,
                     cssMode: true,
-                    slidesPerView: 6,
                     spaceBetween: 30,
+                    breakpoints: {
+                        640: {
+                            slidesPerView: 1,
+                        },
+                        768: {
+                            slidesPerView: 3,
+                        },
+                        1024: {
+                            slidesPerView: 6
+                        },
+                    },
                     autoplay: {
                         delay: 5000,
                         disableOnInteraction: false,
