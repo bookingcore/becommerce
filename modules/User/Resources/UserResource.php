@@ -4,9 +4,9 @@
 namespace Modules\User\Resources;
 
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Resources\BaseJsonResource;
 
-class UserResource extends JsonResource
+class UserResource extends BaseJsonResource
 {
     public function toArray($request)
     {
@@ -17,8 +17,12 @@ class UserResource extends JsonResource
             'email'=>$this->email,
             'avatar_url'=>$this->avatar_url,
             'display_name'=>$this->display_name,
-            'billing'=>$this->when(request('need_address'),$this->billing_address),
-            'shipping'=>$this->when(request('need_address'),$this->shipping_address),
+            'billing'=>$this->whenNeed('address',function(){
+                return $this->billing_address;
+            }),
+            'shipping'=>$this->whenNeed('address',function(){
+                return $this->shipping_address;
+            }),
             'text'=>$this->when(request('_type') == 'query',$this->display_name . ' (#' . $this->id . ')')
         ];
     }

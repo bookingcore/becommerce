@@ -4,10 +4,10 @@
 namespace Modules\Order\Resources\Admin;
 
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Resources\BaseJsonResource;
 use Modules\Product\Resources\ProductResource;
 
-class OrderItemResource extends JsonResource
+class OrderItemResource extends BaseJsonResource
 {
     public function toArray($request)
     {
@@ -18,7 +18,8 @@ class OrderItemResource extends JsonResource
             'qty'=>$this->qty,
             'price'=>$this->price,
             'title'=>!empty($model->title) ? $model->title.' - #'.$this->object_id : '',
-            'product'=> $model ? New ProductResource($model) : null
+            'product'=> $model ? new ProductResource($model,['variations']) : null,
+            'variation_id'=>$this->variation_id
         ];
     }
 

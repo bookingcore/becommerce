@@ -7,7 +7,9 @@ new Vue({
         shipping:{},
         customer:{
             id:'',
-            display_name:''
+            display_name:'',
+            billing:{},
+            shipping:{}
         },
         custom_select2:{
             ajax:{
@@ -34,7 +36,7 @@ new Vue({
             timePicker: true,
             timePicker24Hour: true,
         },
-        created_at:'',
+        order_date:'',
         address_keys:[
             'first_name',
             'last_name',
@@ -46,7 +48,12 @@ new Vue({
             'postcode',
             'country',
         ],
-        countries:bc_country_list
+        countries:bc_country_list,
+        saving:false,
+        message:{
+            success:true,
+            content:''
+        }
     },
     created:function (){
         for(var k in bc_order){
@@ -55,13 +62,53 @@ new Vue({
     },
     methods:{
         save:function (){
-
+            if(this.saving) return;
+            this.saving = true;
+            var me = this;
+            this.message = {
+                content:''
+            };
+            $.ajax({
+                url:BC.routes.order.store,
+                data:{
+                    customer:this.customer,
+                    billing:this.billing,
+                    shipping:this.shipping,
+                    items:this.items,
+                    status:this.status,
+                    order_date:this.order_date
+                },
+                dataType:'json',
+                type:'POST',
+                success:function(json){
+                    me.saving = false;
+                    if(json.message){
+                        me.message = {
+                            content:json.message,
+                            success: json.status
+                        }
+                    }
+                    if(json.url){
+                        window.location.url = json.url;
+                    }
+                },
+                error:function(e){
+                    me.saving = false;
+                    if(e.responseText){
+                        me.message = {
+                            content:e.responseText,
+                            success: false
+                        }
+                    }
+                }
+            })
         },
         editAddress:function (type){
             var tmp = Object.assign({},type == 'billing' ? this.billing : this.shipping);
             this.$refs.modalAddress.show(type,tmp);
         },
         selectCustomer:function (user){
+            console.log(user);
             if(user.billing) this.billing = user.billing;
             if(user.shipping) this.shipping = user.shipping;
             this.customer.display_name = user.text;
@@ -90,6 +137,10 @@ new Vue({
         changeItem:function(key,data){
             console.log('change')
             this.$set(this.items,key,data);
+        },
+        reloadCustomerAddress:function(){
+            this.billing = this.customer.billing;
+            this.shipping = this.customer.shipping;
         }
     },
     computed:{

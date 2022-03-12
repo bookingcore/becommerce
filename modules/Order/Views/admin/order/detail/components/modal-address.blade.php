@@ -4,6 +4,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">@{{ title[type]}}</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 <form action="" @submit="save" method="get">
                     <div class="modal-body" >

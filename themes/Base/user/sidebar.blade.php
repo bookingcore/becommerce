@@ -10,14 +10,14 @@
         </div>
     </div>
     <div class="bc-widget__content py-3">
-        <ul class="nav nav-pills flex-column">
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.profile'])) active @endif" href="{{route('user.profile')}}"><i class="fa fa-user"></i> {{__('Account Information')}}</a></li>
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.notification'])) active @endif" href="{{route('user.notification')}}"><i class="fa fa-life-ring"></i> {{__('Notifications')}}</a></li>
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.order.index','user.order.detail'])) active @endif" href="{{route('user.order.index')}}"><i class="fa fa-book"></i> {{__('Orders')}}</a></li>
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.address.index','user.address.detail'])) active @endif" href="{{route('user.address.index')}}"><i class="fa fa-address-book"></i> {{__('Address')}}</a></li>
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.wishList.index'])) active @endif" href="{{route('user.wishList.index')}}"><i class="fa fa-heart"></i> Wishlist</a></li>
-            <li class="nav-item "><a class="nav-link @if(in_array(request()->route()->getName(),['user.password'])) active @endif" href="{{route('user.password')}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a></li>
-            <li class="nav-item "><a class="nav-link" href="#" onclick="event.preventDefault(); document.getElementById('logout-form-topbar').submit();"><i class="fa fa-sign-out"></i>{{__('Logout')}}</a></li>
-        </ul>
+        <div  class="list-group">
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.profile'])) active @endif" href="{{route('user.profile')}}"><i class="fa fa-user"></i> {{__('Account Information')}}</a>
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.notification'])) active @endif" href="{{route('user.notification')}}"><i class="fa fa-life-ring"></i> {{__('Notifications')}}</a>
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.order.index','user.order.detail'])) active @endif" href="{{route('user.order.index')}}"><i class="fa fa-book"></i> {{__('Orders')}}</a>
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.address.index','user.address.detail'])) active @endif" href="{{route('user.address.index')}}"><i class="fa fa-address-book"></i> {{__('Address')}}</a>
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.wishList.index'])) active @endif" href="{{route('user.wishList.index')}}"><i class="fa fa-heart"></i> Wishlist</a>
+            <a class="list-group-item list-group-item-action @if(in_array(request()->route()->getName(),['user.password'])) active @endif" href="{{route('user.password')}}"><i class="fa fa-lock"></i> {{__('Change Password')}}</a>
+            <a class="list-group-item list-group-item-action" href="#" onclick="event.preventDefault(); document.getElementById('logout-form-topbar').submit();"><i class="fa fa-sign-out"></i>{{__('Logout')}}</a>
+        </div>
     </div>
 </aside>
