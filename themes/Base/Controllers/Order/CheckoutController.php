@@ -177,6 +177,7 @@
             // save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
+            $order->addMeta('shipping_method',CartManager::$_shipping_method);
             try {
                 $res = $gatewayObj->process($payment);
 

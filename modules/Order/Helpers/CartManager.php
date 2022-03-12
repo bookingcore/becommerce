@@ -25,7 +25,8 @@ class CartManager
      * @var array | Collection
      */
     protected static $_items = [];
-    protected static $_shipping_amount = 0;
+    public static $_shipping_amount = 0;
+    public static $_shipping_method = [];
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
@@ -289,6 +290,7 @@ class CartManager
         $order->customer_id = auth()->id();
         $order->status = Order::DRAFT;
         $order->locale = app()->getLocale();
+        $order->shipping_amount = static::$_shipping_amount;
         $order->save();
 
         $items = static::items();
@@ -395,6 +397,7 @@ class CartManager
             foreach ( $list_methods['shipping_methods'] as $method){
                 if($method['method_id'] == $shipping_method){
                     static::$_shipping_amount = $method['method_cost'];
+                    static::$_shipping_method = $method;
                     return true;
                 }
             }
