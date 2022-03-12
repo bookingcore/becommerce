@@ -15,6 +15,7 @@
             shipping_methods:[],
             shipping_message:"",
             subtotal_amount:0,
+            shipping_available:false,
         },
         created:function(){
             for(var k in bc_order_data){
@@ -36,7 +37,13 @@
                 $(document).on("change","[name=shipping_method_id]",function(){
                     me.shipping_method_selected = $(this).val();
                 });
-                $("[name=shipping_same_address]").trigger('change');
+
+                me.shipping_same_address = $("[name=shipping_same_address]").is("checked") ? true : false;
+                if(me.shipping_same_address === true){
+                    $("[name=billing_country]").trigger('change');
+                }else{
+                    $("[name=shipping_country]").trigger('change');
+                }
             });
         },
         watch:{
@@ -86,6 +93,7 @@
                 var me = this;
                 me.shipping_message = "";
                 if(this.onGetShippingMethod) return false;
+                if(!me.shipping_available) return false;
                 me.onGetShippingMethod = true;
                 $.ajax({
                     'url': BC.url+'/cart/get_shipping_method',

@@ -386,33 +386,26 @@ class CartManager
     }
 
     public static function addShipping($country , $shipping_method){
-        // if no zone setting
-        if( ShippingZone::query()->count() == 0){
-            return true;
+        // if no method setting
+        if( ShippingZoneMethod::countMethodAvailable() == 0){
+            return ['status'=>1];
         }
         // find method in zone
+        if(empty($shipping_method)){
+            return ['status'=>0,'message'=>'Please select shipping method.'];
+        }
         $list_methods = static::getMethodShipping($country);
-        if(!empty($list_methods['shipping_methods']) and !empty($shipping_method))
+        if(!empty($list_methods['shipping_methods']))
         {
             foreach ( $list_methods['shipping_methods'] as $method){
                 if($method['method_id'] == $shipping_method){
                     static::$_shipping_amount = $method['method_cost'];
                     static::$_shipping_method = $method;
-                    return true;
+                    return ['status'=>1];
                 }
             }
         }
         // if method not in zone
-        return false;
-    }
-
-    public static function getOrderData(){
-        $data = [
-            'total_amount' => static::total(),
-            'subtotal_amount' => static::subtotal(),
-            'discount_amount' => static::discountTotal(),
-            'shipping_item_amount' => static::shippingTotal(),
-        ];
-        return $data;
+        return ['status'=>0,'message'=>'There are no shipping options available.'];
     }
 }

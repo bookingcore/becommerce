@@ -97,8 +97,10 @@
             }
 
             // CartManager add shipping
-            if(!CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
-                return $this->sendError( __("There are no shipping options available."));
+            if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
+                if($res['status'] == 0){
+                    return $this->sendError($res['message']);
+                }
             }
 
             // Create order and on-hold order

@@ -34,4 +34,8 @@ class ShippingZoneMethod extends BaseModel
 
         return $methods[$this->method_id] ?? __("Flat rate");
     }
+
+    public static function countMethodAvailable(){
+        return ShippingZoneMethod::where('is_enabled',1)->count();
+    }
 }

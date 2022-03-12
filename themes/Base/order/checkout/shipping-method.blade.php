@@ -1,8 +1,4 @@
-@php
-    $shipping_session = [];
-    $list_country = get_country_lists();
-@endphp
-<tr class="shipping-method">
+<tr class="shipping-method" v-if="shipping_available">
     <td>{{__('Shipping')}}</td>
     <td colspan="2">
         <div v-for="item in shipping_methods">
