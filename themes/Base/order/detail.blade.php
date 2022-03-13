@@ -93,6 +93,12 @@
 
                             </tbody>
                             <tfoot>
+                            @if(!empty($row->shipping_amount))
+                                <tr class="shipping-amount">
+                                    <td>{{__('Shipping Amount')}}</td>
+                                    <td><span class="amount">{{format_money($row->shipping_amount)}}</span></td>
+                                </tr>
+                            @endif
                             <tr class="order-total">
                                 <td>{{__('Total')}}</td>
                                 <td><span class="amount">{{format_money($row->total)}}</span></td>
