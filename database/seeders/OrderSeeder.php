@@ -26,6 +26,7 @@ class OrderSeeder extends Seeder
             $order->customer_id = 1;
             $order->status = $all_status[rand(0,count($all_status) - 1)];
             $order->created_at = date('Y-01-').rand(1,20);
+            $order->order_date = date('Y-01-').rand(1,20);
             $order->gateway = 'paypal';
             $order->save();
 
@@ -44,6 +45,7 @@ class OrderSeeder extends Seeder
                 $item->status = $order->status;
                 $item->vendor_id = 1;
                 $item->created_at = $order->created_at;
+                $item->order_date = $order->order_date;
 
                 $t += $item->subtotal;
                 $item->save();

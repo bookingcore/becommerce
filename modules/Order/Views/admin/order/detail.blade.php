@@ -24,11 +24,14 @@
                         </div>
                         <div class="form-group">
                             <label >{{__("Order date")}}</label>
-                            <bc-datepicker v-model="order_date" :settings="created_at_settings"></bc-datepicker>
+                            <bc-datepicker placeholder="{{__("Please select")}}" v-model="order_date" :settings="created_at_settings"></bc-datepicker>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-success" @click="save"><i class="fa fa-save"></i> {{__("Save changes")}}</button>
+                        <button class="btn btn-success" @click="save"><i class="fa fa-save"></i> {{__("Save changes")}}
+                            <i v-show="saving" class="fa fa-spinner fa-pulse fa-fw"></i>
+                        </button>
+                        <div v-show="message.content" :class="!message.type ? 'text-danger' : 'text-success'" v-html="message.content"></div>
                     </div>
                 </div>
             </div>
