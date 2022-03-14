@@ -302,3 +302,48 @@ a {
 .axtronic-cute * {
     font-family: 'Comic Sans MS', sans-serif;
 }
+input[type=text], input[type=number], input[type=email], input[type=tel], input[type=url], input[type=password], input[type=search], textarea, .input-text{
+    padding: 12px 1em;
+    background-color: var(--background);
+    color: var(--text);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--border);
+    -webkit-appearance: none;
+    box-sizing: border-box;
+    font-weight: 400;
+    border-radius: 8px;
+    outline: 0;
+    transition: all ease-in-out .3s;
+    font-size: 15px;
+    line-height: 24px;
+    &:focus{
+        border-color: var(--accent);
+        box-shadow: none;
+    }
+}
+button, input[type=button], input[type=reset], input[type=submit], .button{
+    border: none;
+    background: linear-gradient(225deg,var(--primary) 0%,var(--primary_hover) 100%);
+    color: #fff;
+    cursor: pointer;
+    padding: 12.5px 1.75em;
+    text-decoration: none;
+    text-shadow: none;
+    display: inline-block;
+    -webkit-appearance: none;
+    transform: perspective(1px) translateZ(0);
+    position: relative;
+    transition-property: color;
+    transition-duration: .3s;
+    font-family: be vietnam pro,helveticaneue-light,helvetica neue light,helvetica neue,Helvetica,Arial,lucida grande,sans-serif;
+    font-weight: 600;
+    border-radius: 8px;
+    &:hover{
+        color: #ffffff;
+        background: linear-gradient(225deg,var(--primary_hover) 0%,var(--primary) 100%);
+    }
+    &:focus{
+        box-shadow: none;
+    }
+}

@@ -7,10 +7,10 @@ if(!isset($current_cat)) $current_cat = null;
         <div class="product-cat">
             <div class="product-cat-label">
                 <div class="box">
-                    <span class="product-cat-name">All Category </span>
+                    <span class="product-cat-name" id="product-cat-name">All Category </span>
                     <i class="axtronic-icon-angle-down"></i>
-                    <select name="cat_slug" class="form-select f-w-30 d-none d-lg-block me-1">
-                        <option value="">{{__("All Category")}}</option>
+                    <select name="cat_slug" class="form-select f-w-30 d-none d-lg-block me-1" id="cat_slug" onchange="getName(this)">
+                        <option value="" >{{__("All Category")}}</option>
                         @php
                             $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {
                                 foreach ($categories as $category) {
@@ -20,7 +20,7 @@ if(!isset($current_cat)) $current_cat = null;
                                     if((isset($current_cat) and $category->id == $current_cat->id)){
                                         $selected = 'selected';
                                     }
-                                    echo '<option '.$selected.' value='.$category->slug.'>'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</option>'.PHP_EOL;
+                                    echo '<option '.$selected.' value='.$category->slug.' data-name=" '.$translate->name.' ">'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</option>'.PHP_EOL;
                                     if($has_children){
                                         $traverse($category->children, $prefix,$level + 1);
                                     }
