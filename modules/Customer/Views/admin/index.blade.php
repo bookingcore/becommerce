@@ -39,7 +39,7 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-                <form action="" class="bravo-form-item">
+                <form action="" class="bc-form-item">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

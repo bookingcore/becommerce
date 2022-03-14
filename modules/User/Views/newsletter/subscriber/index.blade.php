@@ -45,7 +45,7 @@
                 </div>
                 <div class="panel">
                     <div class="panel-body">
-                        <form class="bravo-form-item">
+                        <form class="bc-form-item">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
