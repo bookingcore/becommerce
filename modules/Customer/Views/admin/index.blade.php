@@ -6,7 +6,7 @@
             <h1 class="title-bar">{{ __('All Customers')}}</h1>
             <div class="title-actions">
                 <a href="{{route('customer.admin.create',['user_type'=>"customer"])}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new customer')}}</a>
-                <a class="btn btn-warning btn-icon" href="{{ route("customer.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
+                <a class="btn btn-warning btn-icon" href="{{ route("customer.admin.export",['role_id'=>2]) }}" target="_blank" title="{{ __("Export to excel") }}">
                     <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
                 </a>
             </div>
