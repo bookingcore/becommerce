@@ -177,6 +177,8 @@
                         disableOnInteraction: false,
                     },
                 });
+
+
             </script>
             @yield('footer')
         </footer>

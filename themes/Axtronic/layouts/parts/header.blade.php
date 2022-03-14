@@ -30,10 +30,11 @@ if(!isset($current_cat)) $current_cat = null;
                         <li class="login-item">
                             <a href="#login" data-bs-toggle="modal" data-target="#login" class="login nav-link text-white">
                                 <span class="account-user group-icon-action">
-                                    <i aria-hidden="true" class="axtronic-icon- axtronic-icon-user"></i>               
+                                    <i aria-hidden="true" class="axtronic-icon-user"></i>
                                 </span>
                                 <span class="account-content group-icon-content">
-                                    <span class="sub-text">{{__('Login')}}</span>
+                                    <span class="sub-text">{{__('Sign in')}}</span>
+                                    <span class="sub-title">{{__('Account')}}</span>
                                 </span>                   
                             </a>
                         </li>
@@ -55,35 +56,16 @@ if(!isset($current_cat)) $current_cat = null;
             </div>
         </div>
     </div>
-    <div class="header__content-center">
+    <div class="header__content-bottom">
         <div class="container">
-            <div class="row">
+            <div class="row align-items-center justify-content-end" >
                 <div class="col-sm-3">
-                    <select name="cat_slug" class="form-select f-w-30 d-none d-lg-block me-1">
-                        <option value="">{{__("All")}}</option>
-                        @php
-                            $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {
-                                foreach ($categories as $category) {
-                                    $translate = $category->translate(app()->getLocale());
-                                    $has_children = count($category->children);
-                                    $selected = '';
-                                    if((isset($current_cat) and $category->id == $current_cat->id)){
-                                        $selected = 'selected';
-                                    }
-                                    echo '<option '.$selected.' value='.$category->slug.'>'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</option>'.PHP_EOL;
-                                    if($has_children){
-                                        $traverse($category->children, $prefix,$level + 1);
-                                    }
-                                }
-                            };
-                            $traverse($categories,'&#8211;');
-                        @endphp
-                    </select>
+                    @include('layouts.parts.header.category')
                 </div>
-                <div class="col-sm-3">
-                    Find all you need here!
+                <div class="col-sm-2">
+                    <p> Find all you need here!</p>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-7">
                     @include('layouts.parts.header.search')
                 </div>
             </div>
