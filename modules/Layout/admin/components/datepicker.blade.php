@@ -1,6 +1,6 @@
 <script type="text/x-template" id="bc-datepicker-template">
     <div>
-        <input type="text" :value="display_value" class="form-control" readonly style="background: transparent" :disabled="disabled">
+        <input type="text" :value="display_value" :placeholder="placeholder" class="form-control" readonly style="background: transparent" :disabled="disabled">
     </div>
 </script>
 
@@ -54,14 +54,17 @@
         },
         watch: {
             value(val) {
+                if(val)
                 this.setValue(val);
             }
         },
         methods: {
             setValue(val) {
-                this.display_value = moment(val).format(this.settings.locale.format);
-                this.dpk.setStartDate(moment(val))
-                this.dpk.setEndDate(moment(val))
+                if(val){
+                    this.display_value = moment(val).format(this.settings.locale.format);
+                    this.dpk.setStartDate(moment(val))
+                    this.dpk.setEndDate(moment(val))
+                }
             }
         },
         mounted() {

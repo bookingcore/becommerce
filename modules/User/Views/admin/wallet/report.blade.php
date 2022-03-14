@@ -53,7 +53,7 @@
         <div class="panel booking-history-manager">
             <div class="panel-title">{{__('Purchase logs')}}</div>
             <div class="panel-body">
-                <form action="" class="bravo-form-item">
+                <form action="" class="bc-form-item">
                     <table class="table table-hover bravo-list-item">
                         <thead>
                         <tr>

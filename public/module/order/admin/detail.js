@@ -71,7 +71,7 @@ new Vue({
             $.ajax({
                 url:BC.routes.order.store,
                 data:{
-                    customer:this.customer,
+                    customer_id:this.customer.id,
                     billing:this.billing,
                     shipping:this.shipping,
                     items:this.items,

@@ -268,9 +268,10 @@ class UserController extends AdminController
         return redirect()->back()->with('success', __('Updated successfully!'));
     }
 
-    public function export()
+    public function export(Request $request)
     {
-        return (new UserExport())->download('user-' . date('M-d-Y') . '.xlsx');
+        $role_id = $request->input('role_id','');
+        return (new UserExport($role_id))->download('user-' . date('M-d-Y') . '.xlsx');
     }
     public function verifyEmail(Request $request,$id)
     {
