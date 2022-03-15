@@ -50,7 +50,7 @@ class Order extends BaseModel
     }
 
     public function getDetailUrl(){
-        return route('order.detail',['id'=>$this->id]);
+        return route('order.detail',['code'=>$this->code]);
     }
     public function getGatewayObjAttribute()
     {
@@ -259,6 +259,10 @@ class Order extends BaseModel
 
     public function save(array $options = [])
     {
+        if (empty($this->code)){
+            $this->code = $this->generateCode();
+        }
+
         if(!$this->order_date){
             $this->order_date = Carbon::now();
         }
@@ -299,5 +303,10 @@ class Order extends BaseModel
         OrderItem::query()->whereNotIn('id',$order_item_ids)->where('order_id',$this->id)->delete();
 
         $this->syncTotal();
+    }
+
+    public function generateCode()
+    {
+        return md5(uniqid() . rand(0, 99999));
     }
 }
