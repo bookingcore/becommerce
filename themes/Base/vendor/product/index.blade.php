@@ -43,7 +43,11 @@
                                 </span>
                             </a>
                         </td>
-                        <td>{{$row->sku}}</td>
+                        <td>
+                            @if($row->product_type != "variable")
+                                {{$row->sku}}
+                            @endif
+                        </td>
                         <td>
                             @if($row->is_manage_stock and $row->quantity)
                                 <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
