@@ -99,7 +99,6 @@
             flex: 0 0 215px;
             max-width: 215px;
         }
-
         .site-navigation{
             flex: 0 0 calc(100% - 525px);
             width: calc(100% - 525px);
@@ -217,13 +216,16 @@
             }
         }
         .site-member {
-            ul {
+            flex: 0 0 310px;
+            max-width: 310px;
+            ul.topbar-items {
                 list-style-type: none;
                 padding: 0;
                 margin: 0;
                 font-size: 14px;
                 display: flex;
                 flex-direction: row;
+                justify-content: space-between;
                 li.dropdown {
                     position: relative;
                     &:hover {
@@ -253,16 +255,57 @@
                         }
                     }
                 }
-
                 li {
                     a {
                         padding: 0;
-                        font-size: 16px;
-                        line-height: 1.5555;
-                        font-weight: 600;
+                        font-size: 14px;
                     }
                     a:hover{
                         color:var(--primary_hover);
+                        i{
+                            color:var(--primary_hover);
+                        }
+                    }
+                }
+                .group-icon-action{
+                    vertical-align: top;
+                    position: relative;
+                    display: inline-block;
+                    i{
+                        font-size: 28px;
+                        color: #fff;
+                        position: relative;
+                        top: 3px;
+                    }
+                    .count{
+                        min-width: 16px;
+                        height: 16px;
+                        line-height: 16px;
+                        font-size: 10px;
+                        font-weight: 400;
+                        text-align: center;
+                        border-radius: 50%;
+                        display: inline-block;
+                        position: absolute;
+                        top: -3px;
+                        right: -5px;
+                        color: #fff;
+                        background-color: var(--primary);
+                    }
+                }
+                .group-icon-content{
+                    margin-left: 8px;
+                    display: inline-block;
+                    .sub-text{
+                        line-height: 1;
+                        display: block;
+                        font-size: 12px;
+                        color: #ffffff;
+                        opacity: .5;
+                    }
+                    .sub-title{
+                        color: #fff;
+                        font-weight: 600;
                     }
                 }
             }
@@ -608,10 +651,9 @@
         }
         button.btn{
             font-weight: 500;
-            padding-left: 36px;
-            padding-right: 36px;
+            padding: 0 36px;
             border-radius: 0 8px 8px 0;
-            background-color: var(--accent);
+            background: var(--accent);
             border: 1px solid var(--accent);;
             border-left: 0;
             color: #ffffff;
