@@ -131,7 +131,7 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        session()->remove(static::$session_key);
+        session()->forget(static::$session_key);
         return true;
     }
 

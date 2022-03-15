@@ -11,9 +11,9 @@ use Themes\Base\Controllers\FrontendController;
 
 class OrderController extends FrontendController
 {
-    public function detail($id){
-        $order = Order::find($id);
-        if(!$order or $order->customer_id != auth()->id()){
+    public function detail($code){
+        $order = Order::where('code',$code)->first();
+        if(!$order){
             abort(404);
         }
 
