@@ -20,7 +20,7 @@
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="publish">{{__("Mark as Publish")}}</option>
-                            <option value="blocked">{{__("Mark as Blocked")}}</option>
+                            <option value="blocked">{{__("Mark as Block")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
