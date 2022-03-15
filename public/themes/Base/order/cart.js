@@ -9,7 +9,7 @@ jQuery(function () {
             'cache': false,
             'method':"post",
             success: function (res) {
-                parent.find(".group-form .fa-spin").addClass("d-none");
+                parent.find(".fa-spin").addClass("d-none");
                 if (res.reload !== undefined) {
                     window.location.reload();
                 }
