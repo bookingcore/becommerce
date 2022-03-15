@@ -124,7 +124,7 @@ class VendorController extends UserController
         ]);
     }
 
-    public function export(){
+    public function export(Request $request){
         return (new UserExport(3))->download('vendor-' . date('M-d-Y') . '.xlsx');
     }
 }
