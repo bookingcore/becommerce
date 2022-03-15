@@ -100,3 +100,5 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
 
 Route::post('register','UserController@register')->name('register');
 
+//Newsletter
+Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
