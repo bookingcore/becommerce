@@ -69,11 +69,11 @@
                                                 <h2 class="product__title"><a href="#">iPhone 13 Pro Max 256GB</a></h2>
                                                 <div class="star-rating" role="img" title="70%">
                                                     <div class="back-stars">
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
 
                                                         <div class="front-stars" style="width: 70%">
                                                             <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
@@ -115,11 +115,11 @@
                                                 <h2 class="product__title"><a href="#">iPhone 13 Pro Max 256GB</a></h2>
                                                 <div class="star-rating" role="img" title="70%">
                                                     <div class="back-stars">
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
 
                                                         <div class="front-stars" style="width: 70%">
                                                             <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
@@ -161,11 +161,11 @@
                                                 <h2 class="product__title"><a href="#">iPhone 13 Pro Max 256GB</a></h2>
                                                 <div class="star-rating" role="img" title="70%">
                                                     <div class="back-stars">
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
 
                                                         <div class="front-stars" style="width: 70%">
                                                             <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
@@ -207,11 +207,11 @@
                                                 <h2 class="product__title"><a href="#">iPhone 13 Pro Max 256GB</a></h2>
                                                 <div class="star-rating" role="img" title="70%">
                                                     <div class="back-stars">
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                                                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
+                                                        <i class="axtronic-icon-star" aria-hidden="true"></i>
 
                                                         <div class="front-stars" style="width: 70%">
                                                             <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>

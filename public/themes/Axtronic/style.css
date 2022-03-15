@@ -2475,6 +2475,7 @@ button:focus, input[type=button]:focus, input[type=reset]:focus, input[type=subm
 }
 #masthead .header__content-bottom .vertical-menu .menu .sub-menu .mega-menu-item ul.list-items .product-list-wrap .product-caption .star-rating .back-stars i {
   margin-right: 2px;
+  opacity: 0.2;
 }
 #masthead .header__content-bottom .vertical-menu .menu .sub-menu .mega-menu-item ul.list-items .product-list-wrap .product-caption .star-rating .front-stars {
   display: flex;
@@ -2483,6 +2484,9 @@ button:focus, input[type=button]:focus, input[type=reset]:focus, input[type=subm
   position: absolute;
   top: 0;
   transition: all 0.5s;
+}
+#masthead .header__content-bottom .vertical-menu .menu .sub-menu .mega-menu-item ul.list-items .product-list-wrap .product-caption .star-rating .front-stars i {
+  opacity: 1;
 }
 #masthead .header__content-bottom .vertical-menu .menu .sub-menu .mega-menu-item ul.list-items .product-list-wrap .product-caption .price {
   font-size: 12px;

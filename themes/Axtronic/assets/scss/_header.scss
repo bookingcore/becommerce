@@ -564,6 +564,7 @@
                                             position: relative;
                                             i{
                                                 margin-right: 2px;
+                                                opacity: 0.2;
                                             }
                                         }
                                         .front-stars {
@@ -572,7 +573,10 @@
                                             overflow: hidden;
                                             position: absolute;
                                             top: 0;
-                                            transition: all .5s
+                                            transition: all .5s;
+                                            i{
+                                                opacity: 1;
+                                            }
                                         }
                                     }
                                     .price{
