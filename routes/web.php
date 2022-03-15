@@ -26,7 +26,6 @@ Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactCont
 
 
 //Homepage
-Route::post('newsletter/subscribe','\Modules\User\Controllers\UserController@subscribe')->name('newsletter.subscribe');
 
 // Media
 Route::group(['prefix'=>'media'],function(){

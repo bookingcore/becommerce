@@ -185,7 +185,6 @@
 
                 CartManager::clear();
                 CartManager::clearCoupon();
-
                 if ($res !== true) {
                     return response()->json($res);
                 }
@@ -209,7 +208,7 @@
         }
 
         protected function tryCreateUser($billing_data){
-            $user = User::query()->where('email',$billing_data['email']);
+            $user = User::query()->where('email',$billing_data['email'])->first();
             if($user){
                 return $user;
             }
@@ -226,7 +225,6 @@
                 $user->email_verified_at = Carbon::now();
             }
             $user->save();
-
             return $user;
         }
     }

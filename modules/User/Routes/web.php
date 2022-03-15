@@ -21,8 +21,6 @@ Route::group(['prefix'=>"messenger",'middleware'=>'auth'],function(){
     Route::post('getContacts', 'ChatController@getContacts')->name('contacts.get');
     Route::post('idInfo', 'ChatController@idFetchData');
 });
-//Newsletter
-Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
 
 Route::get('/my-plan','PlanController@myPlan')->name('user.plan')->middleware('auth');
 Route::get('/plan','PlanController@index')->name('plan');

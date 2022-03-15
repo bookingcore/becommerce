@@ -182,31 +182,6 @@ class UserController extends FrontendController
         return view('User::frontend.bookingHistory', $data);
     }
 
-    public function subscribe(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|email|max:255'
-        ]);
-        $check = Subscriber::withTrashed()->where('email', $request->input('email'))->first();
-        if ($check) {
-            if ($check->trashed()) {
-                $check->restore();
-                return $this->sendSuccess([], __('Thank you for subscribing'));
-            }
-            return $this->sendError(__('You are already subscribed'));
-        } else {
-            $a = new Subscriber();
-            $a->email = $request->input('email');
-            $a->first_name = $request->input('first_name');
-            $a->last_name = $request->input('last_name');
-            $a->save();
-
-            event(new UserSubscriberSubmit($a));
-
-            return $this->sendSuccess([], __('Thank you for subscribing'));
-        }
-    }
-
     public function logout(Request $request)
     {
         $this->guard()->logout();

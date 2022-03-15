@@ -15,6 +15,7 @@ class CreateOrderTable extends Migration
     {
         Schema::create('core_orders', function (Blueprint $table) {
             $table->id();
+            $table->string('code',64)->nullable();
             $table->bigInteger('customer_id')->nullable();
 
             $table->decimal('subtotal',10,2)->nullable();
@@ -77,6 +78,8 @@ class CreateOrderTable extends Migration
             $table->decimal('shipping_amount',10,2)->nullable();
 
             $table->string('locale',10)->nullable();
+
+            $table->timestamp('order_date')->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
