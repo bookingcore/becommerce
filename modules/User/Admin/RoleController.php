@@ -68,7 +68,7 @@ class RoleController extends AdminController
     public function store(Request $request, $id){
         if($id>0){
             $this->checkPermission('role_manage');
-            $row = Role::find($id);
+            $row = Role::whereId($id)->first();
             if (empty($row)) {
                 return redirect(route('user.admin.role.index'));
             }
@@ -76,8 +76,12 @@ class RoleController extends AdminController
             $this->checkPermission('role_manage');
             $row = new Role();
         }
-
-        $row->fill($request->input());
+        $data = [
+            'name'=>$request->input('name'),
+            'commission_type'=>$request->input('commission_type'),
+            'commission'=>$request->input('commission'),
+        ];
+        $row->fillByAttr(array_keys($data),$data);
         $res = $row->save();
         if ($res) {
             if($id > 0 ){

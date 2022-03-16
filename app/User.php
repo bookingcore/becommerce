@@ -69,7 +69,8 @@
         ];
 
         protected $attributes = [
-            'status'=>'publish'
+            'status'=>'publish',
+            'commission_type'=>'default',
         ];
 
         protected $slugField = 'username';

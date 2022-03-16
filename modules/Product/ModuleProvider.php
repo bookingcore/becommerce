@@ -16,6 +16,8 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function boot(SitemapHelper $sitemapHelper){
 
+        $this->mergeConfigFrom(__DIR__.'/Configs/product.php','product');
+
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
 
         $sitemapHelper->add("product",[Product::class,"getForSitemap"]);

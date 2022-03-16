@@ -53,12 +53,16 @@ new Vue({
         message:{
             success:true,
             content:''
-        }
+        },
+        shipping_amount:0,
+        shipping_methods:{},
+        shipping_method:'',
     },
     created:function (){
         for(var k in bc_order){
             this[k] = bc_order[k];
         }
+        if(!this.order_date) this.order_date = moment().format('YYYY-MM-DD HH:mm:ss');
     },
     methods:{
         save:function (){
@@ -74,9 +78,18 @@ new Vue({
                     customer_id:this.customer.id,
                     billing:this.billing,
                     shipping:this.shipping,
-                    items:this.items,
+                    items:this.items.map(function(item){
+                        return {
+                            id:item.id,
+                            product_id:item.product_id,
+                            qty:item.qty,
+                            variation_id:item.variation_id,
+                        }
+                    }),
                     status:this.status,
-                    order_date:this.order_date
+                    order_date:this.order_date,
+                    shipping_method:this.shipping_method,
+                    shipping_amount:this.shipping_amount,
                 },
                 dataType:'json',
                 type:'POST',
@@ -94,10 +107,23 @@ new Vue({
                 },
                 error:function(e){
                     me.saving = false;
-                    if(e.responseText){
-                        me.message = {
-                            content:e.responseText,
-                            success: false
+                    if(e.responseJSON){
+
+                        for(var k in e.responseJSON.errors){
+
+                            me.message = {
+                                content: Object.keys(e.responseJSON.errors).map(function(item){
+                                    return e.responseJSON.errors[item][0]
+                                }).join('<br>'),
+                                success: false
+                            }
+                        }
+                    }else {
+                        if (e.responseText) {
+                            me.message = {
+                                content: e.responseText,
+                                success: false
+                            }
                         }
                     }
                 }
@@ -152,7 +178,7 @@ new Vue({
             return t;
         },
         total:function(){
-            return this.subtotal;
-        }
+            return this.subtotal + this.shipping_amount;
+        },
     }
 })
