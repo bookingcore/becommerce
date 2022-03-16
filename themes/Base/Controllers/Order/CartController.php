@@ -132,7 +132,12 @@ class CartController extends FrontendController
     }
 
     public function getShippingMethod(Request $request){
-        $res = CartManager::getMethodShipping($request->input('shipping_country'));
+        $res = CartManager::getMethodShipping($request->input('country'));
+        return $this->sendSuccess($res,$res['message'] ?? "");
+    }
+
+    public function getTaxRate(Request $request){
+        $res = CartManager::getTaxRate($request->input('billing_country'),$request->input('shipping_country'));
         return $this->sendSuccess($res,$res['message'] ?? "");
     }
 }

@@ -255,13 +255,7 @@ class ModuleProvider extends ModuleServiceProvider
             'keys' => [
                 'tax_enable_calc',
                 'tax_prices_include_tax',
-                'tax_shipping_tax_class',
-                'tax_round_at_subtotal',
-                'tax_classes',
-                'tax_display_shop',
-                'tax_display_cart',
-                'tax_price_display_suffix',
-                'tax_total_display'
+                'tax_based_on',
             ],
             'html_keys' => [
 

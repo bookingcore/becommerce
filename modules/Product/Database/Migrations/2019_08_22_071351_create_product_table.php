@@ -353,14 +353,14 @@ class CreateProductTable extends Migration
 
         Schema::create('product_tax_rates', function (Blueprint $table){
             $table->bigIncrements('id');
-            $table->string('country_code', 2)->nullable();
+            $table->string('country', 2)->nullable();
             $table->string('state')->nullable();
             $table->decimal('tax_rate', 8, 4)->nullable();
             $table->string('name')->nullable();
             $table->bigInteger('priority')->nullable();
-            $table->tinyInteger('compound')->nullable();
-            $table->tinyInteger('shipping')->nullable();
-            $table->string('tax_rate_class')->nullable();
+
+            $table->string('city')->nullable();
+            $table->string('postcode')->nullable();
 
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
@@ -379,18 +379,6 @@ class CreateProductTable extends Migration
             $table->integer('update_user')->nullable();
             $table->timestamps();
         });
-
-        Schema::create('product_tax_locations', function (Blueprint $table){
-            $table->bigIncrements('id');
-            $table->bigInteger('tax_rate_id')->nullable();
-            $table->string('location_code')->nullable();
-            $table->string('location_type')->nullable();
-
-            $table->integer('create_user')->nullable();
-            $table->integer('update_user')->nullable();
-            $table->timestamps();
-        });
-
     }
 
     /**

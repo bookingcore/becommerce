@@ -7,41 +7,14 @@ class TaxRate extends BaseModel
 {
     protected $table = 'product_tax_rates';
     protected $fillable = [
-        'country_code',
+        'country',
         'state',
         'tax_rate',
         'name',
         'priority',
-        'compound',
-        'shipping',
-        'tax_rate_class'
     ];
 
-    public function getClassNameAttribute(){
-        $taxRateClasses = [
-            'standard' => __("Standard"),
-            'reduced_rate' => __("Reduced rate"),
-            'zero_rate' => __("Zero rate")
-        ];
-
-        return $taxRateClasses[$this->tax_rate_class] ?? __("Standard");
+    public static function taxEnable(){
+        return setting_item("tax_enable_calc",0) == 1 ? true : false;
     }
-
-    public function locations(){
-        return $this
-            ->hasMany(TaxRateLocation::class,'tax_rate_id','id');
-    }
-
-    public function locationCity(){
-        return $this
-            ->hasOne(TaxRateLocation::class,'tax_rate_id','id')
-            ->where('location_type', '=','city');
-    }
-
-    public function locationPostcode(){
-        return $this
-            ->hasOne(TaxRateLocation::class,'tax_rate_id','id')
-            ->where('location_type', '=','postcode');
-    }
-
 }

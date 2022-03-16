@@ -14,6 +14,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
 use Modules\Product\Models\ShippingZoneMethod;
+use Modules\Product\Models\TaxRate;
 
 class CartManager
 {
@@ -407,5 +408,36 @@ class CartManager
         }
         // if method not in zone
         return ['status'=>0,'message'=>'There are no shipping options available.'];
+    }
+
+    public static function getTaxRate($billing_country , $shipping_country)
+    {
+        $data = [
+            'status' => 0,
+            'tax'    => ''
+        ];
+        switch ( setting_item("tax_based_on",'billing') )
+        {
+            case"billing":
+                $country = $billing_country;
+                break;
+            case"shipping":
+                $country = $shipping_country;
+                break;
+            default:
+                $country = "";
+        }
+        // Find Tax By Country
+        $tax = TaxRate::select("name", "tax_rate", "city", "postcode", "country", "state")
+            ->where("country", $country)
+            ->orWhere("country", "*")->get();
+        if (!empty($tax)) {
+            $data = [
+                'status'             => 1,
+                'tax_prices_include' => setting_item("tax_prices_include_tax", 'yes'),
+                'tax'                => $tax->toArray(),
+            ];
+        }
+        return $data;
     }
 }

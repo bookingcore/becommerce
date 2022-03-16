@@ -50,6 +50,17 @@
                 </span>
             </td>
         </tr>
+        <tr v-if="tax_amount > 0">
+            <td>
+                {{__('Tax')}} <span v-if="tax_prices_include == 'yes'">({{ __("include") }})</span>
+            </td>
+            <td></td>
+            <td class="text-end">
+                <span class="amount">
+                    @{{ tax_amount_html }}
+                </span>
+            </td>
+        </tr>
         <tr class="order-total">
             <td>{{__('Total')}}</td>
             <td></td>
