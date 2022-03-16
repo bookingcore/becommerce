@@ -192,6 +192,8 @@ class UserController extends AdminController
         $row->avatar_id = $request->input('avatar_id');
         $row->email = $request->input('email');
         $row->business_name = $request->input('business_name');
+        $row->commission_type = $request->input('commission_type');
+        $row->commission = $request->input('commission');
 
         if($this->hasPermission('user_manage')) {
             $row->role_id = $request->input('role_id');

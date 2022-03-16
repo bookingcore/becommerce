@@ -54,12 +54,15 @@ new Vue({
             success:true,
             content:''
         },
-        shipping_amount:0
+        shipping_amount:0,
+        shipping_methods:{},
+        shipping_method:'',
     },
     created:function (){
         for(var k in bc_order){
             this[k] = bc_order[k];
         }
+        if(!this.order_date) this.order_date = moment();
     },
     methods:{
         save:function (){
@@ -77,7 +80,9 @@ new Vue({
                     shipping:this.shipping,
                     items:this.items,
                     status:this.status,
-                    order_date:this.order_date
+                    order_date:this.order_date,
+                    shipping_method:this.shipping_method,
+                    shipping_amount:this.shipping_amount,
                 },
                 dataType:'json',
                 type:'POST',

@@ -16,13 +16,24 @@
 
                 </div>
                 <div class="col-md-6">
-                    <div class="d-flex">
+                    <div class="d-flex mb-2">
                         <div class="col-8 text-right ">{{__("Subtotal")}}</div>
                         <div class="col-4 text-right font-weight-bold">@{{ formatMoney(subtotal) }}</div>
                     </div>
-                    <div class="d-flex">
-                        <div class="col-8 text-right ">{{__("Shipping")}}</div>
-                        <div class="col-4 text-right font-weight-bold"><input type="number" class="form-control" v-model.number="shipping_amount"></div>
+                    <div class="d-flex mb-2 align-items-center">
+                        <div class="col-8 text-right ">
+                            <div class="form-inline justify-content-end">
+                                <label class="mr-2">{{__("Shipping")}}</label>
+                                <select class="form-control" v-model="shipping_method">
+                                    <optgroup label="{{__("Shipping Method")}}">
+                                        <option value="">{{__("N/A")}}</option>
+                                        <option v-for="(m,key) in shipping_methods" :value="key">@{{m.name}}</option>
+                                        <option value="other">{{__("Other")}}</option>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-4 text-right font-weight-bold"><input type="number" class="form-control text-right" v-model.number="shipping_amount"></div>
                     </div>
                     <div class="d-flex">
                         <div class="col-8 text-right ">{{__("Grand total")}}</div>

@@ -101,6 +101,23 @@
                         </div>
                     </div>
                     <div class="panel">
+                        <div class="panel-title"><strong>{{ __('For Vendor')}}</strong></div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label>{{ __('Commission Type')}}</label>
+                                <select class="form-control" name="commission_type">
+                                    <option value="default">{{__("-- [Default role config] -- ")}}</option>
+                                    <option value="percent" @if($row->commission_type == 'percent') selected @endif > {{__("Percent")}}</option>
+                                    <option value="amount" @if($row->commission_type == 'amount') selected @endif >{{__("Amount")}}</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>{{ __('Commission')}}</label>
+                                <input type="number" value="{{$row->commission}}" placeholder="{{ __('Commission')}}" name="commission" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
                         <div class="panel-title"><strong>{{ __('Avatar')}}</strong></div>
                         <div class="panel-body">
                             <div class="form-group">
