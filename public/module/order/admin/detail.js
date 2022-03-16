@@ -53,7 +53,8 @@ new Vue({
         message:{
             success:true,
             content:''
-        }
+        },
+        shipping_amount:0
     },
     created:function (){
         for(var k in bc_order){
@@ -152,7 +153,7 @@ new Vue({
             return t;
         },
         total:function(){
-            return this.subtotal;
+            return this.subtotal + this.shipping_amount;
         }
     }
 })

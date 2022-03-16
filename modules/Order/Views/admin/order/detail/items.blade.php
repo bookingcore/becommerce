@@ -21,6 +21,10 @@
                         <div class="col-4 text-right font-weight-bold">@{{ formatMoney(subtotal) }}</div>
                     </div>
                     <div class="d-flex">
+                        <div class="col-8 text-right ">{{__("Shipping")}}</div>
+                        <div class="col-4 text-right font-weight-bold"><input type="number" class="form-control" v-model.number="shipping_amount"></div>
+                    </div>
+                    <div class="d-flex">
                         <div class="col-8 text-right ">{{__("Grand total")}}</div>
                         <div class="col-4 text-right font-weight-bold">@{{ formatMoney(total) }}</div>
                     </div>

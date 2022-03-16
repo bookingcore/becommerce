@@ -53,7 +53,7 @@
         BC.routes.order = {
             store:'{!! route('order.admin.store',['order'=>$order]) !!}'
         }
-        var bc_order = {!! json_encode(new \Modules\Order\Resources\Admin\OrderResource($order,['items'])) !!}
+        var bc_order = {!! json_encode(new \Modules\Order\Resources\Admin\OrderResource($order,['items','shipping_methods'])) !!}
         var bc_country_list = {!! json_encode(get_country_lists()) !!}
     </script>
     <script src="{{asset('module/order/admin/detail.js')}}"></script>

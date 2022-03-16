@@ -7,6 +7,7 @@ namespace Modules\Order\Resources\Admin;
 use App\Resources\BaseJsonResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Modules\Order\Models\Order;
+use Modules\Product\Models\ShippingZoneMethod;
 use Modules\User\Resources\UserResource;
 
 class OrderResource extends BaseJsonResource
@@ -24,7 +25,12 @@ class OrderResource extends BaseJsonResource
             'status'=>$this->status ?? Order::PENDING,
             'created_at'=>$this->created_at->format('Y-m-d H:i:s'),
             'email'=>$this->email,
-            'phone'=>$this->phone
+            'phone'=>$this->phone,
+            'shipping_amount'=>(float)$this->shipping_amount,
+            'shipping_method'=>$this->getMeta('shipping_amount'),
+            'shipping_methods'=> $this->whenNeed('shipping_methods',function(){
+                return (new ShippingZoneMethod())->methods();
+            }),
         ];
     }
 }
