@@ -38,7 +38,7 @@
                     me.shipping_method_selected = $(this).val();
                 });
 
-                me.shipping_same_address = $("[name=shipping_same_address]").is("checked") ? true : false;
+                me.shipping_same_address = $("[name=shipping_same_address]").is(":checked") ? true : false;
                 if(me.shipping_same_address === true){
                     $("[name=billing_country]").trigger('change');
                 }else{
