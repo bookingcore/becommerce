@@ -13,6 +13,7 @@ use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderUpdated;
 use Modules\Order\Resources\Admin\OrderItemResource;
+use Modules\Product\Models\Product;
 
 class Order extends BaseModel
 {
@@ -82,8 +83,8 @@ class Order extends BaseModel
     public function getJsonMeta($key, $default = [])
     {
         $meta = $this->getMeta($key, $default);
-        if(empty($meta)) return false;
-        return json_decode($meta, true);
+        if(empty($meta)) return $default;
+        return json_decode($meta, true) ?? $default;
     }
 
     public function addMeta($key, $val, $multiple = false)
@@ -285,16 +286,17 @@ class Order extends BaseModel
                 $order_item->order_id = $this->id;
             }
 
-            $order_item->object_id = $item->model->id;
-            $order_item->object_model = $item->model->type;
-            $order_item->price = $item->price;
-            $order_item->discount_amount = $item->discount_amount;
-            $order_item->qty = $item->qty;
-            $order_item->subtotal = $item->subtotal;
-            $order_item->status = Order::DRAFT;
-            $order_item->meta = $item->meta;
-            $order_item->variation_id = $item->variation_id;
-            $order_item->vendor_id = $item->author_id;
+            $product = Product::find($item['product_id']);
+
+            $order_item->object_id = $product->id;
+            $order_item->object_model = 'product';
+            $order_item->price = $product->price;
+            //$order_item->discount_amount = $item->discount_amount;
+            $order_item->qty = $item['qty'];
+            $order_item->subtotal = $product->price * $item['qty'];
+            $order_item->status = $this->status;
+            $order_item->variation_id = $item['variation_id'];
+            $order_item->vendor_id = $product->author_id;
             $order_item->locale = app()->getLocale();
             $order_item->save();
 

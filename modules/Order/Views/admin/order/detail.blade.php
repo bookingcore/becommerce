@@ -31,7 +31,7 @@
                         <button class="btn btn-success" @click="save"><i class="fa fa-save"></i> {{__("Save changes")}}
                             <i v-show="saving" class="fa fa-spinner fa-pulse fa-fw"></i>
                         </button>
-                        <div v-show="message.content" :class="!message.type ? 'text-danger' : 'text-success'" v-html="message.content"></div>
+                        <div class="mt-3" v-show="message.content" :class="!message.success ? 'text-danger' : 'text-success'" v-html="message.content"></div>
                     </div>
                 </div>
             </div>

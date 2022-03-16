@@ -27,7 +27,7 @@ class OrderResource extends BaseJsonResource
             'email'=>$this->email,
             'phone'=>$this->phone,
             'shipping_amount'=>(float)$this->shipping_amount,
-            'shipping_method'=>$this->getMeta('shipping_amount'),
+            'shipping_method'=>$this->getMeta('shipping_method'),
             'shipping_methods'=> $this->whenNeed('shipping_methods',function(){
                 return (new ShippingZoneMethod())->methods();
             }),

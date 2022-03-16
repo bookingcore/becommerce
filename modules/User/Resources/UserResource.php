@@ -18,10 +18,10 @@ class UserResource extends BaseJsonResource
             'avatar_url'=>$this->avatar_url,
             'display_name'=>$this->display_name,
             'billing'=>$this->whenNeed('address',function(){
-                return $this->billing_address;
+                return $this->billing_address ?? [];
             }),
             'shipping'=>$this->whenNeed('address',function(){
-                return $this->shipping_address;
+                return $this->shipping_address ?? [];
             }),
             'text'=>$this->when(request('_type') == 'query',$this->display_name . ' (#' . $this->id . ')')
         ];

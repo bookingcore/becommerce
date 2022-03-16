@@ -77,6 +77,8 @@ class OrderController extends AdminController
 
         $request->validate([
             'status'=>'required',
+            'items.*.product_id'=>'required',
+            'items.*.qty'=>'required|integer|gte:1',
             'items'=>['required',new ValidOrderItems()]
         ]);
 
