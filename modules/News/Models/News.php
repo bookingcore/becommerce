@@ -95,7 +95,7 @@ class News extends BaseModel
         $meta['seo_desc'] = setting_item_with_lang("news_page_list_seo_desc");
         $meta['seo_image'] = setting_item("news_page_list_seo_image");
         $meta['seo_share'] = setting_item_with_lang("news_page_list_seo_share");
-        $meta['full_url'] = url(config('news.news_route_prefix'));
+        $meta['full_url'] = url()->current();
 
         return $meta;
     }
