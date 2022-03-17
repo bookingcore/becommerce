@@ -28,6 +28,7 @@ class CartManager
     protected static $_items = [];
     public static $_shipping_amount = 0;
     public static $_shipping_method = [];
+    public static $_tax = [];
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
@@ -312,6 +313,24 @@ class CartManager
             $order_item->save();
         }
         $order->syncTotal();
+        
+        //Tax
+        if(!empty( static::$_tax )){
+            $tax_rate = 0;
+            foreach ( static::$_tax as $item ){
+                $tax_rate += $item['tax_rate'];
+            }
+            $total_amount = $order->total;
+            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
+            if(setting_item("prices_include_tax", 'yes') == "no"){
+                $total_amount += $tax_amount;
+            }
+            $order->total = $total_amount;
+            $order->tax_amount = $tax_amount;
+            $order->save();
+            $order->addMeta('tax',static::$_tax);
+            $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
+        }
 
         $coupons = static::getCoupon();
         if(!empty($coupons) and count($coupons)>0){
@@ -434,10 +453,19 @@ class CartManager
         if (!empty($tax)) {
             $data = [
                 'status'             => 1,
-                'tax_prices_include' => setting_item("tax_prices_include_tax", 'yes'),
+                'prices_include_tax' => setting_item("prices_include_tax", 'yes'),
                 'tax'                => $tax->toArray(),
             ];
         }
         return $data;
+    }
+
+    public static function addTax($billing_country , $shipping_country){
+        if( TaxRate::taxEnable() ){
+            $tax = static::getTaxRate($billing_country , $shipping_country);
+            if(!empty($tax['tax'])){
+                static::$_tax = $tax['tax'];
+            }
+        }
     }
 }

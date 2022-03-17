@@ -21,7 +21,7 @@
             shipping_available:false,
             //Tax
             tax_available:false,
-            tax_prices_include:'no',
+            prices_include_tax:'no',
             tax_amount:'',
             tax:false,
             onGetTaxRate:false
@@ -96,7 +96,7 @@
                     }
                     tax_amount = ( total_amount / 100 ) * tax_rate;
                     me.tax_amount = tax_amount;
-                    if(me.tax_prices_include == "no"){
+                    if(me.prices_include_tax == "no"){
                         total_amount += tax_amount;
                     }
                 }
@@ -175,8 +175,8 @@
                         if(res.tax){
                             me.tax = res.tax;
                         }
-                        if(res.tax_prices_include){
-                            me.tax_prices_include = res.tax_prices_include;
+                        if(res.prices_include_tax){
+                            me.prices_include_tax = res.prices_include_tax;
                         }
                     },
                     error:function (e) {

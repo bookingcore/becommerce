@@ -102,6 +102,7 @@
                     return $this->sendError($res['message']);
                 }
             }
+            CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
 
             // Create order and on-hold order
             $order = CartManager::order();

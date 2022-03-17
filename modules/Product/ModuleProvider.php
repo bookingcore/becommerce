@@ -256,7 +256,7 @@ class ModuleProvider extends ModuleServiceProvider
             'view'=>"Product::admin.settings.tax",
             'keys' => [
                 'tax_enable_calc',
-                'tax_prices_include_tax',
+                'prices_include_tax',
                 'tax_based_on',
             ],
             'html_keys' => [

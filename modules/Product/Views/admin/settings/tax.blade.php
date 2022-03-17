@@ -25,9 +25,9 @@
                     <div class="form-group">
                         <label class="" >{{__("Prices entered with tax")}}</label>
                         <div class="form-controls">
-                            <select class="form-control" name="tax_prices_include_tax">
-                                <option value="yes" @if(@setting_item('tax_prices_include_tax') == 'yes') selected @endif >{{ __("Yes, I will enter prices inclusive of tax") }}</option>
-                                <option value="no" @if(@setting_item('tax_prices_include_tax') == 'no') selected @endif >{{ __("No, I will enter prices exclusive of tax") }}</option>
+                            <select class="form-control" name="prices_include_tax">
+                                <option value="yes" @if(@setting_item('prices_include_tax') == 'yes') selected @endif >{{ __("Yes, I will enter prices inclusive of tax") }}</option>
+                                <option value="no" @if(@setting_item('prices_include_tax') == 'no') selected @endif >{{ __("No, I will enter prices exclusive of tax") }}</option>
                             </select>
                         </div>
                     </div>
