@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -105,6 +106,7 @@ class LoginController extends Controller
             $realUser->name = $user->getName();
             $realUser->first_name = $user->getName();
             $realUser->status = 'publish';
+            $realUser->email_verified_at = Carbon::now();
 
             $realUser->save();
 
