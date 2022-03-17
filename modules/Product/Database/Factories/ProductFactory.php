@@ -19,8 +19,8 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $price = $this->faker->randomNumber(3);
-        $sale_price = $price - $this->faker->randomNumber(2);
+        $price = ['30','50','70','80','100','150'][rand(0,5)];
+        $sale_price = $price - ['10','5','15','20','25'][rand(0,4)];
         return [
             'title'       => $this->faker->words(10,true),
             'content'     => '<h5>Embodying the Raw, Wayward Spirit of Rock \'N\' Roll</h5>
@@ -42,13 +42,14 @@ class ProductFactory extends Factory
             'short_desc'  => '<ul><li>Unrestrained and portable active stereo speaker</li><li>Free from the confines of wires and chords</li><li>20 hours of portable capabilities</li><li>Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li><li>3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>',
             'brand_id'    => '',
             'gallery'     => '',
-            'price'=>$sale_price,
+            'price'         =>$sale_price,
             'origin_price'  => $price,
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> ['simple','variable'][rand(0,1)],
             'create_user' => '1',
-            'author_id'=>1
+            'author_id'   =>1,
+            'attributes_for_variation' => ['1','2']
         ];
     }
 
@@ -88,11 +89,13 @@ class ProductFactory extends Factory
             );
             $product->variations()->createMany([
                 [
-                    'price'         =>  rand(100,300),
+                    'price'         =>  ['30','50','70','80','100','150'][rand(0,5)],
                     'stock_status'  =>  'in',
                     'active'        =>  '1',
                 ]
             ]);
+
+
             $product->update_service_rate();
         });
     }
