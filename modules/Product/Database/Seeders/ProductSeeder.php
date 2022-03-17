@@ -66,135 +66,6 @@ class ProductSeeder extends Seeder
             })
             ->create();
 
-//        //Create variable product
-//        $variable_id_1 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '22',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        $variable_id_2 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '22',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        $variable_id_3 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '22',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        $variable_id_4 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '20',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        $variable_id_5 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '20',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        $variable_id_6 = DB::table('product_variations')->insertGetId(
-//            [
-//                'product_id'    =>  $id_6,
-//                'price'         =>  '20',
-//                'stock_status'  =>  'in',
-//                'active'        =>  '1',
-//            ]
-//        );
-//        //End create variable product
-//
-//        //Create variable product term
-//        DB::table('product_variation_term')->insert(
-//            [
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_6,
-//                    'term_id'       =>  $term[0],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_6,
-//                    'term_id'       =>  $term[3],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_5,
-//                    'term_id'       =>  $term[0],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_5,
-//                    'term_id'       =>  $term[4],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_4,
-//                    'term_id'       =>  $term[0],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_4,
-//                    'term_id'       =>  $term[5],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_3,
-//                    'term_id'       =>  $term[1],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_3,
-//                    'term_id'       =>  $term[3],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_2,
-//                    'term_id'       =>  $term[1],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_2,
-//                    'term_id'       =>  $term[4],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_1,
-//                    'term_id'       =>  $term[1],
-//                    'create_user'   =>  1
-//                ],
-//                [
-//                    'product_id'    =>  $id_6,
-//                    'variation_id'  =>  $variable_id_1,
-//                    'term_id'       =>  $term[5],
-//                    'create_user'   =>  1
-//                ],
-//            ]
-//        );
-
         //product search Sliders
         DB::table('core_settings')->insertGetId([
             'name'  =>  'product_page_search_title',
@@ -210,16 +81,14 @@ class ProductSeeder extends Seeder
 
     public function seedSettings(){
         $settings = [
-            'guest_checkout'=>1,
-
-            'email_c_new_order_enable'=>1,
-            'email_c_new_order_subject'=>__("Thanks for shopping with us"),
-
-            'email_v_new_order_enable'=>1,
-            'email_v_new_order_subject'=>__("[site_title]: New order #[order_number]"),
-
-            'email_a_new_order_enable'=>1,
-            'email_a_new_order_subject'=>__("[site_title]: New order #[order_number]"),
+            'product_enable_review' => 1,
+            'guest_checkout'        => 1,
+            'email_c_new_order_enable'  => 1,
+            'email_c_new_order_subject' => __("Thanks for shopping with us"),
+            'email_v_new_order_enable'  => 1,
+            'email_v_new_order_subject' => __("[site_title]: New order #[order_number]"),
+            'email_a_new_order_enable'  => 1,
+            'email_a_new_order_subject' => __("[site_title]: New order #[order_number]"),
         ];
         foreach ($settings as $setting=>$val){
             setting_update_item($setting,$val);

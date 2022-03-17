@@ -20,6 +20,7 @@
                         <th width="60px">{{__("ID")}}</th>
                         <th>{{ __('Name')}}</th>
                         <th>{{ __('Code')}}</th>
+                        <th>{{ __('Commission')}}</th>
                         <th>{{ __('Date')}}</th>
                         <th></th>
                     </tr>
@@ -33,6 +34,9 @@
                                 <a href="{{route('user.admin.role.detail',['id' => $row->id])}}">{{ucfirst($row->name)}}</a>
                             </td>
                             <td>{{$row->code}}</td>
+                            <td>
+                                {!! $row->commission_text !!}
+                            </td>
                             <td>{{ display_date($row->updated_at)}}</td>
                             <td>
                                 <a href="{{route('user.admin.role.detail',['id' => $row->id])}}" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> {{__("Edit")}}</a>

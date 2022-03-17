@@ -28,6 +28,7 @@ class CreateBravoReview extends Migration
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->bigInteger('vendor_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
             $table->softDeletes();
 
             //Languages

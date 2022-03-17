@@ -9,6 +9,9 @@
                 content:'',
                 type:false
             },
+            //Shipping
+            shipping_country:'',
+            billing_country:'',
             shipping_same_address:true,
             shipping_method_selected:false,
             onGetShippingMethod:false,
@@ -16,6 +19,12 @@
             shipping_message:"",
             subtotal_amount:0,
             shipping_available:false,
+            //Tax
+            tax_available:false,
+            prices_include_tax:'no',
+            tax_amount:'',
+            tax:false,
+            onGetTaxRate:false
         },
         created:function(){
             for(var k in bc_order_data){
@@ -27,18 +36,22 @@
                     me.shipping_same_address = this.checked ? true : false;
                 });
                 $(document).on("change","[name=shipping_country]",function(){
-                    me.getShippingMethod( $(this).val() );
+                    me.shipping_country = $(this).val();
+                    me.getShippingMethod( );
+                    me.getTaxRate();
                 });
                 $(document).on("change","[name=billing_country]",function(){
+                    me.billing_country = $(this).val();
                     if(me.shipping_same_address){
-                        me.getShippingMethod( $(this).val() );
+                        me.shipping_country = me.billing_country;
+                        me.getShippingMethod();
                     }
+                    me.getTaxRate();
                 });
                 $(document).on("change","[name=shipping_method_id]",function(){
                     me.shipping_method_selected = $(this).val();
                 });
-
-                me.shipping_same_address = $("[name=shipping_same_address]").is("checked") ? true : false;
+                me.shipping_same_address = $("[name=shipping_same_address]").is(":checked") ? true : false;
                 if(me.shipping_same_address === true){
                     $("[name=billing_country]").trigger('change');
                 }else{
@@ -74,6 +87,19 @@
                 if(me.discount_amount > 0){
                     total_amount -=  me.discount_amount;
                 }
+                if(me.tax !== false){
+                    var tax_rate = 0;
+                    var tax_amount = 0;
+                    for (var ix in me.tax){
+                        var item = me.tax[ix];
+                        tax_rate += parseFloat(item.tax_rate);
+                    }
+                    tax_amount = ( total_amount / 100 ) * tax_rate;
+                    me.tax_amount = tax_amount;
+                    if(me.prices_include_tax == "no"){
+                        total_amount += tax_amount;
+                    }
+                }
                 return total_amount;
             },
             total_amount_html:function(){
@@ -84,12 +110,16 @@
                 if(!this.discount_amount) return '';
                 return window.bc_format_money(this.discount_amount);
             },
+            tax_amount_html:function(){
+                if(!this.tax_amount) return '';
+                return window.bc_format_money(this.tax_amount);
+            },
         },
         mounted() {
 
         },
         methods:{
-            getShippingMethod(country){
+            getShippingMethod(){
                 var me = this;
                 me.shipping_message = "";
                 if(this.onGetShippingMethod) return false;
@@ -98,7 +128,7 @@
                 $.ajax({
                     'url': BC.url+'/cart/get_shipping_method',
                     data:{
-                        shipping_country: country
+                        country: me.shipping_country
                     },
                     method:"post",
                     success:function (res) {
@@ -112,7 +142,45 @@
                         }
                     },
                     error:function (e) {
-                        me.onSubmit = false;
+                        me.onGetShippingMethod = false;
+                        if(e.responseJSON){
+                            me.shipping_message = e.responseJSON.message ? e.responseJSON.message : '';
+                        }else{
+                            if(e.responseText){
+                                me.shipping_message = e.responseText;
+                            }
+                        }
+                    }
+                })
+            },
+            getTaxRate(){
+                var me = this;
+                me.shipping_message = "";
+                if(this.onGetTaxRate) return false;
+                if(!me.tax_available) return false;
+                me.onGetTaxRate = true;
+                $.ajax({
+                    'url': BC.url+'/cart/get_tax_rate',
+                    data:{
+                        billing_country: me.billing_country,
+                        shipping_country: me.shipping_country
+                    },
+                    method:"post",
+                    success:function (res) {
+                        me.onGetTaxRate = false;
+                        if(res.message)
+                        {
+                            me.shipping_message = res.message;
+                        }
+                        if(res.tax){
+                            me.tax = res.tax;
+                        }
+                        if(res.prices_include_tax){
+                            me.prices_include_tax = res.prices_include_tax;
+                        }
+                    },
+                    error:function (e) {
+                        me.onGetTaxRate = false;
                         if(e.responseJSON){
                             me.shipping_message = e.responseJSON.message ? e.responseJSON.message : '';
                         }else{

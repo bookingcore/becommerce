@@ -12,6 +12,7 @@
     use Modules\Product\Traits\HasAddress;
     use Modules\Review\Models\Review;
     use Modules\User\Emails\ResetPasswordToken;
+    use Modules\User\Models\Role;
     use Modules\User\Models\UserPlan;
     use Modules\User\Models\UserWishList;
     use Modules\User\Traits\HasRoles;
@@ -69,7 +70,8 @@
         ];
 
         protected $attributes = [
-            'status'=>'publish'
+            'status'=>'publish',
+            'commission_type'=>'default',
         ];
 
         protected $slugField = 'username';
@@ -393,6 +395,10 @@
 
         public function getStoreUrl(){
             return route('store',['slug'=>$this->username ? $this->username : $this->id]);
+        }
+
+        public function role(){
+            return $this->belongsTo(Role::class,'role_id');
         }
 
     }

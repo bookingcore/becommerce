@@ -87,9 +87,11 @@ Route::group(['prefix' => 'settings/shipping'], function (){
     Route::post('/shipping-class/store', 'ShippingController@shippingClassStore')->name('product.shipping.class.store');
     Route::get('/shipping-class/delete/{id}', 'ShippingController@shippingClassDelete')->name('product.shipping.class.delete');
 
-    Route::get('/tax/create', 'TaxSettingContainer@create')->name('product.tax.create');
-    Route::get('/tax/edit/{id}', 'TaxSettingContainer@edit')->name('product.tax.edit');
-    Route::post('/tax/store', 'TaxSettingContainer@store')->name('product.tax.store');
-    Route::get('/tax/delete/{id}', 'TaxSettingContainer@delete')->name('product.tax.delete');
+});
 
+Route::group(['prefix' => 'settings'], function (){
+    Route::get('/tax/create', 'TaxController@create')->name('product.tax.create');
+    Route::get('/tax/edit/{id}', 'TaxController@edit')->name('product.tax.edit');
+    Route::post('/tax/store', 'TaxController@store')->name('product.tax.store');
+    Route::get('/tax/delete/{id}', 'TaxController@delete')->name('product.tax.delete');
 });

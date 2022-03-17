@@ -16,7 +16,13 @@ class Role extends BaseModel
 
     protected $fillable = [
         'code',
-        'name'
+        'name',
+        'commission',
+        'commission_type'
+    ];
+
+    protected $attributes = [
+        'commission_type'=>'default'
     ];
 
     /**
@@ -97,5 +103,14 @@ class Role extends BaseModel
 
     public function plans(){
         return $this->hasMany(Plan::class,'role_id');
+    }
+
+    public function getCommissionTextAttribute(){
+
+        if($this->commission_type != 'default'){
+            return $this->commission_type == 'percent' ? $this->commission.'%' : format_money($this->commission);
+        }else{
+            return "<strong>".__("[Default]")."</strong> ".(setting_item('vendor_commission_type') == 'percent' ? setting_item('vendor_commission_amount').'%' : format_money(setting_item('vendor_commission_amount')));
+        }
     }
 }

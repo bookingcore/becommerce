@@ -5,9 +5,11 @@ namespace Modules\Order\Rules;
 
 use App\Helpers\ReCaptchaEngine;
 use Illuminate\Contracts\Validation\Rule;
+use Modules\Product\Models\Product;
 
 class ValidOrderItems implements Rule
 {
+    protected $messages = [];
     /**
      * Create a new rule instance.
      *
@@ -27,12 +29,31 @@ class ValidOrderItems implements Rule
      */
     public function passes($attribute, $value)
     {
-        if (!is_array($value)) {
+        if(!is_array($value))
+        {
+            $this->messages[] = __('Please select items');
             return false;
         }
-        if (!is_array($value)) {
-            return false;
+        foreach ($value as $k=>$item){
+            $product = Product::find($item['product_id']);
+            if(!$product){
+                $this->messages[] = __('Please select product for item :number',['number'=>$k + 1]);
+                continue;
+            }
+            if($product->product_type == 'variable' and  empty($item['variation_id'])){
+                $this->messages[] = __('Please select variation for item :number',['number'=>$k + 1]);
+                continue;
+            }
+            try{
+                $product->addToCartValidate($item['qty'],$item['variation_id']);
+            }catch (\Exception $exception){
+
+                $this->messages[] = $product->title.': '.$exception->getMessage();
+                continue;
+            }
+
         }
+        if(!empty($this->messages)) return false;
         return true;
     }
 
@@ -43,6 +64,6 @@ class ValidOrderItems implements Rule
      */
     public function message()
     {
-        return __('Please verify captcha.');
+        return implode('<br>',$this->messages);
     }
 }

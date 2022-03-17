@@ -30,8 +30,8 @@ class CreateUsersTable extends Migration
             $table->string('status',20)->nullable();
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
-            $table->integer('vendor_commission_amount')->nullable();
-            $table->string('vendor_commission_type',30)->nullable();
+            $table->decimal('commission')->nullable();
+            $table->string('commission_type',30)->nullable()->default('default');
             $table->string('locale',10)->nullable();
             $table->bigInteger('role_id')->nullable();
             $table->bigInteger('stripe_customer_id')->nullable();

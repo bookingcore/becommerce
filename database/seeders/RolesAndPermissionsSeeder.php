@@ -14,9 +14,10 @@ class RolesAndPermissionsSeeder extends Seeder
     {
         $admin = \Modules\User\Models\Role::firstOrCreate([
             'code'=>'admin',
-            'name'=>'Admin'
+            'name'=>'Admin',
+            'commission'=>100,
+            'commission_type'=>'percent'
         ]);
-
         $admin->givePermission(PermissionHelper::all());
 
         $customer = \Modules\User\Models\Role::firstOrCreate([

@@ -96,7 +96,15 @@
                             @if(!empty($row->shipping_amount))
                                 <tr class="shipping-amount">
                                     <td>{{__('Shipping Amount')}}</td>
-                                    <td><span class="amount">{{format_money($row->shipping_amount)}}</span></td>
+                                    <td><span class="amount">{{format_money($row->shipping_amount )}}</span></td>
+                                </tr>
+                            @endif
+                            @if(!empty($row->shipping_amount))
+                                <tr class="shipping-amount">
+                                    <td>
+                                        {{__('Tax')}} @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
+                                    </td>
+                                    <td><span class="amount">{{format_money($row->tax_amount )}}</span></td>
                                 </tr>
                             @endif
                             <tr class="order-total">

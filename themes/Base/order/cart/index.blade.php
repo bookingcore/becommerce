@@ -188,5 +188,5 @@
     </div>
 @endsection
 @section('footer')
-    <script src="{{theme_url('base/order/cart.js')}}"></script>
+    <script src="{{theme_url('Base/order/cart.js?_v='.config('app.asset_version'))}}"></script>
 @endsection

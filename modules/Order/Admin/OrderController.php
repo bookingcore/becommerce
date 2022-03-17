@@ -77,6 +77,8 @@ class OrderController extends AdminController
 
         $request->validate([
             'status'=>'required',
+            'items.*.product_id'=>'required',
+            'items.*.qty'=>'required|integer|gte:1',
             'items'=>['required',new ValidOrderItems()]
         ]);
 
@@ -88,6 +90,7 @@ class OrderController extends AdminController
             'customer_id'=>$request->input('customer_id'),
             'status'=>$request->input('status'),
             'order_date'=>$request->input('order_date'),
+            'shipping_amount'=>$request->input('shipping_amount'),
         ];
 
         $order->fillByAttr(array_keys($data),$data);
@@ -96,6 +99,7 @@ class OrderController extends AdminController
         $metas = [
             'billing'=>$request->input('billing'),
             'shipping'=>$request->input('shipping'),
+            'shipping_method'=>$request->input('shipping_method'),
         ];
         foreach ($metas as $k=>$meta){
             $order->addMeta($k,$meta);

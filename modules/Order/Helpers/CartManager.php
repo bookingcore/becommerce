@@ -14,6 +14,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
 use Modules\Product\Models\ShippingZoneMethod;
+use Modules\Product\Models\TaxRate;
 
 class CartManager
 {
@@ -27,6 +28,7 @@ class CartManager
     protected static $_items = [];
     public static $_shipping_amount = 0;
     public static $_shipping_method = [];
+    public static $_tax = [];
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
@@ -311,6 +313,24 @@ class CartManager
             $order_item->save();
         }
         $order->syncTotal();
+        
+        //Tax
+        if(!empty( static::$_tax )){
+            $tax_rate = 0;
+            foreach ( static::$_tax as $item ){
+                $tax_rate += $item['tax_rate'];
+            }
+            $total_amount = $order->total;
+            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
+            if(setting_item("prices_include_tax", 'yes') == "no"){
+                $total_amount += $tax_amount;
+            }
+            $order->total = $total_amount;
+            $order->tax_amount = $tax_amount;
+            $order->save();
+            $order->addMeta('tax',static::$_tax);
+            $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
+        }
 
         $coupons = static::getCoupon();
         if(!empty($coupons) and count($coupons)>0){
@@ -407,5 +427,45 @@ class CartManager
         }
         // if method not in zone
         return ['status'=>0,'message'=>'There are no shipping options available.'];
+    }
+
+    public static function getTaxRate($billing_country , $shipping_country)
+    {
+        $data = [
+            'status' => 0,
+            'tax'    => ''
+        ];
+        switch ( setting_item("tax_based_on",'billing') )
+        {
+            case"billing":
+                $country = $billing_country;
+                break;
+            case"shipping":
+                $country = $shipping_country;
+                break;
+            default:
+                $country = "";
+        }
+        // Find Tax By Country
+        $tax = TaxRate::select("name", "tax_rate", "city", "postcode", "country", "state")
+            ->where("country", $country)
+            ->orWhere("country", "*")->get();
+        if (!empty($tax)) {
+            $data = [
+                'status'             => 1,
+                'prices_include_tax' => setting_item("prices_include_tax", 'yes'),
+                'tax'                => $tax->toArray(),
+            ];
+        }
+        return $data;
+    }
+
+    public static function addTax($billing_country , $shipping_country){
+        if( TaxRate::taxEnable() ){
+            $tax = static::getTaxRate($billing_country , $shipping_country);
+            if(!empty($tax['tax'])){
+                static::$_tax = $tax['tax'];
+            }
+        }
     }
 }
