@@ -210,16 +210,14 @@ class ProductSeeder extends Seeder
 
     public function seedSettings(){
         $settings = [
-            'guest_checkout'=>1,
-
-            'email_c_new_order_enable'=>1,
-            'email_c_new_order_subject'=>__("Thanks for shopping with us"),
-
-            'email_v_new_order_enable'=>1,
-            'email_v_new_order_subject'=>__("[site_title]: New order #[order_number]"),
-
-            'email_a_new_order_enable'=>1,
-            'email_a_new_order_subject'=>__("[site_title]: New order #[order_number]"),
+            'product_enable_review' => 1,
+            'guest_checkout'        => 1,
+            'email_c_new_order_enable'  => 1,
+            'email_c_new_order_subject' => __("Thanks for shopping with us"),
+            'email_v_new_order_enable'  => 1,
+            'email_v_new_order_subject' => __("[site_title]: New order #[order_number]"),
+            'email_a_new_order_enable'  => 1,
+            'email_a_new_order_subject' => __("[site_title]: New order #[order_number]"),
         ];
         foreach ($settings as $setting=>$val){
             setting_update_item($setting,$val);

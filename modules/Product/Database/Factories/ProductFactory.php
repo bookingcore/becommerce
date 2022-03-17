@@ -68,6 +68,7 @@ class ProductFactory extends Factory
                        'author_ip'     =>  '127.0.0.1',
                        'status'        =>  'approved',
                        'create_user'   =>  1,
+                       'author_id'     =>  1,
                        'update_user'   =>  1,
                        'vendor_id'     =>  1
                    ],
@@ -79,6 +80,7 @@ class ProductFactory extends Factory
                        'author_ip'     =>  '127.0.0.1',
                        'status'        =>  'approved',
                        'create_user'   =>  1,
+                       'author_id'     =>  1,
                        'update_user'   =>  1,
                        'vendor_id'     =>  1
                    ]
