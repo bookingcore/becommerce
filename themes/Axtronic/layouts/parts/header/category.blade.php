@@ -55,14 +55,12 @@
                                 </ul>
                             </div>
                             <div class="col-sm-5 border-start">
-                                <ul class="nav list-items">
+                                <ul class="nav list-items list-product-items">
                                     <li class="list-item product-item">
                                         <div class="product-list-wrap">
                                             <div class="product-transition">
-                                                <div class="product-img-wrap none">
-                                                    <div class="inner">
-                                                        <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                                                     </div>
+                                                <div class="product-img-wrap ">
+                                                    <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
                                                 </div>
                                             </div>
                                             <div class="product-caption">
@@ -105,10 +103,8 @@
                                     <li class="list-item product-item">
                                         <div class="product-list-wrap">
                                             <div class="product-transition">
-                                                <div class="product-img-wrap none">
-                                                    <div class="inner">
-                                                        <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                                                    </div>
+                                                <div class="product-img-wrap ">
+                                                    <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
                                                 </div>
                                             </div>
                                             <div class="product-caption">
@@ -151,10 +147,8 @@
                                     <li class="list-item product-item">
                                         <div class="product-list-wrap">
                                             <div class="product-transition">
-                                                <div class="product-img-wrap none">
-                                                    <div class="inner">
-                                                        <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                                                    </div>
+                                                <div class="product-img-wrap ">
+                                                    <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
                                                 </div>
                                             </div>
                                             <div class="product-caption">
@@ -197,10 +191,8 @@
                                     <li class="list-item product-item">
                                         <div class="product-list-wrap">
                                             <div class="product-transition">
-                                                <div class="product-img-wrap none">
-                                                    <div class="inner">
-                                                        <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                                                    </div>
+                                                <div class="product-img-wrap ">
+                                                    <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
                                                 </div>
                                             </div>
                                             <div class="product-caption">

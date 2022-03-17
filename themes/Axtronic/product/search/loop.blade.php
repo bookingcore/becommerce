@@ -17,22 +17,16 @@ $score_total = $reviewData['score_total'];
     </div>
     <div class="bd-placeholder-img card-img-top position-relative">
         <div class="product-img-wrap">
-            <a href="{{$row->getDetailUrl()}}" class="d-block mih-200 bg-f1f1f1">
-                {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
+            <a href="{{$row->getDetailUrl()}}" class="d-block">
+                {{--{!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}--}}
+                <img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" >
             </a>
         </div>
-        <!-- <div class="service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}" data-bs-toggle="tooltip"  title="{{ __("Wishlist") }}">
-            <i class="fa fa-heart"></i>
-        </div>
-
-        <div class="bc-compare left-15 bottom-15 position-absolute c-white cursor-pointer c-main-hover" data-bs-toggle="tooltip" title="{{ __("Compare") }}" data-id="{{$row->id}}">
-            <i class="fa fa-bar-chart" aria-hidden="true"></i>
-        </div> -->
         <div class="shop-action">
-            <button class="btn-tooltips btn-addtocart tooltipstered" ></button>
-            <button class="btn-tooltips btn-wishlist tooltipstered" ></button>
-            <button class="btn-tooltips btn-quickview tooltipstered" ></button>
-            <button class="btn-tooltips btn-compare " ></button>
+            <button class="btn-tooltips btn-addtocart tooltipstered"><i class="axtronic-icon-shopping-cart"></i></button>
+            <button class="btn-tooltips btn-wishlist tooltipstered" ><i class="axtronic-icon-heart"></i></button>
+            <button class="btn-tooltips btn-quickview tooltipstered" ><i class="axtronic-icon-eye"></i></button>
+            <button class="btn-tooltips btn-compare" ><i class="axtronic-icon-sync"></i></button>
         </div>
     </div>
     <div class="card-body">
@@ -41,43 +35,23 @@ $score_total = $reviewData['score_total'];
         </h2>
         @if(!empty($reviewData['total_review']))
         <div class="card-rating mb-2 d-flex mt-1 align-items-center">
-            <!-- @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
-            <span>{{$reviewData['total_review']}}
-                @if($reviewData['total_review'] > 1)
-                    {{ __("Reviews") }}
-                @else
-                    {{ __("Review") }}
-                @endif
-            </span> -->
-            <div class="star-rating" title="70%">
+            <div class="star-rating" role="img" title="70%">
                 <div class="back-stars">
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    <i class="fa fa-star" aria-hidden="true"></i>
-                    
+                    <i class="axtronic-icon-star" aria-hidden="true"></i>
+                    <i class="axtronic-icon-star" aria-hidden="true"></i>
+                    <i class="axtronic-icon-star" aria-hidden="true"></i>
+                    <i class="axtronic-icon-star" aria-hidden="true"></i>
+                    <i class="axtronic-icon-star" aria-hidden="true"></i>
+
                     <div class="front-stars" style="width: 70%">
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
-                        <i class="fa fa-star" aria-hidden="true"></i>
+                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
+                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
                     </div>
                 </div>
             </div>
-            <script>
-                const numberInput = document.querySelector('input');
-                const starRatingWrapper = document.querySelector('.star-rating');
-                const frontStars =  document.querySelector('.front-stars');
-
-                const rate = e => {
-                    const percentage = e.target.value + '%';
-                    
-                    starRatingWrapper.title = percentage;
-                    frontStars.style.width = percentage;
-                };
-            </script>
         </div>
         @endif
         <div class="card-price fs-18 fw-600">

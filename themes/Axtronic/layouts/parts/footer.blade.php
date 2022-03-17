@@ -1,18 +1,19 @@
-<div class="bc-footer">
+<div class="axtronic-footer">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-sm-12">
                 @if($footer_info_text = setting_item_with_lang("footer_info_text"))
-                    <div class="address">
-                        <!-- <h5 class="font-21 mb-3">{{ __("Contact us") }}</h5> -->
+                    <aside class="address">
+                        <a class="text-decoration-none" href="{{url('/')}}">
+                            <img src="{{ theme_url('Axtronic/images/logo-white.svg') }}" alt="">
+                        </a>
                         <div class="content">
                             {!! clean($footer_info_text) !!}
                         </div>
                     </aside>
                 @endif
-                </div>
             </div>
-            <div class="col-xl-5 col-sm-12">
+            <div class="col-xl-6 col-sm-12">
                 <div class="widget-footer">
                     <div class="row">
                         @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
@@ -27,8 +28,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-4 col-sm-12">
-                <div class="bc-form-newsletter">
+            <div class="col-xl-3 col-sm-12">
+                <div class="axtronic-form-newsletter">
                     <div class="">
                         <div class="align-content-center align-items-center">
                             <div class="">
@@ -40,8 +41,8 @@
                                     @csrf
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
-                                        <button class="btn miw-120 btn-primary" type="submit">
-                                            
+                                        <button class="btn" type="submit">
+                                            <i class="axtronic-icon-arrow-right"></i>
                                         </button>
                                     </div>
                                     <div class="form-mess mt-1 fs-12"></div>
@@ -62,7 +63,7 @@
         <div class="">
             {!! setting_item_with_lang("copyright") !!}
         </div>
-    </footer>
+    </div>
 </div>
 
-@include('auth/login-register-modal')
+@include('auth/site-header-action')

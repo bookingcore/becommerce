@@ -147,14 +147,14 @@
                 line-height: 24px;
                 fill: var( --accent );
                 color: var( --accent );
-                background-color: var( --background );
+                background: var( --background );
                 text-transform: capitalize;
                 border-radius: 8px 8px 8px 8px;
                 padding: 12px 30px;
                 text-decoration: none;
             &:hover{
                 color: #fff;
-                background-color: var( --accent );
+                background: var( --accent );
                 }
             }
         }
