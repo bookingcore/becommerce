@@ -121,8 +121,11 @@ class CartController extends FrontendController
                         CartManager::update($item_id,$qty);
                     }
                 }
-
             }
+            if(CartManager::getCoupon()->count() >0){
+                CartManager::updateItemCoupon();
+            }
+
         }catch (\Exception $exception)
         {
             return back()->with('error',$exception->getMessage());
