@@ -173,16 +173,12 @@ class VariationController extends AdminController
         {
             return $this->sendError(__("Product not found"));
         }
-
         $product->product_type = 'variable';
-        $product->save();
-
         $variations = request()->input('variations');
         if(empty($variations) or !\is_array($variations))
         {
             return $this->sendError(__("Variations data is required"));
         }
-
         foreach($variations as $id=>$data)
         {
             if(empty($data)) continue;
@@ -197,7 +193,7 @@ class VariationController extends AdminController
 
             $this->saveTerms($variation,$data);
         }
-
+        $product->save();
         return $this->sendSuccess([],__('Variations data saved'));
     }
 

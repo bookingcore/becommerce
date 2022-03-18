@@ -5,6 +5,7 @@ namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
@@ -27,6 +28,7 @@ class CartManager
      */
     protected static $_items = [];
     public static $_shipping_amount = 0;
+    public static $_discount_total = 0;
     public static $_shipping_method = [];
     public static $_tax = [];
 
@@ -133,7 +135,8 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        session()->forget(static::$session_key);
+        Session::forget(static::$session_key);
+//        session()->forget(static::$session_key);
         return true;
     }
 
@@ -189,7 +192,7 @@ class CartManager
     }
 
     public static function discountTotal(){
-        return static::items()->sum('discount_amount');
+        return static::items()->sum('discount_amount') + static::$_discount_total;
     }
     public static function shippingTotal(){
         return static::items()->sum('shipping_amount') + static::$_shipping_amount;
@@ -262,17 +265,10 @@ class CartManager
                     }
                 }
             }else{
-                foreach ($items as $cart_item_id=> $item){
-                        if($action=='remove'){
-                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
-                        }else{
-                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
-                        }
-                        if($item->discount_amount < 0){
-                            $item->discount_amount = 0;
-                        }
-                        $items->put($cart_item_id,$item);
-                        static::save();
+                if($action=='remove'){
+                    static::$_discount_total = 0;
+                }else{
+                    static::$_discount_total = $coupon->calculatorPrice(static::subtotal());
                 }
             }
 		}
@@ -280,7 +276,8 @@ class CartManager
 	}
 
     public static function clearCoupon(){
-    	session()->forget(static::$session_coupon_key);
+//    	session()->forget(static::$session_coupon_key);
+        Session::forget(static::$session_coupon_key);
     }
 
 
@@ -313,7 +310,7 @@ class CartManager
             $order_item->save();
         }
         $order->syncTotal();
-        
+
         //Tax
         if(!empty( static::$_tax )){
             $tax_rate = 0;

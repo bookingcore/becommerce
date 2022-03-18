@@ -12,10 +12,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Validator;
-    use Modules\Coupon\Models\CouponOrder;
-    use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
-    use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Modules\Product\Models\UserAddress;
     use Themes\Base\Controllers\FrontendController;
@@ -60,21 +57,23 @@
             }
             $shipping_country = $request->input('billing_country');
             $rules = [
-                'billing_first_name'      => 'required|string|max:255',
-                'billing_last_name'       => 'required|string|max:255',
-                'billing_email'           => 'required|email|max:255',
-                'billing_phone'           => 'required|string|max:255',
-                'billing_country' => 'required',
-                'billing_address' => 'required',
+                'billing_first_name' => 'required|string|max:255',
+                'billing_last_name'  => 'required|string|max:255',
+                'billing_email'      => 'required|email|max:255',
+                'billing_phone'      => 'required|string|max:255',
+                'billing_city'       => 'required',
+                'billing_country'    => 'required',
+                'billing_address'    => 'required',
             ];
-            if(!$request->input('shipping_same_address')){
-                $rules = array_merge($rules,[
-                    'shipping_first_name'      => 'required|string|max:255',
-                    'shipping_last_name'       => 'required|string|max:255',
-                    'shipping_email'           => 'required|email|max:255',
-                    'shipping_phone'           => 'required|string|max:255',
-                    'shipping_country' => 'required',
-                    'shipping_address' => 'required',
+            if (!$request->input('shipping_same_address')) {
+                $rules = array_merge($rules, [
+                    'shipping_first_name' => 'required|string|max:255',
+                    'shipping_last_name'  => 'required|string|max:255',
+                    'shipping_email'      => 'required|email|max:255',
+                    'shipping_phone'      => 'required|string|max:255',
+                    'shipping_city'       => 'required',
+                    'shipping_country'    => 'required',
+                    'shipping_address'    => 'required',
                 ]);
                 $shipping_country = $request->input('shipping_country');
             }

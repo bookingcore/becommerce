@@ -164,7 +164,7 @@ class News extends BaseModel
         return setting_item("news_comment_approved", 0);
     }
 
-    public function update_service_rate()
+    public function updateServiceRate()
     {
         return true;
     }

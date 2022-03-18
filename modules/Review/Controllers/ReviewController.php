@@ -100,7 +100,7 @@ class ReviewController extends Controller
             if ($module->getReviewApproved()) {
                 $msg = __("Review success! Please wait for admin approved!");
             }
-            $module->update_service_rate();
+            $module->updateServiceRate();
             return redirect()->to(url()->previous() . '#bravo-reviews')->with('success', $msg);
         }
         return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review error!'));

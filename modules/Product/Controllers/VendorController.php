@@ -97,7 +97,6 @@ class VendorController extends FrontendController
             'image_id',
             'gallery',
             'price',
-            'sale_price',
             'is_featured',
             'brand_id',
             'product_type',
