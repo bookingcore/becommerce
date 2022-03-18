@@ -531,7 +531,7 @@ class Product extends BaseProduct
         $query->where("products.status", "publish");
 
         if (!empty($filters['min_price']) and !empty($filters['max_price'])) {
-            $raw_sql_min_max = "( products.price >= ? and products.price <= ? )";
+            $raw_sql_min_max = "( products.min_price >= ? and products.min_price <= ? )";
             $query->whereRaw($raw_sql_min_max,[$filters['min_price'],$filters['max_price']]);
         }
 
@@ -590,10 +590,10 @@ class Product extends BaseProduct
 
         switch ($order){
             case "price_asc":
-                $query->orderBy("products.price", "asc");
+                $query->orderBy("products.min_price", "asc");
                 break;
             case "price_desc":
-                $query->orderBy("products.price", "desc");
+                $query->orderBy("products.min_price", "desc");
                 break;
             case "rate":
                 $query->orderBy("review_score", $orderby);
