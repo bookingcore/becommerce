@@ -105,7 +105,7 @@ class AvailabilityController extends FrontendController{
             $date = [
                 'id'=>rand(0,999),
                 'active'=>0,
-                'price'=>(!empty($space->sale_price) and $space->sale_price > 0 and $space->sale_price < $space->price) ? $space->sale_price : $space->price,
+                'price'=>$space->price,
                 'is_instant'=>$space->is_instant,
                 'is_default'=>true,
                 'textColor'=>'#2791fe'

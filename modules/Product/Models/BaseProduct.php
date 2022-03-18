@@ -148,10 +148,6 @@ class BaseProduct extends BaseModel
     }
 
     public function getBuyablePrice($options = NULL){
-
-        if($this->sale_price and $this->sale_price < $this->price){
-            return $this->sale_price;
-        }
         return $this->price;
     }
 
