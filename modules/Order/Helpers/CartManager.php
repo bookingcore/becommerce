@@ -5,6 +5,7 @@ namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
@@ -133,7 +134,8 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        session()->forget(static::$session_key);
+        Session::forget(static::$session_key);
+//        session()->forget(static::$session_key);
         return true;
     }
 
@@ -281,6 +283,7 @@ class CartManager
 
     public static function clearCoupon(){
     	session()->forget(static::$session_coupon_key);
+        Session::forget(static::$session_coupon_key);
     }
 
 
@@ -313,7 +316,7 @@ class CartManager
             $order_item->save();
         }
         $order->syncTotal();
-        
+
         //Tax
         if(!empty( static::$_tax )){
             $tax_rate = 0;
