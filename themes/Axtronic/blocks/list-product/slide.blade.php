@@ -1,11 +1,19 @@
 @if(!empty($rows->count()))
-    <div class="axtronic-slider-best mb-5" style="background-image: url('{{ theme_url('Axtronic/images/bg-bestseller.jpg') }}')">
+    <div class="axtronic-slider-products mb-5">
         <div class="container">
             <div class="product-box-title">
-                <h2 class="heading-title"><span>Best</span> Selling</h2>
+                <h2 class="heading-title">{{ $title }}</h2>
+                <ul class="list-unstyled list-category-name">
+                    <li><a href="#" class="button">Soundbar</a></li>
+                    <li><a href="#" class="button">Bluetooth</a></li>
+                    <li><a href="#" class="button">Headphone</a></li>
+                    <li><a href="#" class="button">Earphone</a></li>
+                    <li><a href="#" class="button">Wireless</a></li>
+                    <li><a href="#" class="button">See all</a></li>
+                </ul>
             </div>
             <div class="axtronic-slider-content">
-                <div class="product-slider-bestselling product-slider swiper-container">
+                <div class="product-slider swiper-container">
                     <div class="swiper-wrapper">
                         @if(!empty($rows))
                             @foreach($rows as $row)

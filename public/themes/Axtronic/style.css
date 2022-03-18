@@ -2465,39 +2465,58 @@ button:focus, input[type=button]:focus, input[type=reset]:focus, input[type=subm
   border-color: #ffffff;
 }
 
-.page-template-content .bc-list-products .mb-4 {
-  border-style: solid;
-  border-width: 0 0 1px 0;
-  border-color: var(--e-global-color-border);
+.axtronic-slider-products .product-box-title {
+  border-bottom: 1px solid var(--border);
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   margin-top: 0;
   margin-bottom: 20px;
   padding: 0 0 10px 0;
+  display: flex;
+  justify-content: space-between;
 }
-.page-template-content .bc-list-products .mb-4 h3 {
+.axtronic-slider-products .product-box-title h2 {
   margin: 0;
 }
-.page-template-content .bc-list-products .bc-content .bc-carousel {
-  overflow: hidden;
-}
-.page-template-content .bc-list-products .bc-content .bc-carousel .owl-stage-outer .owl-stage {
+.axtronic-slider-products .product-box-title .list-category-name {
+  margin: 0;
   display: flex;
 }
-.page-template-content .bc-list-products .bc-content .bc-carousel .owl-nav {
-  display: none;
+.axtronic-slider-products .product-box-title .list-category-name li {
+  margin-right: 4px;
+  margin-bottom: 8px;
 }
-.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots {
-  text-align: center;
+.axtronic-slider-products .product-box-title .list-category-name li a {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5em;
+  fill: var(--text);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  background: var(--background2);
+  color: var(--text);
 }
-.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.owl-dot {
+.axtronic-slider-products .product-box-title .list-category-name li a:hover, .axtronic-slider-products .product-box-title .list-category-name li a:focus {
+  background-color: transparent;
+  background-image: linear-gradient(90deg, var(--primary) 0%, var(--primary_hover) 100%);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.product-slider .swiper-wrapper {
+  padding-bottom: 40px;
+}
+.product-slider .swiper-pagination {
+  bottom: 0;
+}
+.product-slider .swiper-pagination .swiper-pagination-bullet {
   width: 10px;
-  height: 12px;
+  height: 10px;
   border: 0;
-  background: #abadb1;
+  background: var(--accent);
   border-radius: 50%;
-  margin: 0 6px;
 }
-.page-template-content .bc-list-products .bc-content .bc-carousel .owl-dots button.active {
+.product-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  border: 0;
   background: var(--primary);
 }
 
@@ -2833,7 +2852,6 @@ button:focus, input[type=button]:focus, input[type=reset]:focus, input[type=subm
   margin: 30px 0 0;
 }
 .banner-slider .axtronic-modern-slider .button-wrap .elementor-button {
-  font-family: be vietnam pro, Sans-serif;
   font-size: 16px;
   font-weight: 600;
   text-transform: capitalize;
@@ -3837,6 +3855,9 @@ ul.list-product-items .product-item .product-caption .item-time {
 .bc-loop-product .product-labels .product-label.onsale {
   background: #ef4914;
 }
+.bc-loop-product .product-labels .product-label.featured {
+  background: var(--secondary);
+}
 .bc-loop-product .bd-placeholder-img {
   overflow: hidden;
   position: relative;
@@ -3919,6 +3940,52 @@ ul.list-product-items .product-item .product-caption .item-time {
   color: var(--light);
   font-size: 0.85em;
   font-weight: 500;
+}
+
+.axtronic-slider-best {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  margin-bottom: 70px;
+  padding: 80px 24px;
+  text-align: center;
+}
+.axtronic-slider-best .heading-title {
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 40px;
+}
+.axtronic-slider-best .heading-title span {
+  color: var(--primary);
+}
+.axtronic-slider-best .bc-loop-product {
+  overflow: hidden;
+  position: relative;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  transition: all 0.4s ease-in-out;
+  height: 100%;
+  padding: 12px;
+  background: var(--background);
+}
+.axtronic-slider-best .bc-loop-product .bd-placeholder-img {
+  border-radius: 0;
+  border: 0;
+}
+.axtronic-slider-best .bc-loop-product .card-rating {
+  display: flex;
+  justify-content: center;
+}
+.axtronic-slider-best .product-slider .swiper-pagination {
+  bottom: -10px;
+}
+.axtronic-slider-best .product-slider .swiper-pagination .swiper-pagination-bullet {
+  background: #ffffff;
+}
+.axtronic-slider-best .product-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: var(--primary);
 }
 
 /*# sourceMappingURL=style.css.map */

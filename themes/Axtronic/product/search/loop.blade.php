@@ -5,15 +5,16 @@ $score_total = $reviewData['score_total'];
 ?>
 <div class="bc-loop-product ">
     <div class="product-labels">
-        <span class="onsale product-label">
-             @if($row->stock_status == "in")
-                @if(!empty($row->discount_percent))
-                    <div class="">-{{$row->discount_percent}}</div>
-                @endif
+         @if($row->stock_status == "in")
+            @if(!empty($row->discount_percent))
+                <span class="onsale product-label">-{{$row->discount_percent}} </span>
             @else
-                <span class="out-stock">{{__('Out Of Stock')}}</span>
+                <span class="product-label featured">{{__('Hot')}}</span>
             @endif
-        </span>
+        @else
+            <span class="out-stock">{{__('Out Of Stock')}}</span>
+        @endif
+
     </div>
     <div class="bd-placeholder-img card-img-top position-relative">
         <div class="product-img-wrap">
@@ -34,7 +35,7 @@ $score_total = $reviewData['score_total'];
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
         @if(!empty($reviewData['total_review']))
-        <div class="card-rating mb-2 d-flex mt-1 align-items-center">
+        <div class="card-rating mb-2 mt-1 ">
             <div class="star-rating" role="img" title="70%">
                 <div class="back-stars">
                     <i class="axtronic-icon-star" aria-hidden="true"></i>

@@ -129,9 +129,12 @@ ul.list-product-items{
             line-height: 22px;
             min-width: 38px;
             border-radius: 10px;
-        }
-        .product-label.onsale {
-            background: #ef4914;
+            &.onsale {
+                background: #ef4914;
+            }
+            &.featured {
+                background: var(--secondary);
+            }
         }
     }
     .bd-placeholder-img {
@@ -214,6 +217,55 @@ ul.list-product-items{
                 color: var(--light);
                 font-size: .85em;
                 font-weight: 500;
+            }
+        }
+    }
+}
+
+
+.axtronic-slider-best{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin-bottom: 70px;
+    padding: 80px 24px;
+    text-align: center;
+    .heading-title{
+        color: #ffffff;
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.5em;
+        margin-bottom: 40px;
+        span{
+            color: var(--primary);
+        }
+    }
+    .bc-loop-product{
+        overflow: hidden;
+        position: relative;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        transition: all .4s ease-in-out;
+        height: 100%;
+        padding: 12px;
+        background: var(--background);
+        .bd-placeholder-img{
+            border-radius: 0;
+            border: 0;
+        }
+        .card-rating{
+            display: flex;
+            justify-content: center;
+        }
+    }
+    .product-slider{
+        .swiper-pagination{
+            bottom: -10px;
+            .swiper-pagination-bullet{
+                background: #ffffff;
+                &.swiper-pagination-bullet-active{
+                    background: var(--primary);
+                }
             }
         }
     }

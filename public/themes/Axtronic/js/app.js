@@ -851,6 +851,10 @@ jQuery(function ($) {
             return false;
         }
     })
+
+
+
+
     /// Home page Slider Swiper
     const swiperBannerSlider = new Swiper('.banner-slider', {
         // Optional parameters
@@ -863,6 +867,7 @@ jQuery(function ($) {
         // If we need pagination
         pagination: {
             el: '.swiper-pagination',
+            clickable: true,
         },
 
         // Navigation arrowsss
@@ -917,6 +922,7 @@ jQuery(function ($) {
         // If we need pagination
         pagination: {
             el: '.swiper-pagination',
+            clickable: true,
         },
     });
     const swiperSliderNews = new Swiper('.swiper-slider-news', {
@@ -940,6 +946,7 @@ jQuery(function ($) {
         pagination: {
             clickable: true,
             el: '.swiper-pagination',
+
         },
     });
     const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
@@ -964,13 +971,73 @@ jQuery(function ($) {
         },
     });
 
-    // Onchange Select
+    const swiperProductSlider = new Swiper('.product-slider', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 4
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+
+
+
+    // Onchange Select Header
     function getName(select) {
         // And here we get the name
         var selectedOption = select.options[select.selectedIndex];
         var name = selectedOption.getAttribute('data-name');
         document.getElementById("product-cat-name").innerHTML =  name;
     }
+
+
+
 
     // Show/Hide Canvas right
     $(document).on('click','.cart-contents',function (e) {

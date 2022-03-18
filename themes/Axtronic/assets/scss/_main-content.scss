@@ -1,43 +1,59 @@
-.page-template-content {
-	.bc-list-products {
-		.mb-4 {
-			border-style: solid;
-		    border-width: 0 0 1px 0;
-		    border-color: var(--e-global-color-border);
-		    transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
-		    margin-top: 0;
-		    margin-bottom: 20px;
-		    padding: 0 0 10px 0;
-		    h3 {
-		    	margin: 0;
-		    }
-		}
-		.bc-content {
-			.bc-carousel {
-				overflow: hidden;
-				.owl-stage-outer {
-					.owl-stage {
-						display: flex;
-					}
-				}
-				.owl-nav {
-					display: none;
-				}
-				.owl-dots {
-					text-align: center;
-					button.owl-dot {
-					    width: 10px;
-					    height: 12px;
-					    border: 0;
-					    background: #abadb1;
-					    border-radius: 50%;
-					    margin: 0 6px;
-					}
-					button.active {
-						background: var(--primary);
-					}
-				}
-			}
-		}
-	}
+.axtronic-slider-products {
+    .product-box-title {
+        border-bottom: 1px solid var(--border);
+        transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
+        margin-top: 0;
+        margin-bottom: 20px;
+        padding: 0 0 10px 0;
+        display: flex;
+        justify-content: space-between;
+        h2 {
+            margin: 0;
+        }
+        .list-category-name{
+            margin: 0;
+            display: flex;
+            li{
+                margin-right: 4px;
+                margin-bottom: 8px;
+                a{
+                    font-size: 14px;
+                    font-weight: 400;
+                    line-height: 1.5em;
+                    fill: var(--text);
+                    border: 1px solid var(--border);
+                    padding: 6px 12px;
+                    background: var(--background2);
+                    color: var(--text);
+                    &:hover, &:focus{
+                        background-color: transparent;
+                        background-image: linear-gradient(90deg,var(--primary) 0%,var(--primary_hover) 100%);
+                        border-color: var(--primary);
+                        color: #ffffff;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+.product-slider{
+    .swiper-wrapper{
+        padding-bottom: 40px;
+    }
+    .swiper-pagination{
+        bottom: 0;
+        .swiper-pagination-bullet{
+            width: 10px;
+            height: 10px;
+            border: 0;
+            background: var(--accent);
+            border-radius: 50%;
+            &.swiper-pagination-bullet-active{
+                border: 0;
+                background: var(--primary);
+            }
+        }
+    }
 }
