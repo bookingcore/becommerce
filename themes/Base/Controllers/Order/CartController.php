@@ -123,7 +123,7 @@ class CartController extends FrontendController
                 }
             }
             if(CartManager::getCoupon()->count() >0){
-                CartManager::updateItemCoupon();
+//                CartManager::updateItemCoupon();
             }
 
         }catch (\Exception $exception)
