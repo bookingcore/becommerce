@@ -78,7 +78,7 @@ class ReviewController extends AdminController
                         $model_serivce = $module_class::find($review->object_id);
                         if(!empty($model_serivce)){
                             Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
-                            $model_serivce->update_service_rate();
+                            $model_serivce->updateServiceRate();
                         }
                     }
                 }
@@ -93,7 +93,7 @@ class ReviewController extends AdminController
                     $model_serivce = $module_class::find($review->object_id);
                     if(!empty($model_serivce)){
                         Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
-                        $model_serivce->update_service_rate();
+                        $model_serivce->updateServiceRate();
                     }
                 }
             }

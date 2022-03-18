@@ -95,8 +95,8 @@ class ProductFactory extends Factory
                 ]
             ]);
 
-
-            $product->update_service_rate();
+            $product->updateMinPrice();
+            $product->updateServiceRate();
         });
     }
 }
