@@ -640,8 +640,8 @@ class Product extends BaseProduct
     public function save(array $options = [])
     {
         // Find min price
-        if($this instanceof Product){
-            if($this->product_type == "variable"){
+        if(!$this instanceof ProductTranslation){
+            if(get_class($this) == Product::class){
                 $min_price = 0;
                 if(!empty($this->variations)){
                     $min_price = $this->variations->min('price');

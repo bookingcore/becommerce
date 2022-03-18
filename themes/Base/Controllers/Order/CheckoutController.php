@@ -12,10 +12,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Validator;
-    use Modules\Coupon\Models\CouponOrder;
-    use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
-    use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Modules\Product\Models\UserAddress;
     use Themes\Base\Controllers\FrontendController;
