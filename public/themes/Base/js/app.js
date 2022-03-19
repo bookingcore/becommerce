@@ -811,6 +811,7 @@ jQuery(function ($) {
                 }
             }else{
                 $('.bc-product-variations .quantity').addClass("d-none");
+                $(".bc_form_add_to_cart input[name=quantity]").removeAttr('max');
             }
             if(variation_selected.image){
                 var old = $(".bc-product_thumbnail .item-0 img").attr("src");

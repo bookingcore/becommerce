@@ -90,16 +90,21 @@
                                     <td class="product-total">{{format_money($orderItem->subtotal)}}</td>
                                 </tr>
                             @endforeach
-
                             </tbody>
                             <tfoot>
-                            @if(!empty($row->shipping_amount))
+                            @if(!empty($row->shipping_amount) and $row->shipping_amount > 0)
                                 <tr class="shipping-amount">
                                     <td>{{__('Shipping Amount')}}</td>
                                     <td><span class="amount">{{format_money($row->shipping_amount )}}</span></td>
                                 </tr>
                             @endif
-                            @if(!empty($row->shipping_amount))
+                            @if(!empty($row->discount_amount) and $row->discount_amount > 0)
+                                <tr class="discount-amount">
+                                    <td>{{__('Discount Amount')}}</td>
+                                    <td><span class="amount">-{{format_money($row->discount_amount )}}</span></td>
+                                </tr>
+                            @endif
+                            @if(!empty($row->tax_amount) and $row->tax_amount > 0)
                                 <tr class="shipping-amount">
                                     <td>
                                         {{__('Tax')}} @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
