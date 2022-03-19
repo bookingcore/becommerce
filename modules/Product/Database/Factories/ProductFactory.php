@@ -6,6 +6,7 @@ use Modules\Core\Models\Term;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductVariation;
 use Modules\Review\Models\Review;
 
 class ProductFactory extends Factory
@@ -56,8 +57,9 @@ class ProductFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Product $product){
+            $terms = ['1','2','5','6',rand(3,4),rand(7,8)];
             $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(1,3))->pluck('id'));
-            $product->termSeeder()->attach(Term::inRandomOrder()->take(random_int(1,3))->pluck('id'));
+            $product->termSeeder()->attach($terms);
             $product->tagsSeeder()->attach(Tag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->review()->createMany(
                [
@@ -87,14 +89,34 @@ class ProductFactory extends Factory
                    ]
                ]
             );
-            $product->variations()->createMany([
-                [
-                    'price'         =>  ['30','50','70','80','100','150'][rand(0,5)],
-                    'stock_status'  =>  'in',
-                    'active'        =>  '1',
-                ]
-            ]);
-
+            if ($product->product_type == "variable") {
+                for ($i = 0; $i < 3; $i++) {
+                    $product->variations()->createMany([
+                        [
+                            'price'        => ['30', '50', '70', '80', '100', '150'][rand(0, 5)],
+                            'stock_status' => 'in',
+                            'active'       => '1',
+                            'sku'          => 'XS00'.$i,
+                        ]
+                    ]);
+                }
+                foreach ($product->variations as $item) {
+                    $item->variation_terms()->createMany([
+                        [
+                            'variation_id' => $item->id,
+                            'term_id'      => rand(1, 2),
+                            'product_id'   => $product->id,
+                        ]
+                    ]);
+                    $item->variation_terms()->createMany([
+                        [
+                            'variation_id' => $item->id,
+                            'term_id'      => rand(5, 6),
+                            'product_id'   => $product->id,
+                        ]
+                    ]);
+                }
+            }
             $product->updateMinPrice();
             $product->updateServiceRate();
         });

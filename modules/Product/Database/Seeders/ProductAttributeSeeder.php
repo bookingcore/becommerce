@@ -50,6 +50,12 @@ class ProductAttributeSeeder extends Seeder
                 'slug'      =>      'blue'
             ],
             [
+                'name'      =>      'Gray',
+                'content'   =>      '#808080',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'gray'
+            ],
+            [
                 'name'      =>      'S',
                 'content'   =>      'S',
                 'attr_id'   =>      $attr['size'],
