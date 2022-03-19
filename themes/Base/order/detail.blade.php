@@ -71,9 +71,6 @@
                             </thead>
                             <tbody>
                             @foreach($row->items as $orderItem)
-                                <?php
-                                    dump($orderItem);
-                                ;?>
                                 <?php $model = $orderItem->model; ?>
                                 <tr class="cart-item">
                                     <td class="product-name">{{$model ? $model->title : $orderItem->name }} x{{$orderItem->qty}}
