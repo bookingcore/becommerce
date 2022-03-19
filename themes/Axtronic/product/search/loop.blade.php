@@ -3,7 +3,7 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="bc-loop-product ">
+<div class="axtronic-loop-product product-item">
     <div class="product-labels">
          @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
@@ -14,11 +14,10 @@ $score_total = $reviewData['score_total'];
         @else
             <span class="out-stock">{{__('Out Of Stock')}}</span>
         @endif
-
     </div>
-    <div class="bd-placeholder-img card-img-top position-relative">
+    <div class="product-transition">
         <div class="product-img-wrap">
-            <a href="{{$row->getDetailUrl()}}" class="d-block">
+            <a href="{{$row->getDetailUrl()}}" >
                 {{--{!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}--}}
                 <img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" >
             </a>
@@ -30,8 +29,8 @@ $score_total = $reviewData['score_total'];
             <button class="btn-tooltips btn-compare" ><i class="axtronic-icon-sync"></i></button>
         </div>
     </div>
-    <div class="card-body">
-        <h2>
+    <div class="product-caption">
+        <h2 class="product__title">
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
         @if(!empty($reviewData['total_review']))
@@ -55,7 +54,7 @@ $score_total = $reviewData['score_total'];
             </div>
         </div>
         @endif
-        <div class="card-price fs-18 fw-600">
+        <div class="price">
             @include('product.details.price')
         </div>
     </div>
