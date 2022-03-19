@@ -122,9 +122,7 @@ class CartController extends FrontendController
                     }
                 }
             }
-            if(CartManager::getCoupon()->count() >0){
-//                CartManager::updateItemCoupon();
-            }
+            CartManager::calculatorDiscountCoupon();
 
         }catch (\Exception $exception)
         {

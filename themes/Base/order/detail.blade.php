@@ -107,6 +107,13 @@
                                     <td><span class="amount">{{format_money($row->tax_amount )}}</span></td>
                                 </tr>
                             @endif
+
+                            @if(!empty($row->discount_amount))
+                                <tr class="discount-amount">
+                                    <td>{{__('Discount Amount')}}</td>
+                                    <td><span class="amount">-{{format_money($row->discount_amount )}}</span></td>
+                                </tr>
+                            @endif
                             <tr class="order-total">
                                 <td>{{__('Total')}}</td>
                                 <td><span class="amount">{{format_money($row->total)}}</span></td>
