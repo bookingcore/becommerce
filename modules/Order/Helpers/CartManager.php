@@ -22,6 +22,7 @@ class CartManager
     protected static $session_key='bc_carts';
 
     protected static $session_coupon_key = 'bc_coupon_cart';
+    protected static $session_total_discount_key = 'bc_total_discount';
 
     /**
      * @var array | Collection
@@ -192,7 +193,7 @@ class CartManager
     }
 
     public static function discountTotal(){
-        return static::items()->sum('discount_amount') + static::$_discount_total;
+        return \session()->get(static::$session_total_discount_key);
     }
     public static function shippingTotal(){
         return static::items()->sum('shipping_amount') + static::$_shipping_amount;
@@ -207,7 +208,8 @@ class CartManager
         $subTotal = static::subtotal();
         $discount = static::discountTotal();
         $shipping = static::shippingTotal();
-        return $subTotal + $shipping - $discount;
+        $total = $subTotal + $shipping - $discount;
+        return $total>=0?$total:0;
     }
 
     public static function fragments(){
@@ -227,7 +229,7 @@ class CartManager
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->put($coupon->id,$coupon);
-		    static::updateItemCoupon($coupon);
+		    static::calculatorDiscountCoupon();
 		    session()->put(static::$session_coupon_key,$coupons);
 	    }
     }
@@ -235,43 +237,41 @@ class CartManager
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->pull($coupon->id);
-		    static::updateItemCoupon($coupon,'remove');
+		    static::calculatorDiscountCoupon();
 		    session()->put(static::$session_coupon_key,$coupons);
 	    }
     }
 
-	public static function updateItemCoupon(Coupon $coupon,$action='add'){
+	public static function calculatorDiscountCoupon()
+    {
 		$items = static::items();
-		if(!empty($items)){
-			if(!empty($coupon->services)){
-                $services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
-                foreach ($items as $cart_item_id=> $item){
-                    $check = \Arr::where($services,function ($value,$key) use ($item){
-                        if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-                            return $value;
+		$coupons  = static::getCoupon();
+		$totalDiscount = 0;
+		if(!empty($items) and $coupons->count()>0){
+		    foreach ($coupons as $coupon){
+                if(!empty($coupon->services)){
+                    $services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
+                    foreach ($items as $cart_item_id=> $item){
+                        $check = \Arr::where($services,function ($value,$key) use ($item){
+                            if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                                return $value;
+                            }
+                        });
+                        if(!empty($check)){
+                            $discount = $coupon->calculatorPrice($item->price);
+                            $totalDiscount += $discount;
                         }
-                    });
-                    if(!empty($check)){
-                        if($action=='remove'){
-                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
-                        }else{
-                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
-                        }
-                        if($item->discount_amount < 0){
-                            $item->discount_amount = 0;
-                        }
-                        $items->put($cart_item_id,$item);
-                        static::save();
                     }
-                }
-            }else{
-                if($action=='remove'){
-                    static::$_discount_total = 0;
                 }else{
-                    static::$_discount_total = $coupon->calculatorPrice(static::subtotal());
+                    $totalDiscount += $coupon->calculatorPrice(static::subtotal());
                 }
             }
+
 		}
+		if($totalDiscount<0){
+		    $totalDiscount = 0;
+        }
+		\session()->put(static::$session_total_discount_key,$totalDiscount);
 
 	}
 
