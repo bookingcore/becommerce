@@ -22,12 +22,11 @@ class CouponController extends FrontendController
         if(empty($coupon)){
             return $this->sendError( __("Invalid coupon code!"));
         }
-
         $res = $coupon->applyCoupon();
         if($res['status']==1){
             $res['reload'] = 1;
         }
-        return $this->sendSuccess($res);
+        return $this->sendSuccess($res, $res['message'] ?? "");
     }
 
     public function removeCoupon(Request $request){

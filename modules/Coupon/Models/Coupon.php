@@ -63,7 +63,6 @@ class Coupon extends BaseModel
                 ];
             }
         }
-
         if(!empty($min_total = $this->min_total) and $subTotal < $min_total){
             return [
                 'status'=>0,
@@ -76,25 +75,27 @@ class Coupon extends BaseModel
                 'message'=> __("This order has exceeded the maximum value of :amount to apply coupon code! ",['amount'=>format_money($max_total)])
             ];
         }
-//        if(!empty($this->services)){
-//            $check = false;
-//            $items = CartManager::items();
-//            $items = $items->pluck(['object_id','object_model'])->toArray();
-//            $services  = $this->services()->get(['object_id','object_model'])->toArray();
-//			foreach ($items as $item){
-//				$check = \Arr::where($services,function ($value,$key) use ($item){
-//					if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-//						return $value;
-//					}
-//				});
-//			}
-//            if(empty($check)){
-//                return [
-//                    'status'=>0,
-//                    'message'=> __("Coupon code is not applied to this product!")
-//                ];
-//            }
-//        }
+        if(!empty($this->services)){
+            $check = false;
+            $items = CartManager::items();
+            $items = $items->toArray();
+            $services  = $this->services()->get(['object_id','object_model'])->toArray();
+			foreach ($items as $item){
+                if($check == false){
+                    $check = \Arr::where($services,function ($value,$key) use ($item){
+                        if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                            return $value;
+                        }
+                    });
+                }
+			}
+            if(empty($check)){
+                return [
+                    'status'=>0,
+                    'message'=> __("Coupon code is not applied to this product!")
+                ];
+            }
+        }
         if(!empty($this->only_for_user)){
             if(empty($user_id = Auth::id())){
                 return [
