@@ -71,6 +71,9 @@
                             </thead>
                             <tbody>
                             @foreach($row->items as $orderItem)
+                                <?php
+                                    dump($orderItem);
+                                ;?>
                                 <?php $model = $orderItem->model; ?>
                                 <tr class="cart-item">
                                     <td class="product-name">{{$model ? $model->title : $orderItem->name }} x{{$orderItem->qty}}
@@ -105,6 +108,13 @@
                                         {{__('Tax')}} @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
                                     </td>
                                     <td><span class="amount">{{format_money($row->tax_amount )}}</span></td>
+                                </tr>
+                            @endif
+
+                            @if(!empty($row->discount_amount))
+                                <tr class="discount-amount">
+                                    <td>{{__('Discount Amount')}}</td>
+                                    <td><span class="amount">-{{format_money($row->discount_amount )}}</span></td>
                                 </tr>
                             @endif
                             <tr class="order-total">

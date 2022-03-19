@@ -247,10 +247,11 @@ class CartManager
 		$items = static::items();
 		$coupons  = static::getCoupon();
 		$totalDiscount = 0;
+        $resetDiscount =true ;
 		if(!empty($items) and $coupons->count()>0){
-		    foreach ($coupons as $coupon){
-                if(!empty($coupon->services)){
-                    $services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
+		    foreach ($coupons as $c=> $coupon){
+		        $services = $coupon->services()->get(['object_id','object_model'])->toArray();
+                if(!empty($services)){
                     foreach ($items as $cart_item_id=> $item){
                         $check = \Arr::where($services,function ($value,$key) use ($item){
                             if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
@@ -259,12 +260,21 @@ class CartManager
                         });
                         if(!empty($check)){
                             $discount = $coupon->calculatorPrice($item->price);
+
+                            if($resetDiscount){
+//                              reset discount_amount
+                                $item->discount_amount =0;
+                            }
+                            $item->discount_amount+=$discount;
+                            $items->put($cart_item_id,$item);
+                            static::save();
                             $totalDiscount += $discount;
                         }
                     }
                 }else{
                     $totalDiscount += $coupon->calculatorPrice(static::subtotal());
                 }
+                $resetDiscount = false;
             }
 
 		}
@@ -290,6 +300,7 @@ class CartManager
         $order->status = Order::DRAFT;
         $order->locale = app()->getLocale();
         $order->shipping_amount = static::$_shipping_amount;
+        $order->discount_amount = static::discountTotal();
         $order->save();
 
         $items = static::items();

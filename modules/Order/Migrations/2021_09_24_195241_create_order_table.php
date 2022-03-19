@@ -32,6 +32,7 @@ class CreateOrderTable extends Migration
 		    $table->decimal('total_before_tax',10,2)->nullable();
 		    $table->decimal('tax_amount',10,2)->nullable();
 		    $table->decimal('shipping_amount',10,2)->nullable();
+		    $table->decimal('discount_amount',10,2)->nullable();
 
             $table->decimal('commission_amount',10,2)->nullable()->default(0);
 
