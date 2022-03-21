@@ -6,6 +6,7 @@ use Modules\Core\Models\Term;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductVariation;
 use Modules\Review\Models\Review;
 
 class ProductFactory extends Factory
@@ -19,8 +20,8 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
-        $price = $this->faker->randomNumber(3);
-        $sale_price = $price - $this->faker->randomNumber(2);
+        $origin_price = ['30','50','70','80','100','150'][rand(0,5)];
+        $price = $origin_price - ['10','5','15','20','25'][rand(0,4)];
         return [
             'title'       => $this->faker->words(10,true),
             'content'     => '<h5>Embodying the Raw, Wayward Spirit of Rock \'N\' Roll</h5>
@@ -42,21 +43,23 @@ class ProductFactory extends Factory
             'short_desc'  => '<ul><li>Unrestrained and portable active stereo speaker</li><li>Free from the confines of wires and chords</li><li>20 hours of portable capabilities</li><li>Double-ended Coil Cord with 3.5mm Stereo Plugs Included</li><li>3/4″ Dome Tweeters: 2X and 4″ Woofer: 1X</li></ul>',
             'brand_id'    => '',
             'gallery'     => '',
-            'price'=>$sale_price,
-            'origin_price'  => $price,
+            'price'         =>$price,
+            'origin_price'  => $origin_price,
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> ['simple','variable'][rand(0,1)],
             'create_user' => '1',
-            'author_id'=>1
+            'author_id'   =>1,
+            'attributes_for_variation' => ['1','2']
         ];
     }
 
     public function configure()
     {
         return $this->afterCreating(function (Product $product){
+            $terms = ['1','2','5','6',rand(3,4),rand(7,8)];
             $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(1,3))->pluck('id'));
-            $product->termSeeder()->attach(Term::inRandomOrder()->take(random_int(1,3))->pluck('id'));
+            $product->termSeeder()->attach($terms);
             $product->tagsSeeder()->attach(Tag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->review()->createMany(
                [
@@ -68,6 +71,7 @@ class ProductFactory extends Factory
                        'author_ip'     =>  '127.0.0.1',
                        'status'        =>  'approved',
                        'create_user'   =>  1,
+                       'author_id'     =>  1,
                        'update_user'   =>  1,
                        'vendor_id'     =>  1
                    ],
@@ -79,19 +83,42 @@ class ProductFactory extends Factory
                        'author_ip'     =>  '127.0.0.1',
                        'status'        =>  'approved',
                        'create_user'   =>  1,
+                       'author_id'     =>  1,
                        'update_user'   =>  1,
                        'vendor_id'     =>  1
                    ]
                ]
             );
-            $product->variations()->createMany([
-                [
-                    'price'         =>  rand(100,300),
-                    'stock_status'  =>  'in',
-                    'active'        =>  '1',
-                ]
-            ]);
-            $product->update_service_rate();
+            if ($product->product_type == "variable") {
+                for ($i = 0; $i < 3; $i++) {
+                    $product->variations()->createMany([
+                        [
+                            'price'        => ['30', '50', '70', '80', '100', '150'][rand(0, 5)],
+                            'stock_status' => 'in',
+                            'active'       => '1',
+                            'sku'          => 'XS00'.$i,
+                        ]
+                    ]);
+                }
+                foreach ($product->variations as $item) {
+                    $item->variation_terms()->createMany([
+                        [
+                            'variation_id' => $item->id,
+                            'term_id'      => rand(1, 2),
+                            'product_id'   => $product->id,
+                        ]
+                    ]);
+                    $item->variation_terms()->createMany([
+                        [
+                            'variation_id' => $item->id,
+                            'term_id'      => rand(5, 6),
+                            'product_id'   => $product->id,
+                        ]
+                    ]);
+                }
+            }
+            $product->updateMinPrice();
+            $product->updateServiceRate();
         });
     }
 }

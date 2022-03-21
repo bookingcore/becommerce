@@ -13,69 +13,21 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="" >{{__("Calculate tax based on")}}</label>
+                        <div class="form-controls">
+                            <select class="form-control" name="tax_based_on">
+                                <option value="shipping" @if(@setting_item('tax_based_on') == 'shipping') selected @endif >{{ __("Customer shipping address") }}</option>
+                                <option value="billing" @if(@setting_item('tax_based_on') == 'billing') selected @endif >{{ __("Customer billing address") }}</option>
+                               {{-- <option value="shop_base" @if(@setting_item('tax_based_on') == 'shop_base') selected @endif >{{ __("Shop base address") }}</option>--}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="" >{{__("Prices entered with tax")}}</label>
                         <div class="form-controls">
-                            <select class="form-control" name="tax_prices_include_tax">
-                                <option value="yes" @if(@setting_item('tax_prices_include_tax') == 'yes') selected @endif >{{ __("Yes, I will enter prices inclusive of tax") }}</option>
-                                <option value="no" @if(@setting_item('tax_prices_include_tax') == 'no') selected @endif >{{ __("No, I will enter prices exclusive of tax") }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" >{{__("Shipping tax class")}}</label>
-                        <div class="form-controls">
-                            <select class="form-control" name="tax_shipping_tax_class">
-                                <option value="inherit" @if(@setting_item('tax_shipping_tax_class') == 'inherit') selected @endif >{{ __("Shipping tax class based on cart items") }}</option>
-                                <option value="standard" @if(@setting_item('tax_shipping_tax_class') == 'standard') selected @endif >{{ __("Standard") }}</option>
-                                <option value="reduced_rate" @if(@setting_item('tax_shipping_tax_class') == 'reduced_rate') selected @endif >{{ __("Reduced rate") }}</option>
-                                <option value="zero_rate" @if(@setting_item('tax_shipping_tax_class') == 'zero_rate') selected @endif >{{ __("Zero rate") }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" >{{__("Rounding")}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="tax_round_at_subtotal" value="1" @if(!empty(setting_item('tax_round_at_subtotal'))) checked @endif /> {{__("Round tax at subtotal level, instead of rounding per line")}} </label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" >{{__("Additional tax classes")}}</label>
-                        <div class="form-controls">
-                            <textarea class="form-control" name="tax_classes">{!! @setting_item('tax_classes') !!}</textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" >{{__("Display prices in the shop")}}</label>
-                        <div class="form-controls">
-                            <select class="form-control" name="tax_display_shop">
-                                <option value="include" @if(@setting_item('tax_display_shop') == 'include') selected @endif >{{ __("Including tax") }}</option>
-                                <option value="exclude" @if(@setting_item('tax_display_shop') == 'exclude') selected @endif >{{ __("Excluding tax") }}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="" >{{__("Display prices during cart and checkout")}}</label>
-                        <div class="form-controls">
-                            <select class="form-control" name="tax_display_cart">
-                                <option value="include" @if(@setting_item('tax_display_cart') == 'include') selected @endif >{{ __("Including tax") }}</option>
-                                <option value="exclude" @if(@setting_item('tax_display_cart') == 'exclude') selected @endif >{{ __("Excluding tax") }}</option>
-                            </select>
-                        </div>
-                    </div>
-                @endif
-                <div class="form-group">
-                    <label class="" >{{__("Price display suffix")}}</label>
-                    <div class="form-controls">
-                        <input type="text" name="tax_price_display_suffix" class="form-control" value="{{ @setting_item_with_lang('tax_price_display_suffix', request()->query('lang'), '') }}" placeholder="{{ __("N/A") }}">
-                    </div>
-                </div>
-                @if(is_default_lang())
-                    <div class="form-group">
-                        <label class="" >{{__("Display tax totals")}}</label>
-                        <div class="form-controls">
-                            <select class="form-control" name="tax_total_display">
-                                <option value="single" @if(@setting_item('tax_total_display') == 'single') selected @endif >{{ __("As a single total") }}</option>
-                                <option value="itemized" @if(@setting_item('tax_total_display') == 'itemized') selected @endif >{{ __("Itemized") }}</option>
+                            <select class="form-control" name="prices_include_tax">
+                                <option value="yes" @if(@setting_item('prices_include_tax') == 'yes') selected @endif >{{ __("Yes, I will enter prices inclusive of tax") }}</option>
+                                <option value="no" @if(@setting_item('prices_include_tax') == 'no') selected @endif >{{ __("No, I will enter prices exclusive of tax") }}</option>
                             </select>
                         </div>
                     </div>
@@ -107,9 +59,6 @@
                             <th>{{ __("Rate %") }}</th>
                             <th>{{ __("Tax name") }}</th>
                             <th>{{ __("Priority") }}</th>
-                            <th>{{ __("Compound") }}</th>
-                            <th>{{ __("Shipping") }}</th>
-                            <th>{{ __("Class") }}</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -121,16 +70,13 @@
                                 @foreach($taxRates as $key => $taxRate)
                                     @php $transition = $taxRate->translate(request()->query('lang')) @endphp
                                     <tr>
-                                        <td>{{ $taxRate->country_code }}</td>
+                                        <td>{{ $taxRate->country }}</td>
                                         <td>{{ $taxRate->state }}</td>
-                                        <td>{{ $taxRate->locationPostcode->location_code ?? '' }}</td>
-                                        <td>{{ $taxRate->locationCity->location_code ?? '' }}</td>
+                                        <td>{{ $taxRate->postcode ?? '' }}</td>
+                                        <td>{{ $taxRate->city ?? '' }}</td>
                                         <td>{{ $taxRate->tax_rate }}</td>
                                         <td>{{ $transition->name }}</td>
                                         <td>{{ $taxRate->priority }}</td>
-                                        <td><input type="checkbox" @if(!empty($taxRate->compound)) checked @endif disabled class="disabled" /></td>
-                                        <td><input type="checkbox" @if(!empty($taxRate->shipping)) checked @endif disabled class="disabled" /></td>
-                                        <td>{{ $taxRate->class_name }}</td>
                                         <td>
                                             <div class="dropdown">
                                                 <button class="btn btn-default dropdown-toggle btn-sm" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">

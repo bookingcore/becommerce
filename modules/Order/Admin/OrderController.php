@@ -7,6 +7,7 @@ namespace Modules\Order\Admin;
 use Illuminate\Http\Request;
 use Modules\AdminController;
 use Modules\Order\Models\Order;
+use Modules\Order\Rules\ValidOrderItems;
 
 class OrderController extends AdminController
 {
@@ -75,7 +76,37 @@ class OrderController extends AdminController
     public function store(Request $request,Order $order = null){
 
         $request->validate([
-
+            'status'=>'required',
+            'items.*.product_id'=>'required',
+            'items.*.qty'=>'required|integer|gte:1',
+            'items'=>['required',new ValidOrderItems()]
         ]);
+
+        if(!$order){
+            $order = new Order();
+        }
+
+        $data = [
+            'customer_id'=>$request->input('customer_id'),
+            'status'=>$request->input('status'),
+            'order_date'=>$request->input('order_date'),
+            'shipping_amount'=>$request->input('shipping_amount'),
+        ];
+
+        $order->fillByAttr(array_keys($data),$data);
+        $order->save();
+
+        $metas = [
+            'billing'=>$request->input('billing'),
+            'shipping'=>$request->input('shipping'),
+            'shipping_method'=>$request->input('shipping_method'),
+        ];
+        foreach ($metas as $k=>$meta){
+            $order->addMeta($k,$meta);
+        }
+
+        $order->saveItems($request->input('items'));
+
+        return $this->sendSuccess(__("Order saved"));
     }
 }

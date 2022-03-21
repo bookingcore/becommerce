@@ -14,7 +14,6 @@ $score_total = $reviewData['score_total'];
                     <div class="average-rating ">
                         <h6>{{ __('Average Rating') }}</h6>
                         <h3>{{$review_score['score_total']}}</h3>
-
                         <div class="card-rating mb-2 d-flex mt-1 align-items-center">
                             @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
                             <div class="ms-2">
@@ -22,7 +21,6 @@ $score_total = $reviewData['score_total'];
                                 <span>{{ $review_score['total_review'] > 1 ? __('Reviews') : __('Review') }}</span>
                             </div>
                         </div>
-
                         <div class="review-sumary">
                             @if($review_score['rate_score'])
                                 @php $star = 5 @endphp
@@ -129,5 +127,3 @@ $score_total = $reviewData['score_total'];
         </div>
     </div>
 </div>
-
-

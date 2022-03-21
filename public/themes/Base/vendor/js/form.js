@@ -253,7 +253,7 @@
         var action = $this.closest('form').find('[name=action]').val();
         var apply_action = function () {
             let ids = '';
-            $(".bravo-form-item .check-item").each(function () {
+            $(".bc-form-item .check-item").each(function () {
                 if($(this).is(":checked")){
                     ids += '<input type="hidden" name="ids[]" value="'+$(this).val()+'">';
                 }

@@ -26,6 +26,10 @@ class Controller extends BaseController
 
     public function sendSuccess($data = [],$message = '')
     {
+        if(is_string($data)){
+            $message = $data;
+            $data = [];
+        }
         if(!isset($data['status'])) $data['status'] = 1;
 
         $data['message'] = $message;

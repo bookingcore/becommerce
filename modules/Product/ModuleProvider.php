@@ -16,6 +16,8 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function boot(SitemapHelper $sitemapHelper){
 
+        $this->mergeConfigFrom(__DIR__.'/Configs/product.php','product');
+
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
 
         $sitemapHelper->add("product",[Product::class,"getForSitemap"]);
@@ -254,14 +256,8 @@ class ModuleProvider extends ModuleServiceProvider
             'view'=>"Product::admin.settings.tax",
             'keys' => [
                 'tax_enable_calc',
-                'tax_prices_include_tax',
-                'tax_shipping_tax_class',
-                'tax_round_at_subtotal',
-                'tax_classes',
-                'tax_display_shop',
-                'tax_display_cart',
-                'tax_price_display_suffix',
-                'tax_total_display'
+                'prices_include_tax',
+                'tax_based_on',
             ],
             'html_keys' => [
 

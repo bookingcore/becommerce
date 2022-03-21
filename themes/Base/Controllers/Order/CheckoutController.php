@@ -12,10 +12,7 @@
     use Illuminate\Support\Facades\Auth;
     use Illuminate\Support\Facades\Log;
     use Illuminate\Support\Facades\Validator;
-    use Modules\Coupon\Models\CouponOrder;
-    use Modules\Order\Events\OrderUpdated;
     use Modules\Order\Helpers\CartManager;
-    use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Modules\Product\Models\UserAddress;
     use Themes\Base\Controllers\FrontendController;
@@ -58,24 +55,27 @@
                     return $this->sendError(__("Please verify the captcha"));
                 }
             }
-
+            $shipping_country = $request->input('billing_country');
             $rules = [
-                'billing_first_name'      => 'required|string|max:255',
-                'billing_last_name'       => 'required|string|max:255',
-                'billing_email'           => 'required|email|max:255',
-                'billing_phone'           => 'required|string|max:255',
-                'billing_country' => 'required',
-                'billing_address' => 'required',
+                'billing_first_name' => 'required|string|max:255',
+                'billing_last_name'  => 'required|string|max:255',
+                'billing_email'      => 'required|email|max:255',
+                'billing_phone'      => 'required|string|max:255',
+                'billing_city'       => 'required',
+                'billing_country'    => 'required',
+                'billing_address'    => 'required',
             ];
-            if(!$request->input('shipping_same_address')){
-                $rules = array_merge($rules,[
-                    'shipping_first_name'      => 'required|string|max:255',
-                    'shipping_last_name'       => 'required|string|max:255',
-                    'shipping_email'           => 'required|email|max:255',
-                    'shipping_phone'           => 'required|string|max:255',
-                    'shipping_country' => 'required',
-                    'shipping_address' => 'required',
+            if (!$request->input('shipping_same_address')) {
+                $rules = array_merge($rules, [
+                    'shipping_first_name' => 'required|string|max:255',
+                    'shipping_last_name'  => 'required|string|max:255',
+                    'shipping_email'      => 'required|email|max:255',
+                    'shipping_phone'      => 'required|string|max:255',
+                    'shipping_city'       => 'required',
+                    'shipping_country'    => 'required',
+                    'shipping_address'    => 'required',
                 ]);
+                $shipping_country = $request->input('shipping_country');
             }
             $rules['payment_gateway'] = 'required';
             $rules['term_conditions'] = 'required';
@@ -94,6 +94,14 @@
             }catch (\Exception $exception){
                 return $this->sendError($exception->getMessage());
             }
+
+            // CartManager add shipping
+            if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
+                if($res['status'] == 0){
+                    return $this->sendError($res['message']);
+                }
+            }
+            CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
 
             // Create order and on-hold order
             $order = CartManager::order();
@@ -171,12 +179,12 @@
             // save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
+            $order->addMeta('shipping_method',CartManager::$_shipping_method);
             try {
                 $res = $gatewayObj->process($payment);
 
                 CartManager::clear();
                 CartManager::clearCoupon();
-
                 if ($res !== true) {
                     return response()->json($res);
                 }
@@ -200,7 +208,7 @@
         }
 
         protected function tryCreateUser($billing_data){
-            $user = User::query()->where('email',$billing_data['email']);
+            $user = User::query()->where('email',$billing_data['email'])->first();
             if($user){
                 return $user;
             }
@@ -217,7 +225,6 @@
                 $user->email_verified_at = Carbon::now();
             }
             $user->save();
-
             return $user;
         }
     }

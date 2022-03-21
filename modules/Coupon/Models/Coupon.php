@@ -13,7 +13,6 @@ class Coupon extends BaseModel
 {
     protected $table = 'core_coupons';
     protected $casts = [
-        'services'      => 'array',
         'for_users'      => 'array',
     ];
 
@@ -64,7 +63,6 @@ class Coupon extends BaseModel
                 ];
             }
         }
-
         if(!empty($min_total = $this->min_total) and $subTotal < $min_total){
             return [
                 'status'=>0,
@@ -80,14 +78,16 @@ class Coupon extends BaseModel
         if(!empty($this->services)){
             $check = false;
             $items = CartManager::items();
-            $items = $items->pluck(['object_id','object_model'])->toArray();
-	        $services  = $this->services->pluck(['object_id','object_model'])->toArray();
+            $items = $items->toArray();
+            $services  = $this->services()->get(['object_id','object_model'])->toArray();
 			foreach ($items as $item){
-				$check = \Arr::where($services,function ($value,$key) use ($item){
-					if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-						return $value;
-					}
-				});
+                if($check == false){
+                    $check = \Arr::where($services,function ($value,$key) use ($item){
+                        if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                            return $value;
+                        }
+                    });
+                }
 			}
             if(empty($check)){
                 return [

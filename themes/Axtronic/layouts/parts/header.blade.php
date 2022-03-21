@@ -1,4 +1,7 @@
-@php $languages = \Modules\Language\Models\Language::getActive(); @endphp
+@php $languages = \Modules\Language\Models\Language::getActive();
+$categories = \Modules\Product\Models\ProductCategory::getAll();
+if(!isset($current_cat)) $current_cat = null;
+@endphp
 <header id="masthead" class="header">
     @include('layouts.parts.header.topbar')
     <div class="container">
@@ -6,12 +9,8 @@
             <div class="site-branding">
                 <div class="header__content-left">
                     <a class="bc-logo text-decoration-none" href="{{url('/')}}">
-                        @if($logo_id = setting_item("logo_id"))
-                            <?php $logo = get_file_url($logo_id,'full') ?>
-                            <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
-                        @else
-                            <span class="logo-text fs-33 fw-700 c-000000">{{__('Be')}}<span class="hl fw-700">{{__("Commerce")}}</span></span>
-                        @endif
+
+                        <img src="{{ theme_url('Axtronic/images/logo-white.svg') }}" alt="">
                     </a>
                 </div>
             </div>
@@ -24,30 +23,61 @@
                 <ul class="topbar-items nav">
                     @if(!Auth::id())
                         <li class="login-item">
-                            <a href="#login" data-bs-toggle="modal" data-target="#login" class="login nav-link text-white">
+                            <a href="#"  class="login user-contents">
                                 <span class="account-user group-icon-action">
-                                    <i aria-hidden="true" class="axtronic-icon- axtronic-icon-user"></i>               
+                                    <i aria-hidden="true" class="axtronic-icon-user"></i>
                                 </span>
                                 <span class="account-content group-icon-content">
-                                    <span class="sub-text">{{__('Login')}}</span>
+                                    <span class="sub-text">{{__('Sign in')}}</span>
+                                    <span class="sub-title">{{__('Account')}}</span>
                                 </span>                   
                             </a>
                         </li>
-                        <li class="signup-item">
-                            <a href="#register" data-bs-toggle="modal" data-target="#register" class="signup  nav-link  text-white">
-                                <span class="account-user group-icon-action">
-                                    <i aria-hidden="true" class="axtronic-icon- axtronic-icon-user"></i>               
+                        <li class="wishlist-item">
+                            <div class="site-header-wishlist">
+                                <a class="wishlist-contents" href="#">
+                                    <span class="group-icon-action">
+                                        <i class="axtronic-icon-heart"></i>
+                                        <span class="count">0</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="cart-item">
+                            <div class="site-header-cart">
+                                <a class="cart-contents" href="#">
+                                    <span class="group-icon-action">
+                                        <i class="axtronic-icon-shopping-cart"></i>
+                                        <span class="count">0 </span>
+                                    </span>
+
+                                    <span class="account-content group-icon-content">
+                                    <span class="sub-text">{{__('Total')}}</span>
+                                    <span class="sub-title">{{__('$0.00')}}</span>
                                 </span>
-                                <span class="account-content group-icon-content">
-                                    <span class="sub-text">{{__('Sign Up')}}</span>
-                                </span>   
-                            </a>
+                                </a>
+                            </div>
                         </li>
                     @else
                         @include('layouts.parts.header.notification')
                         @include('layouts.parts.header.user')
                     @endif
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div class="header__content-bottom">
+        <div class="container">
+            <div class="row align-items-center justify-content-end" >
+                <div class="col-sm-3">
+                    @include('layouts.parts.header.category')
+                </div>
+                <div class="col-sm-2">
+                    <p> Find all you need here!</p>
+                </div>
+                <div class="col-sm-7">
+                    @include('layouts.parts.header.search')
+                </div>
             </div>
         </div>
     </div>

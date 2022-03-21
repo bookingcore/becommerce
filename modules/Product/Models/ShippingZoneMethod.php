@@ -14,24 +14,23 @@ class ShippingZoneMethod extends BaseModel
         'cost',
         'is_enabled'
     ];
-
+    public function methods(){
+        return config('product.shipping_methods');
+    }
     public function getMethodNameAttribute(){
-        $methods = [
-            'flat_rate' => __("Flat rate"),
-            'free_shipping' => __("Free shipping"),
-            'local_pickup' => __("Local pickup")
-        ];
+        $methods = $this->methods();
 
-        return $methods[$this->method_id] ?? __("Flat rate");
+        return $methods[$this->method_id]['name'] ?? __("Flat rate");
     }
 
     public function getMethodDescAttribute(){
-        $methods = [
-            'flat_rate' => __("Lets you charge a fixed rate for shipping."),
-            'free_shipping' => __("Free shipping is a special method which can be triggered with coupons and minimum spends."),
-            'local_pickup' => __("Allow customers to pick up orders themselves. By default, when using local pickup store base taxes will apply regardless of customer address.")
-        ];
 
-        return $methods[$this->method_id] ?? __("Flat rate");
+        $methods = $this->methods();
+
+        return $methods[$this->method_id]['desc'] ?? __("Flat rate");
+    }
+
+    public static function countMethodAvailable(){
+        return ShippingZoneMethod::where('is_enabled',1)->count();
     }
 }

@@ -60,7 +60,7 @@ class CustomerController extends UserController
     {
         $row = User::find($id);
         if (empty($row)) {
-            return redirect('admin/module/user');
+            return redirect(route('customer.admin.index'));
         }
         if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);

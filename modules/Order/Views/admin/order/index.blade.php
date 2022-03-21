@@ -56,7 +56,7 @@
     <div class="panel booking-history-manager">
         <div class="panel-title">{{__('Orders')}}</div>
         <div class="panel-body">
-            <form action="" class="bravo-form-item">
+            <form action="" class="bc-form-item">
                 <table class="table table-hover bravo-list-item">
                     <thead>
                     <tr>
@@ -127,7 +127,7 @@
                                     {{__('Actions')}}
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#modal-order" data-id="{{$row->id}}" data-ajax="{{route('order.modal',['id'=>$row->id])}}" type="button"><i class="fa fa-eye"></i> {{ __('Detail') }}</a>
+                                    <a class="dropdown-item" data-toggle="modal" data-target="#modal-order" data-id="{{$row->id}}" data-ajax="{{route('order.modal',['code'=>$row->code])}}" type="button"><i class="fa fa-eye"></i> {{ __('Detail') }}</a>
                                     @has_permission('order_update')
                                         <a class="dropdown-item" href="{{route('order.admin.edit',['order'=>$row])}}"><i class="fa fa-edit"></i> {{__("Edit")}}</a>
                                     @end_has_permission

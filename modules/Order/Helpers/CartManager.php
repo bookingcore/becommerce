@@ -5,6 +5,7 @@ namespace Modules\Order\Helpers;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Models\CartItem;
@@ -14,18 +15,23 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ShippingZone;
 use Modules\Product\Models\ShippingZoneLocation;
 use Modules\Product\Models\ShippingZoneMethod;
+use Modules\Product\Models\TaxRate;
 
 class CartManager
 {
     protected static $session_key='bc_carts';
 
     protected static $session_coupon_key = 'bc_coupon_cart';
-    protected static $session_shipping_key = 'bc_shipping_cart';
+    protected static $session_total_discount_key = 'bc_total_discount';
 
     /**
      * @var array | Collection
      */
     protected static $_items = [];
+    public static $_shipping_amount = 0;
+    public static $_discount_total = 0;
+    public static $_shipping_method = [];
+    public static $_tax = [];
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
@@ -130,7 +136,8 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        session()->remove(static::$session_key);
+        Session::forget(static::$session_key);
+//        session()->forget(static::$session_key);
         return true;
     }
 
@@ -186,10 +193,10 @@ class CartManager
     }
 
     public static function discountTotal(){
-        return static::items()->sum('discount_amount');
+        return \session()->get(static::$session_total_discount_key);
     }
     public static function shippingTotal(){
-        return static::items()->sum('shipping_amount');
+        return static::items()->sum('shipping_amount') + static::$_shipping_amount;
     }
 
     /**
@@ -201,7 +208,8 @@ class CartManager
         $subTotal = static::subtotal();
         $discount = static::discountTotal();
         $shipping = static::shippingTotal();
-        return $subTotal + $shipping - $discount;
+        $total = $subTotal + $shipping - $discount;
+        return $total>=0?$total:0;
     }
 
     public static function fragments(){
@@ -221,7 +229,7 @@ class CartManager
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->put($coupon->id,$coupon);
-		    static::updateItemCoupon($coupon);
+		    static::calculatorDiscountCoupon();
 		    session()->put(static::$session_coupon_key,$coupons);
 	    }
     }
@@ -229,55 +237,57 @@ class CartManager
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->pull($coupon->id);
-		    static::updateItemCoupon($coupon,'remove');
+		    static::calculatorDiscountCoupon();
 		    session()->put(static::$session_coupon_key,$coupons);
 	    }
     }
 
-	public static function updateItemCoupon(Coupon $coupon,$action='add'){
+	public static function calculatorDiscountCoupon()
+    {
 		$items = static::items();
-		if(!empty($items)){
-			if(!empty($coupon->services)){
-                $services  = $coupon->services->pluck(['object_id','object_model'])->toArray();
-                foreach ($items as $cart_item_id=> $item){
-                    $check = \Arr::where($services,function ($value,$key) use ($item){
-                        if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-                            return $value;
+		$coupons  = static::getCoupon();
+		$totalDiscount = 0;
+        $resetDiscount =true ;
+		if(!empty($items) and $coupons->count()>0){
+		    foreach ($coupons as $c=> $coupon){
+		        $services = $coupon->services()->get(['object_id','object_model'])->toArray();
+                if(!empty($services)){
+                    foreach ($items as $cart_item_id=> $item){
+                        $check = \Arr::where($services,function ($value,$key) use ($item){
+                            if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                                return $value;
+                            }
+                        });
+                        if(!empty($check)){
+                            $discount = $coupon->calculatorPrice($item->price);
+
+                            if($resetDiscount){
+//                              reset discount_amount
+                                $item->discount_amount =0;
+                            }
+                            $item->discount_amount+=$discount;
+                            $items->put($cart_item_id,$item);
+                            static::save();
+                            $totalDiscount += $discount;
                         }
-                    });
-                    if(!empty($check)){
-                        if($action=='remove'){
-                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
-                        }else{
-                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
-                        }
-                        if($item->discount_amount < 0){
-                            $item->discount_amount = 0;
-                        }
-                        $items->put($cart_item_id,$item);
-                        static::save();
                     }
+                }else{
+                    $totalDiscount += $coupon->calculatorPrice(static::subtotal());
                 }
-            }else{
-                foreach ($items as $cart_item_id=> $item){
-                        if($action=='remove'){
-                            $item->discount_amount = $item->discount_amount - $coupon->calculatorPrice($item->price);
-                        }else{
-                            $item->discount_amount = $item->discount_amount + $coupon->calculatorPrice($item->price);
-                        }
-                        if($item->discount_amount < 0){
-                            $item->discount_amount = 0;
-                        }
-                        $items->put($cart_item_id,$item);
-                        static::save();
-                }
+                $resetDiscount = false;
             }
+
 		}
+		if($totalDiscount<0){
+		    $totalDiscount = 0;
+        }
+		\session()->put(static::$session_total_discount_key,$totalDiscount);
 
 	}
 
     public static function clearCoupon(){
-    	session()->forget(static::$session_coupon_key);
+//    	session()->forget(static::$session_coupon_key);
+        Session::forget(static::$session_coupon_key);
     }
 
 
@@ -289,6 +299,8 @@ class CartManager
         $order->customer_id = auth()->id();
         $order->status = Order::DRAFT;
         $order->locale = app()->getLocale();
+        $order->shipping_amount = static::$_shipping_amount;
+        $order->discount_amount = static::discountTotal();
         $order->save();
 
         $items = static::items();
@@ -309,6 +321,24 @@ class CartManager
             $order_item->save();
         }
         $order->syncTotal();
+
+        //Tax
+        if(!empty( static::$_tax )){
+            $tax_rate = 0;
+            foreach ( static::$_tax as $item ){
+                $tax_rate += $item['tax_rate'];
+            }
+            $total_amount = $order->total;
+            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
+            if(setting_item("prices_include_tax", 'yes') == "no"){
+                $total_amount += $tax_amount;
+            }
+            $order->total = $total_amount;
+            $order->tax_amount = $tax_amount;
+            $order->save();
+            $order->addMeta('tax',static::$_tax);
+            $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
+        }
 
         $coupons = static::getCoupon();
         if(!empty($coupons) and count($coupons)>0){
@@ -381,5 +411,69 @@ class CartManager
             }
         }
         return $data;
+    }
+
+    public static function addShipping($country , $shipping_method){
+        // if no method setting
+        if( ShippingZoneMethod::countMethodAvailable() == 0){
+            return ['status'=>1];
+        }
+        // find method in zone
+        if(empty($shipping_method)){
+            return ['status'=>0,'message'=>'Please select shipping method.'];
+        }
+        $list_methods = static::getMethodShipping($country);
+        if(!empty($list_methods['shipping_methods']))
+        {
+            foreach ( $list_methods['shipping_methods'] as $method){
+                if($method['method_id'] == $shipping_method){
+                    static::$_shipping_amount = $method['method_cost'];
+                    static::$_shipping_method = $method;
+                    return ['status'=>1];
+                }
+            }
+        }
+        // if method not in zone
+        return ['status'=>0,'message'=>'There are no shipping options available.'];
+    }
+
+    public static function getTaxRate($billing_country , $shipping_country)
+    {
+        $data = [
+            'status' => 0,
+            'tax'    => ''
+        ];
+        switch ( setting_item("tax_based_on",'billing') )
+        {
+            case"billing":
+                $country = $billing_country;
+                break;
+            case"shipping":
+                $country = $shipping_country;
+                break;
+            default:
+                $country = "";
+        }
+        // Find Tax By Country
+        $tax = TaxRate::select("name", "tax_rate", "city", "postcode", "country", "state")
+            ->where("country", $country)
+            ->orWhere("country", "*")->get();
+        if (!empty($tax)) {
+            $data = [
+                'status'             => 1,
+                'prices_include_tax' => setting_item("prices_include_tax", 'yes'),
+                'tax'                => $tax->toArray(),
+            ];
+        }
+        return $data;
+    }
+
+    public static function addTax($billing_country , $shipping_country){
+        if( TaxRate::taxEnable() ){
+            $tax = static::getTaxRate($billing_country , $shipping_country);
+            if(!empty($tax['tax'])){
+                static::$_tax = $tax['tax'];
+            }
+        }
     }
 }

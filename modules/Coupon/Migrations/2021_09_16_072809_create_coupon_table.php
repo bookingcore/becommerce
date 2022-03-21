@@ -23,7 +23,6 @@ class CreateCouponTable extends Migration
             $table->float('min_total')->nullable();
             $table->float('max_total')->nullable();
 
-            $table->string('services')->nullable();
             $table->string('for_users')->nullable();
             $table->integer('only_for_user')->nullable();
             $table->string('status',30)->nullable();

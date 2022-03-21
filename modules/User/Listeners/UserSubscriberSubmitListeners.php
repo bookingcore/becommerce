@@ -27,7 +27,7 @@ class UserSubscriberSubmitListeners
             'message' => __('You have just gotten a new Subscriber')
         ];
 
-        $user = User::whereHas("roles", function($q){ $q->where("name", "administrator"); })->first();
+        $user = User::whereHas("role", function($q){ $q->where("code", "admin"); })->first();
         $user->notify(new AdminChannelServices($data));
     }
 }

@@ -77,12 +77,13 @@ Route::group(['prefix'=>config('order.cart_route_prefix')],function(){
     Route::post('/remove_cart_item','Order\CartController@removeCartItem')->name('cart.remove_cart_item');
     Route::post('/update','Order\CartController@updateCartItem')->name('cart.update_cart_item');
 
-//  Coupon
+    // Coupon
     Route::post('/apply_coupon','Order\CouponController@applyCoupon')->name('cart.coupon.apply');
     Route::post('/remove_coupon','Order\CouponController@removeCoupon')->name('cart.coupon.remove');
-
     //Shipping
     Route::post('/get_shipping_method','Order\CartController@getShippingMethod')->name('cart.shipping.get_method');
+    //Tax
+    Route::post('/get_tax_rate','Order\CartController@getTaxRate')->name('cart.shipping.get_method');
 });
 Route::group(['prefix'=>'checkout'],function(){
     Route::get('/','Order\CheckoutController@index')->name('checkout');
@@ -93,10 +94,12 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::get('/confirm/{gateway}','Order\OrderController@confirmPayment')->name('order.confirm');
     Route::get('/cancel/{gateway}','Order\OrderController@cancelPayment')->name('order.cancel');
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
-    Route::get('/{id}','Order\OrderController@detail')->name('order.detail')->middleware('auth');
-    Route::get('/modal/{id}','Order\OrderController@modal')->name('order.modal')->middleware('auth');
+    Route::get('/{code}','Order\OrderController@detail')->name('order.detail');
+    Route::get('/modal/{code}','Order\OrderController@modal')->name('order.modal')->middleware('auth');
 });
 
 
 Route::post('register','UserController@register')->name('register');
 
+//Newsletter
+Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');

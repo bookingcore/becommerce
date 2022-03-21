@@ -46,7 +46,7 @@
                     <p><i>{{__('Found :total items',['total'=>$rows->total()])}}</i></p>
                 </div>
                 <div class="panel">
-                    <form action="" class="bravo-form-item">
+                    <form action="" class="bc-form-item">
                         <div class="panel-body">
                             <table class="table table-hover">
                                 <thead>

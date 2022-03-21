@@ -6,7 +6,7 @@
             <h1 class="title-bar">{{ __('All Customers')}}</h1>
             <div class="title-actions">
                 <a href="{{route('customer.admin.create',['user_type'=>"customer"])}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{ __('Add new customer')}}</a>
-                <a class="btn btn-warning btn-icon" href="{{ route("customer.admin.export") }}" target="_blank" title="{{ __("Export to excel") }}">
+                <a class="btn btn-warning btn-icon" href="{{ route("customer.admin.export",['role_id'=>2]) }}" target="_blank" title="{{ __("Export to excel") }}">
                     <i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}
                 </a>
             </div>
@@ -20,7 +20,7 @@
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="publish">{{__("Mark as Publish")}}</option>
-                            <option value="blocked">{{__("Mark as Blocked")}}</option>
+                            <option value="blocked">{{__("Mark as Block")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
                         <button data-confirm="{{__("Do you want to delete?")}}" class="btn-default btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
@@ -39,7 +39,7 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-                <form action="" class="bravo-form-item">
+                <form action="" class="bc-form-item">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>

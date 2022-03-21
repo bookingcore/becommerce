@@ -24,11 +24,14 @@
                         </div>
                         <div class="form-group">
                             <label >{{__("Order date")}}</label>
-                            <bc-datepicker v-model="order_date" :settings="created_at_settings"></bc-datepicker>
+                            <bc-datepicker placeholder="{{__("Please select")}}" v-model="order_date" :settings="created_at_settings"></bc-datepicker>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <button class="btn btn-success" @click="save"><i class="fa fa-save"></i> {{__("Save changes")}}</button>
+                        <button class="btn btn-success" @click="save"><i class="fa fa-save"></i> {{__("Save changes")}}
+                            <i v-show="saving" class="fa fa-spinner fa-pulse fa-fw"></i>
+                        </button>
+                        <div class="mt-3" v-show="message.content" :class="!message.success ? 'text-danger' : 'text-success'" v-html="message.content"></div>
                     </div>
                 </div>
             </div>
@@ -50,7 +53,7 @@
         BC.routes.order = {
             store:'{!! route('order.admin.store',['order'=>$order]) !!}'
         }
-        var bc_order = {!! json_encode(new \Modules\Order\Resources\Admin\OrderResource($order,['items'])) !!}
+        var bc_order = {!! json_encode(new \Modules\Order\Resources\Admin\OrderResource($order,['items','shipping_methods'])) !!}
         var bc_country_list = {!! json_encode(get_country_lists()) !!}
     </script>
     <script src="{{asset('module/order/admin/detail.js')}}"></script>

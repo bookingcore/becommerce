@@ -39,7 +39,7 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-                <form action="" class="bravo-form-item">
+                <form action="" class="bc-form-item">
                     <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
@@ -48,6 +48,7 @@
                             <th>{{__('Display Name')}}</th>
                             <th>{{__('Email')}}</th>
                             <th width="150">{{__('Email Verified?')}}</th>
+                            <th width="150">{{__('Commission')}}</th>
                             <th width="100">{{__('Status')}}</th>
                             <th class="date" width="100">{{ __('Date')}}</th>
                             <th width="100"></th>
@@ -66,6 +67,13 @@
                                         <span class="badge badge-success">{{__('Verified')}}</span>
                                     @else
                                         <span class="badge badge-secondary">{{__('Not verified')}}</span>
+                                    @endif
+                                </td>
+                                <td>
+                                    @if($row->commission_type != 'default')
+                                        {{$row->commission_type == 'percent' ? $row->commission.'%' : format_money($row->commission)}}
+                                    @else
+                                        {!! $row->role->commission_text ?? '' !!}
                                     @endif
                                 </td>
                                 <td><span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>

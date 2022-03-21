@@ -147,14 +147,14 @@
                 line-height: 24px;
                 fill: var( --accent );
                 color: var( --accent );
-                background-color: var( --background );
+                background: var( --background );
                 text-transform: capitalize;
                 border-radius: 8px 8px 8px 8px;
                 padding: 12px 30px;
                 text-decoration: none;
             &:hover{
                 color: #fff;
-                background-color: var( --accent );
+                background: var( --accent );
                 }
             }
         }
@@ -172,6 +172,7 @@
     background-color: #f0f0f0;
     .swiper-slider-testimonial{
         padding-bottom: 40px;
+        margin-top: 40px;
         .inner{
             margin-left: auto;
             margin-right: auto;
@@ -405,9 +406,13 @@
     padding: 30px 0;
     .swiper-slide{
         text-align: center;
+        .item-brand{
+            text-align: center;
+        }
         img{
             -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
             filter: grayscale(100%);
+            margin: 0 auto;
         }
         &:hover{
             img{

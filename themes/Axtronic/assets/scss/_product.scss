@@ -1,0 +1,472 @@
+ul.list-product-items{
+    flex-direction: column;
+    margin: 0;
+    li{
+        padding-bottom: 0;
+    }
+    .product-item{
+        padding: 0;
+        box-shadow: none;
+        margin-bottom: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        overflow: hidden;
+        .product-list-wrap{
+            display: flex;
+            .product-transition{
+                flex: 0 0 100px;
+                margin: 0 15px 0 0;
+                max-width: 160px;
+                border: 0;
+                .product-img-wrap{
+                    overflow: hidden;
+                    position: relative;
+                    .product-image{
+                        img{
+                            display: block;
+                            margin: 0 auto;
+                            width: 100%;
+                        }
+                    }
+
+                }
+            }
+            .product-caption{
+                flex: 1;
+                h2{
+                    font-size: 14px;
+                    line-height: 20px;
+                    margin-bottom: 3px;
+                    margin-top: 10px;
+                    a{
+                        color: var(--accent);
+                        font-weight: 400;
+                        text-decoration: none;
+                        &:hover{
+                            color: var(--primary);
+                        }
+                    }
+                }
+                .price{
+                    font-size: 14px;
+                    display: block;
+                    color: var(--primary);
+                    font-weight: 500;
+                }
+                .item-price{
+                    font-size: 15px;
+                    font-weight: 600;
+                    color: var(--primary);
+                }
+                .item-time{
+                    color: var(--accent);
+                    font-size: 14px;
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+}
+
+.star-rating{
+    display: flex;
+    font-size: 14px;
+    margin-bottom: 5px;
+    align-items: center;
+    justify-content: start;
+    height: 1.618em;
+    .back-stars {
+        display: flex;
+        color: var(--text);
+        position: relative;
+        i{
+            margin-right: 2px;
+            opacity: 0.2;
+        }
+    }
+    .front-stars {
+        display: flex;
+        color: #FFBC0B;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        transition: all .5s;
+        i{
+            opacity: 1;
+        }
+    }
+}
+
+
+.product-item {
+    position: relative;
+    transition: all .4s ease-in-out;
+    height: 100%;
+    background: var(--background);
+    &:hover{
+        .product-transition {
+            border-color: #DD2955;
+            .shop-action {
+                button.btn-tooltips {
+                    right:0;
+                }
+            }
+        }
+    }
+    .product-labels {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        z-index: 3;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        .product-label {
+            padding: 1px 10px;
+            text-transform: uppercase;
+            font-size: 11px;
+            color: #fff;
+            margin-bottom: 8px;
+            line-height: 22px;
+            min-width: 38px;
+            border-radius: 10px;
+            &.onsale {
+                background: #ef4914;
+            }
+            &.featured {
+                background: var(--secondary);
+            }
+        }
+    }
+    .product-transition {
+        overflow: hidden;
+        position: relative;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        .product-img-wrap img{
+            margin: 0 auto;
+        }
+        .shop-action {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            transition: all ease .3s;
+            z-index: 7;
+            button.btn-tooltips {
+                z-index: 7;
+                padding: 0;
+                font-size: 20px;
+                color: #13172B;
+                border: 1px solid #e2e5eb;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border-radius: 50%;
+                margin-bottom: 12px;
+                background: #fff;
+                right: -55px;
+                line-height: 1;
+                &:hover {
+                    background: linear-gradient(225deg,#F1592A 0%,#DD2955 100%);
+                    border-color: #DD2955;
+                    color: #fff;
+                }
+            }
+            .btn-addtocart {
+                transition: all .2s ease-in-out;
+            }
+            .btn-wishlist {
+                transition: all .35s ease-in-out;
+            }
+            .btn-quickview {
+                transition: all .45s ease-in-out;
+            }
+            .btn-compare {
+                transition: all .55s ease-in-out;
+            }
+        }
+    }
+    .product-caption {
+        padding:0;
+        padding-top: 10px;
+        width: 100%;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        h2{
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 5px;
+            font-family: var(--base-font);
+            a{
+                color: var(--accent);
+                font-weight: 400;
+                text-decoration: none;
+                &:hover {
+                    color: #DD2955;
+                }
+            }
+        }
+        .price {
+            display: block;
+            color: #DD2955;
+            font-size: 14px;
+            font-weight: 500;
+            del {
+                color: var(--light);
+                font-size: .85em;
+                font-weight: 500;
+            }
+        }
+    }
+}
+.axtronic-slider-best{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin-bottom: 70px;
+    padding: 80px 24px;
+    text-align: center;
+    .product-box-title{
+        border-bottom: 0;
+        display: block;
+    }
+    .heading-title{
+        color: #ffffff;
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.5em;
+        margin-bottom: 40px;
+
+        span{
+            color: var(--primary);
+        }
+    }
+    .product-item{
+        overflow: hidden;
+        position: relative;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        transition: all .4s ease-in-out;
+        height: 100%;
+        padding: 12px;
+        background: var(--background);
+        .product-transition{
+            border-radius: 0;
+            border: 0;
+        }
+        .card-rating{
+            display: flex;
+            justify-content: center;
+        }
+    }
+    .product-slider{
+        .swiper-pagination{
+            bottom: -10px;
+            .swiper-pagination-bullet{
+                background: #ffffff;
+                &.swiper-pagination-bullet-active{
+                    background: var(--primary);
+                }
+            }
+        }
+    }
+}
+
+ul.axtronic-products-special{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin-left: calc(var(--grid-gutter)/-2);
+    margin-right: calc(var(--grid-gutter)/-2);
+    margin-bottom: 60px;
+    clear: both;
+    flex-wrap: wrap;
+
+    li.product-item{
+        display: list-item;
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-left: calc(var(--grid-gutter)/2);
+        padding-right: calc(var(--grid-gutter)/2);
+        list-style: none;
+        clear: none;
+        width: 100%;
+        margin-bottom: 0;
+        &:first-child{
+            grid-column: 2;
+            grid-row: 1/4;
+        }
+        .product-block{
+            padding: 24px;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            overflow: hidden;
+            position: relative;
+            transition: all .4s ease-in-out;
+            height: 100%;
+            width: 100%;
+            background: var(--background);
+            &:hover{
+                background: var(--background2);
+                .product-transition{
+                    border-color: var(--border);
+                }
+            }
+            .hot-title{
+                font-size: 24px;
+                font-weight: 600;
+                line-height: 32px;
+                text-align: center;
+                color: var(--primary);
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+            .time-sale{
+                margin-bottom: 30px;
+                flex-direction: column;
+                .deal-text{
+                    order: 0;
+                    margin-left: 0;
+                    font-size: 14px;
+                    color: var(--accent);
+                    margin-bottom: 8px;
+                    text-align: center;
+                }
+                .axtronic-countdown{
+                    justify-content: center;
+                }
+            }
+            .product-caption h2{
+                font-size: 18px;
+            }
+            .price{
+                font-size: 18px;
+                margin-bottom: 20px;
+            }
+            .product-img-wrap{
+                img{
+                    width: 100%;
+                }
+            }
+            .deal-sold{
+                margin-bottom: 24px;
+                .deal-sold-text{
+                    text-align: center;
+                    color: var(--accent);
+                    margin-bottom: 12px;
+                    span{
+                        color: var(--primary);
+                        font-weight: 500;
+                    }
+                }
+                .deal-progress{
+                    .progress-bar{
+                        width: 100%;
+                        max-width: unset;
+                        height: 8px;
+                        background-color: #f5f5f5;
+                        position: relative;
+                        overflow: hidden;
+                        border-radius: 3px;
+                    }
+                    .progress-value{
+                        position: absolute;
+                        top: 0;
+                        bottom: 0;
+                        left: 0;
+                        background-color: var(--primary);
+                    }
+                }
+            }
+        }
+        .product-list-wrap{
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            transition: all ease .4s;
+            box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
+            border-radius: 8px;
+            padding: 16px;
+            align-items: flex-start;
+            &:hover{
+                box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
+            }
+            .product-transition{
+                flex: 0 0 160px;
+
+            }
+            .product-labels{
+                position: static;
+                flex-direction: row;
+            }
+            .star-rating{
+                margin: 8px 0 12px;
+            }
+            .price{
+                font-weight: 600;
+                del{
+                    color: var(--light);
+                    font-size: .85em;
+                    font-weight: 500;
+                }
+                ins{
+                    color: var(--primary);
+                    margin-left: 0.327em;
+                }
+            }
+            .time-sale{
+                width: 100%;
+                .deal-text {
+                    order: 2;
+                    margin-left: 15px;
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .time-sale{
+            display: flex;
+            font-size: 12px;
+            align-items: center;
+            margin-top: 10px;
+            .axtronic-countdown{
+                display: flex;
+                flex-wrap: wrap;
+                margin-left: -5px;
+                margin-right: -5px;
+                .countdown-item{
+                    padding: 0 5px;
+                    text-align: center;
+                    .countdown-digits{
+                        min-width: 36px;
+                        height: 36px;
+                        font-size: 14px;
+                        color: var(--accent);
+                        background: var(--background2);
+                        border: 1px solid var(--border);
+                        border-radius: 6px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-weight: 500;
+                        padding: 0 5px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .axtronic-products-special{
+        li.product-item{
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+    }
+}

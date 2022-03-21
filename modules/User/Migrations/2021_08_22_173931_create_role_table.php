@@ -18,6 +18,8 @@ class CreateRoleTable extends Migration
                 $table->increments('id');
                 $table->string('name')->nullable();
                 $table->string('code', 50)->unique();
+                $table->decimal('commission')->nullable();
+                $table->string('commission_type',40)->nullable()->default('default');
 
                 $table->integer('create_user')->nullable();
                 $table->integer('update_user')->nullable();

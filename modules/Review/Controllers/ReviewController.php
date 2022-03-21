@@ -36,7 +36,7 @@ class ReviewController extends Controller
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review not enable'));
         }
 
-        if ($module->create_user == Auth::id()) {
+        if ($module->author_id == Auth::id()) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('You cannot review your service'));
         }
 
@@ -85,7 +85,8 @@ class ReviewController extends Controller
             "rate_number"  => $rate ?? 0,
             "author_ip"    => $request->ip(),
             "status"       => !$module->getReviewApproved() ? "approved" : "pending",
-            'vendor_id'     =>$module->create_user
+            'vendor_id'    => $module->author_id,
+            'author_id'    => Auth::id(),
         ]);
         if ($review->save()) {
             if (!empty($metaReview)) {
@@ -99,7 +100,7 @@ class ReviewController extends Controller
             if ($module->getReviewApproved()) {
                 $msg = __("Review success! Please wait for admin approved!");
             }
-            $module->update_service_rate();
+            $module->updateServiceRate();
             return redirect()->to(url()->previous() . '#bravo-reviews')->with('success', $msg);
         }
         return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review error!'));

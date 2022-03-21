@@ -13,8 +13,8 @@
             <div class="col-md-1">
                 <input type="number" min="1" :max="remain_stock" step="1" class="form-control" v-model="item.qty">
             </div>
-            <div class="col-md-2">
-                <input type="number" min="0" step="any" class="form-control" v-model="item.price">
+            <div class="col-md-2 text-right">
+                @{{ formatMoney(item.price) }}
             </div>
             <div class="col-md-2 text-right">
                 @{{ formatMoney(subtotal) }}
