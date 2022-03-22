@@ -126,7 +126,6 @@ class CouponController extends AdminController
             'end_date',
             'min_total',
             'max_total',
-            'services',
             'only_for_user',
             'for_users',
             'quantity_limit',

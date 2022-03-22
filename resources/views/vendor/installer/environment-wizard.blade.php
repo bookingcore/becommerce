@@ -6,7 +6,7 @@
 
 @section('title')
     <i class="fa fa-magic fa-fw" aria-hidden="true"></i>
-    {{__("Setup Database and Admin Account")}}
+    {!! trans('installer_messages.environment.wizard.title') !!}
 
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 @endsection
@@ -31,11 +31,11 @@
             <div class="tab" id="tab1content">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <div class="form-group {{ $errors->has('app_name') ? ' has-error ' : '' }}" style="display: none">
+                <div class="form-group {{ $errors->has('app_name') ? ' has-error ' : '' }}">
                     <label for="app_name">
                         {{ trans('installer_messages.environment.wizard.form.app_name_label') }}
                     </label>
-                    <input type="text" name="app_name" id="app_name" value="becommerce" placeholder="{{ trans('installer_messages.environment.wizard.form.app_name_placeholder') }}" />
+                    <input type="text" name="app_name" id="app_name" value="Booking Core" placeholder="{{ trans('installer_messages.environment.wizard.form.app_name_placeholder') }}" />
                     @if ($errors->has('app_name'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -44,7 +44,7 @@
                     @endif
                 </div>
 
-                <div class="form-group {{ $errors->has('environment') ? ' has-error ' : '' }}" style="display: none" >
+                <div class="form-group {{ $errors->has('environment') ? ' has-error ' : '' }}" style="display: none">
                     <label for="environment">
                         {{ trans('installer_messages.environment.wizard.form.app_environment_label') }}
                     </label>
@@ -108,7 +108,7 @@
                     @endif
                 </div>
 
-                <div class="form-group {{ $errors->has('app_url') ? ' has-error ' : '' }}" style="display: none">
+                <div class="form-group {{ $errors->has('app_url') ? ' has-error ' : '' }}">
                     <label for="app_url">
                         {{ trans('installer_messages.environment.wizard.form.app_url_label') }}
                     </label>
@@ -121,7 +121,16 @@
                     @endif
                 </div>
 
-                <div class="form-group d-none {{ $errors->has('database_connection') ? ' has-error ' : '' }}" style="display: none">
+                <div class="buttons">
+                    <button class="button" onclick="showDatabaseSettings();return false">
+                        {{ trans('installer_messages.environment.wizard.form.buttons.setup_database') }}
+                        <i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="tab" id="tab2content">
+
+                <div class="form-group {{ $errors->has('database_connection') ? ' has-error ' : '' }}">
                     <label for="database_connection">
                         {{ trans('installer_messages.environment.wizard.form.db_connection_label') }}
                     </label>
@@ -152,7 +161,7 @@
                     @endif
                 </div>
 
-                <div class="form-group {{ $errors->has('database_port') ? ' has-error ' : '' }}" style="display: none">
+                <div class="form-group {{ $errors->has('database_port') ? ' has-error ' : '' }}">
                     <label for="database_port">
                         {{ trans('installer_messages.environment.wizard.form.db_port_label') }}
                     </label>
@@ -169,7 +178,7 @@
                     <label for="database_name">
                         {{ trans('installer_messages.environment.wizard.form.db_name_label') }}
                     </label>
-                    <input type="text" name="database_name" required id="database_name" value="" />
+                    <input type="text" name="database_name" id="database_name" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_name_placeholder') }}" />
                     @if ($errors->has('database_name'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -182,7 +191,7 @@
                     <label for="database_username">
                         {{ trans('installer_messages.environment.wizard.form.db_username_label') }}
                     </label>
-                    <input type="text" name="database_username" required id="database_username" value="" />
+                    <input type="text" name="database_username" id="database_username" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_username_placeholder') }}" />
                     @if ($errors->has('database_username'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -195,7 +204,7 @@
                     <label for="database_password">
                         {{ trans('installer_messages.environment.wizard.form.db_password_label') }}
                     </label>
-                    <input type="text" name="database_password" id="database_password" value="" />
+                    <input type="text" name="database_password" id="database_password" value="" placeholder="{{ trans('installer_messages.environment.wizard.form.db_password_placeholder') }}" />
                     @if ($errors->has('database_password'))
                         <span class="error-block">
                             <i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i>
@@ -206,8 +215,8 @@
 
                 <div class="buttons">
                     <span class="button bravo_test_db" style="font-size: 17px;">{{__("Test DB")}}</span>
-                    <button class="button" type="submit">
-                        {{ trans('installer_messages.environment.wizard.form.buttons.install') }}
+                    <button class="button" onclick="showApplicationSettings();return false">
+                        {{ trans('installer_messages.environment.wizard.form.buttons.setup_application') }}
                         <i class="fa fa-angle-right fa-fw" aria-hidden="true"></i>
                     </button>
                 </div>
@@ -220,6 +229,12 @@
                             {{ trans('installer_messages.environment.wizard.form.app_tabs.broadcasting_title') }}
                         </span>
                     </label>
+
+
+
+
+
+
 
                     <div class="info">
                         <div class="form-group {{ $errors->has('broadcast_driver') ? ' has-error ' : '' }}">
