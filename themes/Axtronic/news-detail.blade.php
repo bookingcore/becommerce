@@ -1,66 +1,72 @@
 @extends('layouts.app')
 @section('content')
-    <div class="bc-page-blog py-4">
-        <div class="container">
+    <div class="axtronic-page-blog">
+        <nav aria-label="breadcrumb" class="axtronic-breadcrumb">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/news">Blog</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$translation->title}}</li>
+                </ol>
+            </div>
+        </nav>
+        <div class="container py-4">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="bc-post-detail">
-                        <div class="post-header mb-4">
-                            <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" class="c-333333">{{$translation->title}}</a></h2>
-                            <ul class="post-meta list-unstyled d-flex m-0">
-                                <li><i class="fa fa-calendar"></i> {{display_date($row->created_at)}}</li>
-                                @if($row->tags->count())
-                                    <li>
-                                        <i class="fa fa-tags"></i>
-                                        @php $tags = []; @endphp
-                                        @foreach($row->tags as $tag)
-                                            <a class="c-333333" href="{{ route('news.tag',['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if(!$loop->last),@endif
-                                        @endforeach
-                                    </li>
-                                @endif
-                            </ul>
-                        </div>
-                        <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
-                            {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
-                        </a>
-                        <div class="bc-post_content">
-                            {!! clean($translation->content) !!}
-                        </div>
-                        <div class="bc-post_footer">
-                            @if($row->tags->count())
-                                <div class="bc-post_tags mt-5">
-                                    <h6>{{__('Tags:')}}</h6>
+                    <div class="axtronic-post">
+                        <div class="axtronic-post-detail entry-content">
+                            <div class="post-header mb-4">
+                                <div class="meta-categories">
+                                    <a href="#" rel="category tag">Tips &amp; Tricks</a>,
+                                    <a href="" rel="category tag">Uncategorized</a>
+                                </div>
+                                <h2 class="post-title">{{$translation->title}}</h2>
+                                <div class="entry-meta">
+                                    <div class="post-author">
+                                        <span class="label">{{ __('By') }} </span>
+                                        <a href="#" rel="author">
+                                            <span class="vcard author author_name">{{$row->author->last_name}} </span>
+                                        </a>
+                                    </div>
+                                    @if($row->tags->count())
+                                        <div class="meta-categories">
+                                            @php $tags = []; @endphp
+                                            @foreach($row->tags as $tag)
+                                                <a class="category tag" href="{{ route('news.tag',['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if(!$loop->last),@endif
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                    <div class="posted-on">
+                                        <a href="#">{{display_date($row->created_at)}}</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
+                                {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
+                            </a>
+                            <div class="axtronic-post_content">
+                                {!! clean($translation->content) !!}
+                            </div>
+                            <div class="axtronic-post_footer">
+                                {{--@if($row->tags->count())--}}
+                                <div class="axtronic-post_tags">
+                                    <i class="axtronic-icon-tag"></i>
+                                    <a class="tag" href="#" rel="tag">Home</a>
+                                    <a class="tag" href="#">Renovated</a>
                                     @foreach($row->tags as $tag)
                                         <?php $tag_trans = $tag->translate() ?>
                                         <a class="tag" href="{{$tag->getDetailUrl()}}">{{$tag_trans->name ?? ''}}</a>
                                     @endforeach
                                 </div>
-                            @endif
-                        </div>
-                    </div>
-                    @if($related_post)
-                        <div class="related-post">
-                            <h5 class="post-title text-center mt-5">{{ __('You Might Also Like') }}</h5>
-                            <div class="post-content">
-                                <div class="row">
-                                    @foreach($related_post as $post)
-                                        @php $translation = $post->translate(); @endphp
-                                        <div class="col-lg-4">
-                                            <div class="post-review">
-                                                <a href="{{ $post->getDetailUrl() }}">
-                                                    <img class="img-cover" src="{{ get_file_url($post->image_id) }}" alt="{{ $translation->title }}">
-                                                </a>
-                                            </div>
-                                            <div class="post-body">
-                                                <h6 class="post-title">{{ $translation->title }}</h6>
-                                                <p class="m-0 post-date opacity-75">{{ display_date($post->created_at) }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
+                                {{--@endif--}}
                             </div>
                         </div>
-                    @endif
+
+                    </div>
+                    @include('news.comment')
+                    {{--@if($related_post)--}}
+                        {{--@include('news.related-post')--}}
+                    {{--@endif--}}
                 </div>
                 <div class="col-md-4">
                     @include('news.sidebar')

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bc-page--my-account bg-f1f1f1">
+    <div class="axtronic-page--my-account bg-f1f1f1">
         <div class="container">
             <div class="row justify-content-center bravo-login-form-page bravo-login-page">
                 <div class="col-md-8  py-5">

@@ -1,11 +1,11 @@
-<form class="bc_form_add_to_cart" action="{{route('cart.addToCart')}}">
+<form class="axtronic_form_add_to_cart" action="{{route('cart.addToCart')}}">
     @csrf
     @if($row->product_type == 'variable')
         @include('product.details.variations')
     @endif
     <input type="hidden" name="object_model" value="product">
     <input type="hidden" name="object_id" value="{{$row->id}}">
-    <div class="bc-product_shopping mb-4 pb-4 d-flex">
+    <div class="axtronic-product_shopping mb-4 pb-4 d-flex">
         @if($row->product_type == 'variable' or ( $row->product_type == 'simple' and $row->stock_status == 'in' ))
             <figure class="mb-0">
                 <figcaption class="fs-14 mb-1">{{ __('Quantity') }}</figcaption>
@@ -16,7 +16,7 @@
                     <input class="form-control" name="quantity" type="number" min="1" @if($max ) max="{{ $max }}" @endif value="1">
                 </div>
             </figure>
-            <button type="submit" class="btn btn-outline-primary btn-add-to-cart bc_add_to_cart">
+            <button type="submit" class="btn btn-outline-primary btn-add-to-cart axtronic_add_to_cart">
                 <i class="fa fa-spinner d-none"></i>{{ __('Add to cart') }}
             </button>
         @endif
@@ -25,7 +25,7 @@
                 {{ $row->button_text }}
             </a>
         @endif
-        <div class="bc-product_actions">
+        <div class="axtronic-product_actions">
             <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
                 <i class="fa fa-heart"></i>
             </div>

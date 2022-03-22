@@ -1,14 +1,14 @@
 @extends("layouts.app")
 @section('content')
      @include('global.breadcrumb')
-    <div class="bc-page-product">
+    <div class="axtronic-page-product">
         <div class="container">
-            <div class="bc-product-detail mb-5">
-                <div class="bc-product_header mb-5">
+            <div class="axtronic-product-detail mb-5">
+                <div class="axtronic-product_header mb-5">
                     @include('product.details.gallery')
-                    <div class="bc-product_info">
+                    <div class="axtronic-product_info">
                         <h1 class="fs-24 mb-2">{{$translation->title}}</h1>
-                            <div class="bc-product_meta mb-4 d-flex">
+                            <div class="axtronic-product_meta mb-4 d-flex">
                                 @if($row->brand)
                                 <p>{{ __("Brand:") }} <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
                                 @endif
@@ -17,14 +17,14 @@
                                     $score_total = $reviewData['score_total'];
                                 @endphp
                                 @if(!empty($reviewData['total_review']))
-                                    <div class="bc-product_rating">
+                                    <div class="axtronic-product_rating">
                                         @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
                                         <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
                                     </div>
                                 @endif
                             </div>
                         @include('product.details.price',['show_discount_percent'=>1])
-                        <div class="bc-product_desc mb-4">
+                        <div class="axtronic-product_desc mb-4">
                             <div class="desc-heading d-flex">
                                 <p class="sold-by me-5 m-0">{{__('Sold By:')}}<a class="c-main" href="{{ $row->author->getStoreUrl() }}"><strong> {{$row->author->display_name}} </strong></a></p>
                                 @if($row->product_type == 'simple')
@@ -32,7 +32,7 @@
                                     <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span><strong>{{$stock_status['stock']}}</strong></span></span>
                                 @endif
                             </div>
-                            <div class="bc-list-dot mt-3">
+                            <div class="axtronic-list-dot mt-3">
                                 {!! clean($row->short_desc) !!}
                             </div>
                         </div>
@@ -42,7 +42,7 @@
                         @include('product.details.share')
                     </div>
                 </div>
-                <div class="bc-product_content">
+                <div class="axtronic-product_content">
                     @include('product.details.tabs')
                     @include('product.details.products-related')
                 </div>

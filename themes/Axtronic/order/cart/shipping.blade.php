@@ -53,7 +53,7 @@
                 <input class="form-control" type="text" name="shipping_zip" value="{{ !empty($shipping_session['shipping_zip']) ? $shipping_session['shipping_zip']:  ""  }}" placeholder="{{ __("Postcode/Zip") }}">
             </div>
             <div class="form-group text-end">
-                <button class="btn btn-primary bc_calculate_shipping">
+                <button class="btn btn-primary axtronic_calculate_shipping">
                     {{__('Update')}}
                     <i class="fa fa-spin fa-spinner d-none"></i>
                 </button>

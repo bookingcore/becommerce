@@ -34,10 +34,10 @@
                         <div class="align-content-center align-items-center">
                             <div class="">
                                 <h3>{{ __("Newsletter") }}</h3>
-                                <p>{{ __("Subcribe to get information about products and coupons") }}</p>
+                                <p>{{ __("Suaxtronicribe to get information about products and coupons") }}</p>
                             </div>
                             <div class="form-newsletter">
-                                <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bc-subscribe-form">
+                                <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">
                                     @csrf
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >

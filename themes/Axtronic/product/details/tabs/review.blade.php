@@ -90,7 +90,7 @@ $score_total = $reviewData['score_total'];
         <div class="reviews-title fs-24 mb-3 border-bottom pb-2">{{ ($review_list) ? __('Reviews from guests') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}</div>
         <div class="review-list">
             @if($review_list->total())
-                <div class="bc-review-list">
+                <div class="axtronic-review-list">
                     @if($review_list)
                         @foreach($review_list as $item)
                             @php $userInfo = $item->author; if(!$userInfo){ continue; }@endphp

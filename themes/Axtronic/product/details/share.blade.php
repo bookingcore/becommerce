@@ -1,4 +1,4 @@
-<div class="bc-product_sharing pt-3">
+<div class="axtronic-product_sharing pt-3">
     <a target="_blank" class="facebook bg-facebook c-white me-2 w-40px h-40px d-inline-block text-center" href="http://www.facebook.com/sharer.php?u={{$row->getDetailUrl()}}" title="{{$translation->title}}">
         <i class="fa fa-facebook fs-20"></i>
     </a>

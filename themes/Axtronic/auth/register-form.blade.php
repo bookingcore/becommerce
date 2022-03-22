@@ -1,6 +1,6 @@
-<form class="bc-form bc-form-register" method="post">
+<form class="axtronic-form axtronic-form-register" method="post">
     @csrf
-    <div class="bc-form__content">
+    <div class="axtronic-form__content">
         <div class="form-group mb-3">
             <span class="label">{{__('Email address')}} <span class="required">*</span></span>
             <input class="form-control" type="email" name="email" >

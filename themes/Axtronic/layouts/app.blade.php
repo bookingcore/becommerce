@@ -19,7 +19,17 @@
         {!! \App\Helpers\Assets::js() !!}
         <script>
             var BC = {
-                url: '{{url( app_get_locale() )}}',
+                url: '{{url('/')}}',
+                routes:{
+                    login:'{{route('login')}}',
+                    register:'{{route('register')}}',
+                },
+                booking_decimals:'{{ (int)get_current_currency('currency_no_decimal',2) }}',
+                thousand_separator:'{{ get_current_currency('currency_thousand') }}',
+                decimal_separator:'{{ get_current_currency('currency_decimal') }}',
+                currency_position:'{{ get_current_currency('currency_format') }}',
+                currency_symbol:'{{ currency_symbol() }}',
+                currency_rate:'{{ get_current_currency('rate',1) }}',
             }
             var i18n = {
                 warning:"{{__("Warning")}}",

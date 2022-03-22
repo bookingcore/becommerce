@@ -3,8 +3,8 @@
         $list_variations = $data_variations["variations"];
         $list_attributes = $data_variations['attributes'];
     @endphp
-    <div class="bc-product-variations mb-2">
-        <input type="hidden" class="bc_variations" value="{{ json_encode($list_variations) }}">
+    <div class="axtronic-product-variations mb-2">
+        <input type="hidden" class="axtronic_variations" value="{{ json_encode($list_variations) }}">
         <input type="hidden" name="variation_id" class="variation_id" value="">
         @if(!empty($list_attributes))
             @foreach($list_attributes as $name=>$values)

@@ -6,12 +6,12 @@
         </div>
     @else
          @include('global.breadcrumb')
-        <div class="bc-contact-info">
+        <div class="axtronic-contact-info">
             <div class="container">
-                <div class="bc-section__header">
+                <div class="axtronic-section__header">
                     <h3>{{$translation->title}}</h3>
                 </div>
-                <div class="bc-section__content">
+                <div class="axtronic-section__content">
                     {!! clean($translation->content) !!}
                     <p><i>{{__("Last updated: :date",['date'=>display_date($row->updated_at)])}}</i></p>
                 </div>

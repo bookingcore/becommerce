@@ -1,6 +1,6 @@
-<div class="bc-shopping__header d-flex justify-content-between mb-3 align-items-center">
+<div class="axtronic-shopping__header d-flex justify-content-between mb-3 align-items-center">
     <div><strong> {{$rows->total()}}</strong> {{__('Products found')}}</div>
-    <div class="bc-shopping__actions">
+    <div class="axtronic-shopping__actions">
         <select class="form-select" name="sort" data-placeholder="{{ __("Sort Items") }}">
             <option value="">{{ __("Sort by latest") }}</option>
             <option @if(request('sort') == 'rate') selected @endif value="rate">{{ __("Sort by average rating") }}</option>

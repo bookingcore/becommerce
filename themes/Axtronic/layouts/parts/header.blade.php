@@ -8,7 +8,7 @@ if(!isset($current_cat)) $current_cat = null;
         <div class="header-wrap">
             <div class="site-branding">
                 <div class="header__content-left">
-                    <a class="bc-logo text-decoration-none" href="{{url('/')}}">
+                    <a class="axtronic-logo text-decoration-none" href="{{url('/')}}">
 
                         <img src="{{ theme_url('Axtronic/images/logo-white.svg') }}" alt="">
                     </a>

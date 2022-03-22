@@ -1,3 +1,3 @@
-<div class="bc-document">
+<div class="axtronic-document">
     {!! clean($row->content) !!}
 </div>

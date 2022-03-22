@@ -3,9 +3,9 @@
         @switch($widget['type'])
             @case ('search_form')
                 <aside class="widget widget-search">
-                    <form class="bc-form-widget-search" action="{{route('news')}}" method="get">
+                    <form class="axtronic-form-widget-search" action="{{route('news')}}" method="get">
                         <input class="form-control pr-5" type="text" name="s" value="{{request('s')}}" placeholder="{{__('Search...')}}">
-                        <button><i class="fa fa-search"></i></button>
+                        <button><i class="axtronic-icon-search"></i></button>
                     </form>
                 </aside>
             @break

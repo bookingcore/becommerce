@@ -1,55 +1,141 @@
-.product-box-title {
-    border-bottom: 1px solid var(--border);
+.axtronic-breadcrumb{
+    background-color: var(--background2);
     transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
-    margin-top: 0;
-    margin-bottom: 20px;
-    padding: 0 0 10px 0;
-    display: flex;
-    justify-content: space-between;
-    h2 {
+    padding: 16px 0 16px 0;
+    ol.breadcrumb{
         margin: 0;
-    }
-    .list-category-name{
-        margin: 0;
-        display: flex;
-        li{
-            margin-right: 4px;
-            margin-bottom: 8px;
+        .breadcrumb-item{
+            color: var(--accent);
+            text-align: left;
+            font-weight: 400;
             a{
-                font-size: 14px;
-                font-weight: 400;
-                line-height: 1.5em;
-                fill: var(--text);
-                border: 1px solid var(--border);
-                padding: 6px 12px;
-                background: var(--background2);
                 color: var(--text);
-                &:hover, &:focus{
-                    background-color: transparent;
-                    background-image: linear-gradient(90deg,var(--primary) 0%,var(--primary_hover) 100%);
-                    border-color: var(--primary);
-                    color: #ffffff;
+                &:hover{
+                    color: var(--primary);
                 }
             }
         }
     }
 }
-
-.product-slider{
-    .swiper-wrapper{
-        padding-bottom: 40px;
+.axtronic-contact-block{
+    padding: 60px 0;
+    h2{
+        color: var(--accent);
+        font-size: 28px;
+        font-weight: 600;
+        line-height: 1.5em;
     }
-    .swiper-pagination{
-        bottom: 0;
-        .swiper-pagination-bullet{
-            width: 10px;
-            height: 10px;
-            border: 0;
-            background: var(--accent);
-            border-radius: 50%;
-            &.swiper-pagination-bullet-active{
-                border: 0;
-                background: var(--primary);
+    p{
+        color:var(--text);
+        font-size: 16px;
+    }
+    .contact-box-icon{
+        margin-top: 50px;
+        margin-bottom: 50px;
+        .ibox{
+            width: 80%;
+            max-width: 80%;
+        }
+        .icon{
+            margin-right: 15px;
+            a{
+                fill: var(--primary);
+                color: var(--primary);
+                border-color: var(--primary);
+                transition-duration: .3s;
+                transition-property: transform;
+                &:hover{
+                    fill: var(--primary_hover);
+                    color: var(--primary_hover);
+                    border-color: var(--primary_hover);
+                }
+                i{
+                    font-size: 35px;
+                }
+            }
+        }
+        .text{
+            h3{
+                font-size: 20px;
+                font-weight: 600;
+            }
+            a{
+                span{
+                    color: var(--text);
+                }
+            }
+            p{
+                color: var(--text);
+                font-size: 14px;
+                line-height: 24px;
+            }
+        }
+    }
+    .axtronic-maps{
+        iframe{
+            width: 100%;
+            height: 550px;
+        }
+    }
+}
+.wrapper{
+    position: relative;
+    .contact-wrap{
+        margin-top: -125px;
+        margin-bottom: 70px;
+        box-shadow: 0 2px 45px 0 rgb(0 0 0 / 6%);
+        transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+        padding: 50px;
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+    .contact-header{
+        margin-bottom: 30px;
+        p{
+            width: 70%;
+            margin: 0 auto;
+            font-size: 14px;
+        }
+    }
+    .contact-social{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .title-social{
+            color: var(--accent);
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 24px;
+        }
+        .divider-social{
+            width: 190px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            margin: 0 15px;
+            direction: ltr;
+            border-top: 1px solid #E2E2E2;
+        }
+        .icon-social ul{
+            display: inline-block;
+            margin: 0;
+            li{
+                display: inline-block;
+                a{
+                    color: var(--accent);
+                    padding: 0 15px ;
+                    font-size: 16px;
+                    i{
+                        transition-duration: .3s;
+                        transition-property: transform;
+                    }
+                    &:hover{
+                        color: var(--primary);
+                        i{
+                            transform: scale(1.1);
+                        }
+                    }
+                }
             }
         }
     }

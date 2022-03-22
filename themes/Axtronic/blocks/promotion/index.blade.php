@@ -317,7 +317,7 @@
         <div class="swiper-slider-news swiper-container">
             <div class="swiper-wrapper">
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb
@@ -348,7 +348,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb
@@ -379,7 +379,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb
@@ -410,7 +410,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb
@@ -441,7 +441,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb
@@ -472,7 +472,7 @@
                     </div>
                 </div>
                 <div class="swiper-slide">
-                    <div class="item-news">
+                    <div class="axtronic-post">
                         <div class="post-thumbnail">
                             <div class="posted-on-square">
                                 <b>19</b>Feb

@@ -4,7 +4,7 @@
         <th></th>
         @foreach ($compare as $row)
             <td class="text-center">
-                <a href="#" class="bc-remove-compare" data-id="{{ $row['id'] }}">
+                <a href="#" class="axtronic-remove-compare" data-id="{{ $row['id'] }}">
                     <span>{{ __('Remove') }}</span>
                 </a>
             </td>

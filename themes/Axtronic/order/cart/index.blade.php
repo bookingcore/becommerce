@@ -74,7 +74,7 @@
                                             <p class="mb-0" style="font-weight: 500;">{{format_money($cartItem->subTotal)}}</p>
                                         </td>
                                         <td class="align-middle">
-                                            <a href="#" data-bs-toggle="tooltip" title="{{__('Remove')}}" class="text-danger bc_delete_cart_item" data-id="{{$cartItem->id}}" data-remove="tr"> <i class="fa fa-times"></i></a>
+                                            <a href="#" data-bs-toggle="tooltip" title="{{__('Remove')}}" class="text-danger axtronic_delete_cart_item" data-id="{{$cartItem->id}}" data-remove="tr"> <i class="fa fa-times"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -83,7 +83,7 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <div class="bc-section__cart-actions d-flex justify-content-between">
+                        <div class="axtronic-section__cart-actions d-flex justify-content-between">
                             <a class="btn btn-sm btn-warning" href="{{route('product.index')}}"><i class="fa fa-arrow-left"></i> {{__('Back to Shop')}}</a>
                             <button class="btn btn-sm btn-primary" type="submit"><i class="fa  fa-refresh"></i> {{__('Update cart')}} </button>
                         </div>
@@ -101,7 +101,7 @@
                             </div>
                             <div class="message alert-text mt-2"></div>
                             <div class="form-group text-end">
-                                <button class="btn btn-primary bc_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
+                                <button class="btn btn-primary axtronic_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                             </div>
                             @if(!empty($coupons = \Modules\Order\Helpers\CartManager::getCoupon()) and count($coupons) >0)
                                 <h6>{{__("List Coupon")}}</h6>
@@ -113,7 +113,7 @@
                                                 <i data-toggle="tooltip" data-placement="top" class="icofont-info-circle" data-original-title="{{ $coupon->name}}"></i>
                                             </div>
                                             <div class="val">
-                                                <a href="#" data-code="{{ $coupon->code }}" class="text-danger text-decoration-none bc_remove_coupon"> {{ __("[Remove]") }}
+                                                <a href="#" data-code="{{ $coupon->code }}" class="text-danger text-decoration-none axtronic_remove_coupon"> {{ __("[Remove]") }}
                                                     <i class="fa fa-spin fa-spinner d-none"></i>
                                                 </a>
                                             </div>

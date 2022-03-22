@@ -1,4 +1,4 @@
-<div class="bc-product-price">
+<div class="axtronic-product-price">
     @if($row->product_type=='variable')
         @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
             <p class="price variable-price">

@@ -1,4 +1,4 @@
-<div class="bc-product_specification mb-2 fs-14">
+<div class="axtronic-product_specification mb-2 fs-14">
     @if($row->sku and $row->product_type != "variable")
         <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
     @endif
