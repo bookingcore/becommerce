@@ -32,6 +32,7 @@
 @endif
 <div class="widget widget_shop bg-f1f1f1 c-000000 p-3 pb-2 rounded">
     @include('product.filter.brand')
+    @include('product.filter.price')
     @include('product.filter.review')
     @include('product.filter.attributes')
 </div>

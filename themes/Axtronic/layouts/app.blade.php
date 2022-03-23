@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/nouislider/nouislider.min.css">
         <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
         <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
         @include('layouts.parts.seo-meta')
@@ -68,6 +69,7 @@
             <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{ theme_url('Axtronic') }}/libs/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
