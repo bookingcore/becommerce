@@ -197,7 +197,8 @@
     .axtronic-form-widget-search{
         position: relative;
         button{
-            background-color: transparent;
+            background: transparent;
+            color: var(--accent);
             border: none;
             font-size: 15px;
             height: 100%;
@@ -205,6 +206,10 @@
             right: 0;
             top: 0;
             transition: all .3s ease-out;
+            padding: 12.5px;
+            &:hover{
+                color: var(--primary);
+            }
         }
     }
 }

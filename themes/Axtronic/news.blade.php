@@ -8,7 +8,7 @@
             </ol>
         </div>
     </nav>
-    <div class="axtronic-page-blog py-4">
+    <div class="axtronic-page-blog">
         <div class="container">
             <div class="row b-5">
                 <div class="col-lg-8">

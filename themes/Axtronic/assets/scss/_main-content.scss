@@ -1,7 +1,8 @@
 .axtronic-breadcrumb{
     background-color: var(--background2);
     transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
-    padding: 16px 0 16px 0;
+    padding: 16px 0;
+    margin-bottom: 36px;
     ol.breadcrumb{
         margin: 0;
         .breadcrumb-item{

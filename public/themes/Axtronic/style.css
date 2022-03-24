@@ -2486,7 +2486,8 @@ button.button-hover:hover, input[type=button].button-hover:hover, input[type=res
 .axtronic-breadcrumb {
   background-color: var(--background2);
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
-  padding: 16px 0 16px 0;
+  padding: 16px 0;
+  margin-bottom: 36px;
 }
 .axtronic-breadcrumb ol.breadcrumb {
   margin: 0;
@@ -2737,7 +2738,7 @@ button.button-hover:hover, input[type=button].button-hover:hover, input[type=res
 }
 
 .banner-slider {
-  padding-bottom: 0;
+  margin-top: 30px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -4228,6 +4229,90 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
   padding: 0 5px;
 }
 
+.axtronic-page--shop .widget {
+  font-size: 14px;
+}
+.axtronic-page--shop .widget:first-child {
+  margin-bottom: var(--grid-gutter);
+  border-radius: 8px;
+}
+.axtronic-page--shop .widget ul {
+  margin-left: 0;
+  margin-bottom: 0;
+}
+.axtronic-page--shop .widget ul li {
+  margin-bottom: 15px;
+}
+.axtronic-page--shop .widget ul li a {
+  color: var(--text);
+  display: block;
+}
+.axtronic-page--shop .widget ul li a:hover {
+  color: var(--primary);
+}
+.axtronic-page--shop .widget ul li a:hover i {
+  color: var(--primary);
+}
+.axtronic-page--shop .widget .slider-meta {
+  margin-top: 10px;
+}
+.axtronic-page--shop .widget .slider-meta .slider-value {
+  color: var(--primary);
+}
+.axtronic-page--shop .widget .btn {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+  order: 3;
+  text-transform: none;
+  flex: 0 0 100%;
+  margin-top: 20px;
+  width: 100%;
+}
+.axtronic-page--shop .noUi-connect {
+  position: absolute;
+  z-index: 1;
+  font-size: 0.7em;
+  display: block;
+  border: 0;
+  background-color: var(--accent);
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+}
+.axtronic-page--shop .noUi-horizontal {
+  border-radius: 5px;
+  background: #e4e4e4;
+  border: 0;
+  height: 2px;
+}
+.axtronic-page--shop .noUi-horizontal .noUi-handle {
+  position: absolute;
+  top: auto;
+  z-index: 2;
+  width: 15px;
+  height: 15px;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  border-bottom-left-radius: 1em;
+  border-bottom-right-radius: 1em;
+  cursor: ew-resize;
+  background-color: #fff;
+  box-sizing: border-box;
+  margin-top: -6px;
+  margin-left: auto;
+  opacity: 1;
+  border: 3px solid var(--accent);
+  right: -6px !important;
+}
+.axtronic-page--shop .noUi-horizontal .noUi-handle:hover {
+  box-shadow: 0 0 0 0.236em rgba(0, 0, 0, 0.1);
+}
+.axtronic-page--shop .noUi-horizontal .noUi-handle:before, .axtronic-page--shop .noUi-horizontal .noUi-handle:after {
+  display: none;
+}
+
 @media (min-width: 768px) {
   .axtronic-products-special li.product-item {
     flex: 0 0 25%;
@@ -4418,7 +4503,8 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
   position: relative;
 }
 .widget-search .axtronic-form-widget-search button {
-  background-color: transparent;
+  background: transparent;
+  color: var(--accent);
   border: none;
   font-size: 15px;
   height: 100%;
@@ -4426,6 +4512,10 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
   right: 0;
   top: 0;
   transition: all 0.3s ease-out;
+  padding: 12.5px;
+}
+.widget-search .axtronic-form-widget-search button:hover {
+  color: var(--primary);
 }
 
 .widget-recent-post .post-content {
