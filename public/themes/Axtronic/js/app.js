@@ -1025,6 +1025,22 @@ jQuery(function ($) {
         },
     });
 
+    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiperProductGallery,
+        },
+    });
 
 
 

@@ -9,11 +9,15 @@
                         @include("product.sidebar")
                     </div>
                     <div class="col-md-9">
+
+                        @include("blocks.banner.index")
+
                         @include("product.search.header")
+
                         <div class="row py-3">
                             @if($rows->total())
                                 @foreach($rows as $row)
-                                    <div class="col-sm-4 mb-3">
+                                    <div class="col-sm-3 mb-3">
                                         @include("product.search.loop")
                                     </div>
                                 @endforeach

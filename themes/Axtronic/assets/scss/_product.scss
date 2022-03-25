@@ -533,15 +533,19 @@ ul.axtronic-products-special{
             margin-bottom: 0;
             li{
                 margin-bottom: 15px;
+                cursor: pointer;
+                &:hover{
+                    a, i{
+                        color: var(--primary);
+                    }
+                }
                 a{
                     color: var(--text);
                     display: block;
-                    &:hover{
-                        color: var(--primary);
-                        i{
-                            color: var(--primary);
-                        }
-                    }
+                }
+                ul.sub-cat{
+                    margin-top: calc(var(--grid-gutter) / 2);
+                    margin-left: calc(var(--grid-gutter) / 2);
                 }
             }
         }
@@ -560,6 +564,42 @@ ul.axtronic-products-special{
             flex: 0 0 100%;
             margin-top: 20px;
             width: 100%;
+        }
+        &.widget_shop{
+            border-radius: 8px 8px 0 0;
+        }
+        &.widget-attributes{
+            padding: 0;
+            .widget-attribute{
+                padding: var(--grid-gutter);
+                border-bottom: 1px solid var(--border);
+                &.widget-attribute-color{
+                    .axtronic-checkbox{
+                        display: inline-block;
+                        padding: 5px;
+                        border: 1px solid var(--border);
+                        background-color: #ffffff;
+                        border-radius: 50%;
+                        width: 40px;
+                        height: 40px;
+                        margin-right: 5px;
+                        &:hover{
+                            border-color: var(--primary);
+                        }
+                    }
+                    label{
+                        padding-left: 0;
+                        font-size: 0;
+                        width: 28px;
+                        height: 28px;
+                        border-radius: 50%;
+                        &:before{
+                            content: "";
+                        }
+                    }
+                }
+            }
+
         }
     }
     .noUi-connect{
@@ -606,13 +646,96 @@ ul.axtronic-products-special{
         }
     }
 }
-
+.axtronic-checkbox{
+    margin-bottom: 10px;
+    input{
+        display: none;
+    }
+    label{
+        padding-left: 30px;
+        line-height: 22px;
+        display: block;
+        position: relative;
+        cursor: pointer;
+        &:before{
+            @include themecustom-icon();
+            content: themecustom-char(square);
+            float: left;
+            opacity: .35;
+            position: absolute;
+            top: 4px;
+            left: 0;
+            width: 1em;
+            color: var(--text);
+        }
+    }
+    input[type="checkbox"]:checked + label, label:hover {
+        color: var(--primary);
+        &:before{
+            @include themecustom-icon();
+            content: themecustom-char(square-check);
+            color: var(--primary);
+            opacity: 1;
+        }
+    }
+}
 
 @media (min-width: 768px) {
     .axtronic-products-special{
         li.product-item{
             flex: 0 0 25%;
             max-width: 25%;
+        }
+    }
+}
+.c-main{
+    color: #ffb627;
+}
+.c-d2d2d2{
+    color: var(--text);
+    opacity: 0.25;
+}
+
+.axtronic-page-product{
+    .axtronic-product-detail{
+        .axtronic-product_header{
+            display: flex;
+            flex-flow: row nowrap;
+            .axtronic-product_info{
+                max-width: 57%;
+                padding-left: 30px;
+                width: 100%;
+                .product_title{
+                    font-size: 28px;
+                    margin-bottom: 10px;
+                    clear: none;
+                    line-height: 1.25;
+                    text-transform: none;
+                }
+            }
+            .axtronic-product_thumbnail{
+                align-content: flex-start;
+                display: flex;
+                flex-flow:wrap;
+                max-width: 43%;
+                width: 100%;
+                .axtronic-product_variants{
+                    margin: 15px 0;
+                    .swiper-slide{
+                        max-width: 80px;
+                        cursor: pointer;
+                        width: 80px;
+                        border: 1px solid var(--border);
+                        margin-right: 12px;
+                        border-radius: 12px;
+                        overflow: hidden;
+                        &:hover, &.swiper-slide-thumb-active{
+                            border-color: var(--primary);
+                        }
+                    }
+
+                }
+            }
         }
     }
 }

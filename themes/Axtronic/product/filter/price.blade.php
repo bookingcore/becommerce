@@ -1,4 +1,4 @@
-<div class="mb-3 border-bottom pb-3 bc-slider-price">
+<div class="axtronic-slider-price">
     @php
     $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
     $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );

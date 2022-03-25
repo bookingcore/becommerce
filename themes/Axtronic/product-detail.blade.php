@@ -7,22 +7,22 @@
                 <div class="axtronic-product_header mb-5">
                     @include('product.details.gallery')
                     <div class="axtronic-product_info">
-                        <h1 class="fs-24 mb-2">{{$translation->title}}</h1>
-                            <div class="axtronic-product_meta mb-4 d-flex">
-                                @if($row->brand)
-                                <p>{{ __("Brand:") }} <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
-                                @endif
-                                @php
-                                    $reviewData = $row->getScoreReview();
-                                    $score_total = $reviewData['score_total'];
-                                @endphp
-                                @if(!empty($reviewData['total_review']))
-                                    <div class="axtronic-product_rating">
-                                        @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
-                                        <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
-                                    </div>
-                                @endif
-                            </div>
+                        <h2 class="product_title">{{$translation->title}}</h2>
+                        <div class="axtronic-product_meta mb-4 d-flex">
+                            @if($row->brand)
+                            <p>{{ __("Brand:") }} <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
+                            @endif
+                            @php
+                                $reviewData = $row->getScoreReview();
+                                $score_total = $reviewData['score_total'];
+                            @endphp
+                            @if(!empty($reviewData['total_review']))
+                                <div class="axtronic-product_rating">
+                                    @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
+                                    <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
+                                </div>
+                            @endif
+                        </div>
                         @include('product.details.price',['show_discount_percent'=>1])
                         <div class="axtronic-product_desc mb-4">
                             <div class="desc-heading d-flex">
