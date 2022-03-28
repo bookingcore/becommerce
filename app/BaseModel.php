@@ -136,10 +136,6 @@ class BaseModel extends Model
         }
     }
 
-    public function check_enable_review_after_booking(){
-
-    }
-
 
     public static function getTableName()
     {

@@ -224,29 +224,8 @@ class Product extends BaseProduct
         return setting_item("product_review_approved", 1);
     }
 
-    public function check_enable_review_after_booking()
-    {
-        $option = setting_item("product_review_verification_required", 0);
-        if ($option) {
-            $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
-            $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;
-            if ($number_review >= $number_booking) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    public static function getReviewStats()
-    {
-        $reviewStats = [];
-        if (!empty($list = setting_item("product_review_stats", []))) {
-            $list = json_decode($list, true);
-            foreach ($list as $item) {
-                $reviewStats[] = $item['title'];
-            }
-        }
-        return $reviewStats;
+    public function isReviewRequirePurchase(){
+        return (bool) setting_item('product_review_verification_required');
     }
 
     public function getReviewDataAttribute()

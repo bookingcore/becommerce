@@ -180,10 +180,6 @@ class News extends BaseModel
             ->paginate(setting_item('news_review_number_per_page', 5));
     }
 
-    public function check_enable_review_after_booking(){
-        return true;
-    }
-
     public static function getReviewStats()
     {
         return [];

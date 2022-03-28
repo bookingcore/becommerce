@@ -1,21 +1,30 @@
 <?php
-namespace Modules\Review\Controllers;
+
+
+namespace Themes\Base\Controllers;
+
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\Product\Models\Product;
 use Modules\Review\Models\Review;
 use Modules\Review\Models\ReviewMeta;
-use Validator;
-use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function __construct()
+
+    protected $review;
+    public function __construct(Review $review)
     {
+        $this->review = $review;
     }
 
     public function addReview(Request $request)
     {
+        /**
+         * @var Product $module
+         */
         $service_type = $request->input('review_service_type');
         $service_id = $request->input('review_service_id');
         $allServices = get_bookable_services();
@@ -34,6 +43,9 @@ class ReviewController extends Controller
         $reviewEnable = $module->getReviewEnable();
         if (!$reviewEnable) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review not enable'));
+        }
+        if($module->isReviewRequirePurchase()){
+
         }
 
         if ($module->author_id == Auth::id()) {
