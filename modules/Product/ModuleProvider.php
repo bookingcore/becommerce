@@ -115,7 +115,7 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
-    public static function getBookableServices()
+    public static function getServices()
     {
         return [
             'product' => Product::class,

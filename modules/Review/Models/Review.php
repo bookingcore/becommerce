@@ -60,7 +60,7 @@ class Review extends BaseModel
 
     public function getService()
     {
-        $allServices = get_bookable_services();
+        $allServices = get_services();
         $news = (new News());
         $allServices[$news->type]=get_class($news);
 

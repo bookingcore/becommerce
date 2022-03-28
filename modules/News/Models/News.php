@@ -158,6 +158,7 @@ class News extends BaseModel
                 $join->whereNull('core_news_tag.deleted_at');
             });
         }
+        $query->with(['translation','tags']);
         return $query->isActive();
     }
 
@@ -271,5 +272,9 @@ class News extends BaseModel
             return $count;
         }
     }
+    public function related(){
+        return $this->hasMany(News::class,'cat_id','cat_id')->where('status','publish')->where('id','!=',$this->id)->with(['translation'])->limit(3);
+    }
+
 
 }

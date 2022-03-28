@@ -10,7 +10,7 @@ class ModuleServiceProvider extends \Illuminate\Support\ServiceProvider
     public static function getAdminSubmenu(){
         return [];
     }
-    public static function getBookableServices(){
+    public static function getServices(){
         return [];
     }
 

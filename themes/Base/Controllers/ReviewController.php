@@ -30,7 +30,7 @@ class ReviewController extends Controller
         $news = (new News());
         $service_type = $request->input('review_service_type');
         $service_id = $request->input('review_service_id');
-        $allServices = get_bookable_services();
+        $allServices = get_services();
 //        add more news to list review
         $allServices[$news->type]=get_class($news);
 

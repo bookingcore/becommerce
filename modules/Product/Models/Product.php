@@ -617,7 +617,7 @@ class Product extends BaseProduct
                 $query->orderBy("id", "desc");
         }
         $query->groupBy("products.id");
-        return $query->with(['hasWishList','brand']);
+        return $query->with(['hasWishList','brand','translation']);
     }
 
     public function getVariationsFormBook(){

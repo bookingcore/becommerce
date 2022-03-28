@@ -24,7 +24,7 @@ class ReviewController extends AdminController
         if (!empty($author = $request->input('customer_id'))) {
             $model->where('create_user', $author);
         }
-        $allServices = get_bookable_services();
+        $allServices = get_services();
 
         $news = (new News());
         $allServices[$news->type]=get_class($news);
@@ -71,7 +71,7 @@ class ReviewController extends AdminController
         if (empty($action)) {
             return redirect()->back()->with('error', __('Please select an action!'));
         }
-        $allServices = get_bookable_services();
+        $allServices = get_services();
         if ($action == "delete") {
             foreach ($ids as $id) {
                 $review = Review::where('id', $id)->first();

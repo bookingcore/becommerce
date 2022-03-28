@@ -193,7 +193,7 @@ class UserController extends FrontendController
         $this->checkPermission('enquiry_view');
         $user_id = Auth::id();
         $rows = $this->enquiryClass::where("vendor_id",$user_id)
-            ->whereIn('object_model',array_keys(get_bookable_services()))
+            ->whereIn('object_model',array_keys(get_services()))
             ->orderBy('id', 'desc');
         $data = [
             'rows'        => $rows->paginate(5),

@@ -24,7 +24,7 @@ class OrderItem extends BaseModel
     ];
 
     public function model(){
-        $keys = get_bookable_services();
+        $keys = get_services();
         if(!empty($keys[$this->object_model])){
             return $this->belongsTo($keys[$this->object_model],'object_id');
         }else{
