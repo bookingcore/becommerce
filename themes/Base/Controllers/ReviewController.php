@@ -7,6 +7,8 @@ namespace Themes\Base\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+use Modules\News\Models\News;
 use Modules\Product\Models\Product;
 use Modules\Review\Models\Review;
 use Modules\Review\Models\ReviewMeta;
@@ -20,14 +22,17 @@ class ReviewController extends Controller
         $this->review = $review;
     }
 
-    public function addReview(Request $request)
+    public function store(Request $request)
     {
         /**
          * @var Product $module
          */
+        $news = (new News());
         $service_type = $request->input('review_service_type');
         $service_id = $request->input('review_service_id');
         $allServices = get_bookable_services();
+//        add more news to list review
+        $allServices[$news->type]=get_class($news);
 
         if (empty($allServices[$service_type])) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Service type not found'));
@@ -44,13 +49,14 @@ class ReviewController extends Controller
         if (!$reviewEnable) {
             return redirect()->to(url()->previous() . '#review-form')->with('error', __('Review not enable'));
         }
-        if($module->isReviewRequirePurchase()){
 
+        if($module->isReviewRequirePurchase() and !$module->isBought()){
+            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You need to purchase a service to write a review'));
         }
 
-        if ($module->author_id == Auth::id()) {
-            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You cannot review your service'));
-        }
+//        if ($module->author_id == Auth::id()) {
+//            return redirect()->to(url()->previous() . '#review-form')->with('error', __('You cannot review your service'));
+//        }
 
         $rules = [
             'review_title'   => 'required',

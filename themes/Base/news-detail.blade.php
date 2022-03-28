@@ -36,6 +36,8 @@
                                     @endforeach
                                 </div>
                             @endif
+
+
                         </div>
                     </div>
                     @if($related_post)
@@ -61,6 +63,13 @@
                             </div>
                         </div>
                     @endif
+                    @if($row->getReviewEnable())
+                        <hr>
+                        @includeIf('product.details.tabs.review')
+
+                    @endif()
+
+
                 </div>
                 <div class="col-md-4">
                     @include('news.sidebar')

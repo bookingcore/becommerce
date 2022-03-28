@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Modules\Core\Models\Attribute;
 use Modules\Core\Models\Term;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
+use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderItem;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -223,9 +226,37 @@ class Product extends BaseProduct
     {
         return setting_item("product_review_approved", 1);
     }
+    public function getReviewNumberPerPage()
+    {
+        return setting_item("product_review_number_per_page", 5);
+    }
+    public static function getReviewStats()
+    {
+        return [];
+    }
 
     public function isReviewRequirePurchase(){
         return (bool) setting_item('product_review_verification_required');
+    }
+
+
+    public function getReviewListAttribute(){
+        return Review::where('object_id', $this->id)
+            ->where('object_model', $this->type)
+            ->where("status", "approved")
+            ->orderBy("id", "desc")
+            ->with('author')
+            ->paginate($this->getReviewNumberPerPage());
+    }
+
+    public function isBought(){
+        $orderItem  =  OrderItem::where('object_id',$this->id)
+            ->where('object_model',$this->type)
+            ->whereIn('status',[Order::COMPLETED,Order::PAID])
+            ->whereHas('order',function (Builder $builder){
+                $builder->where('customer_id',Auth::id());
+            })->count();
+        return !empty($orderItem)?true:false;
     }
 
     public function getReviewDataAttribute()

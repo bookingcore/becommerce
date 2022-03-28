@@ -201,4 +201,11 @@ class BaseModel extends Model
         return $res;
     }
 
+    public function isReviewRequirePurchase(){
+        return true;
+    }
+    public function isBought(){
+        return true;
+    }
+
 }
