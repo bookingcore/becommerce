@@ -15,7 +15,7 @@ class Settings extends BaseModel
 
     public static function getSettings($keys)
     {
-        $query = parent::query()->where('name', $keys);
+        $query = parent::query()->whereIn('name', $keys);
         $all = $query->get();
 
         $res = [];
