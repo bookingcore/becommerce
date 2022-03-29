@@ -24,9 +24,9 @@ $score_total = $reviewData['score_total'];
         </div>
         <div class="shop-action">
             <button class="btn-tooltips btn-addtocart tooltipstered"><i class="axtronic-icon-shopping-cart"></i></button>
-            <button class="btn-tooltips btn-wishlist tooltipstered" ><i class="axtronic-icon-heart"></i></button>
+            <button class="btn-tooltips btn-wishlist tooltipstered {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
             <button class="btn-tooltips btn-quickview tooltipstered" ><i class="axtronic-icon-eye"></i></button>
-            <button class="btn-tooltips btn-compare" ><i class="axtronic-icon-sync"></i></button>
+            <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
         </div>
     </div>
     <div class="product-caption">
@@ -42,7 +42,6 @@ $score_total = $reviewData['score_total'];
                     <i class="axtronic-icon-star" aria-hidden="true"></i>
                     <i class="axtronic-icon-star" aria-hidden="true"></i>
                     <i class="axtronic-icon-star" aria-hidden="true"></i>
-
                     <div class="front-stars" style="width: 70%">
                         <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
                         <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
@@ -56,6 +55,12 @@ $score_total = $reviewData['score_total'];
         @endif
         <div class="price">
             @include('product.details.price')
+        </div>
+        <div class="shop-action shop-action-list">
+            <button class="btn-tooltips btn-addtocart "><i class="axtronic-icon-shopping-cart"></i> {{ __('Add to card')  }}</button>
+            <button class="btn-tooltips btn-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+            <button class="btn-tooltips btn-quickview " ><i class="axtronic-icon-eye"></i></button>
+            <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
         </div>
     </div>
 </div>

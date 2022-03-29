@@ -221,6 +221,12 @@ ul.list-product-items{
             }
         }
     }
+    .shop-action{
+        display: block;
+        &.shop-action-list{
+            display: none;
+        }
+    }
 }
 
 .product-box-title {
@@ -688,6 +694,173 @@ ul.axtronic-products-special{
         }
     }
 }
+
+ul.axtronic-products{
+    margin-left: calc(var(--grid-gutter)/-2);
+    margin-right: calc(var(--grid-gutter)/-2);
+    margin-bottom: 0;
+    list-style: none;
+    clear: both;
+    display: flex;
+    flex-wrap: wrap;
+    &.products{
+        li.product{
+            flex: 0 0 calc(100%/4);
+            max-width: calc(100%/4);
+            padding-left: calc(var(--grid-gutter)/2);
+            padding-right: calc(var(--grid-gutter)/2);
+        }
+    }
+    &.product-lists{
+        margin: 0;
+        li.product{
+            padding: var(--grid-gutter);
+            width: 100%;
+            list-style: none;
+            margin-bottom: 30px;
+            position: relative;
+            transition: all .4s ease-in-out;
+            border: 1px solid var(--border);
+            box-sizing: border-box;
+            border-radius: 16px;
+            &:hover{
+                border-color: var(--primary);
+            }
+            .product-item{
+                display: flex;
+                align-items: center;
+                &:hover{
+                    .product-transition{
+                        border-color: var(--border);
+                    }
+                }
+                .product-transition{
+                    margin-right: var(--grid-gutter);
+                }
+                .product__title{
+                    font-size: 18px;
+                    font-weight: 600;
+                    line-height: 1.5;
+                    margin-bottom: 10px;
+                    a{
+                        color: var(--accent);
+                        &:hover{
+                            color: var(--primary);
+                        }
+                    }
+                }
+                .price{
+                    display: block;
+                    color: var(--primary);
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 30px;
+                }
+                .shop-action{
+                    display: none;
+                    &.shop-action-list{
+                        display: flex;
+                        button{
+                            height: 48px;
+                            margin-right: 5px;
+                            &:not(.btn-addtocart){
+                                background: var(--border);
+                                border-color: var(--border);
+                                margin-bottom: 0;
+                                color: var(--accent);
+                                padding: 0;
+                                width: 48px;
+                                &:hover{
+                                    color: #ffffff;
+                                    background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+        }
+
+    }
+}
+.axtronic-shopping__header{
+    h2{
+        margin-bottom: 0;
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 36px;
+    }
+    p{
+        margin-bottom: 0;
+        text-align: right;
+    }
+}
+.axtronic-shopping__actions{
+    margin-top: 30px;
+    margin-bottom: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    background: var(--background2);
+    padding: 12px;
+    border: 1.5px solid var(--border);
+    box-sizing: border-box;
+    border-radius: 8px;
+    justify-content: space-between;
+    .axtronic-ordering{
+        position: relative;
+        display: flex;
+        align-items: center;
+        label{
+            font-weight: 500;
+            line-height: 24px;
+            margin-right: 12px;
+            white-space: nowrap;
+            color: var(--accent);
+            font-size: 14px;
+        }
+        select{
+            font-weight: 400;
+            color: var(--accent);
+            font-size: 13px;
+            border-radius: 3px;
+            background-size: 9px;
+            padding: 0.63em 28px .63em 1.41575em;
+            background-color: var(--background);
+            border: 1px solid;
+            border-color: var(--border);
+            max-width: 100%;
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            appearance: none;
+            width: 100%;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHZpZXdCb3g9JzAgMCAxNiAxNic+PHBhdGggZmlsbD0nbm9uZScgc3Ryb2tlPScjMzQzYTQwJyBzdHJva2UtbGluZWNhcD0ncm91bmQnIHN0cm9rZS1saW5lam9pbj0ncm91bmQnIHN0cm9rZS13aWR0aD0nMicgZD0nTTIgNWw2IDYgNi02Jy8+PC9zdmc+);
+            background-position: calc(100% - 10px) center;
+            background-repeat: no-repeat;
+        }
+    }
+    .gridlist-toggle{
+        font-size: 20px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        a{
+            display: block;
+            color: var(--light);
+            &.active{
+                color: var(--accent);
+            }
+            &:hover{
+                color: var(--primary);
+            }
+            &.list{
+                margin-left: 10px;
+            }
+        }
+    }
+}
+
 .c-main{
     color: #ffb627;
 }
@@ -738,4 +911,47 @@ ul.axtronic-products-special{
             }
         }
     }
+}
+
+.axtronic-shopping__actions{
+    display: flex;
+    justify-content: space-between;
+}
+.axtronic-product-variations{
+    .variation{
+        display: flex;
+        align-items: center;
+    }
+    .axtronic-checkbox{
+        display: inline-block;
+        padding: 5px;
+        border: 1px solid var(--border);
+        background-color: #ffffff;
+        margin-right: 5px;
+        margin-bottom: 0;
+        &.axtronic-attribute-color{
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+        &:hover{
+            border-color: var(--primary);
+        }
+        label{
+            padding-left: 0;
+            &:before{
+                width: 0;
+                content: "";
+            }
+            &.attribute-color{
+                font-size: 0;
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+
+            }
+
+        }
+    }
+
 }

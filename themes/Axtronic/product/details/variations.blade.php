@@ -12,19 +12,21 @@
                     <div class="name me-3 f-w-10">{{ $name }}: </div>
                     <div class="values d-flex flex-wrap">
                         @foreach($values as $id => $value )
-                            <div class="item mr-2 me-2 border rounded border-dark">
-                                <input class="d-none item-attribute" type="radio" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
-                                @switch($value['type'])
-                                    @case("color")
-                                        <label style="background-color: {{$value['color']}};" class="miw-30px mih-30px d-flex align-items-center pe-2 ps-2 justify-content-center" for="attribute_{{$id}}">
-                                        </label>
-                                    @break
-                                    @default
-                                        <label class="miw-30px mih-30px d-flex align-items-center pe-2 ps-2 justify-content-center" for="attribute_{{$id}}">
+                            @switch($value['type'])
+                                @case("color")
+                                    <div class="axtronic-checkbox axtronic-attribute-color">
+                                        <input class="d-none item-attribute" type="radio" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
+                                        <label style="background-color: {{$value['color']}};" for="attribute_{{$id}}" class="attribute-color"></label>
+                                    </div>
+                                @break
+                                @default
+                                    <div class="axtronic-checkbox axtronic-attribute">
+                                        <input class="d-none item-attribute" type="radio" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
+                                        <label class="attribute-item" for="attribute_{{$id}}">
                                             {{$value['name']}}
                                         </label>
-                                @endswitch
-                            </div>
+                                    </div>
+                            @endswitch
                         @endforeach
                     </div>
                 </div>

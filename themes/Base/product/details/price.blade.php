@@ -1,16 +1,14 @@
 <div class="bc-product-price">
     @if($row->product_type=='variable')
-        @if(!empty($priceRange = $row->getMinMaxPriceProductVariations()))
             <p class="price variable-price m-0">
-                @if($priceRange['min'] == $priceRange['max'])
-                    <span class="amount">{{format_money($priceRange['max'])}}</span>
+                @if($row->min_price == $row->max_price)
+                    <span class="amount">{{format_money($row->min_price)}}</span>
                 @else
-                    <span class="amount">{{format_money($priceRange['min'])}}</span>
+                    <span class="amount">{{format_money($row->min_price)}}</span>
                     -
-                    <span class="amount">{{format_money($priceRange['max'])}}</span>
+                    <span class="amount">{{format_money($row->max_price)}}</span>
                 @endif
             </p>
-        @endif
     @else
         @if(!empty($row->display_sale_price))
             <p class="price has-sale m-0 c-f30 fs-16">
