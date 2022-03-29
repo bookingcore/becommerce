@@ -1,0 +1,34 @@
+@media (max-width: 1440px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                flex: 0 0 calc(100%/3)!important;
+                max-width: calc(100%/3)!important;
+            }
+        }
+    }
+}
+
+@media (max-width: 1024px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                padding-left: calc(16px/2);
+                padding-right: calc(16px/2);
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                flex: 0 0 calc(100%/2)!important;
+                max-width: calc(100%/2)!important;
+                padding-left: calc(10px/2);
+                padding-right: calc(10px/2);
+            }
+        }
+    }
+}
