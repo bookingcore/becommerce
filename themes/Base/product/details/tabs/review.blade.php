@@ -2,8 +2,8 @@
 $review_score= $row->review_data;
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
+$review_list = $row->review_list
 ?>
-
 @include('global.message')
 <div class="bravo-reviews">
     <div class="review-box">
@@ -76,7 +76,7 @@ $score_total = $reviewData['score_total'];
                         </div>
                         <p class="form-submit">
                             <input type="hidden" name="review_service_id" value="{{$row->id}}">
-                            <input type="hidden" name="review_service_type" value="product">
+                            <input type="hidden" name="review_service_type" value="{{$row->type}}">
                             <input id="submit" type="submit" name="submit" class="btn btn-primary" value="{{__("Submit")}}">
                         </p>
                     </form>

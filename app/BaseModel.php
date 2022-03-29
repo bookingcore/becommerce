@@ -136,10 +136,6 @@ class BaseModel extends Model
         }
     }
 
-    public function check_enable_review_after_booking(){
-
-    }
-
 
     public static function getTableName()
     {
@@ -203,6 +199,13 @@ class BaseModel extends Model
             ];
         }
         return $res;
+    }
+
+    public function isReviewRequirePurchase(){
+        return true;
+    }
+    public function isBought(){
+        return true;
     }
 
 }

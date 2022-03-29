@@ -104,7 +104,6 @@ class ProductController extends Controller
             return;
         }
         $translation = $row->translate(app()->getLocale());
-        $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $breadcrumbs = [
             [
                 'name'=> __("Shop"),
@@ -135,7 +134,6 @@ class ProductController extends Controller
         $data = [
             'row'                => $row,
             'translation'        => $translation,
-            'review_list'        => $review_list,
             'seo_meta'           => $row->getSeoMetaWithTranslation(app()->getLocale(), $translation),
             'body_class'         => 'is_single',
             'show_breadcrumb'    => 0,

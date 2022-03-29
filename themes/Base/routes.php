@@ -65,9 +65,11 @@ Route::group(['prefix'=>'store'],function(){
     Route::get('/{slug}/reviews','Vendor\StoreController@allReviews')->name("store.reviews");
 });
 
-Route::group(['prefix'=>'pos'],function(){
-   Route::get('/','POSController@index')->name('pos');
+//Review
+Route::group(['middleware' => ['auth','verified']],function(){
+    Route::post('/review','ReviewController@store')->name('review.store');
 });
+
 
 Route::get('page/{slug}','PageController@detail')->name('page.detail');
 

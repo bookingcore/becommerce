@@ -1,7 +1,3 @@
-<?php
-$reviewData = $row->getScoreReview();
-$score_total = $reviewData['score_total'];
-?>
 <div class="bc-tab-root">
     <ul class="nav nav-tabs bc-tab-list">
         @if(!empty($row->tabs))
@@ -9,7 +5,7 @@ $score_total = $reviewData['score_total'];
                 @php $tab_name = $tab['name'] @endphp
                 @if($tab['id'] == 'review')
                     @php
-                        $count = (!empty($review_list)) ? $review_list->total() : 0;
+                        $count = (!empty($row->review_list)) ? $row->review_list->total() : 0;
                         $tab_name = $tab['name']." ($count)";
                     @endphp
                 @endif

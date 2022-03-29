@@ -119,7 +119,7 @@
                         <div class="form-controls">
                             <label><input type="checkbox" name="product_review_verification_required" value="1"  @if(!empty(setting_item('product_review_verification_required'))) checked @endif /> {{__("On")}} </label>
                             <br>
-                            <small class="form-text text-muted">{{__("ON: Only post a review after booking - Off: Post review without booking")}}</small>
+                            <small class="form-text text-muted">{{__("ON: Only post a review after order - Off: Post review without order")}}</small>
                         </div>
                     </div>
                     <div class="form-group" data-condition="product_enable_review:is(1)">

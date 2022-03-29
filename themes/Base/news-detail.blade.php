@@ -36,10 +36,18 @@
                                     @endforeach
                                 </div>
                             @endif
+
+
                         </div>
                     </div>
-                    @if($related_post)
-                        <div class="related-post">
+                    @if($row->getReviewEnable())
+                        <div class="mt-4 pt-4 border-top">
+                            @includeIf('product.details.tabs.review')
+
+                        </div>
+                    @endif()
+                    @if($related_post->count()>0)
+                        <div class="related-post mt-4 border-top">
                             <h5 class="post-title text-center mt-5">{{ __('You Might Also Like') }}</h5>
                             <div class="post-content">
                                 <div class="row">
@@ -61,6 +69,9 @@
                             </div>
                         </div>
                     @endif
+
+
+
                 </div>
                 <div class="col-md-4">
                     @include('news.sidebar')

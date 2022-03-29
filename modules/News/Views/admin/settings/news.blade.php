@@ -110,7 +110,7 @@
                     <div class="form-group" data-condition="news_enable_comment:is(1)">
                         <label class="" >{{__("Comment must be approval by admin")}}</label>
                         <div class="form-controls">
-                            <label><input type="checkbox" name="news_comment_need_approved" value="1"  @if(setting_item('news_comment_need_approved')) checked @endif /> {{__("Yes please")}} </label>
+                            <label><input type="checkbox" name="news_comment_approved" value="1"  @if(setting_item('news_comment_approved')) checked @endif /> {{__("Yes please")}} </label>
                             <br>
                             <small class="form-text text-muted">{{__("ON: Comment must be approved by admin - OFF: Comment is automatically approved")}}</small>
                         </div>

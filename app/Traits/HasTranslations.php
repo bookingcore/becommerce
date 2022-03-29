@@ -77,7 +77,7 @@ trait HasTranslations
             $find = $this->translation;
         }else {
             $find = $inst->where([
-                'origin_id' => $this->id,
+                'origin_id' => $this->getKey(),
                 'locale' => $locale,
             ])->first();
         }
@@ -88,7 +88,7 @@ trait HasTranslations
                 $find->setTable($this->table_translation);
             }
             $find->locale = $locale;
-            $find->origin_id = $this->id;
+            $find->origin_id = $this->getKey();
             $find->fill($this->getAttributes());
         }
         if(!$find->type) $find->type = $this->type;

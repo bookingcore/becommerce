@@ -84,7 +84,6 @@ class NewsController extends FrontendController
             abort(404);
             return;
         }
-        $related_post = $news->where('cat_id',$news->cat_id)->where('slug','!=',$slug)->get();
         $translation = $news->translate();
         $is_preview_mode = false;
         if($news->status != 'publish'){
@@ -98,7 +97,7 @@ class NewsController extends FrontendController
             'translation'=>$translation,
             'page_title'=>$translation->title,
             'header_title'=>$translation->title,
-            'related_post' => $related_post,
+            'related_post' => $news->related,
             'is_preview_mode'    => $is_preview_mode,
         ];
         return view('news-detail',$data);

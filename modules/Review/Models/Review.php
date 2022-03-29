@@ -2,6 +2,7 @@
 namespace Modules\Review\Models;
 
 use App\BaseModel;
+use Modules\News\Models\News;
 use Modules\Review\Models\ReviewMeta;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -59,7 +60,10 @@ class Review extends BaseModel
 
     public function getService()
     {
-        $allServices = get_bookable_services();
+        $allServices = get_services();
+        $news = (new News());
+        $allServices[$news->type]=get_class($news);
+
         $module = $allServices[$this->object_model];
         return $this->hasOne($module, "id", 'object_id');
     }
