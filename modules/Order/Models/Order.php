@@ -14,6 +14,7 @@ use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderUpdated;
 use Modules\Order\Resources\Admin\OrderItemResource;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\TaxRate;
 
 class Order extends BaseModel
 {
@@ -308,6 +309,26 @@ class Order extends BaseModel
         OrderItem::query()->whereNotIn('id',$order_item_ids)->where('order_id',$this->id)->delete();
 
         $this->syncTotal();
+    }
+
+    public function saveTax($tax_lists){
+
+        $tax_percent = 0;
+        foreach ($tax_lists as $k=>$tax){
+            if(!empty($tax['active']) and !empty($tax['tax_rate']))
+            {
+                $tax_percent += $tax['tax_rate'];
+            }else{
+                unset($tax_lists[$k]);
+            }
+        }
+        $subtotal = $this->subtotal + $this->shipping_amount;
+        $this->tax_amount = $subtotal * $tax_percent/100;
+        if(!TaxRate::isPriceInclude()){
+            $this->total += $this->tax_amount;
+        }
+        $this->save();
+        $this->addMeta('tax',$tax_lists);
     }
 
     public function generateCode()

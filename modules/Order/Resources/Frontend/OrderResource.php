@@ -12,7 +12,7 @@ class OrderResource extends JsonResource
             'subtotal_amount' => $this::subtotal(),
             'discount_amount' => $this::discountTotal(),
             'shipping_available' => ShippingZoneMethod::countMethodAvailable() == 0 ? false : true,
-            'tax_available' => TaxRate::taxEnable(),
+            'tax_available' => TaxRate::isEnable(),
         ];
     }
 }

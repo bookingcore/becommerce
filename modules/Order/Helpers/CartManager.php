@@ -454,7 +454,7 @@ class CartManager
                 $country = "";
         }
         // Find Tax By Country
-        $tax = TaxRate::select("name", "tax_rate", "city", "postcode", "country", "state")
+        $tax = TaxRate::select("id","name", "tax_rate", "city", "postcode", "country", "state")
             ->where("country", $country)
             ->orWhere("country", "*")->get();
         if (!empty($tax)) {
@@ -468,7 +468,7 @@ class CartManager
     }
 
     public static function addTax($billing_country , $shipping_country){
-        if( TaxRate::taxEnable() ){
+        if( TaxRate::isEnable() ){
             $tax = static::getTaxRate($billing_country , $shipping_country);
             if(!empty($tax['tax'])){
                 static::$_tax = $tax['tax'];

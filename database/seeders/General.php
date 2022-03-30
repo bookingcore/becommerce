@@ -131,7 +131,7 @@ namespace Database\Seeders;
                 ],
                 [
                     'name'  => "currency_no_decimal",
-                    'val'   => "0",
+                    'val'   => 2,
                     'group' => "payment",
                 ],
                 [
