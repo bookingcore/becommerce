@@ -587,6 +587,11 @@ class Product extends BaseProduct
             $query->where('products.author_id',$filters['vendor_id']);
         }
 
+        if(setting_item('product_hide_products_out_of_stock'))
+        {
+            $query->where('stock_status','in');
+        }
+
         $orderby = $filters['order_by'] ?? "desc";
         $order = $filters['order'] ?? $filters['sort'] ?? "id";
 
