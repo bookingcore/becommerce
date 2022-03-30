@@ -32,7 +32,7 @@ trait HasAddress
             $add->is_default = 1;
         }
         $add->fill($data);
-        $add->type = $type;
+        $add->address_type = $type;
         $add->save();
     }
 }

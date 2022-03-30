@@ -24,7 +24,7 @@ class UserAddress extends BaseModel
         'country',
         'email',
         'phone',
-        'type',
+        'address_type',
     ];
 
     public function getHtmlAttribute(){
