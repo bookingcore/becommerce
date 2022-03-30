@@ -204,7 +204,7 @@ class Product extends BaseProduct
     public static function getMinMaxPrice()
     {
         $model = parent::selectRaw('MIN( min_price ) AS min_price ,
-                                    MAX( min_price ) AS max_price ')->where("status", "publish")->first();
+                                    MAX( max_price ) AS max_price ')->where("status", "publish")->first();
         if (empty($model->min_price) and empty($model->max_price)) {
             return [
                 0,
@@ -533,8 +533,8 @@ class Product extends BaseProduct
         $query->where("products.status", "publish");
 
         if (!empty($filters['min_price']) and !empty($filters['max_price'])) {
-            $raw_sql_min_max = "( products.min_price >= ? and products.min_price <= ? )";
-            $query->whereRaw($raw_sql_min_max,[$filters['min_price'],$filters['max_price']]);
+            $raw_sql_min_max = "( ( products.min_price >= ? and products.min_price <= ? ) OR ( products.max_price >= ? and products.max_price <= ? ) )";
+            $query->whereRaw($raw_sql_min_max,[$filters['min_price'],$filters['max_price'],$filters['min_price'],$filters['max_price']]);
         }
 
         if (!empty($filters['terms']) and is_array($filters['terms'])) {
