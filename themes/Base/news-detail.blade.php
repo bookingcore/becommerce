@@ -36,8 +36,6 @@
                                     @endforeach
                                 </div>
                             @endif
-
-
                         </div>
                     </div>
                     @if($row->getReviewEnable())

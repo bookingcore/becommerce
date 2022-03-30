@@ -16,9 +16,12 @@
                     <div class="comment-body">
                         <div class="comment-meta ">
                             <div class="comment-author vcard">
-                                <img alt="" src="" class="avatar avatar-128 photo lazyloaded" height="128" width="128"/><cite class="fn">Elicia</cite> </div>
+                                <img alt="" src="https://secure.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=128&d=mm&r=g" class="avatar avatar-128 photo lazyloaded" height="128" width="128"/>
+                                <cite class="fn">Elicia</cite>
+                            </div>
                             <a href="#" class="comment-date">
-                                <time datetime="2021-12-23T00:59:15+00:00">December 23, 2021</time> </a>
+                                <time datetime="2021-12-23T00:59:15+00:00">December 23, 2021</time>
+                            </a>
                         </div>
                         <div id="div-comment-134" class="comment-content">
                             <div class="comment-text">
@@ -30,13 +33,13 @@
                         </div>
                     </div>
                     <ol class="children">
-                        <li class="comment odd alt depth-2" id="comment-135">
+                        <li class="comment odd">
                             <div class="comment-body">
                                 <div class="comment-meta">
                                     <div class="comment-author vcard">
-                                        <img alt="" src="" class="avatarphoto" height="128" width="128"/><cite class="fn">Elicia</cite> </div>
+                                        <img alt="" src="https://secure.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=128&d=mm&r=g" class="avatar" height="128" width="128"/><cite class="fn">Elicia</cite> </div>
                                     <a href="#" class="comment-date">
-                                        <time datetime="2021-12-23T00:59:15+00:00">December 23, 2021</time> </a>
+                                        <time >December 23, 2021</time> </a>
                                 </div>
                                 <div id="div-comment-135" class="comment-content">
                                     <div class="comment-text">
@@ -54,7 +57,7 @@
                     <div class="comment-body">
                         <div class="comment-meta">
                             <div class="comment-author">
-                                <img alt="" src="" class="avatar avatar-128 photo lazyloaded" height="128" width="128"/><cite class="fn">Elicia</cite> </div>
+                                <img alt="" src="https://secure.gravatar.com/avatar/64e1b8d34f425d19e1ee2ea7236d3028?s=128&d=mm&r=g" class="avatar avatar-128 photo lazyloaded" height="128" width="128"/><cite class="fn">Elicia</cite> </div>
                             <a href="#" class="comment-date">
                                 <time datetime="2021-12-23T00:59:15+00:00">December 23, 2021</time> </a>
                         </div>
@@ -71,22 +74,48 @@
             </ol>
         </div>
         <div id="respond" class="comment-respond">
-            <h2 id="reply-title" class="comment-reply-title">Leave a Reply
-                <small>
-                    <a rel="nofollow" id="cancel-comment-reply-link" href="/axtronic/spring-wine-festival-at-a-vintage-vineyard-3/#respond" style="display:none;">Cancel reply</a>
-                </small>
+            <h2 id="reply-title" class="comment-reply-title">
+                Leave a Reply
             </h2>
-            <form action="https://demo.leebrosus.com/axtronic/wp-comments-post.php" method="post" id="commentform" class="comment-form" novalidate="">
-                <p class="comment-notes"><span id="email-notes">Your email address will not be published.</span> <span class="required-field-message" aria-hidden="true">Required fields are marked <span class="required" aria-hidden="true">*</span></span></p>
-                <p class="comment-form-comment"><label for="comment">Comment <span class="required" aria-hidden="true">*</span></label> <textarea id="comment" name="comment" cols="45" rows="8" maxlength="65525" required=""></textarea></p>
-                <p class="comment-form-author"><label for="author">Name <span class="required" aria-hidden="true">*</span></label> <input id="author" name="author" type="text" value="" size="30" maxlength="245" required=""></p>
-                <p class="comment-form-email"><label for="email">Email <span class="required" aria-hidden="true">*</span></label> <input id="email" name="email" type="email" value="" size="30" maxlength="100" aria-describedby="email-notes" required=""></p>
-                <p class="comment-form-url"><label for="url">Website</label> <input id="url" name="url" type="url" value="" size="30" maxlength="200"></p>
-                <p class="comment-form-cookies-consent"><input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes"> <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label></p>
-                <p class="form-submit"><input name="submit" type="submit" id="submit" class="submit" value="Post Comment"> <input type="hidden" name="comment_post_ID" value="71" id="comment_post_ID">
-                    <input type="hidden" name="comment_parent" id="comment_parent" value="0">
-                </p>
-                <p style="display: none !important;"><label>Δ<textarea name="ak_hp_textarea" cols="45" rows="8" maxlength="100"></textarea></label><input type="hidden" id="ak_js_1" name="ak_js" value="1647853288035"></p>
+            <p>Your email address will not be published. Required fields are marked *</p>
+            <form action="" method="post" id="commentform" class="comment-form" novalidate="">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for=""> {{ __('Name') }} <span class="required">*</span></label>
+                            <input type="text" value="" placeholder=" " name="name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">{{ __('Email') }}  <span class="required">*</span></label>
+                            <input type="text" value="" placeholder="" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="">{{ __('Website') }}  <span class="required">*</span></label>
+                            <input type="text" value="" placeholder="" name="email" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-md-12 my-3">
+                        <div class="form-group">
+                            <label for="">{{ __('Comment ') }}</label>
+                            <textarea name="message" cols="45" rows="8" class="textarea" placeholder=""></textarea>
+                        </div>
+                    </div>
+                    <div class="col-md-12 ">
+                        <p class="comment-form-cookies-consent">
+                            <input id="wp-comment-cookies-consent" name="wp-comment-cookies-consent" type="checkbox" value="yes">
+                            <label for="wp-comment-cookies-consent">Save my name, email, and website in this browser for the next time I comment.</label>
+                        </p>
+                    </div>
+                    <div class="col-md-12 ">
+                        <button class="submit btn " type="submit">
+                            {{ __('Post Comment') }}
+                        </button>
+                    </div>
+                </div>
             </form>
         </div>
 
