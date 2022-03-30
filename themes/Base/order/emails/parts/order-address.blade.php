@@ -16,7 +16,7 @@ $fields = [
 <table cellspacing="0" cellpadding="0" style="width: 100%; vertical-align: top; margin-bottom: 40px; padding:0;" border="0">
     <tr>
         <td style="border:0; padding:0;" valign="top" width="50%">
-            <h3>{{__('Billing address')}}</h3>
+            <h3 class="address-title">{{__('Billing address')}}</h3>
             <address class="address">
                 {{$billing_address['first_name'] ?? ''}} {{$billing_address['last_name'] ?? ''}}
                 @foreach($fields as $field)
@@ -35,7 +35,7 @@ $fields = [
         </td>
         @if( !empty($shipping_address) )
         <td style="border:0; padding:0;" valign="top" width="50%">
-            <h3>{{__('Shipping address')}}</h3>
+            <h3 class="address-title">{{__('Shipping address')}}</h3>
             <address class="address">
                 {{$shipping_address['first_name'] ?? ''}} {{$shipping_address['last_name'] ?? ''}}
                 @foreach($fields as $field)

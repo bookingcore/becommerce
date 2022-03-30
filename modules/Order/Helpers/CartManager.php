@@ -317,6 +317,7 @@ class CartManager
             $order_item->variation_id = $item->variation_id;
             $order_item->vendor_id = $item->author_id;
             $order_item->locale = app()->getLocale();
+            $order_item->calculateCommission();
             $order_item->save();
         }
         $order->syncTotal();

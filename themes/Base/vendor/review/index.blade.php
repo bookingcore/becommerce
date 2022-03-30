@@ -91,9 +91,7 @@
                                 {{__("[Deleted]")}}
                             @endif
                         </td>
-                        <td>
-                            <span class="">{{ $row->status }}</span>
-                        </td>
+                        <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                         <td>{{ display_datetime($row->updated_at)}}</td>
                     </tr>
                 @endforeach

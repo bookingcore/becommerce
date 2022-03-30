@@ -170,6 +170,7 @@ class BaseModel extends Model
             case "publish":
             case "paid":
             case "completed":
+            case "approved":
                 return "success";
                 break;
             case "pending":
@@ -178,6 +179,8 @@ class BaseModel extends Model
             case "rejected":
                 return "danger";
                 break;
+            case "processing":
+                return "primary";
             case "draft":
             default:
                 return "secondary";
