@@ -65,6 +65,8 @@
                         <th>{{__('Customer')}}</th>
 
                         <th>{{__('Total')}}</th>
+                        <th>{{__('Tax')}} ({{\Modules\Product\Models\TaxRate::isPriceInclude() ? __("Include") : __("Exclude")}})</th>
+                        <th>{{__('Commission')}}</th>
                         <th width="80px">{{__('Status')}}</th>
                         <th width="150px">{{__('Payment Method')}}</th>
                         <th width="120px">{{__('Created At')}}</th>
@@ -86,11 +88,13 @@
                             <ul class="list-unstyled order-list">
                                 <li>
                                     <div class="media">
+                                        @if($model->image_id)
                                         <div class="media-left" style="padding-right: 10px">
                                             <div class="thumb" style="width: 50px;">
-                                                {!! get_image_tag($model->image_id,'thumb',['lazy'=>false,'style'=>'width:100%']) !!}
+                                                <img src="{{get_file_url($model->image_id)}}" width="50px" alt="">
                                             </div>
                                         </div>
+                                        @endif
                                         <div class="media-body">
                                             <a target="_blank" href="{{ route('product.detail',['slug'=>$model->slug])}}">{{ $model->title }} x {{ $item->qty }}</a>
                                         </div>
@@ -114,8 +118,10 @@
                                 @endif
                         </td>
                         <td>{{format_money($row->total)}}</td>
+                        <td>{{format_money($row->tax_amount)}}</td>
+                        <td>{{format_money($row->items->sum('commission_amount'))}}</td>
                         <td>
-                            <span class="label label-{{$row->status}}">{{$row->statusName}}</span>
+                            <span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
                         </td>
                         <td>
                             {{$row->gatewayObj ? $row->gatewayObj->getDisplayName() : ''}}
@@ -164,10 +170,11 @@
     </div>
 </div>
 @endsection
-@section('footer')
+@section('script.body')
 <script>
 
-    $('#order').on('show.bs.modal',function (e){
+    $('#modal-order').on('show.bs.modal',function (e){
+        console.log(e)
         var btn = $(e.relatedTarget);
         $(this).find('.order_id').html(btn.data('id'));
         $(this).find('.modal-body').html('<div class="d-flex justify-content-center">{{__("Loading...")}}</div>');

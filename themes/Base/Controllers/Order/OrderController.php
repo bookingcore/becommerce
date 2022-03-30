@@ -56,7 +56,14 @@ class OrderController extends FrontendController
         return $gatewayObj->cancelPayment($request);
     }
 
-    public function modal(Order $order){
+    public function modal($code){
+        $order = Order::whereCode($code)->first();
+        if(!$order){
+            abort(404);
+        }
+        if(!is_admin() and $order->customer_id != auth()->id()){
+            abort(404);
+        }
         return view('order.detail.modal',['order'=>$order]);
     }
 }
