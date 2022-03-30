@@ -1339,6 +1339,7 @@ function get_compare_details(){
                 }
             }
             $productArray = $product->getAttributes();
+            $productArray['remain_stock'] = $product->remain_stock;
             $productArray['price_html'] = view('product.details.price', ["row"=>$product])->render();
             $productArray['detail_url'] = $product->getDetailUrl();
             $productArray['attrs'] = $attrs;

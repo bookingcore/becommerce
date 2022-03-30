@@ -51,7 +51,15 @@
     <tr class="stock">
         <th>{{ __('Availability') }}</th>
         @foreach ($compare as $row)
-            <td class="text-center"> {{ ($row['stock_status'] == 'in' ? __('In stock') : __('Out of stock')) }} </td>
+            <td class="text-center">
+                @if($row['is_manage_stock'] and $row['quantity'])
+                    {{$row['remain_stock']}} {{__("in stock")}}
+                @elseif(!$row['is_manage_stock'] and $row['stock_status'] == 'in')
+                    {{__("In stock")}}
+                @else
+                    {{__("Of of stock")}}
+                @endif
+            </td>
         @endforeach
     </tr>
     <tr class="stock">
