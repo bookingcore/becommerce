@@ -18,6 +18,9 @@ class PaymentUpdatedListener
     {
         switch ($event->_payment->object_model){
             case "order":
+                /**
+                 * @var Order $order
+                 */
                 $order = Order::find($event->_payment->object_id);
                 if($order){
                     $order->paymentUpdated($event->_payment);

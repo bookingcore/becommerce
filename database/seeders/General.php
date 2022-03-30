@@ -256,7 +256,7 @@ namespace Database\Seeders;
                 [
                     [
                         'name'  => "email_driver",
-                        'val'   => "sendmail",
+                        'val'   => "log",
                         'group' => "email",
                     ],
                     [

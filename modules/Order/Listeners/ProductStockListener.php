@@ -7,6 +7,7 @@ namespace Modules\Order\Listeners;
 
 use Modules\Order\Events\OrderUpdated;
 use Modules\Order\Models\Order;
+use Modules\Product\Models\BaseProduct;
 use Modules\Product\Models\Product;
 
 class ProductStockListener
@@ -33,8 +34,8 @@ class ProductStockListener
             foreach ($items as $item) {
                 if(empty($item->reduced_stock)){
                     $model = $item->model();
-                    if(!empty($model) and $model instanceof  Product){
-                        if($model->is_manage_stock){
+                    if(!empty($model) and $model instanceof  BaseProduct){
+                        if($model->is_manage_stock()){
                             $model->quantity -= $item->qty;
                             if($model->quantity <=0){
                                 $model->quantity = 0 ;
@@ -55,7 +56,7 @@ class ProductStockListener
                 if(empty($item->reduced_stock)){
                     $model = $item->model();
                     if(!empty($model) and $model instanceof  Product){
-                        if($model->is_manage_stock){
+                        if($model->is_manage_stock()){
                             $model->quantity += $item->reduced_stock;
                             if($model->quantity<=0){
                                 $model->stock_status ='out';

@@ -137,7 +137,7 @@ class CartManager
      */
     public static function clear(){
         Session::forget(static::$session_key);
-//        session()->forget(static::$session_key);
+        static::clearCoupon();
         return true;
     }
 
@@ -286,7 +286,6 @@ class CartManager
 	}
 
     public static function clearCoupon(){
-//    	session()->forget(static::$session_coupon_key);
         Session::forget(static::$session_coupon_key);
     }
 

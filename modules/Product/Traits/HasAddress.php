@@ -23,4 +23,16 @@ trait HasAddress
     public function shipping_addresses(){
         return $this->hasMany(UserAddress::class,'user_id')->where('address_type',2);
     }
+
+    public function save_default_address($data,$type){
+        $add = $type === UserAddress::BILLING  ? $this->billing_address : $this->shipping_address;
+        if(!$add){
+            $add = new UserAddress();
+            $add->user_id = $this->id;
+            $add->is_default = 1;
+        }
+        $add->fill($data);
+        $add->address_type = $type;
+        $add->save();
+    }
 }
