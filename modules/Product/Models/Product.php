@@ -470,10 +470,10 @@ class Product extends BaseProduct
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
                                 if($qty>$remainStock){
-                                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]));
                                 }
                             }else{
-                                throw new \Exception(__('Out of stock'));
+                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
                             }
                         }else{
 
