@@ -10,7 +10,6 @@ $score_total = $reviewData['score_total'];
         <div class="mf-product-rating row">
             @if($score_total > 0)
                 <div class="col-md-5 col-sm-12 col-xs-12 col-average-rating">
-
                     <div class="average-rating ">
                         <h6>{{ __('Average Rating') }}</h6>
                         <h3>{{$review_score['score_total']}}</h3>

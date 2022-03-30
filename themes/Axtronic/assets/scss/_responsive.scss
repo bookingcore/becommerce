@@ -18,6 +18,23 @@
             }
         }
     }
+
+}
+@media (min-width: 1024px) {
+    .comments-area{
+        .comment-list {
+            .comment-body{
+                padding-left: 75px;
+            }
+            .comment-meta {
+                .avatar{
+                    position: absolute;
+                    left: -75px;
+                    top: 0;
+                }
+            }
+        }
+    }
 }
 
 @media (max-width: 767px) {

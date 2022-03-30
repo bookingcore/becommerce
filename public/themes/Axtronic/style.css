@@ -1294,7 +1294,7 @@ hr {
 }
 
 p {
-  margin: 0 0 1.618034em;
+  margin: 0 0 1em;
 }
 
 ul,
@@ -1523,6 +1523,12 @@ button.button-hover:hover, input[type=button].button-hover:hover, input[type=res
 
 .primary-color-hover {
   color: var(--primary_hover);
+}
+
+textarea {
+  overflow: auto;
+  vertical-align: top;
+  width: 100%;
 }
 
 [data-elementor-columns] {
@@ -4729,12 +4735,24 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   content: "|";
   padding: 0 10px;
 }
-.axtronic-post .entry-content .entry-meta .meta-categories a, .axtronic-post .entry-content .entry-meta .posted-on a {
+.axtronic-post .entry-content .entry-meta .meta-categories a, .axtronic-post .entry-content .entry-meta .posted-on a, .axtronic-post .entry-content .entry-meta .meta-comment a {
   color: var(--text);
 }
-.axtronic-post .entry-content .entry-meta .meta-categories a:hover, .axtronic-post .entry-content .entry-meta .posted-on a:hover {
+.axtronic-post .entry-content .entry-meta .meta-categories a:hover, .axtronic-post .entry-content .entry-meta .posted-on a:hover, .axtronic-post .entry-content .entry-meta .meta-comment a:hover {
   color: var(--primary);
   text-decoration: underline;
+}
+.axtronic-post .entry-content .post-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  color: var(--text);
+}
+.axtronic-post .entry-content .post-title {
+  font-size: 36px;
+  line-height: 1.13;
+  margin-top: 15px;
+  margin-bottom: 12px;
 }
 .axtronic-post .entry-content h2.entry-title {
   font-size: 18px;
@@ -4934,6 +4952,213 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   color: #fff;
   background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
 }
+.axtronic-post-detail .meta-categories a {
+  color: #fff;
+  display: inline-block;
+  background: var(--secondary);
+  border-radius: 8px;
+  padding: 4px 10px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  font-size: 12px;
+}
+.axtronic-post-detail .meta-categories a:hover {
+  background: var(--secondary_hover);
+  color: #fff;
+  text-decoration: none;
+}
+
+.comments-area {
+  position: relative;
+  padding-top: 50px;
+}
+.comments-area .comment-list-wrap {
+  margin-bottom: 2.2906835em;
+}
+.comments-area .title-comment {
+  font-size: 24px;
+  color: var(--accent);
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.comments-area .comment-list {
+  position: relative;
+  list-style: none;
+  margin: 0;
+}
+.comments-area .comment-list .comment-body {
+  min-height: 100px;
+  margin-bottom: 40px;
+  padding-bottom: 35px;
+  border-bottom: 1px solid;
+  border-color: var(--border);
+  padding-left: 75px;
+}
+.comments-area .comment-list .reply {
+  margin-top: 5px;
+  text-transform: uppercase;
+}
+.comments-area .comment-list .reply a {
+  color: var(--accent);
+  display: inline-block;
+  margin-right: 1em;
+  font-weight: 400;
+  font-size: 14px;
+  text-transform: none;
+}
+.comments-area .comment-list .reply a:before {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  margin-right: 5px;
+  line-height: inherit;
+  vertical-align: top;
+}
+.comments-area .comment-list .reply a:last-child {
+  margin-right: 0;
+}
+.comments-area .comment-list .comment-meta {
+  position: relative;
+  margin-bottom: 5px;
+}
+.comments-area .comment-list .comment-meta cite {
+  font-size: 16px;
+  color: var(--accent);
+  font-style: normal;
+  font-weight: 600;
+}
+.comments-area .comment-list .comment-meta .comment-author {
+  display: inline-block;
+  margin-right: 12px;
+}
+.comments-area .comment-list .comment-meta .comment-author .avatar {
+  position: absolute;
+  left: -75px;
+  top: 0;
+  width: 60px;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  box-shadow: 0 0.2rem 1.9rem 0 var(--background2);
+  border: 2px solid var(--background);
+}
+.comments-area .comment-list .comment-meta a.comment-date {
+  color: var(--light);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 14px;
+}
+.comments-area .comment-list .children {
+  list-style: none;
+}
+.comments-area label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 2px;
+  line-height: 2;
+}
+.comments-area label .required {
+  color: #e2401c;
+}
+.comments-area .comment-form-cookies-consent label {
+  font-weight: 400;
+}
+
+nav.navigation {
+  clear: both;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 40px 0;
+}
+nav.navigation:before, nav.navigation:after {
+  content: "";
+  display: table;
+}
+nav.navigation .nav-next, nav.navigation .nav-previous {
+  padding: var(--grid-gutter) 0;
+}
+nav.navigation .nav-next a, nav.navigation .nav-previous a {
+  display: flex;
+  align-items: center;
+  color: var(--accent);
+}
+nav.navigation .has-image {
+  display: flex;
+}
+nav.navigation .has-image img {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  object-fit: cover;
+  margin-right: 20px;
+}
+nav.navigation .has-image .inner-action {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+nav.navigation .has-image .inner-action .reader-text {
+  display: block;
+  color: var(--light);
+  margin-bottom: 5px;
+  position: relative;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+nav.navigation .has-image .inner-action .reader-text i {
+  display: inline-block;
+  line-height: inherit;
+  margin-right: 10px;
+}
+nav.navigation .has-image .inner-action .title {
+  font-size: 16px;
+  font-weight: 600;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.375;
+}
+nav.navigation .has-image .inner-action .title:hover {
+  color: var(--primary);
+}
+nav.navigation .nav-links {
+  display: flex;
+}
+nav.navigation .nav-previous {
+  width: 50%;
+  padding-right: 20px;
+  border: none;
+  border-right: 1px solid var(--border);
+}
+nav.navigation .nav-previous a {
+  justify-content: flex-start;
+}
+nav.navigation .nav-previous + .nav-next {
+  border: none;
+}
+nav.navigation .nav-next {
+  text-align: right;
+  width: 50%;
+  padding-left: 20px;
+  border-left: 1px solid var(--border);
+}
+nav.navigation .nav-next a {
+  justify-content: end;
+}
+nav.navigation .nav-next img {
+  margin-left: 20px;
+}
 
 @media (max-width: 1440px) {
   ul.axtronic-products.products li.product {
@@ -4945,6 +5170,16 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   ul.axtronic-products.products li.product {
     padding-left: calc(16px/2);
     padding-right: calc(16px/2);
+  }
+}
+@media (min-width: 1024px) {
+  .comments-area .comment-list .comment-body {
+    padding-left: 75px;
+  }
+  .comments-area .comment-list .comment-meta .avatar {
+    position: absolute;
+    left: -75px;
+    top: 0;
   }
 }
 @media (max-width: 767px) {

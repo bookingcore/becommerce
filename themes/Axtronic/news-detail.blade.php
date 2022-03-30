@@ -12,12 +12,12 @@
         </nav>
         <div class="container py-4">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="axtronic-post">
                         <div class="axtronic-post-detail entry-content">
-                            <div class="post-header mb-4">
+                            <div class="post-header">
                                 <div class="meta-categories">
-                                    <a href="#" rel="category tag">Tips &amp; Tricks</a>,
+                                    <a href="#" rel="category tag">Tips &amp; Tricks</a>
                                     <a href="" rel="category tag">Uncategorized</a>
                                 </div>
                                 <h2 class="post-title">{{$translation->title}}</h2>
@@ -28,20 +28,15 @@
                                             <span class="vcard author author_name">{{$row->author->last_name}} </span>
                                         </a>
                                     </div>
-                                    @if($row->tags->count())
-                                        <div class="meta-categories">
-                                            @php $tags = []; @endphp
-                                            @foreach($row->tags as $tag)
-                                                <a class="category tag" href="{{ route('news.tag',['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if(!$loop->last),@endif
-                                            @endforeach
-                                        </div>
-                                    @endif
+                                    <span class="meta-comment">
+                                        <a class="comment-link" href="#comments">Comments: 3</a>
+                                    </span>
                                     <div class="posted-on">
                                         <a href="#">{{display_date($row->created_at)}}</a>
                                     </div>
                                 </div>
                             </div>
-                            <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
+                            <a class="ratio ratio-16x9 d-block post-review mb-5" href="{{$row->getDetailUrl()}}">
                                 {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
                             </a>
                             <div class="axtronic-post_content">
@@ -64,11 +59,11 @@
 
                     </div>
                     @include('news.comment')
-                    {{--@if($related_post)--}}
-                        {{--@include('news.related-post')--}}
-                    {{--@endif--}}
+                    @if($related_post)
+                        @include('news.related-post')
+                    @endif
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
                     @include('news.sidebar')
                 </div>
             </div>
