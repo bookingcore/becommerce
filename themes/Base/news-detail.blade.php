@@ -43,7 +43,6 @@
                     @if($row->getReviewEnable())
                         <div class="mt-4 pt-4 border-top">
                             @includeIf('product.details.tabs.review')
-
                         </div>
                     @endif()
                     @if($related_post->count()>0)
@@ -69,9 +68,6 @@
                             </div>
                         </div>
                     @endif
-
-
-
                 </div>
                 <div class="col-md-4">
                     @include('news.sidebar')
