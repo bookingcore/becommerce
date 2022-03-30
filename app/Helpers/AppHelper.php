@@ -160,9 +160,7 @@ function get_file_url($file_id,$size="thumb",$resize = true){
 }
 
 function get_image_tag($image_id,$size = 'medium',$options = []){
-    $options = array_merge($options,[
-        'lazy'=>true
-    ]);
+    if(!isset($options['lazy'])) $options['lazy'] = true;
 
     $url = get_file_url($image_id,$size);
 
@@ -174,7 +172,7 @@ function get_image_tag($image_id,$size = 'medium',$options = []){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
         }else{
-            $attr.=" src='".e($url)."' ";
+            $attr.=" src=".e($url)." ";
         }
         return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
     }
