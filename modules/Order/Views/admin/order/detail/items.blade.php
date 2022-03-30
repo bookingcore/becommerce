@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <div class="d-flex mb-2">
                         <div class="col-8 text-right ">{{__("Subtotal")}}</div>
-                        <div class="col-4 text-right font-weight-bold">@{{ formatMoney(subtotal) }}</div>
+                        <div class="col-4 text-right font-weight-bold">@{{ formatMoney(_subtotal) }}</div>
                     </div>
                     <div class="d-flex mb-2 align-items-center">
                         <div class="col-8 text-right ">
@@ -35,9 +35,31 @@
                         </div>
                         <div class="col-4 text-right font-weight-bold"><input type="number" class="form-control text-right" v-model.number="shipping_amount"></div>
                     </div>
+                    @if(\Modules\Product\Models\TaxRate::isEnable())
+                    <div class="d-flex mb-2 align-items-center">
+                        <div class="col-8 text-right ">
+                            <div class="form-inline justify-content-end">
+                                {{__("Tax")}} ({{\Modules\Product\Models\TaxRate::isPriceInclude() ? __("Include") : __("Exclude")}})
+                            </div>
+                        </div>
+                        <div class="col-4 text-right font-weight-bold">@{{ formatMoney(_tax_amount) }}</div>
+                    </div>
+                    <div class="d-flex mb-2 align-items-center">
+                        <div class="col-8 text-right ">
+                            <div class="form-inline justify-content-end">
+                                <div>
+                                    <div v-for="(tax,index) in tax_lists">
+                                        <input type="checkbox" v-model="tax_lists[index]['active']" :value="index"> @{{ tax.name }} @{{tax.tax_rate}}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 text-right font-weight-bold"></div>
+                    </div>
+                    @endif
                     <div class="d-flex">
                         <div class="col-8 text-right ">{{__("Grand total")}}</div>
-                        <div class="col-4 text-right font-weight-bold">@{{ formatMoney(total) }}</div>
+                        <div class="col-4 text-right font-weight-bold">@{{ formatMoney(_total) }}</div>
                     </div>
                 </div>
             </div>

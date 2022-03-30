@@ -1025,10 +1025,50 @@ jQuery(function ($) {
         },
     });
 
+    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiperProductGallery,
+        },
+    });
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
 
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
 
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
 
-    // Onchange Select Header
+    let param = getUrlParameter('layout');
+    if (param === 'list'){
+        $('.axtronic-products').addClass('product-lists');
+        $('.axtronic-products').removeClass('products');
+        $('.gridlist-toggle .list').addClass('active');
+        $('.gridlist-toggle .grid').removeClass('active');
+    }else {
+        $('.gridlist-toggle .grid').addClass('active');
+        $('.gridlist-toggle .list').removeClass('active');
+    }
+
+    // Onchange Select Category Product Search Header
     function getName(select) {
         // And here we get the name
         var selectedOption = select.options[select.selectedIndex];
@@ -1043,7 +1083,7 @@ jQuery(function ($) {
     $(document).on('click','.cart-contents',function (e) {
         e.preventDefault();
         $('.site-cart-side').toggleClass('active');;
-    })
+    });
     $('.close-cart-side,.cart-side-overlay').on('click', function (e) {
         e.preventDefault();
         $('.site-cart-side').removeClass('active');

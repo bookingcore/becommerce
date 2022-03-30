@@ -730,7 +730,7 @@ function translate_or_origin($key,$settings = [],$locale = '')
     }
 }
 
-function get_bookable_services(){
+function get_services(){
 
     $all = [];
     // Modules
@@ -740,7 +740,7 @@ function get_bookable_services(){
             $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
             if(class_exists($moduleClass))
             {
-                $services = call_user_func([$moduleClass,'getBookableServices']);
+                $services = call_user_func([$moduleClass,'getServices']);
                 $all = array_merge($all,$services);
             }
 
@@ -755,7 +755,7 @@ function get_bookable_services(){
             $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
             if(class_exists($moduleClass))
             {
-                $services = call_user_func([$moduleClass,'getBookableServices']);
+                $services = call_user_func([$moduleClass,'getServices']);
                 $all = array_merge($all,$services);
             }
         }
@@ -768,7 +768,7 @@ function get_bookable_services(){
             $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
             if(class_exists($moduleClass))
             {
-                $services = call_user_func([$moduleClass,'getBookableServices']);
+                $services = call_user_func([$moduleClass,'getServices']);
                 $all = array_merge($all,$services);
             }
         }
@@ -779,7 +779,7 @@ function get_bookable_services(){
 
 function get_bookable_service_by_id($id){
 
-    $all = get_bookable_services();
+    $all = get_services();
 
     return $all[$id] ?? null;
 }

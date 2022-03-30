@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\News\Models\News;
 use Modules\Review\Models\Review;
 
 class ReviewController extends AdminController
@@ -23,7 +24,11 @@ class ReviewController extends AdminController
         if (!empty($author = $request->input('customer_id'))) {
             $model->where('create_user', $author);
         }
-        $allServices = get_bookable_services();
+        $allServices = get_services();
+
+        $news = (new News());
+        $allServices[$news->type]=get_class($news);
+
         $allServicesKeys = array_keys($allServices);
 
         if (!empty($search_name = $request->input('s'))) {
@@ -66,7 +71,7 @@ class ReviewController extends AdminController
         if (empty($action)) {
             return redirect()->back()->with('error', __('Please select an action!'));
         }
-        $allServices = get_bookable_services();
+        $allServices = get_services();
         if ($action == "delete") {
             foreach ($ids as $id) {
                 $review = Review::where('id', $id)->first();

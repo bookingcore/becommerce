@@ -3,6 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +12,8 @@ use Modules\Core\Models\Attribute;
 use Modules\Core\Models\Term;
 use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
+use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderItem;
 use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -223,30 +226,37 @@ class Product extends BaseProduct
     {
         return setting_item("product_review_approved", 1);
     }
-
-    public function check_enable_review_after_booking()
+    public function getReviewNumberPerPage()
     {
-        $option = setting_item("product_review_verification_required", 0);
-        if ($option) {
-            $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
-            $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;
-            if ($number_review >= $number_booking) {
-                return false;
-            }
-        }
-        return true;
+        return setting_item("product_review_number_per_page", 5);
     }
-
     public static function getReviewStats()
     {
-        $reviewStats = [];
-        if (!empty($list = setting_item("product_review_stats", []))) {
-            $list = json_decode($list, true);
-            foreach ($list as $item) {
-                $reviewStats[] = $item['title'];
-            }
-        }
-        return $reviewStats;
+        return [];
+    }
+
+    public function isReviewRequirePurchase(){
+        return (bool) setting_item('product_review_verification_required');
+    }
+
+
+    public function getReviewListAttribute(){
+        return Review::where('object_id', $this->id)
+            ->where('object_model', $this->type)
+            ->where("status", "approved")
+            ->orderBy("id", "desc")
+            ->with('author')
+            ->paginate($this->getReviewNumberPerPage());
+    }
+
+    public function isBought(){
+        $orderItem  =  OrderItem::where('object_id',$this->id)
+            ->where('object_model',$this->type)
+            ->whereIn('status',[Order::COMPLETED,Order::PAID])
+            ->whereHas('order',function (Builder $builder){
+                $builder->where('customer_id',Auth::id());
+            })->count();
+        return !empty($orderItem)?true:false;
     }
 
     public function getReviewDataAttribute()
@@ -323,9 +333,9 @@ class Product extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock and $this->quantity){
+        if ($this->is_manage_stock() and $this->quantity){
             $stock = __('In Stock');
-        } elseif(!$this->is_manage_stock and $this->stock_status == 'in') {
+        } elseif(!$this->is_manage_stock() and $this->stock_status == 'in') {
             $stock = __('In Stock');
         }else{
             $stock = __('Out Of Stock');
@@ -399,16 +409,8 @@ class Product extends BaseProduct
     public function variations(){
     	return $this->hasMany(ProductVariation::class);
     }
-	public function getMinMaxPriceProductVariations(){
-    	if($this->product_type=='variable'){
-		    $array = $this->variations()->pluck('price')->toArray();
-		    $array= array_values(Arr::sort($array));
-		    return ['min'=>head($array),'max'=>last($array)];
-	    }
-	}
-	public function getSameBrandAttribute(){
-		return Product::where('id','!=',$this->id)->where("status", "publish")->where("brand_id", $this->brand_id)->take(3)->inRandomOrder()->get();
-	}
+
+
 
 	public function getProductJsAdminDataAttribute(){
         return [
@@ -440,7 +442,7 @@ class Product extends BaseProduct
     }
     protected function get_stock($st, $pr){
         $sold = (!empty($pr->sold)) ? $pr->sold : 0;
-        if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+        if ($pr->stock_status == 'in' && $pr->is_manage_stock()){
             $st = $pr->quantity - $sold;
         }
         return $st;
@@ -463,15 +465,15 @@ class Product extends BaseProduct
             case 'variable':
                     $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
-                        if(!empty($this->is_manage_stock)){
+                        if(!empty($this->is_manage_stock())){
                             $onHold = $this->on_hold;
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
                                 if($qty>$remainStock){
-                                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]));
                                 }
                             }else{
-                                throw new \Exception(__('Out of stock'));
+                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
                             }
                         }else{
 
@@ -585,6 +587,11 @@ class Product extends BaseProduct
             $query->where('products.author_id',$filters['vendor_id']);
         }
 
+        if(setting_item('product_hide_products_out_of_stock'))
+        {
+            $query->where('stock_status','in');
+        }
+
         $orderby = $filters['order_by'] ?? "desc";
         $order = $filters['order'] ?? $filters['sort'] ?? "id";
 
@@ -607,7 +614,7 @@ class Product extends BaseProduct
                 $query->orderBy("id", "desc");
         }
         $query->groupBy("products.id");
-        return $query->with(['hasWishList','brand']);
+        return $query->with(['hasWishList','brand','translation']);
     }
 
     public function getVariationsFormBook(){
@@ -615,9 +622,9 @@ class Product extends BaseProduct
             return false;
         $list_variations = $list_attributes=  [];
         foreach($data_variations as  $variation){
-            if(empty($variation->isActive($this->is_manage_stock))) continue;
+            if(empty($variation->isActive($this->is_manage_stock()))) continue;
             $term_ids = $variation->term_ids;
-            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->is_manage_stock)];
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->is_manage_stock())];
             foreach($this->attributes_for_variation_data as $item){
                 foreach($item['terms'] as $term){
                     if(in_array($term->id,$term_ids)){
@@ -641,20 +648,19 @@ class Product extends BaseProduct
     {
         // Find min price
         if(get_class($this) == Product::class) {
-           $this->updateMinPrice();
+           $this->updateMinMaxPrice();
         }
         return parent::save($options); // TODO: Change the autogenerated stub
     }
 
-    public function updateMinPrice(){
+    public function updateMinMaxPrice(){
+        $this->min_price = $this->price;
+        $this->max_price = $this->price;
         if ($this->product_type == 'variable') {
-            $min_price = 0;
-            if (!empty($this->variations())) {
-                $min_price = $this->variations()->min('price') ?? 0;
+            if (!empty($variations  = $this->variations)) {
+                $this->min_price = $variations->min('price')??$this->price;
+                $this->max_price = $variations->max('price')??$this->price;
             }
-            $this->min_price = $min_price;
-        } else {
-            $this->min_price = $this->price;
         }
     }
 }

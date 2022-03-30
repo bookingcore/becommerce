@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 Trait HasMeta
 {
-
     public function getMeta($key, $default = '')
     {
         $val = $this->metaClass::query()->where([
-            'order_id' => $this->id,
+            $this->meta_parent_key => $this->id,
             'name'       => $key
         ])->first();
         if (!empty($val)) {
@@ -37,11 +36,11 @@ Trait HasMeta
             return $this->metaClass::create([
                 'name'       => $key,
                 'val'        => $val,
-                'order_id' => $this->id
+                $this->meta_parent_key => $this->id
             ]);
         } else {
             $old = $this->metaClass::query()->where([
-                'order_id' => $this->id,
+                $this->meta_parent_key => $this->id,
                 'name'       => $key
             ])->first();
             if ($old) {
@@ -52,7 +51,7 @@ Trait HasMeta
                 return $this->metaClass::create([
                     'name'       => $key,
                     'val'        => $val,
-                    'order_id' => $this->id
+                    $this->meta_parent_key => $this->id
                 ]);
             }
         }

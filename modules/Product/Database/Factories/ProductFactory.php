@@ -117,7 +117,7 @@ class ProductFactory extends Factory
                     ]);
                 }
             }
-            $product->updateMinPrice();
+            $product->updateMinMaxPrice();
             $product->updateServiceRate();
         });
     }

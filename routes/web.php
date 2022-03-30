@@ -36,12 +36,6 @@ Route::group(['middleware' => ['auth']],function(){
     Route::match(['get','post'],'/admin/module/media/getLists','\Modules\Media\Admin\MediaController@getLists');
 });
 
-//Review
-Route::group(['middleware' => ['auth']],function(){
-    Route::get('/review',function (){ return redirect('/'); });
-    Route::post('/review','\Modules\Review\Controllers\ReviewController@addReview');
-});
-
 // Logs
 Route::get('admin/logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index')->middleware(['auth', 'dashboard','system_log_view']);
 

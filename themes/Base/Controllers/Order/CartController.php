@@ -56,7 +56,7 @@ class CartController extends FrontendController
         $service_id = $request->input('object_id');
         $variation_id = $request->input('variation_id');
 
-        $allServices = get_bookable_services();
+        $allServices = get_services();
         if (empty($allServices[$service_type])) {
             return $this->sendError(__('Service type not found'));
         }

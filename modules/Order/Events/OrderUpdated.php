@@ -13,7 +13,7 @@ class OrderUpdated
     use Dispatchable, SerializesModels;
 
     /**
-     * @var \LaravelIdea\Helper\Modules\Order\Models\_IH_OrderItem_C|mixed|\Modules\Order\Models\OrderItem[]
+     * @var mixed|\Modules\Order\Models\OrderItem[]
      */
     public $_items;
     /**

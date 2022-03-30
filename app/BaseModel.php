@@ -136,10 +136,6 @@ class BaseModel extends Model
         }
     }
 
-    public function check_enable_review_after_booking(){
-
-    }
-
 
     public static function getTableName()
     {
@@ -174,6 +170,7 @@ class BaseModel extends Model
             case "publish":
             case "paid":
             case "completed":
+            case "approved":
                 return "success";
                 break;
             case "pending":
@@ -182,6 +179,8 @@ class BaseModel extends Model
             case "rejected":
                 return "danger";
                 break;
+            case "processing":
+                return "primary";
             case "draft":
             default:
                 return "secondary";
@@ -203,6 +202,13 @@ class BaseModel extends Model
             ];
         }
         return $res;
+    }
+
+    public function isReviewRequirePurchase(){
+        return true;
+    }
+    public function isBought(){
+        return true;
     }
 
 }

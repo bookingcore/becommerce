@@ -23,6 +23,159 @@
                 @endif
             </div>
         </div>
+    </div>
+</div>
+
+@if(is_default_lang())
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 class="form-group-title">{{__("Inventory Options")}}</h3>
+            <p class="form-group-desc">{{__('Configure inventory for products')}}</p>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="" >{{__("Enable stock management")}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" name="product_enable_stock_management" value="1" @if(!empty(setting_item('product_enable_stock_management'))) checked @endif /> {{__("On")}} </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" data-condition="product_enable_stock_management:is(1)">
+                        <label class="" >{{__("Hold stock (minutes)")}}</label>
+                        <div class="form-controls">
+                            <input type="number" class="form-control" name="product_hold_stock" value="{{ setting_item('product_hold_stock', 60) }}" />
+                            <small class="form-text text-muted">{{__("Hold stock (for unpaid orders) for x minutes. When this limit is reached, the pending order will be cancelled. Leave blank to disable.")}}</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="" >{{__("Hide out of stock items from the product page?")}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" name="product_hide_products_out_of_stock" value="1"  @if(!empty(setting_item('product_hide_products_out_of_stock'))) checked @endif /> {{__("On")}} </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Policies Options")}}</h3>
+        <p class="form-group-desc">{{__('Config policies for product')}}</p>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                <div class="form-group">
+                    <div class="form-controls">
+                        <div class="form-group-item">
+                            <div class="g-items-header">
+                                <div class="row">
+                                    <div class="col-md-11 text-left">{{__("Title - Content")}}</div>
+                                    <div class="col-md-1"></div>
+                                </div>
+                            </div>
+                            <div class="g-items">
+                                @php
+                                $product_policies = json_decode(setting_item_with_lang('product_policies',request()->query('lang'),"[]"));
+                                @endphp
+                                @if(!empty($product_policies) && count($product_policies) > 0)
+                                    @foreach($product_policies as $key=>$item)
+                                        <div class="item" data-number="{{$key}}">
+                                            <div class="row">
+                                                <div class="col-md-11">
+                                                    <input type="text" name="product_policies[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
+                                                    <textarea name="product_policies[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                @endif
+                            </div>
+                            <div class="text-right">
+                                <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
+                            </div>
+                            <div class="g-more hide">
+                                <div class="item" data-number="__number__">
+                                    <div class="row">
+                                        <div class="col-md-11">
+                                            <input type="text" __name__="product_policies[__number__][title]" class="form-control" placeholder="{{__('Title')}}">
+                                            <textarea __name__="product_policies[__number__][content]" rows="3" class="form-control" placeholder="{{__("Content")}}"></textarea>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@if(is_default_lang())
+    <hr>
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 class="form-group-title">{{__("Review Options")}}</h3>
+            <p class="form-group-desc">{{__('Config review for product')}}</p>
+        </div>
+        <div class="col-sm-8">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="" >{{__("Write review")}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" name="product_enable_review" value="1" @if(!empty(setting_item('product_enable_review'))) checked @endif /> {{__("On Review")}} </label>
+                            <br>
+                            <small class="form-text text-muted">{{__("Turn on the mode for reviewing product")}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group" data-condition="product_enable_review:is(1)">
+                        <label class="" >{{__('Reviews can only be left by "verified owners"')}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" name="product_review_verification_required" value="1"  @if(!empty(setting_item('product_review_verification_required'))) checked @endif /> {{__("On")}} </label>
+                            <br>
+                            <small class="form-text text-muted">{{__("ON: Only post a review after order - Off: Post review without order")}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group" data-condition="product_enable_review:is(1)">
+                        <label class="" >{{__("Review approved")}}</label>
+                        <div class="form-controls">
+                            <label><input type="checkbox" name="product_review_approved" value="1"  @if(!empty(setting_item('product_review_approved'))) checked @endif /> {{__("On approved")}} </label>
+                            <br>
+                            <small class="form-text text-muted">{{__("ON: Review must be approved by admin - OFF: Review is automatically approved")}}</small>
+                        </div>
+                    </div>
+                    <div class="form-group" data-condition="product_enable_review:is(1)">
+                        <label class="" >{{__("Review number per page")}}</label>
+                        <div class="form-controls">
+                            <input type="number" class="form-control" name="product_review_number_per_page" value="{{ setting_item('product_review_number_per_page' , 5) }}" />
+                            <small class="form-text text-muted">{{__("Break comments into pages")}}</small>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
+<hr>
+<div class="row">
+    <div class="col-md-4">
+        <h3 class="form-group-title">{{__("SEO Options")}}</h3>
+    </div>
+    <div class="col-md-8">
         <div class="panel">
             <div class="panel-title"><strong>{{__("SEO Options")}}</strong></div>
             <div class="panel-body">
@@ -96,170 +249,5 @@
         </div>
     </div>
 </div>
-@if(is_default_lang())
-    <hr>
-    <div class="row">
-        <div class="col-sm-4">
-            <h3 class="form-group-title">{{__("Review Options")}}</h3>
-            <p class="form-group-desc">{{__('Config review for product')}}</p>
-        </div>
-        <div class="col-sm-8">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="" >{{__("Write review")}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="product_enable_review" value="1" @if(!empty(setting_item('product_enable_review'))) checked @endif /> {{__("On Review")}} </label>
-                            <br>
-                            <small class="form-text text-muted">{{__("Turn on the mode for reviewing product")}}</small>
-                        </div>
-                    </div>
-                    <div class="form-group" data-condition="product_enable_review:is(1)">
-                        <label class="" >{{__('Reviews can only be left by "verified owners"')}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="product_review_verification_required" value="1"  @if(!empty(setting_item('product_review_verification_required'))) checked @endif /> {{__("On")}} </label>
-                            <br>
-                            <small class="form-text text-muted">{{__("ON: Only post a review after booking - Off: Post review without booking")}}</small>
-                        </div>
-                    </div>
-                    <div class="form-group" data-condition="product_enable_review:is(1)">
-                        <label class="" >{{__("Review approved")}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="product_review_approved" value="1"  @if(!empty(setting_item('product_review_approved'))) checked @endif /> {{__("On approved")}} </label>
-                            <br>
-                            <small class="form-text text-muted">{{__("ON: Review must be approved by admin - OFF: Review is automatically approved")}}</small>
-                        </div>
-                    </div>
-                    <div class="form-group" data-condition="product_enable_review:is(1)">
-                        <label class="" >{{__("Review number per page")}}</label>
-                        <div class="form-controls">
-                            <input type="number" class="form-control" name="product_review_number_per_page" value="{{ setting_item('product_review_number_per_page' , 5) }}" />
-                            <small class="form-text text-muted">{{__("Break comments into pages")}}</small>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
-@if(is_default_lang())
-    <hr>
-    <div class="row">
-        <div class="col-sm-4">
-            <h3 class="form-group-title">{{__("Inventory Options")}}</h3>
-            <p class="form-group-desc">{{__('Configure inventory for products')}}</p>
-        </div>
-        <div class="col-sm-8">
-            <div class="panel">
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="" >{{__("Enable stock management")}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="product_enable_stock_management" value="1" @if(!empty(setting_item('product_enable_stock_management'))) checked @endif /> {{__("On")}} </label>
-                        </div>
-                    </div>
-
-                    <div class="form-group" data-condition="product_enable_stock_management:is(1)">
-                        <label class="" >{{__("Hold stock (minutes)")}}</label>
-                        <div class="form-controls">
-                            <input type="number" class="form-control" name="product_hold_stock" value="{{ setting_item('product_hold_stock', 60) }}" />
-                            <small class="form-text text-muted">{{__("Hold stock (for unpaid orders) for x minutes. When this limit is reached, the pending order will be cancelled. Leave blank to disable.")}}</small>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="" >{{__("Hide out of stock items from the product page?")}}</label>
-                        <div class="form-controls">
-                            <label><input type="checkbox" name="product_hide_products_out_of_stock" value="1"  @if(!empty(setting_item('product_hide_products_out_of_stock'))) checked @endif /> {{__("On")}} </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endif
-
-
-<div class="row">
-    <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Policies Options")}}</h3>
-        <p class="form-group-desc">{{__('Config policies for product')}}</p>
-    </div>
-    <div class="col-sm-8">
-        <div class="panel">
-            <div class="panel-body">
-                <div class="form-group">
-                    <div class="form-controls">
-                        <div class="form-group-item">
-                            <div class="g-items-header">
-                                <div class="row">
-                                    <div class="col-md-11 text-left">{{__("Title - Content")}}</div>
-                                    <div class="col-md-1"></div>
-                                </div>
-                            </div>
-                            <div class="g-items">
-                                @php
-                                $product_policies = json_decode(setting_item_with_lang('product_policies',request()->query('lang'),"[]"));
-                                @endphp
-                                @if(!empty($product_policies) && count($product_policies) > 0)
-                                    @foreach($product_policies as $key=>$item)
-                                        <div class="item" data-number="{{$key}}">
-                                            <div class="row">
-                                                <div class="col-md-11">
-                                                    <input type="text" name="product_policies[{{$key}}][title]" class="form-control" placeholder="{{__('Title')}}" value="{{$item->title}}">
-                                                    <textarea name="product_policies[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item->content}}</textarea>
-                                                </div>
-                                                <div class="col-md-1">
-                                                    <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                @endif
-                            </div>
-                            <div class="text-right">
-                                <span class="btn btn-info btn-sm btn-add-item"><i class="icon ion-ios-add-circle-outline"></i> {{__('Add item')}}</span>
-                            </div>
-                            <div class="g-more hide">
-                                <div class="item" data-number="__number__">
-                                    <div class="row">
-                                        <div class="col-md-11">
-                                            <input type="text" __name__="product_policies[__number__][title]" class="form-control" placeholder="{{__('Title')}}">
-                                            <textarea __name__="product_policies[__number__][content]" rows="3" class="form-control" placeholder="{{__("Content")}}"></textarea>
-                                        </div>
-                                        <div class="col-md-1">
-                                            <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@section('script.body')
-    <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
-    <script>
-        (function ($) {
-            $('.ace-editor').each(function () {
-                var editor = ace.edit($(this).attr('id'));
-                editor.setTheme("ace/theme/"+$(this).data('theme'));
-                editor.session.setMode("ace/mode/"+$(this).data('mod'));
-                var me = $(this);
-
-                editor.session.on('change', function(delta) {
-                    // delta.start, delta.end, delta.lines, delta.action
-                    me.next('textarea').val(editor.getValue());
-                });
-            });
-        })(jQuery)
-    </script>
-@endsection
 
 

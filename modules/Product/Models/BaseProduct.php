@@ -167,23 +167,29 @@ class BaseProduct extends BaseModel
 
     public function stockValidation($qty)
     {
-        $isManageStock  = $this->is_manage_stock;
+        $isManageStock  = $this->is_manage_stock();
         if(!empty($isManageStock)){
             $onHold = $this->on_hold;
             if(!empty($this->quantity)){
                 $remainStock = $this->quantity - $onHold;
                 if($qty>$remainStock){
-                    throw new \Exception(__('You cannot add that amount of :product_name to the cart because there is not enough stock (:remain remaining).',['product_name'=>$this->title,'remain'=>$remainStock]));
+                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]));
                 }
             }else{
-                throw new \Exception(__('You cannot add to cart. Please contact author.'));
+                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
             }
         }else{
             if($this->stock_status ==='out'){
-                throw new \Exception(__("Out of stock"));
+                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
             }
         }
     }
 
 
+    public function is_manage_stock(){
+        if(setting_item('product_enable_stock_management')){
+            return $this->is_manage_stock;
+        }
+        return false;
+    }
 }

@@ -127,7 +127,6 @@ form {
         margin-top: ms(1);
     }
 }
-
 hr {
     background-color: #ccc;
     border: 0;
@@ -136,7 +135,7 @@ hr {
 }
 
 p {
-    margin: 0 0 ms(1);
+    margin: 0 0 1em;
 }
 
 ul,
@@ -361,4 +360,10 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
 }
 .primary-color-hover{
     color: var(--primary_hover);
+}
+
+textarea{
+    overflow: auto;
+    vertical-align: top;
+    width: 100%;
 }

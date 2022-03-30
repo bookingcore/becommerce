@@ -106,6 +106,7 @@ class OrderController extends AdminController
         }
 
         $order->saveItems($request->input('items'));
+        $order->saveTax($request->input('tax_lists'));
 
         return $this->sendSuccess(__("Order saved"));
     }

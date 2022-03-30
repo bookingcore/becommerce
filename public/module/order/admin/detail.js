@@ -57,6 +57,8 @@ new Vue({
         shipping_amount:0,
         shipping_methods:{},
         shipping_method:'',
+        prices_include_tax:'yes',
+        tax_lists:[]
     },
     created:function (){
         for(var k in bc_order){
@@ -90,6 +92,7 @@ new Vue({
                     order_date:this.order_date,
                     shipping_method:this.shipping_method,
                     shipping_amount:this.shipping_amount,
+                    tax_lists:this.tax_lists
                 },
                 dataType:'json',
                 type:'POST',
@@ -170,15 +173,29 @@ new Vue({
         }
     },
     computed:{
-        subtotal:function(){
+        _subtotal:function(){
             var t = 0;
             this.items.map(function(item){
                 t += item.qty * item.price;
             })
             return t;
         },
-        total:function(){
-            return this.subtotal + this.shipping_amount;
+        _total:function(){
+            return this._subtotal + this.shipping_amount + (this.prices_include_tax === 'no' ? this._tax_amount : 0);
         },
+        _tax_amount:function(){
+            var subtotal = this._subtotal + this.shipping_amount;
+            var tax_percent = 0;
+            var me = this;
+            this.tax_lists.map(function(tax,index){
+                if(tax.active){
+                    tax_percent += tax.tax_rate;
+                }
+            })
+            if(tax_percent){
+                return subtotal * tax_percent/100;
+            }
+            return 0;
+        }
     }
 })

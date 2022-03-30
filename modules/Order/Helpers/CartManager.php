@@ -137,7 +137,7 @@ class CartManager
      */
     public static function clear(){
         Session::forget(static::$session_key);
-//        session()->forget(static::$session_key);
+        static::clearCoupon();
         return true;
     }
 
@@ -286,7 +286,6 @@ class CartManager
 	}
 
     public static function clearCoupon(){
-//    	session()->forget(static::$session_coupon_key);
         Session::forget(static::$session_coupon_key);
     }
 
@@ -318,6 +317,7 @@ class CartManager
             $order_item->variation_id = $item->variation_id;
             $order_item->vendor_id = $item->author_id;
             $order_item->locale = app()->getLocale();
+            $order_item->calculateCommission();
             $order_item->save();
         }
         $order->syncTotal();
@@ -455,7 +455,7 @@ class CartManager
                 $country = "";
         }
         // Find Tax By Country
-        $tax = TaxRate::select("name", "tax_rate", "city", "postcode", "country", "state")
+        $tax = TaxRate::select("id","name", "tax_rate", "city", "postcode", "country", "state")
             ->where("country", $country)
             ->orWhere("country", "*")->get();
         if (!empty($tax)) {
@@ -469,7 +469,7 @@ class CartManager
     }
 
     public static function addTax($billing_country , $shipping_country){
-        if( TaxRate::taxEnable() ){
+        if( TaxRate::isEnable() ){
             $tax = static::getTaxRate($billing_country , $shipping_country);
             if(!empty($tax['tax'])){
                 static::$_tax = $tax['tax'];

@@ -40,7 +40,7 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(EventServiceProvider::class);
     }
 
-    public static function getBookableServices()
+    public static function getServices()
     {
         return ['plan'=>Plan::class];
     }

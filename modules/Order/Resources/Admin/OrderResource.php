@@ -6,8 +6,10 @@ namespace Modules\Order\Resources\Admin;
 
 use App\Resources\BaseJsonResource;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\DB;
 use Modules\Order\Models\Order;
 use Modules\Product\Models\ShippingZoneMethod;
+use Modules\Product\Models\TaxRate;
 use Modules\User\Resources\UserResource;
 
 class OrderResource extends BaseJsonResource
@@ -31,6 +33,16 @@ class OrderResource extends BaseJsonResource
             'shipping_methods'=> $this->whenNeed('shipping_methods',function(){
                 return (new ShippingZoneMethod())->methods();
             }),
+            'prices_include_tax'=>setting_item('prices_include_tax'),
+            'tax_amount'=>$this->tax_amount,
+            'tax_lists'=>(array) $this->whenNeed('tax_lists',function(){
+                $meta = collect($this->getJsonMeta('tax'));
+                $rows = TaxRate::select("id","name", "tax_rate", "city", "postcode", "country", "state")->get();
+                $rows->map(function($item) use($meta){
+                    if($meta->where('id',$item->id)->first()) $item->active = 1;
+                });
+                return $rows->toArray();
+            })
         ];
     }
 }

@@ -136,12 +136,12 @@ class MenuController extends AdminController
                 'items' => \Modules\Page\Models\Page::searchForMenu(),
                 'position'=>10
             ],
-            [
-                'class' => \Modules\Location\Models\Location::class,
-                'name'  => __("Location"),
-                'items' => \Modules\Location\Models\Location::searchForMenu(),
-                'position'=>40
-            ],
+//            [
+//                'class' => \Modules\Location\Models\Location::class,
+//                'name'  => __("Location"),
+//                'items' => \Modules\Location\Models\Location::searchForMenu(),
+//                'position'=>40
+//            ],
             [
                 'class' => \Modules\News\Models\News::class,
                 'name'  => __("News"),
