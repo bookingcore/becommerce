@@ -9,6 +9,8 @@ use App\BaseModel;
 class UserAddress extends BaseModel
 {
 
+    const BILLING = 1;
+    const SHIPPING = 2;
     protected $table = 'user_address';
     protected $fillable =[
         'first_name',

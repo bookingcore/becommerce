@@ -167,7 +167,7 @@ class BaseProduct extends BaseModel
 
     public function stockValidation($qty)
     {
-        $isManageStock  = $this->is_manage_stock;
+        $isManageStock  = $this->is_manage_stock();
         if(!empty($isManageStock)){
             $onHold = $this->on_hold;
             if(!empty($this->quantity)){
@@ -186,4 +186,10 @@ class BaseProduct extends BaseModel
     }
 
 
+    public function is_manage_stock(){
+        if(setting_item('product_enable_stock_management')){
+            return $this->is_manage_stock;
+        }
+        return false;
+    }
 }

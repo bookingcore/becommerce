@@ -19,6 +19,14 @@
     class CheckoutController extends FrontendController
     {
         public function index(){
+            if(!is_enable_guest_checkout() and !Auth::check()){
+                return redirect(route('login',['redirect'=>'/checkout']))->with('warning',__("Please login to continue"));
+            }
+
+            if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
+                return redirect(route('email/verify'))->with('warning',__("You have to verify email first"));
+            }
+
             $user = Auth::user();
             $data = [
                 'items'=>CartManager::items(),
@@ -39,6 +47,16 @@
 
         public function process(Request $request){
 
+            if(!is_enable_guest_checkout() and !Auth::check()){
+                return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
+            }
+
+            if(Auth::user() && !Auth::user()->hasVerifiedEmail() && setting_item('enable_email_verification')){
+                return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
+            }
+            /**
+             * @var User $user
+             */
             $user = auth()->user();
             $items = CartManager::items();
             $payment_gateway = $request->input('payment_gateway');
@@ -167,11 +185,10 @@
             $order->payment_id = $payment->id;
 
             if($user) {
-                //update or create user billing
-                $user->billing_address()->updateOrCreate([], $billing_data);
-                $user->shipping_address()->updateOrCreate([], $shipping_data);
+                $user->save_default_address($billing_data,UserAddress::BILLING);
+                $user->save_default_address($shipping_data,UserAddress::SHIPPING);
             }else{
-                $user = $this->tryCreateUser($billing_data);
+                $user = $this->tryCreateUser($billing_data,$shipping_data);
             }
             $order->customer_id = $user->id;
             $order->save();
@@ -184,7 +201,6 @@
                 $res = $gatewayObj->process($payment);
 
                 CartManager::clear();
-                CartManager::clearCoupon();
                 if ($res !== true) {
                     return response()->json($res);
                 }
@@ -200,6 +216,7 @@
                 ]);
 
             }catch (\Throwable $throwable){
+                CartManager::clear();
                 Log::error("Checkout: ". $throwable->getMessage());
                 return $this->sendError($throwable->getMessage(),[
                     'url' => $order->getDetailUrl()
@@ -207,7 +224,7 @@
             }
         }
 
-        protected function tryCreateUser($billing_data){
+        protected function tryCreateUser($billing_data,$shipping_data){
             $user = User::query()->where('email',$billing_data['email'])->first();
             if($user){
                 return $user;
@@ -225,6 +242,8 @@
                 $user->email_verified_at = Carbon::now();
             }
             $user->save();
+            $user->save_default_address($billing_data,UserAddress::BILLING);
+            $user->save_default_address($shipping_data,UserAddress::SHIPPING);
             return $user;
         }
     }
