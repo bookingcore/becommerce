@@ -40,6 +40,26 @@
             <td style="border-bottom: 1px solid #EAEEF3;padding: 10px">{{format_money($orderItem->subtotal)}}</td>
         </tr>
     @endforeach
+    @if(!empty($order->shipping_amount) and $order->shipping_amount > 0)
+        <tr class="shipping-amount">
+            <td colspan="2">{{__('Shipping Amount')}}</td>
+            <td><span class="amount">{{format_money($order->shipping_amount )}}</span></td>
+        </tr>
+    @endif
+    @if(!empty($order->discount_amount) and $order->discount_amount > 0)
+        <tr class="discount-amount">
+            <td colspan="2">{{__('Discount Amount')}}</td>
+            <td><span class="amount">-{{format_money($order->discount_amount )}}</span></td>
+        </tr>
+    @endif
+    @if(!empty($order->tax_amount) and $order->tax_amount > 0)
+        <tr class="tax-amount" >
+            <td colspan="2">
+                {{__('Tax')}} @if($order->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
+            </td>
+            <td><span class="amount">{{format_money($order->tax_amount )}}</span></td>
+        </tr>
+    @endif
     <tr>
         <td colspan="2"><strong>{{__('Total')}}</strong></td>
         <td>{{format_money($order->total)}}</td>

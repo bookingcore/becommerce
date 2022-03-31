@@ -55,11 +55,11 @@ $review_list = $row->review_list
                                     <label>{{__("Your rating of this product")}}</label>
                                     <input class="review_stats" type="hidden" name="review_rate">
                                     <div class="rates">
-                                        <i class="fa fa-star-o grey"></i>
-                                        <i class="fa fa-star-o grey"></i>
-                                        <i class="fa fa-star-o grey"></i>
-                                        <i class="fa fa-star-o grey"></i>
-                                        <i class="fa fa-star-o grey"></i>
+                                        <i class="fa fa-star grey"></i>
+                                        <i class="fa fa-star grey"></i>
+                                        <i class="fa fa-star grey"></i>
+                                        <i class="fa fa-star grey"></i>
+                                        <i class="fa fa-star grey"></i>
                                     </div>
                                 </div>
                             </div>

@@ -51,7 +51,7 @@ class ProductVariation extends BaseProduct
 
 
     public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock()){
+        if(!$this->check_manage_stock()){
             return 'in_stock';
         }
         switch ($this->stock_status){
@@ -65,7 +65,7 @@ class ProductVariation extends BaseProduct
         }
     }
     public function getStockStatusTextAttribute(){
-        if(!$this->is_manage_stock()){
+        if(!$this->check_manage_stock()){
             return __('In Stock');
         }
         switch ($this->stock_status){
@@ -111,7 +111,7 @@ class ProductVariation extends BaseProduct
             if ($product){
                 $get_stock = function ($st, $pr){
                     $sold = (!empty($pr->sold)) ? $pr->sold : 0;
-                    if ($pr->stock_status == 'in' && $pr->is_manage_stock() == 1){
+                    if ($pr->stock_status == 'in' && $pr->check_manage_stock() == 1){
                         $st = $pr->quantity - $sold;
                     }
                     return $st;
@@ -162,7 +162,7 @@ class ProductVariation extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock()){
+        if ($this->check_manage_stock()){
             if ($this->stock_status == 'in'){
                 $stock = __(':count in stock',['count'=>$this->quantity]);
             }
@@ -185,7 +185,7 @@ class ProductVariation extends BaseProduct
             return false;
         }
         if($parent_manage == false){
-            if ($this->is_manage_stock()){
+            if ($this->check_manage_stock()){
                 // get booking and check out of
 
                 //return false;
@@ -208,7 +208,7 @@ class ProductVariation extends BaseProduct
             'price'           => format_money($this->price),
             'sold'            => $this->sold,
             'quantity'        => $parent_manage == false ? $this->quantity : null,
-            'is_manage_stock' => $parent_manage == false ? $this->is_manage_stock() : 0,
+            'is_manage_stock' => $parent_manage == false ? $this->check_manage_stock() : 0,
             'stock'           => $this->getStockStatus(),
         ];
     }

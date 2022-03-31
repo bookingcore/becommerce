@@ -61,11 +61,6 @@ class News extends BaseModel
         return url(app_get_locale(false,false,'/'). config('news.news_route_prefix')."/".$this->slug);
     }
 
-    public function category(): \Illuminate\Database\Eloquent\Relations\BelongsTo
-    {
-        return $this->belongsTo(NewsCategory::class, "cat_id");
-    }
-
     public function tags(){
         return $this->belongsToMany(Tag::class,NewsTag::getTableName(),'news_id','tag_id');
     }
@@ -272,9 +267,13 @@ class News extends BaseModel
             return $count;
         }
     }
+
     public function related(){
         return $this->hasMany(News::class,'cat_id','cat_id')->where('status','publish')->where('id','!=',$this->id)->with(['translation'])->limit(3);
     }
 
 
+    public function comments(){
+        return $this->hasMany(Review::class,'object_id')->where('object_model','news');
+    }
 }

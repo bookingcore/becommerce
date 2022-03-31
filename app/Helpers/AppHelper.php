@@ -160,9 +160,7 @@ function get_file_url($file_id,$size="thumb",$resize = true){
 }
 
 function get_image_tag($image_id,$size = 'medium',$options = []){
-    $options = array_merge($options,[
-        'lazy'=>true
-    ]);
+    if(!isset($options['lazy'])) $options['lazy'] = true;
 
     $url = get_file_url($image_id,$size);
 
@@ -174,7 +172,7 @@ function get_image_tag($image_id,$size = 'medium',$options = []){
             $class.=' lazy';
             $attr.=" data-src=".e($url)." ";
         }else{
-            $attr.=" src='".e($url)."' ";
+            $attr.=" src=".e($url)." ";
         }
         return sprintf("<img class='%s' %s alt='%s'>",e($class),e($attr),e($alt));
     }
@@ -1357,4 +1355,22 @@ function report_set_data_chart(&$chart_data, $report_data){
     $chart_data['datasets'][3]['data'][] = $report_data->items_purchased;
     $chart_data['datasets'][4]['data'][] = $report_data->total_shipping;
     $chart_data['datasets'][5]['data'][] = $report_data->coupons_used;
+}
+function month_translation($month){
+    $months = array(
+        __('January'),
+        __('February'),
+        __('March'),
+        __('April'),
+        __('May'),
+        __('June'),
+        __('July '),
+        __('August'),
+        __('September'),
+        __('October'),
+        __('November'),
+        __('December'),
+    );
+    return $months[$month] ?? $month;
+
 }
