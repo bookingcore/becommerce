@@ -1041,6 +1041,34 @@ jQuery(function ($) {
             swiper: swiperProductGallery,
         },
     });
+
+    const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
+        // Optional parameters
+        loop: false,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
     var getUrlParameter = function getUrlParameter(sParam) {
         var sPageURL = window.location.search.substring(1),
             sURLVariables = sPageURL.split('&'),

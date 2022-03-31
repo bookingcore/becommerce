@@ -7,13 +7,11 @@
             <div class="axtronic-slider-content">
                 <div class="product-slider-bestselling product-slider swiper-container">
                     <div class="swiper-wrapper">
-                        @if(!empty($rows))
-                            @foreach($rows as $row)
-                                <div class="swiper-slide">
-                                    @include('product.search.loop')
-                                </div>
-                            @endforeach
-                        @endif
+                        @foreach($rows as $row)
+                            <div class="swiper-slide">
+                                @include('product.search.loop')
+                            </div>
+                        @endforeach
                     </div>
                     <div class="swiper-pagination"></div>
                 </div>

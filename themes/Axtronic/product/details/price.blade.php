@@ -1,4 +1,4 @@
-<div class="bc-product-price">
+<div class="axtronic-product-price">
     @if($row->product_type=='variable')
         <p class="price variable-price m-0">
             @if($row->min_price == $row->max_price)
@@ -12,15 +12,15 @@
     @else
         @if(!empty($row->display_sale_price))
             <p class="price has-sale m-0 c-f30 fs-16">
-                <ins class="fs-18 fw-700 text-decoration-none pe-1">
+                <ins>
                     <span class="amount">{{$row->display_price}}</span>
                 </ins>
-                <del class="c-000000 pe-1">
+                <del>
                     <span class="amount">{{$row->display_sale_price}}</span>
                 </del>
-                @if(!empty($row->discount_percent) && !empty($show_discount_percent))
-                    <span class="sale sale-1">(-{{$row->discount_percent}})</span>
-                @endif
+                {{--@if(!empty($row->discount_percent) && !empty($show_discount_percent))--}}
+                    {{--<span class="sale sale-1">(-{{$row->discount_percent}})</span>--}}
+                {{--@endif--}}
             </p>
         @else
             <p class="price single-price m-0">

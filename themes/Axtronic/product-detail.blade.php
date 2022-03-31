@@ -8,21 +8,34 @@
                     @include('product.details.gallery')
                     <div class="axtronic-product_info">
                         <h2 class="product_title">{{$translation->title}}</h2>
-                        <div class="axtronic-product_meta mb-4">
+                        <div class="axtronic-product_meta ">
                             @if($row->brand)
-                            <p class="mb-3">{{ __("Brand:") }} <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
+                                <p class="mb-3"><strong>{{ __("Brand:") }}</strong> <a href="{{$row->brand->getDetailUrl()}}">{{$row->brand->name}}</a></p>
                             @endif
-                            @php
-                                $reviewData = $row->getScoreReview();
-                                $score_total = $reviewData['score_total'];
-                            @endphp
-                            @if(!empty($reviewData['total_review']))
-                                <div class="axtronic-product_rating d-flex">
-                                    @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
-                                    <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
-                                </div>
+                            @if(!empty($row->categories))
+                                <p class="categories mb-0">
+                                    <strong> {{__("Categories:")}}</strong>
+                                    @foreach($row->categories as $k=>$category)
+                                        @if($k) ,
+                                        @endif
+                                        <a class="c-main" href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
+                                    @endforeach
+                                </p>
+                            @endif
+                            @if($row->sku and $row->product_type != "variable")
+                                <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
                             @endif
                         </div>
+                        @php
+                            $reviewData = $row->getScoreReview();
+                            $score_total = $reviewData['score_total'];
+                        @endphp
+                        @if(!empty($reviewData['total_review']))
+                            <div class="axtronic-product_rating d-flex align-items-center">
+                                @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
+                                <span>{{trans_choice('[0,1]( :count review)|[2,*] (:count reviews)',$reviewData['total_review'])}}</span>
+                            </div>
+                        @endif
                         @include('product.details.price',['show_discount_percent'=>1])
                         <div class="axtronic-product_desc mb-4">
                             <div class="desc-heading d-flex">

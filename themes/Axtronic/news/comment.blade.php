@@ -10,9 +10,10 @@
     <div class="clearfix">
         <div class="comment-list-wrap">
             <h3 class="title-comment">
-                3 Responses </h3>
+                3 Responses
+            </h3>
             <ol class="comment-list">
-                <li class="comment even thread-even depth-1 parent" id="comment-134">
+                <li class="comment">
                     <div class="comment-body">
                         <div class="comment-meta ">
                             <div class="comment-author vcard">
@@ -53,7 +54,7 @@
                         </li>
                     </ol>
                 </li>
-                <li class="comment even thread-odd thread-alt depth-1" id="comment-136">
+                <li class="comment ">
                     <div class="comment-body">
                         <div class="comment-meta">
                             <div class="comment-author">

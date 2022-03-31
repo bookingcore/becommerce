@@ -225,20 +225,20 @@
                         </div>
                     </div>
                     <span class="price">
-                                                    <span class="woocommerce-Price-amount amount">
-                                                        <bdi>
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>
-                                                            110.00
-                                                        </bdi>
-                                                    </span>
-                                                    –
-                                                    <span class="woocommerce-Price-amount amount">
-                                                        <bdi>
-                                                            <span class="woocommerce-Price-currencySymbol">$</span>
-                                                            150.00
-                                                        </bdi>
-                                                    </span>
-                                                </span>
+                        <span class="woocommerce-Price-amount amount">
+                            <bdi>
+                                <span class="woocommerce-Price-currencySymbol">$</span>
+                                110.00
+                            </bdi>
+                        </span>
+                        –
+                        <span class="woocommerce-Price-amount amount">
+                            <bdi>
+                                <span class="woocommerce-Price-currencySymbol">$</span>
+                                150.00
+                            </bdi>
+                        </span>
+                    </span>
                 </div>
                 <div class="time-sale">
                     <div class="deal-text">

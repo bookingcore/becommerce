@@ -35,6 +35,11 @@
             }
         }
     }
+    .review-box-top{
+        >div{
+            width: calc(100%/3);
+        }
+    }
 }
 
 @media (max-width: 767px) {
