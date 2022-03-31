@@ -75,7 +75,7 @@ class Coupon extends BaseModel
                 'message'=> __("This order has exceeded the maximum value of :amount to apply coupon code! ",['amount'=>format_money($max_total)])
             ];
         }
-        if(!empty($this->services)){
+        if($this->services->count() >0){
             $check = false;
             $items = CartManager::items();
             $items = $items->toArray();
