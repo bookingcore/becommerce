@@ -105,7 +105,7 @@
                                 </tr>
                             @endif
                             @if(!empty($row->tax_amount) and $row->tax_amount > 0)
-                                <tr class="shipping-amount">
+                                <tr class="tax-amount">
                                     <td>
                                         {{__('Tax')}} @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
                                     </td>
