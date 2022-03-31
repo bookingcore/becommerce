@@ -45,15 +45,22 @@
                                 <input type="number" min="0" class="form-control" value="{{$variation->price}}" name="variations[{{$variation->id}}][price]">
                             </div>
                         </div>
-                        <div class="form-group mb-3 align-items-center">
-                            <label class="control-label mb-2">{{__('Manage Stock?')}}</label>
-                            <div class="controls">
-                                <label >
-                                    <input data-name="is_manage_stock" type="checkbox" value="1" @if($variation->is_manage_stock) checked @endif name="variations[{{$variation->id}}][is_manage_stock]"> {{__('Yes, please')}}
-                                </label>
+                        @if(setting_item('product_enable_stock_management'))
+                            <div class="form-group mb-3 align-items-center">
+                                <label class="control-label mb-2">{{__('Manage Stock?')}}</label>
+                                <div class="controls">
+                                    <label >
+                                        <input data-name="is_manage_stock" type="checkbox" value="1" @if($variation->is_manage_stock) checked @endif name="variations[{{$variation->id}}][is_manage_stock]"> {{__('Yes, please')}}
+                                    </label>
+                                </div>
                             </div>
-                        </div>
-
+                            <div class="form-group mb-3" v-condition="is_manage_stock:is(1)">
+                                <label class="control-label mb-2">{{__('Stock quantity')}}</label>
+                                <div class="controls">
+                                    <input type="number" min="0" class="form-control" value="{{$variation->quantity}}" name="variations[{{$variation->id}}][quantity]">
+                                </div>
+                            </div>
+                        @endif
                         <div class="form-group mb-3" v-condition="is_manage_stock:is()">
                             <label class="control-label mb-2">{{__('Stock status')}}</label>
                             <div class="controls">
@@ -61,13 +68,6 @@
                                     <option value="in">{{__("In stock")}}</option>
                                     <option @if($variation->stock_status == 'out') selected @endif value="out">{{__("Out of stock")}}</option>
                                 </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group mb-3" v-condition="is_manage_stock:is(1)">
-                            <label class="control-label mb-2">{{__('Stock quantity')}}</label>
-                            <div class="controls">
-                                <input type="number" min="0" class="form-control" value="{{$variation->quantity}}" name="variations[{{$variation->id}}][quantity]">
                             </div>
                         </div>
                     </div>
