@@ -333,9 +333,9 @@ class Product extends BaseProduct
 
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock() and $this->quantity){
+        if ($this->check_manage_stock() and $this->quantity){
             $stock = __('In Stock');
-        } elseif(!$this->is_manage_stock() and $this->stock_status == 'in') {
+        } elseif(!$this->check_manage_stock() and $this->stock_status == 'in') {
             $stock = __('In Stock');
         }else{
             $stock = __('Out Of Stock');
@@ -442,7 +442,7 @@ class Product extends BaseProduct
     }
     protected function get_stock($st, $pr){
         $sold = (!empty($pr->sold)) ? $pr->sold : 0;
-        if ($pr->stock_status == 'in' && $pr->is_manage_stock()){
+        if ($pr->stock_status == 'in' && $pr->check_manage_stock()){
             $st = $pr->quantity - $sold;
         }
         return $st;
@@ -465,7 +465,7 @@ class Product extends BaseProduct
             case 'variable':
                     $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
-                        if(!empty($this->is_manage_stock())){
+                        if(!empty($this->check_manage_stock())){
                             $onHold = $this->on_hold;
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
@@ -622,9 +622,9 @@ class Product extends BaseProduct
             return false;
         $list_variations = $list_attributes=  [];
         foreach($data_variations as  $variation){
-            if(empty($variation->isActive($this->is_manage_stock()))) continue;
+            if(empty($variation->isActive($this->check_manage_stock()))) continue;
             $term_ids = $variation->term_ids;
-            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->is_manage_stock())];
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->check_manage_stock())];
             foreach($this->attributes_for_variation_data as $item){
                 foreach($item['terms'] as $term){
                     if(in_array($term->id,$term_ids)){

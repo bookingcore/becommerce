@@ -35,7 +35,7 @@ class ProductStockListener
                 if(empty($item->reduced_stock)){
                     $model = $item->model();
                     if(!empty($model) and $model instanceof  BaseProduct){
-                        if($model->is_manage_stock()){
+                        if($model->check_manage_stock()){
                             $model->quantity -= $item->qty;
                             if($model->quantity <=0){
                                 $model->quantity = 0 ;
@@ -56,7 +56,7 @@ class ProductStockListener
                 if(empty($item->reduced_stock)){
                     $model = $item->model();
                     if(!empty($model) and $model instanceof  Product){
-                        if($model->is_manage_stock()){
+                        if($model->check_manage_stock()){
                             $model->quantity += $item->reduced_stock;
                             if($model->quantity<=0){
                                 $model->stock_status ='out';

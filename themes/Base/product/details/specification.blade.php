@@ -2,7 +2,7 @@
     @if($row->sku and $row->product_type != "variable")
         <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
     @endif
-    @if($row->quantity and in_array($row->product_type,["simple","variable"]) and $row->is_manage_stock())
+    @if($row->quantity and in_array($row->product_type,["simple","variable"]) and $row->check_manage_stock())
         <p class="mb-0"><strong>{{__("Quantity: ")}}</strong> {{$row->remain_stock}} {{__("in stock")}}</p>
     @endif
     @if(!empty($row->categories))
