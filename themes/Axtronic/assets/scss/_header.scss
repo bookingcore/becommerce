@@ -88,20 +88,14 @@
     }
     .header-wrap{
         display: flex;
-        padding: 30px 0px;
-        align-items: end;
-        .site-branding,
-        .site-navigation{
-
-        }
+        padding: 30px 0;
+        align-items: center;
 
         .site-branding{
-            flex: 0 0 215px;
-            max-width: 215px;
+            width: 245px;
         }
         .site-navigation{
-            flex: 0 0 calc(100% - 525px);
-            width: calc(100% - 525px);
+            width: calc(100% - 555px);
             ul {
                 list-style-type: none;
                 padding: 0;
@@ -216,8 +210,7 @@
             }
         }
         .site-member {
-            flex: 0 0 310px;
-            max-width: 310px;
+            width: 310px;
             ul.topbar-items {
                 list-style-type: none;
                 padding: 0;

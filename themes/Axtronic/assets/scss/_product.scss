@@ -1198,8 +1198,84 @@ ul.axtronic-products{
     flex: 0 0 100%;
     max-width: 100%;
     margin-bottom: 40px;
-    align-items: center;
     > div{
         width: 100%;
+        justify-content: center;
+    }
+    .review-sumary{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+    }
+    .review-button-wrap{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .rating-sumary{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        .star-rating{
+            font-size: 24px;
+        }
+    }
+}
+.comment-list-wrap{
+    .comment-content{
+        padding: 15px;
+        margin-top: 10px;
+        border-radius: 4px;
+        background: var(--background2);
+        h4{
+            margin: 0;
+            padding-top: 0;
+            font-size: 16px;
+        }
+        p{
+            margin-bottom: 0;
+            font-size: 14px;
+        }
+    }
+}
+
+.review-form{
+    padding-top: 50px;
+    form{
+        padding: var(--grid-gutter);
+        background: var(--background2);
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        font-size: 14px;
+        h3{
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--accent);
+            display: block;
+        }
+        label{
+            font-weight: 600;
+        }
+
+        .rates > i:before {
+            opacity: .25;
+            color: var(--text);
+        }
+        .rates:hover > i:before {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .rates > i:hover ~ i:before {
+            opacity: .25;
+            color: var(--text);
+        }
     }
 }

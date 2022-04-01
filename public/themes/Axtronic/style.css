@@ -2017,16 +2017,14 @@ textarea {
 }
 #masthead .header-wrap {
   display: flex;
-  padding: 30px 0px;
-  align-items: end;
+  padding: 30px 0;
+  align-items: center;
 }
 #masthead .header-wrap .site-branding {
-  flex: 0 0 215px;
-  max-width: 215px;
+  width: 245px;
 }
 #masthead .header-wrap .site-navigation {
-  flex: 0 0 calc(100% - 525px);
-  width: calc(100% - 525px);
+  width: calc(100% - 555px);
 }
 #masthead .header-wrap .site-navigation ul {
   list-style-type: none;
@@ -2144,8 +2142,7 @@ textarea {
   color: var(--primary_hover);
 }
 #masthead .header-wrap .site-member {
-  flex: 0 0 310px;
-  max-width: 310px;
+  width: 310px;
 }
 #masthead .header-wrap .site-member ul.topbar-items {
   list-style-type: none;
@@ -4901,10 +4898,82 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   flex: 0 0 100%;
   max-width: 100%;
   margin-bottom: 40px;
-  align-items: center;
 }
 .review-box-top > div {
   width: 100%;
+  justify-content: center;
+}
+.review-box-top .review-sumary {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.review-box-top .review-button-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+.review-box-top .rating-sumary {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+.review-box-top .rating-sumary .star-rating {
+  font-size: 24px;
+}
+
+.comment-list-wrap .comment-content {
+  padding: 15px;
+  margin-top: 10px;
+  border-radius: 4px;
+  background: var(--background2);
+}
+.comment-list-wrap .comment-content h4 {
+  margin: 0;
+  padding-top: 0;
+  font-size: 16px;
+}
+.comment-list-wrap .comment-content p {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+
+.review-form {
+  padding-top: 50px;
+}
+.review-form form {
+  padding: var(--grid-gutter);
+  background: var(--background2);
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  font-size: 14px;
+}
+.review-form form h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  color: var(--accent);
+  display: block;
+}
+.review-form form label {
+  font-weight: 600;
+}
+.review-form form .rates > i:before {
+  opacity: 0.25;
+  color: var(--text);
+}
+.review-form form .rates:hover > i:before {
+  opacity: 1;
+  color: var(--primary);
+}
+.review-form form .rates > i:hover ~ i:before {
+  opacity: 0.25;
+  color: var(--text);
 }
 
 .swiper-slider-news {
@@ -5310,11 +5379,12 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   margin-bottom: 2px;
   line-height: 2;
 }
-.comments-area label .required {
-  color: #e2401c;
-}
 .comments-area .comment-form-cookies-consent label {
   font-weight: 400;
+}
+
+.required {
+  color: #e2401c;
 }
 
 nav.navigation {
@@ -5404,10 +5474,60 @@ nav.navigation .nav-next img {
   margin-left: 20px;
 }
 
+@media (min-width: 1441px) and (max-width: 99999px) {
+  .site-header-menu {
+    display: none;
+  }
+}
 @media (max-width: 1440px) {
   ul.axtronic-products.products li.product {
     flex: 0 0 calc(100%/3) !important;
     max-width: calc(100%/3) !important;
+  }
+}
+@media (max-width: 1365px) {
+  ul.axtronic-products-special {
+    grid-template-columns: none;
+  }
+  ul.axtronic-products-special li.product-item {
+    margin-bottom: var(--grid-gutter);
+  }
+  ul.axtronic-products-special li.product-item:first-child {
+    grid-column: 1;
+  }
+
+  .product-box-title {
+    flex-direction: column;
+  }
+  .product-box-title h2 {
+    display: block;
+  }
+  .product-box-title ul.list-category-name {
+    display: inline-block;
+  }
+  .product-box-title ul.list-category-name li {
+    display: inline-block;
+  }
+}
+@media (min-width: 1201px) and (max-width: 1440px) {
+  .site-header-menu {
+    display: none;
+  }
+}
+@media (max-width: 1200px) {
+  #masthead .header-wrap .site-branding {
+    width: calc(100% - 400px);
+  }
+  #masthead .header-wrap .site-member {
+    width: 400px;
+  }
+  #masthead .header__content-bottom .vertical-navigation-header {
+    display: none;
+  }
+}
+@media (min-width: 1025px) and (max-width: 1200px) {
+  .site-navigation {
+    display: none;
   }
 }
 @media (max-width: 1024px) {
@@ -5429,6 +5549,10 @@ nav.navigation .nav-next img {
   .review-box-top > div {
     width: calc(100%/3);
   }
+  .review-box-top > div:not(:last-child) {
+    border-right: 1px solid;
+    border-right-color: var(--border);
+  }
 }
 @media (max-width: 767px) {
   ul.axtronic-products.products li.product {
@@ -5436,6 +5560,29 @@ nav.navigation .nav-next img {
     max-width: calc(100%/2) !important;
     padding-left: calc(10px/2);
     padding-right: calc(10px/2);
+  }
+
+  #masthead .header-wrap .site-branding {
+    width: 215px;
+  }
+  #masthead .header-wrap .site-member {
+    width: calc(100% - 215px);
+  }
+  #masthead .header-wrap .site-member ul.topbar-items {
+    justify-content: end;
+  }
+  #masthead .header-wrap .site-member ul.topbar-items li:not(.site-header-menu) {
+    display: none;
+  }
+  #masthead .header-wrap .site-navigation {
+    display: none;
+  }
+  #masthead .header__content-bottom .product-cat, #masthead .vertical-navigation, #masthead p {
+    display: none;
+  }
+  #masthead .header__content-bottom input {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 8px;
   }
 }
 

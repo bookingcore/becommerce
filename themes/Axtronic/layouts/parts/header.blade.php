@@ -9,7 +9,6 @@ if(!isset($current_cat)) $current_cat = null;
             <div class="site-branding">
                 <div class="header__content-left">
                     <a class="axtronic-logo text-decoration-none" href="{{url('/')}}">
-
                         <img src="{{ theme_url('Axtronic/images/logo-white.svg') }}" alt="">
                     </a>
                 </div>
@@ -30,7 +29,7 @@ if(!isset($current_cat)) $current_cat = null;
                                 <span class="account-content group-icon-content">
                                     <span class="sub-text">{{__('Sign in')}}</span>
                                     <span class="sub-title">{{__('Account')}}</span>
-                                </span>                   
+                                </span>
                             </a>
                         </li>
                         <li class="wishlist-item">
@@ -50,13 +49,19 @@ if(!isset($current_cat)) $current_cat = null;
                                         <i class="axtronic-icon-shopping-cart"></i>
                                         <span class="count">0 </span>
                                     </span>
-
                                     <span class="account-content group-icon-content">
                                     <span class="sub-text">{{__('Total')}}</span>
                                     <span class="sub-title">{{__('$0.00')}}</span>
                                 </span>
                                 </a>
                             </div>
+                        </li>
+                        <li class="site-header-menu">
+                            <a href="#" class="menu-mobile-nav-button">
+                                <span class="group-icon-action">
+                                    <i class="axtronic-icon-bars"></i>
+                                </span>
+                            </a>
                         </li>
                     @else
                         @include('layouts.parts.header.notification')

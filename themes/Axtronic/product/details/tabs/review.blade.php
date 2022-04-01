@@ -6,7 +6,7 @@ $review_list = $row->review_list
 ?>
 @include('global.message')
 <div class="review-box-top">
-    <div class="card-rating mb-2 d-flex mt-1 align-items-center">
+    <div class="rating-sumary">
         @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
     </div>
     <div class="review-sumary">
@@ -30,7 +30,7 @@ $review_list = $row->review_list
 </div>
 <div class="row">
         <div class="col-md-6">
-            <div class="comment-list-wrap fs-14">
+            <div class="comment-list-wrap comments-area">
                 <div class="reviews-title fs-24 mb-3 border-bottom pb-2">{{ ($review_list) ? __('Reviews from guests') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}</div>
                 <div class="review-list">
                     @if($review_list->total())
@@ -47,21 +47,21 @@ $review_list = $row->review_list
                                                     <img src="{{$userInfo->avatar_url}}" class="avatar "  alt="{{$userInfo->display_name}}"/>
                                                     <cite class="fn">{{$userInfo->display_name}}</cite>
                                                 </div>
-                                                <a href="#" class="comment-date">
-                                                    <time datetime="2021-12-23T00:59:15+00:00">{{display_datetime($item->created_at)}}</time> </a>
-                                            </div>
-                                            <div id="div-comment-136" class="comment-content">
+                                                <a href="#" class="comment-date"><time >{{display_datetime($item->created_at)}}</time> </a>
                                                 @if($item->rate_number)
                                                     <div class="d-flex mb-2">
                                                         @for( $i = 0 ; $i < 5 ; $i++ )
                                                             @if($i < $item->rate_number)
-                                                                <i class="axtronic-icon-star-sharp me-2 c-fcb800"></i>
+                                                                <i class="axtronic-icon-star-sharp c-main"></i>
                                                             @else
-                                                                <i class="axtronic-icon-star me-2"></i>
+                                                                <i class="axtronic-icon-star c-d2d2d2"></i>
                                                             @endif
                                                         @endfor
                                                     </div>
                                                 @endif
+                                            </div>
+                                            <div class="comment-content">
+
                                                 <div class="comment-text">
                                                     <h4>{{$item->title}}</h4>
                                                     <p> {{$item->content}}</p>
@@ -78,33 +78,36 @@ $review_list = $row->review_list
         </div>
         <div class="col-md-6">
             <div class="review-form" id="commentform">
-                <span class="fs-18 fw-bold">{{ $score_total > 0 ? __('Submit your review') : __('Be the first to review "'.$row->title.'"') }}</span>
+
                 <form action="{{ url(app_get_locale()."/review") }}" method="post" class="comment-form needs-validation" novalidate>
                     @csrf
-                    <p class="mb-0">
-                        <span>{{ __('Your email address will not be published.') }}</span>
+                    <h3>{{ $score_total > 0 ? __('Add a review') : __('Be the first to review "'.$row->title.'"') }}</h3>
+                    <p class="mb-3">
+                        <span>{{ __('Your email address will not be published. Required fields are marked ') }} <span class="required">*</span></span>
                     </p>
                     <div class="mb-3">
                         <div class="form-group review-items">
                             <div class="item">
-                                <label>{{__("Your rating of this product")}}</label>
+                                <label>{{__("Your rating")}} <span class="required">*</span></label>
                                 <input class="review_stats" type="hidden" name="review_rate">
                                 <div class="rates">
-                                    <i class="fa fa-star-o grey"></i>
-                                    <i class="fa fa-star-o grey"></i>
-                                    <i class="fa fa-star-o grey"></i>
-                                    <i class="fa fa-star-o grey"></i>
-                                    <i class="fa fa-star-o grey"></i>
+                                    <i class="axtronic-icon-star-sharp"></i>
+                                    <i class="axtronic-icon-star-sharp"></i>
+                                    <i class="axtronic-icon-star-sharp"></i>
+                                    <i class="axtronic-icon-star-sharp"></i>
+                                    <i class="axtronic-icon-star-sharp"></i>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group mb-3">
+                        <label>{{__("Your title")}} <span class="required">*</span></label>
                         <input type="text" required class="form-control" name="review_title" placeholder="{{__("Title")}}">
                         <div class="invalid-feedback">{{__('Review title is required')}}</div>
                     </div>
                     <div class="form-group mb-3">
-                        <textarea name="review_content" required class="form-control" placeholder="{{__("Review content")}}" minlength="10"></textarea>
+                        <label>{{__("Your review")}} <span class="required">*</span></label>
+                        <textarea name="review_content" required class="form-control" placeholder="{{__("Review content")}}" minlength="10" rows="8"></textarea>
                         <div class="invalid-feedback">
                             {{__('Review content has at least 10 character')}}
                         </div>

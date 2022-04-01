@@ -418,15 +418,16 @@
         color: var(--accent);
         margin-bottom: 2px;
         line-height: 2;
-        .required{
-            color: #e2401c;
-        }
+
     }
     .comment-form-cookies-consent{
         label{
             font-weight: 400;
         }
     }
+}
+.required{
+    color: #e2401c;
 }
 nav.navigation{
     clear: both;
