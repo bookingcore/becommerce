@@ -21,65 +21,67 @@ $countUnread = $checkNotify->where('read_at', null)->count();
         <i class="fa fa-angle-down"></i>
     </a>
     <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end miw-300 p-3">
-        <div class="dropdown-toolbar d-flex justify-content-between align-items-center pb-2 mb-2">
+        <li class="dropdown-toolbar d-flex justify-content-between align-items-center pb-2 mb-2">
             <h3 class="dropdown-toolbar-title fs-16 mb-0">{{__('Notifications')}} (<span class="notif-count">{{$countUnread}}</span>)</h3>
             <div class="dropdown-toolbar-actions">
                 <a href="#" class="markAllAsRead fs-14">{{__('Mark all as read')}}</a>
             </div>
-        </div>
-        <div class="list-group">
+        </li>
+        <li>
             @if(count($notifications)> 0)
-                @foreach($notifications as $oneNotification)
-                    @php
-                        $active = $class = '';
-                        $data = json_decode($oneNotification['data']);
+                <ul  class="list-group">
+                    @foreach($notifications as $oneNotification)
+                        @php
+                            $active = $class = '';
+                            $data = json_decode($oneNotification['data']);
 
-                        $idNotification = @$data->id;
-                        $forAdmin = @$data->for_admin;
-                        $usingData = @$data->notification;
+                            $idNotification = @$data->id;
+                            $forAdmin = @$data->for_admin;
+                            $usingData = @$data->notification;
 
-                        $services = @$usingData->type;
-                        $idServices = @$usingData->id;
-                        $title = @$usingData->message;
-                        $name = @$usingData->name;
-                        $avatar = @$usingData->avatar;
-                        $link = @$usingData->link;
+                            $services = @$usingData->type;
+                            $idServices = @$usingData->id;
+                            $title = @$usingData->message;
+                            $name = @$usingData->name;
+                            $avatar = @$usingData->avatar;
+                            $link = @$usingData->link;
 
-                        if(empty($oneNotification->read_at)){
-                            $class = 'markAsRead';
-                            $active = 'active';
-                        }
-                    @endphp
-                    <li class="list-group-item list-group-item-action {{$active}}">
-                        <a class="{{$class}} p-0" data-id="{{$idNotification}}" href="{{$link}}">
-                            <div class="media">
-                                <div class="media-left">
-                                    <div class="media-object">
-                                        @if($avatar)
-                                            <img class="image-responsive" src="{{$avatar}}" alt="{{$name}}">
-                                        @else
-                                            <span class="avatar-text">{{ucfirst($name[0])}}</span>
-                                        @endif
+                            if(empty($oneNotification->read_at)){
+                                $class = 'markAsRead';
+                                $active = 'active';
+                            }
+                        @endphp
+                        <li class="list-group-item list-group-item-action {{$active}}">
+                            <a class="{{$class}} p-0" data-id="{{$idNotification}}" href="{{$link}}">
+                                <div class="media">
+                                    <div class="media-left">
+                                        <div class="media-object">
+                                            @if($avatar)
+                                                <img class="image-responsive" src="{{$avatar}}" alt="{{$name}}">
+                                            @else
+                                                <span class="avatar-text">{{ucfirst($name[0])}}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="media-body">
+                                        {!! $title !!}
+                                        <div class="notification-meta">
+                                            <small class="timestamp">{{format_interval($oneNotification->created_at)}}</small>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="media-body">
-                                    {!! $title !!}
-                                    <div class="notification-meta">
-                                        <small class="timestamp">{{format_interval($oneNotification->created_at)}}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </li>
-                @endforeach
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             @else
                 <a href="#" class="list-group-item list-group-item-action">
                     <span class="fs-14">{{ __("No notification") }}</span>
                 </a>
             @endif
-        </div>
-        <div class="dropdown-footer text-end mt-3 fs-14">
+        </li>
+        <li class="dropdown-footer text-end mt-3 fs-14">
             <a class="btn btn-primary fs-14 c-white" href="{{route('core.notification.loadNotify')}}">{{__('View More')}}</a>
-        </div>
+        </li>
     </ul>
 </li>

@@ -2023,6 +2023,9 @@ textarea {
 #masthead .header-wrap .site-branding {
   width: 245px;
 }
+#masthead .header-wrap .site-branding img {
+  width: 215px;
+}
 #masthead .header-wrap .site-navigation {
   width: calc(100% - 555px);
 }
@@ -3398,6 +3401,10 @@ textarea {
   border-bottom: 2px solid var(--border);
   display: block;
   line-height: 1;
+}
+.side-wrap.site-menu-side {
+  right: auto;
+  left: 0;
 }
 
 .side-overlay {

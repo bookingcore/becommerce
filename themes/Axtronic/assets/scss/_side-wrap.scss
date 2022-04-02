@@ -30,6 +30,10 @@
         display: block;
         line-height: 1;
     }
+    &.site-menu-side{
+        right: auto;
+        left: 0;
+    }
 }
 .side-overlay{
     position: fixed;
