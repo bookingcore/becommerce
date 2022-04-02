@@ -146,7 +146,7 @@
 
 <div class="site-menu-side side-wrap">
     <a href="#" class="close-menu-side close-side"><span class="screen-reader-text">Close</span></a>
-    <div class="cart-side-heading side-heading">
+    <div class="menu-side-heading side-heading">
         <ul>
             <li class="mobile-tab-title mobile-pages-title active" data-menu="pages">
                 <span>Main Menu</span>

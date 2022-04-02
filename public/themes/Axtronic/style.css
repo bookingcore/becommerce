@@ -3403,8 +3403,52 @@ textarea {
   line-height: 1;
 }
 .side-wrap.site-menu-side {
-  right: auto;
-  left: 0;
+  right: 100%;
+  transform: translate3d(-300px, 0, 0);
+  background-color: var(--dark);
+}
+.side-wrap.site-menu-side .close-menu-side {
+  color: #fff;
+  clear: both;
+  background: #041f38;
+  position: fixed;
+  left: 300px;
+  width: 55px;
+  height: 55px;
+  line-height: 55px;
+  text-align: center;
+}
+.side-wrap.site-menu-side .menu-side-heading {
+  clear: both;
+  padding: 0;
+  margin: 0 -10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.side-wrap.site-menu-side .menu-side-heading ul {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  list-style: none;
+  margin: 0;
+  justify-content: space-between;
+}
+.side-wrap.site-menu-side .menu-side-heading ul li {
+  display: flex;
+  align-items: center;
+  position: relative;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 15px;
+  padding: 20px;
+  color: #fff;
+  cursor: pointer;
+}
+.side-wrap.site-menu-side .menu-side-heading ul li.active {
+  background: var(--primary);
+}
+.side-wrap.site-menu-side.active {
+  transform: translate3d(300px, 0, 0);
 }
 
 .side-overlay {
@@ -5541,6 +5585,10 @@ nav.navigation .nav-next img {
   ul.axtronic-products.products li.product {
     padding-left: calc(16px/2);
     padding-right: calc(16px/2);
+  }
+
+  #masthead .header-wrap .site-navigation {
+    display: none;
   }
 }
 @media (min-width: 1024px) {

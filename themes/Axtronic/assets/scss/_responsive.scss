@@ -71,7 +71,11 @@
             }
         }
     }
-
+    #masthead {
+        .header-wrap .site-navigation{
+            display: none;
+        }
+    }
 }
 @media (min-width: 1024px) {
     .comments-area{
