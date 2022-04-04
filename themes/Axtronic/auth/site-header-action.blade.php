@@ -145,27 +145,26 @@
 <div class="wishlist-side-overlay side-overlay"></div>
 
 <div class="site-menu-side side-wrap">
-    <a href="#" class="close-menu-side close-side"><span class="screen-reader-text">Close</span></a>
-    <div class="menu-side-heading side-heading">
-        <ul>
-            <li class="mobile-tab-title mobile-pages-title active" data-menu="pages">
-                <span>Main Menu</span>
-            </li>
-            <li class="mobile-tab-title mobile-categories-title" data-menu="categories">
-                <span>Shop by Categories</span>
-            </li>
-        </ul>
-    </div>
-    <div class="side-account-form-wrap">
-        <div class="box-content">
-            <div class="mobile-pages-menu mobile-menu-tab">
-                @php generate_menu('primary',['class'=>'menu-mobile-page']) @endphp
-            </div>
-            <div class="mobile-categories-menu mobile-menu-tab">
-                @php generate_menu('primary',['class'=>'menu-mobile-categories']) @endphp
-            </div>
+    <div class="axtronic-mobile-nav">
+        <a href="#" class="close-menu-side"><i class="axtronic-icon-times"></i></a>
+        <div class="menu-side-heading side-heading mobile-nav-tabs">
+            <ul>
+                <li class="mobile-tab-title mobile-pages-title active" data-menu="pages">
+                    <span>Main Menu</span>
+                </li>
+                <li class="mobile-tab-title mobile-categories-title" data-menu="categories">
+                    <span>Shop by Categories</span>
+                </li>
+            </ul>
+        </div>
+        <div class="mobile-pages-menu mobile-menu-tab active">
+            @php generate_menu('primary',['class'=>'menu-mobile-page']) @endphp
+        </div>
+        <div class="mobile-categories-menu mobile-menu-tab">
+            @php generate_menu('primary',['class'=>'menu-mobile-categories']) @endphp
         </div>
     </div>
+
 
 </div>
 <div class="menu-side-overlay side-overlay"></div>

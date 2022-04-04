@@ -1164,4 +1164,12 @@ jQuery(function ($) {
         $container.find('.form-register').removeClass('active');
     });
 
+    $('.mobile-nav-tabs li').on('click', function () {
+        if ($(this).hasClass('active')) return;
+        var menuName = $(this).data('menu');
+        $(this).parent().find('.active').removeClass('active');
+        $(this).addClass('active');
+        $('.mobile-menu-tab').removeClass('active');
+        $('.mobile-' + menuName + '-menu').addClass('active');
+    });
 });
