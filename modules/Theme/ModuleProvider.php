@@ -15,8 +15,6 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
 
         if(!is_installed() || strpos($request->path(), 'install') !== false) return false;
 
-        \Illuminate\Support\Facades\Config::set('bc.active_theme', env('BC_DEFAULT_THEME') ? env('BC_DEFAULT_THEME') : JsonConfigManager::get('active_theme','base'));
-
         //	 load Theme overwrite
 	    $active = ThemeManager::current();
 
@@ -28,16 +26,19 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
 
     }
+
     public function register()
     {
         $this->app->register(\Modules\Theme\RouterServiceProvider::class);
-//        Base Theme require
+        // Base Theme require
 	    $this->app->register(ThemeProvider::class);
 
-//	    load Theme overwrite
+        // load Theme overwrite
 	    $class = \Modules\Theme\ThemeManager::currentProvider();
-        if(class_exists($class)){
-            $this->app->register($class);
+	    if($class != ThemeProvider::class) {
+            if (class_exists($class)) {
+                $this->app->register($class);
+            }
         }
 
     }

@@ -3,7 +3,10 @@
 
 namespace Themes\Axtronic;
 
+
+use Modules\Template\BlockManager;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
+use Themes\Axtronic\Controllers\Blocks\ListProduct;
 
 class ThemeProvider extends AbstractThemeProvider
 {
@@ -13,8 +16,11 @@ class ThemeProvider extends AbstractThemeProvider
     {
         // TODO: Implement info() method.
     }
-    public function boot(){
+
+    public function boot()
+    {
+        BlockManager::register([
+            ["list_product",ListProduct::class]
+        ]);
     }
-
-
 }
