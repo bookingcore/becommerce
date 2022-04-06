@@ -3,7 +3,6 @@
 
 namespace Themes\Axtronic;
 
-
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 
 class ThemeProvider extends AbstractThemeProvider
@@ -14,4 +13,8 @@ class ThemeProvider extends AbstractThemeProvider
     {
         // TODO: Implement info() method.
     }
+    public function boot(){
+    }
+
+
 }

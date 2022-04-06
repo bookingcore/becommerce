@@ -168,3 +168,7 @@
 
 </div>
 <div class="menu-side-overlay side-overlay"></div>
+
+<div class="footer-width-fixer">
+
+</div>

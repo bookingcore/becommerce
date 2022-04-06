@@ -5135,6 +5135,7 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
 }
 .axtronic-post .post-thumbnail img {
   transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
+  width: 100%;
 }
 .axtronic-post .entry-content .entry-meta {
   display: flex;

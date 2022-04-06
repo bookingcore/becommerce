@@ -887,7 +887,7 @@ jQuery(function ($) {
         },
         breakpoints: {
             640: {
-                slidesPerView: 1,
+                slidesPerView: 2,
             },
             768: {
                 slidesPerView: 2,
@@ -982,7 +982,7 @@ jQuery(function ($) {
         },
         breakpoints: {
             640: {
-                slidesPerView: 1,
+                slidesPerView: 2,
             },
             768: {
                 slidesPerView: 3,

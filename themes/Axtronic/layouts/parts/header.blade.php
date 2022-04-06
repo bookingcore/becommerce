@@ -74,13 +74,13 @@ if(!isset($current_cat)) $current_cat = null;
     <div class="header__content-bottom">
         <div class="container">
             <div class="row align-items-center justify-content-end" >
-                <div class="col-sm-3">
+                <div class="col-md-3">
                     @include('layouts.parts.header.category')
                 </div>
-                <div class="col-sm-2">
+                <div class="col-md-2">
                     <p> Find all you need here!</p>
                 </div>
-                <div class="col-sm-7">
+                <div class="col-md-7">
                     @include('layouts.parts.header.search')
                 </div>
             </div>

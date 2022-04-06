@@ -2,7 +2,7 @@
 <div class="axtronic-promotions pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner1.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column  justify-content-end">
@@ -16,7 +16,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner2.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column justify-content-end">
@@ -30,7 +30,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner3.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column justify-content-end">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-md-6">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner4.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column justify-content-start">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner5.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column justify-content-start">
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-md-3">
                 <div class="promotions-item">
                     <div class="item-bg" style="background-image: url({{ theme_url('Axtronic/images/banner6.jpg') }});"></div>
                     <div class="item-content d-flex align-content-start align-items-start flex-column justify-content-start">
