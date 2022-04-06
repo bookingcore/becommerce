@@ -37,6 +37,7 @@ class ProductStockListener
                     if(!empty($model) and $model instanceof  BaseProduct){
                         if($model->check_manage_stock()){
                             $model->quantity -= $item->qty;
+                            $model->sale_count += $item->qty;
                             if($model->quantity <=0){
                                 $model->quantity = 0 ;
                                 $model->stock_status ='out';
@@ -58,6 +59,8 @@ class ProductStockListener
                     if(!empty($model) and $model instanceof  Product){
                         if($model->check_manage_stock()){
                             $model->quantity += $item->reduced_stock;
+                            $model->sale_count -= $item->qty;
+                            $model->sale_count = max(0,$model->sale_count);
                             if($model->quantity<=0){
                                 $model->stock_status ='out';
                             }
