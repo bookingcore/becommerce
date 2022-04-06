@@ -10,7 +10,13 @@ class BlockManager
 {
     protected static $_all = [];
 
-    public static function register($id,$class,$priority = 1){
+    public static function register($id,$class = null,$priority = 1){
+        if(is_array($id)){
+            foreach ($id as $value){
+                static::register($value[0],$value[1],$value[2] ?? 1);
+            }
+            return;
+        }
         if(isset(static::$_all[$id]) and (static::$_all[$id]['priority'] ?? 1) > $priority) return;
         static::$_all[$id] = [
             'class'=>$class,
@@ -22,7 +28,6 @@ class BlockManager
     }
     public static function blocks(){
         $res = [];
-
         foreach (static::$_all as $id=>$config){
             $class = $config['class'];
 
