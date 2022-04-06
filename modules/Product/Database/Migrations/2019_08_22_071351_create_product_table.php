@@ -40,12 +40,13 @@ class CreateProductTable extends Migration
             //Extra Info
             $table->string('status',50)->nullable();
             $table->text('attributes_for_variation')->nullable();
-//            $table->tinyInteger('enable_review')->nullable();
 
             $table->decimal('weight',5,2)->nullable();
             $table->decimal('length',5,2)->nullable();
             $table->decimal('width',5,2)->nullable();
             $table->decimal('height',5,2)->nullable();
+
+            $table->integer('sale_count')->nullable()->default(0);
 
             // Stock
             $table->tinyInteger('sold')->nullable();
@@ -158,6 +159,8 @@ class CreateProductTable extends Migration
             $table->decimal('length',5,2)->nullable();
             $table->decimal('width',5,2)->nullable();
             $table->decimal('height',5,2)->nullable();
+
+            $table->integer('sale_count')->nullable()->default(0);
 
             $table->tinyInteger('active')->nullable();
             $table->bigInteger('create_user')->nullable();

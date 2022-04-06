@@ -1,126 +1,51 @@
-@include('layouts.parts.header.topbar')
+@include('layouts.parts.topbar')
 <!-- header middle -->
 <div class="header_middle pt25 pb25 dn-992">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-xl-3">
                 <div class="header_top_logo_home1">
-                    <img src="images/header-middle-logo.svg" alt="header-middle-logo.svg">
+                    @if($logo_id = setting_item("logo_id"))
+                        <?php $logo = get_file_url($logo_id,'full') ?>
+                        <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                    @endif
                 </div>
             </div>
             <div class="col-lg-7 col-xl-7">
-                <div class="header_middle_advnc_search">
-                    <div class="search_form_wrapper">
-                        <div class="row">
-                            <div class="col-auto pr0">
-                                <div class="actegory">
-                                    <select class="custom_select_dd" id="selectbox_alCategory">
-                                        <option value="AllCategory">All Category</option>
-                                        <option value="HotOffers">Hot Offers</option>
-                                        <option value="NewArrivals">New Arrivals</option>
-                                        <option value="DealsOfTheDay">Deals of The Day</option>
-                                        <option value="Fruits">Fruits</option>
-                                        <option value="Vegetables">Vegetables</option>
-                                        <option value="Drinks">Drinks</option>
-                                        <option value="Bakery">Bakery</option>
-                                        <option value="Butter&Egges">Butter & Egges</option>
-                                        <option value="Milks&Creams">Milks & Creams</option>
-                                        <option value="Meats">Meats</option>
-                                        <option value="Fish">Fish</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-auto pr0">
-                                <div class="top-search">
-                                    <form action="#" method="get" class="form-search" accept-charset="utf-8">
-                                        <div class="box-search pre_line">
-                                            <input class="form_control" type="text" name="search" placeholder="I'm shopping for...">
-                                            <div class="search-suggestions">
-                                                <div class="box-suggestions">
-                                                    <ul>
-                                                        <li>
-                                                            <div class="thumb">
-                                                                <img src="images/listing/sf1.png" alt="sf1.png">
-                                                            </div>
-                                                            <div class="info-product">
-                                                                <div class="item_title">Silver Heinz Ketchup 350 ml</div>
-                                                                <div class="price"><span class="sale">$50.00</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="thumb">
-                                                                <img src="images/listing/sf2.png" alt="sf2.png">
-                                                            </div>
-                                                            <div class="info-product">
-                                                                <div class="item_title">Silver Heinz Ketchup 350 ml</div>
-                                                                <div class="price"><span class="sale">$24.00</span></div>
-                                                            </div>
-                                                        </li>
-                                                        <li>
-                                                            <div class="thumb">
-                                                                <img src="images/listing/sf3.png" alt="sf3.png">
-                                                            </div>
-                                                            <div class="info-product">
-                                                                <div class="item_title">Silver Heinz Ketchup 350 ml</div>
-                                                                <div class="price"><span class="sale">$90.00</span></div>
-                                                            </div>
-                                                        </li>
-                                                    </ul>
-                                                </div><!-- /.box-suggestions -->
-                                            </div><!-- /.search-suggestions -->
-                                        </div><!-- /.box-search -->
-                                    </form><!-- /.form-search -->
-                                </div><!-- /.top-search -->
-                            </div>
-                            <div class="col-auto p0">
-                                <div class="advscrh_frm_btn">
-                                    <button type="submit" class="btn search-btn"><span class="flaticon-search"></span></button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('layouts.parts.header.search')
             </div>
             <div class="col-lg-3 col-xl-2">
                 <div class="log_fav_cart_widget">
                     <div class="wrapper">
                         <ul class="mb0 cart">
-                            <li class="list-inline-item"><a href="#" data-bs-toggle="modal" data-bs-target="#logInModal"><span class="flaticon-user icon"></span></a></li>
-                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart icon"><span class="badge bgc-thm">2</span></span></a></li>
                             <li class="list-inline-item">
-                                <a class="cart_btn" href="#"><span class="flaticon-shopping-cart icon"><span class="badge bgc-thm">3</span></span> <span class="price">$240.93</span></a>
-                                <ul class="dropdown_content">
-                                    <li class="list_content">
-                                        <a href="#">
-                                            <img class="float-start" src="images/shop/s1.png" alt="50x50">
-                                            <p>Silver Heinz Ketchup 350 ml</p>
-                                            <small>3 x $7.63</small>
-                                            <span class="close_icon float-end"><i class="fa fa-plus"></i></span>
-                                        </a>
-                                    </li>
-                                    <li class="list_content">
-                                        <a href="#">
-                                            <img class="float-start" src="images/shop/s2.png" alt="50x50">
-                                            <p>Silver Heinz Ketchup 350 ml</p>
-                                            <small>3 x $7.63</small>
-                                            <span class="close_icon float-end"><i class="fa fa-plus"></i></span>
-                                        </a>
-                                    </li>
-                                    <li class="list_content">
-                                        <a href="#">
-                                            <img class="float-start" src="images/shop/s3.png" alt="50x50">
-                                            <p>Silver Heinz Ketchup 350 ml</p>
-                                            <small>3 x $7.63</small>
-                                            <span class="close_icon float-end"><i class="fa fa-plus"></i></span>
-                                        </a>
-                                    </li>
-                                    <li class="list_content">
-                                        <h5>Subtotal: <span class="text-thm fw400 float-end">$907.00</span></h5>
-                                        <a href="#" class="btn btn-thm cart_btns">VIEW CART</a>
-                                        <a href="#" class="btn btn-thm2 checkout_btns">CHECKOUT</a>
-                                    </li>
-                                </ul>
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#logInModal"><span class="flaticon-user icon"></span></a>
                             </li>
+                            <li class="list-inline-item bc-compare-count">
+                                <a href="#">
+                                    <span class="flaticon-filter icon">
+                                        <span class="badge bgc-thm number">
+                                            {{ !empty(session('compare')) ? count(session('compare')) : "0" }}
+                                        </span>
+                                    </span>
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                @if(Auth::user())
+                                    <a href="{{route('user.wishList.index')}}">
+                                        <span class="flaticon-heart icon">
+                                            <span class="badge bgc-thm wishlist_count">{{ countWishlist() }}</span>
+                                        </span>
+                                    </a>
+                                @else
+                                    <a href="#login" data-bs-toggle="modal" data-target="#login">
+                                        <span class="flaticon-heart icon">
+                                            <span class="badge bgc-thm">0</span>
+                                        </span>
+                                    </a>
+                                @endif
+                            </li>
+                            @includeIf('order.cart.mini-cart')
                         </ul>
                     </div>
                 </div>

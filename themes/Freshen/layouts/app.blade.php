@@ -49,7 +49,7 @@
     @yield('head')
 </head>
 <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
-<div class="wrapper">
+<div class="wrapper ovh">
     <div class="preloader"></div>
     @include('layouts.parts.header')
     @yield('content')
@@ -96,6 +96,7 @@
     <script src="{{ theme_url('Freshen') }}/js/single-counter.js"></script>
     <!-- Custom script for all pages -->
     <script src="{{ theme_url('Freshen') }}/js/script.js"></script>
+    <script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>
     @yield('footer')
 </footer>
 </body>
