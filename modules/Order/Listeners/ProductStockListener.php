@@ -19,7 +19,7 @@ class ProductStockListener
         switch ($order->status) {
             case Order::PROCESSING:
             case Order::ON_HOLD:
-                $this->reductionStock($items);
+                $this->reduceStock($items);
                 break;
             case Order::CANCELLED:
             case Order::PENDING:
@@ -29,7 +29,7 @@ class ProductStockListener
         }
     }
 
-    public function reductionStock($items){
+    public function reduceStock($items){
         if(!empty($items)){
             foreach ($items as $item) {
                 if(empty($item->reduced_stock)){
