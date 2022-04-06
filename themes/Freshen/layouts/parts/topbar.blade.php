@@ -12,34 +12,18 @@
             </div>
             <div class="col-lg-4 col-xl-4">
                 <div class="ht_contact_widget text-center">
-                    <a class="text-white" href="#">Free shipping for orders over $59. $5.00 USPS Shipping on $25+ !</a>
+                    @if(is_vendor_enable() and !is_vendor())
+                        <li class="login-item">
+                            <a href="{{route('vendor.register')}}" class="login nav-link text-white">{{__('Sell on Us!')}}</a>
+                        </li>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-4 col-xl-4">
                 <div class="ht_language_widget text-end">
                     <ul class="m0">
-                        <li class="list-inline-item">
-                            <div class="htlw_form_select">
-                                <span class="stts">Language</span>
-                                <select class="custom_select_dd" id="selectbox_language">
-                                    <option value="english">English</option>
-                                    <option value="turkish">Turkish</option>
-                                    <option value="turkish">للغة العربية </option>
-                                    <option value="español">Español</option>
-                                    <option value="italiano">Italiano</option>
-                                </select>
-                            </div>
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="htcw_form_select">
-                                <span class="stts">Currency</span>
-                                <select class="custom_select_dd" id="selectbox_currency">
-                                    <option value="usd ($)">USD ($)</option>
-                                    <option value="euro (€)">EURO (€)</option>
-                                    <option value="pound (£)">Pound (£)</option>
-                                </select>
-                            </div>
-                        </li>
+                        @include('layouts.parts.header.language-switcher')
+                        @include('layouts.parts.header.currency-switcher')
                     </ul>
                 </div>
             </div>

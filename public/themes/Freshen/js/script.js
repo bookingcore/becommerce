@@ -459,7 +459,12 @@
         var $styledSelect = $this.next('div.styledSelect');
 
         // Show the first select option in the styled div
-        $styledSelect.text($this.children('option').eq(0).text());
+
+        var tmp_text =  $this.find('option:selected').text();
+        if(tmp_text == ""){
+            tmp_text = $this.children('option').eq(0).text();
+        }
+        $styledSelect.text(tmp_text);
 
         // Insert an unordered list after the styled div and also cache the list
         var $list = $('<ul />', {
@@ -492,6 +497,7 @@
             e.stopPropagation();
             $styledSelect.text($(this).text()).removeClass('active');
             $this.val($(this).attr('rel'));
+            $this.trigger('change');
             $list.hide();
             /* alert($this.val()); Uncomment this for demonstration! */
         });
