@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ScheduleCheckCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Modules\Vendor\Commands\CreatePayoutsCommand;
@@ -18,6 +19,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command(ScheduleCheckCommand::class)->dailyAt("00:05");
         $schedule->command(CreatePayoutsCommand::class)->monthlyOn(15);
     }
 
