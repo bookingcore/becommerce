@@ -13,7 +13,7 @@ use Modules\News\Models\News;
 use Modules\News\Models\NewsCategory;
 use Modules\Media\Helpers\FileHelper;
 
-class ListNews extends BaseBlock
+class RecentNews extends BaseBlock
 {
     function __construct()
     {
@@ -77,7 +77,7 @@ class ListNews extends BaseBlock
 
     public function getName()
     {
-        return __('News: List Items');
+        return __('Recent news');
     }
 
     public function content($model = [])

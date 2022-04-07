@@ -434,73 +434,9 @@ jQuery(function ($) {
         })
     });
 
-    $(".bc_form_filter input[type=checkbox],.bc_form_filter select[name=sort]").change(function () {
-        $(this).closest(".bc_form_filter").submit();
+    $(".axtronic_form_filter input[type=checkbox],.axtronic_form_filter select[name=sort]").change(function () {
+        $(this).closest(".axtronic_form_filter").submit();
     });
-
-    $(".bc-carousel").each(function() {
-        var elelemnt = $(this),
-            dataAuto = elelemnt.data('owl-auto'),
-            dataLoop = elelemnt.data('owl-loop'),
-            dataSpeed = elelemnt.data('owl-speed'),
-            dataGap = elelemnt.data('owl-gap'),
-            dataNav = elelemnt.data('owl-nav'),
-            dataDots = elelemnt.data('owl-dots'),
-            dataAnimateIn = elelemnt.data('owl-animate-in') ? elelemnt.data('owl-animate-in') : '',
-            dataAnimateOut = elelemnt.data('owl-animate-out') ? elelemnt.data('owl-animate-out') : '',
-            dataDefaultItem = elelemnt.data('owl-item'),
-            dataItemXS = elelemnt.data('owl-item-xs'),
-            dataItemSM = elelemnt.data('owl-item-sm'),
-            dataItemMD = elelemnt.data('owl-item-md'),
-            dataItemLG = elelemnt.data('owl-item-lg'),
-            dataItemXL = elelemnt.data('owl-item-xl'),
-            dataNavLeft = elelemnt.data('owl-nav-left') ? elelemnt.data('owl-nav-left') : '<i class="fa fa-angle-left"></i>',
-            dataNavRight = elelemnt.data('owl-nav-right') ? elelemnt.data('owl-nav-right') : '<i class="fa fa-angle-right"></i>',
-            duration = elelemnt.data('owl-duration'),
-            datamouseDrag = elelemnt.data('owl-mousedrag') == 'on' ? true : false;
-
-        elelemnt.addClass('owl-carousel').owlCarousel({
-            animateIn: dataAnimateIn,
-            animateOut: dataAnimateOut,
-            margin: dataGap,
-            autoplay: dataAuto,
-            autoplayTimeout: dataSpeed,
-            autoplayHoverPause: true,
-            loop: dataLoop,
-            nav: dataNav,
-            mouseDrag: datamouseDrag,
-            touchDrag: true,
-            autoplaySpeed: duration,
-            navSpeed: duration,
-            dotsSpeed: duration,
-            dragEndSpeed: duration,
-            navText: [dataNavLeft, dataNavRight],
-            dots: dataDots,
-            items: dataDefaultItem,
-            rtl: false,
-            responsive: {
-                0: {
-                    items: dataItemXS,
-                },
-                480: {
-                    items: dataItemSM,
-                },
-                768: {
-                    items: dataItemMD,
-                },
-                992: {
-                    items: dataItemLG,
-                },
-                1200: {
-                    items: dataItemXL,
-                },
-                1680: {
-                    items: dataDefaultItem,
-                },
-            },
-        });
-    });
-
 
     var nonLinearSlider = document.getElementById('nonlinear');
     if (typeof nonLinearSlider != 'undefined' && nonLinearSlider != null) {
@@ -520,10 +456,10 @@ jQuery(function ($) {
         });
 
         nonLinearSlider.noUiSlider.on('update', function(values, handle) {
-            $(".bc-slider-price .slider-min").html(  Math.round(values[0]) );
-            $(".bc-slider-price .slider-max").html(  Math.round(values[1]) );
-            $(".bc-slider-price input[name=min_price]").val(  Math.round(values[0]) );
-            $(".bc-slider-price input[name=max_price]").val(  Math.round(values[1]) );
+            $(".axtronic-slider-price .slider-min").html(  Math.round(values[0]) );
+            $(".axtronic-slider-price .slider-max").html(  Math.round(values[1]) );
+            $(".axtronic-slider-price input[name=min_price]").val(  Math.round(values[0]) );
+            $(".axtronic-slider-price input[name=max_price]").val(  Math.round(values[1]) );
         });
     }
 
@@ -559,74 +495,6 @@ jQuery(function ($) {
     });
 
 });
-
-$('.bc-product-detail').each(function () {
-    var product = $(this);
-    var primary = product.find('.bc-product_gallery'),
-        second = product.find('.bc-product_variants'),
-        vertical = product
-            .find('.bc-product_thumbnail')
-            .data('vertical');
-    primary.slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        asNavFor: '.bc-product_variants',
-        fade: true,
-        dots: false,
-        infinite: false,
-        arrows: primary.data('arrow'),
-        prevArrow: "<a href='#'><i class='fa fa-angle-left'></i></a>",
-        nextArrow: "<a href='#'><i class='fa fa-angle-right'></i></a>",
-    });
-    second.slick({
-        slidesToShow: second.data('item'),
-        slidesToScroll: 1,
-        infinite: false,
-        arrows: second.data('arrow'),
-        focusOnSelect: true,
-        prevArrow: "<a href='#'><i class='fa fa-angle-up'></i></a>",
-        nextArrow: "<a href='#'><i class='fa fa-angle-down'></i></a>",
-        asNavFor: '.bc-product_gallery',
-        vertical: vertical,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    arrows: second.data('arrow'),
-                    slidesToShow: 4,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    arrows: second.data('arrow'),
-                    slidesToShow: 4,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-        ],
-    });
-})
 
 //Review
 $('.review-form .review-items .rates .fa').each(function () {
@@ -668,7 +536,7 @@ jQuery(function ($) {
         return html;
     }
     var onSubmitContact = false;
-    $('.bc-contact-block').submit(function(e) {
+    $('.axtronic-contact-block').submit(function(e) {
         e.preventDefault();
         if (onSubmitContact)
             return;
@@ -738,7 +606,7 @@ jQuery(function ($) {
             })
         }
     })
-    $(document).on('click','.bc-remove-compare',function (e) {
+    $(document).on('click','.axtronic-remove-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
@@ -1045,7 +913,7 @@ jQuery(function ($) {
     const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
         // Optional parameters
         loop: false,
-        cssMode: true,
+        cssMode: false,
         spaceBetween: 30,
         autoplay: {
             delay: 5000,

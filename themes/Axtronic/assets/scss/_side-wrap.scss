@@ -398,6 +398,18 @@
         right: 15px;
         bottom: 0;
         left: 0;
+        .product-transition{
+            flex: 0 0 80px;
+            border: none;
+            margin-right: 15px;
+            .product-img-wrap{
+                border: 2px dashed var(--border);
+                border-radius: 15px;
+            }
+        }
+        .product-caption{
+            padding-top: 0;
+        }
     }
 }
 .side-wrap-content{
@@ -436,13 +448,7 @@
                 margin-top: 40px;
             }
             &.product-item {
-                .product-transition{
-                    flex: 0 0 80px;
-                    .product-img-wrap{
-                        border: 2px dashed var(--border);
-                        border-radius: 15px;
-                    }
-                }
+
                 .product-caption h2{
                     margin-top: 0;
                     line-height: 24px;

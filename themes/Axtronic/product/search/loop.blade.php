@@ -18,15 +18,15 @@ $score_total = $reviewData['score_total'];
     <div class="product-transition">
         <div class="product-img-wrap">
             <a href="{{$row->getDetailUrl()}}" >
-                {{--{!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}--}}
-                <img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" >
+                {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
+{{--                <img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" >--}}
             </a>
         </div>
         <div class="shop-action">
-            <button class="btn-tooltips btn-addtocart tooltipstered"><i class="axtronic-icon-shopping-cart"></i></button>
-            <button class="btn-tooltips btn-wishlist tooltipstered {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
-            <button class="btn-tooltips btn-quickview tooltipstered" ><i class="axtronic-icon-eye"></i></button>
-            <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            <button class="btn-tooltips btn-addtocart"><i class="axtronic-icon-shopping-cart"></i></button>
+            <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+            <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
+            <button class="btn-tooltips btn-compare bc-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
         </div>
     </div>
     <div class="product-caption">

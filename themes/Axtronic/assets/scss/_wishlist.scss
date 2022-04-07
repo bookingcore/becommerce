@@ -1,0 +1,19 @@
+.axtronic-widget--account-dashboard{
+    font-size: 14px;
+    .axtronic-widget__content{
+        a.list-group-item{
+            color: var(--accent);
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            i{
+                margin-right: 5px;
+            }
+            &.active, &:hover{
+                background-color: var(--primary);
+                border-color: var(--primary);
+                color: #ffffff;
+            }
+        }
+    }
+}

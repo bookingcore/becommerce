@@ -97,17 +97,3 @@
     @include("blocks.banner.index")
 </div>
 
-
-{{--Axtronic Testimonial--}}
-
-@include("blocks.testimonial.index")
-
-
-{{--Axtronic News--}}
-
-@include("blocks.news.index")
-
-
-{{--Axtronic Brands--}}
-
-@include("blocks.brand.index")

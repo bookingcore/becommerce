@@ -1,6 +1,6 @@
 <div class="axtronic-shopping__header d-flex justify-content-between align-items-center">
     <h2> {{__('Shop')}}</h2>
-    <p>Showing 1–16 of {{$rows->total()}} results </p>
+    <p>{{ __("Showing :from - :to of :total",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]) }} results </p>
 </div>
 <div class="axtronic-shopping__actions">
     <div class="axtronic-ordering">

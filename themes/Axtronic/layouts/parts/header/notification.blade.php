@@ -13,12 +13,12 @@ $notifications = $checkNotify->orderBy('created_at', 'desc')->limit(5)->get();
 $countUnread = $checkNotify->where('read_at', null)->count();
 ?>
 <li class="dropdown-notifications dropdown p-0">
-    <a href="#" data-bs-toggle="dropdown" class="is_login nav-link text-white position-relative">
-        <span class="position-relative">
-            <i class="fa fa-bell mr-2"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">{{$countUnread}}</span>
+
+    <a href="#" data-bs-toggle="dropdown" class="is_login">
+        <span class="group-icon-action">
+            <i class="axtronic-icon-envelope"></i>
+            <span class="count">{{$countUnread}}</span>
         </span>
-        <i class="fa fa-angle-down"></i>
     </a>
     <ul class="dropdown-menu overflow-auto notify-items dropdown-container dropdown-menu-end miw-300 p-3">
         <li class="dropdown-toolbar d-flex justify-content-between align-items-center pb-2 mb-2">
@@ -81,7 +81,7 @@ $countUnread = $checkNotify->where('read_at', null)->count();
             </ul>
         </li>
         <li class="dropdown-footer text-end mt-3 fs-14">
-            <a class="btn btn-primary fs-14 c-white" href="{{route('user.notification')}}">{{__('View More')}}</a>
+            <a class="" href="{{route('user.notification')}}">{{__('View More')}}</a>
         </li>
     </ul>
 </li>

@@ -18,7 +18,7 @@ if(!isset($current_cat)) $current_cat = null;
                   @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
                 </div>
             </div>
-            <div class="site-member">
+            <div class="site-member {{ Auth::id() ? 'is_login' : '' }}">
                 <ul class="topbar-items nav">
                     @if(!Auth::id())
                         <li class="login-item">
@@ -64,6 +64,16 @@ if(!isset($current_cat)) $current_cat = null;
                             </a>
                         </li>
                     @else
+                        <li class="wishlist-item">
+                            <div class="site-header-wishlist">
+                                <a class="wishlist-contents" href="{{route('user.wishList.index')}}">
+                                    <span class="group-icon-action">
+                                        <i class="axtronic-icon-heart"></i>
+                                        <span class="count">{{ countWishlist() }}</span>
+                                    </span>
+                                </a>
+                            </div>
+                        </li>
                         @include('layouts.parts.header.notification')
                         @include('layouts.parts.header.user')
                     @endif

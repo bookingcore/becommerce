@@ -8,5 +8,4 @@ use Modules\Template\Blocks\BaseBlock;
 
 class ListProduct extends \Modules\Product\Blocks\ListProduct
 {
-
 }

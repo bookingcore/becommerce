@@ -16,6 +16,7 @@ $translation = $row->translate();
                 </a>
             </div>
             <div class="meta-categories">
+                <?php var_dump($row->categories) ?>
                 <a href="#" rel="category tag">Tips &amp; Tricks</a>,
                 <a href="#" rel="category tag">Uncategorized</a>
             </div>

@@ -73,6 +73,7 @@
                         align-items: center;
                         white-space: nowrap;
                         font-size: 12px;
+
                     }
                     a:hover, a:focus {
                          color:var(--primary_hover);
@@ -235,7 +236,7 @@
                         left: 0;
                         z-index: 999;
                         text-align: left;
-                        top: calc(90% + 5px);
+                        top: calc(90% + 4px);
                         padding: 10px 0;
                         background-color: var(--background2);
                         box-shadow: 0 0 30px 0 rgb(0 0 0 / 5%);
@@ -244,15 +245,35 @@
                             display: flex;
                             align-items: center;
                             white-space: nowrap;
-                            font-size: 12px;
+                            font-size: 12px;padding: 0.25rem 1rem;
+                            i{
+                                margin-right: 5px;
+                            }
                         }
                         a:hover, a:focus {
                              color:var(--primary_hover);
                         }
+                        h3{
+                            font-size: 18px;
+                        }
+                        li {
+                            ul{
+                                margin-left: 0;
+                                list-style: none;
+                            }
+
+                        }
+                        .dropdown-footer{
+                            a{
+                                padding: 0;
+                                justify-content: right;
+                                color: var(--primary);
+                            }
+                        }
                     }
                 }
                 li {
-                    a {
+                    a:not(.button) {
                         padding: 0;
                         font-size: 14px;
                     }
@@ -302,6 +323,15 @@
                     .sub-title{
                         color: #fff;
                         font-weight: 600;
+                    }
+                }
+            }
+            &.is_login{
+                ul.topbar-items{
+                    justify-content: end;
+                    align-items: end;
+                    li{
+                        margin-left: 15px;
                     }
                 }
             }

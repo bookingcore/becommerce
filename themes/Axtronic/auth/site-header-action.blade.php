@@ -86,7 +86,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <div class="user-side-overlay side-overlay"></div>
 

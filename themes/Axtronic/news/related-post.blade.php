@@ -34,7 +34,7 @@
             <a href="#" rel="prev">
                 <div class="nav-content has-image">
                     <div class="image">
-                        <img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg" >
+                        <img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg"  alt="">
                     </div>
                     <div class="inner-action">
                         <span class="reader-text"><i class="axtronic-icon-angle-left"></i>Previous Post </span>
@@ -51,7 +51,7 @@
                         <span class="title">We Invite You to These Wonderful Wine Tasting Events</span>
                     </div>
                     <div class="image">
-                        <img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg" >
+                        <img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg" alt="">
                     </div>
                 </div>
             </a>

@@ -13,23 +13,17 @@
                         @include("blocks.banner.index")
 
                         @include("product.search.header")
-
-
-                        <ul class="axtronic-products products">
-                            @if($rows->total())
+                        @if($rows->total())
+                            <ul class="axtronic-products products">
                                 @foreach($rows as $row)
                                     <li class="product">
                                         @include("product.search.loop")
                                     </li>
                                 @endforeach
-                            @else
-                                <div class="col-md-12">
-                                    <div class="alert alert-warning" role="alert">
-                                        {{__("No Product")}}
-                                    </div>
-                                </div>
-                            @endif
-                        </ul>
+                            </ul>
+                        @else
+                            <span class="alert alert-warning d-block">{{__("No Product")}}</span>
+                        @endif
                         <div class="axtronic-pagination">
                             {{$rows->links()}}
                         </div>

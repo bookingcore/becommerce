@@ -11,7 +11,7 @@
         </p>
     @else
         @if(!empty($row->display_sale_price))
-            <p class="price has-sale m-0 c-f30 fs-16">
+            <p class="price has-sale m-0">
                 <ins>
                     <span class="amount">{{$row->display_price}}</span>
                 </ins>
