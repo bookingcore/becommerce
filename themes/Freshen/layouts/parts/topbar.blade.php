@@ -5,8 +5,8 @@
             <div class="col-lg-4 col-xl-4">
                 <div class="ht_contact_widget">
                     <ul class="m0">
-                        <li class="list-inline-item"><a href="#"><span class="flaticon-phone-call mr5"></span> (+035) 527-1710-70</a></li>
-                        <li class="list-inline-item"><a href="#"><span class="flaticon-email mr5"></span> order@freshen.com</a></li>
+                        <li class="list-inline-item"><a href="tel:{{ setting_item('freshen_hotline_contact') }}"><span class="flaticon-phone-call mr5"></span> {{ setting_item('freshen_hotline_contact') }}</a></li>
+                        <li class="list-inline-item"><a href="mailto:{{setting_item('freshen_email_contact')}}"><span class="flaticon-email mr5"></span> {{ setting_item('freshen_email_contact') }}</a></li>
                     </ul>
                 </div>
             </div>
