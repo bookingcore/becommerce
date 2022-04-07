@@ -371,6 +371,7 @@ jQuery(function ($) {
         if (onSubmitSubscribe) return;
 
         $(this).addClass('loading');
+        $(this).find('.fa-spinner').removeClass('d-none');
         var me = $(this);
         me.find('.form-mess').html('');
 
@@ -382,21 +383,19 @@ jQuery(function ($) {
             success: function (json) {
                 onSubmitSubscribe = false;
                 me.removeClass('loading');
-
+                me.find('.fa-spinner').addClass('d-none');
                 if (json.message) {
                     me.find('.form-mess').html('<span class="' + (json.status ? 'text-success' : 'text-danger') + '">' + json.message + '</span>');
                 }
-
                 if (json.status) {
                     me.find('input[name=email]').val('');
                 }
-
             },
             error: function (e) {
                 console.log(e);
                 onSubmitSubscribe = false;
                 me.removeClass('loading');
-
+                me.find('.fa-spinner').addClass('d-none');
                 if(ajax_error_to_string(e)){
                     me.find('.form-mess').html('<span class="text-danger">' + ajax_error_to_string(e) + '</span>');
                 }else

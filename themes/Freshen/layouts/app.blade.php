@@ -48,17 +48,14 @@
     </script>
     @yield('head')
 </head>
-<body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
-<div class="wrapper ovh">
-    <div class="preloader"></div>
-    @include('layouts.parts.header')
-    @yield('content')
-
-</div>
-<footer class="footer mt-auto py-3">
+<body class="{{$body_class ?? ''}}">
+    <div class="wrapper ovh">
+        <div class="preloader"></div>
+        @include('layouts.parts.header')
+        @yield('content')
+    </div>
     @include('layouts.parts.footer')
     @include('product.compare.compare-modal')
-
     <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
     <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
     <script src="{{asset('libs/lodash.min.js')}}"></script>
@@ -74,7 +71,6 @@
 
 
     </script>
-
     <script src="{{ theme_url('Freshen') }}/js/jquery.min.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-3.6.0.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-migrate-3.0.0.min.js"></script>
@@ -98,6 +94,5 @@
     <script src="{{ theme_url('Freshen') }}/js/script.js"></script>
     <script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>
     @yield('footer')
-</footer>
 </body>
 </html>
