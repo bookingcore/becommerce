@@ -18,7 +18,7 @@
     <section class="blog_post_container pb80">
         <div class="container">
             <div class="row">
-                <div class="col-lg-8">
+                <div class="col-lg-8 col-xl-9">
                     @if(count($rows))
                         <div class="row">
                             @foreach($rows as $k=>$row)
@@ -34,7 +34,7 @@
                         {{$rows->links()}}
                     </div>
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-xl-3">
                     @include('news.sidebar')
                 </div>
             </div>

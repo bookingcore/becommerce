@@ -48,7 +48,7 @@
     </script>
     @yield('head')
 </head>
-<body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
+<body class="{{$body_class ?? ''}}">
 <div class="wrapper ovh">
     <div class="preloader"></div>
     @include('layouts.parts.header')
