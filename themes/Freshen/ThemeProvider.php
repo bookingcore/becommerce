@@ -21,9 +21,20 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
 
     public function boot(){
-        SettingManager::register("advance",[$this,'registerAdvanceSetting']);
+        SettingManager::register("advance",[$this,'registerAdvanceSetting'],1,'freshen');
         add_filter(Hook::NEWS_SETTING_CONFIG,[$this,'alterSettings']);
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
+
+        SettingManager::registerZone('freshen',[$this,'registerZone']);
+    }
+    public function registerZone(){
+        return [
+            "position"=>80,
+            'title'      => __("Freshen Settings"),
+            'icon'       => 'fa fa-home',
+            'permission' => 'setting_update',
+            "group"=>"system"
+        ];
     }
     public function alterSettings($settings){
         $settings['keys'][] = 'news_page_image';
@@ -35,7 +46,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public function registerAdvanceSetting(){
         return [
             'id'   => 'advance',
-            'title' => __("Freshen Settings"),
+            'title' => __("test Settings"),
             'position'=>80,
             'view'      => "admin.settings.general",
             "keys"      => [

@@ -21,7 +21,9 @@ Route::group(['prefix'=>'plugins'],function (){
 
 Route::get('settings/index', 'SettingsController@index')->name('core.admin.setting.index');
 Route::get('settings/{group}', 'SettingsController@group')->name('core.admin.setting');
-Route::post('settings/store/{group}', 'SettingsController@store');
+Route::post('settings/store/{group}', 'SettingsController@store')->name('core.admin.setting.store');
+
+Route::get('setting-zone/{zone_id}', 'SettingsController@zone')->name('core.admin.setting.zone');
 
 Route::get('tools', 'ToolsController@index');
 

@@ -90,6 +90,10 @@ class ModuleProvider extends ModuleServiceProvider
                 ]
             ],
         ];
+        foreach (SettingManager::zones() as $id=>$zone){
+            $zone['url'] = route('core.admin.setting.zone',['zone_id'=>$id]);
+            $menus['setting_'.$id] = $zone;
+        }
         return $menus;
     }
 

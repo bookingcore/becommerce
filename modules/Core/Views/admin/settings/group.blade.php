@@ -5,12 +5,12 @@
             <div class="col-md-2">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <i class="icon ion-ios-cog mr-2" style="font-size: 24px"></i>
-                        <strong> {{__("Settings")}}</strong>
+                        <i class="{{$zone['icon'] ?? 'icon ion-ios-cog'}} mr-2" style="font-size: 24px"></i>
+                        <strong> {{$zone['title'] ?? __("Settings")}}</strong>
                     </div>
                     <div class="list-group list-group-flush">
                         @foreach($groups as $id=>$setting)
-                            <a class="list-group-item list-group-item-action @if($current_group == $id) active @endif" href="{{route('core.admin.setting',['group'=>$id])}}">
+                            <a class="list-group-item list-group-item-action @if($current_group == $id) active @endif" href="{{!empty($zone_id) ? route('core.admin.setting.zone',['zone_id'=>$zone_id,'group'=>$id]) :  route('core.admin.setting',['group'=>$id])}}">
                                 @if(!empty($setting['icon']))
                                     <i class="{{$setting['icon']}}"></i>
                                 @endif
@@ -30,25 +30,8 @@
                 </div>
                 @include('admin.message')
                 <div class="row">
-                    <div class="col-md-3 d-none">
-                        <div class="panel">
-                            <div class="panel-title">{{__('Settings Groups')}}</div>
-                            <div class="panel-body">
-                                <ul class="panel-navs">
-                                    @foreach($groups as $k=>$row)
-                                        <li class="@if($current_group == $k) active @endif"><a href="{{url('admin/module/core/settings/index/'.$k)}}">
-                                                @if(!empty($row['icon']))
-                                                    <i class="{{$row['icon']}}"></i>
-                                                @endif
-                                                {{$row['title']}}
-                                            </a></li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
                     <div class="col-md-12">
-                        <form action="{{url('admin/module/core/settings/store/'.$current_group)}}" method="post" autocomplete="off">
+                        <form action="{{route('core.admin.setting.store',['group'=>$current_group,'zone_id'=>$zone_id ?? ''])}}" method="post" autocomplete="off">
                             @csrf
 
                             @include('Language::admin.navigation')
