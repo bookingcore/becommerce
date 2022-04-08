@@ -71,7 +71,6 @@
 
 
     </script>
-    <script src="{{ theme_url('Freshen') }}/js/jquery.min.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-3.6.0.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-migrate-3.0.0.min.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/popper.min.js"></script>
@@ -89,7 +88,6 @@
     <script src="{{ theme_url('Freshen') }}/js/progressbar.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/slider.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/timepicker.js"></script>
-    <script src="{{ theme_url('Freshen') }}/js/single-counter.js"></script>
     <!-- Custom script for all pages -->
     <script src="{{ theme_url('Freshen') }}/js/script.js"></script>
     <script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>

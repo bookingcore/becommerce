@@ -7,17 +7,18 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="" >{{__("Title Page")}}</label>
+                    <label class="" >{{__("Title")}}</label>
                     <div class="form-controls">
                         <input type="text" name="news_page_list_title" value="{{setting_item_with_lang('news_page_list_title',request()->query('lang'),$settings['news_page_list_title'] ?? '')}}" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="" >{{__("Title Description")}}</label>
+                    <label class="" >{{__("Description")}}</label>
                     <div class="form-controls">
                         <textarea type="text" name="news_page_description" class="form-control">{{setting_item_with_lang('news_page_description',request()->query('lang'),$settings['news_page_description'] ?? '')}}</textarea>
                     </div>
                 </div>
+                <?php do_action(\Modules\News\Hook::NEWS_SETTING_AFTER_DESC) ?>
                 <div class="form-group">
                     <label class="" >{{__("SEO Options")}}</label>
                     <ul class="nav nav-tabs">

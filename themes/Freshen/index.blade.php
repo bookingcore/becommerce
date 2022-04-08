@@ -15,3 +15,6 @@
         </div>
     @endif
 @endsection
+@section('footer')
+    <script src="{{ theme_url('Freshen') }}/js/single-counter.js"></script>
+@endsection

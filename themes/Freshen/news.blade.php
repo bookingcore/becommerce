@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <section class="inner_page_breadcrumb">
+    <section class="inner_page_breadcrumb" @if($image = setting_item('news_page_image')) style="background-image: url('{{get_file_url($image,'max')}}')" @endif>
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
@@ -22,7 +22,7 @@
                     @if(count($rows))
                         <div class="row">
                             @foreach($rows as $k=>$row)
-                                <div class="col-md-6 col-xl-4">
+                                <div class="col-md-6 col-xl-6">
                                     @include('news.loop')
                                 </div>
                             @endforeach

@@ -21,6 +21,10 @@ class FileHelper
             1024,
             1024
         ],
+        'max' => [
+            1900,
+            1900
+        ],
     ];
 
     public static function url($fileId, $size = 'medium',$resize = true)

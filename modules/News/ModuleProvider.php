@@ -75,7 +75,7 @@ class ModuleProvider extends ModuleServiceProvider
     }
 
     public function getNewsSettings(){
-        return [
+        $page =  [
             'id'   => 'news',
             'title' => __("News Settings"),
             'position'=>30,
@@ -95,5 +95,6 @@ class ModuleProvider extends ModuleServiceProvider
 
             ]
         ];
+        return apply_filters(Hook::NEWS_SETTING_CONFIG,$page);
     }
 }

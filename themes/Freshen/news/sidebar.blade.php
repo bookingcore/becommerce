@@ -5,7 +5,7 @@
                 <div class="sidebar_search_widget">
                     <form action="{{route('news')}}" class="blog_search_widget">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="{{__('Search')}}" aria-label="Recipient's username">
+                            <input type="text" class="form-control" name="s" value="{{request('s')}}" placeholder="{{__('Search')}}" >
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" id="button-addon2"><span class="fa fa-search"></span></button>
                             </div>

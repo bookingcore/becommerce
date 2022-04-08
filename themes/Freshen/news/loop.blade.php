@@ -4,7 +4,9 @@ $translation = $row->translate();
 <div class="bc-post post for_blog">
     <div class="thumb">
         <div class="post_time"><span class="mont">{{month_translation($row->created_at->format('m') - 1)}}</span><br><span class="date">{{$row->created_at->format('d')}}</span></div>
-        {!! get_image_tag($row->image_id,'medium',['class'=>'object-cover img-whp']) !!}
+        <a href="{{ $row->getDetailUrl() }}" class="d-block">
+            {!! get_image_tag($row->image_id,'medium',['class'=>'object-cover img-whp','alt'=>$translation->title]) !!}
+        </a>
     </div>
     <div class="details">
         <div class="tc_content">
@@ -30,6 +32,12 @@ $translation = $row->translate();
                     @endif
                 </ul>
             </div>
+            @if(empty($for_single))
+            <p>{!! \Illuminate\Support\Str::words(strip_tags($translation->content), 20, '....') !!}</p>
+            <a href="{{ $row->getDetailUrl() }}" class="text-thm tdu ttu fz13">
+                {{ __('CONTINUE READING') }}
+            </a>
+            @endif
         </div>
     </div>
 </div>
