@@ -1,3 +1,7 @@
+<?php
+$reviewData = $row->getScoreReview();
+$score_total = $reviewData['score_total'];
+?>
 @extends('layouts.app')
 @section('content')
     <div class="axtronic-page-blog">
@@ -16,10 +20,10 @@
                     <div class="axtronic-post">
                         <div class="axtronic-post-detail entry-content">
                             <div class="post-header">
-                                <div class="meta-categories">
-                                    <a href="#" rel="category tag">Tips &amp; Tricks</a>
-                                    <a href="" rel="category tag">Uncategorized</a>
-                                </div>
+                                {{--<div class="meta-categories">--}}
+                                    {{--<a href="#" rel="category tag">Tips &amp; Tricks</a>--}}
+                                    {{--<a href="" rel="category tag">Uncategorized</a>--}}
+                                {{--</div>--}}
                                 <h2 class="post-title">{{$translation->title}}</h2>
                                 <div class="entry-meta">
                                     <div class="post-author">
@@ -29,7 +33,7 @@
                                         </a>
                                     </div>
                                     <span class="meta-comment">
-                                        <a class="comment-link" href="#comments">Comments: 3</a>
+                                        <a class="comment-link" href="#comments">{{ __('Comments') }}: {{$score_total}}</a>
                                     </span>
                                     <div class="posted-on">
                                         <a href="#">{{display_date($row->created_at)}}</a>
@@ -43,22 +47,25 @@
                                 {!! clean($translation->content) !!}
                             </div>
                             <div class="axtronic-post_footer">
-                                {{--@if($row->tags->count())--}}
+                                @if($row->tags->count())
                                 <div class="axtronic-post_tags">
                                     <i class="axtronic-icon-tag"></i>
-                                    <a class="tag" href="#" rel="tag">Home</a>
-                                    <a class="tag" href="#">Renovated</a>
                                     @foreach($row->tags as $tag)
                                         <?php $tag_trans = $tag->translate() ?>
                                         <a class="tag" href="{{$tag->getDetailUrl()}}">{{$tag_trans->name ?? ''}}</a>
                                     @endforeach
                                 </div>
-                                {{--@endif--}}
+                                @endif
                             </div>
                         </div>
 
                     </div>
-                    @include('news.comment')
+                    @if($row->getReviewEnable())
+                        <div class="mt-4 pt-4 border-top" id="comments">
+                            {{--@includeIf('news.comment')--}}
+                            @includeIf('product.details.tabs.review')
+                        </div>
+                    @endif()
                     @if($related_post)
                         @include('news.related-post')
                     @endif

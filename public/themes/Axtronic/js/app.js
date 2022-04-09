@@ -497,7 +497,7 @@ jQuery(function ($) {
 });
 
 //Review
-$('.review-form .review-items .rates .fa').each(function () {
+$('.review-form .review-items .rates i').each(function () {
     var list = $(this).parent(),
         listItems = list.children(),
         itemIndex = $(this).index(),
@@ -505,7 +505,7 @@ $('.review-form .review-items .rates .fa').each(function () {
     $(this).hover(function () {
         for (var i = 0; i < listItems.length; i++) {
             if (i <= itemIndex) {
-                $(listItems[i]).addClass('c-main');
+                $(listItems[i]).addClass('primary-color');
             } else {
                 break;
             }
@@ -513,15 +513,15 @@ $('.review-form .review-items .rates .fa').each(function () {
         $(this).on('click',function () {
             for (var i = 0; i < listItems.length; i++) {
                 if (i <= itemIndex) {
-                    $(listItems[i]).addClass('c-fcb800');
+                    $(listItems[i]).addClass('primary-color-hover');
                 } else {
-                    $(listItems[i]).removeClass('c-fcb800');
+                    $(listItems[i]).removeClass('primary-color-hover');
                 }
             }
             parentItem.children('.review_stats').val(itemIndex + 1);
         });
     }, function () {
-        listItems.removeClass('c-main');
+        listItems.removeClass('primary-color');
     });
 });
 

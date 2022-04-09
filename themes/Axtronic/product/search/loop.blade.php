@@ -34,24 +34,7 @@ $score_total = $reviewData['score_total'];
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
         @if(!empty($reviewData['total_review']))
-        <div class="card-rating mb-2 mt-1 ">
-            <div class="star-rating" role="img" title="70%">
-                <div class="back-stars">
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <div class="front-stars" style="width: 70%">
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
         @endif
         <div class="price">
             @include('product.details.price')

@@ -5112,18 +5112,6 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
 .review-form form label {
   font-weight: 600;
 }
-.review-form form .rates > i:before {
-  opacity: 0.25;
-  color: var(--text);
-}
-.review-form form .rates:hover > i:before {
-  opacity: 1;
-  color: var(--primary);
-}
-.review-form form .rates > i:hover ~ i:before {
-  opacity: 0.25;
-  color: var(--text);
-}
 
 .axtronic-pagination .pagination {
   margin-left: 0;

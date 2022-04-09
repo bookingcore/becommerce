@@ -1266,20 +1266,6 @@ ul.axtronic-products{
         label{
             font-weight: 600;
         }
-
-        .rates > i:before {
-            opacity: .25;
-            color: var(--text);
-        }
-        .rates:hover > i:before {
-            opacity: 1;
-            color: var(--primary);
-        }
-
-        .rates > i:hover ~ i:before {
-            opacity: .25;
-            color: var(--text);
-        }
     }
 }
 
