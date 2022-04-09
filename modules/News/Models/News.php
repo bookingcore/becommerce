@@ -276,4 +276,7 @@ class News extends BaseModel
     public function comments(){
         return $this->hasMany(Review::class,'object_id')->where('object_model','news');
     }
+    public function category(){
+        return $this->belongsTo(NewsCategory::class,'cat_id');
+    }
 }
