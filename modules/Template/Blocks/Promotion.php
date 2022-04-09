@@ -36,6 +36,10 @@ class Promotion extends BaseBlock
                         [
                             'value'   => '3',
                             'name' => __("4 Item")
+                        ],
+                        [
+                            'value'   => 'grid',
+                            'name' => __("Gird")
                         ]
                     ]
                 ],
@@ -45,10 +49,20 @@ class Promotion extends BaseBlock
                     'label'       => __('List Items'),
                     'title_field' => 'List Item',
                     'settings'    => [
+                        [      'id'        => 'sub_title',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Title')
+                        ],
                         [      'id'        => 'title',
                                'type'      => 'input',
                                'inputType' => 'text',
                                'label'     => __('Title')
+                        ],
+                        [      'id'        => 'content',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Content')
                         ],
                         [
                             'id'        => 'link',

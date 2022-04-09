@@ -748,7 +748,7 @@ jQuery(function ($) {
         // Optional parameters
         loop: true,
         cssMode: true,
-        spaceBetween: 30,
+        spaceBetween: 15,
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
