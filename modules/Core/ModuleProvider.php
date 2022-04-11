@@ -170,14 +170,6 @@ class ModuleProvider extends ModuleServiceProvider
                 'site_desc',
                 'site_favicon',
                 'home_page_id',
-                'logo_id',
-
-                'copyright',
-
-                'footer_info_text',
-                'list_widget_footer',
-                'page_contact_title',
-
                 'date_format',
                 'site_timezone',
                 'site_locale',
@@ -192,11 +184,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'admin_email',
                 'email_from_name',
                 'email_from_address',
-                'footer_text_left',
-                'footer_text_right',
                 'site_title',
                 'site_desc',
-                'logo_id',
             ]
         ];
     }

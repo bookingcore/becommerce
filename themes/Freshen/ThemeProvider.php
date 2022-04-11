@@ -21,17 +21,18 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
 
     public function boot(){
-        SettingManager::register("advance",[$this,'registerAdvanceSetting'],1,'freshen');
+
         add_filter(Hook::NEWS_SETTING_CONFIG,[$this,'alterSettings']);
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
 
-        SettingManager::registerZone('freshen',[$this,'registerZone']);
+        SettingManager::register("freshen_advance",[$this,'registerAdvanceSetting'],1,'freshen_theme');
+        SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
     }
     public function registerZone(){
         return [
             "position"=>80,
             'title'      => __("Freshen Settings"),
-            'icon'       => 'fa fa-home',
+            'icon'       => 'fa fa-cogs',
             'permission' => 'setting_update',
             "group"=>"system"
         ];
@@ -45,15 +46,21 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
     public function registerAdvanceSetting(){
         return [
-            'id'   => 'advance',
-            'title' => __("test Settings"),
+            'id'   => 'freshen_theme',
+            'title' => __("General Settings"),
             'position'=>80,
             'view'      => "admin.settings.general",
             "keys"      => [
+                'freshen_logo_light',
+                'freshen_logo_dark',
                 'freshen_footer_style',
                 'freshen_footer_bg_image',
                 'freshen_hotline_contact',
                 'freshen_email_contact',
+                'freshen_list_widget_footer',
+                'freshen_footer_info_text',
+                'freshen_footer_text_right',
+                'freshen_copyright',
             ],
             'filter_demo_mode'=>[
             ]
