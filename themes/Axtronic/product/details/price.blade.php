@@ -18,9 +18,9 @@
                 <del>
                     <span class="amount">{{$row->display_sale_price}}</span>
                 </del>
-                {{--@if(!empty($row->discount_percent) && !empty($show_discount_percent))--}}
-                    {{--<span class="sale sale-1">(-{{$row->discount_percent}})</span>--}}
-                {{--@endif--}}
+                @if(!empty($row->discount_percent) && !empty($show_discount_percent))
+                    <span class="sale sale-1">(-{{$row->discount_percent}})</span>
+                @endif
             </p>
         @else
             <p class="price single-price m-0">

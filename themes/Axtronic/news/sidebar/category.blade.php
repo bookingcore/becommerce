@@ -16,7 +16,7 @@ if(!isset($current_cat)) $current_cat = null;
                         if((isset($current_cat) and $category->id == $current_cat->id)){
                             $selected = 'active';
                         }
-                        printf('<li class="%s"><a href="%s"><span class="cat-name">'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</span><span class="cat-count">'.$has_children.'</span></a></li>',$selected,$category->getDetailUrl()).PHP_EOL;
+                        printf('<li class="%s"><a href="%s"><span class="cat-name">'.($level ? str_repeat($prefix,$level).' ':'').$translate->name.'</span></a></li>',$selected,$category->getDetailUrl()).PHP_EOL;
                         if($has_children){
                             $traverse($category->children, $prefix,$level + 1);
                         }

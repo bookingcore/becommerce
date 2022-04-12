@@ -30,4 +30,4 @@
     </div>
 @endif
 
-@include('blocks.list-product.special')
+{{--@include('blocks.list-product.special')--}}

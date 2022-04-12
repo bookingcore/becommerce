@@ -2,8 +2,20 @@
 //Axtronic ListNews
 
 .swiper-slider-news{
-    margin-bottom: 30px;
+    margin-bottom: 80px;
     padding-bottom: 30px;
+
+    .axtronic-post.post{
+        padding-bottom: 0;
+        border-bottom: 0;
+        p.card-text, .axtronic-read-more{
+            display: none ;
+        }
+        .entry-content h2.entry-title{
+            font-size: 18px ;
+            margin-bottom: 0  ;
+        }
+    }
     .swiper-pagination-bullet{
         width: 10px;
         height: 10px;
@@ -69,14 +81,8 @@
             font-size: 14px;
             margin-bottom: 10px;
             color: var(--text);
-            .post-author{
+            .post-author, .meta-categories{
                 &:after{
-                    content: "\7c";
-                    padding: 0 10px;
-                }
-            }
-            .posted-on{
-                &:before{
                     content: "\7c";
                     padding: 0 10px;
                 }

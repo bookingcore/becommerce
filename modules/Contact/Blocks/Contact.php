@@ -10,16 +10,16 @@ class Contact extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'        => 'class',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Class Block')
-                ],
-                [
                     'id'        => 'title',
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Title')
+                ],
+                [
+                    'id'        => 'sub_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Sub Title')
                 ],
                 [
                     'id'        => 'right_title',
@@ -28,10 +28,10 @@ class Contact extends BaseBlock
                     'label'     => __('Right Title')
                 ],
                 [
-                    'id'        => 'sub_title',
+                    'id'        => 'sub_right_title',
                     'type'      => 'input',
                     'inputType' => 'text',
-                    'label'     => __('Sub Title')
+                    'label'     => __('Sub Right Title')
                 ],
                 [
                     'id'        => 'address',
@@ -56,6 +56,24 @@ class Contact extends BaseBlock
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Website')
+                ],
+                [
+                    'id'        => 'open_door_1',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Monday - Friday')
+                ],
+                [
+                    'id'        => 'open_door_2',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Saturday & Sunday')
+                ],
+                [
+                    'id'        => 'iframe_map',
+                    'type'      => 'textArea',
+                    'inputType' => 'textArea',
+                    'label'     => __('Iframe Map')
                 ],
             ]
         ]);
