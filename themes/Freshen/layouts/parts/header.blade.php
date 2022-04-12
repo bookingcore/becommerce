@@ -5,9 +5,11 @@
         <div class="row">
             <div class="col-lg-2 col-xl-3">
                 <div class="header_top_logo_home1">
-                    @if($logo_id = setting_item("logo_id"))
+                    @if($logo_id = setting_item("freshen_logo_dark"))
                         <?php $logo = get_file_url($logo_id,'full') ?>
-                        <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                            <a href="{{ home_url() }}">
+                                <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
+                            </a>
                     @endif
                 </div>
             </div>

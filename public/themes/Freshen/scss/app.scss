@@ -1,0 +1,17 @@
+.footer_one{
+    &:before{
+        display: none !important;
+    }
+    .footer_bg_img{
+        //background-image: url(../images/icons/footer-bg.svg);
+        background-repeat: no-repeat;
+        bottom: 0;
+        content: "";
+        left: 0;
+        opacity: .03;
+        position: absolute;
+        right: 0;
+        top: 43px;
+        z-index: 0;
+    }
+}
