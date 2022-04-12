@@ -23,10 +23,31 @@ $score_total = $reviewData['score_total'];
             </a>
         </div>
         <div class="shop-action">
-            <button class="btn-tooltips btn-addtocart"><i class="axtronic-icon-shopping-cart"></i></button>
-            <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
-            <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
-            <button class="btn-tooltips btn-compare bc-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            <form class="axtronic_form_add_to_cart" action="{{route('cart.addToCart')}}">
+                @csrf
+                <input type="hidden" name="object_model" value="product">
+                <input type="hidden" name="object_id" value="{{$row->id}}">
+                @if( $row->product_type == 'simple' and $row->stock_status == 'in')
+                    <input class="form-control" name="quantity" type="hidden" value="1">
+                    <button type="submit" class="btn-tooltips btn-add-to-cart axtronic_add_to_cart btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </button>
+                @endif
+                @if($row->product_type == 'variable')
+                    <a href="{{$row->getDetailUrl()}}" rel="nofollow" class="btn-tooltips btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </a>
+                @endif
+                @if($row->product_type == 'external')
+                    <a href="{{ $row->external_url }}" rel="nofollow" class="btn-tooltips btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </a>
+                @endif
+                <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+                <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
+                <button class="btn-tooltips btn-compare axtronic-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            </form>
+
         </div>
     </div>
     <div class="product-caption">
@@ -34,24 +55,7 @@ $score_total = $reviewData['score_total'];
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
         @if(!empty($reviewData['total_review']))
-        <div class="card-rating mb-2 mt-1 ">
-            <div class="star-rating" role="img" title="70%">
-                <div class="back-stars">
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <i class="axtronic-icon-star" aria-hidden="true"></i>
-                    <div class="front-stars" style="width: 70%">
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                        <i class="axtronic-icon-star-sharp" aria-hidden="true"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
+            @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
         @endif
         <div class="price">
             @include('product.details.price')

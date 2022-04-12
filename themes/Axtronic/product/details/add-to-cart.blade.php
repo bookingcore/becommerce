@@ -15,7 +15,7 @@
                     <button class="up"><i class="fa fa-plus"></i></button>
                 </div>
             </figure>
-            <button type="submit" class="btn btn-add-to-cart axtronic_add_to_cart">
+            <button type="submit" class="btn btn-add-to-cart bc_add_to_cart">
                 {{ __('Add to cart') }}
             </button>
         @endif

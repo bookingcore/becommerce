@@ -52,8 +52,8 @@
                         <div class="text ">
                             <h3><span>{{ __('Hour of operation') }}</span></h3>
                             <p class="mb-0">
-                                {{ __('Monday - Friday: ') }} <strong>08:30 - 20:00</strong><br>
-                                {{ __('Saturday & Sunday: ') }} <strong>09:30 - 21:30</strong>
+                                {{ __('Monday - Friday: ') }} <strong>{{ $open_door_1 ?? '' }}</strong><br>
+                                {{ __('Saturday & Sunday: ') }} <strong>{{ $open_door_2 ?? '' }}</strong>
                             </p>
                         </div>
                     </div>
@@ -62,7 +62,7 @@
         </div>
     </div>
     <div class="axtronic-maps">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39751.63359208274!2d-0.11193386383854512!3d51.48611177500825!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487604b900d26973%3A0x4291f3172409ea92!2zTeG6r3QgTHXDom4gxJDDtG4!5e0!3m2!1svi!2s!4v1647745903804!5m2!1svi!2s"  allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="{{ $iframe_map ?? '' }}"  allowfullscreen="" loading="lazy"></iframe>
     </div>
     <div class="wrapper">
         <div class="container">
@@ -77,23 +77,18 @@
                             <div class="contact-form">
                                 <div class="contact-header text-center">
                                     <h3>{{ $right_title ?? '' }}</h3>
-                                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Expedita quaerat unde quam dolor culpa veritatis inventore, aut commodi eum veniam vel.</p>
+                                    <p>{{ $sub_right_title ?? '' }}</p>
                                 </div>
                                 <div class="contact-form">
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" value="" placeholder=" {{ __('Your name here') }} " name="name" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-6">
                                             <div class="form-group">
                                                 <input type="text" value="" placeholder="{{ __('Your Email') }}" name="email" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <div class="form-group">
-                                                <input type="text" value="" placeholder="{{ __('Subject') }}" name="email" class="form-control">
                                             </div>
                                         </div>
                                         <div class="col-md-12 my-4">

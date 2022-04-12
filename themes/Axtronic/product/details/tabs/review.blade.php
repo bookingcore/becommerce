@@ -25,7 +25,7 @@ $review_list = $row->review_list
         @endif
     </div>
     <div class="review-button-wrap">
-        <a href="#commentform" class="review-link" rel="nofollow">Write A Review</a>
+        <a href="#commentform" class="review-link" rel="nofollow">{{ __('Write A Review') }}</a>
     </div>
 </div>
 <div class="row">
