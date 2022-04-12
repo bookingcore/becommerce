@@ -4,6 +4,7 @@ namespace Themes\Freshen;
 
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
+use Modules\Template\BlockManager;
 
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {
@@ -27,6 +28,8 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
         SettingManager::register("freshen_advance",[$this,'registerAdvanceSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
+
+        BlockManager::register("list_category",\Themes\Freshen\Controllers\Blocks\ListCategory::class);
     }
     public function registerZone(){
         return [
