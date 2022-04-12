@@ -45,7 +45,8 @@ class Promotion extends BaseBlock
                         ]
                     ]
                 ],
-            ]
+            ],
+            'category'=>__("Product")
         ]);
     }
 

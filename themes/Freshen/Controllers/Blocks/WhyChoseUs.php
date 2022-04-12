@@ -39,7 +39,8 @@ class WhyChoseUs extends BaseBlock
                         ]
                     ]
                 ],
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
 

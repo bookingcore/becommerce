@@ -28,7 +28,8 @@ class Instagram extends BaseBlock
                         ]
                     ]
                 ],
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
 

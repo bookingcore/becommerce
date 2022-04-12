@@ -25,7 +25,8 @@ class Deliver extends BaseBlock
                     'type'  => 'uploader',
                     'label' => __('Icon Image')
                 ]
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
 

@@ -47,7 +47,8 @@ class ListCategory extends BaseBlock
 
                     ]
                 ]
-            ]
+            ],
+            'category'=>__("Product")
         ]);
     }
 
