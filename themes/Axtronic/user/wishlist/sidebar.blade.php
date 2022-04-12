@@ -5,6 +5,9 @@
  * Date: 4/9/2022
  * Time: 4:31 PM
  */
+$items = \Modules\User\Models\UserWishList::query()
+    ->where("user_wishlist.user_id",Auth::id())
+    ->orderBy('user_wishlist.id', 'desc')->paginate(6);
 ?>
 <div class="site-wishlist-side side-wrap">
     <a href="#" class="close-wishlist-side close-side"><span class="screen-reader-text">Close</span></a>
