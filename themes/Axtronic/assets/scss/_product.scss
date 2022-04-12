@@ -107,7 +107,7 @@ ul.list-product-items{
         .product-transition {
             border-color: #DD2955;
             .shop-action {
-                button.btn-tooltips {
+                .btn-tooltips {
                     right:0;
                 }
             }
@@ -152,7 +152,7 @@ ul.list-product-items{
             right: 12px;
             transition: all ease .3s;
             z-index: 7;
-            button.btn-tooltips {
+            .btn-tooltips {
                 z-index: 7;
                 padding: 0;
                 font-size: 20px;
@@ -168,24 +168,26 @@ ul.list-product-items{
                 background: #fff;
                 right: -55px;
                 line-height: 1;
+                position: relative;
                 &:hover, &.active {
                     background: linear-gradient(225deg,#F1592A 0%,#DD2955 100%);
                     border-color: #DD2955;
                     color: #fff;
                 }
+                &.btn-addtocart {
+                    transition: all .2s ease-in-out;
+                }
+                &.btn-wishlist {
+                    transition: all .35s ease-in-out;
+                }
+                &.btn-quickview {
+                    transition: all .45s ease-in-out;
+                }
+                &.btn-compare {
+                    transition: all .55s ease-in-out;
+                }
             }
-            .btn-addtocart {
-                transition: all .2s ease-in-out;
-            }
-            .btn-wishlist {
-                transition: all .35s ease-in-out;
-            }
-            .btn-quickview {
-                transition: all .45s ease-in-out;
-            }
-            .btn-compare {
-                transition: all .55s ease-in-out;
-            }
+
         }
     }
     .product-caption {

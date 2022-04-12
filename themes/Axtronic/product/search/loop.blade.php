@@ -23,10 +23,31 @@ $score_total = $reviewData['score_total'];
             </a>
         </div>
         <div class="shop-action">
-            <button class="btn-tooltips btn-addtocart"><i class="axtronic-icon-shopping-cart"></i></button>
-            <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
-            <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
-            <button class="btn-tooltips btn-compare bc-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            <form class="axtronic_form_add_to_cart" action="{{route('cart.addToCart')}}">
+                @csrf
+                <input type="hidden" name="object_model" value="product">
+                <input type="hidden" name="object_id" value="{{$row->id}}">
+                @if( $row->product_type == 'simple' and $row->stock_status == 'in')
+                    <input class="form-control" name="quantity" type="hidden" value="1">
+                    <button type="submit" class="btn-tooltips btn-add-to-cart axtronic_add_to_cart btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </button>
+                @endif
+                @if($row->product_type == 'variable')
+                    <a href="{{$row->getDetailUrl()}}" rel="nofollow" class="btn-tooltips btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </a>
+                @endif
+                @if($row->product_type == 'external')
+                    <a href="{{ $row->external_url }}" rel="nofollow" class="btn-tooltips btn-addtocart">
+                        <i class="axtronic-icon-shopping-cart"></i>
+                    </a>
+                @endif
+                <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+                <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
+                <button class="btn-tooltips btn-compare axtronic-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            </form>
+
         </div>
     </div>
     <div class="product-caption">

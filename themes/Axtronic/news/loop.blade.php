@@ -15,11 +15,6 @@ $translation = $row->translate();
                     <span class="vcard author author_name">{{$row->author->last_name}} </span>
                 </a>
             </div>
-            <div class="meta-categories">
-                <?php var_dump($row->categories) ?>
-                <a href="#" rel="category tag">Tips &amp; Tricks</a>,
-                <a href="#" rel="category tag">Uncategorized</a>
-            </div>
             @if($row->tags->count())
                 <div class="meta-categories">
                     @php $tags = []; @endphp

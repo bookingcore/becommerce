@@ -25,7 +25,7 @@
                 {{ $row->button_text }}
             </a>
         @endif
-        <div class="bc-product_actions">
+        <div class="axtronic-product_actions">
             <div class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
                 <i class="fa fa-heart"></i>
             </div>

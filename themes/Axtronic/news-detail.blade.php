@@ -21,8 +21,7 @@ $score_total = $reviewData['score_total'];
                         <div class="axtronic-post-detail entry-content">
                             <div class="post-header">
                                 {{--<div class="meta-categories">--}}
-                                    {{--<a href="#" rel="category tag">Tips &amp; Tricks</a>--}}
-                                    {{--<a href="" rel="category tag">Uncategorized</a>--}}
+                                    {{--<a class="category tag" href="">{{$row->cat_id ?? ''}}</a>--}}
                                 {{--</div>--}}
                                 <h2 class="post-title">{{$translation->title}}</h2>
                                 <div class="entry-meta">

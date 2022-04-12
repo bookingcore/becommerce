@@ -52,14 +52,15 @@ class Promotion extends BaseBlock
                         [      'id'        => 'sub_title',
                             'type'      => 'input',
                             'inputType' => 'text',
-                            'label'     => __('Title')
+                            'label'     => __('Sub Title')
                         ],
                         [      'id'        => 'title',
                                'type'      => 'input',
                                'inputType' => 'text',
                                'label'     => __('Title')
                         ],
-                        [      'id'        => 'content',
+                        [
+                            'id'        => 'content',
                             'type'      => 'input',
                             'inputType' => 'text',
                             'label'     => __('Content')
@@ -74,6 +75,12 @@ class Promotion extends BaseBlock
                             'id'    => 'image',
                             'type'  => 'uploader',
                             'label' => __('Image Uploader')
+                        ],
+                        [
+                            'id'    => 'class_content',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label' => __('Class Content')
                         ],
                     ]
                 ],
