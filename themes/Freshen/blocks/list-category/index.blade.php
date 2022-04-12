@@ -1,5 +1,5 @@
 <!-- Top Category -->
-<section class="top-category pb60">
+<section class="top-category pb-0">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 offset-lg-3">

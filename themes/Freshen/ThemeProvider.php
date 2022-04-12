@@ -31,6 +31,10 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
 
         BlockManager::register("list_category",\Themes\Freshen\Controllers\Blocks\ListCategory::class);
+        BlockManager::register("promotion",\Themes\Freshen\Controllers\Blocks\Promotion::class );
+        BlockManager::register("deliver",\Themes\Freshen\Controllers\Blocks\Deliver::class );
+        BlockManager::register("why_chose_us",\Themes\Freshen\Controllers\Blocks\WhyChoseUs::class );
+        BlockManager::register("instagram",\Themes\Freshen\Controllers\Blocks\Instagram::class );
     }
     public function registerZone(){
         return [
