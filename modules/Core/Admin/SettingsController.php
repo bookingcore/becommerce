@@ -57,7 +57,8 @@ class SettingsController extends AdminController
         return view('Core::admin.settings.group', $data);
     }
 
-    public function zone($zone_id,$group_id = ''){
+    public function zone($zone_id){
+        $group_id = \request('group');
         $zone = SettingManager::zone($zone_id);
         if(!$zone){
             abort(404);

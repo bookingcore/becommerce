@@ -26,6 +26,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
 
         SettingManager::register("freshen_advance",[$this,'registerAdvanceSetting'],1,'freshen_theme');
+        SettingManager::register("freshen_product",[$this,'registerProductSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
     }
     public function registerZone(){
@@ -61,6 +62,19 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'freshen_footer_info_text',
                 'freshen_footer_text_right',
                 'freshen_copyright',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerProductSetting(){
+        return [
+            'id'   => 'freshen_product',
+            'title' => __("Product Settings"),
+            'position'=>80,
+            'view'      => "admin.settings.product",
+            "keys"      => [
+                'freshen_product_gallery',
             ],
             'filter_demo_mode'=>[
             ]
