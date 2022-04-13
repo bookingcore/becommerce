@@ -20,7 +20,7 @@ class PageController extends AdminController
     public function index(Request $request)
     {
         $this->checkPermission("page_manage");
-        $page_name = $request->query('page');
+        $page_name = $request->query('s');
         $datapage = new Page();
         if ($page_name) {
             $datapage = Page::where('title', 'LIKE', '%' . $page_name . '%');

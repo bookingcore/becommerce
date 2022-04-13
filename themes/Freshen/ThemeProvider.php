@@ -4,6 +4,7 @@ namespace Themes\Freshen;
 
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
+use Modules\Template\BlockManager;
 
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {
@@ -26,7 +27,16 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
 
         SettingManager::register("freshen_advance",[$this,'registerAdvanceSetting'],1,'freshen_theme');
+        SettingManager::register("freshen_product",[$this,'registerProductSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
+
+        BlockManager::register("list_category",\Themes\Freshen\Controllers\Blocks\ListCategory::class);
+        BlockManager::register("promotion",\Themes\Freshen\Controllers\Blocks\Promotion::class );
+        BlockManager::register("deliver",\Themes\Freshen\Controllers\Blocks\Deliver::class );
+        BlockManager::register("why_chose_us",\Themes\Freshen\Controllers\Blocks\WhyChoseUs::class );
+        BlockManager::register("instagram",\Themes\Freshen\Controllers\Blocks\Instagram::class );
+        BlockManager::register("list_partner",\Themes\Freshen\Controllers\Blocks\ListPartner::class );
+        BlockManager::register("list_news",\Themes\Freshen\Controllers\Blocks\ListNews::class );
     }
     public function registerZone(){
         return [
@@ -61,6 +71,19 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'freshen_footer_info_text',
                 'freshen_footer_text_right',
                 'freshen_copyright',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerProductSetting(){
+        return [
+            'id'   => 'freshen_product',
+            'title' => __("Product Settings"),
+            'position'=>80,
+            'view'      => "admin.settings.product",
+            "keys"      => [
+                'freshen_product_gallery',
             ],
             'filter_demo_mode'=>[
             ]

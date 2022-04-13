@@ -26,7 +26,7 @@
             </div>
             <div class="col-left">
                <form method="get" action="{{url('/admin/module/page/')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
-                    <input  type="text" name="page" value="{{ Request()->page }}" placeholder="{{__('Search by name')}}" class="form-control">
+                    <input  type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
                     <button class="btn-default btn btn-icon btn_search"  type="submit">{{__('Search Page')}}</button>
                 </form>
             </div>
