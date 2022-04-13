@@ -9,12 +9,11 @@
 <?php
 $tags = \Modules\News\Models\Tag::search()->withCount(['product'])->orderByDesc('product_count')->take(9)->get();
 if(!count($tags)) return;
-
 ?>
 
 <h3 class="widget_title">{{__('Product Tags')}}</h3>
-<div class="widget_content">
+<div class="widget_content wiget-tag">
     @foreach($tags as $tag)
-        <a href="#">{{$tag}}</a>
+        <a  href="{{ route('product.index')."?tag=$tag->slug" }}" data-tag="{{$tag->slug}}">{{$tag->name}}</a>
     @endforeach
 </div>

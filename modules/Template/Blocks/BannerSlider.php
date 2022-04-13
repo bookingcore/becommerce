@@ -11,6 +11,21 @@ class BannerSlider extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'            => 'col',
+                    'type'          => 'radios',
+                    'label'         => __(''),
+                    'values'        => [
+                        [
+                            'value'   => '6',
+                            'name' => __("2 Item")
+                        ],
+                        [
+                            'value'   => '4',
+                            'name' => __("3 Item")
+                        ],
+                    ]
+                ],
+                [
                     'id'          => 'sliders',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),

@@ -37,9 +37,9 @@
 <aside class="widget">
     @include('product.filter.review')
 </aside>
-<aside class="widget widget-attributes mb-4">
+<aside class="widget widget-attributes">
     @include('product.filter.attributes')
 </aside>
-{{--<aside class="widget widget-tags mb-4">--}}
-    {{--@include('product.filter.tags')--}}
-{{--</aside>--}}
+<aside class="widget widget-tags mb-4">
+    @include('product.filter.tags')
+</aside>

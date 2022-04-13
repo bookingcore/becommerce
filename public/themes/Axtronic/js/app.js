@@ -960,6 +960,32 @@ jQuery(function ($) {
         $('.gridlist-toggle .list').removeClass('active');
     }
 
+    $(document).ready(function () {
+        // lấy đường dẫn
+        var url = window.location.href;
+        // lấy chuỗi biến
+        var str = url.split('?');
+
+        if (str.length === 1) // không có biến active mặc định
+        {
+        }
+        else {
+            var arrBien = str[1].split('&');
+            for (var i = 0; i < arrBien.length ; i++) {
+                // tên biến
+                var TenBien = arrBien[i].split('=')[0];
+                // giá trị
+                var Bien = arrBien[i].split('=')[1];
+
+                if (TenBien === 'tag') {
+                    $('.wiget-tag a').removeClass("active");
+                    $('.wiget-tag a[data-tag=' + Bien + ']').addClass("active");
+                }
+            }
+        }
+    });
+
+
     // Onchange Select Category Product Search Header
     function getName(select) {
         // And here we get the name
@@ -969,12 +995,10 @@ jQuery(function ($) {
     }
 
 
-
-
     // Show/Hide Canvas right
     $(document).on('click','.cart-contents',function (e) {
         e.preventDefault();
-        $('.site-cart-side').toggleClass('active');;
+        $('.site-cart-side').toggleClass('active');
     });
     $('.close-cart-side,.cart-side-overlay').on('click', function (e) {
         e.preventDefault();
