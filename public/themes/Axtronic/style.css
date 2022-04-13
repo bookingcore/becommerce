@@ -2187,6 +2187,12 @@ textarea {
 #masthead .header-wrap .site-member ul.topbar-items li.dropdown ul.dropdown-menu a:hover, #masthead .header-wrap .site-member ul.topbar-items li.dropdown ul.dropdown-menu a:focus {
   color: var(--primary_hover);
 }
+#masthead .header-wrap .site-member ul.topbar-items li.dropdown ul.dropdown-menu.dropdown-menu-user {
+  top: calc(90% + 3px);
+}
+#masthead .header-wrap .site-member ul.topbar-items li.dropdown ul.dropdown-menu.dropdown-menu-user li {
+  margin-left: 0;
+}
 #masthead .header-wrap .site-member ul.topbar-items li.dropdown ul.dropdown-menu h3 {
   font-size: 18px;
 }
@@ -2249,13 +2255,6 @@ textarea {
 #masthead .header-wrap .site-member ul.topbar-items .group-icon-content .sub-title {
   color: #fff;
   font-weight: 600;
-}
-#masthead .header-wrap .site-member.is_login ul.topbar-items {
-  justify-content: end;
-  align-items: end;
-}
-#masthead .header-wrap .site-member.is_login ul.topbar-items li {
-  margin-left: 15px;
 }
 #masthead .header__content-bottom {
   background-color: var(--primary);
@@ -2380,16 +2379,16 @@ textarea {
   margin-right: 15px;
   color: #838685;
 }
-#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menu:hover a.nav-link:after {
+#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menumenu-item-has-children:hover a.nav-link:after {
   color: var(--primary);
 }
-#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menu:hover .sub-menu {
+#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menumenu-item-has-children:hover .sub-menu {
   opacity: 1;
   visibility: visible;
   min-height: 100%;
   transform: translateX(-10px);
 }
-#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menu a.nav-link:after {
+#masthead .header__content-bottom .vertical-menu .menu li.has-mega-menumenu-item-has-children a.nav-link:after {
   font-family: "axtronic-icon";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -2417,7 +2416,7 @@ textarea {
   list-style: none;
   margin: 0;
   background: #fff;
-  width: 1000px;
+  width: 300px;
   border-radius: 0 8px 8px 0;
   box-shadow: 0 0 50px 0 rgba(0, 0, 0, 0.07);
   z-index: 10;
@@ -3527,10 +3526,34 @@ textarea {
 .side-wrap.site-menu-side .mobile-menu-tab ul li.current a {
   color: var(--primary);
 }
+.side-wrap.site-menu-side .mobile-menu-tab ul li.menu-item-has-children > a:after {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  float: right;
+  color: #ffffff;
+  margin-left: auto;
+  border: 0;
+  transform: translate(0, -50%);
+}
 .side-wrap.site-menu-side .mobile-menu-tab ul li a {
   display: block;
   color: #fff;
   font-size: 14px;
+  position: relative;
 }
 .side-wrap.site-menu-side .mobile-menu-tab ul li ul.dropdown-menu {
   position: static !important;
@@ -3799,9 +3822,14 @@ textarea {
 .site-wishlist-side .axtronic-wishlist-content .product-transition .product-img-wrap {
   border: 2px dashed var(--border);
   border-radius: 15px;
+  overflow: hidden;
+  padding: 5px;
 }
 .site-wishlist-side .axtronic-wishlist-content .product-caption {
   padding-top: 0;
+}
+.site-wishlist-side .axtronic-wishlist-content .axtronic-loop-product .shop-action {
+  display: none;
 }
 
 .side-wrap-content {
@@ -3830,15 +3858,12 @@ textarea {
 .side-wrap-content .axtronic-content-scroll::-webkit-scrollbar-thumb {
   background: linear-gradient(var(--primary) 0%, var(--primary_hover) 100%);
 }
-.side-wrap-content ul.list-product-items li + li {
-  margin-top: 40px;
-}
 .side-wrap-content ul.list-product-items li.product-item .product-caption h2 {
   margin-top: 0;
   line-height: 24px;
 }
 .side-wrap-content ul.list-product-items li.product-item .product-caption h2 a {
-  color: var(--primary);
+  color: var(--accent);
 }
 .side-wrap-content ul.list-product-items li.product-item .product-caption h2 a:hover {
   color: var(--primary_hover);
@@ -4398,17 +4423,45 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
 .axtronic-page--shop .widget ul {
   margin-left: 0;
   margin-bottom: 0;
+  list-style: none;
 }
 .axtronic-page--shop .widget ul li {
   margin-bottom: 15px;
   cursor: pointer;
 }
-.axtronic-page--shop .widget ul li:hover a, .axtronic-page--shop .widget ul li:hover i {
+.axtronic-page--shop .widget ul li.menu-item-has-children {
+  position: relative;
+}
+.axtronic-page--shop .widget ul li.menu-item-has-children:after {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  float: right;
+  color: var(--accent);
+  margin-left: auto;
+}
+.axtronic-page--shop .widget ul li:hover {
   color: var(--primary);
 }
 .axtronic-page--shop .widget ul li a {
   color: var(--text);
   display: block;
+}
+.axtronic-page--shop .widget ul li a:hover {
+  color: var(--primary);
 }
 .axtronic-page--shop .widget ul li ul.sub-cat {
   margin-top: calc(var(--grid-gutter) / 2);
@@ -4439,29 +4492,6 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
 .axtronic-page--shop .widget.widget-attributes .widget-attribute {
   padding: var(--grid-gutter);
   border-bottom: 1px solid var(--border);
-}
-.axtronic-page--shop .widget.widget-attributes .widget-attribute.widget-attribute-color .axtronic-checkbox {
-  display: inline-block;
-  padding: 5px;
-  border: 1px solid var(--border);
-  background-color: #ffffff;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  margin-right: 5px;
-}
-.axtronic-page--shop .widget.widget-attributes .widget-attribute.widget-attribute-color .axtronic-checkbox:hover {
-  border-color: var(--primary);
-}
-.axtronic-page--shop .widget.widget-attributes .widget-attribute.widget-attribute-color label {
-  padding-left: 0;
-  font-size: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-}
-.axtronic-page--shop .widget.widget-attributes .widget-attribute.widget-attribute-color label:before {
-  content: "";
 }
 .axtronic-page--shop .noUi-connect {
   position: absolute;
@@ -4555,6 +4585,55 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
   content: "";
   color: var(--primary);
   opacity: 1;
+}
+
+.widget-attribute-color .axtronic-checkbox {
+  display: inline-block;
+  padding: 5px;
+  border: 1px solid var(--border);
+  background-color: #ffffff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+}
+.widget-attribute-color .axtronic-checkbox:hover, .widget-attribute-color .axtronic-checkbox.item-active {
+  border-color: var(--primary);
+}
+.widget-attribute-color .axtronic-checkbox:hover {
+  border-color: var(--border);
+  color: var(--border);
+}
+.widget-attribute-color label {
+  padding-left: 0;
+  font-size: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+.widget-attribute-color label:before {
+  content: "";
+}
+
+.widget-attribute-check label:before {
+  content: "";
+}
+.widget-attribute-check input[type=checkbox]:checked + label:before {
+  content: "";
+}
+.widget-attribute-check .axtronic-checkbox:hover, .widget-attribute-check .axtronic-checkbox.item-active {
+  border-color: var(--primary);
+}
+.widget-attribute-check .axtronic-checkbox.item-disable {
+  opacity: 0.5;
+  cursor: default;
+}
+.widget-attribute-check .axtronic-checkbox.item-disable:hover {
+  border-color: var(--border);
+}
+.widget-attribute-check .axtronic-checkbox.item-disable label {
+  color: var(--border);
+  cursor: default;
 }
 
 @media (min-width: 768px) {
@@ -4882,6 +4961,10 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
 }
 .axtronic-product_shopping button.btn.btn-add-to-cart:hover {
+  color: #ffffff;
+  background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
+}
+.axtronic-product_shopping button.btn.service-wishlist.active, .axtronic-product_shopping button.btn.service-compare.active {
   color: #ffffff;
   background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
 }

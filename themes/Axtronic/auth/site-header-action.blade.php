@@ -1,71 +1,9 @@
-<div class="site-cart-side side-wrap">
-    <a href="#" class="close-cart-side close-side"><span class="screen-reader-text">Close</span></a>
-    <div class="cart-side-heading side-heading">
-        <span class="cart-side-title side-title">Shopping cart</span>
-    </div>
-    <div class="card-side-wrap-content side-wrap-content">
-        <div class="axtronic-content-scroll">
-            <div class="axtronic-card-content">
 
-                {{--Danh sách wishlist trống--}}
-                {{--<div class="axtronic-content-mid-notice">--}}
-                {{--There are no products on the wishlist!--}}
-                {{--</div>--}}
-
-                <ul class="nav list-items list-product-items">
-                    <li class="list-item product-item">
-                        <div class="product-transition">
-                            <div class="product-img-wrap">
-                                <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                            </div>
-                        </div>
-                        <div class="product-caption">
-                            <h2 class="product__title"><a href="#">Laptop ASUS VivoBook 15 A515EA</a></h2>
-                            <div class="item-price">
-                                <del aria-hidden="true"><bdi><span class="price-currency">$</span>101.47</bdi></del>
-                                <ins aria-hidden="true"><bdi><span class="price-currency">$</span>101.47</bdi></ins>
-                            </div>
-                            <div class="item-time">March 17, 2022</div>
-                        </div>
-                        <a href="" class="remove remove_button">×</a>
-                    </li>
-                    <li class="list-item product-item">
-                        <div class="product-transition">
-                            <div class="product-img-wrap">
-                                <div class="product-image"><img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" ></div>
-                            </div>
-                        </div>
-                        <div class="product-caption">
-                            <h2 class="product__title"><a href="#">Apple MacBook Pro 13 Touch Bar M1 256GB 2019</a></h2>
-                            <dl class="variation">
-                                <dt class="variation-Vendor">Vendor:</dt>
-                                <dd class="variation-Vendor"><p>AZ Tech Store</p>
-                                </dd>
-                            </dl>
-                            <div class="item-price"><span class="quantity">1 x </span><bdi><span class="price-currency">$</span>172.58</bdi></div>
-                        </div>
-                        <a href="" class="remove remove_button">×</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="axtronic-card-bottom">
-            <p class=" card-bottom-total">
-                <strong>Subtotal:</strong> <span class="amount"><bdi><span class="price-currency">$</span>556.91</bdi></span>
-            </p>
-            <p class="card-bottom-button">
-                <a class="button wc-forward" href="#">View cart</a>
-                <a class="button checkout wc-forward" href="#">Checkout</a>
-            </p>
-        </div>
-    </div>
-</div>
-<div class="cart-side-overlay side-overlay"></div>
 
 <div class="site-user-side side-wrap">
-    <a href="#" class="close-user-side close-side"><span class="screen-reader-text">Close</span></a>
+    <a href="#" class="close-user-side close-side"><span class="screen-reader-text">{{__('Close')}}</span></a>
     <div class="cart-side-heading side-heading">
-        <span class="cart-side-title side-title">SIGN IN</span>
+        <span class="cart-side-title side-title">{{ __('SIGN IN') }}</span>
     </div>
     <div class="side-account-form-wrap">
         <div class="box-content">
@@ -76,31 +14,35 @@
             <div class="form-register">
                 <img class="img-label" src="{{ theme_url('Axtronic/images/register.svg')}}" alt="Register">
                 @include('auth/register-form')
-                <a class="login-link" href="#">Already has an account</a>
+                <a class="login-link" href="#">{{__('Already has an account')}}</a>
             </div>
             <div class="form-lost-password">
                 <img class="img-label" src="{{ theme_url('Axtronic/images/register.svg')}}" alt="Lost Password">
                 <div class="woocommerce-notices-wrapper"></div>
                 @include('auth/passwords/reset')
-                <a class="login-link" href="#">Already has an account</a>
+                <a class="login-link" href="#">{{__('Already has an account')}}</a>
             </div>
         </div>
     </div>
 </div>
 <div class="user-side-overlay side-overlay"></div>
-
+@include('order.cart.mini-cart')
 @include('user.wishlist.sidebar')
 
+<?php
+    $categories = \Modules\Product\Models\ProductCategory::getAll();
+    if(!isset($current_cat)) $current_cat = null;
+?>
 <div class="site-menu-side side-wrap">
     <div class="axtronic-mobile-nav">
         <a href="#" class="close-menu-side"><i class="axtronic-icon-times"></i></a>
         <div class="menu-side-heading side-heading mobile-nav-tabs">
             <ul>
                 <li class="mobile-tab-title mobile-pages-title active" data-menu="pages">
-                    <span>Main Menu</span>
+                    <span>{{__('Main Menu')}}</span>
                 </li>
                 <li class="mobile-tab-title mobile-categories-title" data-menu="categories">
-                    <span>Shop by Categories</span>
+                    <span>{{__('Shop by Categories')}}</span>
                 </li>
             </ul>
         </div>
@@ -108,7 +50,30 @@
             @php generate_menu('primary',['class'=>'menu-mobile-page']) @endphp
         </div>
         <div class="mobile-categories-menu mobile-menu-tab">
-            @php generate_menu('primary',['class'=>'menu-mobile-categories']) @endphp
+            <ul class="navbar-nav menu-mobile-categories">
+                @php
+                    $traverse = function ($categories, $prefix = '') use (&$traverse) {
+                        foreach ($categories as $category) {
+                            $translate = $category->translate(app()->getLocale());
+                            $has_children = count($category->children);
+                            if(empty($prefix)){
+                                echo '<li class="nav-item '.($has_children ? 'menu-item-has-children' : '').'" >';
+                                echo '<a class="nav-link " href="'.$category->getDetailUrl().'" data-bs-toggle="collapse" data-bs-target="#cat-'.$category->id.'" aria-expanded="true">'.e($translate->name).'</a>';
+                            }else{
+                                echo '<li class="nav-item ">';
+                                echo '<a class="nav-link " href="'.$category->getDetailUrl().'">'.$translate->name.'</a>';
+                            }
+                            if($has_children){
+                                echo '<ul class="dropdown-menu collapse w-100 sub-cat" id="cat-'.$category->id.'">';
+                                    $traverse($category->children, 1);
+                                echo '</ul>';
+                            }
+                            echo '</li>';
+                        }
+                    };
+                    $traverse($categories);
+                @endphp
+            </ul>
         </div>
     </div>
 

@@ -20,6 +20,12 @@
                             <input type="number" name="product_per_page" value="{{setting_item('product_per_page',12)}}" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label class="" >{{__("Product Image")}}</label>
+                        <div class="form-controls form-group-image">
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('product_image',setting_item('product_image') ?? "") !!}
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

@@ -242,7 +242,6 @@ $(document).on('click','.axtronic_delete_cart_item',function(e){
             if(typeof removeElement !='undefined'){
                 me.closest(removeElement).remove();
             }
-
         },
         error:function(err){
             bravo_handle_error_response(err);
@@ -488,7 +487,7 @@ jQuery(function ($) {
             },
             error:function (e) {
                 if(e.status === 401){
-                    $('#login').modal('show');
+                    $('.site-user-side').toggleClass('active');
                 }
             }
         })
@@ -638,11 +637,11 @@ jQuery(function ($) {
 
     $('.axtronic-product-variations input').on('change', function() {
 
-        $('.axtronic-product-variations .item').removeClass("item-active");
+        $('.axtronic-product-variations .axtronic-checkbox').removeClass("item-active");
         var list_attribute_selected = [];
         $('.item-attribute:checked', '.axtronic-product-variations').each(function () {
             list_attribute_selected.push( parseInt( $(this).val() ));
-            $(this).closest(".item").addClass("item-active");
+            $(this).closest(".axtronic-checkbox").addClass("item-active");
         });
 
         // Find variation ID
@@ -708,7 +707,7 @@ jQuery(function ($) {
                 }
             }
             if(!check){
-                $(this).closest(".item").addClass("item-disable");
+                $(this).closest(".axtronic-checkbox").addClass("item-disable");
             }
         });
     });

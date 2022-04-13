@@ -1,65 +1,77 @@
 <?php
 $countCart = \Modules\Order\Helpers\CartManager::count();
 ?>
-<div class="dropdown dropstart ">
-    <a  class="position-relative" data-bs-toggle="dropdown">
-        <i class="fa fa-shopping-cart fa-2x c-main"></i>
-        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger axtronic-mini-cart-count-item">
-            {{\Modules\Order\Helpers\CartManager::count()}}
-            <span class="visually-hidden">{{__("Your cart")}}</span>
-        </span>
-    </a>
-    <div class="dropdown-menu">
-        <div class="axtronic-mini-cart-dropdown px-3 py-2">
-            @if(!empty($countCart))
-                <div class="axtronic-cart-items">
-                    @foreach(\Modules\Order\Helpers\CartManager::items() as $cart_item_id => $cartItem)
-                        <div class="axtronic-product-cart-mobile d-flex">
-                            @if($cartItem->model)
-                                <div class="axtronic-product-thumbnail">
-                                    <a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a></div>
-                                <div class="axtronic-product-content">
-                                    <a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->model->title}}</a>
-                                    @if(is_vendor_enable() and !empty($cartItem->author))
-                                        <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
-                                    @endif
-                                    <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
-                                </div>
-                                <div class="axtronic-product-action">
-                                    <a class="axtronic-product-remove axtronic_delete_cart_item" data-id="{{$cartItem->id}}" href="#"><i class="fa fa-close text-danger"></i></a>
-                                </div>
-                            @else
-                                <div class="axtronic-product-thumbnail">
-                                    <a href="#"><img src="" alt=""></a></div>
-                                <div class="axtronic-product-content">
-                                    <a href="#">{{$cartItem->name}}</a>
-                                    @if(!empty($cartItem->author))
-                                        <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
-                                    @endif
-                                    <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
-                                </div>
-                                <div class="axtronic-product-action">
-                                    <a class="axtronic-product-remove axtronic_delete_cart_item" data-id="{{$cartItem->id}}" href="#"><i class="fa fa-close text-danger"></i></a>
-                                </div>
-                            @endif
-                        </div>
-                    @endforeach
-                </div>
-                <div class="axtronic-cart-footer border-top pt-3 mt-3">
-                    <div class="d-flex justify-content-between">
-                        <h5> {{__('Subtotal')}}: </h5>
-                        <strong>{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</strong>
+<div class="site-cart-side side-wrap">
+    <a href="#" class="close-cart-side close-side"><span class="screen-reader-text">{{__('Close')}}</span></a>
+    <div class="cart-side-heading side-heading">
+        <span class="cart-side-title side-title">{{__('Shopping cart')}}</span>
+    </div>
+    <div class="card-side-wrap-content side-wrap-content">
+        <div class="axtronic-content-scroll">
+            <div class="axtronic-card-content">
+                @if(!empty($countCart))
+                    <ul class="nav list-items list-product-items">
+                        @foreach(\Modules\Order\Helpers\CartManager::items() as $cart_item_id => $cartItem)
+                            <li class="list-item product-item">
+                                @if($cartItem->model)
+                                    <div class="product-transition mx-2">
+                                        <div class="product-img-wrap">
+                                            <a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a>
+                                        </div>
+                                    </div>
+                                    <div class="product-caption">
+                                        <h2 class="product__title">
+                                            <a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->model->title}}</a>
+                                        </h2>
+                                        <div class="price">
+                                            <div class="axtronic-product-price">
+                                                <p class="price has-sale m-0">
+                                                @if(is_vendor_enable() and !empty($cartItem->author))
+                                                    <small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small>
+                                                @endif
+                                                <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="" class="remove remove_button axtronic_delete_cart_item" data-id="{{$cartItem->id}}">×</a>
+                                @else
+                                    <div class="product-transition mx-2">
+                                        <div class="product-img-wrap">
+                                            <a href="#"><img src="" alt=""></a>
+                                        </div>
+                                    </div>
+                                    <div class="product-caption">
+                                        <h2 class="product__title">
+                                            <a href="#">{{$cartItem->name}}</a>
+                                        </h2>
+                                        @if(!empty($cartItem->author))
+                                            <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
+                                        @endif
+                                        <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
+                                    </div>
+                                    <a href="" class="remove remove_button axtronic_delete_cart_item" data-id="{{$cartItem->id}}">×</a>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    {{--Danh sách wishlist trống--}}
+                    <div class="axtronic-content-mid-notice">
+                        {{__('There are no products on the cart!')}}
                     </div>
-                    <div class="d-flex justify-content-between mt-3">
-                        <a class="btn btn-sm btn-primary" href="{{route('cart')}}">{{__('View Cart')}}</a>
-                        <a class="btn btn-sm btn-primary" href="{{route('checkout')}}">{{__("Checkout")}}</a>
-                    </div>
-                </div>
-            @else
-                <div class="axtronic-cart-items">
-                    <div class="text-center font-weight-bold">{{__("Your cart is empty")}}</div>
-                </div>
-            @endif
+                @endif
+            </div>
+        </div>
+        <div class="axtronic-card-bottom">
+            <p class=" card-bottom-total">
+                <strong>{{__('Subtotal')}}:</strong> <span class="amount"><bdi>{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</bdi></span>
+            </p>
+            <p class="card-bottom-button">
+                <a class="button wc-forward" href="{{route('cart')}}">{{__('View Cart')}}</a>
+                <a class="button checkout wc-forward" href="{{route('checkout')}}">{{__("Checkout")}}</a>
+            </p>
         </div>
     </div>
 </div>
+<div class="cart-side-overlay side-overlay"></div>

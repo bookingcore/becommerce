@@ -207,6 +207,7 @@ class ModuleProvider extends ModuleServiceProvider
 
                 'product_policies',
                 'product_sidebar',
+                'product_image',
             ],
             'html_keys'=>[
 

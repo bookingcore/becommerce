@@ -253,6 +253,12 @@
                         a:hover, a:focus {
                              color:var(--primary_hover);
                         }
+                        &.dropdown-menu-user{
+                            top: calc(90% + 3px);
+                            li{
+                                margin-left: 0;
+                            }
+                        }
                         h3{
                             font-size: 18px;
                         }
@@ -260,6 +266,7 @@
                             ul{
                                 margin-left: 0;
                                 list-style: none;
+
                             }
 
                         }
@@ -326,15 +333,7 @@
                     }
                 }
             }
-            &.is_login{
-                ul.topbar-items{
-                    justify-content: end;
-                    align-items: end;
-                    li{
-                        margin-left: 15px;
-                    }
-                }
-            }
+
         }
     }
 
@@ -457,7 +456,7 @@
                         }
                     }
 
-                    &.has-mega-menu{
+                    &.has-mega-menumenu-item-has-children{
                         &:hover{
                             a.nav-link:after{
                                 color: var(--primary);
@@ -493,7 +492,7 @@
                     list-style: none;
                     margin: 0;
                     background: #fff;
-                    width: 1000px;
+                    width: 300px;
                     border-radius: 0 8px 8px 0;
                     box-shadow: 0 0 50px 0 rgb(0 0 0 / 7%);
                     z-index: 10;

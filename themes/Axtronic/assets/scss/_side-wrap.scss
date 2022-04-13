@@ -117,10 +117,31 @@
                             color: var(--primary);
                         }
                     }
+                    &.menu-item-has-children{
+                        > a{
+                            &:after{
+                                position: absolute;
+                                right: 0;
+                                top: 50%;
+                                @include themecustom-icon;
+                                font-weight: 400;
+                                line-height: 1;
+                                vertical-align: middle;
+                                content: themecustom-char(angle-down);
+                                float: right;
+                                color: #ffffff;
+                                margin-left: auto;
+                                border: 0;
+                                transform: translate(0, -50%);
+                            }
+                        }
+                    }
                     a{
                         display: block;
                         color: #fff;
                         font-size: 14px;
+                        position: relative;
+
                     }
                     ul.dropdown-menu{
                         position: static !important;
@@ -405,10 +426,17 @@
             .product-img-wrap{
                 border: 2px dashed var(--border);
                 border-radius: 15px;
+                overflow: hidden;
+                padding: 5px;
             }
         }
         .product-caption{
             padding-top: 0;
+        }
+        .axtronic-loop-product{
+            .shop-action{
+                display: none;
+            }
         }
     }
 }
@@ -444,16 +472,13 @@
     }
     ul.list-product-items {
         li{
-            &+ li{
-                margin-top: 40px;
-            }
             &.product-item {
 
                 .product-caption h2{
                     margin-top: 0;
                     line-height: 24px;
                     a{
-                        color: var(--primary);
+                        color: var(--accent);
                         &:hover{
                             color: var(--primary_hover);
                         }
