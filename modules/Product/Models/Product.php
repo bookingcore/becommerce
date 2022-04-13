@@ -392,7 +392,7 @@ class Product extends BaseProduct
         return $this->belongsToMany(Term::class,ProductTerm::getTableName(),'target_id','term_id');
     }
     public function tagsSeeder(){
-        return $this->belongsToMany(Tag::class,ProductTag::getTableName(),'target_id','tag_id');
+        return $this->belongsToMany(ProductTag::class,ProductTagRelation::getTableName(),'target_id','tag_id');
     }
     public function review(){
         return $this->hasMany(Review::class,'object_id','id')->where('object_model',$this->type);
@@ -401,7 +401,7 @@ class Product extends BaseProduct
         return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
     }
     public function tags(){
-        return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id', 'id','id','tag_id');
+        return $this->hasManyThrough(ProductTag::class, ProductTagRelation::class,'target_id', 'id','id','tag_id');
     }
     public function brand(){
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
@@ -556,8 +556,10 @@ class Product extends BaseProduct
         }
 
         if (!empty($filters['tag'])){
-            $tag_id = Tag::select('id')->where('slug',$filters['tag'])->first()->getAttribute('id');
-            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
+            $tag = ProductTag::select('id')->where('slug',$filters['tag'])->first();
+            if($tag) {
+                $query->join('product_tag_relation', 'products.id', '=', 'product_tag_relation.target_id')->where('tag_id', $tag->id);
+            }
         }
 
         if (!empty($filters['cat_ids'])) {

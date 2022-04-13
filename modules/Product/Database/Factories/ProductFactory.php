@@ -6,6 +6,7 @@ use Modules\Core\Models\Term;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
+use Modules\Product\Models\ProductTag;
 use Modules\Product\Models\ProductVariation;
 use Modules\Review\Models\Review;
 
@@ -60,7 +61,7 @@ class ProductFactory extends Factory
             $terms = ['1','2','5','6',rand(3,4),rand(7,8)];
             $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->termSeeder()->attach($terms);
-            $product->tagsSeeder()->attach(Tag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
+            $product->tagsSeeder()->attach(ProductTag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->review()->createMany(
                [
                    [

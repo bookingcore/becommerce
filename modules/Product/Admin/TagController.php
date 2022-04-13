@@ -5,9 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
-use Modules\News\Models\Tag;
 use Illuminate\Support\Str;
 use Modules\News\Models\TagTranslation;
+use Modules\Product\Models\ProductTag;
 
 class TagController extends AdminController
 {
@@ -22,14 +22,14 @@ class TagController extends AdminController
         $this->checkPermission('product_manage_others');
 
         $tagname = $request->query('s');
-        $taglist = Tag::query() ;
+        $taglist = ProductTag::query() ;
         if ($tagname) {
             $taglist->where('name', 'LIKE', '%' . $tagname . '%');
         }
         $taglist->orderby('name', 'asc');
         $data = [
             'rows'        => $taglist->paginate(20),
-            'row'    => new Tag(),
+            'row'    => new ProductTag(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -48,7 +48,7 @@ class TagController extends AdminController
     public function edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_others');
-        $row = Tag::find($id);
+        $row = ProductTag::find($id);
         if (empty($row)) {
             return redirect('admin/module/product/tag');
         }
@@ -56,7 +56,7 @@ class TagController extends AdminController
         $data = [
             'row'     => $row,
             'translation'=>$row->translate($request->query('lang')),
-            'parents' => Tag::get(),
+            'parents' => ProductTag::get(),
             'enable_multi_lang'=>true
         ];
         return view('Product::admin.tag.detail', $data);
@@ -67,12 +67,12 @@ class TagController extends AdminController
         $this->checkPermission('product_manage_others');
 
         if($id>0){
-            $row = Tag::find($id);
+            $row = ProductTag::find($id);
             if (empty($row)) {
                 return redirect(route('product.admin.tag.index'));
             }
         }else{
-            $row = new Tag();
+            $row = new ProductTag();
 //            $row->status = "publish";
         }
 
@@ -101,7 +101,7 @@ class TagController extends AdminController
         }
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                Tag::where("id", $id)->first()->delete();
+                ProductTag::where("id", $id)->first()->delete();
             }
         }
         return redirect()->back()->with('success', __('Update success!'));
