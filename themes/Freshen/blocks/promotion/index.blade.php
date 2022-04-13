@@ -1,5 +1,5 @@
 @if(!empty($list_items))
-    <div class="bc-promotions mt70">
+    <section class="bc-promotions pt0 mt70 pb60">
         <div class="container">
             <div class="row">
                 @foreach($list_items as $key => $item)
@@ -18,6 +18,6 @@
                 @endforeach
             </div>
         </div>
-    </div>
+    </section>
 @endif
 
