@@ -7,7 +7,7 @@ if(!isset($current_cat)) $current_cat = null;
         <div class="product-cat">
             <div class="product-cat-label">
                 <div class="box">
-                    <span class="product-cat-name" id="product-cat-name">All Category </span>
+                    <span class="product-cat-name" id="product-cat-name">{{__('All Category')}} </span>
                     <i class="axtronic-icon-angle-down"></i>
                     <select name="cat_slug" class="form-select f-w-30 d-none d-lg-block me-1" id="cat_slug" onchange="getName(this)">
                         <option value="" >{{__("All Category")}}</option>

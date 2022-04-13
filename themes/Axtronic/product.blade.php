@@ -9,7 +9,6 @@
                         @include("product.sidebar")
                     </div>
                     <div class="col-md-9">
-                        @include("blocks.banner.index")
                         @include("product.search.header")
                         @if($rows->total())
                             <ul class="axtronic-products products">

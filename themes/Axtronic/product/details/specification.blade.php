@@ -6,9 +6,9 @@
     @if(!empty($row->tags))
         <p class="tags mb-0">
             <span> {{ __("Tags") }}: </span>
-            @foreach($row->tags as $k=>$category)
+            @foreach($row->tags as $k=>$tag)
                 @if($k) , @endif
-                <a class="initial" href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
+                <a class="initial" href="{{ route('product.index')."?tag=$tag->slug" }}">{{$tag->name}}</a>
             @endforeach
         </p>
     @endif

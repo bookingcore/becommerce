@@ -1,5 +1,12 @@
+@php
+    $product_image = setting_item('product_image');
+    $file = (new \Modules\Media\Models\MediaFile())->findById($product_image);
+@endphp
+<div class="mb-4">
+    <img src="{{asset('uploads/'.$file['file_path'])}}" alt="">
+</div>
 <div class="axtronic-shopping__header d-flex justify-content-between align-items-center">
-    <h2> {{__('Shop')}}</h2>
+    <h2> {{ setting_item('product_page_search_title') }}</h2>
     <p>{{ __("Showing :from - :to of :total",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]) }} results </p>
 </div>
 <div class="axtronic-shopping__actions">

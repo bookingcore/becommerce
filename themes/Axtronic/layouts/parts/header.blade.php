@@ -34,10 +34,10 @@ if(!isset($current_cat)) $current_cat = null;
                         </li>
                         <li class="wishlist-item">
                             <div class="site-header-wishlist">
-                                <a class="wishlist-contents" href="#">
+                                <a class="wishlist-contents" href="{{route('user.wishList.index')}}">
                                     <span class="group-icon-action">
                                         <i class="axtronic-icon-heart"></i>
-                                        <span class="count">0</span>
+                                        <span class="count">{{ countWishlist() }}</span>
                                     </span>
                                 </a>
                             </div>
@@ -47,11 +47,11 @@ if(!isset($current_cat)) $current_cat = null;
                                 <a class="cart-contents" href="#">
                                     <span class="group-icon-action">
                                         <i class="axtronic-icon-shopping-cart"></i>
-                                        <span class="count">0 </span>
+                                        <span class="count">{{\Modules\Order\Helpers\CartManager::count()}}</span>
                                     </span>
                                     <span class="account-content group-icon-content">
                                     <span class="sub-text">{{__('Total')}}</span>
-                                    <span class="sub-title">{{__('$0.00')}}</span>
+                                    <span class="sub-title">{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span>
                                 </span>
                                 </a>
                             </div>
@@ -75,6 +75,20 @@ if(!isset($current_cat)) $current_cat = null;
                             </div>
                         </li>
                         @include('layouts.parts.header.notification')
+                        <li class="cart-item">
+                            <div class="site-header-cart">
+                                <a class="cart-contents" href="#">
+                                    <span class="group-icon-action">
+                                        <i class="axtronic-icon-shopping-cart"></i>
+                                        <span class="count">{{\Modules\Order\Helpers\CartManager::count()}}</span>
+                                    </span>
+                                    {{--<span class="account-content group-icon-content">--}}
+                                        {{--<span class="sub-text">{{__('Total')}}</span>--}}
+                                        {{--<span class="sub-title">{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span>--}}
+                                    {{--</span>--}}
+                                </a>
+                            </div>
+                        </li>
                         @include('layouts.parts.header.user')
                     @endif
                 </ul>
@@ -88,7 +102,7 @@ if(!isset($current_cat)) $current_cat = null;
                     @include('layouts.parts.header.category')
                 </div>
                 <div class="col-md-2">
-                    <p> Find all you need here!</p>
+                    <p> {{__('Find all you need here!')}}</p>
                 </div>
                 <div class="col-md-7">
                     @include('layouts.parts.header.search')
