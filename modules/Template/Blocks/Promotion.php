@@ -44,6 +44,21 @@ class Promotion extends BaseBlock
                     ]
                 ],
                 [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'values'        => [
+                        [
+                            'value'   => '',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
+                [
                     'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('List Items'),
@@ -77,10 +92,30 @@ class Promotion extends BaseBlock
                             'label' => __('Image Uploader')
                         ],
                         [
-                            'id'    => 'class_content',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label' => __('Class Content')
+                            'id'            => 'position',
+                            'type'          => 'select',
+                            'label'         => __('Position'),
+                            'values'        => [
+                                [
+                                    'id'   => 'top_left',
+                                    'name' => __("Top Left")
+                                ],
+                                [
+                                    'id'   => 'top_right',
+                                    'name' => __("Top Right")
+                                ],
+                                [
+                                    'id'   => 'bottom_left',
+                                    'name' => __("Bottom Left")
+                                ],
+                                [
+                                    'id'   => 'bottom_right',
+                                    'name' => __("Bottom Right")
+                                ]
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
                         ],
                     ]
                 ],
@@ -95,12 +130,18 @@ class Promotion extends BaseBlock
 
     public function content($model = [])
     {
+        if (empty($model['style'])) {
+            $model['style'] = 'index';
+        }
+        if (empty($model['position'])) {
+            $model['position'] = 'top_left';
+        }
         $data = [
             'title'  =>  $model['title'] ?? '',
             'sub_title'  =>  $model['sub_title'] ?? '',
             'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
-        return view('blocks.promotion.index', $data);
+        return view('blocks.promotion.'.$model['style'], $data);
     }
 }

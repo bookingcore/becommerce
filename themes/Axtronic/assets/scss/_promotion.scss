@@ -77,8 +77,6 @@
 }
 
 
-//Axtronic Banner
-
 .axtronic-banner{
     margin-bottom: 30px;
     .banner-wrap{
@@ -152,15 +150,14 @@
                 border-radius: 8px 8px 8px 8px;
                 padding: 12px 30px;
                 text-decoration: none;
-            &:hover{
-                color: #fff;
-                background: var( --accent );
+                &:hover{
+                    color: #fff;
+                    background: var( --accent );
                 }
             }
         }
     }
 }
-
 
 //Axtronic Testimonial
 

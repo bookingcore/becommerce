@@ -125,6 +125,19 @@
                              pointer-events: auto;
                          }
                      }
+                     &.active{
+                         ul.dropdown-menu{
+                             li.current{
+                                 a{
+                                     color: var(--primary);
+                                     padding-left: 40px;
+                                     &:before {
+                                         opacity: 1;
+                                     }
+                                 }
+                             }
+                         }
+                     }
                      ul.dropdown-menu {
                         display: block;
                          opacity: 0;
@@ -163,6 +176,21 @@
                                 color: var(--body);
                                 transition: all 0.3s ease;
                                 border-bottom: 1px solid var(--border);
+                                &:before {
+                                    content: "";
+                                    width: 9px;
+                                    height: 1px;
+                                    background: #cdaa7c;
+                                    position: absolute;
+                                    top: 50%;
+                                    transform: translateY(-50%);
+                                    -webkit-transform: translateY(-50%);
+                                    -moz-transform: translateY(-50%);
+                                    -ms-transform: translateY(-50%);
+                                    -o-transform: translateY(-50%);
+                                    left: 25px;
+                                    opacity: 0;
+                                }
                             }
                             &:hover {
                                 background: var(--background2);
@@ -171,18 +199,7 @@
                                     padding-left: 40px;
                                     padding-right: 20px;
                                     &:before {
-                                        content: "";
-                                        width: 9px;
-                                        height: 1px;
-                                        background: #cdaa7c;
-                                        position: absolute;
-                                        top: 50%;
-                                        transform: translateY(-50%);
-                                        -webkit-transform: translateY(-50%);
-                                        -moz-transform: translateY(-50%);
-                                        -ms-transform: translateY(-50%);
-                                        -o-transform: translateY(-50%);
-                                        left: 25px;
+                                        opacity: 1;
                                     }
                                 }
                             }
@@ -431,6 +448,7 @@
                     a{
                         color: var(--accent);
                         font-size: 14px;
+                        display: block;
                         &:hover{
                             color: var(--primary);
                         }

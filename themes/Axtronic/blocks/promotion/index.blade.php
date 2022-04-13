@@ -1,12 +1,24 @@
 {{--Axtronic promotions--}}
 <div class="axtronic-promotions pb-5">
     <div class="container">
-        <div class="mb-4">
-            <h3 class="fs-24 mb-1">{{ $title }}</h3>
-            <span class="fs-16">{{ $sub_title }}</span>
-        </div>
+            @if($title)
+                <h3 class="mb-1">{{ $title }}</h3>
+            @endif
+            @if($sub_title)
+                <span class="mb-4">{{ $sub_title }}</span>
+            @endif
         <div class="row">
+
+            @php($i = 0)
             @foreach($list_items as $key => $item)
+                @php
+                    switch ($item['position']){
+                        case 'top_right': $classPosition = "align-items-end justify-content-start"; break;
+                        case 'bottom_left': $classPosition = "align-items-start justify-content-end"; break;
+                        case 'bottom_right': $classPosition = "align-items-end justify-content-end"; break;
+                        default: $classPosition = "align-items-start justify-content-start";
+                    }
+                @endphp
                 @if($col == 'grid')
                     @php
                         switch ($key){
@@ -18,7 +30,7 @@
                     <div class="{{ $colClass }}">
                         <div class="promotions-item">
                             <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
-                            <div class="item-content d-flex flex-column {{ $item['class_content'] ?? '' }}">
+                            <div class="item-content d-flex flex-column {{ $classPosition }}">
                                 <span class="sub-title">{{ $item['title'] ?? '' }}</span>
                                 <h3>{{ $item['title'] ?? '' }}</h3>
                                 <p>
@@ -39,7 +51,7 @@
                     <div class="{{ $colClass }} mb-xl-0 mb-4">
                         <div class="promotions-item">
                             <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
-                            <div class="item-content d-flex flex-column {{ $item['class_content'] ?? '' }}">
+                            <div class="item-content d-flex flex-column {{ $classPosition }}">
                                 <span class="sub-title">{{ $item['title'] ?? '' }}</span>
                                 <h3>{{ $item['title'] ?? '' }}</h3>
                                 <p>
@@ -51,7 +63,6 @@
                     </div>
                 @endif
             @endforeach
-
         </div>
     </div>
 </div>

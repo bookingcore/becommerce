@@ -2062,6 +2062,13 @@ textarea {
   visibility: visible;
   pointer-events: auto;
 }
+#masthead .header-wrap .site-navigation ul li.dropdown.active ul.dropdown-menu li.current a {
+  color: var(--primary);
+  padding-left: 40px;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown.active ul.dropdown-menu li.current a:before {
+  opacity: 1;
+}
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu {
   display: block;
   opacity: 0;
@@ -2103,15 +2110,7 @@ textarea {
   transition: all 0.3s ease;
   border-bottom: 1px solid var(--border);
 }
-#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover {
-  background: var(--background2);
-}
-#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover a {
-  color: var(--primary);
-  padding-left: 40px;
-  padding-right: 20px;
-}
-#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover a:before {
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item a:before {
   content: "";
   width: 9px;
   height: 1px;
@@ -2124,6 +2123,18 @@ textarea {
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
   left: 25px;
+  opacity: 0;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover {
+  background: var(--background2);
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover a {
+  color: var(--primary);
+  padding-left: 40px;
+  padding-right: 20px;
+}
+#masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu li.nav-item:hover a:before {
+  opacity: 1;
 }
 #masthead .header-wrap .site-navigation ul li.dropdown ul.dropdown-menu a:not(.button) {
   color: var(--e-global-color-accent);
@@ -2358,6 +2369,7 @@ textarea {
 #masthead .header__content-bottom .vertical-menu .menu li a {
   color: var(--accent);
   font-size: 14px;
+  display: block;
 }
 #masthead .header__content-bottom .vertical-menu .menu li a:hover {
   color: var(--primary);
@@ -2778,6 +2790,17 @@ textarea {
   color: #fff;
 }
 
+.slider-fluid .banner-slider {
+  border-radius: 0;
+  margin-top: 0;
+}
+.slider-fluid .banner-slider .axtronic-modern-slider .axtronic-box {
+  height: 750px;
+}
+.slider-fluid .banner-slider .axtronic-modern-slider .slide-layers {
+  padding-left: 0;
+}
+
 .banner-slider {
   margin-top: 30px;
   margin-left: auto;
@@ -2894,6 +2917,7 @@ textarea {
   max-width: var(--container);
   margin: 0 auto;
   height: 100%;
+  padding: 0 calc(var(--grid-gutter) / 2);
 }
 .banner-slider .axtronic-modern-slider .skeleton-body, .banner-slider .axtronic-modern-slider .skeleton-item {
   height: 100%;

@@ -11,17 +11,17 @@ class BannerSlider extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'            => 'col',
+                    'id'            => 'width_slider',
                     'type'          => 'radios',
-                    'label'         => __(''),
+                    'label'         => __('Slider width'),
                     'values'        => [
                         [
-                            'value'   => '6',
-                            'name' => __("2 Item")
+                            'value'   => 'container',
+                            'name' => __("Container")
                         ],
                         [
-                            'value'   => '4',
-                            'name' => __("3 Item")
+                            'value'   => 'slider-fluid',
+                            'name' => __("Fluid width")
                         ],
                     ]
                 ],

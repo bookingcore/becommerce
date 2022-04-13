@@ -726,11 +726,11 @@ jQuery(function ($) {
     const swiperBannerSlider = new Swiper('.banner-slider', {
         // Optional parameters
         loop: true,
-        cssMode: true,
+        cssMode: false,
         effect: "fade",
         autoplay: {
             delay: 5000,
-            disableOnInteraction: false,
+            disableOnInteraction: true,
         },
         // If we need pagination
         pagination: {
