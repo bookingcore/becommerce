@@ -51,7 +51,7 @@ function setting_item_with_lang($item,$locale = '',$default = '',$withOrigin = t
 
 }
 function setting_item_with_lang_arr($item,$locale = '',$default = []){
-    return (array) json_decode(setting_item_with_lang($item,$locale,$default),true);
+    return (array) json_decode(setting_item_with_lang($item,$locale,json_encode($default)),true);
 }
 function setting_item_with_lang_raw($item,$locale = '',$default = ''){
 
