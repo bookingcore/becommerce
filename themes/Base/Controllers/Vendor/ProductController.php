@@ -12,6 +12,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTag;
+use Modules\Product\Models\ProductTagRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Vendor\VendorMenuManager;
@@ -189,12 +190,12 @@ class ProductController extends FrontendController
     {
         if (empty($tag_ids))
             $tag_ids = [];
-        $tag_ids = array_merge(Tag::saveTagByName($tags_name), $tag_ids);
+        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
         $tag_ids = array_filter(array_unique($tag_ids));
         // Delete unused
-        ProductTag::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
+        ProductTagRelation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
         //Add
-        ProductTag::addTag($tag_ids, $row->id);
+        ProductTagRelation::addTag($tag_ids, $row->id);
 
     }
 
