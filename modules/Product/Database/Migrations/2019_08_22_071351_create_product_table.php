@@ -200,7 +200,30 @@ class CreateProductTable extends Migration
             $table->timestamps();
 
         });
-        Schema::create('product_tag', function (Blueprint $table) {
+        Schema::create('product_tags', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name',255)->nullable();
+            $table->string('slug',255)->nullable();
+            $table->string('content',255)->nullable();
+            $table->string('create_user',255)->nullable();
+            $table->string('update_user',255)->nullable();
+
+            $table->timestamps();
+        });
+        Schema::create('product_tag_translations', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('origin_id')->unsigned();
+            $table->string('locale')->index();
+
+            $table->string('name',255)->nullable();
+            $table->text('content')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('product_tag_relation', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('tag_id')->nullable();

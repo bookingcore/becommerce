@@ -17,6 +17,7 @@ use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductTagRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
@@ -34,9 +35,9 @@ class ProductController extends AdminController
      */
     protected $product_cat_relation;
     /**
-     * @var ProductTag
+     * @var ProductTagRelation
      */
-    protected $product_tag;
+    protected $product_tag_relation;
 
     public function __construct()
     {
@@ -47,7 +48,7 @@ class ProductController extends AdminController
         $this->product_term = ProductTerm::class;
         $this->attributes = Attribute::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
-        $this->product_tag = ProductTag::class;
+        $this->product_tag_relation = ProductTagRelation::class;
         $this->variable_product = ProductVariation::class;
     }
 
@@ -229,12 +230,12 @@ class ProductController extends AdminController
     {
         if (empty($tag_ids))
             $tag_ids = [];
-        $tag_ids = array_merge(Tag::saveTagByName($tags_name), $tag_ids);
+        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
         $tag_ids = array_filter(array_unique($tag_ids));
         // Delete unused
-        $this->product_tag::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
+        $this->product_tag_relation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
         //Add
-        $this->product_tag::addTag($tag_ids, $row->id);
+        $this->product_tag_relation::addTag($tag_ids, $row->id);
 
     }
 

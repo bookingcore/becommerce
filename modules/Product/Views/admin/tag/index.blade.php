@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{ __('News Tags')}} </h1>
+            <h1 class="title-bar">{{ __('Product Tags')}} </h1>
         </div>
         @include('Layout::admin.message')
         <div class="row">

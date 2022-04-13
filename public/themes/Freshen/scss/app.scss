@@ -1,3 +1,6 @@
+:root{
+    --main-color:#86BC42
+}
 .footer_one{
     &:before{
         display: none !important;
@@ -14,4 +17,52 @@
         top: 43px;
         z-index: 0;
     }
+}
+.service-review {
+    &.list-star {
+        display: inline-block;
+        line-height: 13px;
+        position: relative;
+        .rating-stars-active {
+            position: absolute;
+            width: 0;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+        .rating-stars {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            li {
+                list-style: none;
+                float: left;
+                margin-right: 5px;
+                i {
+                    //font-size: 13px;
+                    color: #F2B23E;
+                }
+            }
+            &:before {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+        }
+    }
+}
+.service-wishlist{
+    cursor: pointer;
+    &.active,&:hover{
+        i{
+            color:var(--main-color)
+        }
+    }
+}
+.c-f30{
+    color: #f30;
+}
+.c-000000{
+    color: black;
 }

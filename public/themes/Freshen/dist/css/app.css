@@ -1,3 +1,7 @@
+:root {
+  --main-color:#86BC42 ;
+}
+
 .footer_one:before {
   display: none !important;
 }
@@ -11,4 +15,50 @@
   right: 0;
   top: 43px;
   z-index: 0;
+}
+
+.service-review.list-star {
+  display: inline-block;
+  line-height: 13px;
+  position: relative;
+}
+.service-review.list-star .rating-stars-active {
+  position: absolute;
+  width: 0;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+.service-review.list-star .rating-stars {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+.service-review.list-star .rating-stars li {
+  list-style: none;
+  float: left;
+  margin-right: 5px;
+}
+.service-review.list-star .rating-stars li i {
+  color: #F2B23E;
+}
+.service-review.list-star .rating-stars:before {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.service-wishlist {
+  cursor: pointer;
+}
+.service-wishlist.active i, .service-wishlist:hover i {
+  color: var(--main-color);
+}
+
+.c-f30 {
+  color: #f30;
+}
+
+.c-000000 {
+  color: black;
 }
