@@ -4,6 +4,8 @@ namespace Modules\News\Models;
 use App\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Models\SEO;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductTag;
 
 class Tag extends BaseModel
 {
@@ -63,5 +65,9 @@ class Tag extends BaseModel
 
     public function news(){
         return $this->hasManyThrough(News::class,NewsTag::class,'tag_id','id','id','news_id');
+    }
+
+    public function product(){
+        return $this->hasManyThrough(Product::class,ProductTag::class,'tag_id','id','id','target_id');
     }
 }
