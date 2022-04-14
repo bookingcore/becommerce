@@ -626,7 +626,7 @@ jQuery(function ($) {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    });
 
     $(document).on('click','.axtronic-product-variations .item-disable',function (e) {
         $('.axtronic-product-variations input').prop('checked', false);
@@ -717,220 +717,6 @@ jQuery(function ($) {
         if(!c){
             return false;
         }
-    })
-
-
-
-
-    /// Home page Slider Swiper
-    const swiperBannerSlider = new Swiper('.banner-slider', {
-        // Optional parameters
-        loop: true,
-        cssMode: false,
-        effect: "fade",
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: true,
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-
-        // Navigation arrowsss
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-    const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 15,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 7
-            },
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-    const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 1,
-            },
-            1024: {
-                slidesPerView: 3
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-    const swiperSliderNews = new Swiper('.swiper-slider-news', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 1,
-            },
-            1024: {
-                slidesPerView: 3
-            },
-        },
-        // If we need pagination
-        pagination: {
-            clickable: true,
-            el: '.swiper-pagination',
-
-        },
-    });
-    const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 6
-            },
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-    });
-
-    const swiperProductSlider = new Swiper('.product-slider', {
-        // Optional parameters
-        loop: false,
-        cssMode: true,
-        spaceBetween: 30,
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 5
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-
-    const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 4
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-    });
-
-    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
-    });
-    const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
-        spaceBetween: 10,
-        navigation: {
-            nextEl: ".swiper-button-next",
-            prevEl: ".swiper-button-prev",
-        },
-        thumbs: {
-            swiper: swiperProductGallery,
-        },
-    });
-
-    const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
-        // Optional parameters
-        loop: false,
-        cssMode: false,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 5
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
     });
 
     var getUrlParameter = function getUrlParameter(sParam) {
@@ -960,40 +746,28 @@ jQuery(function ($) {
         $('.gridlist-toggle .list').removeClass('active');
     }
 
-    $(document).ready(function () {
-        // lấy đường dẫn
-        var url = window.location.href;
-        // lấy chuỗi biến
-        var str = url.split('?');
+    // lấy đường dẫn
+    var url = window.location.href;
+    // lấy chuỗi biến
+    var str = url.split('?');
 
-        if (str.length === 1) // không có biến active mặc định
-        {
-        }
-        else {
-            var arrBien = str[1].split('&');
-            for (var i = 0; i < arrBien.length ; i++) {
-                // tên biến
-                var TenBien = arrBien[i].split('=')[0];
-                // giá trị
-                var Bien = arrBien[i].split('=')[1];
+    if (str.length === 1) // không có biến active mặc định
+    {
+    }
+    else {
+        var arrBien = str[1].split('&');
+        for (var i = 0; i < arrBien.length ; i++) {
+            // tên biến
+            var TenBien = arrBien[i].split('=')[0];
+            // giá trị
+            var Bien = arrBien[i].split('=')[1];
 
-                if (TenBien === 'tag') {
-                    $('.wiget-tag a').removeClass("active");
-                    $('.wiget-tag a[data-tag=' + Bien + ']').addClass("active");
-                }
+            if (TenBien === 'tag') {
+                $('.wiget-tag a').removeClass("active");
+                $('.wiget-tag a[data-tag=' + Bien + ']').addClass("active");
             }
         }
-    });
-
-
-    // Onchange Select Category Product Search Header
-    function getName(select) {
-        // And here we get the name
-        var selectedOption = select.options[select.selectedIndex];
-        var name = selectedOption.getAttribute('data-name');
-        document.getElementById("product-cat-name").innerHTML =  name;
     }
-
 
     // Show/Hide Canvas right
     $(document).on('click','.cart-contents',function (e) {
@@ -1007,7 +781,7 @@ jQuery(function ($) {
 
     $(document).on('click','.user-contents',function (e) {
         e.preventDefault();
-        $('.site-user-side').toggleClass('active');;
+        $('.site-user-side').toggleClass('active');
     })
     $('.close-user-side,.user-side-overlay').on('click', function (e) {
         e.preventDefault();
@@ -1016,7 +790,7 @@ jQuery(function ($) {
 
     $(document).on('click','.wishlist-contents',function (e) {
         e.preventDefault();
-        $('.site-wishlist-side').toggleClass('active');;
+        $('.site-wishlist-side').toggleClass('active');
     })
     $('.close-wishlist-side,.wishlist-side-overlay').on('click', function (e) {
         e.preventDefault();
@@ -1025,7 +799,7 @@ jQuery(function ($) {
 
     $(document).on('click','.menu-mobile-nav-button',function (e) {
         e.preventDefault();
-        $('.site-menu-side').toggleClass('active');;
+        $('.site-menu-side').toggleClass('active');
     })
     $('.close-menu-side,.menu-side-overlay').on('click', function (e) {
         e.preventDefault();
@@ -1036,18 +810,18 @@ jQuery(function ($) {
     $('.register-link', $container).on('click', function(e){
         e.preventDefault();
         $container.find('.form-register').addClass('active');
-        $container.find('.form-login').removeClass('active')
+        $container.find('.form-login').removeClass('active');
         $container.find('.form-lost-password').removeClass('active');
     });
     $('.lostpass-link', $container).on('click', function(e){
         e.preventDefault();
         $container.find('.form-lost-password').addClass('active');
-        $container.find('.form-login').removeClass('active')
+        $container.find('.form-login').removeClass('active');
         $container.find('.form-register').removeClass('active');
     });
     $('.login-link', $container).on('click', function(e){
         e.preventDefault();
-        $container.find('.form-login').addClass('active')
+        $container.find('.form-login').addClass('active');
         $container.find('.form-lost-password').removeClass('active');
         $container.find('.form-register').removeClass('active');
     });
@@ -1061,3 +835,221 @@ jQuery(function ($) {
         $('.mobile-' + menuName + '-menu').addClass('active');
     });
 });
+
+/// Home page Slider Swiper
+const swiperBannerSlider = new Swiper('.banner-slider', {
+    // Optional parameters
+    loop: true,
+    cssMode: false,
+    effect: "fade",
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: true,
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+
+    // Navigation arrowsss
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 15,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 7
+        },
+    },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
+});
+const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 1,
+        },
+        1024: {
+            slidesPerView: 3
+        },
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+const swiperSliderNews = new Swiper('.swiper-slider-news', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        768: {
+            slidesPerView: 1,
+        },
+        1024: {
+            slidesPerView: 3
+        },
+    },
+    // If we need pagination
+    pagination: {
+        clickable: true,
+        el: '.swiper-pagination',
+
+    },
+});
+const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 6
+        },
+    },
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+});
+
+const swiperProductSlider = new Swiper('.product-slider', {
+    // Optional parameters
+    loop: false,
+    cssMode: true,
+    spaceBetween: 30,
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 5
+        },
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+
+const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 4
+        },
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+
+const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+});
+const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
+    spaceBetween: 10,
+    navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+    },
+    thumbs: {
+        swiper: swiperProductGallery,
+    },
+});
+
+const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
+    // Optional parameters
+    loop: false,
+    cssMode: false,
+    spaceBetween: 30,
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 5
+        },
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+// Onchange Select Category Product Search Header
+function getName(select) {
+    // And here we get the name
+    var selectedOption = select.options[select.selectedIndex];
+    var name1 = selectedOption.getAttribute('data-name');
+    document.getElementById("product-cat-name").innerHTML =  name1;
+}

@@ -12,7 +12,6 @@
                     @endif
                 </li>
             @endforeach
-
     </ol>
 </nav>
 @endif

@@ -26,8 +26,8 @@
     </div>
 
     <div class="gridlist-toggle desktop-hide-down">
-        <a href="?layout=grid" class="grid  active" title="Grid View"><i class="axtronic-icon-grid"></i></a>
-        <a href="?layout=list" class="list  " title="List View"><i class="axtronic-icon-list"></i></a>
+        <a href="?layout=grid" class="grid  active" title="{{__('Grid View')}}"><i class="axtronic-icon-grid"></i></a>
+        <a href="?layout=list" class="list  " title="{{__('List View')}}"><i class="axtronic-icon-list"></i></a>
     </div>
 
 </div>
