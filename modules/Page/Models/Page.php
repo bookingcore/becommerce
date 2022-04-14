@@ -2,17 +2,15 @@
 namespace Modules\Page\Models;
 
 use App\BaseModel;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\SEO;
-use function Clue\StreamFilter\fun;
 
 class Page extends BaseModel
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMeta;
+
+    protected $meta_parent_key = 'parent_id';
+    protected $metaClass = PageMeta::class;
 
     protected $table = 'core_pages';
     protected $fillable = [

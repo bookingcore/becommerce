@@ -1364,6 +1364,7 @@
             autoplay: false,
             singleItem: true,
             smartSpeed: 1200,
+            dotsContainer: '#gallery-carousel-custom-dots',
             navText: [
               '<i class="flaticon-left-arrow"></i>',
               '<i class="flaticon-chevron"></i>'

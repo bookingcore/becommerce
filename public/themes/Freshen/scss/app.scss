@@ -55,7 +55,8 @@
 .service-wishlist{
     cursor: pointer;
     &.active,&:hover{
-        i{
+        color:var(--main-color);
+        span{
             color:var(--main-color)
         }
     }
@@ -65,4 +66,96 @@
 }
 .c-000000{
     color: black;
+}
+/*Shop Slider Contact Css*/
+.single_product_grid .owl-dots{
+    text-align: center;
+    .owl-dot{
+        display: inline-block;
+        zoom: 1;
+    }
+}
+.single_product_grid .owl-dots .owl-dot span{
+    background: transparent;
+    border-radius: 4px;
+    height: 100px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    opacity: 0.4;
+    width: 100px;
+    display: inline-block;
+    background-position: center center !important;
+    background-size: cover !important;
+}
+.single_product_grid.sidebar .owl-dots .owl-dot span{
+    margin-right: 0;
+}
+.single_product_grid .owl-dots .owl-dot.active span{
+    border: 1px solid #86BC42;
+    opacity: 1;
+}
+.bc-product-variations{
+    .variation{
+        span{
+            &:last-child{
+                display: none;
+            }
+        }
+        .name{
+            border: transparent;
+            color: #121212;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 30px;
+            letter-spacing: 0em;
+            padding-left: 0;
+            text-align: left;
+        }
+        .values{
+            .item{
+                border-radius: 15px !important;
+                overflow: hidden;
+                label{
+                    min-width: 45px;
+                    min-height: 30px;
+                    color: #4F4F4F;
+                    font-size: 12px;
+                    font-style: normal;
+                    font-weight: 700;
+                }
+            }
+        }
+    }
+    .item-disable{
+        opacity: 0.3;
+    }
+    .item-active{
+        border-color: #0000003b !important;
+        color: #7e7e7e !important;
+        box-shadow: 0 0 5px #7e7e7e !important;
+    }
+}
+.mbp_pagination_comments .mbp_first .media-body .sspd_postdate .sspd_review ul li:last-child a,
+.sspd_review ul li:last-child a {
+    color: #F2B23E;
+}
+.bc-reviews{
+    .c-fcb800,
+    .c-main{
+        color: #F2B23E !important;
+    }
+    .btn {
+        background-color: #86BC42;
+        border-radius: 4px;
+        color: #ffffff;
+        font-size: 13px;
+        font-weight: normal;
+        height: 55px;
+        line-height: 40px;
+        text-transform: uppercase;
+        width: 152px;
+    }
 }

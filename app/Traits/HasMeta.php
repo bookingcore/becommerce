@@ -29,31 +29,22 @@ Trait HasMeta
 
     public function addMeta($key, $val, $multiple = false)
     {
-
         if (is_object($val) or is_array($val))
             $val = json_encode($val);
         if ($multiple) {
-            return $this->metaClass::create([
+            $meta = new $this->metaClass([
                 'name'       => $key,
                 'val'        => $val,
-                $this->meta_parent_key => $this->id
             ]);
+            $meta->setAttribute($this->meta_parent_key,$this->id);
+            return $meta->save();
         } else {
-            $old = $this->metaClass::query()->where([
+            $find = $this->metaClass::firstOrNew([
                 $this->meta_parent_key => $this->id,
                 'name'       => $key
-            ])->first();
-            if ($old) {
-                $old->val = $val;
-                return $old->save();
-
-            } else {
-                return $this->metaClass::create([
-                    'name'       => $key,
-                    'val'        => $val,
-                    $this->meta_parent_key => $this->id
-                ]);
-            }
+            ]);
+            $find->val = $val;
+            return $find->save();
         }
     }
 }
