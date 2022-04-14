@@ -158,3 +158,21 @@
         </div>
     </div>
 </div>
+@section('script.body')
+    <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
+    <script>
+        (function ($) {
+            $('.ace-editor').each(function () {
+                var editor = ace.edit($(this).attr('id'));
+                editor.setTheme("ace/theme/"+$(this).data('theme'));
+                editor.session.setMode("ace/mode/"+$(this).data('mod'));
+                var me = $(this);
+
+                editor.session.on('change', function(delta) {
+                    // delta.start, delta.end, delta.lines, delta.action
+                    me.next('textarea').val(editor.getValue());
+                });
+            });
+        })(jQuery)
+    </script>
+@endsection

@@ -37,6 +37,18 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
+        Schema::create('core_page_meta', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('parent_id')->nullable();
+            $table->string('name',255)->nullable();
+            $table->text('val')->nullable();
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->index(['parent_id','name']);
+            $table->timestamps();
+        });
+
         Schema::create('core_attrs', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->bigIncrements('id');
 

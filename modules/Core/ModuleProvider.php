@@ -5,6 +5,7 @@ use Modules\Core\Events\CreatedServicesEvent;
 use Modules\Core\Events\CreateReviewEvent;
 use Modules\Core\Events\UpdatedServiceEvent;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Core\Helpers\HookManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\Core\Listeners\CreatedServicesListen;
@@ -40,6 +41,9 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(BladeServiceProvider::class);
         $this->app->singleton(SitemapHelper::class,function($app){
             return new SitemapHelper();
+        });
+        $this->app->singleton('hook_manager',function(){
+            return $this->app->make(HookManager::class);
         });
     }
 

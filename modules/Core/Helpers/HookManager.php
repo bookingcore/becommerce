@@ -20,10 +20,10 @@ class HookManager
     /**
      * Construct the class.
      */
-    public function __construct()
+    public function __construct(ActionManager $action,FilterManager $filter)
     {
-        $this->action = new ActionManager();
-        $this->filter = new FilterManager();
+        $this->action = $action;
+        $this->filter = $filter;
     }
     /**
      * Get the action instance.
@@ -149,10 +149,5 @@ class HookManager
         unset($args[0]);
         $args = array_values($args);
         return $this->filter->fire($hook, $args);
-    }
-
-    public static function inst(){
-        if(!self::$inst) self::$inst = new self();
-        return self::$inst;
     }
 }
