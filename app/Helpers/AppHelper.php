@@ -909,7 +909,7 @@ function do_action(){
     return \Modules\Core\Facades\Hook::action(...func_get_args());
 }
 function apply_filters(){
-    return \Modules\Core\Facades\Hook::do(...func_get_args());
+    return \Modules\Core\Facades\Hook::filter(...func_get_args());
 }
 function is_installed(){
     return file_exists(storage_path('installed'));
