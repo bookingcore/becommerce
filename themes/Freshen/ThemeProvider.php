@@ -26,7 +26,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         add_filter(Hook::NEWS_SETTING_CONFIG,[$this,'alterSettings']);
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
 
-        SettingManager::register("freshen_advance",[$this,'registerAdvanceSetting'],1,'freshen_theme');
+        SettingManager::register("freshen_general",[$this,'registerGeneralSetting'],1,'freshen_theme');
         SettingManager::register("freshen_product",[$this,'registerProductSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
 
@@ -45,7 +45,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
             'title'      => __("Freshen Settings"),
             'icon'       => 'fa fa-cogs',
             'permission' => 'setting_update',
-            "group"=>"system"
+            "group"=>"content"
         ];
     }
     public function alterSettings($settings){
