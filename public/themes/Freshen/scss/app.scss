@@ -66,3 +66,32 @@
 .c-000000{
     color: black;
 }
+/*Shop Slider Contact Css*/
+.single_product_grid .owl-dots{
+    text-align: center;
+    .owl-dot{
+        display: inline-block;
+        zoom: 1;
+    }
+}
+.single_product_grid .owl-dots .owl-dot span{
+    background: transparent;
+    border-radius: 4px;
+    height: 100px;
+    margin-bottom: 0;
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    opacity: 0.4;
+    width: 100px;
+    display: inline-block;
+    background-position: center center !important;
+    background-size: cover !important;
+}
+.single_product_grid.sidebar .owl-dots .owl-dot span{
+    margin-right: 0;
+}
+.single_product_grid .owl-dots .owl-dot.active span{
+    border: 1px solid #86BC42;
+    opacity: 1;
+}
