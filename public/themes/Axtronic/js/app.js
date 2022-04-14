@@ -1050,6 +1050,7 @@ const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
 function getName(select) {
     // And here we get the name
     var selectedOption = select.options[select.selectedIndex];
-    var name1 = selectedOption.getAttribute('data-name');
-    document.getElementById("product-cat-name").innerHTML =  name1;
+    document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
 }
+var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
+$('#product-cat-name').html(name)
