@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Page\Admin;
 
+use Modules\Page\Hook;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -141,6 +142,8 @@ class PageController extends AdminController
 
         $row->saveWithTranslation($request->query('lang'));
         $row->saveSEO($request,$request->query('lang'));
+
+        do_action(Hook::AFTER_SAVING,$row,$request);
 
         if($id > 0 ){
             return back()->with('success',  __('Page updated') );

@@ -900,24 +900,16 @@ function get_all_verify_fields(){
 }
 /*Hook Functions*/
 function add_action($hook, $callback, $priority = 20, $arguments = 1){
-    $args = func_get_args();
-    $m = \Modules\Core\Helpers\HookManager::inst();
-    $m->addAction($hook, $callback, $priority, $arguments);
+    return \Modules\Core\Facades\Hook::addAction($hook, $callback, $priority, $arguments);
 }
 function add_filter($hook, $callback, $priority = 20, $arguments = 1){
-    $args = func_get_args();
-    $m = \Modules\Core\Helpers\HookManager::inst();
-    $m->addFilter($hook, $callback, $priority, $arguments);
+    return \Modules\Core\Facades\Hook::addFilter($hook, $callback, $priority, $arguments);
 }
 function do_action(){
-    $args = func_get_args();
-    $m = \Modules\Core\Helpers\HookManager::inst();
-    return call_user_func_array([$m,'action'],$args);
+    return \Modules\Core\Facades\Hook::action(...func_get_args());
 }
 function apply_filters(){
-    $args = func_get_args();
-    $m = \Modules\Core\Helpers\HookManager::inst();
-    return call_user_func_array([$m,'filter'],$args);
+    return \Modules\Core\Facades\Hook::do(...func_get_args());
 }
 function is_installed(){
     return file_exists(storage_path('installed'));
