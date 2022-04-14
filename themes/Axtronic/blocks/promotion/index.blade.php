@@ -9,7 +9,6 @@
             @endif
         <div class="row">
 
-            @php($i = 0)
             @foreach($list_items as $key => $item)
                 @php
                     switch ($item['position']){
