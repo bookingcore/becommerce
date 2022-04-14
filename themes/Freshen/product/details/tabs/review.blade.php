@@ -8,7 +8,7 @@ $review_list = $row->review_list
 <div class="bc-reviews">
     <div class="row">
         <div class="col-lg-6">
-            <div class="shop_single_tab_content mb30-991">
+            <div class="shop_single_tab_content mb30-991 pt-0">
                 <div class="product_single_content">
                     <div class="mbp_pagination_comments">
                         <h5 class="fz16 mb30">
@@ -65,7 +65,7 @@ $review_list = $row->review_list
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="bsp_reveiw_wrt pt30">
+            <div class="bsp_reveiw_wrt ">
                 <div class="review-box">
                     <div class="mf-product-rating ">
                         <div class="review-form comments_form ">
