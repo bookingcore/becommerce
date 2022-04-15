@@ -41,11 +41,11 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
     public function registerZone(){
         return [
-            "position"=>80,
+            "position"=>10,
             'title'      => __("Freshen Settings"),
             'icon'       => 'fa fa-cogs',
             'permission' => 'setting_update',
-            "group"=>"content"
+            "group"=>"system"
         ];
     }
     public function alterSettings($settings){
