@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
      @include('global.breadcrumb')
-    <section class="bc-section-account mb-3 mt-3">
+    <section class="bc-section-account mb-3 mt-3 fz14">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
@@ -12,8 +12,8 @@
                         <h3>{{__("Orders")}}</h3>
                     </div>
                     <div class="bc-content">
-                        <div class="table-responsive">
-                            <table class="table bc-table">
+                        <div class="table-responsive order_table">
+                            <table class="table bc-table ">
                                 <thead>
                                 <tr>
                                     <th>{{__("Id")}}</th>
