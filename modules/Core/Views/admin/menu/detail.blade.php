@@ -97,6 +97,40 @@
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="col-md-12">
+                                                <div class="text-end text-right">
+                                                    <a class="mb-2" data-toggle="collapse" href="#collapse_advance" role="button" aria-expanded="false" aria-controls="collapse_advance">
+                                                        {{ __("Advanced") }}
+                                                    </a>
+                                                </div>
+                                                <div class="collapse" id="collapse_advance">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>{{__('Layout')}}</label>
+                                                                <select v-model="node.layout" class="input-sm form-control">
+                                                                    <option value="">{{__('Normal')}}</option>
+                                                                    <option value="multi_row">{{__('Multi-row')}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>{{__('Class Icon')}}</label>
+                                                                <input type="text" v-model="node.icon" class="form-control input-sm">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <label>{{__('Background')}}</label>
+                                                                <file-picker v-model="node.bg"></file-picker>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
 
                                         <div class="d-flex justify-content-between">

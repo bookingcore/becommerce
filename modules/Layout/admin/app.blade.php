@@ -56,9 +56,10 @@
             currency_symbol:'{{currency_symbol()}}',
 			currency_rate:'{{get_current_currency('rate',1)}}',
             media:{
-                groups:{!! json_encode(config('bc.media.groups')) !!}
+                groups:{!! json_encode(config('bc.media.groups')) !!},
+                get_file:'{{route('media.get_file')}}'
             },
-            routes:{}
+            routes:{},
         };
         var i18n = {
             warning:"{{__("Warning")}}",
@@ -67,6 +68,9 @@
             confirm_recovery:"{{__("Do you want to restore?")}}",
             confirm:"{{__("Confirm")}}",
             cancel:"{{__("Cancel")}}",
+            browse:'{{__("Browse")}}',
+            clear:'{{__("Clear")}}',
+            choose_file:"{{__("Choose file...")}}",
         };
         var daterangepickerLocale = {
             "applyLabel": "{{__('Apply')}}",
