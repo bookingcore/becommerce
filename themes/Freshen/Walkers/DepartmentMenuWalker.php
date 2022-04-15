@@ -15,7 +15,7 @@ class DepartmentMenuWalker
     {
         $items = json_decode($this->menu->items, true);
         if (!empty($items)) {
-            echo '<ul class="menu--dropdown">';
+            echo '<ul class="menu">';
             $this->generateTree($items);
             echo '</ul>';
         }
@@ -41,21 +41,23 @@ class DepartmentMenuWalker
                 $class .= ' active';
             if(!empty($item['children']))
             {
-                $class.=' menu-item-has-children';
+                $class.=' dropdown';
             }
 
-            if(!empty($item['layout']) and $item['layout'] == 'multi_row') {
+            /*if(!empty($item['layout']) and $item['layout'] == 'multi_row') {
                 $class.=' has-mega-menu';
-            }
+            }*/
 
-            printf('<li class="%s menu-item">', e($class));
+            echo '<li class="menu-item">';
 
+            $item['name'] = '<span class="menu-title">'.e($item['name']).'</span>';
             if(!empty($item['icon']))
             {
-                $item['name'] = '<i class="'.e($item['icon']).'"></i> '.$item['name'];
+                $item['name'] = '<span class="menu-icn '.e($item['icon']).'"></span>'.$item['name'];
             }
 
-            printf('<a  target="%s" href="%s" >%s</a>', e($item['target']), e($url), $item['name']);
+            printf('<a class="%s" target="%s" href="%s" >%s</a>', e($class) ,  e($item['target']), e($url), $item['name']);
+
             if (!empty($item['children'])) {
                 $bg = (!empty($item['bg'])) ? 'style="background: white url('.get_file_url($item['bg'],'full').') center center no-repeat"' : 'style="background: white"';
                 echo '<ul class="mega-menu" '.$bg.'>';
@@ -66,6 +68,7 @@ class DepartmentMenuWalker
                     }
                 echo "</ul>";
             }
+
             echo '</li>';
         }
     }

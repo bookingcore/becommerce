@@ -1,8 +1,3 @@
-<div class="bravo-department-list ">
-    <?php /*generate_menu('department',[
-            'walker'=>\Themes\Freshen\Walkers\DepartmentMenuWalker::class
-    ]) */?>
-</div>
 <div class="posr logo1">
     <div id="mega-menu">
         <div class="btn-mega">
@@ -10,6 +5,7 @@
             <span class="ctr_title">ALL CATEGORIES</span>
             <i class="fa fa-angle-down icon"></i>
         </div>
+        @php generate_menu('department',['walker'=>\Themes\Freshen\Walkers\DepartmentMenuWalker::class]) @endphp
         <ul class="menu">
             <li>
                 <a href="#">
