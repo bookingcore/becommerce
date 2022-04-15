@@ -31,6 +31,11 @@
                                         <form onsubmit="return confirm('{{__("Do you want to import all demo data?")}}')" action="{{route('theme.admin.seeding',['theme'=>strtolower($theme_id)])}}" method="post">
                                             @csrf
                                             <button class="btn btn-warning"><i class="fa fa-magic"></i> {{__("Import Demo Data")}}</button>
+                                            @if($time = $themeClass::last_seeder_run())
+                                                <div>
+                                                    <i>{{__('Last run: :date',['date'=>display_datetime($time)])}}</i>
+                                                </div>
+                                            @endif
                                         </form>
                                     @else
                                         <form action="{{route('theme.admin.activate',['theme'=>strtolower($theme_id)])}}" method="post">

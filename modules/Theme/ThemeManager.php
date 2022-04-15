@@ -3,6 +3,7 @@ namespace Modules\Theme;
 
 use Illuminate\Support\Facades\File;
 use Modules\Core\JsonConfigManager;
+use Modules\Theme\Abstracts\AbstractThemeProvider;
 
 class ThemeManager
 {
@@ -12,10 +13,19 @@ class ThemeManager
         return strtolower(JsonConfigManager::get('active_theme',defined('BC_DEFAULT_THEME') ? BC_DEFAULT_THEME : 'base'));
     }
     public static function currentProvider(){
-        return static::getProviderClass(static::current());
+        return static::theme(static::current());
     }
     public static function getProviderClass($theme){
         return "\\Themes\\".ucfirst($theme)."\\ThemeProvider";
+    }
+
+    /**
+     * @param $theme
+     * @return bool|AbstractThemeProvider
+     */
+    public static function theme($theme){
+        $all = static::all();
+        return $all[$theme] ?? false;
     }
 
     public static function all(){
@@ -28,7 +38,9 @@ class ThemeManager
     protected static function loadAll(){
         $listThemes = array_map('basename', File::directories(base_path("themes")));
         foreach ($listThemes as $theme){
+            $theme = strtolower($theme);
             $class = static::getProviderClass($theme);
+            $class::$id = $theme;
             if(class_exists($class)){
                 self::$_all[$theme] = $class;
             }

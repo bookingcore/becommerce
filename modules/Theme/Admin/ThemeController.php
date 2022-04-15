@@ -84,7 +84,7 @@ class ThemeController extends AdminController
     public function seeding($theme){
         $this->checkPermission("theme_manage");
 
-        $provider = $this->theme_manager::getProviderClass($theme);
+        $provider = $this->theme_manager::theme($theme);
 
         if(class_exists($provider))
         {
@@ -92,6 +92,8 @@ class ThemeController extends AdminController
             if(!class_exists($seeder)) return back()->with('error',__("This theme does not have seeder class"));
 
             Artisan::call('db:seed', ['--class' => $seeder,'--force'=>true]);
+
+            $provider::update_last_seeder_run();
 
             return back()->with('success',__("Demo data has been imported"));
 
