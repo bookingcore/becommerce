@@ -55,7 +55,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public function showCustomFields(){
         echo view('news.admin.settings.image');
     }
-    public function registerAdvanceSetting(){
+    public function registerGeneralSetting(){
         return [
             'id'   => 'freshen_theme',
             'title' => __("General Settings"),
