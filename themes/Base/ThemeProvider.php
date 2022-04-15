@@ -9,7 +9,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
     public static $name = "Default Theme";
 
-    public static $screenshot = "/screenshot.png";
+    public static $version = '1.0';
 
     public static function info()
     {
