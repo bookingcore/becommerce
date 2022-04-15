@@ -8,9 +8,11 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
     public static $name;
 
-    public static $screenshot;
+    public static $screenshot = '/themes/Base/screenshot.png';
 
     public static $version = "1.0";
+
+    public static $seeder;
 
     /**
      * Return Theme Info
@@ -22,5 +24,4 @@ abstract class AbstractThemeProvider extends ServiceProvider
     public function register(){}
 
     public function boot(){}
-
 }
