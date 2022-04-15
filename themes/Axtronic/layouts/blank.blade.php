@@ -19,9 +19,9 @@
         <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
         @endif
     @endif
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/bootstrap/css/bootstrap.min.css">
-    <link href="{{ theme_url('Base/dist/css/app.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/bootstrap/css/bootstrap.min.css">
+    <link href="{{ theme_url('Axtronic/dist/css/app.css') }}" rel="stylesheet">
     @include('layouts.parts.seo-meta')
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
@@ -56,10 +56,10 @@
 
     </script>
 
-    <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-    <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
+    <script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- custom scripts-->
-    <script  src="{{ theme_url('Base/js/app.js') }}"></script>
+    <script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
     @yield('footer')
 </footer>
 </body>

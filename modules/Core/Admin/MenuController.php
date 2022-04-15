@@ -255,7 +255,7 @@ class MenuController extends AdminController
         $newItems = clean_by_key($items, 'name');
         $menu->items = json_encode($newItems);
         $menu->name = $request->input('name');
-        $menu->saveTranslation($request->input('lang'));
+        $menu->saveWithTranslation($request->input('lang'));
 
         $setting = json_decode(setting_item('menu_locations'), true);
         $hasChange = false;

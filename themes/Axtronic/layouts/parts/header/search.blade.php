@@ -36,3 +36,6 @@ if(!isset($current_cat)) $current_cat = null;
         <button type="submit" class="btn">{{ __("Search") }}</button>
     </div>
 </form>
+<script>
+
+</script>

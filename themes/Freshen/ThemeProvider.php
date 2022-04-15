@@ -41,11 +41,11 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
     public function registerZone(){
         return [
-            "position"=>80,
+            "position"=>10,
             'title'      => __("Freshen Settings"),
             'icon'       => 'fa fa-cogs',
             'permission' => 'setting_update',
-            "group"=>"content"
+            "group"=>"system"
         ];
     }
     public function alterSettings($settings){
@@ -55,7 +55,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public function showCustomFields(){
         echo view('news.admin.settings.image');
     }
-    public function registerAdvanceSetting(){
+    public function registerGeneralSetting(){
         return [
             'id'   => 'freshen_theme',
             'title' => __("General Settings"),
