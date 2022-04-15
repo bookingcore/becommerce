@@ -19,9 +19,14 @@ class ThemeProvider extends AbstractThemeProvider
 {
     public static $name = "Axtronic";
 
+    public static $screenshot = "/screenshot.png";
+
     public static function info()
     {
         // TODO: Implement info() method.
+        return [
+
+        ];
     }
 
     public function boot()
@@ -83,6 +88,7 @@ class ThemeProvider extends AbstractThemeProvider
                 'axtronic_footer_info_text',
                 'axtronic_footer_text_right',
                 'axtronic_copyright',
+                'axtronic_hotline_text',
             ],
             'filter_demo_mode'=>[
             ]
@@ -95,7 +101,7 @@ class ThemeProvider extends AbstractThemeProvider
             'position'=>80,
             'view'      => "admin.settings.product",
             "keys"      => [
-                'axtronic_product_gallery',
+                'axtronic_header_contact',
                 'axtronic_product_category'
             ],
             'filter_demo_mode'=>[

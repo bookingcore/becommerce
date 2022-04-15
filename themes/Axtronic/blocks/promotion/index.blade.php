@@ -8,7 +8,6 @@
                 <span class="mb-4">{{ $sub_title }}</span>
             @endif
         <div class="row">
-
             @foreach($list_items as $key => $item)
                 @php
                     switch ($item['position']){

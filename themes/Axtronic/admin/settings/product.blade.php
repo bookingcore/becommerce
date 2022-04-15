@@ -8,12 +8,11 @@
             <div class="panel-body">
                 @if(is_default_lang())
                     <div class="form-group">
-                        <label>{{__("Gallery Style")}}</label>
-                        <div class="form-controls form-group-image">
-                            <select name="axtronic_product_gallery"  class="form-control">
-                                <option value="">{{__("Thumb bottom")}}</option>
-                                <option @if(setting_item('axtronic_product_gallery') == 'thumb_left') selected @endif value="thumb_left">{{__("Thumb left")}}</option>
-                            </select>
+                        <label for="header_contact">{{__("Header Contact  ")}}</label>
+                        <div class="form-controls">
+                            <div class="form-controls">
+                                <input type="text" id="header_contact" class="form-control" name="axtronic_header_contact" value="{{setting_item('axtronic_header_contact')}}">
+                            </div>
                         </div>
                     </div>
                 @endif

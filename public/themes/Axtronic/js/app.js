@@ -1053,4 +1053,10 @@ function getName(select) {
     document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
 }
 var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
-$('#product-cat-name').html(name)
+console.log(name);
+if(name && name !== 'undefined'){
+    $('#product-cat-name').html(name)
+}else {
+    $('#product-cat-name').html('All Category')
+}
+

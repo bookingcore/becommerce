@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends("layouts.app",['header_style' =>$row->getMeta('header_style')])
 @section('content')
     @if($row->template_id && $row->show_template)
         <div class="page-template-content">
@@ -6,6 +6,7 @@
         </div>
     @else
          @include('global.breadcrumb')
+
         <div class="axtronic-contact-info">
             <div class="container">
                 <div class="axtronic-section__header">
