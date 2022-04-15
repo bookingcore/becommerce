@@ -17,8 +17,8 @@ class OrderItem extends BaseModel
     use SoftDeletes;
     use HasMeta;
     protected $table = 'core_order_items';
-    protected $meta_parent_key = 'order_item_id';
 
+    protected $meta_parent_key = 'order_item_id';
     protected $metaClass = OrderItemMeta::class;
 
     protected $casts = [

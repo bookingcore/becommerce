@@ -1,3 +1,4 @@
+import Vue from 'vue';
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This
@@ -13,6 +14,10 @@ try {
 } catch (e) {
     console.log(e);
 }
+
+import filePicker from './components/file-picker';
+Vue.component('filePicker',filePicker);
+
 require('../../module/media/admin/js/browser');
 require('./_condition');
 require('./_base');

@@ -12,20 +12,39 @@
             @foreach($rows as $theme_id=>$themeClass)
                 <div class="col-md-4">
                     <div class="card">
-                        <img class="card-img-top" src="{{asset("themes/".$theme_id)}}{{$themeClass::$screenshot}}" alt="">
+                        <img class="card-img-top" src="{{asset($themeClass::$screenshot)}}" alt="">
                         <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <h5 class="card-title">{{$themeClass::$name}}</h5>
-                                <span class="badge badge-secondary">{{$themeClass::$version}}</span>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div class="d-flex  align-items-center">
+                                    <h5 class="card-title mb-0">{{$themeClass::$name}} </h5>
+                                    <span class="ml-3 badge badge-secondary">{{$themeClass::$version}}</span>
+                                </div>
+                                <div>
+                                    @if(\Modules\Theme\ThemeManager::current() == strtolower($theme_id))
+                                        <span class="badge badge-success">{{__('Current')}}</span>
+                                    @endif
+                                </div>
                             </div>
-                            @if(\Modules\Theme\ThemeManager::current() == strtolower($theme_id))
-                                <span class="badge badge-success">{{__('Current')}}</span>
-                            @else
-                                <form action="{{route('theme.admin.activate',['theme'=>$theme_id])}}" method="post">
-                                    @csrf
-                                    <button class="btn btn-primary">{{__("Activate")}}</button>
-                                </form>
-                            @endif
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    @if(\Modules\Theme\ThemeManager::current() == strtolower($theme_id))
+                                        <form onsubmit="return confirm('{{__("Do you want to import all demo data?")}}')" action="{{route('theme.admin.seeding',['theme'=>strtolower($theme_id)])}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-warning"><i class="fa fa-magic"></i> {{__("Import Demo Data")}}</button>
+                                            @if($time = $themeClass::last_seeder_run())
+                                                <div>
+                                                    <i>{{__('Last run: :date',['date'=>display_datetime($time)])}}</i>
+                                                </div>
+                                            @endif
+                                        </form>
+                                    @else
+                                        <form action="{{route('theme.admin.activate',['theme'=>strtolower($theme_id)])}}" method="post">
+                                            @csrf
+                                            <button class="btn btn-primary">{{__("Activate")}}</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

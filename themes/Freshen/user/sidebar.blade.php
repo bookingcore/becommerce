@@ -1,9 +1,9 @@
-<aside class="bc-widget--account-dashboard">
-    <div class="d-flex align-items-center border p-3 rounded">
-        <div class="flex-shrink-0 me-3 circle w-75px h-75px">
-            <img src="{{$user->avatar_url}}" alt="{{$user->display_name}}" class="object-cover w-75px h-75px">
+<aside class="bc-widget--account-dashboard fz14">
+    <div class="d-flex">
+        <div class="flex-shrink-0" style="width:75px">
+            <img src="{{$user->avatar_url}}" alt="{{$user->display_name}}" class="object-cover w-75px h-75px rounded-circle">
         </div>
-        <div class="flex-grow-1">
+        <div class="flex-grow-1 ms-3">
             <strong>{{$user->display_name}}</strong>
             <p class="mb-0"><a href="mailto:{{ $user->email }}">{{$user->email}}</a></p>
             <p class="mb-0">{{ __("Member Since :time",["time"=> date("M Y",strtotime($user->created_at))]) }}</p>

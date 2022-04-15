@@ -12,6 +12,12 @@ return [
     "product_manage_others",
     "product_manage_attributes",
 
+    // Campaign
+    "campaign_view",
+    "campaign_create",
+    "campaign_update",
+    "campaign_delete",
+
     // Order
     "order_view",
     "order_create",

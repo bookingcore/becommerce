@@ -5,13 +5,18 @@ namespace Themes\Freshen;
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
 use Modules\Template\BlockManager;
+use Themes\Freshen\Database\Seeder;
 
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {
 
     public static $name = "Freshen";
 
-    public static $screenshot = "/screenshot.png";
+    public static $version = '1.0';
+
+    public static $screenshot = "/themes/Freshen/screenshot.png";
+
+    public static $seeder = Seeder::class;
 
     public static function info()
     {
@@ -19,7 +24,6 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
         ];
     }
-
 
     public function boot(){
 
@@ -39,15 +43,17 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("list_news",\Themes\Freshen\Controllers\Blocks\ListNews::class );
         BlockManager::register("list_category_product",\Themes\Freshen\Controllers\Blocks\ListCategoryProduct::class );
     }
+
     public function registerZone(){
         return [
-            "position"=>80,
+            "position"=>10,
             'title'      => __("Freshen Settings"),
             'icon'       => 'fa fa-cogs',
             'permission' => 'setting_update',
-            "group"=>"content"
+            "group"=>"system"
         ];
     }
+
     public function alterSettings($settings){
         $settings['keys'][] = 'news_page_image';
         return $settings;
