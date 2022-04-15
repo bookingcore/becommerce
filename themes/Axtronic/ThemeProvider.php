@@ -37,7 +37,7 @@ class ThemeProvider extends AbstractThemeProvider
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
         add_action(Hook::AFTER_SAVING,[$this,'__save_header_style']);
 
-        SettingManager::register("axtronic_general",[$this,'registerGeneralSetting'],1,'axtronic_theme');
+        SettingManager::register("axtronic_general",[$this,'registerAdvanceSetting'],1,'axtronic_theme');
         SettingManager::register("axtronic_product",[$this,'registerProductSetting'],1,'axtronic_theme');
         SettingManager::registerZone('axtronic_theme',[$this,'registerZone']);
     }
@@ -68,7 +68,7 @@ class ThemeProvider extends AbstractThemeProvider
     }
     public function registerAdvanceSetting(){
         return [
-            'id'   => 'axtronic_theme',
+            'id'   => 'axtronic_general',
             'title' => __("General Settings"),
             'position'=>80,
             'view'      => "admin.settings.general",
@@ -96,6 +96,7 @@ class ThemeProvider extends AbstractThemeProvider
             'view'      => "admin.settings.product",
             "keys"      => [
                 'axtronic_product_gallery',
+                'axtronic_product_category'
             ],
             'filter_demo_mode'=>[
             ]
