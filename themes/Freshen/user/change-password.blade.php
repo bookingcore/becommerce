@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
      @include('global.breadcrumb')
-    <section class="bc-section-account mb-3 mt-3">
+    <section class="bc-section-account mb-3 mt-3 fz14">
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
