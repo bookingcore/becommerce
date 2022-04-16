@@ -178,6 +178,7 @@ class Product extends BaseProduct
             $percent = 100 - ceil($this->price / ($this->origin_price / 100));
             return $percent . "%";
         }
+        return '10%';
     }
 
     public function fill(array $attributes)

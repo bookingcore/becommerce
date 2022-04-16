@@ -527,7 +527,8 @@ jQuery(function ($) {
         });
     }
 
-    $(document).on("click",".service-wishlist",function(){
+    $(document).on("click",".service-wishlist",function(e){
+        e.preventDefault();
         var $this = $(this);
         $.ajax({
             url:  BC.url+'/user/wishlist',
