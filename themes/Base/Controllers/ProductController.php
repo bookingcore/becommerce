@@ -49,6 +49,7 @@ class ProductController extends Controller
                 ]
             ],
             'body_class'        => 'full_width',
+            'listing_list_style' => $request->input('list_style','gird'),
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 

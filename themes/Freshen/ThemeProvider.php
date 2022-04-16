@@ -2,6 +2,7 @@
 namespace Themes\Freshen;
 
 
+use Illuminate\Pagination\Paginator;
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
 use Modules\Template\BlockManager;
@@ -42,6 +43,10 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("list_partner",\Themes\Freshen\Controllers\Blocks\ListPartner::class );
         BlockManager::register("list_news",\Themes\Freshen\Controllers\Blocks\ListNews::class );
         BlockManager::register("list_category_product",\Themes\Freshen\Controllers\Blocks\ListCategoryProduct::class );
+
+        if(!is_admin_dashboard()){
+        Paginator::defaultView('pagination');
+        }
     }
 
     public function registerZone(){
