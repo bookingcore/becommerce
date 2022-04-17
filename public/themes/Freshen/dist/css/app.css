@@ -168,3 +168,11 @@
 .service-wishlist {
   cursor: pointer;
 }
+
+.pt-100 {
+  padding-top: 100px;
+}
+
+.listing_list_style ul li.gird:not(.active) a, .listing_list_style ul li.list:not(.active) a {
+  color: #dadada;
+}

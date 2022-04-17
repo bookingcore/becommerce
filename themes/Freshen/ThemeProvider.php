@@ -26,6 +26,12 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         ];
     }
 
+    public function register()
+    {
+        $this->app->register(RouterServiceProvider::class);
+
+    }
+
     public function boot(){
 
         add_filter(Hook::NEWS_SETTING_CONFIG,[$this,'alterSettings']);

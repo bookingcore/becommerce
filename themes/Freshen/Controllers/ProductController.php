@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Base\Controllers;
+namespace Themes\Freshen\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -9,6 +9,7 @@ use Modules\Product\Models\ProductAttr;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductTag;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
@@ -37,17 +38,24 @@ class ProductController extends Controller
             return redirect()->to(route('product.category.index',$data));
         }
         $list = $this->product::search($request->input());
+        $categories  = ProductCategory::where('status','publish')->with(['translation'])->limit(999)->
+        withDepth()->having('depth', '=', 1)
+            ->withCount('product')
+            ->get()->toTree();
+        $tags_trending = ProductTag::withCount('product')->orderBy('product_count','desc')->limit(9)->with(['translation'])->get();
         $data = [
             'rows'               => $list->paginate(setting_item('product_per_page',12)),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
-            'categories'         => ProductCategory::getAll(),
+            'categories'         => $categories,
+            'tags_trending'         => $tags_trending,
             'show_breadcrumb'    => 0,
             'breadcrumbs'=>[
                 [
                     'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
                 ]
             ],
+            'listing_list_style'        => request()->query('list_style'),
             'body_class'        => 'full_width',
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
