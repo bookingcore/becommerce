@@ -91,9 +91,7 @@ class ThemeController extends AdminController
             $seeder = $provider::$seeder;
             if(!class_exists($seeder)) return back()->with('error',__("This theme does not have seeder class"));
 
-            Artisan::call('db:seed', ['--class' => $seeder,'--force'=>true]);
-
-            $provider::update_last_seeder_run();
+            $provider::runSeeder();
 
             return back()->with('success',__("Demo data has been imported"));
 

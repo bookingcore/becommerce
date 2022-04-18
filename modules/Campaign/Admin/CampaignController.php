@@ -49,7 +49,8 @@ class CampaignController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'page_title'=>__("Campaign Management")
+            'page_title'=>__("Campaign Management"),
+            'row'=>$this->campaign
         ];
         return view('Campaign::admin.index', $data);
     }
@@ -95,11 +96,11 @@ class CampaignController extends AdminController
                     'url'  => route('campaign.admin.index')
                 ],
                 [
-                    'name'  => __('Edit Campaign'),
+                    'name'  => __('Edit Campaign: :name',['name'=>$row->name]),
                     'class' => 'active'
                 ],
             ],
-            'page_title'=>__("Edit: :name",['name'=>$row->title]),
+            'page_title'=>__("Edit: :name",['name'=>$row->name]),
             'product'=>$row
         ];
 
@@ -112,6 +113,7 @@ class CampaignController extends AdminController
             'name'=>'required',
             'start_date'=>'required|date:Y-m-d',
             'end_date'=>'required|date:Y-m-d',
+            'discount_amount'=>'required|max:100'
         ]);
 
         if($id>0){

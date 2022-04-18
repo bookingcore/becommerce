@@ -182,3 +182,34 @@
         }
     }
 }
+#mega-menu ul.menu li .drop-menu, .mega_button_dropdown_menu ul.menu li .drop-menu {
+    display: flex;
+    .one-third{
+        flex: 0 0 50%;
+    }
+}
+.bc-department{
+    .child-menu{
+        .menu-item{
+            height: 50px;
+            line-height: 51px;
+            padding: 0 24px 0 20px;
+            border-bottom: 1px solid #ebebeb;
+            display: block;
+            position: relative;
+        }
+    }
+    .menu-item-mega{
+        .menu-item{
+            a{
+                span{
+                    color: #121212 !important;
+                    line-height: 16px !important;
+                    &:hover{
+                        color: #86BC42 !important;
+                    }
+                }
+            }
+        }
+    }
+}

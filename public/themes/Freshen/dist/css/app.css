@@ -176,3 +176,26 @@
 .listing_list_style ul li.gird:not(.active) a, .listing_list_style ul li.list:not(.active) a {
   color: #dadada;
 }
+
+#mega-menu ul.menu li .drop-menu, .mega_button_dropdown_menu ul.menu li .drop-menu {
+  display: flex;
+}
+#mega-menu ul.menu li .drop-menu .one-third, .mega_button_dropdown_menu ul.menu li .drop-menu .one-third {
+  flex: 0 0 50%;
+}
+
+.bc-department .child-menu .menu-item {
+  height: 50px;
+  line-height: 51px;
+  padding: 0 24px 0 20px;
+  border-bottom: 1px solid #ebebeb;
+  display: block;
+  position: relative;
+}
+.bc-department .menu-item-mega .menu-item a span {
+  color: #121212 !important;
+  line-height: 16px !important;
+}
+.bc-department .menu-item-mega .menu-item a span:hover {
+  color: #86BC42 !important;
+}

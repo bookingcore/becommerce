@@ -23,21 +23,6 @@ class BannerSlider extends BaseBlock
                     ],
                 ],
                 [
-                    'id'            => 'width_slider',
-                    'type'          => 'radios',
-                    'label'         => __('Slider width'),
-                    'values'        => [
-                        [
-                            'value'   => 'container',
-                            'name' => __("Container")
-                        ],
-                        [
-                            'value'   => 'slider-fluid',
-                            'name' => __("Fluid width")
-                        ],
-                    ]
-                ],
-                [
                     'id'          => 'sliders',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),
@@ -80,30 +65,46 @@ class BannerSlider extends BaseBlock
                     ]
                 ],
                 [
-                    'id'    => 'image_right_1',
-                    'type'  => 'uploader',
-                    'label' => __('Image Right 1'),
-                    'conditions' => ['style' => 'style_1']
-                ],
-                [
-                    'id'        => 'image_right_url_1',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Image Right 1 Url'),
-                    'conditions' => ['style' => 'style_1']
-                ],
-                [
-                    'id'    => 'image_right_2',
-                    'type'  => 'uploader',
-                    'label' => __('Image Right 2'),
-                    'conditions' => ['style' => 'style_1']
-                ],
-                [
-                    'id'        => 'image_right_url_2',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Image Right 2 Url'),
-                    'conditions' => ['style' => 'style_1']
+                    'id'          => 'sliders_2',
+                    'type'        => 'listItem',
+                    'label'       => __('Slider Items Right (max 2 item)'),
+                    'title_field' => 'title',
+                    'settings'    => [
+                        [
+                            'id'        => 'title',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Title')
+                        ],
+                        [
+                            'id'        => 'sub_title',
+                            'type'      => 'input',
+                            'inputType' => 'textArea',
+                            'label'     => __('Sub Title')
+                        ],
+                        [
+                            'id'    => 'image',
+                            'type'  => 'uploader',
+                            'label' => __('Image Uploader')
+                        ],
+                        [
+                            'id'        => 'sub_text',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Sub Text')
+                        ],
+                        [
+                            'id'        => 'btn_shop_now',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Text For Button')
+                        ],[
+                            'id'        => 'link_shop_now',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Link For Button')
+                        ]
+                    ]
                 ],
             ]
         ]);
