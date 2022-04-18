@@ -51,6 +51,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("list_news",\Themes\Freshen\Controllers\Blocks\ListNews::class );
         BlockManager::register("list_category_product",\Themes\Freshen\Controllers\Blocks\ListCategoryProduct::class );
         BlockManager::register("banner_slider_v2",\Themes\Freshen\Controllers\Blocks\BannerSlider::class );
+        BlockManager::register("product_in_category",\Themes\Freshen\Controllers\Blocks\ProductInCategory::class );
 
         if(!is_admin_dashboard()){
         Paginator::defaultView('pagination');
