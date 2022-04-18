@@ -3311,6 +3311,34 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-promotions .promotions-item .item-content a.item-button:hover {
   color: var(--primary);
 }
+.axtronic-promotions.style-2 .promotions-item .item-content {
+  min-height: 268px;
+}
+.axtronic-promotions.style-2 .promotions-item .item-content .sub-title {
+  background-color: transparent;
+  position: relative;
+  padding: 5px 6px;
+  color: var(--accent);
+}
+.axtronic-promotions.style-2 .promotions-item .item-content .sub-title:before {
+  position: absolute;
+  height: 16px;
+  width: 2px;
+  background-color: var(--primary);
+  content: "";
+  left: 0;
+  top: 4px;
+}
+.axtronic-promotions.style-2 .promotions-item .item-content h3 {
+  color: var(--accent);
+}
+.axtronic-promotions.style-2 .promotions-item .item-content p {
+  color: var(--primary);
+}
+.axtronic-promotions.style-2 .promotions-item .item-content a.item-button {
+  color: var(--accent);
+  margin-top: 90px;
+}
 
 .axtronic-banner {
   margin-bottom: 30px;
@@ -3498,6 +3526,52 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   -webkit-appearance: none;
   -moz-appearance: none;
 }
+.axtronic-testimonial .swiper-button-prev, .axtronic-testimonial .swiper-button-next {
+  display: none;
+}
+.axtronic-testimonial.style_2 .swiper-button-prev, .axtronic-testimonial.style_2 .swiper-button-next {
+  display: block;
+  left: 50%;
+  transform: translateX(calc(-100% - 5px));
+  top: auto;
+  bottom: -25px;
+  box-shadow: none;
+  background: 0 0;
+  font-size: 30px;
+  width: 45px;
+  height: 45px;
+  text-align: center;
+  color: var(--accent);
+}
+.axtronic-testimonial.style_2 .swiper-button-prev:after, .axtronic-testimonial.style_2 .swiper-button-next:after {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  color: var(--accent);
+  font-size: 30px;
+}
+.axtronic-testimonial.style_2 .swiper-button-prev:hover:after, .axtronic-testimonial.style_2 .swiper-button-next:hover:after {
+  color: var(--primary);
+}
+.axtronic-testimonial.style_2 .swiper-button-next {
+  transform: translateX(5px);
+}
+.axtronic-testimonial.style_2 .swiper-button-next:after {
+  content: "";
+}
+.axtronic-testimonial.style_2 .swiper-pagination {
+  display: none;
+}
+.axtronic-testimonial.style_2 .swiper-slider-testimonial .caption .details h3.job {
+  display: none;
+}
 
 .swiper-container {
   margin-left: auto;
@@ -3527,6 +3601,44 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   -webkit-filter: grayscale(0%);
   /* Safari 6.0 - 9.0 */
   filter: grayscale(0%);
+}
+.axtronic-brands.style-2 {
+  background-color: transparent;
+  margin: 60px 0;
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 {
+  border-style: solid;
+  border-width: 1px 1px 1px 1px;
+  border-color: #D4D9E4;
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 40px;
+  border-radius: 12px;
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-slide img {
+  -webkit-filter: grayscale(0);
+  filter: grayscale(0);
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-slide:hover {
+  transform: scale(1.1);
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-next:after, .axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-prev:after {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  color: var(--accent);
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-next:hover:after, .axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-prev:hover:after {
+  color: var(--primary);
+}
+.axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-prev:after {
+  content: "";
 }
 
 .side-wrap {

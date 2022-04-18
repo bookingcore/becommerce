@@ -906,6 +906,11 @@ const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
         el: '.swiper-pagination',
         clickable: true,
     },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
 });
 const swiperSliderNews = new Swiper('.swiper-slider-news', {
     // Optional parameters
@@ -950,6 +955,32 @@ const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,
+    },
+});
+const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 6
+        },
+    },
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
     },
 });
 

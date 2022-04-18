@@ -14,6 +14,7 @@ use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
+use Themes\Freshen\Controllers\Blocks\ListCategoryProduct;
 
 class ThemeProvider extends AbstractThemeProvider
 {
@@ -37,6 +38,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["brand_slider",Brands::class],
             ["testimonial",Testimonial::class],
             ["category_product",CategoryProduct::class],
+            ["list_category_product",ListCategoryProduct::class],
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
