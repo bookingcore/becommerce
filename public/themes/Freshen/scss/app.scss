@@ -199,4 +199,17 @@
             position: relative;
         }
     }
+    .menu-item-mega{
+        .menu-item{
+            a{
+                span{
+                    color: #121212 !important;
+                    line-height: 16px !important;
+                    &:hover{
+                        color: #86BC42 !important;
+                    }
+                }
+            }
+        }
+    }
 }

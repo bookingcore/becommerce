@@ -15,9 +15,10 @@ class GeneralSeeder extends Seeder
     public function run()
     {
 
+
         //Setting header,footer
         $menu_department = $this->generalMenuDepartment();
-        DB::table('core_menus')->insert([
+        $id_department = DB::table('core_menus')->insertGetId([
             'name'        => 'Menu Department',
             'items'       => json_encode($menu_department),
             'create_user' => '1',
@@ -74,24 +75,399 @@ class GeneralSeeder extends Seeder
     public function generalMenuDepartment($locale = ''){
         return  array(
             array(
-                'name'       => 'Home',
+                'name'       => 'Hot Offers',
                 'url'        => '/',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-hot-sale',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+            array(
+                'name'       => 'New Arrivals',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-bell',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+            array(
+                'name'       => 'Deals of The Day',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-discount',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+
+
+
+            array(
+                'name'       => 'Fruits',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => 'multi_row',
+                'icon'       => 'flaticon-harvest',
+                'bg'         => '',
                 'children'   => array(
                     array(
-                        'name'       => 'Home Page',
+                        'name'       => 'Fruits',
                         'url'        => '/',
                         'item_model' => 'custom',
-                        'children'   => array(),
+                        'children'   => array(
+                            array(
+                                'name'       => 'Apples & Bananas',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Berries',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Grapes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Mangoes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Melons',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Pears',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
                     ),
                     array(
-                        'name'       => 'Home v2',
-                        'url'        => '/page/home-v2',
+                        'name'       => 'Apricots',
+                        'url'        => '/',
                         'item_model' => 'custom',
-                        'children'   => array(),
+                        'children'   => array(
+                            array(
+                                'name'       => 'Mixed Dried Fruits',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                           array(
+                                'name'       => 'Prunes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                           array(
+                                'name'       => 'Raisins',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
                     ),
                 ),
+            ),
+
+            array(
+                'name'       => 'Vegetables',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => 'multi_row',
+                'icon'       => 'flaticon-vegetable',
+                'bg'         => '',
+                'children'   => array(
+                    array(
+                        'name'       => 'Vegetables',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Apples & Bananas',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Berries',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Grapes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Mangoes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Melons',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Pears',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name'       => 'Apricots',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Mixed Dried Fruits',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Prunes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Raisins',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+            array(
+                'name'       => 'Drinks',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-plastic-bottle',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+            array(
+                'name'       => 'Bakery',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => 'multi_row',
+                'icon'       => 'flaticon-bread-1',
+                'bg'         => '',
+                'children'   => array(
+                    array(
+                        'name'       => 'Vegetables',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Apples & Bananas',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Berries',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Grapes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Mangoes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Melons',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Pears',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name'       => 'Apricots',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Mixed Dried Fruits',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Prunes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Raisins',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+            array(
+                'name'       => 'Butter & Egges',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-boiled-egg',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+
+            array(
+                'name'       => 'Milks & Creams',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => 'multi_row',
+                'icon'       => 'flaticon-milk-1',
+                'bg'         => '',
+                'children'   => array(
+                    array(
+                        'name'       => 'Vegetables',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Apples & Bananas',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Berries',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Grapes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Mangoes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Melons',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Pears',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                    array(
+                        'name'       => 'Apricots',
+                        'url'        => '/',
+                        'item_model' => 'custom',
+                        'children'   => array(
+                            array(
+                                'name'       => 'Mixed Dried Fruits',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Prunes',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                            array(
+                                'name'       => 'Raisins',
+                                'url'        => '/',
+                                'item_model' => 'custom',
+                                'children'   => array(),
+                            ),
+                        ),
+                    ),
+                ),
+            ),
+
+            array(
+                'name'       => 'Meats',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-meat',
+                'bg'         => '',
+                'children'   => array(),
+            ),
+
+            array(
+                'name'       => 'Fish',
+                'url'        => '/',
+                'item_model' => 'custom',
+                'model_name' => 'Custom',
+                'layout'     => '',
+                'icon'       => 'flaticon-fish',
+                'bg'         => '',
+                'children'   => array(),
             ),
         );
     }
