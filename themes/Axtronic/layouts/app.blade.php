@@ -43,7 +43,7 @@
                 currency_position:'{{ get_current_currency('currency_format') }}',
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
-            }
+            };
             var i18n = {
                 warning:"{{__("Warning")}}",
                 success:"{{__("Success")}}",
@@ -54,7 +54,9 @@
         @yield('head')
     </head>
     <body class="{{$body_class ?? ''}}">
+
         @include('layouts.parts.header')
+
         <main class="flex-shrink-0">
             @yield('content')
         </main>

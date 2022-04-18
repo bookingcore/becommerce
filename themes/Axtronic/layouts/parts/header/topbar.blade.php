@@ -29,6 +29,9 @@
                             <a href="{{route('vendor.register')}}" class="login nav-link text-white">{{__('Sell on Us!')}}</a>
                         </li>
                     @endif
+                    @if(Auth::id())
+                    @include('layouts.parts.header.user')
+                    @endif
                 </ul>
             </div>
         </div>

@@ -2,26 +2,29 @@
     <div class="container">
         <div class="row">
             <div class="col-xl-3 col-sm-12">
-                @if($footer_info_text = setting_item_with_lang("footer_info_text"))
-                    <aside class="address">
-                        <a class="text-decoration-none" href="{{url('/')}}">
-                            <img src="{{ theme_url('Axtronic/images/logo-white.svg') }}" alt="">
+                <aside class="address">
+                    @if($logo_id = setting_item("axtronic_logo_light"))
+                        <?php $logo = get_file_url($logo_id,'full') ?>
+                        <a href="{{ home_url() }}">
+                            <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
                         </a>
-                        <div class="content">
-                            {!! clean($footer_info_text) !!}
-                        </div>
-                    </aside>
-                @endif
+                    @endif
+                    <div class="content">
+                        {!! clean(setting_item('axtronic_footer_info_text')) !!}
+                    </div>
+                </aside>
             </div>
             <div class="col-xl-6 col-sm-12">
                 <div class="widget-footer">
                     <div class="row">
-                        @if($list_widget_footers = setting_item_with_lang("list_widget_footer"))
+                        @if($list_widget_footers = setting_item_with_lang("axtronic_list_widget_footer"))
                             @php $list_widget_footers = json_decode($list_widget_footers); @endphp
                             @foreach($list_widget_footers as $key=>$item)
-                                <div class="col-lg-4 col-sm-12 mb-4 mb-lg-0">
-                                    <h5 class="">{{$item->title}}</h5>
-                                    {!! ($item->content) !!}
+                                <div class="col-sm-4 col-md-{{ $item->size }} col-lg-{{ $item->size }} col-xl-{{ $item->size }}">
+                                    <div class="footer_qlink_widget">
+                                        <h5>{{$item->title}}</h5>
+                                        {!! ($item->content) !!}
+                                    </div>
                                 </div>
                             @endforeach
                         @endif
@@ -33,8 +36,8 @@
                     <div class="">
                         <div class="align-content-center align-items-center">
                             <div class="">
-                                <h3>{{ __("Newsletter") }}</h3>
-                                <p>{{ __("Suaxtronicribe to get information about products and coupons") }}</p>
+                                <h3>{{ __("Subscribe to our Email") }}</h3>
+                                <p>{{ __("For lastest News & Updates") }}</p>
                             </div>
                             <div class="form-newsletter">
                                 <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">
@@ -61,7 +64,7 @@
 <div class="container">
     <div class="copy-right">
         <div class="">
-            {!! setting_item_with_lang("copyright") !!}
+            {!! setting_item("axtronic_copyright") !!}
         </div>
     </div>
 </div>
