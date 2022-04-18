@@ -199,3 +199,18 @@
 .bc-department .menu-item-mega .menu-item a span:hover {
   color: #86BC42 !important;
 }
+
+.bc-form-login .bc-list-social a {
+  width: 40px;
+  height: 40px;
+}
+.bc-form-login .bc-list-social a :hover {
+  color: #86BC42;
+}
+
+.bc-form-login .fa.fa-spinner, .bc-form-register .fa.fa-spinner {
+  display: none;
+}
+.bc-form-login.loading .fa.fa-spinner, .bc-form-register.loading .fa.fa-spinner {
+  display: inline-block;
+}

@@ -197,9 +197,13 @@ $('.bc-form-login').on('submit',function (e) {
         },
         error:function (e){
             form.removeClass('loading')
-            var html = ajax_error_to_string(e);
-            if(html){
-                form.find('.message-error').show().html('<div class="alert alert-danger">' + html + '</div>');
+            if(typeof e.responseJSON !== 'undefined') {
+                if (e.responseJSON.errors) {
+                    for (var item in e.responseJSON.errors) {
+                        var msg = e.responseJSON.errors[item];
+                        form.find('.error-' + item).show().text(msg[0]);
+                    }
+                }
             }
         }
     });
