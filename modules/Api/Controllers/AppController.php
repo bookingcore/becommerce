@@ -4,6 +4,8 @@ namespace Modules\Api\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Modules\Page\Models\Page;
+use Modules\Product\Models\Product;
+use Modules\Product\Resources\ProductResource;
 use Modules\Template\Models\Template;
 use Modules\Theme\ThemeManager;
 use Modules\Media\Models\MediaFile;
@@ -65,6 +67,16 @@ class AppController extends Controller
         return response()->json([
             'results' => $res
         ]);
+    }
+
+    public function getListProduct() {
+        $query = Product::query();
+        return ProductResource::collection($query->paginate(24));
+    }
+
+    public function getDetailProduct($id){
+        $product = Product::find($id);
+        return $this->sendSuccess($product);
     }
 
 }
