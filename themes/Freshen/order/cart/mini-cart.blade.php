@@ -1,13 +1,13 @@
 <?php
 $countCart = \Modules\Order\Helpers\CartManager::count();
 ?>
-<li class="list-inline-item bc-mini-cart">
+<li class="list-inline-item bc-mini-cart text-end">
     <a class="cart_btn" href="#">
         <span class="flaticon-shopping-cart icon">
             <span class="badge bgc-thm"> {{\Modules\Order\Helpers\CartManager::count()}} </span>
         </span>
     </a>
-    <ul class="dropdown_content">
+    <ul class="dropdown_content text-start">
         <li class="list_content">
             <a href="#">
                 <img class="float-start" src="images/shop/s1.png" alt="50x50">

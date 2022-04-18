@@ -1,8 +1,8 @@
-<li class="login-item dropdown">
-    <a href="#" data-bs-toggle="dropdown" class="login nav-link text-white">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
+<li class="bc-user-header list-inline-item dropdown">
+    <a href="#" data-bs-toggle="dropdown" class="login">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
         <i class="fa fa-angle-down"></i>
     </a>
-    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end miw-250">
+    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end fz14">
         <li class="">
             <a class="dropdown-item" href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
         </li>
