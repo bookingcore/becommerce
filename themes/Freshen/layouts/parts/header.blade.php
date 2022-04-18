@@ -22,7 +22,7 @@
                         <ul class="mb0 cart">
                             @if(!Auth::id())
                                 <li class="list-inline-item text-end">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#logInModal"><span class="flaticon-user icon"></span></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#login"><span class="flaticon-user icon"></span></a>
                                 </li>
                             @else
                                 @include('layouts.parts.header.user')
@@ -93,7 +93,7 @@
     </nav>
 </header>
 <!-- Modal -->
-<div class="sign_up_modal modal fade" id="logInModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+<div class="sign_up_modal modal fade" id="login" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
