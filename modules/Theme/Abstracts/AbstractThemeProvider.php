@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Theme\Abstracts;
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\ServiceProvider;
 
 abstract class AbstractThemeProvider extends ServiceProvider
@@ -32,5 +33,15 @@ abstract class AbstractThemeProvider extends ServiceProvider
     }
     public static function update_last_seeder_run(){
         return setting_update_item('theme_'.static::$id.'_seed_run',time());
+    }
+
+    public static function runSeeder(){
+        $seeder = static::$seeder;
+
+        if(!class_exists($seeder)) return;
+
+        Artisan::call('db:seed', ['--class' => $seeder,'--force'=>true]);
+
+        static::update_last_seeder_run();
     }
 }

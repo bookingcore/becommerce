@@ -3,6 +3,8 @@ namespace Database\Seeders;
 use File;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
+use Modules\Theme\ThemeManager;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,6 +35,18 @@ class DatabaseSeeder extends Seeder
                     $seededClasses[] = $class;
                 }
             }
+        }
+
+        $provider = ThemeManager::currentProvider();
+
+        if(class_exists($provider))
+        {
+            try {
+                $provider::runSeeder();
+            }catch (\Exception $exception){
+                Log::debug('Theme seeder error: '.$exception->getMessage());
+            }
+
         }
 
     }
