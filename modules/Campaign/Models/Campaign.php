@@ -31,6 +31,6 @@ class Campaign extends BaseModel
 
 
     public function products(){
-        return $this->hasManyThrough(Product::class,CampaignProduct::class,'campaign_id','id','product_id','product_id');
+        return $this->hasManyThrough(Product::class,CampaignProduct::class,'campaign_id','id','id','product_id');
     }
 }
