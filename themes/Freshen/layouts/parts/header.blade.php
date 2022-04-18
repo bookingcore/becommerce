@@ -13,22 +13,21 @@
                     @endif
                 </div>
             </div>
-            <div class="col-lg-7 col-xl-7">
+            <div class="col-lg-6 col-xl-6">
                 @include('layouts.parts.header.search')
             </div>
-            <div class="col-lg-3 col-xl-2">
+            <div class="col-lg-4 col-xl-3">
                 <div class="log_fav_cart_widget">
                     <div class="wrapper">
                         <ul class="mb0 cart">
                             @if(!Auth::id())
-                                <li class="list-inline-item">
+                                <li class="list-inline-item text-end">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#logInModal"><span class="flaticon-user icon"></span></a>
                                 </li>
                             @else
                                 @include('layouts.parts.header.user')
                             @endif
-
-                            <li class="list-inline-item bc-compare-count">
+                            <li class="list-inline-item bc-compare-count text-end">
                                 <a href="#">
                                     <span class="flaticon-filter icon">
                                         <span class="badge bgc-thm number">
@@ -37,7 +36,7 @@
                                     </span>
                                 </a>
                             </li>
-                            <li class="list-inline-item">
+                            <li class="list-inline-item text-end">
                                 @if(Auth::user())
                                     <a href="{{route('user.wishList.index')}}">
                                         <span class="flaticon-heart icon">
@@ -60,7 +59,6 @@
         </div>
     </div>
 </div>
-
 <!-- Main Header Nav -->
 <header class="header-nav menu_style_home_one main-menu">
     <!-- Ace Responsive Menu -->
@@ -95,8 +93,6 @@
     </nav>
 </header>
 <!-- Modal -->
-
-
 <div class="sign_up_modal modal fade" id="logInModal" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
@@ -108,10 +104,10 @@
                     <div class="col-lg-12">
                         <ul class="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Login</a>
+                                <a class="nav-link active" id="home-tab" data-bs-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">{{ __("Login") }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Register</a>
+                                <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">{{ __("Register") }}</a>
                             </li>
                         </ul>
                     </div>
