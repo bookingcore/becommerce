@@ -28,10 +28,10 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
     public function boot(){}
 
-    public static function last_seeder_run(){
+    public static function lastSeederRun(){
         return (int) setting_item('theme_'.static::$id.'_seed_run');
     }
-    public static function update_last_seeder_run(){
+    public static function updateLastSeederRun(){
         return setting_update_item('theme_'.static::$id.'_seed_run',time());
     }
 
@@ -42,6 +42,6 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
         Artisan::call('db:seed', ['--class' => $seeder,'--force'=>true]);
 
-        static::update_last_seeder_run();
+        static::updateLastSeederRun();
     }
 }

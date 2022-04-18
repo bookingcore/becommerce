@@ -44,7 +44,7 @@ class DatabaseSeeder extends Seeder
             $seeder = $provider::$seeder;
             if(class_exists($seeder)){
                 $this->call($seeder);
-                $provider::update_last_seeder_run();
+                $provider::updateLastSeederRun();
             }
 
         }
