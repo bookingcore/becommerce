@@ -41,10 +41,10 @@ class DatabaseSeeder extends Seeder
 
         if(class_exists($provider))
         {
-            try {
-                $provider::runSeeder();
-            }catch (\Exception $exception){
-                Log::debug('Theme seeder error: '.$exception->getMessage());
+            $seeder = $provider::$seeder;
+            if(class_exists($seeder)){
+                $this->call($seeder);
+                $provider::update_last_seeder_run();
             }
 
         }
