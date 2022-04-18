@@ -30,6 +30,9 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-12 mt-4">
+                        @include('Campaign::admin.products')
+                    </div>
                 </div>
             </div>
         </div>

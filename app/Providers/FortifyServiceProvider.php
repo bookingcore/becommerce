@@ -61,24 +61,33 @@ class FortifyServiceProvider extends ServiceProvider
         });
         Fortify::resetPasswordView(function () {
             return view('auth.passwords.reset',[
-                'request'=>request()
+                'request'=>request(),
+                'page_title'=>__("Reset Password")
             ]);
         });
 
         Fortify::confirmPasswordView(function () {
-            return view('auth.confirm-password');
+            return view('auth.confirm-password',[
+                'page_title'=>__("Confirm Password")
+            ]);
         });
 
         Fortify::twoFactorChallengeView(function () {
-            return view('auth.two-factor-challenge');
+            return view('auth.two-factor-challenge',[
+                'page_title'=>__("Two Factor Challenge")
+            ]);
         });
 
         Fortify::loginView(function () {
-            return view('auth.login');
+            return view('auth.login',[
+                'page_title'=>__("Login")
+            ]);
         });
 
         Fortify::verifyEmailView(function () {
-            return view('auth.verify');
+            return view('auth.verify',[
+                'page_title'=>__("Verify Email")
+            ]);
         });
 
         $this->app->bind(\Laravel\Fortify\Http\Requests\LoginRequest::class, \App\Fortify\LoginRequest::class);

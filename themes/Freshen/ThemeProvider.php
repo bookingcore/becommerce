@@ -3,6 +3,7 @@ namespace Themes\Freshen;
 
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Artisan;
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
 use Modules\Template\BlockManager;
