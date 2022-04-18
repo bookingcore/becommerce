@@ -74,6 +74,11 @@ function setting_update_item($item,$val){
 
     return $s;
 }
+function setting_update_items($items){
+    foreach ($items as $item){
+        setting_update_item($item['name'] , $item['val']);
+    }
+}
 
 function app_get_locale($locale = false , $before = false , $after = false){
     if(setting_item('site_enable_multi_lang') and app()->getLocale() != setting_item('site_locale')){
