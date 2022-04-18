@@ -3,9 +3,6 @@
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("All Campaign")}}</h1>
-            <div class="title-actions">
-                <a href="{{route('campaign.admin.create')}}" class="btn btn-primary"><i class="fa fa-plus-circle"></i> {{__("Add new product")}}</a>
-            </div>
         </div>
         @include('Layout::admin.message')
         <div class="row">

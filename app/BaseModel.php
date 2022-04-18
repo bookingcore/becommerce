@@ -171,6 +171,7 @@ class BaseModel extends Model
             case "paid":
             case "completed":
             case "approved":
+            case "active":
                 return "success";
                 break;
             case "pending":
