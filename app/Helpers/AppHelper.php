@@ -113,13 +113,16 @@ function generate_menu($location = '',$options = [])
         foreach($setting as $l=>$menuId){
             if($l == $location and $menuId){
                 $menu = (new \Modules\Core\Models\Menu())->findById($menuId);
-                $translation = $menu->translate(app()->getLocale());
-                $translation->location = $location;
-                $walker = new $options['walker']($translation);
+                if(!empty($menu)){
+                    $translation = $menu->translate(app()->getLocale());
+                    $translation->location = $location;
+                    $walker = new $options['walker']($translation);
 
-                if(!empty($translation)){
-                    $walker->generate($options);
+                    if(!empty($translation)){
+                        $walker->generate($options);
+                    }
                 }
+
             }
         }
     }
@@ -1038,7 +1041,12 @@ function periodDate($startDate,$endDate,$day = true,$interval='1 day'){
 function _fixTextScanTranslations(){
     return __("Show on the map");
 }
-
+function is_admin_dashboard(){
+    if(request()->is('admin/*')){
+        return true;
+    }
+    return false;
+}
 
 function is_admin(){
     if(!auth()->check()) return false;

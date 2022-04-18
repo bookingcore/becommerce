@@ -507,6 +507,7 @@ jQuery(function ($) {
     });
 
     $(document).on("click",".service-wishlist",function(e){
+        e.preventDefault();
         var $this = $(this);
         if (!$this.hasClass('active')){
             e.preventDefault();
