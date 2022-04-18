@@ -14,14 +14,20 @@ use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
+use Themes\Freshen\Controllers\Blocks\ListCategoryProduct;
 
 class ThemeProvider extends AbstractThemeProvider
 {
     public static $name = "Axtronic";
 
+    public static $screenshot = "/screenshot.png";
+
     public static function info()
     {
         // TODO: Implement info() method.
+        return [
+
+        ];
     }
 
     public function boot()
@@ -32,12 +38,13 @@ class ThemeProvider extends AbstractThemeProvider
             ["brand_slider",Brands::class],
             ["testimonial",Testimonial::class],
             ["category_product",CategoryProduct::class],
+            ["list_category_product",ListCategoryProduct::class],
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
         add_action(Hook::AFTER_SAVING,[$this,'__save_header_style']);
 
-        SettingManager::register("axtronic_general",[$this,'registerGeneralSetting'],1,'axtronic_theme');
+        SettingManager::register("axtronic_general",[$this,'registerAdvanceSetting'],1,'axtronic_theme');
         SettingManager::register("axtronic_product",[$this,'registerProductSetting'],1,'axtronic_theme');
         SettingManager::registerZone('axtronic_theme',[$this,'registerZone']);
     }
@@ -68,7 +75,7 @@ class ThemeProvider extends AbstractThemeProvider
     }
     public function registerAdvanceSetting(){
         return [
-            'id'   => 'axtronic_theme',
+            'id'   => 'axtronic_general',
             'title' => __("General Settings"),
             'position'=>80,
             'view'      => "admin.settings.general",
@@ -83,6 +90,7 @@ class ThemeProvider extends AbstractThemeProvider
                 'axtronic_footer_info_text',
                 'axtronic_footer_text_right',
                 'axtronic_copyright',
+                'axtronic_hotline_text',
             ],
             'filter_demo_mode'=>[
             ]
@@ -95,7 +103,8 @@ class ThemeProvider extends AbstractThemeProvider
             'position'=>80,
             'view'      => "admin.settings.product",
             "keys"      => [
-                'axtronic_product_gallery',
+                'axtronic_header_contact',
+                'axtronic_product_category'
             ],
             'filter_demo_mode'=>[
             ]

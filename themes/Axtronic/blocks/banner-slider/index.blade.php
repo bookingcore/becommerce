@@ -15,23 +15,31 @@
                         <div class="slide-content">
                             <div class="slide-layers">
                                 <div class="title-wrap-line">
+                                    @if($slide['sub_title'])
                                     <div class="sub-title-wrap">
                                         <h4 class="sub-title">{{ $slide['sub_title'] }}</h4>
                                     </div>
-                                    <div class="title-wrap">
-                                        <h3 class="title">{!! clean($slide['title']) !!}</h3>
+                                    @endif
+                                    @if($slide['title']))
+                                        <div class="title-wrap">
+                                            <h3 class="title">{!! clean($slide['title']) !!}</h3>
+                                        </div>
+                                    @endif
+                                </div>
+                                @if($slide['sub_text']))
+                                    <div class="description-wrap">
+                                        <div class="description">
+                                            <p>{!! clean($slide['sub_text']) !!}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="description-wrap">
-                                    <div class="description">
-                                        <p>{!! clean($slide['sub_text']) !!}</p>
+                                @endif
+                                @if($slide['btn_shop_now'])
+                                    <div class="button-wrap">
+                                        <a class="elementor-button" href="{{ $slide['link_shop_now'] }}">
+                                            <span class="button-text">{{ $slide['btn_shop_now'] }}</span>
+                                        </a>
                                     </div>
-                                </div>
-                                <div class="button-wrap">
-                                    <a class="elementor-button" href="{{ $slide['link_shop_now'] }}">
-                                        <span class="button-text">{{ $slide['btn_shop_now'] }}</span>
-                                    </a>
-                                </div>
+                                @endif
                             </div>
                         </div>
                     </div>

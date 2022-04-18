@@ -20812,6 +20812,7 @@ canvas#myChart{
 }
 .banner_one .details.style2{
   left: 30px;
+  right: 0px;
 }
 .banner_one .details .para{
   color: #fff;
@@ -20954,6 +20955,7 @@ canvas#myChart{
 }
 .banner_one .details.style2 .title{
   color: #121212;
+  width: 100%;
 }
 .banner_one.home3_style .details{
   top: 15%;

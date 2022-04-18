@@ -8,9 +8,11 @@
 ?>
 
 @if($list_testimonial)
-    <div class="axtronic-testimonial">
+    <div class="axtronic-testimonial {{ $style }}">
         <div class="container">
-            <h2 class="heading-title text-center">{{ $title  }}</h2>
+            @if($title)
+                <h2 class="heading-title text-center">{{ $title  }}</h2>
+            @endif
             <div class="swiper-slider-testimonial swiper-container">
                 <div class="swiper-wrapper">
                     @foreach($list_testimonial as $item)
@@ -37,6 +39,9 @@
                 </div>
                 <!-- If we need pagination -->
                 <div class="swiper-pagination"></div>
+                <!-- If we need navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
         </div>
     </div>

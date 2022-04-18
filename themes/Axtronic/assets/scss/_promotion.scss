@@ -74,6 +74,38 @@
             }
         }
     }
+    &.style-2{
+        .promotions-item {
+            .item-content {
+                min-height: 268px;
+                .sub-title{
+                    background-color: transparent;
+                    position: relative;
+                    padding: 5px 6px;
+                    color: var(--accent);
+                    &:before{
+                        position: absolute;
+                        height: 16px;
+                        width: 2px;
+                        background-color: var(--primary);
+                        content: "";
+                        left: 0;
+                        top: 4px;
+                    }
+                }
+                h3{
+                    color: var(--accent);
+                }
+                p{
+                    color: var(--primary);
+                }
+                a.item-button{
+                    color: var(--accent);
+                    margin-top: 90px;
+                }
+            }
+        }
+    }
 }
 
 
@@ -269,6 +301,49 @@
         -webkit-appearance: none;
         -moz-appearance: none;
     }
+    .swiper-button-prev, .swiper-button-next{
+        display: none;
+    }
+    &.style_2{
+        .swiper-button-prev, .swiper-button-next{
+            display: block;
+            left: 50%;
+            transform: translateX(calc(-100% - 5px));
+            top: auto;
+            bottom: -25px;
+            box-shadow: none;
+            background: 0 0;
+            font-size: 30px;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            color: var(--accent);
+            &:after{
+                @include themecustom-icon;
+                content: themecustom-char(arrow-left);
+                color: var(--accent);
+                font-size: 30px;
+            }
+            &:hover{
+                &:after{
+
+                    color: var(--primary);
+                }
+            }
+        }
+        .swiper-button-next{
+            transform: translateX(5px);
+            &:after{
+                content: themecustom-char(arrow-right);
+            }
+        }
+        .swiper-pagination{
+            display: none;
+        }
+        .swiper-slider-testimonial .caption .details h3.job{
+            display: none;
+        }
+    }
 }
 
 .swiper-container{
@@ -300,6 +375,44 @@
             img{
                 -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
                 filter: grayscale(0%);
+            }
+        }
+    }
+    &.style-2{
+        background-color: transparent;
+        margin: 60px 0;
+        .swiper-slider-brands-2{
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            border-color: #D4D9E4;
+            transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
+            padding: 40px;
+            border-radius: 12px;
+            .swiper-slide {
+                img{
+                    -webkit-filter: grayscale(0);
+                    filter: grayscale(0);
+                }
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+            .swiper-button-next, .swiper-button-prev{
+                &:after{
+                    @include themecustom-icon;
+                    content: themecustom-char(arrow-right);
+                    color: var(--accent);
+
+                }
+                &:hover{
+                    &:after{
+
+                        color: var(--primary);
+                    }
+                }
+            }
+            .swiper-button-prev:after{
+                content: themecustom-char(arrow-left);
             }
         }
     }

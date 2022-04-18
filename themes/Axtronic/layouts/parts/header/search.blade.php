@@ -33,7 +33,7 @@ if(!isset($current_cat)) $current_cat = null;
             </div>
         </div>
         <input name="s" class="form-control" type="text" placeholder="{{ __("Search products...") }}">
-        <button type="submit" class="btn">{{ __("Search") }}</button>
+        <button type="submit" class="btn"><i class="axtronic-icon-search"></i><span>{{ __("Search") }}</span></button>
     </div>
 </form>
 <script>
