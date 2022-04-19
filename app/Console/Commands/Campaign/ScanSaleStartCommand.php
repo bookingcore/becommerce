@@ -3,17 +3,16 @@
 namespace App\Console\Commands\Campaign;
 
 use Illuminate\Console\Command;
-use Modules\Campaign\Models\CampaignProduct;
-use Modules\Campaign\Repositories\CampaignRepositoryInterface;
+use Modules\Campaign\Repositories\Contracts\CampaignRepositoryInterface;
 
-class DeductPriceCommand extends Command
+class ScanSaleStartCommand extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'campaign:deduct_price';
+    protected $signature = 'campaign:sale_start';
 
     /**
      * The console command description.
@@ -43,14 +42,18 @@ class DeductPriceCommand extends Command
      */
     public function handle()
     {
+        // Check for active products
         $query = $this->campaign_repository->listActiveProducts()
             ->where('deducted',0)->with(['product'])->select(['campaigns.discount_amount']);
 
         $query->chunkById(20,function($campaign_products){
             foreach ($campaign_products as $campaign_product){
                 if($campaign_product->product){
+                    $campaign_product->product->updateMinMaxPrice();
                     $campaign_product->product->save();
                 }
+                $campaign_product->deducted  = 1;
+                $campaign_product->save();
             }
         });
     }

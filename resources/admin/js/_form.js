@@ -343,24 +343,29 @@
     });
 
     jQuery(function ($) {
-        $('.has-datepicker').daterangepicker({
-            singleDatePicker: true,
-            showCalendar: false,
-            autoUpdateInput: false, //disable default date
-            sameDate: true,
-            autoApply           : true,
-            disabledPast        : true,
-            enableLoading       : true,
-            showEventTooltip    : true,
-            classNotAvailable   : ['disabled', 'off'],
-            disableHightLight: true,
-            showDropdowns : true,
-            locale:{
-                format:'YYYY/MM/DD'
-            }
-        }).on('apply.daterangepicker', function (ev, picker) {
-            $(this).val(picker.startDate.format('YYYY/MM/DD'));
-        });
+        $('.has-datepicker').each(function(){
+            var me = $(this);
+            var format = me.data('format');
+            if(typeof format == 'undefined' || !format) format = 'YYYY/MM/DD'
+            me.daterangepicker({
+                singleDatePicker: true,
+                showCalendar: false,
+                autoUpdateInput: false, //disable default date
+                sameDate: true,
+                autoApply           : true,
+                disabledPast        : true,
+                enableLoading       : true,
+                showEventTooltip    : true,
+                classNotAvailable   : ['disabled', 'off'],
+                disableHightLight: true,
+                showDropdowns : true,
+                locale:{
+                    format:format
+                }
+            }).on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('YYYY/MM/DD'));
+            });
+        })
     })
 
     window.bc_format_money =  function($money) {

@@ -4,11 +4,11 @@
 </div>
 <div class="form-group">
     <label>{{__("Start Date")}} <span class="text-danger">*</span></label>
-    <input type="text" required value="{{old('start_date',$row->start_date ? $row->start_date->format('Y-m-d') : '')}}"   placeholder="YYYY-MM-DD" name="start_date" class="form-control has-datepicker" style="background: white">
+    <input type="text" required autocomplete="off" value="{{old('start_date',$row->start_date ? $row->start_date->format('Y/m/d') : '')}}"   placeholder="YYYY/MM/DD" name="start_date" class="form-control has-datepicker" style="background: white">
 </div>
 <div class="form-group">
     <label>{{__("End Date")}} <span class="text-danger">*</span></label>
-    <input type="text" required value="{{old('end_date',$row->end_date ? $row->end_date->format('Y-m-d') : '')}}"  placeholder="YYYY-MM-DD" name="end_date" class="form-control  has-datepicker" style="background: white">
+    <input type="text" required autocomplete="off" value="{{old('end_date',$row->end_date ? $row->end_date->format('Y/m/d') : '')}}"  placeholder="YYYY/MM/DD" name="end_date" class="form-control  has-datepicker" style="background: white">
 </div>
 <div class="form-group">
     <label>{{__("Discount Amount (percent)")}} <span class="text-danger">*</span></label>

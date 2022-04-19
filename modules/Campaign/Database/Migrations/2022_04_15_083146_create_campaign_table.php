@@ -38,6 +38,9 @@ class CreateCampaignTable extends Migration
             $table->string('discount_type',20)->nullable();
             $table->tinyInteger('deducted')->nullable()->default(0);
 
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
+
             $table->string('status',50)->nullable()->default('pending');
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();

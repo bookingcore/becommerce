@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\Campaign\ScanSaleEndCommand;
+use App\Console\Commands\Campaign\ScanSaleStartCommand;
 use App\Console\Commands\ScheduleCheckCommand;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -21,6 +23,9 @@ class Kernel extends ConsoleKernel
         //          ->hourly();
         $schedule->command(ScheduleCheckCommand::class)->dailyAt("00:05");
         $schedule->command(CreatePayoutsCommand::class)->monthlyOn(15);
+
+        $schedule->command(ScanSaleStartCommand::class)->dailyAt('00:00');
+        $schedule->command(ScanSaleEndCommand::class)->dailyAt('00:00');
     }
 
     /**
