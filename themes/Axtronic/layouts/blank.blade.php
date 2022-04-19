@@ -37,6 +37,7 @@
 </head>
 <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
 <main class="flex-shrink-0">
+
     @yield('content')
 </main>
 <footer class="footer mt-auto py-3">

@@ -12,11 +12,7 @@
             </div>
             <div class="col-lg-4 col-xl-4">
                 <div class="ht_contact_widget text-center">
-                    @if(is_vendor_enable() and !is_vendor())
-                        <li class="login-item">
-                            <a href="{{route('vendor.register')}}" class="login nav-link text-white">{{__('Sell on Us!')}}</a>
-                        </li>
-                    @endif
+                    
                 </div>
             </div>
             <div class="col-lg-4 col-xl-4">

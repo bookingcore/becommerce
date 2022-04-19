@@ -1,14 +1,13 @@
 {{--Axtronic promotions--}}
 <div class="axtronic-promotions pb-5">
     <div class="container">
-            @if($title)
-                <h3 class="mb-1">{{ $title }}</h3>
-            @endif
-            @if($sub_title)
-                <span class="mb-4">{{ $sub_title }}</span>
-            @endif
+        @if($title)
+            <h3 class="mb-1">{{ $title }}</h3>
+        @endif
+        @if($sub_title)
+            <p class="mb-4">{{ $sub_title }}</p>
+        @endif
         <div class="row">
-
             @foreach($list_items as $key => $item)
                 @php
                     switch ($item['position']){

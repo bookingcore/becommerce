@@ -9,9 +9,13 @@
                             <div class="container">
                                 <div class="row home-content tac-sm">
                                     <div class="col-lg-12 p0">
-                                        <p class="fwb ttu text-thm2">{!! $slider['sub_title'] !!}}</p>
+                                        @if(!empty($slider['sub_title']))
+                                            <p class="fwb ttu text-thm2">{!! $slider['sub_title'] !!}}</p>
+                                        @endif
                                         <h3 class="banner-title text-thm2 ttu">{!! $slider['title'] !!}</h3>
+                                        @if(!empty($slider['sub_text']))
                                         <p class="text-thm2 dn-sm">{!! $slider['sub_text'] !!}</p>
+                                        @endif
                                         <a href="{{ $slider['link_shop_now'] }}" class="btn p0">
                                             <button class="banner-btn btn-thm">{{ $slider['btn_shop_now'] }}</button>
                                         </a>
@@ -29,7 +33,9 @@
                 <div class="banner_one home2_style">
                     <div class="thumb"><img src="{{ get_file_url($slider_2['image']?? false,'full') }}" alt="{{ $slider_2['title'] }}"></div>
                     <div class="details style2">
+                        @if(!empty($slider_2['sub_title']))
                         <p class="para">{!! $slider_2['sub_title'] !!}</p>
+                        @endif
                         <h2 class="title">{{ $slider_2['title'] }} <br>
                             @if(!empty($slider_2['sub_text'])) <span class="text-thm2">{{ $slider_2['sub_text'] }}</span> @endif
                         </h2>

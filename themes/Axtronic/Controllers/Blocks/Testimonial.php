@@ -25,6 +25,21 @@ class Testimonial extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'values'        => [
+                        [
+                            'value'   => '',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
+                [
                     'id'          => 'list_testimonial',
                     'type'        => 'listItem',
                     'label'       => __('Testimonial List Items'),

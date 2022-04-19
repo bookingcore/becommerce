@@ -18,6 +18,21 @@ class Brands extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'values'        => [
+                        [
+                            'value'   => '',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
+                [
                     'id'          => 'brands',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),
@@ -53,7 +68,9 @@ class Brands extends BaseBlock
 
     public function content($model = [])
     {
-
-        return view('blocks.brand.index', $model);
+        if (empty($model['style'])) {
+            $model['style'] = 'index';
+        }
+        return view('blocks.brand.'.$model['style'], $model);
     }
 }

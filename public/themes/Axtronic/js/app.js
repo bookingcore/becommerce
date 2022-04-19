@@ -906,6 +906,11 @@ const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
         el: '.swiper-pagination',
         clickable: true,
     },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
 });
 const swiperSliderNews = new Swiper('.swiper-slider-news', {
     // Optional parameters
@@ -950,6 +955,32 @@ const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,
+    },
+});
+const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 30,
+    breakpoints: {
+        640: {
+            slidesPerView: 1,
+        },
+        768: {
+            slidesPerView: 3,
+        },
+        1024: {
+            slidesPerView: 6
+        },
+    },
+    autoplay: {
+        delay: 5000,
+        disableOnInteraction: false,
+    },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
     },
 });
 
@@ -1053,4 +1084,10 @@ function getName(select) {
     document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
 }
 var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
-$('#product-cat-name').html(name)
+console.log(name);
+if(name && name !== 'undefined'){
+    $('#product-cat-name').html(name)
+}else {
+    $('#product-cat-name').html('All Category')
+}
+
