@@ -19,6 +19,16 @@
                             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('freshen_logo_dark',setting_item('freshen_logo_dark') ?? '') !!}
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>{{__("Header Style")}}</label>
+                        <div class="form-controls">
+                            <select name="freshen_header_style" class="form-control">
+                                <option @if("1" == (setting_item('freshen_header_style') ?? '') ) selected @endif value="1">{{__("Style 1")}}</option>
+                                <option @if("2" == (setting_item('freshen_header_style') ?? '') ) selected @endif value="2">{{__("Style 2")}}</option>
+                                <option @if("3" == (setting_item('freshen_header_style') ?? '') ) selected @endif value="3">{{__("Style 3")}}</option>
+                            </select>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>
@@ -52,6 +62,7 @@
                             <select name="freshen_footer_style" class="form-control">
                                 <option @if("1" == (setting_item('freshen_footer_style') ?? '') ) selected @endif value="1">{{__("Style 1")}}</option>
                                 <option @if("2" == (setting_item('freshen_footer_style') ?? '') ) selected @endif value="2">{{__("Style 2")}}</option>
+                                <option @if("3" == (setting_item('freshen_footer_style') ?? '') ) selected @endif value="3">{{__("Style 3")}}</option>
                             </select>
                         </div>
                     </div>

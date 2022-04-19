@@ -4,7 +4,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
 <div class="div">
     <a class="cart_btn" href="#">
         <span class="flaticon-shopping-cart icon">
-            <span class="badge bgc-thm"> {{\Modules\Order\Helpers\CartManager::count()}} </span>
+            <span class="badge bgc-thm{{ setting_item('freshen_header_style') }}"> {{\Modules\Order\Helpers\CartManager::count()}} </span>
         </span>
     </a>
     <ul class="dropdown_content text-start bc-mini-cart-dropdown bc-cart-items">

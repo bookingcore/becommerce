@@ -51,6 +51,10 @@ class GeneralSeeder extends Seeder
                     'val'   => 'style_1',
                 ],
                 [
+                    'name'  => 'freshen_header_style',
+                    'val'   => '1',
+                ],
+                [
                     'name'  => 'freshen_footer_bg_image',
                     'val'   => $bg_footer_1->id,
                 ],
