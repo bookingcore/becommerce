@@ -1,6 +1,8 @@
 <?php
 namespace Modules\Campaign;
 
+use Modules\Campaign\Repositories\CampaignRepositoryInterface;
+use Modules\Campaign\Repositories\Eloquents\CampaignRepository;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
@@ -35,5 +37,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+
+        $this->app->bind(CampaignRepositoryInterface::class,CampaignRepository::class);
     }
 }
