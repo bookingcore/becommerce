@@ -12,14 +12,8 @@ class MediaFileSeeder extends Seeder
      */
     public function run()
     {
-        /*DB::table('media_files')->insert([
-            ['file_name' => 'banner-search', 'file_path' => 'mytravel/tour/banner-search.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
-        ]);*/
-        for ($i=1 ; $i <= 16 ; $i++){
-            /*DB::table('media_files')->insert([
-                ['file_name' => 'tour-'.$i, 'file_path' => 'mytravel/tour/tour-'.$i.'.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
-            ]);*/
-        }
+        DB::table('media_files')->updateOrInsert(['file_name' => 'freshen-banner-slider-1', 'file_path' => 'freshen/product/banner-slider-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-banner-slider-1']);
+        DB::table('media_files')->updateOrInsert(['file_name' => 'freshen-banner-slider-2', 'file_path' => 'freshen/product/banner-slider-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-banner-slider-2']);
 
     }
 }

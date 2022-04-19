@@ -9,6 +9,6 @@ class Seeder extends \Illuminate\Database\Seeder
         Artisan::call('cache:clear');
         $this->call(MediaFileSeeder::class);
         $this->call(GeneralSeeder::class);
-        $this->call(ProductSeeder::class);
+        //$this->call(ProductSeeder::class);
     }
 }
