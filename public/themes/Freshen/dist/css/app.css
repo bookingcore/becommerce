@@ -222,6 +222,21 @@
   min-width: 250px;
   box-shadow: 0px 0px 50px 0px rgba(32, 32, 32, 0.15);
   border: none;
+  transition: all 0.3s;
+}
+.bc-user-header:hover .dropdown-menu {
+  display: block;
+  transform: translate(-135px, 43px);
+  position: absolute;
+  inset: 0px auto auto 0px;
+}
+
+.bc-mini-cart .bc-mini-cart-dropdown {
+  height: auto !important;
+  max-height: 468px;
+}
+.bc-mini-cart .bc-mini-cart-dropdown .bc-cart-footer {
+  padding-bottom: 0;
 }
 
 .header_middle_advnc_search .form-search .col-auto {
