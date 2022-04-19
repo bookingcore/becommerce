@@ -21,4 +21,23 @@ class CampaignProduct extends BaseModel
         return $this->belongsTo(Product::class,'product_id');
     }
 
+    public function isActiveNow(){
+        if($this->status != 'active') return false;
+        if($this->start_date > time()) return false;
+        if($this->end_date < time()) return false;
+        return true;
+    }
+
+    public function getPriceAttribute(){
+        $price = $this->product->price ?? '';
+        return $price;
+    }
+    public function getDiscountedPriceAttribute(){
+        $price = $this->price ?? 0;
+        if($this->discount_amount){
+            $price -= $price * $this->discount_amount / 100;
+        }
+        return $price;
+    }
+
 }

@@ -9,6 +9,8 @@ namespace Modules\Campaign\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Campaign\Jobs\UpdateCampaignProductPrice;
+use Modules\Campaign\Repositories\Contracts\CampaignRepositoryInterface;
 use Modules\Campaign\Models\Campaign;
 use Modules\Core\Helpers\AdminMenuManager;
 
@@ -20,25 +22,25 @@ class CampaignController extends AdminController
      */
     protected $campaign;
 
-    public function __construct(Campaign $campaign)
+    protected $campaign_repository;
+
+    public function __construct(Campaign $campaign,CampaignRepositoryInterface $campaign_repository)
     {
         parent::__construct();
         AdminMenuManager::setActive('campaign');
         $this->campaign = $campaign;
+        $this->campaign_repository = $campaign_repository;
     }
 
     public function index(Request $request)
     {
         $this->checkPermission('campaign_view');
-        $query = $this->campaign::query() ;
-        $query->orderBy('id', 'desc');
-        if (!empty($s = $request->input('s'))) {
-            $query->where('name', 'LIKE', '%' . $s . '%');
-            $query->orderBy('name', 'asc');
-        }
+        $query = $this->campaign_repository->search([
+            's'=>$request->query('s'),
+        ]);
 
         $data = [
-            'rows'               => $query->paginate(20),
+            'rows'               => $query->withCount(['campaign_products'])->paginate(20),
             'breadcrumbs'        => [
                 [
                     'name' => __('Campaign'),
@@ -138,10 +140,25 @@ class CampaignController extends AdminController
 
         $row->fillByAttr($dataKeys,$request->input());
 
+        $keyChanges = [
+            'start_date',
+            'end_date',
+            'discount_amount',
+            'status',
+        ];
+        $needUpdatePrice = 0;
+        foreach ($keyChanges as $key){
+            if($row->isDirty($key)){
+                $needUpdatePrice = 1;
+            }
+        }
         $res = $row->save();
 
         if ($res) {
             if($id > 0 ){
+                if($needUpdatePrice){
+                    UpdateCampaignProductPrice::dispatch($row);
+                }
                 return back()->with('success',  __('Campaign updated') );
             }else{
                 return redirect(route('campaign.admin.edit',$row->id))->with('success', __('Campaign created') );
@@ -168,13 +185,6 @@ class CampaignController extends AdminController
                     $query->first()->delete();
                 }
                 return redirect()->back()->with('success', __('Deleted success!'));
-                break;
-            case "clone":
-                $this->checkPermission('campaign_create');
-                foreach ($ids as $id) {
-                    (new $this->campaign())->saveCloneByID($id);
-                }
-                return redirect()->back()->with('success', __('Clone success!'));
                 break;
             default:
                 // Change status

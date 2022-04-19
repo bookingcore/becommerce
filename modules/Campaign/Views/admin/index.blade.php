@@ -60,6 +60,7 @@
                                         <th width="130px">{{__('Start date')}}</th>
                                         <th width="130px">{{__('End date')}}</th>
                                         <th width="100px"> {{ __('Status')}}</th>
+                                        <th width="100px"> {{ __('Products')}}</th>
                                         <th width="100px"> {{ __('Date')}}</th>
                                         <th width="100px"></th>
                                     </tr>
@@ -71,13 +72,13 @@
                                                 <td><input type="checkbox" name="ids[]" class="check-item" value="{{$row->id}}">
                                                 </td>
                                                 <td class="title">
-                                                    <a href="{{route('campaign.admin.edit',['id'=>$row->id])}}">{{$row->title ? $row->title : __('(Untitled)')}}</a>
+                                                    <a href="{{route('campaign.admin.edit',['id'=>$row->id])}}">{{$row->name}}</a>
                                                 </td>
-                                                <td>{{$row->discount_percent}}%</td>
-                                                <td>{{display_datetime($row->start_date)}}</td>
-                                                <td>{{display_datetime($row->end_date)}}</td>
+                                                <td>{{$row->discount_amount}}%</td>
+                                                <td>{{display_date($row->start_date)}}</td>
+                                                <td>{{display_date($row->end_date)}}</td>
                                                 <td><span class="badge badge-{{ $row->status_badge }}">{{ $row->status }}</span></td>
-
+                                                <td>{{$row->campaign_products_count}}</td>
                                                 <td>{{ display_date($row->updated_at)}}</td>
                                                 <td>
 

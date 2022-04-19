@@ -35,7 +35,10 @@ class ProductController extends AdminController
             'campaign_id'=>$campaign->id
         ]);
 
-        $item->status = 'active';
+        $item->status = $campaign->status;
+        $item->start_date = $campaign->start_date;
+        $item->end_date = $campaign->end_date;
+        $item->discount_amount = $campaign->discount_amount;
         $item->save();
 
         return redirect()->back()->with('success',__("Product Added"));

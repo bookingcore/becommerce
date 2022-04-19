@@ -2,7 +2,6 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Gloudemans\Shoppingcart\Contracts\Buyable;
 use Illuminate\Http\Request;
 use Modules\Media\Helpers\FileHelper;
 use Modules\Review\Models\Review;
@@ -105,14 +104,26 @@ class BaseProduct extends BaseModel
         return $this->hasOne("App\User", "id", 'create_user');
     }
 
+    public function getSalePriceAttribute()
+    {
+        $price = $this->price;
+        $active_campaign  = $this->active_campaign;
+        if($active_campaign and $active_campaign->isActiveNow()){
+            $price -= $price * $active_campaign->discount_amount/100;
+        }
+
+        return $price;
+    }
     public function getDisplayPriceAttribute()
     {
-        return format_money($this->price);
+        return format_money($this->sale_price);
+
     }
 
     public function getDisplaySalePriceAttribute()
     {
-        if (!empty($this->price) and $this->price > 0 and !empty($this->origin_price) and $this->origin_price > 0 and $this->price < $this->origin_price) {
+        $price = $this->sale_price;
+        if ($this->origin_price > $price) {
             return format_money($this->origin_price);
         }
         return false;
