@@ -1,4 +1,4 @@
-<section class="footer_one home{{ setting_item('freshen_footer_style') }}">
+<section class="footer_one footer_about_widget home{{ setting_item('freshen_footer_style') }}">
     <div class="footer_top_img"></div>
     @if(!empty($bg_footer = setting_item('freshen_footer_bg_image')))
         <div class="footer_bg_img" style="background-image: url('{{ get_file_url($bg_footer,'full') }}')"></div>
@@ -7,7 +7,7 @@
         <div class="bc-newsletter">
             <div class="row">
                 <div class="col-lg-6 col-xl-6">
-                    <div class="mailchimp_widget mb30-md">
+                    <div class="mailchimp_widget mb30-md home{{ setting_item('freshen_footer_style') }}">
                         <div class="icon float-start"><span class="flaticon-email-1"></span></div>
                         <div class="details">
                             <h3 class="title">{{ __('SIGN UP FOR NEWSLETTER') }}</h3>
@@ -16,7 +16,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-5">
-                    <div class="footer_social_widget">
+                    <div class="footer_social_widget home{{ setting_item('freshen_footer_style') }}">
                         <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form">
                             <div class="row align-items-center">
                                 <div class="col-auto">
@@ -37,7 +37,7 @@
         </div>
         <div class="row mt100">
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
-                <div class="footer_about_widget">
+                <div class="footer_about_widget home{{ setting_item('freshen_footer_style') }}">
                     <div class="logo mb40">
                         @if($logo_id = setting_item("freshen_logo_light"))
                             <?php $logo = get_file_url($logo_id,'full') ?>

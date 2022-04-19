@@ -15,9 +15,10 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
-use Modules\Product\Database\Factories\ProductFactory;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
+
+use Themes\Base\Database\Factories\ProductFactory;
 
 class Product extends BaseProduct
 {

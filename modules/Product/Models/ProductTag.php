@@ -5,8 +5,8 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\News\Models\News;
 use Modules\News\Models\NewsTag;
-use Modules\Product\Database\Factories\ProductBrandFactory;
-use Modules\Product\Database\Factories\ProductTagFactory;
+use Themes\Base\Database\Factories\ProductBrandFactory;
+use Themes\Base\Database\Factories\ProductTagFactory;
 
 class ProductTag extends BaseModel
 {

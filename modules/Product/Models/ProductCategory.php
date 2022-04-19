@@ -5,7 +5,7 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Product\Database\Factories\ProductCategoryFactory;
+use Themes\Base\Database\Factories\ProductCategoryFactory;
 
 class ProductCategory extends BaseModel
 {
