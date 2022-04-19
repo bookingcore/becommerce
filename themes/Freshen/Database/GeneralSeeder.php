@@ -56,19 +56,31 @@ class GeneralSeeder extends Seeder
                 ],
                 [
                     'name'  => 'freshen_list_widget_footer',
-                    'val'   => '',
+                    'val'   => '[{"title":"NEED HELP","size":"3","content":"<ul class=\"list-unstyled\">\r\n  <li class=\"text-white\"><a class=\"phone\" href=\"#\">Phone: 00 0392 96 32<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Monday - Friday : 9:00 - 20:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Saturday: 11:00 - 14:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Email: oder@freshen.com<\/a><\/li>\r\n<\/ul>"},{"title":"INFORMATION","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">Delivery Information<\/a><\/li>\r\n  <li><a href=\"#\">Privacy Policy<\/a><\/li>\r\n  <li><a href=\"#\">Terms &amp; Conditions<\/a><\/li>\r\n  <li><a href=\"#\">Contact<\/a><\/li>\r\n  <li><a href=\"#\">Returns<\/a><\/li>\r\n  <li><a href=\"#\">Affilate<\/a><\/li>\r\n<\/ul>"},{"title":"ACCOUNT","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">My account<\/a><\/li>\r\n  <li><a href=\"#\">Order History<\/a><\/li>\r\n  <li><a href=\"#\">Wishlist<\/a><\/li>\r\n  <li><a href=\"#\">Shipping<\/a><\/li>\r\n  <li><a href=\"#\">Privacy Policy<\/a><\/li>\r\n  <li><a href=\"#\">Help<\/a><\/li>\r\n<\/ul>"},{"title":"OUR STORES","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">New York<\/a><\/li>\r\n  <li><a href=\"#\">London SF<\/a><\/li>\r\n  <li><a href=\"#\">Cockfosters BP<\/a><\/li>\r\n  <li><a href=\"#\">Los Angeles<\/a><\/li>\r\n  <li><a href=\"#\">Chicago<\/a><\/li>\r\n  <li><a href=\"#\">Las Vegas<\/a><\/li>\r\n<\/ul>"}]',
                 ],
                 [
                     'name'  => 'freshen_footer_info_text',
-                    'val'   => '',
+                    'val'   => '<div class="footer_about_widget">
+    <p>Collins Street West, Victoria <br> 8007, Australia.</p>
+    <a href="#" class="shop_map_btn">SHOW ON MAP</a>
+</div>
+<div class="footer_social_widget mt30">
+    <ul class="mb0">
+      <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+      <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+      <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+      <li class="list-inline-item"><a href="#"><i class="fa fa-youtube-play"></i></a></li>
+      <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+    </ul>
+</div>',
                 ],
                 [
                     'name'  => 'freshen_footer_text_right',
-                    'val'   => '',
+                    'val'   => '<p><img src="/uploads/freshen/general/payment-getway.png" /></p>',
                 ],
                 [
                     'name'  => 'freshen_copyright',
-                    'val'   => '',
+                    'val'   => '© 2022 Freshen. Made with love.',
                 ],
             ]
         );
