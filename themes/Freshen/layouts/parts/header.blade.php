@@ -1,6 +1,6 @@
 @include('layouts.parts.topbar')
 <!-- header middle -->
-<div class="header_middle pt25 pb25 dn-992">
+<div class="header_middle pt25 pb25 dn-992 header_content">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-xl-3">
@@ -51,7 +51,9 @@
                                     </a>
                                 @endif
                             </li>
-                            @includeIf('order.cart.mini-cart')
+                            <li class="list-inline-item bc-mini-cart text-end">
+                                @includeIf('order.cart.mini-cart')
+                            </li>
                         </ul>
                     </div>
                 </div>
