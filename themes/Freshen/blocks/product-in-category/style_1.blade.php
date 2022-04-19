@@ -1,4 +1,4 @@
-<section class="our-shops bgc-f5">
+<div class="our-shops bgc-f5 mt-5 pt-5">
     <div class="container">
         <div class="fruit_custom_widget mb100">
             <div class="main-title">
@@ -36,34 +36,7 @@
                         @if(!empty($rows))
                             @foreach($rows as $row)
                                 <div class="col-sm-6 col-lg-4 col-xl-4">
-                                    <div class="shop_item fruit_item_grid">
-                                        <div class="thumb">
-                                            <img src="images/shop-items/fp2.png" alt="fp2.png">
-                                            <div class="thumb_info">
-                                                <ul class="mb0">
-                                                    <li class="list-inline-item"><a href="page-shop-cart.html"><span class="flaticon-shopping-cart"></span></a></li>
-                                                    <li class="list-inline-item"><a href="page-dashboard-wish-list.html"><span class="flaticon-heart"></span></a></li>
-                                                    <li class="list-inline-item"><a href="page-dashboard-wish-list.html"><span class="flaticon-search"></span></a></li>
-                                                    <li class="list-inline-item"><a href="page-shop-list-v6.html"><span class="flaticon-shuffle"></span></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="details text-center">
-                                            <div class="review">
-                                                <ul class="mb0">
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </div>
-                                            <div class="sub_title">Organic Rocket<br> 1 lb</div>
-                                            <div class="si_footer">
-                                                <div class="price">$2.00</div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @include('product.search.loop-2')
                                 </div>
                             @endforeach
                         @endif
@@ -72,4 +45,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>
