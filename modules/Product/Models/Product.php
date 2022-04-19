@@ -15,9 +15,8 @@ use Modules\News\Models\Tag;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Review\Models\Review;
+use Modules\Theme\ThemeManager;
 use Modules\User\Models\UserWishList;
-
-use Themes\Base\Database\Factories\ProductFactory;
 
 class Product extends BaseProduct
 {
@@ -69,7 +68,11 @@ class Product extends BaseProduct
 
     protected static function newFactory()
     {
-        return ProductFactory::new();
+        $active = ThemeManager::current();
+        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductFactory";
+        if(class_exists($class)) {
+            return new $class();
+        }
     }
 
     public static function getModelName()

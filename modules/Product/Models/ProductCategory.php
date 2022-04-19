@@ -5,7 +5,7 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Themes\Base\Database\Factories\ProductCategoryFactory;
+use Modules\Theme\ThemeManager;
 
 class ProductCategory extends BaseModel
 {
@@ -32,7 +32,11 @@ class ProductCategory extends BaseModel
 
     protected static function newFactory()
     {
-        return ProductCategoryFactory::new();
+        $active = ThemeManager::current();
+        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductCategoryFactory";
+        if(class_exists($class)) {
+            return new $class();
+        }
     }
 
     public static function searchForMenu($q = false)
