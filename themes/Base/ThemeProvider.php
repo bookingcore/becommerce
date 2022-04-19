@@ -3,6 +3,7 @@ namespace Themes\Base;
 
 use Modules\Core\Helpers\SettingManager;
 use Modules\Vendor\VendorMenuManager;
+use Themes\Base\Database\Seeder;
 
 class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 {
@@ -10,6 +11,8 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public static $name = "Default Theme";
 
     public static $version = '1.0';
+
+    public static $seeder = Seeder::class;
 
     public static function info()
     {

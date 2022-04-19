@@ -1,5 +1,5 @@
 <?php
-namespace Modules\Product\Database\Factories;
+namespace Themes\Base\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Modules\Core\Models\Term;

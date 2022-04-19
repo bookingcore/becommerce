@@ -5,7 +5,7 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Product\Database\Factories\ProductBrandFactory;
+use Themes\Base\Database\Factories\ProductBrandFactory;
 
 class ProductBrand extends BaseModel
 {

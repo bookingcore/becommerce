@@ -11,7 +11,7 @@
                                     <div class="home-text">
                                         <p class="fz14 fwb ttu text-thm2">{{ $slide['sub_title'] }}</p>
                                         <h2 class="fz60 ttu text-thm2">{!! clean($slide['title']) !!}</h2>
-                                        <p class="fz16 text-thm2 dn-sm">{!! clean($slide['sub_text']) !!}</p>
+                                        <div class="fz16 text-thm2 dn-sm">{!! clean($slide['sub_text']) !!}</div>
                                         <a class="btn btn-thm2 text-uppercase" href="{{ $slide['link_shop_now'] }}">{{ $slide['btn_shop_now'] }}</a>
                                     </div>
                                 </div>
