@@ -25,15 +25,18 @@ class GeneralSeeder extends Seeder
             'created_at'  => date("Y-m-d H:i:s")
         ]);
 
+        $logo_light = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-light', 'file_path' => 'freshen/general/logo-light.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-light']);
+        $logo_dark = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-dark', 'file_path' => 'freshen/general/logo-dark.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-dark']);
+        $bg_footer_1 = MediaFile::updateOrCreate(['file_name' => 'freshen-bg-footer-1', 'file_path' => 'freshen/general/bg-footer-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-bg-footer-1']);
         setting_update_items(
             [
                 [
                     'name'  => 'freshen_logo_light',
-                    'val'   => '',
+                    'val'   => $logo_light->id,
                 ],
                 [
                     'name'  => 'freshen_logo_dark',
-                    'val'   => '',
+                    'val'   => $logo_dark->id,
                 ],
                 [
                     'name'  => 'freshen_hotline_contact',
@@ -49,7 +52,7 @@ class GeneralSeeder extends Seeder
                 ],
                 [
                     'name'  => 'freshen_footer_bg_image',
-                    'val'   => '',
+                    'val'   => $bg_footer_1->id,
                 ],
                 [
                     'name'  => 'freshen_list_widget_footer',
