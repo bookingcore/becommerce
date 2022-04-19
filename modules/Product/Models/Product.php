@@ -168,19 +168,17 @@ class Product extends BaseProduct
 
     public function getEditUrl()
     {
-        return url(route('space.admin.edit',['id'=>$this->id]));
+        return url(route('product.admin.edit',['id'=>$this->id]));
     }
 
     public function getDiscountPercentAttribute()
     {
-        if (    !empty($this->price) and $this->price > 0
-            and !empty($this->origin_price) and $this->origin_price > 0
-            and $this->price < $this->origin_price
-        ) {
+        $price = $this->sale_price;
+        if (  $price < $this->origin_price) {
             $percent = 100 - ceil($this->price / ($this->origin_price / 100));
-            return $percent . "%";
+            return $percent;
         }
-        return '10%';
+        return null;
     }
 
     public function fill(array $attributes)

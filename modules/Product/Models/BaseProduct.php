@@ -69,41 +69,6 @@ class BaseProduct extends BaseModel
     }
 
 
-    public function filterCheckoutValidate(Request $request, $rules = [])
-    {
-        return $rules;
-    }
-
-    public function beforeCheckout(Request $request, $booking)
-    {
-
-    }
-
-    public function afterCheckout(Request $request, $booking)
-    {
-
-    }
-
-    public function beforePaymentProcess($booking, $payment)
-    {
-
-    }
-
-    public function afterPaymentProcess($booking, $payment)
-    {
-
-    }
-
-    /**
-     * Get Location
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function vendor()
-    {
-        return $this->hasOne("App\User", "id", 'create_user');
-    }
-
     public function getSalePriceAttribute()
     {
         $price = $this->price;
@@ -150,17 +115,6 @@ class BaseProduct extends BaseModel
         return $percent;
     }
 
-    public function getBuyableIdentifier($options = NULL){
-        return $this->id;
-    }
-
-    public function getBuyableDescription($options = NULL){
-        return $this->title;
-    }
-
-    public function getBuyablePrice($options = NULL){
-        return $this->price;
-    }
 
 
     public function productOnHold(){
