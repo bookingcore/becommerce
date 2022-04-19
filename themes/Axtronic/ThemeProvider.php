@@ -12,6 +12,7 @@ use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Themes\Axtronic\Controllers\Blocks\Brands;
 use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
+use Themes\Axtronic\Controllers\Blocks\ListTabProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
 use Themes\Freshen\Controllers\Blocks\ListCategoryProduct;
@@ -20,7 +21,7 @@ class ThemeProvider extends AbstractThemeProvider
 {
     public static $name = "Axtronic";
 
-    public static $screenshot = "/screenshot.png";
+    public static $screenshot = "/themes/Axtronic/screenshot.png";
 
     public static function info()
     {
