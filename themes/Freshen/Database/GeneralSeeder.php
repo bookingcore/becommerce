@@ -120,6 +120,26 @@ class GeneralSeeder extends Seeder
             'created_at'  => date("Y-m-d H:i:s")
         ]);
 
+        // Freshen home page 3 template
+        DB::table('core_templates')->insert(
+            [
+                'title' =>  'Freshen Home Page 3',
+                'content'   =>  '[{"type":"banner_slider","name":"Banner Slider","model":{"width_slider":"slider-fluid","sliders":[{"_active":true,"title":"<span class=\"fwb\">Up To Breads</span><br><span class=\"text-thm3\">50% Off</span>","sub_title":"All natural products","image":30,"sub_text":"<span class=\"fwb\">Organic food</span> is food produced by methods that comply with the <br> standards of organic farming.","btn_shop_now":"Shop Now","link_shop_now":"#"},{"_active":true,"title":"<span class=\"fwb\">Healthy Food</span><br><span class=\"text-thm3\">every days</span>","sub_title":"All natural products","image":32,"sub_text":"<span class=\"fwb\">Organic food</span> is food produced by methods that comply with the <br> standards of organic farming.","btn_shop_now":"Shop Now","link_shop_now":"#"}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"featured_icon","name":"Featured Icon","model":{"list_items":[{"_active":true,"title":"Free Delivery","sub_title":"For all oders over $99","icon":"flaticon-fast text-thm3"},{"_active":true,"title":"Secure Payment","sub_title":"100% secure payment","icon":"flaticon-customer-1 text-thm3"},{"_active":true,"title":"90 Days Return","sub_title":"If goods have problems","icon":"flaticon-returning text-thm3"},{"_active":true,"title":"24/7 Support","sub_title":"Dedicated support","icon":"flaticon-support text-thm3"}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"promotion","name":"Promotion","model":{"title":"","list_items":[{"_active":false,"sub_title":"FRESH FRUIT","title":"FRESH SUMMER WITH JUST $200.99","link":"#","image":33},{"_active":true,"sub_title":"TASTY HEALTHY","title":"FRESH VEGETABLES","link":"#","image":34}],"style":"style_2"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_category_product","name":"Product: List Tab Category","model":{"title":"FEATURED PRODUCTS","cat_ids":["9","8","7","6"],"number":10,"order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_category","name":"List Category","model":{"title":"CATEGORIES","list_items":[{"_active":true,"category_id":"8","image_id":35,"title":"Food & Grocery"},{"_active":true,"category_id":"2","image_id":35,"title":"Vegetables"},{"_active":true,"category_id":"1","image_id":35,"title":"Fruits"},{"_active":true,"category_id":"3","image_id":35,"title":"Sea Food"},{"_active":true,"category_id":"5","image_id":35,"title":"Bakery"},{"_active":true,"category_id":"6","image_id":35,"title":"Fresh Meat"}],"style":"style_2","list_items_2":[{"_active":true,"title":"Food & Grocery","image_id":35,"category_ids":["6","7","8","9"],"btn_name":"VIEW ALL","btn_url":"#"},{"_active":true,"title":"Vegetables","image_id":35,"category_ids":["5","6","8","9"],"btn_name":"VIEW ALL","btn_url":"#"},{"_active":true,"title":"Fruits","image_id":35,"category_ids":["1","3","4","5"],"btn_name":"VIEW ALL","btn_url":"#"},{"_active":true,"title":"Sea Food","image_id":24,"category_ids":["6","8"],"btn_name":"VIEW ALL","btn_url":"#"},{"_active":true,"title":"Bakery","image_id":35,"category_ids":["4","5","6","8"],"btn_name":"VIEW ALL","btn_url":"#"},{"_active":true,"title":"Fresh Meat","image_id":23,"category_ids":["5","7"],"btn_name":"VIEW ALL","btn_url":"#"}],"btn_name":"VIEW ALL","btn_url":"#"},"component":"RegularBlock","open":true,"is_container":false},{"type":"whats_app","name":"Whats App","model":{"style":"style_1","title":"Whatsapp Ordering Service","icon":"flaticon-whatsapp","title2":"Place Your Orders At +1 246-345-0695"},"component":"RegularBlock","open":true}]',
+                'create_user' => '1',
+                'created_at' =>  date("Y-m-d H:i:s")
+            ]
+        );
+        // Freshen home page 3
+        DB::table('core_pages')->insert([
+            'title'       => 'Freshen Home Page 3',
+            'slug'        => 'freshen-home-page-3',
+            'template_id' => '5',
+            'show_template' => 1,
+            'author_id' => 1,
+            'create_user' => '1',
+            'status'      => 'publish',
+            'created_at'  => date("Y-m-d H:i:s")
+        ]);
     }
 
     public function generalMenuDepartment($locale = ''){
