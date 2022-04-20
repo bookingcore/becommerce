@@ -14,12 +14,14 @@
                         @foreach($list_items as $key => $item)
                             <div class="item">
                                 <div class="gallery_item">
-                                    <img class="img-fluid img-circle-rounded w100" src="{{ get_file_url($item['image_id'] ?? '' , "full") }}" alt="Instagram">
-                                    <div class="gallery_overlay">
-                                        <a class="icon popup-img" href="{{ get_file_url($item['image_id'] ?? '' , "full") }}">
-                                            <span class="fab fa-instagram"></span>
-                                        </a>
-                                    </div>
+                                    @if(!empty($item['image_id']))
+                                        <img class="img-fluid img-circle-rounded w100" src="{{ get_file_url($item['image_id'] ?? '' , "full") }}" alt="Instagram">
+                                        <div class="gallery_overlay">
+                                            <a class="icon popup-img" href="{{ get_file_url($item['image_id'] ?? '' , "full") }}">
+                                                <span class="fab fa-instagram"></span>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

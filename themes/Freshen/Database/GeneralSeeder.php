@@ -14,11 +14,8 @@ class GeneralSeeder extends Seeder
      */
     public function run()
     {
-
-
-        //Setting header,footer
         $menu_department = $this->generalMenuDepartment();
-        $id_department = DB::table('core_menus')->insertGetId([
+        DB::table('core_menus')->insertGetId([
             'name'        => 'Menu Department',
             'items'       => json_encode($menu_department),
             'create_user' => '1',
@@ -88,6 +85,53 @@ class GeneralSeeder extends Seeder
                 ],
             ]
         );
+
+        $freshen_home_1 = [
+            'freshen-banner-slider-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-banner-slider-1', 'file_path' => 'freshen/general/banner-slider-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-banner-slider-1'])->id,
+            'freshen-promotion-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-promotion-1', 'file_path' => 'freshen/general/promotion-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-promotion-1'])->id,
+            'freshen-promotion-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-promotion-2', 'file_path' => 'freshen/general/promotion-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-promotion-2'])->id,
+            'freshen-promotion-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-promotion-3', 'file_path' => 'freshen/general/promotion-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-promotion-3'])->id,
+            'freshen-delivery'=> MediaFile::updateOrCreate(['file_name' => 'freshen-delivery', 'file_path' => 'freshen/general/delivery.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-delivery'])->id,
+            'freshen-partner-bg-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-partner-bg-1', 'file_path' => 'freshen/general/partner-bg-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-partner-bg-1'])->id,
+            'freshen-logo-partner-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-logo-partner-1', 'file_path' => 'freshen/general/logo-partner-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-partner-1'])->id,
+            'freshen-logo-partner-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-logo-partner-2', 'file_path' => 'freshen/general/logo-partner-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-partner-2'])->id,
+            'freshen-logo-partner-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-logo-partner-3', 'file_path' => 'freshen/general/logo-partner-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-partner-3'])->id,
+            'freshen-logo-partner-4'=> MediaFile::updateOrCreate(['file_name' => 'freshen-logo-partner-4', 'file_path' => 'freshen/general/logo-partner-4.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-partner-4'])->id,
+            'freshen-logo-partner-5'=> MediaFile::updateOrCreate(['file_name' => 'freshen-logo-partner-5', 'file_path' => 'freshen/general/logo-partner-5.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-partner-5'])->id,
+            'freshen-why-chose-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-why-chose-1', 'file_path' => 'freshen/general/why-chose-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-why-chose-1'])->id,
+            'freshen-why-chose-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-why-chose-2', 'file_path' => 'freshen/general/why-chose-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-why-chose-2'])->id,
+            'freshen-why-chose-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-why-chose-3', 'file_path' => 'freshen/general/why-chose-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-why-chose-3'])->id,
+            'freshen-insta-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-insta-1', 'file_path' => 'freshen/general/insta-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-insta-1'])->id,
+            'freshen-insta-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-insta-2', 'file_path' => 'freshen/general/insta-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-insta-2'])->id,
+            'freshen-insta-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-insta-3', 'file_path' => 'freshen/general/insta-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-insta-3'])->id,
+            'freshen-insta-4'=> MediaFile::updateOrCreate(['file_name' => 'freshen-insta-4', 'file_path' => 'freshen/general/insta-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-insta-4'])->id,
+            'freshen-insta-5'=> MediaFile::updateOrCreate(['file_name' => 'freshen-insta-5', 'file_path' => 'freshen/general/insta-5.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'freshen-insta-5'])->id,
+            'freshen-cat-1'=> MediaFile::updateOrCreate(['file_name' => 'freshen-cat-1', 'file_path' => 'freshen/product/cat-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-cat-1'])->id,
+            'freshen-cat-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-cat-2', 'file_path' => 'freshen/product/cat-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-cat-2'])->id,
+            'freshen-cat-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-cat-3', 'file_path' => 'freshen/product/cat-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-cat-3'])->id,
+            'freshen-cat-4'=> MediaFile::updateOrCreate(['file_name' => 'freshen-cat-4', 'file_path' => 'freshen/product/cat-4.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-cat-4'])->id,
+            'freshen-cat-5'=> MediaFile::updateOrCreate(['file_name' => 'freshen-cat-5', 'file_path' => 'freshen/product/cat-5.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-cat-5'])->id,
+        ];
+        $templlate_id = DB::table('core_templates')->insertGetId(
+            [
+                'title' =>  'Freshen Home Page 1',
+                'content'   =>  '[{"type":"banner_slider","name":"Banner Slider","model":{"sliders":[{"_active":false,"title":"<span class=\"text-thm2 fwb\">Healthy Food</span> <br><span class=\"text-thm fw400\">&amp; Organic Market</span>","sub_title":"ALL NATURAL PRODUCTS.","image":'.$freshen_home_1['freshen-banner-slider-1'].',"sub_text":"<strong>Organic food</strong> is food produced by methods that comply with the standards of organic farming.","btn_shop_now":"Shop Now","link_shop_now":"#"},{"_active":false,"title":"<span class=\"text-thm2 fwb\">Double Combo</span> <span class=\"text-thm fw400\">With The Body Shop</span>","sub_title":"Mega Sale Nov 2022","image":'.$freshen_home_1['freshen-banner-slider-1'].',"sub_text":"Discount <strong>70% Off </strong>","btn_shop_now":"Shop now","link_shop_now":"#"}],"width_slider":"container"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_category","name":"List Category","model":{"title":"TOP CATEGORIES OF THE MONTH","list_items":[{"_active":true,"category_id":"7","image_id":'.$freshen_home_1['freshen-cat-1'].'},{"_active":true,"category_id":"8","image_id":'.$freshen_home_1['freshen-cat-2'].'},{"_active":true,"category_id":"5","image_id":'.$freshen_home_1['freshen-cat-3'].'},{"_active":true,"category_id":"6","image_id":'.$freshen_home_1['freshen-cat-4'].'},{"_active":true,"category_id":"2","image_id":'.$freshen_home_1['freshen-cat-5'].'}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"promotion","name":"Promotion","model":{"col":"3","list_items":[{"_active":true,"image":'.$freshen_home_1['freshen-promotion-1'].',"title":"FRESH SUMMER WITH JUST $200.99","link":"#","sub_title":"FRESH FRUIT"},{"_active":true,"image":'.$freshen_home_1['freshen-promotion-2'].',"title":"UP TO BREADS <span class=\"text-thm2\">50% Off</span>","link":"#","sub_title":"SEASONAL SALE"},{"_active":true,"image":'.$freshen_home_1['freshen-promotion-3'].',"link":"#","title":"FRESH <span class=\"text-thm2\">Vegetables</span>","sub_title":"TASTY HEALTHY"}],"title":"Promotion","sub_title":"Recommended for you"},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_category_product","name":"Product: List Tab Category","model":{"title":"FEATURED PRODUCTS","cat_ids":["8","6","4","7"],"number":8,"order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"deliver","name":"Deliver Divider","model":{"title":"WHATSAPP ORDERING SERVICE – PLACE YOUR ORDERS AT ","phone":"392 96 32","image_id":'.$freshen_home_1['freshen-delivery'].'},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_product","name":"Product: List item","model":{"style_list":"","title":"Newsest Products","sub_title":"Recommended for you","cat_ids":"","number":8,"order":"id","order_by":"desc","is_featured":""},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_partner","name":"List Partner","model":{"sub_title":"ORANGE JUICE","title":"FOR HUMAN HEALTH","desc":"Organic food is food produced by methods that comply with the standards of organic farming. Standards vary worldwide, but organic farming in general features.","link_shop":"#","bg_image":'.$freshen_home_1['freshen-partner-bg-1'].',"list_items":[{"_active":true,"image_id":'.$freshen_home_1['freshen-logo-partner-1'].'},{"_active":true,"image_id":'.$freshen_home_1['freshen-logo-partner-2'].'},{"_active":true,"image_id":'.$freshen_home_1['freshen-logo-partner-3'].'},{"_active":true,"image_id":'.$freshen_home_1['freshen-logo-partner-4'].'},{"_active":true,"image_id":'.$freshen_home_1['freshen-logo-partner-5'].'}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_news","name":"News: List Items","model":{"title":"OUR BLOG","number":3,"category_id":"","order":"id","order_by":"desc"},"component":"RegularBlock","open":true,"is_container":false},{"type":"why_chose_us","name":"Why Chose Us","model":{"title":"WHY CHOOSE US","list_items":[{"_active":true,"title":"WE DRIVE FAST & SHIP FASTER","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":'.$freshen_home_1['freshen-why-chose-1'].'},{"_active":true,"title":"WE SAVE YOUR MORE MONEY","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":'.$freshen_home_1['freshen-why-chose-2'].'},{"_active":true,"title":"DAILY DISCOUNT COUPONS","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":'.$freshen_home_1['freshen-why-chose-3'].'}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"instagram","name":"Instagram","model":{"title":"FOLLOW @FRESHEN ON INSTAGRAM","list_items":[{"_active":true,"image_id":'.$freshen_home_1['freshen-insta-1'].'},{"_active":false,"image_id":'.$freshen_home_1['freshen-insta-2'].'},{"_active":false,"image_id":'.$freshen_home_1['freshen-insta-3'].'},{"_active":false,"image_id":'.$freshen_home_1['freshen-insta-4'].'},{"_active":false,"image_id":'.$freshen_home_1['freshen-insta-5'].'}]},"component":"RegularBlock","open":true,"is_container":false}]',
+                'create_user' => '1',
+                'created_at' =>  date("Y-m-d H:i:s")
+            ]
+        );
+        $homepage_id = DB::table('core_pages')->insertGetId([
+            'title'       => 'Freshen Home Page 1',
+            'slug'        => 'freshen-home-page-1',
+            'template_id' => $templlate_id,
+            'show_template' => 1,
+            'author_id' => 1,
+            'create_user' => '1',
+            'status'      => 'publish',
+            'created_at'  => date("Y-m-d H:i:s")
+        ]);
+        setting_update_item('home_page_id',$homepage_id);
+
         $freshen_home_2 = [
             'img_1'=> DB::table('media_files')->insertGetId( ['file_name' => '5', 'file_path' => 'themes/Freshen/images/banner/5.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             'img_2'=> DB::table('media_files')->insertGetId( ['file_name' => '6', 'file_path' => 'themes/Freshen/images/banner/6.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
@@ -100,7 +144,7 @@ class GeneralSeeder extends Seeder
             'img_9'=> DB::table('media_files')->insertGetId( ['file_name' => 'fg1', 'file_path' => 'themes/Freshen/images/banner/fg1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         // Freshen home page 2 template
-        DB::table('core_templates')->insert(
+        $templlate_id = DB::table('core_templates')->insertGetId(
             [
                 'title' =>  'Freshen Home Page 2',
                 'content'   =>  '[{"type":"banner_slider_v2","name":"Banner Slider V2","model":{"style":"style_1","sliders":[{"_active":true,"title":"<span class=\"fwb\">Get fresher food</span><br><span class=\"text-thm fw400\">every days</span>","sub_title":"All natural products ","image":'. $freshen_home_2['img_1'] .',"sub_text":"<span class=\"fwb\">Organic food</span> is food produced by methods that comply with the <br> standards of organic farming.","btn_shop_now":"SHOP NOW","link_shop_now":"#"},{"_active":true,"title":"<span class=\"fwb\">Healthy Food</span><br><span class=\"text-thm fw400\">&amp; Organic Market</span>","sub_title":"<span class=\"fwb\">Organic food</span> is food produced by methods that comply with the <br> standards of organic farming.","image":'. $freshen_home_2['img_1'] .',"sub_text":"All natural products ","btn_shop_now":"SHOP NOW","link_shop_now":"#"}],"sliders_2":[{"_active":true,"title":"Up To Breads ","sub_title":"SEASONAL SALE","image":'. $freshen_home_2['img_2'] .',"sub_text":"50% OFF","btn_shop_now":"SHOP NOW","link_shop_now":"#"},{"_active":true,"title":"Fresh Vegetables","sub_title":"Tasty Healthy","image":'. $freshen_home_2['img_3'] .',"sub_text":"","btn_shop_now":"SHOP NOW","link_shop_now":"#"}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"why_chose_us","name":"Why Chose Us","model":{"title":"","list_items":[{"_active":true,"title":"WE DRIVE FAST & SHIP FASTER","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue","image_id":'. $freshen_home_2['img_4'] .'},{"_active":true,"title":"WE SAVE YOUR MORE MONEY","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":'. $freshen_home_2['img_5'] .'},{"_active":true,"title":"DAILY DISCOUNT COUPONS","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":'. $freshen_home_2['img_6'] .'}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"product_in_category","name":"Product: In Category","model":{"style":"style_1","title":"FRUITS","category_id":"37","number":6,"order":"id","order_by":"desc","load_more_url":"#","load_more_name":"VIEW ALL","bg_image":'. $freshen_home_2['img_7'] .',"bg_title":"FRESH SUMMER WITH JUST $200.99","bg_sub_title":"FRESH FRUIT","link_apply":"SHOP NOW","url_apply":"#"},"component":"RegularBlock","open":true,"is_container":false},{"type":"product_in_category","name":"Product: In Category","model":{"style":"","title":"VEGETABLES","category_id":"","number":6,"order":"id","order_by":"desc","load_more_url":"#","load_more_name":"VIEW ALL","bg_image":'. $freshen_home_2['img_8'] .',"bg_title":"FRESH VEGETABLES","bg_sub_title":"TASTY HEALTHY","link_apply":"SHOP NOW","url_apply":"#"},"component":"RegularBlock","open":true,"is_container":false},{"type":"product_in_category","name":"Product: In Category","model":{"style":"style_1","title":"FOOD & GROCERY","category_id":"37","number":6,"order":"id","order_by":"desc","load_more_url":"#","load_more_name":"VIEW ALL","bg_image":'. $freshen_home_2['img_9'] .',"bg_title":"SEASON DISCOUNT","bg_sub_title":"20% OFF","link_apply":"SHOP NOW","url_apply":"#"},"component":"RegularBlock","open":true}]',
@@ -112,14 +156,13 @@ class GeneralSeeder extends Seeder
         DB::table('core_pages')->insert([
             'title'       => 'Freshen Home Page 2',
             'slug'        => 'freshen-home-page-2',
-            'template_id' => '4',
+            'template_id' => $templlate_id,
             'show_template' => 1,
             'author_id' => 1,
             'create_user' => '1',
             'status'      => 'publish',
             'created_at'  => date("Y-m-d H:i:s")
         ]);
-
     }
 
     public function generalMenuDepartment($locale = ''){
