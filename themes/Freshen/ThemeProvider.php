@@ -2,10 +2,12 @@
 namespace Themes\Freshen;
 
 
+use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Artisan;
 use Modules\Core\Helpers\SettingManager;
 use Modules\News\Hook;
+use Modules\Page\Models\Page;
 use Modules\Template\BlockManager;
 use Themes\Freshen\Database\Seeder;
 
@@ -38,6 +40,10 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         add_filter(Hook::NEWS_SETTING_CONFIG,[$this,'alterSettings']);
         add_action(Hook::NEWS_SETTING_AFTER_DESC,[$this,'showCustomFields']);
 
+        add_action(\Modules\Page\Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
+        add_action(\Modules\Page\Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_footer_style']);
+        add_action(\Modules\Page\Hook::AFTER_SAVING,[$this,'__save_header_footer_style']);
+
         SettingManager::register("freshen_general",[$this,'registerGeneralSetting'],1,'freshen_theme');
         SettingManager::register("freshen_product",[$this,'registerProductSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
@@ -58,7 +64,20 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         Paginator::defaultView('pagination');
         }
     }
-
+    public function __show_header_style(Page $row){
+        echo view('admin.page.header_style',['row'=>$row]);
+    }
+    public function __show_footer_style(Page $row){
+        echo view('admin.page.footer_style',['row'=>$row]);
+    }
+    public function __save_header_style(Page $row,Request $request){
+        if($request->input('save_header_style')){
+            $row->addMeta("header_style",$request->input('header_style'));
+        }
+        if($request->input('save_footer_style')){
+            $row->addMeta("footer_style",$request->input('footer_style'));
+        }
+    }
     public function registerZone(){
         return [
             "position"=>10,
