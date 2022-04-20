@@ -15,7 +15,7 @@ $score_total = $reviewData['score_total'];
                 @endif
             </ul>
         </div>
-        {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
+        <a href="{{$row->getDetailUrl()}}">{!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}</a>
 
     </div>
     <div class="details">
@@ -28,7 +28,7 @@ $score_total = $reviewData['score_total'];
             @endif
 
         </div>
-        <div class="sub_title">{{$translation->title}}</div>
+        <div class="sub_title"><a href="{{$row->getDetailUrl()}}">{{$translation->title}}</a></div>
         @include('product.details.price')
         <div class="si_footer df">
             <a href="{{$row->getDetailUrl()}}" class="cart_btn btn-thm text-center"><span class="flaticon-shopping-cart mr10"></span>{{__("ADD TO CART")}}</a>
