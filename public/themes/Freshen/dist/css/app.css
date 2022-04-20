@@ -129,7 +129,7 @@
   opacity: 0.3;
 }
 .bc-product-variations .item-active {
-  border-color: #0000003b !important;
+  border-color: rgba(0, 0, 0, 0.231372549) !important;
   color: #7e7e7e !important;
   box-shadow: 0 0 5px #7e7e7e !important;
 }

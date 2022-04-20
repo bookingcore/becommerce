@@ -49,7 +49,7 @@ $campaign_products = $row->campaign_products()->with(['product'])->paginate(30);
                         <th> {{ __('Current Price')}}</th>
                         <th> {{ __('Sale Price')}}</th>
                         <th> {{ __('Status')}}</th>
-                        <th width="100px"> {{ __('Date')}}</th>
+                        <th width="100px"> {{ __('Added on ')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -66,8 +66,8 @@ $campaign_products = $row->campaign_products()->with(['product'])->paginate(30);
                                         [{{__('Deleted')}}]
                                     @endif
                                 </td>
-                                <td>{{$campaign_product->product->price ?? ''}}</td>
-                                <td>
+                                <td>{{format_money($campaign_product->price ?? 0)}}</td>
+                                <td>{{format_money($campaign_product->discounted_price ?? 0)}}</td>
                                 <td><span class="badge badge-{{ $campaign_product->status_badge }}">{{ $campaign_product->status }}</span></td>
                                 <td>{{ display_date($campaign_product->updated_at)}}</td>
                             </tr>

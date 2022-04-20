@@ -206,6 +206,7 @@ class ProductController extends AdminController
 
         $row->fillByAttr($dataKeys,$request->input());
         if(!$row->author_id) $row->author_id = auth()->id();
+        $row->updateMinMaxPrice();
 
         $res = $row->saveWithTranslation($request->input('lang'));
 
@@ -217,6 +218,7 @@ class ProductController extends AdminController
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
             }
+
 
             if($id > 0 ){
                 return back()->with('success',  __('Product updated') );

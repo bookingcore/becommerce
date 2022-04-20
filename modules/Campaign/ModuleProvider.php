@@ -1,7 +1,7 @@
 <?php
 namespace Modules\Campaign;
 
-use Modules\Campaign\Repositories\CampaignRepositoryInterface;
+use Modules\Campaign\Repositories\Contracts\CampaignRepositoryInterface;
 use Modules\Campaign\Repositories\Eloquents\CampaignRepository;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SitemapHelper;
