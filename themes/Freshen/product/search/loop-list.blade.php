@@ -31,7 +31,7 @@ $score_total = $reviewData['score_total'];
         <div class="sub_title">{{$translation->title}}</div>
         @include('product.details.price')
         <div class="si_footer df">
-            <a href="page-shop-cart.html" class="cart_btn btn-thm text-center"><span class="flaticon-shopping-cart mr10"></span>ADD TO CART</a>
+            <a href="{{$row->getDetailUrl()}}" class="cart_btn btn-thm text-center"><span class="flaticon-shopping-cart mr10"></span>{{__("ADD TO CART")}}</a>
             <div class="thumb_info">
                 <ul class="mb0">
                     <li class="list-inline-item"><span class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}" data-bs-toggle="tooltip"  title="{{ __("Wishlist") }}"><span class="flaticon-heart"></span></span></li>
