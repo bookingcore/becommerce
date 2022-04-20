@@ -8,7 +8,6 @@ use Modules\Review\Models\Review;
 
 class BaseProduct extends BaseModel
 {
-    public $email_new_booking_file             = '';
 
     protected $reviewClass;
 
@@ -68,6 +67,16 @@ class BaseProduct extends BaseModel
         return $url ? $url : '';
     }
 
+
+    public function getDiscountPercentAttribute()
+    {
+        $price = $this->sale_price;
+        if (  $price < $this->origin_price) {
+            $percent = 100 - ceil($price / ($this->origin_price / 100));
+            return $percent;
+        }
+        return null;
+    }
 
     public function getSalePriceAttribute()
     {

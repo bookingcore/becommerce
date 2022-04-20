@@ -16,6 +16,10 @@ class CampaignProduct extends BaseModel
         'product_id',
         'campaign_id'
     ];
+    protected $casts  = [
+        'start_date'=>'date',
+        'end_date'=>'date',
+    ];
 
     public function product(){
         return $this->belongsTo(Product::class,'product_id');
@@ -23,8 +27,8 @@ class CampaignProduct extends BaseModel
 
     public function isActiveNow(){
         if($this->status != 'active') return false;
-        if($this->start_date > time()) return false;
-        if($this->end_date < time()) return false;
+        if($this->start_date->timestamp > time()) return false;
+        if($this->end_date->timestamp < time()) return false;
         return true;
     }
 

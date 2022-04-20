@@ -13,7 +13,7 @@
                         <div class="row py-3">
                             @if($rows->total())
                                 @foreach($rows as $row)
-                                @if($listing_list_style=='gird')
+                                @if($listing_list_style!='list')
                                     <div class="col-sm-4 mb-3">
                                         @include("product.search.loop")
                                     </div>

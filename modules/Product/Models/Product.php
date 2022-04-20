@@ -174,16 +174,6 @@ class Product extends BaseProduct
         return url(route('product.admin.edit',['id'=>$this->id]));
     }
 
-    public function getDiscountPercentAttribute()
-    {
-        $price = $this->sale_price;
-        if (  $price < $this->origin_price) {
-            $percent = 100 - ceil($this->price / ($this->origin_price / 100));
-            return $percent;
-        }
-        return null;
-    }
-
     public function fill(array $attributes)
     {
         if(!empty($attributes)){
