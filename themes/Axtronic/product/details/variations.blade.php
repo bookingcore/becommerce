@@ -1,4 +1,4 @@
-@if(!empty($data_variations = $row->getVariationsFormBook()))
+@if(!empty($data_variations = $row->variationMappingResource()))
     @php
         $list_variations = $data_variations["variations"];
         $list_attributes = $data_variations['attributes'];
