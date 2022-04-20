@@ -663,4 +663,5 @@ class Product extends BaseProduct
             $this->min_price -= $active_campaign->discount_amount * $this->min_price;
         }
     }
+
 }
