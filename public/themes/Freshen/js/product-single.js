@@ -11,6 +11,7 @@ jQuery(function ($) {
         $('.bc-product-variations .item').removeClass("item-active");
         var list_attribute_selected = [];
         $('.item-attribute:checked', '.bc-product-variations').each(function () {
+            console.log($(this).val());
             list_attribute_selected.push( parseInt( $(this).val() ));
             $(this).closest(".item").addClass("item-active");
         });
@@ -19,6 +20,7 @@ jQuery(function ($) {
         var list_variations = JSON.parse( $('.bc_variations').val() );
         var variation_id = '';
         var variation_selected = '';
+        console.log(list_variations);
         for (var id in list_variations){
             var variation = list_variations[id];
             var terms = [];
@@ -118,4 +120,26 @@ jQuery(function ($) {
             listItems.removeClass('c-main');
         });
     });
+
+
+    /*Evemt Single Page Counter JS Code*/
+    const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
+
+    $('.bc_count_down').each(function () {
+        var end = $(this).data('end');
+        var countDown = new Date(end).getTime();
+        var me = $(this)
+        setInterval(function() {
+            let now = new Date().getTime(),
+                distance = countDown - now;
+            me.find('.bc-days').Math.floor(distance / (day));
+            me.find('.bc-hours').Math.floor((distance % (day)) / (hour));
+            me.find('.bc-minutes').Math.floor((distance % (hour)) / (hour));
+            me.find('.bc-seconds').Math.floor((distance % (minute)) / (hour));
+
+        }, 1000);
+    })
 });
