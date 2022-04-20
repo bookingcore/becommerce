@@ -29,7 +29,7 @@
                                 {{csrf_field()}}
                                 <select name="action" class="form-control">
                                     <option value="">{{__(" Bulk Actions ")}}</option>
-                                    <option value="publish">{{__("Move to Publish")}}</option>
+                                    <option value="active">{{__("Move to Active")}}</option>
                                     <option value="draft">{{__("Move to Draft")}}</option>
                                     <option value="delete">{{__("Delete ")}}</option>
                                 </select>
