@@ -46,7 +46,8 @@ class ProductFactory extends Factory
             'product_type'=> ['simple','variable'][rand(0,1)],
             'create_user' => '1',
             'author_id'   =>1,
-            'attributes_for_variation' => ['1','2']
+            'attributes_for_variation' => ['1','2'],
+            'sku' => "OG1203".rand(1,100),
         ];
     }
 
