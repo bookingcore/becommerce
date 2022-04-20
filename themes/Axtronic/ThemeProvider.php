@@ -14,6 +14,7 @@ use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
+use Themes\Axtronic\Database\Seeder;
 use Themes\Freshen\Controllers\Blocks\ListCategoryProduct;
 
 class ThemeProvider extends AbstractThemeProvider
@@ -21,6 +22,8 @@ class ThemeProvider extends AbstractThemeProvider
     public static $name = "Axtronic";
 
     public static $screenshot = "/screenshot.png";
+
+    public static $seeder = Seeder::class;
 
     public static function info()
     {
