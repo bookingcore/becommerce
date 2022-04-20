@@ -67,7 +67,7 @@ class CartController extends FrontendController
 
             $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
 
-            CartManager::add($service,$service->name,$quantity,$service->price,[],$variation_id);
+            CartManager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
 
             $buy_now = $request->input('buy_now');
 

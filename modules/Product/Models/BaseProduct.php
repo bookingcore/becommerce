@@ -31,11 +31,6 @@ class BaseProduct extends BaseModel
         return response()->json($data);
     }
 
-    public function addToCartValidate(Request $request)
-    {
-        return true;
-    }
-
     public function cartExtraParams(Request $request){
         return [];
     }
