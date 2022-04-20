@@ -613,7 +613,7 @@ class Product extends BaseProduct
         return $query->with(['hasWishList','brand','translation']);
     }
 
-    public function getVariationsFormBook(){
+    public function variationMappingResource(){
         if(empty($data_variations = $this->variations))
             return false;
         $list_variations = $list_attributes=  [];
