@@ -60,6 +60,7 @@
      </section>
 @endsection
 @section('footer')
+    <script  src="{{ theme_url('Freshen/js/product-single.js') }}"></script>
     <script>
         jQuery(function ($) {
             $(window).on("load", function () {

@@ -1,13 +1,9 @@
 <?php
 namespace Themes\Freshen\Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Modules\Core\Models\Term;
-use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductTag;
-use Modules\Product\Models\ProductVariation;
-use Modules\Review\Models\Review;
 
 class ProductFactory extends Factory
 {

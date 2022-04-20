@@ -15,7 +15,7 @@ $score_total = $reviewData['score_total'];
                 @endif
             </ul>
         </div>
-        {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
+        <a href="{{$row->getDetailUrl()}}">{!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}</a>
         <div class="thumb_info">
             <ul class="mb0">
                 <li><span class="service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}" data-bs-toggle="tooltip"  title="{{ __("Wishlist") }}"><span class="flaticon-heart"></span></span></li>
@@ -33,7 +33,7 @@ $score_total = $reviewData['score_total'];
             @endif
 
         </div>
-        <div class="sub_title">{{$translation->title}}</div>
+        <div class="sub_title"><a href="{{$row->getDetailUrl()}}">{{$translation->title}}</a></div>
         <div class="si_footer">
             @include('product.details.price')
             <a href="{{$row->getDetailUrl()}}" class="cart_btn btn-thm"><span class="flaticon-shopping-cart mr10"></span>{{__('ADD TO CART')}}</a>
