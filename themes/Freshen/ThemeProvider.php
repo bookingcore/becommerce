@@ -118,6 +118,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         ];
     }
     public function registerProductSetting(){
+
         return [
             'id'   => 'freshen_product',
             'title' => __("Product Settings"),
@@ -125,6 +126,12 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
             'view'      => "admin.settings.product",
             "keys"      => [
                 'freshen_product_gallery',
+
+                'fs_search_layout',
+                'fs_search_item_layout',
+                'fs_search_top_product_ids',
+                'fs_search_top_category_ids',
+                'fs_search_top_carousel',
             ],
             'filter_demo_mode'=>[
             ]

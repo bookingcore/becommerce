@@ -9,7 +9,10 @@
 $review_score= $row->review_data;
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
-$review_list = $row->review_list
+$review_list = $row->review_list()
+    ->orderByDesc('id')
+    ->with('author')
+    ->paginate($this->getReviewNumberPerPage());
 ?>
 @include('global.message')
 <section id="comments" class="comments-area">

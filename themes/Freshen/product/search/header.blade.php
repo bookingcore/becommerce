@@ -1,7 +1,7 @@
 <?php
     $listing_list_style = request()->query('list_style');
 ;?>
-
+@includeIf('product.sidebar-filter')
 <div class="row">
     <div class="listing_filter_row dif db-767">
         <div class="col-md-4">
@@ -13,7 +13,7 @@
             <div class="listing_list_style tac-767">
                 <ul class="mb0">
                     <li class="list-inline-item">
-                        <a id="open2" class="filter_open_btn style2 dn db-lg" href="#"><span class="flaticon-setting-lines mr10"></span> {{__("Filters")}}</a>
+                        <a id="open2" class="filter_open_btn style2 @if(empty($show_filter))dn db-lg @endif" href="#"><span class="flaticon-setting-lines mr10"></span> {{__("Filters")}}</a>
                     </li>
                     <li class="list-inline-item">
                         <div class="shop_default_listing htlw_form_select bc-shopping__actions">
