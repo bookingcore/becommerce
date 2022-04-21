@@ -1,6 +1,6 @@
 @include('layouts.parts.topbar')
 <!-- header middle -->
-<div class="header_middle pt25 pb25 dn-992 header_content home">
+<div class="header_middle pt25 pb25 dn-992 header_content home{{ $header_style ?? setting_item('freshen_header_style') }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-xl-3">
@@ -62,7 +62,7 @@
     </div>
 </div>
 <!-- Main Header Nav -->
-<header class="header-nav menu_style_home_one main-menu home{{ setting_item('freshen_header_style') }}">
+<header class="header-nav menu_style_home_one main-menu home{{ $header_style ?? setting_item('freshen_header_style') }}">
     <!-- Ace Responsive Menu -->
     <nav class="posr">
         <div class="container posr">
