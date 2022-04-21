@@ -6,20 +6,18 @@ namespace Modules\Product\Api\V1;
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
-use Modules\News\Models\News;
 use Modules\Product\Models\Product;
 use Modules\Review\Models\Review;
-use Modules\Review\Models\ReviewMeta;
 use Modules\Review\Resources\ReviewResource;
 
 class ReviewController extends ApiController
 {
     public $product;
-    public function __construct(Product $product)
+    public $review;
+    public function __construct(Product $product,Review $review)
     {
         $this->product = $product;
+        $this->review = $review;
     }
 
     public function index($id){
@@ -60,56 +58,14 @@ class ReviewController extends ApiController
         ];
         $request->validate($rules,$messages);
 
-        $all_stats = setting_item($row->type."_review_stats");
-        $review_stats = $request->input('review_stats');
-        $metaReview = [];
-        if (!empty($all_stats)) {
-            $all_stats = json_decode($all_stats, true);
-            $total_point = 0;
-            foreach ($all_stats as $key => $value) {
-                if (isset($review_stats[$value['title']])) {
-                    $total_point += $review_stats[$value['title']];
-                }
-                $metaReview[] = [
-                    "object_id"    => $row->id,
-                    "object_model" => $row->type,
-                    "name"         => $value['title'],
-                    "val"          => $review_stats[$value['title']] ?? 0,
-                ];
-            }
-            $rate = round($total_point / count($all_stats), 1);
-            if ($rate > 5) {
-                $rate = 5;
-            }
-        } else {
-            $rate = min(5,$request->input('review_rate'));
-            $rate = max(0,$rate);
-        }
-        $review = new Review([
-            "object_id"    => $row->id,
-            "object_model" => $row->type,
-            "title"        => $request->input('review_title'),
-            "content"      => $request->input('review_content'),
-            "rate_number"  => $rate ?? 0,
-            "author_ip"    => $request->ip(),
-            "status"       => !$row->getReviewApproved() ? "approved" : "pending",
-            'vendor_id'    => $row->author_id,
-            'author_id'    => Auth::id(),
-        ]);
-        if ($review->save()) {
-            if (!empty($metaReview)) {
-                foreach ($metaReview as $meta) {
-                    $meta['review_id'] = $review->id;
-                    $reviewMeta = new ReviewMeta($meta);
-                    $reviewMeta->save();
-                }
-            }
+        if($review = $this->review::addReview($request,$row,$row->type,$row->id)){
             $msg = __('Review success!');
             if ($row->getReviewApproved()) {
                 $msg = __("Review success! Please wait for admin approved!");
             }
-            $row->updateServiceRate();
-            return $this->sendSuccess(new ReviewResource($review),$msg);
+            return $this->sendSuccess([
+                'data'=>new ReviewResource($review)
+            ],$msg);
         }
         return $this->sendError(__("Can not save review"),['code'=>500]);
     }
