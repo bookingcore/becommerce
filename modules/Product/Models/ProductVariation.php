@@ -6,9 +6,12 @@ use App\BaseModel;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Modules\Core\Models\Term;
+use Modules\Product\Traits\HasStockValidation;
 
 class ProductVariation extends BaseModel
 {
+    use HasStockValidation;
+
     protected $table = 'product_variations';
     public $type = 'product_variation';
 

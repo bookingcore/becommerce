@@ -5,7 +5,7 @@ namespace Modules\Campaign\Listeners;
 
 
 use Modules\Campaign\Models\CampaignProduct;
-use Modules\Product\Models\BaseProduct;
+use Modules\Product\Models\Product;
 
 class DeleteCampaignProduct
 {
@@ -20,7 +20,7 @@ class DeleteCampaignProduct
      *
      * @return void
      */
-    public function handle(BaseProduct $product)
+    public function handle(Product $product)
     {
         $this->campaign_product->where('product_id',$product->id)->delete();
     }
