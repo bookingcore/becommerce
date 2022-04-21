@@ -154,7 +154,7 @@ class ListCategory extends BaseBlock
             $model['list_items_2'] = $list_items_2;
         }
 
-        $style = isset($model['style']) ? $model['style'] : 'index';
+        $style = $model['style'] ?? 'index';
         return view("blocks.list-category.{$style}", $model);
     }
 }
