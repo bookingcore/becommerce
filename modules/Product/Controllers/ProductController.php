@@ -134,7 +134,7 @@ class ProductController extends Controller
         $this->recently_viewed($row->id);
         $product_variations = $this->product_variations($row);
         $translation = $row->translate(app()->getLocale());
-        $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
+        $review_list = $row->review_list()->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
         $bc = [
             'url'=>'',

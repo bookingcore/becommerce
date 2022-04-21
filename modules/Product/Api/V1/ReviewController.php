@@ -23,6 +23,6 @@ class ReviewController extends ApiController
             abort(404);
             return;
         }
-        return ReviewResource::collection($row->review_list()->paginate(10));
+        return ReviewResource::collection($row->review_list()->orderBy("id", "desc")->with(['author'])->paginate(10));
     }
 }
