@@ -2,7 +2,7 @@
 $categories = \Modules\Product\Models\ProductCategory::getAll();
 if(!isset($current_cat)) $current_cat = null;
 @endphp
-<div class="header_middle_advnc_search">
+<div class="header_middle_advnc_search {{ isset($header_style) ? 'home'.$header_style : '' }}">
     <div class="search_form_wrapper">
         <div class="top-search">
             <form action="{{route('product.index')}}" method="get" class="form-search">

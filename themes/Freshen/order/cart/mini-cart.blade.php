@@ -3,7 +3,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
 ?>
 <div class="div">
     <a class="cart_btn" href="#">
-        <span class="flaticon-shopping-cart icon">
+        <span class="flaticon-shopping-cart icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
             <span class="badge bgc-thm{{ setting_item('freshen_header_style') }}"> {{\Modules\Order\Helpers\CartManager::count()}} </span>
         </span>
     </a>
