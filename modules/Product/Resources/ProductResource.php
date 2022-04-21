@@ -11,9 +11,10 @@ class ProductResource extends BaseJsonResource
 
     public function toArray($request)
     {
+        $translation = $this->translate(app()->getLocale());
         return [
             'id'=>$this->id,
-            'title'=>$this->title,
+            'title'=>$translation->title,
             'price'=>$this->price,
             'price_html'=>format_money($this->price),
             'image_url'=>get_file_url($this->image_id,'medium'),

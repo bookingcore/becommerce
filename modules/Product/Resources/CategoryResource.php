@@ -13,7 +13,7 @@ class CategoryResource extends JsonResource
         $translation = $this->translate();
         return [
             'id'=>$this->id,
-            'title'=>$translation->title,
+            'name'=>$translation->name,
             'children'=> CategoryResource::collection($this->children)
         ];
     }

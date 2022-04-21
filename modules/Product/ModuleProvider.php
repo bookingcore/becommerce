@@ -66,11 +66,6 @@ class ModuleProvider extends ModuleServiceProvider
                         'title'      => __('Add new Product'),
                         'permission' => 'product_create',
                     ],
-                    'category'=>[
-                        'url'        => route('product.admin.category.index'),
-                        'title'      => __('Categories'),
-                        'permission' => 'product_manage_others',
-                    ],
                     'tag'=>[
                         'url'        => route('product.admin.tag.index'),
                         'title'      => __('Tags'),
@@ -87,6 +82,14 @@ class ModuleProvider extends ModuleServiceProvider
                         'permission' => 'product_manage_attributes',
                     ],
                 ]
+            ],
+            'category'=>[
+                "position"=>35,
+                'url'        => route('product.admin.category.index'),
+                'title'      => __('Categories'),
+                'permission' => 'product_manage_others',
+                'icon'       => 'fa fa-sitemap',
+                'group'=>'catalog',
             ],
         ];
     }

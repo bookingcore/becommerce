@@ -446,13 +446,13 @@ class Product extends BaseProduct
     {
         if($this->status != 'publish'){
 
-            throw  new \Exception(__("Product is not published yet"));
+            throw  new \Exception(__("Product is not published yet"),403);
         }
 
         if(!empty($variant_id)){
             $variation = $this->variations()->where('id',$variant_id)->first();
             if(!$variation){
-                throw  new \Exception('Variation not found..');
+                throw  new \Exception('Variation not found..',405);
             }
         }
         switch ($this->product_type){
@@ -464,21 +464,21 @@ class Product extends BaseProduct
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
                                 if($qty>$remainStock){
-                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]));
+                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]),406);
                                 }
                             }else{
-                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
+                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
                             }
                         }else{
 
                             $variant->stockValidation($qty);
                         }
                     }else{
-                        throw new \Exception(__('Please select a variation'));
+                        throw new \Exception(__('Please select a variation'),407);
                     }
                 break;
             case 'external':
-                throw  new \Exception('Product type external. You cannot add to cart!');
+                throw  new \Exception('Product type external. You cannot add to cart!',408);
                 break;
             default:
                 $this->stockValidation($qty);

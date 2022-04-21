@@ -26,6 +26,7 @@ class ModuleProvider extends ModuleServiceProvider
         SettingManager::register("general",[$this,'registerGeneralSetting']);
         SettingManager::register("advance",[$this,'registerAdvanceSetting']);
         SettingManager::register("style",[$this,'registerStyleSetting']);
+        SettingManager::register("mobile",[$this,'registerMobileSetting']);
 
         AdminMenuManager::register("setting",[$this,'getAdminMenu']);
         AdminMenuManager::register_group('system',__('System'),50);
@@ -193,5 +194,14 @@ class ModuleProvider extends ModuleServiceProvider
             ]
         ];
     }
+    public function registerMobileSetting(){
+        return [
+            'title' => __("Mobile Settings"),
+            'view'      => "Core::admin.settings.groups.mobile",
+            'position'=>90,
+            "keys"=>[]
+        ];
+    }
+
 
 }

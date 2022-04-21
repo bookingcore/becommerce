@@ -14,9 +14,7 @@ class ProductController extends ApiController
 
     public function index(Request $request){
 
-        $query = Product::search([
-            's'=>$request->query('s')
-        ]);
+        $query = Product::search($request->query());
 
         return ProductResource::collection($query->paginate(24));
     }
