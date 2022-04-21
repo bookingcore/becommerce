@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Modules\User\Api;
+namespace Modules\User\Api\V1;
 
 
 use App\User;

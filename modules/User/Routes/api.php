@@ -2,20 +2,9 @@
 use \Illuminate\Support\Facades\Route;
 
 Route::group([
-    'prefix' => 'auth'
+    'prefix' => 'v1/auth'
 ], function ($router) {
-    Route::post('login', 'AuthController@login');
-    Route::post('logout', 'AuthController@logout');
-    Route::post('refresh', 'AuthController@refresh');
-    Route::post('me', 'AuthController@me');
-});
-
-Route::group(["prefix"=>'user'],function(){
-    Route::post("/","UserController@index");
-    Route::group(["prefix"=>'{id}'],function(){
-        Route::get("/","UserController@detail");
-        Route::post("/","UserController@store");
-        Route::patch("/","UserController@patch");
-        Route::delete("/","UserController@delete");
-    });
+    Route::post('login', 'V1\AuthController@login');
+    Route::post('logout', 'V1\AuthController@logout');
+    Route::post('me', 'V1\AuthController@me');
 });

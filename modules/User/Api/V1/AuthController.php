@@ -1,10 +1,14 @@
 <?php
 
 
-namespace Modules\User\Api;
+namespace Modules\User\Api\V1;
 
 
 use App\Http\Controllers\Controller;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 use Modules\User\Resources\UserResource;
 
 class AuthController extends Controller
@@ -16,23 +20,33 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login','register']]);
+        $this->middleware('auth:sanctum', ['except' => ['login','register']]);
     }
 
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
      */
-    public function login()
+    public function login(Request $request)
     {
-        $credentials = request(['email', 'password']);
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+            'device_name' => 'required',
+        ]);
 
-        if (! $token = auth('api')->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            throw ValidationException::withMessages([
+                'email' => ['The provided credentials are incorrect.'],
+            ]);
         }
 
-        return $this->respondWithToken($token);
+        return [
+            'token'=>$user->createToken($request->device_name)->plainTextToken,
+            'user'=> new UserResource($user)
+        ];
     }
 
     /**
