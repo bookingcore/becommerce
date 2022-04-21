@@ -9,6 +9,7 @@
 namespace Themes\Axtronic\Controllers\Blocks;
 
 
+use Modules\Product\Models\ProductCategory;
 use Modules\Template\Blocks\BaseBlock;
 
 class CategoryProduct extends BaseBlock
@@ -24,29 +25,31 @@ class CategoryProduct extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
-                    'id'          => 'categories_product',
+                    'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),
                     'title_field' => 'title',
                     'settings'    => [
                         [
-                            'id'        => 'title_category',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Title Category')
+                            'id'      => 'category_id',
+                            'type'    => 'select2',
+                            'label'   => __('Select Category'),
+                            'select2' => [
+                                'ajax'  => [
+                                    'url'      => route('product.admin.category.getForSelect2'),
+                                    'dataType' => 'json'
+                                ],
+                                'width' => '100%',
+                                'allowClear' => 'true',
+                                'placeholder' => __('-- Select --')
+                            ],
+                            'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1])
                         ],
                         [
-                            'id'    => 'icon',
-                            'type'  => 'input',
-                            'inputType' => 'text',
-                            'label' => __('Icon Category ')
+                            'id'    => 'image_id',
+                            'type'  => 'uploader',
+                            'label' => __('Icon Image')
                         ],
-                        [
-                            'id'        => 'link',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Link For Item')
-                        ]
                     ]
                 ]
             ]
@@ -60,7 +63,11 @@ class CategoryProduct extends BaseBlock
 
     public function content($model = [])
     {
-
+        if(!empty($model['list_items'])){
+            $ids = collect($model['list_items'])->pluck('category_id');
+            $categories = ProductCategory::query()->whereIn("id",$ids)->get();
+            $model['categories'] = $categories;
+        }
         return view('blocks.list-product.category', $model);
     }
 }

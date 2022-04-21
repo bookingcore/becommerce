@@ -1,5 +1,13 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: PC
+ * Date: 4/21/2022
+ * Time: 9:01 AM
+ */
+?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products mb-5 {{ $style_header }}">
+    <div class="axtronic-list-products axtronic-slider-best list-products-bg mb-5 py-5 {{ $style_header }}"  style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">
         <div class="container">
             <div class="product-box">
                 <div class="product-box-title ">
@@ -14,17 +22,14 @@
                     @endif
                 </div>
                 <div class="axtronic-slider-content">
-                    <div class="product-slider swiper-container">
-                        <div class="swiper-wrapper">
-                            @if(!empty($rows))
-                                @foreach($rows as $row)
-                                    <div class="swiper-slide">
-                                        @include('product.search.loop')
-                                    </div>
-                                @endforeach
-                            @endif
-                        </div>
-                        <div class="swiper-pagination"></div>
+                    <div class="row">
+                        @if(!empty($rows))
+                            @foreach($rows as $row)
+                                <div class="col-lg-3 col-sm-6 mb-3">
+                                    @include('product.search.loop')
+                                </div>
+                            @endforeach
+                        @endif
                     </div>
                 </div>
             </div>
@@ -33,4 +38,3 @@
     </div>
 @endif
 
-{{--@include('blocks.list-product.special')--}}

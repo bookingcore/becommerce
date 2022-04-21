@@ -4376,10 +4376,10 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .product-box-title .list-category-name {
   margin: 0;
   display: flex;
+  align-items: center;
 }
 .product-box-title .list-category-name li {
   margin-right: 4px;
-  margin-bottom: 8px;
 }
 .product-box-title .list-category-name li a {
   font-size: 14px;
@@ -4396,6 +4396,72 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   background-image: linear-gradient(90deg, var(--primary) 0%, var(--primary_hover) 100%);
   border-color: var(--primary);
   color: #ffffff;
+}
+
+.axtronic-list-products.style_2 .product-box {
+  box-shadow: 0px 4px 32px 0px rgba(0, 0, 0, 0.04);
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 32px 24px 32px 24px;
+  border-radius: 12px 12px 12px 12px;
+}
+.axtronic-list-products.style_2 .product-box-title {
+  border: 0;
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li {
+  padding-left: 8px;
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li a {
+  background: none;
+  border: 0;
+  color: var(--accent);
+  font-size: 16px;
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li a:hover {
+  color: var(--primary);
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li:not(:first-child):not(:last-child) a {
+  position: relative;
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li:not(:first-child):not(:last-child) a:before {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translate(0, -50%);
+  content: "";
+  width: 3px;
+  height: 3px;
+  background-color: var(--accent);
+}
+.axtronic-list-products.style_2 .product-box-title .list-category-name li:last-child {
+  margin-left: 50px;
+}
+.axtronic-list-products.list-products-bg {
+  background-size: cover;
+}
+.axtronic-list-products.list-products-bg .heading-title {
+  color: #ffffff;
+}
+.axtronic-list-products.list-products-bg.style_2 .product-box-title .list-category-name li a {
+  color: #ffffff;
+}
+.axtronic-list-products.style_3 {
+  text-align: center;
+}
+.axtronic-list-products.style_3 .heading-title {
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.5em;
+}
+.axtronic-list-products.style_3 .heading-title span {
+  color: var(--primary);
+}
+.axtronic-list-products.style_3 .product-box-title {
+  display: block;
+}
+.axtronic-list-products.style_3 .product-box-title .list-category-name {
+  justify-content: center;
+  margin: 15px 0;
 }
 
 .product-slider .swiper-wrapper {
@@ -4426,17 +4492,6 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 }
 .axtronic-slider-best .product-box-title {
   border-bottom: 0;
-  display: block;
-}
-.axtronic-slider-best .heading-title {
-  color: #ffffff;
-  font-size: 34px;
-  font-weight: 600;
-  line-height: 1.5em;
-  margin-bottom: 40px;
-}
-.axtronic-slider-best .heading-title span {
-  color: var(--primary);
 }
 .axtronic-slider-best .product-item {
   overflow: hidden;

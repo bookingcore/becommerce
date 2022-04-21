@@ -1,6 +1,6 @@
 <!-- Slider main container -->
 @if(!empty($sliders))
-<div class="{{$width_slider}} ">
+<div class="{{!empty($width_slider)}} ">
     <div class="banner-slider swiper-container">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper axtronic-modern-slider ">

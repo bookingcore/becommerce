@@ -91,8 +91,6 @@ class ListCategoryProduct extends BaseBlock
 
     public function content($model = [])
     {
-
-
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
@@ -106,13 +104,12 @@ class ListCategoryProduct extends BaseBlock
                 $list_item_cat[$item->id] = Product::search($model)->get($model['limit']);
             }
         }
-
         $data = [
             'rows'       => $list,
             'list_product_cat'       => $list_product_cat,
             'title'      => $model['title'] ?? "",
             'categories' => $categories ?? [],
-            'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal"
+
         ];
         return view('blocks.list-category-product.index', $data);
     }

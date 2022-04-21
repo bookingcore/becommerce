@@ -245,9 +245,9 @@ ul.list-product-items{
     .list-category-name{
         margin: 0;
         display: flex;
+        align-items: center;
         li{
             margin-right: 4px;
-            margin-bottom: 8px;
             a{
                 font-size: 14px;
                 font-weight: 400;
@@ -263,6 +263,82 @@ ul.list-product-items{
                     border-color: var(--primary);
                     color: #ffffff;
                 }
+            }
+        }
+    }
+
+}
+.axtronic-list-products{
+    &.style_2{
+        .product-box{
+            box-shadow: 0px 4px 32px 0px rgb(0 0 0 / 4%);
+            transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+            padding: 32px 24px 32px 24px;
+            border-radius: 12px 12px 12px 12px;
+        }
+        .product-box-title{
+            border: 0;
+            .list-category-name {
+                li {
+                    padding-left: 8px;
+                    a{
+                        background: none;
+                        border: 0;
+                        color: var(--accent);
+                        font-size: 16px;
+                        &:hover{
+                            color: var(--primary);
+                        }
+                    }
+                    &:not(:first-child):not(:last-child){
+                        a{
+                            position: relative;
+                            &:before{
+                                position: absolute;
+                                left: 0;
+                                top: 50%;
+                                transform: translate(0, -50%);
+                                content: "";
+                                width: 3px;
+                                height: 3px;
+                                background-color: var(--accent);
+                            }
+                        }
+                    }
+                    &:last-child{
+                        margin-left: 50px;
+                    }
+                }
+            }
+        }
+    }
+    &.list-products-bg{
+        background-size: cover;
+        .heading-title{
+            color: #ffffff;
+        }
+        &.style_2{
+            .product-box-title .list-category-name li a{
+                color: #ffffff;
+            }
+        }
+    }
+    &.style_3{
+        text-align: center;
+        .heading-title{
+            color: #ffffff;
+            font-size: 34px;
+            font-weight: 600;
+            line-height: 1.5em;
+            span{
+                color: var(--primary);
+            }
+        }
+        .product-box-title {
+            display: block;
+            .list-category-name{
+                justify-content: center;
+                margin: 15px 0;
             }
         }
     }
@@ -297,19 +373,8 @@ ul.list-product-items{
     text-align: center;
     .product-box-title{
         border-bottom: 0;
-        display: block;
     }
-    .heading-title{
-        color: #ffffff;
-        font-size: 34px;
-        font-weight: 600;
-        line-height: 1.5em;
-        margin-bottom: 40px;
 
-        span{
-            color: var(--primary);
-        }
-    }
     .product-item{
         overflow: hidden;
         position: relative;
