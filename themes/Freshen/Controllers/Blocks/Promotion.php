@@ -78,7 +78,7 @@ class Promotion extends BaseBlock
             'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
-        $style = $model['style'] ? $model['style'] : 'index';
+        $style = isset($model['style']) ? $model['style'] : 'index';
 
         return view("blocks.promotion.{$style}", $data);
     }
