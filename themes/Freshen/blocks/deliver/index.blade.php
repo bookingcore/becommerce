@@ -5,7 +5,9 @@
                 <div class="col-lg-12">
                     <div class="online_delivery text-center">
                         <div class="delivery_bike">
-                            <img src="{{ $image_url }}" alt="{{ $title }}">
+                            @if(!empty($image_url))
+                                <img src="{{ $image_url }}" alt="{{ $title }}">
+                            @endif
                         </div>
                         <h3 class="title text-thm2">
                             <span class="flaticon-whatsapp text-thm vam mr15"></span>

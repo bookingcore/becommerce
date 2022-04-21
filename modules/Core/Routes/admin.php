@@ -36,3 +36,5 @@ Route::group(['prefix' => 'menu'], function () {
 
     Route::post('/bulkEdit','MenuController@bulkEdit')->name('core.admin.menu.bulkEdit');
 });
+
+Route::get('mobile/to-builder','MobileController@toBuilder')->name('core.admin.mobile.toBuilder');

@@ -22,7 +22,9 @@
                                 <a href="{{ $page_search }}">
                                     <div class="iconbox">
                                         <div class="icon">
-                                            <img src="{{$image_url}}" alt="{{ $translate->name }}">
+                                            @if(!empty($image_url))
+                                                <img src="{{$image_url}}" alt="{{ $translate->name }}">
+                                            @endif
                                         </div>
                                         <div class="details">
                                             <h5 class="title">{{ $translate->name }}</h5>

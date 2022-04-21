@@ -94,11 +94,10 @@ class BlockManager
     }
     public static function contentAPI(Template $template){
 
+        $res = [];
         $blocks = static::all();
         $items = json_decode($template->content, true);
-        if (empty($items))
-            return '';
-        $html = '';
+        if (empty($items)) return $res;
         foreach ($items as $item) {
             if (empty($item['type']))
                 continue;
@@ -106,14 +105,15 @@ class BlockManager
                 continue;
             $item['model'] = isset($item['model']) ? $item['model'] : [];
             $blockModel = new $blocks[$item['type']]();
-            if (method_exists($blockModel, 'content')) {
-                $html .= call_user_func([
+            if (method_exists($blockModel, 'contentAPI')) {
+                $item["model"] = call_user_func([
                     $blockModel,
                     'contentAPI'
                 ], $item['model']);
             }
+            $res[] = $item;
         }
-        return $html;
+        return $res;
     }
 
 }

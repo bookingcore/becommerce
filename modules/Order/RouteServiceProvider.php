@@ -15,6 +15,8 @@ class RouteServiceProvider extends ServiceProvider
 
     protected $adminModuleNamespace = 'Modules\Order\Admin';
 
+    protected $apiNameSpace = 'Modules\Order\Api';
+
     /**
      * Called before routes are registered.
      *
@@ -91,7 +93,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::prefix('api')
             ->middleware('api')
-            ->namespace($this->moduleNamespace)
+            ->namespace($this->apiNameSpace)
             ->group(__DIR__ . '/Routes/api.php');
     }
 }

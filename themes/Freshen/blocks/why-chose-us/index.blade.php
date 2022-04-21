@@ -13,7 +13,9 @@
                     <div class="col-md-6 col-xl-4">
                         <div class="why_chose_us home1_style">
                             <div class="icon">
-                                <img src="{{ get_file_url($item['image_id'] ?? '' , "full") }}" alt="{{ $item['title'] }}">
+                                @if(!empty($item['image_id']))
+                                    <img src="{{ get_file_url($item['image_id'] ?? '' , "full") }}" alt="{{ $item['title'] }}">
+                                @endif
                             </div>
                             <div class="details">
                                 <h4 class="title">{{ $item['title'] }}</h4>

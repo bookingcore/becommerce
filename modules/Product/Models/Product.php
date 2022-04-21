@@ -2,9 +2,11 @@
 
 namespace Modules\Product\Models;
 
+use App\BaseModel;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -15,13 +17,15 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\News\Models\Tag;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
+use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\Theme\ThemeManager;
 use Modules\User\Models\UserWishList;
 
-class Product extends BaseProduct
+class Product extends BaseModel
 {
-    use HasFactory;
+    use HasFactory, HasStockValidation;
     protected $table = 'products';
     public $type = 'product';
 
@@ -174,16 +178,6 @@ class Product extends BaseProduct
         return url(route('product.admin.edit',['id'=>$this->id]));
     }
 
-    public function getDiscountPercentAttribute()
-    {
-        $price = $this->sale_price;
-        if (  $price < $this->origin_price) {
-            $percent = 100 - ceil($this->price / ($this->origin_price / 100));
-            return $percent;
-        }
-        return null;
-    }
-
     public function fill(array $attributes)
     {
         if(!empty($attributes)){
@@ -244,13 +238,10 @@ class Product extends BaseProduct
     }
 
 
-    public function getReviewListAttribute(){
-        return Review::where('object_id', $this->id)
+    public function review_list(){
+        return $this->hasMany(Review::class,'object_id')
             ->where('object_model', $this->type)
-            ->where("status", "approved")
-            ->orderBy("id", "desc")
-            ->with('author')
-            ->paginate($this->getReviewNumberPerPage());
+            ->where("status", "approved");
     }
 
     public function isBought(){
@@ -414,8 +405,6 @@ class Product extends BaseProduct
     	return $this->hasMany(ProductVariation::class);
     }
 
-
-
 	public function getProductJsAdminDataAttribute(){
         return [
             'attributes'=>Attribute::query()->ofType($this->type)->get(),
@@ -456,13 +445,13 @@ class Product extends BaseProduct
     {
         if($this->status != 'publish'){
 
-            throw  new \Exception(__("Product is not published yet"));
+            throw  new \Exception(__("Product is not published yet"),403);
         }
 
         if(!empty($variant_id)){
             $variation = $this->variations()->where('id',$variant_id)->first();
             if(!$variation){
-                throw  new \Exception('Variation not found..');
+                throw  new \Exception('Variation not found..',405);
             }
         }
         switch ($this->product_type){
@@ -474,21 +463,21 @@ class Product extends BaseProduct
                             if(!empty($this->quantity)){
                                 $remainStock = $this->quantity - $onHold;
                                 if($qty>$remainStock){
-                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]));
+                                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]),406);
                                 }
                             }else{
-                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]));
+                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
                             }
                         }else{
 
                             $variant->stockValidation($qty);
                         }
                     }else{
-                        throw new \Exception(__('Please select a variation'));
+                        throw new \Exception(__('Please select a variation'),407);
                     }
                 break;
             case 'external':
-                throw  new \Exception('Product type external. You cannot add to cart!');
+                throw  new \Exception('Product type external. You cannot add to cart!',408);
                 break;
             default:
                 $this->stockValidation($qty);
@@ -623,7 +612,7 @@ class Product extends BaseProduct
         return $query->with(['hasWishList','brand','translation']);
     }
 
-    public function getVariationsFormBook(){
+    public function variationMappingResource(){
         if(empty($data_variations = $this->variations))
             return false;
         $list_variations = $list_attributes=  [];
@@ -673,4 +662,100 @@ class Product extends BaseProduct
             $this->min_price -= $active_campaign->discount_amount * $this->min_price;
         }
     }
+
+
+    public function cartExtraParams(Request $request){
+        return [];
+    }
+    /**
+     * Is Tax included in Pricing
+     */
+    public function isTaxIncluded()
+    {
+        return true;
+    }
+
+
+    public function getImageUrlAttribute($size = "medium")
+    {
+        $url = FileHelper::url($this->image_id, $size);
+        return $url ? $url : '';
+    }
+
+    public function getBannerImageUrlAttribute($size = "medium")
+    {
+        $url = FileHelper::url($this->banner_image_id, $size);
+        return $url ? $url : '';
+    }
+
+    public function getImageUrl($size = "medium")
+    {
+
+        $url = FileHelper::url($this->image_id, $size);
+        return $url ? $url : '';
+    }
+
+
+    public function getDiscountPercentAttribute()
+    {
+        $price = $this->sale_price;
+        if (  $price < $this->origin_price) {
+            $percent = 100 - ceil($price / ($this->origin_price / 100));
+            return $percent;
+        }
+        return null;
+    }
+
+    public function getSalePriceAttribute()
+    {
+        $price = $this->price;
+        $active_campaign  = $this->active_campaign;
+        if($active_campaign and $active_campaign->isActiveNow()){
+            $price -= $price * $active_campaign->discount_amount/100;
+        }
+
+        return $price;
+    }
+    public function getDisplayPriceAttribute()
+    {
+        return format_money($this->sale_price);
+
+    }
+
+    public function getDisplaySalePriceAttribute()
+    {
+        $price = $this->sale_price;
+        if ($this->origin_price > $price) {
+            return format_money($this->origin_price);
+        }
+        return false;
+    }
+
+    public function getBookingsInRange($from,$to){
+
+    }
+
+    public static function getVendorServicesQuery($user_id){
+        return parent::query()->where([
+            'create_user'=>$user_id,
+            'status'=>'publish',
+        ])->with('location');
+    }
+
+    public function getRecommendPercentAttribute()
+    {
+        $percent = 0;
+        $dataTotalReview = $this->reviewClass::selectRaw(" 	COUNT( id ) AS total_review, COUNT( CASE WHEN rate_number >= 4 THEN 1 ELSE null END )  as total_review_recommend ")->where('object_id', $this->id)->where('object_model', "tour")->where("status", "approved")->first();
+        if(!empty($dataTotalReview['total_review'])){
+            $percent = ( 100 / $dataTotalReview['total_review'] ) * $dataTotalReview['total_review_recommend'];
+        }
+        return $percent;
+    }
+
+    public function delete()
+    {
+        ProductDeleteEvent::dispatch($this);
+        return parent::delete(); // TODO: Change the autogenerated stub
+    }
+
 }

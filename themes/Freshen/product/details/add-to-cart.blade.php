@@ -1,6 +1,5 @@
-
-
 <form class="bc_form_add_to_cart" action="{{route('cart.addToCart')}}">
+    @include('product.details.campaign')
     @csrf
     <input type="hidden" name="object_model" value="product">
     <input type="hidden" name="object_id" value="{{$row->id}}">

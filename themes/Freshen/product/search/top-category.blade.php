@@ -1,9 +1,9 @@
-@if(!empty($topCategories))
+@if(!empty($categoryTopSearchPage))
     <div class="shop_slider_col6">
-        @foreach($topCategories as $category)
+        @foreach($categoryTopSearchPage as $category)
             @php($translate = $category->translate())
             <div class="item">
-                <a href="page-shop-list-v6.html">
+                <a href="{{$category->getDetailUrl()}}">
                     <div class="iconbox slider_style">
                         @if(!empty($category->image_id))
                         <?php

@@ -175,6 +175,9 @@
 .pt-100{
     padding-top:100px ;
 }
+.pb-100{
+    padding-bottom: 100px ;
+}
 .listing_list_style ul li.gird ,.listing_list_style ul li.list{
     &:not(.active){
         a{
@@ -277,4 +280,80 @@
 }
 .top-search form.form-search .box-search input {
     width: 100% !important;
+}
+.checkout_form{
+    button[type=submit]{
+        background-color: #EBEBEB;
+        border-radius: 4px;
+        color: #4F4F4F;
+        font-family: Lato;
+        font-size: 13px;
+        font-style: normal;
+        font-weight: 700;
+        height: 55px;
+        line-height: 45px;
+        letter-spacing: 0em;
+        position: absolute;
+        right: 0;
+        text-transform: uppercase;
+        width: 180px;
+        &:hover{
+            background-color: #86BC42;
+            color: #fff;
+        }
+        @media only screen and (max-width: 767.98px) {
+            position: relative;
+
+        }
+        @media only screen and (max-width: 520px) {
+            width: 100%;
+        }
+    }
+}
+.checkout_coupon{
+    .coupon_input{
+        border: 1px solid #E6E9EC;
+        border-radius: 4px;
+        font-size: 14px;
+        color: #4f4f4f;
+        height: 55px;
+        margin-right: 24px;
+        padding-left: 20px;
+        width: 270px;
+        @media only screen and (max-width: 520px) {
+            width: 100%;
+        }
+        @media only screen and (max-width: 767.98px) {
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+    }
+    .bc_apply_coupon{
+        height: 50px;
+        line-height: 1.2;
+        margin-bottom: 0;
+        width: 170px;
+        background-color: #86BC42;
+        border: 1px solid #86BC42;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 600;
+        text-transform: uppercase;
+        &:hover{
+            background-color: #6F9D34;
+            border-color: #6F9D34;
+            color: #fff;
+        }
+        @media only screen and (max-width: 520px) {
+            width: 100%;
+            margin-top: 15px;
+        }
+    }
+
+}
+@media only screen and (max-width: 520px){
+    .db-520 {
+        display: block !important;
+    }
 }

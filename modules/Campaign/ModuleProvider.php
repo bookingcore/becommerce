@@ -37,6 +37,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
 
         $this->app->bind(CampaignRepositoryInterface::class,CampaignRepository::class);
     }

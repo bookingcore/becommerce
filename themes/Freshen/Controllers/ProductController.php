@@ -55,7 +55,7 @@ class ProductController extends Controller
                     'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
                 ]
             ],
-            'listing_list_style'        => request()->query('list_style'),
+
             'body_class'        => 'full_width',
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
@@ -63,6 +63,35 @@ class ProductController extends Controller
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
 
+        $data['layout'] = $request->query('layout',setting_item('fs_search_layout',1));
+        $data['listing_list_style'] = request()->query('list_style',setting_item('fs_search_item_layout'));
+        if($data['layout']==4){
+            $productIdsSetting = setting_item('fs_search_top_product_ids');
+            if(!empty($productIdsSetting)){
+                try {
+                    $productIds = explode($productIdsSetting,',');
+                    $data['productTopSearchPage'] = Product::whereIn('id',$productIds)->where('status','publish')->with('translation')->get();
+                }catch (\Exception $exception){
+
+                }
+            }
+        }
+
+        if($data['layout']==5){
+            $carouselTopSearchPage = collect(setting_item_array('fs_search_top_carousel',[]));
+            $data['carouselTopSearchPage']  = $carouselTopSearchPage->sortBy('order');
+        }
+        if($data['layout']==6){
+            $categoryIdsSetting = setting_item('fs_search_top_category_ids');
+            if(!empty($categoryIdsSetting)){
+                try {
+                    $categoryIds = explode($categoryIdsSetting,',');
+                    $data['categoryTopSearchPage'] = ProductCategory::whereIn('id',$categoryIds)->where('status','publish')->with('translation')->get();
+                }catch (\Exception $exception){
+
+                }
+            }
+        }
         return view('product', $data);
     }
 

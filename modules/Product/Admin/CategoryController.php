@@ -13,7 +13,7 @@ class CategoryController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        AdminMenuManager::setActive('product');
+        AdminMenuManager::setActive('category');
     }
 
     public function index(Request $request)

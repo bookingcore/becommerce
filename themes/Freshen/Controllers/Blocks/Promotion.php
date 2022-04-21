@@ -10,6 +10,22 @@ class Promotion extends BaseBlock
     {
         $this->setOptions([
             'settings' => [
+                [
+                    'id'    => 'style',
+                    'type'  => 'radios',
+                    'label' => __('Style'),
+                    'value' => 'style_1',
+                    'values' => [
+                        [
+                            'value'   => 'style_1',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ]
+                    ],
+                ],
                 [      'id'        => 'title',
                        'type'      => 'input',
                        'inputType' => 'text',
@@ -62,6 +78,8 @@ class Promotion extends BaseBlock
             'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
-        return view('blocks.promotion.index', $data);
+        $style = $model['style'] ?? 'index';
+
+        return view("blocks.promotion.{$style}", $data);
     }
 }

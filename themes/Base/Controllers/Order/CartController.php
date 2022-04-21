@@ -44,7 +44,7 @@ class CartController extends FrontendController
             'object_model' => 'required',
             'quantity' => 'required',
         ],[
-            'object_model.required'=>__("Service id is required"),
+            'object_model.required'=>__("Service type is required"),
             'object_id.required'=>__("Service id is required"),
             'object_id.integer'=>__("Service id is integer"),
         ]);
@@ -58,7 +58,7 @@ class CartController extends FrontendController
 
         $allServices = get_services();
         if (empty($allServices[$service_type])) {
-            return $this->sendError(__('Service type not found'));
+            return $this->sendError(__('Service type not found'),['code'=>404]);
         }
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
@@ -67,19 +67,19 @@ class CartController extends FrontendController
 
             $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
 
-            CartManager::add($service,$service->name,$quantity,$service->price,[],$variation_id);
+            CartManager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
 
             $buy_now = $request->input('buy_now');
 
             return $this->sendSuccess([
-                'fragments'=>CartManager::fragments(),
+                'fragments'=>!is_api() ? CartManager::fragments() : [],
                 'url'=>$buy_now ? route('checkout') : '',
             ],
                 !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
             );
 
         }catch (\Exception $exception){
-            return $this->sendError($exception->getMessage());
+            return $this->sendError($exception->getMessage(),['code'=>$exception->getCode()]);
         }
 
     }
