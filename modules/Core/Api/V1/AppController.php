@@ -30,7 +30,7 @@ class AppController extends ApiController
         $res = [];
         $template = Template::find(setting_item('api_app_layout'));
         if(!empty($template)){
-            $translate = $template->translateOrOrigin(app()->getLocale());
+            $translate = $template->translate(app()->getLocale());
             $res = $translate->getProcessedContentAPI();
         }
 

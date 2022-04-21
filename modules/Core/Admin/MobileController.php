@@ -17,6 +17,8 @@ class MobileController extends AdminController
                 'title'=>'Mobile Layout Builder'
             ]);
             $template->save();
+
+            setting_update_item('api_app_layout',$template->id);
         }
 
         return redirect(route('template.admin.edit',['id'=>$template->id]));

@@ -32,6 +32,7 @@ class Controller extends BaseController
         }
         if(!isset($data['status'])) $data['status'] = 1;
 
+        if($message)
         $data['message'] = $message;
 
         return response()->json($data);
