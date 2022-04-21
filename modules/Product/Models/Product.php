@@ -239,7 +239,7 @@ class Product extends BaseModel
 
 
     public function review_list(){
-        return $this->hasMany(Review::class,'object_id', $this->id)
+        return $this->hasMany(Review::class,'object_id')
             ->where('object_model', $this->type)
             ->where("status", "approved");
     }

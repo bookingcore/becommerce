@@ -93,7 +93,8 @@ class ReviewController extends Controller
                 $rate = 5;
             }
         } else {
-            $rate = $request->input('review_rate');
+            $rate = min(5,$request->input('review_rate'));
+            $rate = max(0,$rate);
         }
         $review = new Review([
             "object_id"    => $service_id,
