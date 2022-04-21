@@ -1,6 +1,6 @@
 @include('layouts.parts.topbar')
 <!-- header middle -->
-<div class="header_middle pt25 pb25 dn-992 header_content">
+<div class="header_middle pt25 pb25 dn-992 header_content {{ (isset($header_style) and $header_style=='2') ? " bgc-thm".$header_style : "" }}">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-xl-3">
@@ -22,14 +22,14 @@
                         <ul class="mb0 cart">
                             @if(!Auth::id())
                                 <li class="list-inline-item text-end">
-                                    <a href="#" data-bs-toggle="modal" data-bs-target="#login"><span class="flaticon-user icon"></span></a>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#login"><span class="flaticon-user icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}"></span></a>
                                 </li>
                             @else
                                 @include('layouts.parts.header.user')
                             @endif
                             <li class="list-inline-item bc-compare-count text-end">
                                 <a href="#">
-                                    <span class="flaticon-filter icon">
+                                    <span class="flaticon-filter icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
                                         <span class="badge bgc-thm{{ setting_item('freshen_header_style') }} number">
                                             {{ !empty(session('compare')) ? count(session('compare')) : "0" }}
                                         </span>
@@ -39,13 +39,13 @@
                             <li class="list-inline-item text-end">
                                 @if(Auth::user())
                                     <a href="{{route('user.wishList.index')}}">
-                                        <span class="flaticon-heart icon">
+                                        <span class="flaticon-heart icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
                                             <span class="badge bgc-thm{{ setting_item('freshen_header_style') }} wishlist_count">{{ countWishlist() }}</span>
                                         </span>
                                     </a>
                                 @else
                                     <a href="#login" data-bs-toggle="modal" data-target="#login">
-                                        <span class="flaticon-heart icon">
+                                        <span class="flaticon-heart icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
                                             <span class="badge bgc-thm">0</span>
                                         </span>
                                     </a>
@@ -62,7 +62,7 @@
     </div>
 </div>
 <!-- Main Header Nav -->
-<header class="header-nav menu_style_home_one main-menu home{{ setting_item('freshen_header_style') }}">
+<header class="header-nav menu_style_home_one main-menu home{{ $header_style ?? setting_item('freshen_header_style') }}">
     <!-- Ace Responsive Menu -->
     <nav class="posr">
         <div class="container posr">

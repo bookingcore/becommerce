@@ -70,7 +70,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public function __show_footer_style(Page $row){
         echo view('admin.page.footer_style',['row'=>$row]);
     }
-    public function __save_header_style(Page $row,Request $request){
+    public function __save_header_footer_style(Page $row,Request $request){
         if($request->input('save_header_style')){
             $row->addMeta("header_style",$request->input('header_style'));
         }
