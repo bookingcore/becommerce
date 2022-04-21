@@ -141,8 +141,8 @@ class GeneralSeeder extends Seeder
             'freshen-why-chose-2'=> MediaFile::updateOrCreate(['file_name' => 'freshen-why-chose-2', 'file_path' => 'freshen/general/why-chose-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-why-chose-2'])->id,
             'freshen-why-chose-3'=> MediaFile::updateOrCreate(['file_name' => 'freshen-why-chose-3', 'file_path' => 'freshen/general/why-chose-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-why-chose-3'])->id,
             'banner-1'=> MediaFile::updateOrCreate(['file_name' => 'banner-1', 'file_path' => 'freshen/general/banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'banner-1'])->id,
-            'banner-2'=> MediaFile::updateOrCreate(['file_name' => 'banner-1', 'file_path' => 'freshen/general/banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'banner-1'])->id,
-            'banner-3'=> MediaFile::updateOrCreate(['file_name' => 'banner-1', 'file_path' => 'freshen/general/banner-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'banner-1'])->id,
+            'banner-2'=> MediaFile::updateOrCreate(['file_name' => 'banner-2', 'file_path' => 'freshen/general/banner-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'banner-2'])->id,
+            'banner-3'=> MediaFile::updateOrCreate(['file_name' => 'banner-3', 'file_path' => 'freshen/general/banner-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'banner-3'])->id,
         ];
         // Freshen home page 2 template
         $freshen_templlate2_id = DB::table('core_templates')->insertGetId(

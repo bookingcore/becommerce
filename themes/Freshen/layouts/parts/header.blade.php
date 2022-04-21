@@ -1,6 +1,6 @@
 @include('layouts.parts.topbar')
 <!-- header middle -->
-<div class="header_middle pt25 pb25 dn-992 header_content">
+<div class="header_middle pt25 pb25 dn-992 header_content home">
     <div class="container">
         <div class="row">
             <div class="col-lg-2 col-xl-3">
