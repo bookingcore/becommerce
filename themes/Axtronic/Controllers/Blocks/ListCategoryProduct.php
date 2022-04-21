@@ -104,7 +104,6 @@ class ListCategoryProduct extends BaseBlock
                 $list_item_cat[$item->id] = Product::search($model)->get($model['limit']);
             }
         }
-
         $data = [
             'rows'       => $list,
             'list_product_cat'       => $list_product_cat,

@@ -22,8 +22,8 @@
                     @endif
                     <!-- Tab panes -->
                     <div class="tab-content col-lg-12" id="nav-tabContent">
-                        @foreach($categories as  $item)
-                            <div class="tab-pane fade " id="nav-cat-{{ $item->id }}" role="tabpanel" aria-labelledby="nav-cat-{{ $item->id }}-tab">
+                        @foreach($categories as $key => $item)
+                            <div class="tab-pane fade {{ $key == 0 ? 'active show' : '' }}" id="nav-cat-{{ $item->id }}" role="tabpanel" aria-labelledby="nav-cat-{{ $item->id }}-tab">
                                 @php
                                     $list_items = $list_product_cat[ $item->id ] ?? [];
                                     var_dump($item->id);

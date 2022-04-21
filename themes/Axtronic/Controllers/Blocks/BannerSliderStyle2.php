@@ -4,7 +4,7 @@ namespace Themes\Freshen\Controllers\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
-class BannerSlider extends BaseBlock
+class BannerSliderStyle2 extends BaseBlock
 {
     function __construct()
     {
@@ -19,6 +19,10 @@ class BannerSlider extends BaseBlock
                         [
                             'value'   => 'style_1',
                             'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
                         ]
                     ],
                 ],
@@ -67,7 +71,7 @@ class BannerSlider extends BaseBlock
                 [
                     'id'          => 'sliders_2',
                     'type'        => 'listItem',
-                    'label'       => __('Slider Items Right (max 2 item)'),
+                    'label'       => __('Slider Items Right'),
                     'title_field' => 'title',
                     'settings'    => [
                         [
@@ -111,13 +115,13 @@ class BannerSlider extends BaseBlock
     }
     public function getName()
     {
-        return __('Banner Slider V2');
+        return __('BannerText Slider V2');
     }
 
     public function content($model = [])
     {
 
-        $style = $model['style'] ? $model['style'] : 'style_1';
+        $style = $model['style'] ? $model['style'] : 'index';
 
         return view("blocks.banner.{$style}", $model);
     }

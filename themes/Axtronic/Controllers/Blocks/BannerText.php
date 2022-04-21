@@ -11,7 +11,7 @@ namespace Themes\Axtronic\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
 
-class Banner extends BaseBlock
+class BannerText extends BaseBlock
 {
 
 }
