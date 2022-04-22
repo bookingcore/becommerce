@@ -5,6 +5,7 @@ namespace Modules\Product\Resources;
 
 
 use App\Resources\BaseJsonResource;
+use Modules\User\Resources\UserResource;
 
 class ProductResource extends BaseJsonResource
 {
@@ -43,6 +44,12 @@ class ProductResource extends BaseJsonResource
             }),
             'tags'=>$this->whenNeed('tags',function(){
                 return TagResource::collection($this->tags);
+            }),
+            'author'=>$this->whenNeed('author',function(){
+                return new UserResource($this->author);
+            }),
+            'gallery'=>$this->whenNeed('gallery',function(){
+                return $this->getGallery();
             })
         ];
     }
