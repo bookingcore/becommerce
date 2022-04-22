@@ -127,10 +127,7 @@ class ProductController extends Controller
             $row->title = '[Preview mode] '.$row->title;
             $translation->title = '[Preview mode] '.$translation->title;
         }
-        $products_related = $this->product::join(ProductCategoryRelation::getTableName().' as cats_relations','cats_relations.target_id','=','products.id')
-            ->where('products.status','publish')
-            ->where('products.id','!=',$row->id)
-            ->whereIn('cats_relations.cat_id',$cats->pluck('id'))->get();
+        $products_related = $row->related()->take(12)->get();
         $data = [
             'row'                => $row,
             'translation'        => $translation,
