@@ -47,9 +47,9 @@ class ProductVariation extends BaseModel
         return Term::query()->whereIn('id',$ids)->with(['attribute'])->get();
     }
 
-    public function getDetailUrl($locale = false)
-    {
-        return route('product.detail',['slug'=>'sleeve-linen-blend-caro-pane-shirt']);
+
+    public function parent(){
+        return $this->belongsTo(Product::class,'product_id');
     }
 
 
@@ -123,8 +123,21 @@ class ProductVariation extends BaseModel
         return true;
     }
 
-    public function getAttributesForDetail($parent_manage = false)
+    public function getSalePriceAttribute()
     {
+        $price = $this->price;
+        $active_campaign  = $this->parent->active_campaign ?? false;
+        if($active_campaign and $active_campaign->isActiveNow()){
+            $price -= $price * $active_campaign->discount_amount/100;
+        }
+
+        return $price;
+    }
+
+    public function getAttributesForDetail()
+    {
+        $parent = $this->parent;
+        $parent_manage = $parent->check_manage_stock();
         return [
             'product_id'      => $this->product_id,
             'shipping_class'  => $this->shipping_class,
@@ -132,7 +145,8 @@ class ProductVariation extends BaseModel
             'position'        => $this->position,
             'sku'             => $this->sku,
             'image'           => get_file_url($this->image_id, "full") ?? "",
-            'price'           => format_money($this->price),
+            'price'           => format_money($this->sale_price),
+            'sale_price'      => $this->sale_price,
             'sold'            => $this->sold,
             'quantity'        => $parent_manage == false ? $this->quantity : null,
             'is_manage_stock' => $parent_manage == false ? $this->check_manage_stock() : 0,

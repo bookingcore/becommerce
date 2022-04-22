@@ -619,8 +619,11 @@ class Product extends BaseModel
         $list_variations = $list_attributes=  [];
         foreach($data_variations as  $variation){
             if(empty($variation->isActive($this->check_manage_stock()))) continue;
+
+            $variation->setRelation('parent',$this);
+
             $term_ids = $variation->term_ids;
-            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this->check_manage_stock())];
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this)];
             foreach($this->attributes_for_variation_data as $item){
                 foreach($item['terms'] as $term){
                     if(in_array($term->id,$term_ids)){
