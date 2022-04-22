@@ -127,7 +127,7 @@ class ProductController extends Controller
             $row->title = '[Preview mode] '.$row->title;
             $translation->title = '[Preview mode] '.$translation->title;
         }
-        $products_related = $row->related()->take(12);
+        $products_related = $row->related()->take(12)->get();
         $data = [
             'row'                => $row,
             'translation'        => $translation,
