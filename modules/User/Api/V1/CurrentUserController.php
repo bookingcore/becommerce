@@ -5,6 +5,7 @@ namespace Modules\User\Api\V1;
 
 
 use App\Http\Controllers\ApiController;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -99,5 +100,40 @@ class CurrentUserController extends ApiController
             ->delete();
 
         return $this->sendSuccess(__("Removed from your Wishlist"));
+    }
+
+    public function patch(Request $request){
+
+        $user = \auth()->user();
+
+        $data = $request->input();
+        $white_list = [
+            'first_name',
+            'last_name',
+            'email',
+            'business_name',
+        ];
+
+        foreach ($white_list as $k){
+            if(!array_key_exists($k,$data)) continue;
+            $v = $data[$k];
+
+            switch ($k){
+                case "email":
+                    $check = User::query()->whereEmail($v)->where('id','!=',$user->id)->first();
+                    if($check){
+                        return $this->sendError(__("Email exists. Please user another email"),['code'=>'email_exists']);
+                    }
+                    break;
+            }
+            $user->setAttribute($k,$v);
+        }
+        $user->save();
+
+        return [
+            "data"=>new UserResource($user),
+            'status'=>1,
+            'message'=>__("User info updated")
+        ];
     }
 }

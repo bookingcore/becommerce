@@ -24,7 +24,7 @@ class UserResource extends BaseJsonResource
                 return $this->shipping_address ?? [];
             }),
             'text'=>$this->when(request('_type') == 'query',$this->display_name . ' (#' . $this->id . ')'),
-            'need_update_pw'=>$this->need_update_pw
+            'need_update_pw'=>env('DISABLE_REQUIRE_CHANGE_PW') ? 0 : $this->need_update_pw
         ];
     }
 }
