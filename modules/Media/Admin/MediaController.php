@@ -292,7 +292,7 @@ class MediaController extends Controller
         $totalPage = ceil($total / 32);
         if (!empty($files)) {
             foreach ($files as $file) {
-                switch ($driver){
+                switch ($file->driver){
                     case 's3':
                         $file->thumb_size = get_file_url($file,'thumb');
                         $file->full_size = get_file_url($file,'full',false);
