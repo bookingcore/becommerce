@@ -18,6 +18,9 @@ Route::group([
     Route::get('me/address', 'V1\CurrentUserController@address')->name('user.api.address');
     Route::post('me/address', 'V1\CurrentUserController@updateAddress')->name('user.api.updateAddress');
 
+    Route::get('me/order', 'V1\OrderController@index')->name('user.api.order');
+    Route::get('me/order/{id}', 'V1\OrderController@detail')->name('user.api.order.detail');
+
     Route::get('me/wishlist', 'V1\CurrentUserController@wishlist')->name('user.api.wishlist');
     Route::post('me/wishlist', 'V1\CurrentUserController@wishlistStore')->name('user.api.wishlistStore');
     Route::delete('me/wishlist', 'V1\CurrentUserController@wishlistDelete')->name('user.api.wishlistDelete');
