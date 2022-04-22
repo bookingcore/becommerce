@@ -16,7 +16,7 @@
                         </div>
                         <div class="footer_social_widget home3 text-center">
                             <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form home3">
-                                <div class="row align-items-center">
+                                <div class="align-items-center">
                                     <div class="col-auto">
                                         <input type="email" class="form-control" name="email" placeholder="{{ __("Your Email...") }}" >
                                         <button class="btn miw-120 btn-primary d-flex align-items-center" type="submit">

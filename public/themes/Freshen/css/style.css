@@ -7921,6 +7921,9 @@ form.listing_page_v9{
   width: 100%;
   z-index: 9;
 }
+.home2 .footer_top_img:after,.home3 .footer_top_img:after{
+    background-image: unset;
+}
 .footer_one.home2:before{
   background-image: url(../images/icons/footer-bg2.svg);
   background-repeat: no-repeat;
