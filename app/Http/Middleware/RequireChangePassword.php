@@ -13,7 +13,10 @@ class RequireChangePassword
      */
     protected $except = [
         '*/auth/password',
-        '*/change-password/store'
+        '*/change-password/store',
+        '*/change-password',
+        '/logout',
+        '/auth/logout'
     ];
     /**
      * Handle an incoming request.
@@ -33,7 +36,7 @@ class RequireChangePassword
                     'code'=>"need_update_pw"
                 ]);
             }
-            return redirect(route('user.password',['need_update_pw'=>1]));
+            return redirect(route('user.password',['need_update_pw'=>1]))->with('warning',__("For security, please change your password to continue"));
         }
         return $next($request);
     }
