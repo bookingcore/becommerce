@@ -154,6 +154,17 @@ class AppServiceProvider extends ServiceProvider
                         Config::set('filesystems.disks.s3.bucket',setting_item("filesystem_w3_bucket"));
                     }
                 break;
+                case 'gcs':
+                    if($val = setting_item('gcs_project_id')){
+                        Config::set('filesystems.disks.gcs.project_id',$val);
+                    }
+                    if($val = setting_item('gcs_key_file')){
+                        Config::set('filesystems.disks.gcs.key_file',storage_path('app/gcs/'.$val));
+                    }
+                    if($val = setting_item('gcs_bucket')){
+                        Config::set('filesystems.disks.gcs.bucket',$val);
+                    }
+                break;
             }
         }
     }

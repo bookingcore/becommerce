@@ -3,10 +3,8 @@ namespace Modules\Media;
 
 use Illuminate\Support\Facades\Storage;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Media\CustomGcs\GoogleCloudStorageServiceProvider;
 use Modules\ModuleServiceProvider;
-use Google\Cloud\Storage\StorageClient;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
-use League\Flysystem\Filesystem as Flysystem;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -16,24 +14,6 @@ class ModuleProvider extends ModuleServiceProvider
 
         AdminMenuManager::register('media',[$this,'getAdminMenu']);
 
-        // GCS
-        Storage::extend('gcs', function ($app, $config) {
-
-            $options = [
-                'projectId'=>setting_item('gcs_project_id')
-            ];
-            if($file_path = setting_item('gcs_key_file'))
-            {
-                $options['keyFilePath'] = storage_path('app/gcs/'.$file_path);
-            }
-            $storageClient = new StorageClient($options);
-
-
-            $bucket = $storageClient->bucket(setting_item('gcs_bucket'));
-
-            return new GoogleStorageAdapter($storageClient, $bucket);
-
-        });
     }
 
     /**
@@ -44,6 +24,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(GoogleCloudStorageServiceProvider::class);
     }
 
     public static function getAdminMenu()

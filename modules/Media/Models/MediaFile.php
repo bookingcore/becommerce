@@ -81,6 +81,7 @@ class MediaFile extends BaseModel
     public function getViewUrlAttribute(){
         switch ($this->driver){
             case "s3":
+            case "gcs":
                 return $this->generateUrl();
                 break;
             default:

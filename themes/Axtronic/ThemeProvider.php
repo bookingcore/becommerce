@@ -12,8 +12,8 @@ use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Themes\Axtronic\Controllers\Blocks\BannerText;
 use Themes\Axtronic\Controllers\Blocks\Brands;
 use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
+use Themes\Axtronic\Controllers\Blocks\FeaturedIcon;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
-use Themes\Axtronic\Controllers\Blocks\ListTabProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
 use Themes\Axtronic\Database\Seeder;
@@ -47,6 +47,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["list_category_product",ListCategoryProduct::class],
             ["banner_slider_v2", BannerSliderStyle2::class],
             ["banner_text", BannerText::class],
+            ["featured_icon_2", FeaturedIcon::class],
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
