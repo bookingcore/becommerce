@@ -476,4 +476,8 @@ class CartManager
             }
         }
     }
+
+    public static function cart_id(){
+        return '';
+    }
 }
