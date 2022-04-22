@@ -76,6 +76,31 @@
             display: none;
         }
     }
+    .axtronic-site-features {
+        .features-grid {
+            .feature-item{
+                margin-bottom: 30px;
+                &:first-child{
+                    grid-column-start: 1;
+                    grid-column-end: 4;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
+                &:nth-child(2n){
+
+                    text-align: left;
+                    justify-content: start;
+                    .box{
+                        flex-direction: revert;
+                    }
+                    .item-content{
+                        margin-right: 0;
+                        margin-left: 15px;
+                    }
+                }
+            }
+        }
+    }
 }
 @media (min-width: 1024px) {
     .comments-area{
@@ -144,4 +169,9 @@
         }
     }
 
+}
+@media (max-width: 450px) {
+    .axtronic-site-features .features-grid{
+        display: block;
+    }
 }
