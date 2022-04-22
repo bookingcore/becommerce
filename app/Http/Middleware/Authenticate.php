@@ -26,12 +26,13 @@ class Authenticate extends Middleware
             $this->authenticate($request, $guards);
         }catch (AuthenticationException $exception)
         {
-            if($request->expectsJson() or $request->segment(1) == 'api')
+            if($request->expectsJson() or is_api())
             {
                 return response()->json([
                     'status'=>0,
                     'message'=>$exception->getMessage(),
-                    'require_login'=>1
+                    'require_login'=>1,
+                    'code'=>'require_login'
                 ],401);
             }
 

@@ -23,7 +23,8 @@ class UserResource extends BaseJsonResource
             'shipping'=>$this->whenNeed('address',function(){
                 return $this->shipping_address ?? [];
             }),
-            'text'=>$this->when(request('_type') == 'query',$this->display_name . ' (#' . $this->id . ')')
+            'text'=>$this->when(request('_type') == 'query',$this->display_name . ' (#' . $this->id . ')'),
+            'need_update_pw'=>$this->need_update_pw
         ];
     }
 }

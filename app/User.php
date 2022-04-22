@@ -200,7 +200,7 @@
             if( !empty($this->business_name) ){
                 $name  = $this->business_name;
             }
-            return $name;
+            return trim($name);
         }
 
         public function sendPasswordResetNotification($token)

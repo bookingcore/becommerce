@@ -19,8 +19,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('sanctum:prune-expired --hours=24')->daily();
+
         $schedule->command(ScheduleCheckCommand::class)->dailyAt("00:05");
         $schedule->command(CreatePayoutsCommand::class)->monthlyOn(15);
 
