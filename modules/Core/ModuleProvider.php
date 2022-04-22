@@ -214,6 +214,10 @@ class ModuleProvider extends ModuleServiceProvider
                 'filesystem_w3_secret_access_key',
                 'filesystem_w3_region',
                 'filesystem_w3_bucket',
+
+                'gcs_project_id',
+                'gcs_bucket',
+                'gcs_key_file',
             ]
         ];
     }
