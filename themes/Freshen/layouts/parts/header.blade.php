@@ -30,7 +30,7 @@
                             <li class="list-inline-item bc-compare-count text-end">
                                 <a href="#">
                                     <span class="flaticon-filter icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
-                                        <span class="badge bgc-thm{{ setting_item('freshen_header_style') }} number">
+                                        <span class="badge bgc-thm{{ $header_style ?? '1' }} number">
                                             {{ !empty(session('compare')) ? count(session('compare')) : "0" }}
                                         </span>
                                     </span>
@@ -40,7 +40,7 @@
                                 @if(Auth::user())
                                     <a href="{{route('user.wishList.index')}}">
                                         <span class="flaticon-heart icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}">
-                                            <span class="badge bgc-thm{{ setting_item('freshen_header_style') }} wishlist_count">{{ countWishlist() }}</span>
+                                            <span class="badge bgc-thm{{ $header_style ?? '1' }} wishlist_count">{{ countWishlist() }}</span>
                                         </span>
                                     </a>
                                 @else
