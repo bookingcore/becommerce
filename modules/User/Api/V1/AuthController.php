@@ -52,11 +52,6 @@ class AuthController extends Controller
         ];
     }
 
-    public function me()
-    {
-        return new UserResource(auth()->user());
-    }
-
     /**
      * Log the user out (Invalidate the token).
      *
