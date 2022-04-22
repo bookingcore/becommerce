@@ -103,7 +103,7 @@ class ListCategoryProduct extends BaseBlock
             $categories = ProductCategory::select('name','id','slug')->whereIn('id', $category_ids)->get();
             foreach ($categories as $item){
                 $model['cat_ids'] = [$item->id];
-                $list_item_cat[$item->id] = Product::search($model)->get($model['limit']);
+                $list_product_cat[$item->id] = Product::search($model)->get($model['limit']);
             }
         }
 

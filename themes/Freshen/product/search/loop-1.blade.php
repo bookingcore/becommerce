@@ -10,7 +10,7 @@ $score_total = $reviewData['score_total'];
                 @if(!empty($row->discount_percent))
                     <ul class="mb0">
                         <li><a class="offr_tag" href="#"><span>{{ __("Sale") }}</span></a></li>
-                        <li><a class="comison_rate" href="#"><span>-{{$row->discount_percent}}</span></a></li>
+                        <li><a class="comison_rate" href="#"><span>-{{$row->discount_percent}}%</span></a></li>
                     </ul>
                 @endif
             @else
@@ -38,14 +38,16 @@ $score_total = $reviewData['score_total'];
         </div>
     </div>
     <div class="details text-center">
-        <div class="title pb-1 pt-2"><a href="{{$row->getDetailUrl()}}">{{$translation->title}}</a></div>
+        <div class="title pb-1 pt-2">
+            {{$row->brand->name??""}}
+        </div>
         @if(!empty($reviewData['total_review']))
             <div class="review mt-2 fz13">
                 @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
             </div>
         @endif
         <div class="sub_title">
-            {!! get_exceprt($translation->short_desc,60,"...") !!}
+            <a href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </div>
         <div class="si_footer">
             <div class="price">
