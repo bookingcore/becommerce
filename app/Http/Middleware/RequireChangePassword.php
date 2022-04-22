@@ -28,7 +28,7 @@ class RequireChangePassword
      */
     public function handle($request, \Closure $next, $guard = null)
     {
-        if($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request)){
+        if($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request) and !env('DISABLE_REQUIRE_CHANGE_PW')){
             if($request->expectsJson()){
                 return response()->json([
                     'status'=>0,

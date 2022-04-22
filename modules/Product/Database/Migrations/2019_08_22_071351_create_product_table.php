@@ -72,6 +72,7 @@ class CreateProductTable extends Migration
 
             $table->index('author_id');
             $table->index('status');
+            $table->softDeletes();
             $table->timestamps();
         });
 

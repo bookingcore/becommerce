@@ -14,6 +14,6 @@ class UserWishList extends BaseModel
 
     public function service()
     {
-        return $this->hasOne(Product::class, "id", 'object_id');
+        return $this->belongsTo(Product::class, "object_id");
     }
 }

@@ -43,8 +43,7 @@ class CurrentUserController extends ApiController
         $wishlist = $this->userWishListClass::query()
             ->where("user_wishlist.user_id",Auth::id())
             ->orderBy('user_wishlist.id', 'desc');
-
-        return UserWishlistResource::collection($wishlist->paginate(20));
+        return UserWishlistResource::collection($wishlist->with(['service'])->paginate(20));
     }
 
     public function wishlistStore(Request $request){
@@ -78,5 +77,27 @@ class CurrentUserController extends ApiController
         $meta->save();
 
         return $this->sendSuccess(__("Added to your Wishlist"));
+    }
+    public function wishlistDelete(Request $request){
+
+        $rules = [
+            'object_id'   => 'required',
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->sendError('',['errors'=>$validator->errors()]);
+        }
+
+        $object_id = $request->input('object_id');
+        if(empty($object_id))
+        {
+            return $this->sendError(__("Object ID is required"));
+        }
+
+        $this->userWishListClass::where("object_id",$object_id)
+            ->where("user_id",Auth::id())
+            ->delete();
+
+        return $this->sendSuccess(__("Removed from your Wishlist"));
     }
 }

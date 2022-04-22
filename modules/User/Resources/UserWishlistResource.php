@@ -12,7 +12,7 @@ class UserWishlistResource extends JsonResource
 
     public function toArray($request)
     {
-        dump($this->service);
-        return new ProductResource($this->service);
+        $service = $this->service;
+        return new ProductResource($service);
     }
 }
