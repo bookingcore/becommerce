@@ -25,8 +25,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
-        RequireChangePassword::class,
+        \App\Http\Middleware\TrustProxies::class
     ];
 
     /**
@@ -46,11 +45,13 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\HideDebugbar::class,
             SetLanguageForAdmin::class,
             SetCurrentCurrency::class,
+            RequireChangePassword::class,
         ],
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            RequireChangePassword::class,
         ],
     ];
 

@@ -6,6 +6,7 @@ use App\BaseModel;
 use App\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ use Modules\User\Models\UserWishList;
 
 class Product extends BaseModel
 {
-    use HasFactory, HasStockValidation;
+    use HasFactory, HasStockValidation, SoftDeletes;
     protected $table = 'products';
     public $type = 'product';
 

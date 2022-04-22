@@ -37,7 +37,7 @@ class CreateUsersTable extends Migration
             $table->bigInteger('stripe_customer_id')->nullable();
 
 
-            $table->tinyInteger('need_update_pw')->default(0);
+            $table->tinyInteger('need_update_pw')->nullable()->default(0);
             $table->string('verify_submit_status',20)->nullable();
 
             $table->index('role_id');
