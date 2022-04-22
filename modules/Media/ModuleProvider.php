@@ -6,6 +6,7 @@ use Modules\Core\Helpers\AdminMenuManager;
 use Modules\ModuleServiceProvider;
 use Google\Cloud\Storage\StorageClient;
 use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
+use League\Flysystem\Filesystem as Flysystem;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -31,6 +32,7 @@ class ModuleProvider extends ModuleServiceProvider
             $bucket = $storageClient->bucket(setting_item('gcs_bucket'));
 
             return new GoogleStorageAdapter($storageClient, $bucket);
+
         });
     }
 
