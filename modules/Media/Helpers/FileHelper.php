@@ -37,18 +37,26 @@ class FileHelper
         if (empty($file)) {
             return false;
         }
-        if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
-            if(env('CF_ENABLE_IMAGE_RESIZE') and !in_array(strtolower($file->file_extension),['svg']))
-            {
-                $width = static::$defaultSize[$size][0] ?? $size;
-                if($width == 'full') $width = '';
-                return '/cdn-cgi/image/'.($width ? 'width='.$width : '').',quality=70,f=auto/uploads/'.$file->file_path;
-            }else{
-                $url = static::maybeResize($file, $size,$resize);
-                return $url;
-            }
+        switch ($file->driver){
+            case 's3':
+                $url = static::maybeResizeS3($file, $size,$resize);
+            break;
+            default:
+                if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
+                    if(env('CF_ENABLE_IMAGE_RESIZE') and !in_array(strtolower($file->file_extension),['svg']))
+                    {
+                        $width = static::$defaultSize[$size][0] ?? $size;
+                        if($width == 'full') $width = '';
+                        return '/cdn-cgi/image/'.($width ? 'width='.$width : '').',quality=70,f=auto/uploads/'.$file->file_path;
+                    }else{
+                        $url = static::maybeResize($file, $size,$resize);
+                    }
+                }
+                $url = $file->view_url;
         }
-        return asset('uploads/' . $file->file_path);
+        return $url;
+
+
     }
 
     public static function image($fileId, $size = 'medium')
@@ -92,13 +100,68 @@ class FileHelper
                 return static::resizeSimple($fileObj,$size);
             }
 
-            // Start Resize
-            $img = Image::make($image_path)->resize($sizeData[0], null, function ($constraint) {
-                $constraint->aspectRatio();
-            })->save(public_path('uploads/' . $resizeFile));
-
-            return asset('uploads/' . $resizeFile);
         }
+    }
+
+    protected static function maybeResizeS3($fileObj, $size = '',$resize = true){
+
+        $imageOriginUrl = $fileObj->view_url;
+
+        if ($size == 'full' or in_array(strtolower($fileObj->file_extension),['svg','bmp']))
+            return $imageOriginUrl;
+        if (!isset($size, static::$defaultSize))
+            $size = 'medium';
+        $sizeData = static::$defaultSize[$size];
+        if ($sizeData[0] >= $fileObj->file_width) {
+            return $imageOriginUrl;
+        }
+
+        $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
+
+        if (Storage::disk('s3')->exists($resizeFile)) {
+            Storage::disk('s3')->url($resizeFile);
+        }elseif(!$resize){
+            return Storage::disk('s3')->url($fileObj->file_path);
+        } else {
+            $file =  Storage::disk('s3')->get($fileObj->file_path);
+
+            $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
+            if(in_array($mime,['image/x-ms-bmp'])){
+                return $imageOriginUrl;
+            }
+
+            if(env('APP_RESIZE_SIMPLE'))
+            {
+                return static::resizeSimpleS3($fileObj,$size,$file);
+            }
+
+        }
+    }
+
+    protected static function resizeSimpleS3($fileObj,$size = ''){
+
+
+        $subFolder = 's3_dump/';
+        $pathDumpFile = $subFolder.$fileObj->file_path;
+
+        Storage::disk('uploads')->put(
+            $pathDumpFile,
+            Storage::disk('s3')->get($fileObj->file_path)
+        );
+
+
+        $resize = new ResizeImage(public_path('uploads/'.$pathDumpFile));
+
+        $sizeData = static::$defaultSize[$size];
+        $resizeFilePath = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
+
+        $resize->resizeTo($sizeData[0], $sizeData[0], 'maxWidth');
+        $resize->saveImage(public_path('uploads/'.$subFolder.$resizeFilePath), "100");
+
+        Storage::drive('s3')->put($resizeFilePath,Storage::drive('uploads')->get($subFolder.$resizeFilePath));
+        Storage::drive('uploads')->delete($subFolder.'*');
+
+        return Storage::drive('s3')->url($resizeFilePath);
     }
 
     protected static function resizeSimple($fileObj,$size = ''){

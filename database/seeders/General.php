@@ -197,6 +197,11 @@ namespace Database\Seeders;
                     'val' => "UTC",
                     'group' => "general",
                 ],
+                [
+                    'name' => "site_first_day_of_the_weekin_calendar",
+                    'val' => "1",
+                    'group' => "general",
+                ],
 				[
 					'name'  => "email_header",
 					'val'   => '<h1 class="site-title" style="text-align: center">Becommerce</h1>',

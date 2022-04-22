@@ -40,7 +40,8 @@ class AttributeController extends AdminController
                     'name'  => __('Attributes'),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attributes')
         ];
         return view('Product::admin.attribute.index', $data);
     }
@@ -71,7 +72,8 @@ class AttributeController extends AdminController
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attribute: :name', ['name' => $row->name])
         ];
         return view('Product::admin.attribute.detail', $data);
     }
@@ -153,7 +155,8 @@ class AttributeController extends AdminController
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attribute: :name', ['name' => $row->name])
         ];
         return view('Product::admin.terms.index', $data);
     }
@@ -188,7 +191,8 @@ class AttributeController extends AdminController
                     'name'  => __('Term: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Term: :name', ['name' => $row->name])
         ];
         return view('Product::admin.terms.detail', $data);
     }

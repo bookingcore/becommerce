@@ -108,6 +108,7 @@ class MediaController extends Controller
         }
         $folder = '';
         $id = Auth::id();
+        $driver = config('filesystems.default','uploads');
         if ($id) {
             $folder .= sprintf('%04d', (int)$id / 1000) . '/' . $id . '/';
         }
@@ -116,14 +117,18 @@ class MediaController extends Controller
         if(empty($newFileName)) $newFileName = md5($file->getClientOriginalName());
 
         $i = 0;
-        do {
-            $newFileName2 = $newFileName . ($i ? $i : '');
-            $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
-            $i++;
-        } while (Storage::disk('uploads')->exists($testPath));
 
-        $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),'uploads');
+            do {
+                $newFileName2 = $newFileName . ($i ? $i : '');
+                $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
+                $i++;
+            } while (Storage::disk($driver)->exists($testPath));
 
+            $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),$driver);
+        $width = $height = 0;
+        if (FileHelper::checkMimeIsImage($file->getMimeType())) {
+            [$width, $height, $type, $attr] = getimagesize($file);
+        }
         // Try to compress Images
         if(function_exists('proc_open') and function_exists('escapeshellarg')){
             try{
@@ -132,7 +137,6 @@ class MediaController extends Controller
 
             }
         }
-
         if ($check) {
             try {
                 $fileObj = new MediaFile();
@@ -141,23 +145,22 @@ class MediaController extends Controller
                 $fileObj->file_size = $file->getSize();
                 $fileObj->file_type = $file->getMimeType();
                 $fileObj->file_extension = $file->getClientOriginalExtension();
-                if (FileHelper::checkMimeIsImage($file->getMimeType())) {
-                    list($width, $height, $type, $attr) = getimagesize(public_path("uploads/".$check));
-                    $fileObj->file_width = $width;
-                    $fileObj->file_height = $height;
-                }
+                $fileObj->file_width = $width;
+                $fileObj->file_height = $height;
+                $fileObj->driver = $driver;
+
                 $fileObj->save();
                 // Sizes use for uploaderAdapter:
                 // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html#the-anatomy-of-the-adapter
                 $fileObj->sizes = [
-                    'default' => asset('uploads/' . $fileObj->file_path),
+                    'default' => $fileObj->view_url,
                     '150'     => url('media/preview/'.$fileObj->id .'/thumb'),
                     '600'     => url('media/preview/'.$fileObj->id .'/medium'),
                     '1024'    => url('media/preview/'.$fileObj->id .'/large'),
                 ];
                 return $this->sendSuccess(['data' => $fileObj]);
             } catch (\Exception $exception) {
-                Storage::disk('uploads')->delete($check);
+                Storage::disk($driver)->delete($check);
                 return $this->sendError($exception->getMessage());
             }
         }
@@ -246,6 +249,7 @@ class MediaController extends Controller
         $page = $request->input('page', 1);
         $s = $request->input('s');
         $offset = ($page - 1) * 32;
+        $driver = config('filesystems.default','uploads');
         $model = MediaFile::query();
         $model2 = MediaFile::query();
         if (!Auth::user()->hasPermission("media_manage_others")) {
@@ -288,15 +292,24 @@ class MediaController extends Controller
         $totalPage = ceil($total / 32);
         if (!empty($files)) {
             foreach ($files as $file) {
-                if(env('APP_PREVIEW_MEDIA_LINK')){
-                    $file->thumb_size = url('media/preview/'.$file->id.'/thumb');
-                    $file->full_size = url('media/preview/'.$file->id.'/full');
-                    $file->medium_size = url('media/preview/'.$file->id.'/medium');
-                }else{
-                    $file->thumb_size = get_file_url($file,'thumb');
-                    $file->full_size = get_file_url($file,'full',false);
-                    $file->medium_size = get_file_url($file,'medium',false);
+                switch ($file->driver){
+                    case 's3':
+                        $file->thumb_size = get_file_url($file,'thumb');
+                        $file->full_size = get_file_url($file,'full',false);
+                        $file->medium_size = get_file_url($file,'medium',false);
+                    break;
+                    default:
+                        if(env('APP_PREVIEW_MEDIA_LINK')){
+                            $file->thumb_size = url('media/preview/'.$file->id.'/thumb');
+                            $file->full_size = url('media/preview/'.$file->id.'/full');
+                            $file->medium_size = url('media/preview/'.$file->id.'/medium');
+                        }else{
+                            $file->thumb_size = get_file_url($file,'thumb');
+                            $file->full_size = get_file_url($file,'full',false);
+                            $file->medium_size = get_file_url($file,'medium',false);
+                        }
                 }
+
 
             }
         }
@@ -360,6 +373,7 @@ class MediaController extends Controller
 
     public function removeFiles(Request $request){
         $file_ids = $request->input('file_ids');
+        $driver = config('filesystems.default','uploads');
         if(empty($file_ids)){
             return $this->sendError(__("Please select file"));
         }
@@ -371,22 +385,26 @@ class MediaController extends Controller
             $model->where('create_user', Auth::id());
         }
         $files = $model->get();
-        $storage = Storage::disk('uploads');
+        $storage = Storage::disk($driver);
         if(!empty($files->count())){
             foreach ($files as $file){
                 if($storage->exists($file->file_path)){
                     $storage->delete($file->file_path);
                 }
-                $size_mores = FileHelper::$defaultSize;
-                if(!empty($size_mores)){
-                    foreach ($size_mores as $size){
-                        $file_size = substr($file->file_path, 0, strrpos($file->file_path, '.')) . '-' . $size[0] . '.' . $file->file_extension;
-                        if($storage->exists($file_size)){
-                            $storage->delete($file_size);
+                if($driver!='s3'){
+                    $size_mores = FileHelper::$defaultSize;
+                    if(!empty($size_mores)){
+                        foreach ($size_mores as $size){
+                            $file_size = substr($file->file_path, 0, strrpos($file->file_path, '.')) . '-' . $size[0] . '.' . $file->file_extension;
+                            if($storage->exists($file_size)){
+                                $storage->delete($file_size);
+                            }
                         }
                     }
+                    $file->forceDelete();
                 }
-                $file->forceDelete();
+
+
             }
             return $this->sendSuccess([],__("Delete the file success!"));
         }
