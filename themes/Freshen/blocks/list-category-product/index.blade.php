@@ -39,8 +39,8 @@
                                 @php $list_items = $list_product_cat[ $item->id ] ?? [] @endphp
                                 @if(!empty($list_items))
                                     <div class="popular_listing_slider1">
-                                        @foreach($categories as $item)
-                                            @include('product.search.loop-1',['row'=>$item])
+                                        @foreach($list_items as $row)
+                                            @include('product.search.loop-1',['row'=>$row])
                                         @endforeach
                                     </div>
                                 @endif
