@@ -136,6 +136,25 @@ class AppServiceProvider extends ServiceProvider
             Config::set('chatify.pusher.options.cluster',setting_item('pusher_cluster'));
             Config::set('broadcasting.connections.pusher.options.cluster',setting_item('pusher_cluster'));
         }
+
+        if(!empty($filesystem_driver  = setting_item('filesystem_driver'))){
+            switch ($filesystem_driver){
+                case 's3':
+                    if(!empty(setting_item('filesystem_w3_key'))){
+                        Config::set('filesystems.disks.s3.key',setting_item("filesystem_w3_key"));
+                    }
+                    if(!empty(setting_item('filesystem_w3_secret_access_key'))){
+                        Config::set('filesystems.disks.s3.secret',setting_item("filesystem_w3_secret_access_key"));
+                    }
+                    if(!empty(setting_item('filesystem_w3_region'))){
+                        Config::set('filesystems.disks.s3.region',setting_item("filesystem_w3_region"));
+                    }
+                    if(!empty(setting_item('filesystem_w3_bucket'))){
+                        Config::set('filesystems.disks.s3.bucket',setting_item("filesystem_w3_bucket"));
+                    }
+                break;
+            }
+        }
     }
 
     protected function setLang(){
