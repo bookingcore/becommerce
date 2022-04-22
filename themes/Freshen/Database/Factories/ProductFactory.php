@@ -51,7 +51,7 @@ class ProductFactory extends Factory
     {
         return $this->afterCreating(function (Product $product){
             $terms = ['1','2','5','6',rand(3,4),rand(7,8)];
-            $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(1,3))->pluck('id'));
+            $product->categorySeeder()->attach(ProductCategory::inRandomOrder()->take(random_int(2,5))->pluck('id'));
             $product->termSeeder()->attach($terms);
             $product->tagsSeeder()->attach(ProductTag::inRandomOrder()->take(random_int(1,3))->pluck('id'));
             $product->review()->createMany(
