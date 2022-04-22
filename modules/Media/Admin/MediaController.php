@@ -118,18 +118,16 @@ class MediaController extends Controller
 
         $i = 0;
 
+            do {
+                $newFileName2 = $newFileName . ($i ? $i : '');
+                $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
+                $i++;
+            } while (Storage::disk($driver)->exists($testPath));
 
-
-        do {
-            $newFileName2 = $newFileName . ($i ? $i : '');
-            $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
-            $i++;
-        } while (Storage::disk($driver)->exists($testPath));
-
-        $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),$driver);
+            $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),$driver);
         $width = $height = 0;
         if (FileHelper::checkMimeIsImage($file->getMimeType())) {
-            list($width, $height, $type, $attr) = getimagesize($file);
+            [$width, $height, $type, $attr] = getimagesize($file);
         }
         // Try to compress Images
         if(function_exists('proc_open') and function_exists('escapeshellarg')){

@@ -137,7 +137,8 @@ class AppServiceProvider extends ServiceProvider
             Config::set('broadcasting.connections.pusher.options.cluster',setting_item('pusher_cluster'));
         }
 
-        if(!empty($filesystem_driver  = setting_item('filesystem_driver'))){
+        if(!empty($filesystem_driver  = setting_item('filesystem_default'))){
+            Config::set('filesystems.default',$filesystem_driver);
             switch ($filesystem_driver){
                 case 's3':
                     if(!empty(setting_item('filesystem_w3_key'))){
