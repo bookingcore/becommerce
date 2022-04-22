@@ -76,4 +76,22 @@ class MediaFile extends BaseModel
         Cache::forget($this->cacheKey() . ':' . $this->id);
         return parent::forceDelete();
     }
+
+
+    public function getViewUrlAttribute(){
+        switch ($this->driver){
+            case "s3":
+                return $this->generateUrl();
+                break;
+            default:
+                return asset('uploads/' . $this->file_path);
+                break;
+        }
+    }
+
+    public function generateUrl($mins = 24 * 60){
+        return Storage::disk($this->driver)->temporaryUrl(
+            $this->file_path, now()->addMinutes($mins)
+        );
+    }
 }

@@ -155,7 +155,7 @@ class MediaController extends Controller
                 // Sizes use for uploaderAdapter:
                 // https://ckeditor.com/docs/ckeditor5/latest/framework/guides/deep-dive/upload-adapter.html#the-anatomy-of-the-adapter
                 $fileObj->sizes = [
-                    'default' => asset('uploads/' . $fileObj->file_path),
+                    'default' => $fileObj->view_url,
                     '150'     => url('media/preview/'.$fileObj->id .'/thumb'),
                     '600'     => url('media/preview/'.$fileObj->id .'/medium'),
                     '1024'    => url('media/preview/'.$fileObj->id .'/large'),

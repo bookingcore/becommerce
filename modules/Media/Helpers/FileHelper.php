@@ -52,7 +52,7 @@ class FileHelper
                         $url = static::maybeResize($file, $size,$resize);
                     }
                 }
-                $url =asset('uploads/' . $file->file_path);;
+                $url = $file->view_url;
         }
         return $url;
 
@@ -105,8 +105,8 @@ class FileHelper
 
     protected static function maybeResizeS3($fileObj, $size = '',$resize = true){
 
+        $imageOriginUrl = $fileObj->view_url;
 
-        $imageOriginUrl = Storage::drive('s3')->url($fileObj->file_path);
         if ($size == 'full' or in_array(strtolower($fileObj->file_extension),['svg','bmp']))
             return $imageOriginUrl;
         if (!isset($size, static::$defaultSize))
