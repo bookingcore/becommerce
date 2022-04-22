@@ -20,6 +20,7 @@
         "laravel/socialite": "^5.2.6",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.4",
+        "league/flysystem-aws-s3-v3": "^1.0",
         "league/omnipay": "^3",
         "maatwebsite/excel": "^3.1",
         "mews/purifier": "^3.3.6",

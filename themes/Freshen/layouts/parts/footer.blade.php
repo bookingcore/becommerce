@@ -5,34 +5,62 @@
     @endif
     <div class="container pb70">
         <div class="bc-newsletter">
-            <div class="row">
-                <div class="col-lg-6 col-xl-6">
-                    <div class="mailchimp_widget mb30-md {{ isset($header_style) ? 'home'.$header_style : '' }}">
-                        <div class="icon float-start"><span class="flaticon-email-1"></span></div>
-                        <div class="details">
-                            <h3 class="title">{{ __('SIGN UP FOR NEWSLETTER') }}</h3>
-                            <p class="para">{{ __("Subscribe to the weekly newsletter for all the latest updates") }}</p>
+            <div class="row justify-content-center">
+                @if(isset($header_style) && $header_style == 3)
+                    <div class="col-lg-6 col-xl-5">
+                        <div class="mailchimp_widget mb30-md {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                            <div class="icon float-start"><span class="flaticon-email-1"></span></div>
+                            <div class="details">
+                                <h3 class="title">{{ __('SIGN UP FOR NEWSLETTER') }}</h3>
+                                <p class="para">{{ __("Subscribe to the weekly newsletter for all the latest updates") }}</p>
+                            </div>
+                        </div>
+                        <div class="footer_social_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                            <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <input type="email" class="form-control" name="email" placeholder="{{ __("Your Email...") }}" >
+                                        <button class="btn miw-120 btn-primary d-flex align-items-center" type="submit">
+                                            {{ __("Subscribe") }}
+                                            <i class="fa fa-spinner fa-pulse fa-fw d-none"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-1">
+                                        <div class="form-mess mt-1 fs-12"></div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-6 col-xl-5">
-                    <div class="footer_social_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
-                        <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form {{ isset($header_style) ? 'home'.$header_style : '' }}">
-                            <div class="row align-items-center">
-                                <div class="col-auto">
-                                    <input type="email" class="form-control" name="email" placeholder="{{ __("Your Email...") }}" >
-                                    <button class="btn miw-120 btn-primary d-flex align-items-center" type="submit">
-                                        {{ __("Subscribe") }}
-                                        <i class="fa fa-spinner fa-pulse fa-fw d-none"></i>
-                                    </button>
-                                </div>
-                                <div class="mt-1">
-                                    <div class="form-mess mt-1 fs-12"></div>
-                                </div>
+                @else
+                    <div class="col-lg-6 col-xl-6">
+                        <div class="mailchimp_widget mb30-md {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                            <div class="icon float-start"><span class="flaticon-email-1"></span></div>
+                            <div class="details">
+                                <h3 class="title">{{ __('SIGN UP FOR NEWSLETTER') }}</h3>
+                                <p class="para">{{ __("Subscribe to the weekly newsletter for all the latest updates") }}</p>
                             </div>
-                        </form>
+                        </div>
                     </div>
-                </div>
+                    <div class="col-lg-6 col-xl-5">
+                        <div class="footer_social_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                            <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                                <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <input type="email" class="form-control" name="email" placeholder="{{ __("Your Email...") }}" >
+                                        <button class="btn miw-120 btn-primary d-flex align-items-center" type="submit">
+                                            {{ __("Subscribe") }}
+                                            <i class="fa fa-spinner fa-pulse fa-fw d-none"></i>
+                                        </button>
+                                    </div>
+                                    <div class="mt-1">
+                                        <div class="form-mess mt-1 fs-12"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
         <div class="row mt100">
