@@ -1,4 +1,4 @@
-<section class="footer_one footer_about_widget home{{ setting_item('freshen_footer_style') }}">
+<section class="footer_one footer_about_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
     <div class="footer_top_img"></div>
     @if(!empty($bg_footer = setting_item('freshen_footer_bg_image')))
         <div class="footer_bg_img" style="background-image: url('{{ get_file_url($bg_footer,'full') }}')"></div>
@@ -7,7 +7,7 @@
         <div class="bc-newsletter">
             <div class="row">
                 <div class="col-lg-6 col-xl-6">
-                    <div class="mailchimp_widget mb30-md home{{ setting_item('freshen_footer_style') }}">
+                    <div class="mailchimp_widget mb30-md {{ isset($header_style) ? 'home'.$header_style : '' }}">
                         <div class="icon float-start"><span class="flaticon-email-1"></span></div>
                         <div class="details">
                             <h3 class="title">{{ __('SIGN UP FOR NEWSLETTER') }}</h3>
@@ -16,8 +16,8 @@
                     </div>
                 </div>
                 <div class="col-lg-6 col-xl-5">
-                    <div class="footer_social_widget home{{ setting_item('freshen_footer_style') }}">
-                        <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form">
+                    <div class="footer_social_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
+                        <form action="{{ route('newsletter.subscribe') }}" class="footer_mailchimp_form bc-subscribe-form {{ isset($header_style) ? 'home'.$header_style : '' }}">
                             <div class="row align-items-center">
                                 <div class="col-auto">
                                     <input type="email" class="form-control" name="email" placeholder="{{ __("Your Email...") }}" >
@@ -53,7 +53,7 @@
                 @php $list_widget_footers = json_decode($list_widget_footers); @endphp
                 @foreach($list_widget_footers as $key=>$item)
                     <div class="col-sm-4 col-md-{{ $item->size }} col-lg-{{ $item->size }} col-xl-{{ $item->size }}">
-                        <div class="footer_qlink_widget">
+                        <div class="footer_qlink_widget {{ isset($header_style) ? 'home'.$header_style : '' }}">
                             <h4>{{$item->title}}</h4>
                             {!! ($item->content) !!}
                         </div>

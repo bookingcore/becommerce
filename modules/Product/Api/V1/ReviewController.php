@@ -6,6 +6,7 @@ namespace Modules\Product\Api\V1;
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Modules\Product\Models\Product;
 use Modules\Review\Models\Review;
 use Modules\Review\Resources\ReviewResource;
@@ -38,6 +39,7 @@ class ReviewController extends ApiController
             return;
         }
 
+
         $reviewEnable = $row->getReviewEnable();
         if (!$reviewEnable) {
             return $this->sendError(__("Review is not enable"),['code'=>404]);
@@ -56,7 +58,10 @@ class ReviewController extends ApiController
             'review_content.required' => __('Review Content is required field'),
             'review_content.min'      => __('Review Content has at least 10 character'),
         ];
-        $request->validate($rules,$messages);
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return $this->sendError('',['errors'=>$validator->errors()]);
+        }
 
         if($review = $this->review::addReview($request,$row,$row->type,$row->id)){
             $msg = __('Review success!');
