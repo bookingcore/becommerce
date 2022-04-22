@@ -6,7 +6,15 @@ namespace App\Http\Middleware;
 
 class RequireChangePassword
 {
-
+    /**
+     * The URIs that should be excluded from Require Change Password.
+     *
+     * @var array<int, string>
+     */
+    protected $except = [
+        '*/auth/password',
+        '*/change-password/store'
+    ];
     /**
      * Handle an incoming request.
      *
@@ -17,16 +25,37 @@ class RequireChangePassword
      */
     public function handle($request, \Closure $next, $guard = null)
     {
-        if($user = $request->user() and $user->need_update_pw){
+        if($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request)){
             if($request->expectsJson()){
-                return [
+                return response()->json([
                     'status'=>0,
-                    'message'=>__("For security, please check your password to continue"),
+                    'message'=>__("For security, please change your password to continue"),
                     'code'=>"need_update_pw"
-                ];
+                ]);
             }
-            return redirect('user.password',['need_update_pw'=>1]);
+            return redirect(route('user.password',['need_update_pw'=>1]));
         }
         return $next($request);
+    }
+
+    /**
+     * Determine if the request has a URI that should pass through CSRF verification.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
+    protected function inExceptArray($request)
+    {
+        foreach ($this->except as $except) {
+            if ($except !== '/') {
+                $except = trim($except, '/');
+            }
+
+            if ($request->fullUrlIs($except) || $request->is($except)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

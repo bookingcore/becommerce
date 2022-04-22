@@ -69,4 +69,29 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
+    public function changePassword(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'current_password' => 'required',
+            'new_password' => 'required|min:6',
+        ]);
+
+        if ($validator->fails()) {
+            return $this->sendError('',['errors'=>$validator->errors()]);
+        }
+        $user = auth()->user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            return $this->sendError(__("Current password is not correct"),['code'=>'invalid_current_password']);
+        }
+
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+
+        // Invalidate all Tokens
+        $user->tokens()->delete();
+
+        return $this->sendSuccess(['message'=>__("Password updated. Please re-login"),'code'=>"need_relogin"]);
+    }
+
 }
