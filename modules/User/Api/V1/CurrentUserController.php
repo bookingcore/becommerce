@@ -9,7 +9,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Product\Models\UserAddress;
 use Modules\User\Models\UserWishList;
+use Modules\User\Resources\AddressResource;
 use Modules\User\Resources\UserResource;
 use Modules\User\Resources\UserWishlistResource;
 
@@ -35,9 +37,11 @@ class CurrentUserController extends ApiController
 
     public function address()
     {
-        return new UserResource(auth()->user(),[
-            'address'
-        ]);
+        $user = \auth()->user();
+        return [
+            'billing'=>$user->billing_address ? new AddressResource($user->billing_address) : [],
+            'shipping'=>$user->shipping_address ? new AddressResource($user->shipping_address) : [],
+        ];
     }
 
     public function wishlist(){
@@ -134,6 +138,71 @@ class CurrentUserController extends ApiController
             "data"=>new UserResource($user),
             'status'=>1,
             'message'=>__("User info updated")
+        ];
+    }
+
+    public function updateAddress(Request $request){
+
+        $type = $request->input('type');
+
+        if(!in_array($type,['billing','shipping'])){
+            return $this->sendError(__("Address type is not valid"),['code'=>'address_type_invalid']);
+        }
+        $user = \auth()->user();
+
+        $rules = [
+            'first_name'=>'required|max:190',
+            'last_name'=>'required|max:190',
+            'country'=>'required|max:30',
+            'address'=>'required|max:190',
+            'city'=>'required|max:190',
+            'phone'=>'required|max:190',
+            'email'=>'required|email',
+        ];
+        if($type == 'shipping'){
+            unset($rules['phone']);
+            unset($rules['email']);
+        }
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return $this->sendError('',['errors'=>$validator->errors()]);
+        }
+
+        $data = $request->input();
+        $white_list = [
+            'first_name',
+            'last_name',
+            'company',
+            'country',
+            'address',
+            'address2',
+            'postcode',
+            'city',
+            'state',
+            'phone',
+            'email',
+        ];
+        $address = $type == 'billing' ? $user->billing_address : $user->shipping_address;
+
+        if(!$address){
+            $address = new UserAddress();
+            $address->address_type = $type == 'billing' ? 1 : 2;
+            $address->user_id = $user->id;
+            $address->is_default = 1;
+        }
+
+        foreach ($white_list as $k){
+            if(!array_key_exists($k,$data)) continue;
+            $v = $data[$k];
+
+            $address->setAttribute($k,$v);
+        }
+
+        $address->save();
+
+        return [
+            "data"=>new AddressResource($address),
+            'status'=>1,
         ];
     }
 }

@@ -14,7 +14,10 @@ Route::group([
 ], function ($router) {
     Route::get('me', 'V1\CurrentUserController@me')->name('user.api.me');
     Route::patch('me', 'V1\CurrentUserController@patch')->name('user.api.patch');
+
     Route::get('me/address', 'V1\CurrentUserController@address')->name('user.api.address');
+    Route::post('me/address', 'V1\CurrentUserController@updateAddress')->name('user.api.updateAddress');
+
     Route::get('me/wishlist', 'V1\CurrentUserController@wishlist')->name('user.api.wishlist');
     Route::post('me/wishlist', 'V1\CurrentUserController@wishlistStore')->name('user.api.wishlistStore');
     Route::delete('me/wishlist', 'V1\CurrentUserController@wishlistDelete')->name('user.api.wishlistDelete');
