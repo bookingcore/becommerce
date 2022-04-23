@@ -71,7 +71,7 @@ class BannerSlider extends BaseBlock
                 [
                     'id'          => 'sliders_2',
                     'type'        => 'listItem',
-                    'label'       => __('Slider Items Right (max 2 item)'),
+                    'label'       => __('Slider Items Right'),
                     'title_field' => 'title',
                     'settings'    => [
                         [
