@@ -1,4 +1,5 @@
-<form class="axtronic-login-form-ajax" method="POST" action="{{ route('login') }}">
+{{--<form class="axtronic-login-form-ajax" method="POST" action="{{ route('login') }}">--}}
+<form class="axtronic-form-login" method="POST" action="{{ route('login') }}">
     <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
     @csrf
     <div>
