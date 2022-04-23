@@ -19,6 +19,10 @@ class BannerSlider extends BaseBlock
                         [
                             'value'   => 'style_1',
                             'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
                         ]
                     ],
                 ],
@@ -117,7 +121,7 @@ class BannerSlider extends BaseBlock
     public function content($model = [])
     {
 
-        $style = $model['style'] ? $model['style'] : 'style_1';
+        $style = $model['style'] ?? 'style_1';
 
         return view("blocks.banner.{$style}", $model);
     }
