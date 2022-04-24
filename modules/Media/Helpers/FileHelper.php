@@ -105,6 +105,7 @@ class FileHelper
 
     protected static function maybeResizeS3($fileObj, $size = '',$resize = true){
 
+
         $imageOriginUrl = $fileObj->view_url;
 
         if ($size == 'full' or in_array(strtolower($fileObj->file_extension),['svg','bmp']))
@@ -119,12 +120,12 @@ class FileHelper
         $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
 
         if (Storage::disk('s3')->exists($resizeFile)) {
-            Storage::disk('s3')->url($resizeFile);
+            return (new MediaFile())->generateUrl($resizeFile);
         }elseif(!$resize){
-            return Storage::disk('s3')->url($fileObj->file_path);
+            return $imageOriginUrl;
         } else {
-            $mime = $fileObj->file_type;
-            if(in_array($mime,['image/x-ms-bmp'])){
+
+            if(in_array($fileObj->file_type,['image/x-ms-bmp'])){
                 return $imageOriginUrl;
             }
 
@@ -132,6 +133,7 @@ class FileHelper
             {
                 return static::resizeSimpleS3($fileObj,$size);
             }
+            return $imageOriginUrl;
 
         }
     }

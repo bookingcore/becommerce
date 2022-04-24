@@ -82,7 +82,7 @@ class MediaFile extends BaseModel
         switch ($this->driver){
             case "s3":
             case "gcs":
-                return $this->generateUrl();
+                return $this->generateUrl($this->file_path);
                 break;
             default:
                 return asset('uploads/' . $this->file_path);
@@ -90,9 +90,9 @@ class MediaFile extends BaseModel
         }
     }
 
-    public function generateUrl($mins = 24 * 60){
+    public function generateUrl($file_path,$mins = 24 * 60){
         return Storage::disk($this->driver)->temporaryUrl(
-            $this->file_path, now()->addMinutes($mins)
+            $file_path, now()->addMinutes($mins)
         );
     }
 }
