@@ -123,16 +123,14 @@ class FileHelper
         }elseif(!$resize){
             return Storage::disk('s3')->url($fileObj->file_path);
         } else {
-            $file =  Storage::disk('s3')->get($fileObj->file_path);
-
-            $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
+            $mime = $fileObj->file_type;
             if(in_array($mime,['image/x-ms-bmp'])){
                 return $imageOriginUrl;
             }
 
             if(env('APP_RESIZE_SIMPLE'))
             {
-                return static::resizeSimpleS3($fileObj,$size,$file);
+                return static::resizeSimpleS3($fileObj,$size);
             }
 
         }
@@ -159,7 +157,7 @@ class FileHelper
         $resize->saveImage(public_path('uploads/'.$subFolder.$resizeFilePath), "100");
 
         Storage::drive('s3')->put($resizeFilePath,Storage::drive('uploads')->get($subFolder.$resizeFilePath));
-        Storage::drive('uploads')->delete($subFolder.'*');
+        Storage::drive('uploads')->deleteDirectory($subFolder);
 
         return Storage::drive('s3')->url($resizeFilePath);
     }

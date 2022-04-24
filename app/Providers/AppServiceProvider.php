@@ -141,17 +141,17 @@ class AppServiceProvider extends ServiceProvider
             Config::set('filesystems.default',$filesystem_driver);
             switch ($filesystem_driver){
                 case 's3':
-                    if(!empty(setting_item('filesystem_w3_key'))){
-                        Config::set('filesystems.disks.s3.key',setting_item("filesystem_w3_key"));
+                    if(!empty(setting_item('filesystem_s3_key'))){
+                        Config::set('filesystems.disks.s3.key',setting_item("filesystem_s3_key"));
                     }
-                    if(!empty(setting_item('filesystem_w3_secret_access_key'))){
-                        Config::set('filesystems.disks.s3.secret',setting_item("filesystem_w3_secret_access_key"));
+                    if(!empty(setting_item('filesystem_s3_secret_access_key'))){
+                        Config::set('filesystems.disks.s3.secret',setting_item("filesystem_s3_secret_access_key"));
                     }
-                    if(!empty(setting_item('filesystem_w3_region'))){
-                        Config::set('filesystems.disks.s3.region',setting_item("filesystem_w3_region"));
+                    if(!empty(setting_item('filesystem_s3_region'))){
+                        Config::set('filesystems.disks.s3.region',setting_item("filesystem_s3_region"));
                     }
-                    if(!empty(setting_item('filesystem_w3_bucket'))){
-                        Config::set('filesystems.disks.s3.bucket',setting_item("filesystem_w3_bucket"));
+                    if(!empty(setting_item('filesystem_s3_bucket'))){
+                        Config::set('filesystems.disks.s3.bucket',setting_item("filesystem_s3_bucket"));
                     }
                 break;
                 case 'gcs':
