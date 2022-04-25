@@ -9,7 +9,7 @@
                     <label>{{__('Filesystem Driver')}}</label>
                     <div class="form-controls">
                         <select name="filesystem_default" class="form-control">
-                            <option value="local" {{setting_item('filesystem_default') == 'local' ? 'selected' : ''  }}>{{__('Default')}}</option>
+                            <option value="uploads" {{setting_item('filesystem_default') == 'uploads' ? 'selected' : ''  }}>{{__('Default')}}</option>
                             <option value="s3" {{setting_item('filesystem_default') == 's3' ? 'selected' : ''  }}>{{__('AWS S3')}}</option>
                             <option value="gcs" {{setting_item('filesystem_default') == 'gcs' ? 'selected' : ''  }}>{{__('Google Cloud Storage')}}</option>
                         </select>
