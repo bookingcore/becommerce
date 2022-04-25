@@ -19,14 +19,6 @@
                             @endforeach
 
                         </ul>
-                        <ul class="tes-nav">
-                            @foreach($list_items as $item)
-                                @php $avatar_url = get_file_url($item['avatar'], 'full') @endphp
-                                <li>
-                                    <img class="img-fluid" src="{{ $avatar_url }}" alt="{{ $item['name'] }}"/>
-                                </li>
-                            @endforeach
-                        </ul>
                     </div>
                 </div>
             </div>

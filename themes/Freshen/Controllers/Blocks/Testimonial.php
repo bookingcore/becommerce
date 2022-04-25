@@ -31,12 +31,7 @@ class Testimonial extends BaseBlock
                             'type'      => 'input',
                             'inputType' => 'text',
                             'label'     => __('Position')
-                        ],
-                        [
-                            'id'    => 'avatar',
-                            'type'  => 'uploader',
-                            'label' => __('Avatar Image')
-                        ],
+                        ]
                     ]
                 ],
             ],
