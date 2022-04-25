@@ -224,6 +224,23 @@ class GeneralSeeder extends Seeder
             'create_user' => '1',
             'created_at'  => date("Y-m-d H:i:s")
         ]]);
+
+        $freshen_page_about = DB::table('core_templates')->insertGetId([
+                'title'       => 'Freshen About Us',
+                'content'     => '[{"type":"breadcrumb","name":"Breadcrumb","model":{"list_items":[{"_active":true,"name":"ABOUT US","url":null}],"title":"ABOUT US"},"component":"RegularBlock","open":true,"is_container":false},{"type":"about_text","name":"About Text","model":{"title":"SAVE MORE WITH FRESHEN ! WE GIVE YOU THE LOWEST PRICES ON ALL YOUR GROCERY NEEDS.","list_items":[{"_active":true,"title":"Our Vision","desc":"Essentially, the good stuff is right here. We source the best suppliers and makers of natural and organic products that you won’t find on the high street. If you care about how things get made and what’s in them, we bring you products created with care."},{"_active":true,"title":"Our Vision","desc":"Essentially, the good stuff is right here. We source the best suppliers and makers of natural and organic products that you won’t find on the high street. If you care about how things get made and what’s in them, we bring you products created with care."}],"youtbe":"https://www.youtube.com/watch?v=R7xbhKIiw4Y","image_1":66,"image_2":65,"youtube":"https://www.youtube.com/watch?v=R7xbhKIiw4Y"},"component":"RegularBlock","open":true,"is_container":false},{"type":"why_chose_us","name":"Why Chose Us","model":{"title":"WHY CHOOSE US","list_items":[{"_active":true,"title":"WE DRIVE FAST & SHIP FASTER","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":null},{"_active":true,"title":"WE SAVE YOUR MORE MONEY","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":null},{"_active":true,"title":"DAILY DISCOUNT COUPONS","desc":"Sed semper convallis ultricies. Aliqua erat vol esent friday ngilla augue.","image_id":null}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"testimonial","name":"Testimonial","model":{"list_items":[{"_active":true,"name":"Wade Warren","desc":"When it comes to immediate body treatment, I know who I can count on. Being an accountant, you sometimes need rest to relieve all the stress and get new energy. I look forward to meeting you again soon","position":"Marketing Coordinator","avatar":13},{"_active":true,"name":"Wade Warren","desc":"When it comes to immediate body treatment, I know who I can count on. Being an accountant, you sometimes need rest to relieve all the stress and get new energy. I look forward to meeting you again soon","position":"Marketing Coordinator","avatar":17}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"our_teams","name":"Our Teams","model":{"title":"DEAL OF THE WEEK","list_items":[{"_active":true,"name":"Wade Warren","position":"Marketing Coordinator","avatar":13},{"_active":true,"name":"Floyd Miles","position":"Web Designer","avatar":null},{"_active":true,"name":"Brooklyn Simmons","position":"Nursing Assistant","avatar":null},{"_active":true,"name":"Ralph Edwards","position":"Marketing Coordinator","avatar":null},{"_active":true,"name":"Leslie Alexander","position":"Dog Trainer","avatar":null},{"_active":true,"name":"Eleanor Pena","position":"President of Sales","avatar":null}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"list_logos","name":"List Logo(s)","model":{"list_items":[{"_active":true,"image":13},{"_active":true,"image":14},{"_active":false,"image":null},{"_active":false,"image":null},{"_active":false,"image":null}]},"component":"RegularBlock","open":true}]',
+                'create_user' => '1',
+                'created_at'  => date("Y-m-d H:i:s")
+            ]);
+        DB::table('core_pages')->insertGetId([
+            'title'         => 'Freshen About Us',
+            'slug'          => 'freshen-about-us',
+            'template_id'   => $freshen_page_about,
+            'show_template' => 1,
+            'author_id'     => 1,
+            'create_user'   => '1',
+            'status'        => 'publish',
+            'created_at'    => date("Y-m-d H:i:s")
+        ]);
     }
 
     public function generalMenuDepartment($locale = ''){
