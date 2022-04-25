@@ -391,20 +391,16 @@ class MediaController extends Controller
                 if($storage->exists($file->file_path)){
                     $storage->delete($file->file_path);
                 }
-                if($driver!='s3'){
-                    $size_mores = FileHelper::$defaultSize;
-                    if(!empty($size_mores)){
-                        foreach ($size_mores as $size){
-                            $file_size = substr($file->file_path, 0, strrpos($file->file_path, '.')) . '-' . $size[0] . '.' . $file->file_extension;
-                            if($storage->exists($file_size)){
-                                $storage->delete($file_size);
-                            }
+                $size_mores = FileHelper::$defaultSize;
+                if(!empty($size_mores)){
+                    foreach ($size_mores as $size){
+                        $file_size = substr($file->file_path, 0, strrpos($file->file_path, '.')) . '-' . $size[0] . '.' . $file->file_extension;
+                        if($storage->exists($file_size)){
+                            $storage->delete($file_size);
                         }
                     }
-                    $file->forceDelete();
                 }
-
-
+                $file->forceDelete();
             }
             return $this->sendSuccess([],__("Delete the file success!"));
         }
