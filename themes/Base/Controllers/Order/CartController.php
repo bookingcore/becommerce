@@ -7,6 +7,7 @@ namespace Themes\Base\Controllers\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Order\Resources\Frontend\CartResource;
 use Modules\Product\Models\ShippingZone;
 use Themes\Base\Controllers\FrontendController;
 use Modules\Order\Helpers\CartManager;
@@ -79,10 +80,14 @@ class CartController extends FrontendController
 
             $buy_now = $request->input('buy_now');
 
+            if(is_api()){
+                return $this->sendSuccess([
+                    'data'=>new CartResource(CartManager::cart())
+                ]);
+            }
             return $this->sendSuccess([
                 'fragments'=>!is_api() ? $this->cart_manager::fragments() : [],
                 'url'=>$buy_now ? route('checkout') : '',
-                'cart_id'=>$this->cart_manager::cart_id()
             ],
                 !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
             );
