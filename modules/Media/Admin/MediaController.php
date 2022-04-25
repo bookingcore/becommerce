@@ -294,6 +294,7 @@ class MediaController extends Controller
             foreach ($files as $file) {
                 switch ($file->driver){
                     case 's3':
+                    case 'gcs':
                         $file->thumb_size = get_file_url($file,'thumb');
                         $file->full_size = get_file_url($file,'full',false);
                         $file->medium_size = get_file_url($file,'medium',false);
