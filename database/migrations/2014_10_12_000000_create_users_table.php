@@ -66,8 +66,8 @@ class CreateUsersTable extends Migration
             $table->text('val')->nullable();
             $table->integer('create_user')->nullable();
             $table->integer('update_user')->nullable();
-            $table->softDeletes();
 
+            $table->index(['user_id','name']);
             $table->timestamps();
         });
     }

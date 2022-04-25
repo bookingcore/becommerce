@@ -26,6 +26,11 @@ class CartItem extends Model
         'class_name' => Product::class
     ];
 
+    protected $casts = [
+        "qty"=>"integer",
+        "price"=>"float",
+    ];
+
     public static function fromProduct(Product $model,$qty = 1,$price = 0, $meta = [],$variation_id = ''){
 
         $item = new self();
@@ -125,5 +130,20 @@ class CartItem extends Model
                 $this->price = min($this->model->price,$this->model->sale_price);
             }
         }
+    }
+
+    public static function fromArray($data){
+        $item = new self();
+        foreach ($data as $k=>$v){
+            if($k == 'model') continue;
+            if($k == 'variation') continue;
+            $item->setAttribute($k,$v);
+        }
+        return $item;
+    }
+
+    public function toArray()
+    {
+        return $this->attributesToArray();
     }
 }

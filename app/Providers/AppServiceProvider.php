@@ -137,7 +137,7 @@ class AppServiceProvider extends ServiceProvider
             Config::set('broadcasting.connections.pusher.options.cluster',setting_item('pusher_cluster'));
         }
 
-        if(!empty($filesystem_driver  = setting_item('filesystem_default'))){
+        if(!empty($filesystem_driver  = setting_item('filesystem_default','uploads'))){
             Config::set('filesystems.default',$filesystem_driver);
             switch ($filesystem_driver){
                 case 's3':

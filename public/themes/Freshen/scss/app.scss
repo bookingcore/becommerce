@@ -357,3 +357,49 @@
         display: block !important;
     }
 }
+.bravo_compare_box:before {
+    background-color: rgba(13, 38, 59, .5);
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+}
+.sign_up_modal:before {
+    position: fixed;
+}
+.bravo_compare_box{
+    img{
+        max-width: 180px;
+    }
+    .modal-title{
+        font-family: Signika;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        letter-spacing: 0em;
+        line-height: 24px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-transform: uppercase;
+    }
+    .no-products{
+        height: 300px;
+        --bs-table-accent-bg: none !important;
+        font-size: 14px;
+        td{
+            vertical-align: middle;
+            text-align: center;
+            border: 0;
+        }
+    }
+}
+.error_page{
+    .code{
+        h1{
+            font-size: 130px;
+        }
+    }
+}

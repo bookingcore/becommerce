@@ -2,6 +2,7 @@
 
     namespace App;
 
+    use App\Traits\HasMeta;
     use App\Traits\HasSlug;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,7 +18,6 @@
     use Modules\User\Models\UserWishList;
     use Modules\User\Traits\HasRoles;
     use Modules\Vendor\Models\VendorRequest;
-    use Illuminate\Support\Facades\DB;
     use Illuminate\Database\Eloquent\SoftDeletes;
     use Modules\Vendor\Traits\HasPayout;
 
@@ -29,6 +29,10 @@
         use HasAddress;
         use HasPayout;
         use HasSlug;
+        use HasMeta;
+
+        protected $meta_parent_key = 'user_id';
+        protected $metaClass = UserMeta::class;
 
         /**
          * The attributes that are mass assignable.
@@ -76,69 +80,6 @@
 
         protected $slugField = 'username';
         protected $slugFromField = 'display_name';
-
-
-        public function getMeta($key, $default = '')
-        {
-
-            $val = DB::table('user_meta')->where([
-                'user_id' => $this->id,
-                'name'    => $key
-            ])->first();
-
-            if (!empty($val)) {
-                return $val->val;
-            }
-
-            return $default;
-        }
-
-        public function addMeta($key, $val, $multiple = false)
-        {
-            if(is_array($val) or is_object($val)) $val = json_encode($val);
-            if ($multiple) {
-                return DB::table('user_meta')->insert([
-                    'name'    => $key,
-                    'val'     => $val,
-                    'user_id' => $this->id,
-                    'create_user'=>Auth::id(),
-                    'created_at'=>date('Y-m-d H:i:s')
-                ]);
-            } else {
-                $old = DB::table('user_meta')->where([
-                    'user_id' => $this->id,
-                    'name'    => $key
-                ])->first();
-
-                if ($old) {
-                    return DB::table('user_meta')->where('id', $old->id)->update([
-                        'val' => $val,
-                        'update_user'=>Auth::id(),
-                        'updated_at'=>date('Y-m-d H:i:s')
-                    ]);
-                } else {
-                    return DB::table('user_meta')->insert([
-                        'name'    => $key,
-                        'val'     => $val,
-                        'user_id' => $this->id,
-                        'create_user'=>Auth::id(),
-                        'created_at'=>date('Y-m-d H:i:s')
-                    ]);
-                }
-            }
-
-        }
-
-        public function updateMeta($key,$val){
-
-            return DB::table('user_meta')->where('user_id', $this->id)
-                ->where('name', $key)
-                ->update([
-                'val' => $val,
-                'update_user'=>Auth::id(),
-                'updated_at'=>date('Y-m-d H:i:s')
-            ]);
-        }
 
         public function batchInsertMeta($metaArrs = [])
         {

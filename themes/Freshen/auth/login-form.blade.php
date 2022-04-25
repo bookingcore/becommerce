@@ -2,9 +2,6 @@
     <form class="bc-form bc-form-login {{$class ?? ''}}" method="POST" action="{{ route('login') }}">
         <input type="hidden" name="redirect" value="{{request()->query('redirect')}}">
         @csrf
-        @if(!empty($form_title))
-            <h5>{{$form_title}}</h5>
-        @endif
         <div class="{{$inner_class ?? ''}}">
             <div class="form-group mb20">
                 <label class="form-label">{{ __("Email address *") }}</label>

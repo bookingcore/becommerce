@@ -59,6 +59,11 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("banner_slider_v2",\Themes\Freshen\Controllers\Blocks\BannerSlider::class );
         BlockManager::register("product_in_category",\Themes\Freshen\Controllers\Blocks\ProductInCategory::class );
         BlockManager::register("whats_app",\Themes\Freshen\Controllers\Blocks\WhatsApp::class );
+        BlockManager::register("breadcrumb",\Themes\Freshen\Controllers\Blocks\Breadcrumb::class );
+        BlockManager::register("about_text",\Themes\Freshen\Controllers\Blocks\AboutText::class );
+        BlockManager::register("testimonial",\Themes\Freshen\Controllers\Blocks\Testimonial::class );
+        BlockManager::register("our_teams",\Themes\Freshen\Controllers\Blocks\OurTeams::class );
+        BlockManager::register("list_logos",\Themes\Freshen\Controllers\Blocks\ListLogos::class );
 
         if(!is_admin_dashboard()){
         Paginator::defaultView('pagination');

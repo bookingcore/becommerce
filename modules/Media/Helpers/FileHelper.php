@@ -39,7 +39,12 @@ class FileHelper
         }
         switch ($file->driver){
             case 's3':
-                $url = static::maybeResizeS3($file, $size,$resize);
+            case 'gcs':
+                if(config('filesystems.default')!=$file->driver){
+                    $url = '';
+                }else{
+                    $url = static::maybeResizeS3($file, $size,$resize);
+                }
             break;
             default:
                 if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
@@ -119,7 +124,7 @@ class FileHelper
 
         $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
 
-        if (Storage::disk('s3')->exists($resizeFile)) {
+        if (Storage::disk($fileObj->driver)->exists($resizeFile)) {
             return (new MediaFile())->generateUrl($resizeFile);
         }elseif(!$resize){
             return $imageOriginUrl;
@@ -146,7 +151,7 @@ class FileHelper
 
         Storage::disk('uploads')->put(
             $pathDumpFile,
-            Storage::disk('s3')->get($fileObj->file_path)
+            Storage::disk($fileObj->driver)->get($fileObj->file_path)
         );
 
 
@@ -158,10 +163,10 @@ class FileHelper
         $resize->resizeTo($sizeData[0], $sizeData[0], 'maxWidth');
         $resize->saveImage(public_path('uploads/'.$subFolder.$resizeFilePath), "100");
 
-        Storage::drive('s3')->put($resizeFilePath,Storage::drive('uploads')->get($subFolder.$resizeFilePath));
-        Storage::drive('uploads')->deleteDirectory($subFolder);
+        Storage::drive($fileObj->driver)->put($resizeFilePath,Storage::drive('uploads')->get($subFolder.$resizeFilePath));
+        Storage::drive('uploads')->delete([$pathDumpFile,$resizeFilePath]);
 
-        return Storage::drive('s3')->url($resizeFilePath);
+        return (new MediaFile())->generateUrl($resizeFilePath);
     }
 
     protected static function resizeSimple($fileObj,$size = ''){
