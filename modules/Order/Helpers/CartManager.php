@@ -150,8 +150,8 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        static::cart()->clear();
-        static::clearCoupon();
+        Session::forget(static::$session_key);
+        static::$_cart = null;
         return true;
     }
 
@@ -274,13 +274,6 @@ class CartManager
 		static::cart()->total_discount = $totalDiscount;
 
 	}
-
-    public static function clearCoupon(){
-        static::cart()->coupons = null;
-        static::cart()->total_discount = 0;
-        static::save();
-    }
-
 
     /**
      * return Order

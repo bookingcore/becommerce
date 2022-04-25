@@ -4,15 +4,10 @@
 namespace Modules\Order\Models;
 
 
-use App\BaseModel;
+use App\Models\BaseMeta;
 
-class OrderMeta extends BaseModel
+class OrderMeta extends BaseMeta
 {
     protected $table = 'core_order_meta';
 
-    protected $fillable = [
-        'name' ,
-        'val'  ,
-        'order_id',
-    ];
 }

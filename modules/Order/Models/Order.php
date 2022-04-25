@@ -4,6 +4,7 @@
 namespace Modules\Order\Models;
 
 use App\BaseModel;
+use App\Traits\HasMeta;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,6 +21,11 @@ class Order extends BaseModel
 {
 
     use SoftDeletes;
+    use HasMeta;
+
+    protected $meta_parent_key = 'order_id';
+    protected $metaClass = OrderMeta::class;
+
     protected $table = 'core_orders';
     const COMPLETED  = 'completed'; //
     const FAILED = 'failed';
@@ -70,55 +76,6 @@ class Order extends BaseModel
     public function getStatusNameAttribute()
     {
         return status_to_text($this->status);
-    }
-
-    public function getMeta($key, $default = '')
-    {
-        $val = OrderMeta::query()->where([
-            'order_id' => $this->id,
-            'name'       => $key
-        ])->first();
-        if (!empty($val)) {
-            return $val->val;
-        }
-        return $default;
-    }
-
-    public function getJsonMeta($key, $default = [])
-    {
-        $meta = $this->getMeta($key, $default);
-        if(empty($meta)) return $default;
-        return json_decode($meta, true) ?? $default;
-    }
-
-    public function addMeta($key, $val, $multiple = false)
-    {
-
-        if (is_object($val) or is_array($val))
-            $val = json_encode($val);
-        if ($multiple) {
-            return OrderMeta::create([
-                'name'       => $key,
-                'val'        => $val,
-                'order_id' => $this->id
-            ]);
-        } else {
-            $old = OrderMeta::query()->where([
-                'order_id' => $this->id,
-                'name'       => $key
-            ])->first();
-            if ($old) {
-                $old->val = $val;
-                return $old->save();
-
-            } else {
-                return OrderMeta::create([
-                    'name'       => $key,
-                    'val'        => $val,
-                    'order_id' => $this->id
-                ]);
-            }
-        }
     }
 
     public function paymentUpdated(Payment $payment){

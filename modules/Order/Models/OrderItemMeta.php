@@ -4,9 +4,9 @@
 namespace Modules\Order\Models;
 
 
-use App\BaseModel;
+use App\Models\BaseMeta;
 
-class OrderItemMeta extends BaseModel
+class OrderItemMeta extends BaseMeta
 {
     protected $table = 'core_order_item_meta';
 }

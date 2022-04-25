@@ -141,4 +141,9 @@ class CartItem extends Model
         }
         return $item;
     }
+
+    public function toArray()
+    {
+        return $this->attributesToArray();
+    }
 }

@@ -28,4 +28,9 @@ class CartApiManagement extends CartManager
     {
         return Cache::put(static::cart_id(),static::cart()->toArray());
     }
+    public static function clear()
+    {
+        static::$_cart = null;
+        Cache::forget(static::cart_id());
+    }
 }
