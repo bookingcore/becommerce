@@ -137,6 +137,12 @@ class ProductInCategory extends BaseBlock
                     'inputType' => 'text',
                     'label'     => __('Background Button Url'),
                 ],
+                [
+                    'id'        => 'text_class',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Text Color Class'),
+                ],
             ],
             'category'=>__("Product")
         ]);
@@ -165,6 +171,7 @@ class ProductInCategory extends BaseBlock
             'url_apply' => $model['url_apply'] ?? "",
             'load_more_url' => $model['load_more_url'] ?? "",
             'load_more_name' => $model['load_more_name'] ?? "",
+            'text_class' => $model['text_class'] ?? "",
             'bg_image_url' => !empty($model['bg_image']) ? FileHelper::url($model['bg_image'], 'full') : "",
         ];
         $style = $model['style'] ?? 'style_1';

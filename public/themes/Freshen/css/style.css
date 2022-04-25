@@ -1406,6 +1406,9 @@ header.header-nav a.navbar_brand {
   margin-top: 20px;
   position: relative;
 }
+.banner-slide-4{
+    position: relative;
+}
 .menu_style_home_one{
   background-color: #ffffff;
 }

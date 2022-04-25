@@ -1,4 +1,4 @@
-<div class="home-one mt30 mt70-992 bgc-f5">
+<div class="banner-slide-4 mt30 mt70-992 bgc-f5">
     <div class="container">
         <div class="row">
             <div class="col-xl-3 dn-lg">
