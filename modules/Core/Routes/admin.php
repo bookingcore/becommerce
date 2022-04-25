@@ -26,6 +26,7 @@ Route::post('settings/store/{group}', 'SettingsController@store')->name('core.ad
 Route::get('setting-zone/{zone_id}', 'SettingsController@zone')->name('core.admin.setting.zone');
 
 Route::get('tools', 'ToolsController@index');
+Route::match(['get','post'],'schedule', 'ToolsController@schedule')->name('core.admin.tool.schedule');
 
 Route::group(['prefix' => 'menu'], function () {
     Route::get('/', 'MenuController@index')->name('core.admin.menu.index');
