@@ -460,9 +460,8 @@ class Product extends BaseModel
                     $variant = $this->variations()->where('id',$variant_id)->first();
                     if(!empty($variant)){
                         if(!empty($this->check_manage_stock())){
-                            $onHold = $this->on_hold;
                             if(!empty($this->quantity)){
-                                $remainStock = $this->quantity - $onHold;
+                                $remainStock = $this->remain_stock;
                                 if($qty>$remainStock){
                                     throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]),406);
                                 }

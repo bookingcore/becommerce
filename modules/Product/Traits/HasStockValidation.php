@@ -33,9 +33,8 @@ trait HasStockValidation
     {
         $isManageStock  = $this->check_manage_stock();
         if(!empty($isManageStock)){
-            $onHold = $this->on_hold;
             if(!empty($this->quantity)){
-                $remainStock = $this->quantity - $onHold;
+                $remainStock = $this->remain_stock;
                 if($qty>$remainStock){
                     throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]),406);
                 }
