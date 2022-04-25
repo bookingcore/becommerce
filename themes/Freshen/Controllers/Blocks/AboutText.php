@@ -2,7 +2,6 @@
 namespace Themes\Freshen\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
-use Modules\Media\Helpers\FileHelper;
 
 class AboutText extends BaseBlock
 {

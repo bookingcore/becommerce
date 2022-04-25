@@ -10,9 +10,11 @@
                     @if(!empty($image_2))
                         <img class="img-fluid thumb2" src="{{$image_2}}" alt="2.jpg">
                     @endif
-                    <a class="popup_video_btn popup-iframe popup-youtube" href="{{ $youtube }}">
-                        <i class="flaticon-play"></i>
-                    </a>
+                    @if(!empty($youtube))
+                        <a class="popup_video_btn popup-iframe popup-youtube" href="{{ $youtube }}">
+                            <i class="flaticon-play"></i>
+                        </a>
+                    @endif
                 </div>
             </div>
             <div class="col-lg-5 offset-lg-1">
