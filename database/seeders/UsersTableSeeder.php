@@ -27,5 +27,18 @@ class UsersTableSeeder extends Seeder
         $user->save();
         $user->assignRole('admin');
 
+        $user = new \App\User([
+            'first_name' => 'Customer',
+            'email' => 'customer@becommerce.test',
+            'password' => bcrypt('admin123'),
+            'phone'   => '112 666 888',
+            'status'   => 'publish',
+            'created_at' =>  date("Y-m-d H:i:s"),
+        ]);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->need_update_pw = 1;
+        $user->save();
+        $user->assignRole('customer');
+
     }
 }

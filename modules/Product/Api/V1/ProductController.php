@@ -22,7 +22,11 @@ class ProductController extends ApiController
 
         $query = Product::search($request->query());
 
-        return ProductResource::collection($query->paginate(24));
+        return ProductResource::collection($query->paginate(24),[
+            'price',
+            'categories',
+            'review_data'
+        ]);
     }
 
     public function detail(Request $request,$id){
@@ -36,7 +40,22 @@ class ProductController extends ApiController
             'variations',
             'review_data',
             'categories',
-            'tags'
+            'tags',
+            'author',
+            'gallery'
+        ]);
+    }
+
+    public function related(Request $request,$id){
+        $row = $this->product::find($id);
+        if(!$row or $row->status != 'publish'){
+            abort(404);
+            return;
+        }
+        return ProductResource::collection($row->related()->paginate(12),[
+            'price',
+            'categories',
+            'review_data'
         ]);
     }
 }

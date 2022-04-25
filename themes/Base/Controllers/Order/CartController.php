@@ -7,6 +7,7 @@ namespace Themes\Base\Controllers\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Modules\Order\Resources\Frontend\CartResource;
 use Modules\Product\Models\ShippingZone;
 use Themes\Base\Controllers\FrontendController;
 use Modules\Order\Helpers\CartManager;
@@ -14,10 +15,18 @@ use Modules\Order\Helpers\CartManager;
 class CartController extends FrontendController
 {
 
+    protected $cart_manager;
+
+    public function __construct(CartManager $cart_manager)
+    {
+        parent::__construct();
+        $this->cart_manager = $cart_manager;
+    }
+
     public function index(Request $request){
         $data = [
-            'items'=>CartManager::items(),
-            'counpon'=>CartManager::getCoupon(),
+            'items'=>$this->cart_manager::items(),
+            'counpon'=>$this->cart_manager::getCoupon(),
             'breadcrumbs'=>[
                 [
                     'name'=> "Shopping Cart",
@@ -63,16 +72,21 @@ class CartController extends FrontendController
         $module = $allServices[$service_type];
         $service = $module::find($service_id);
         try {
-            $cartItem = CartManager::findItem($service,$variation_id);
+            $cartItem = $this->cart_manager::findItem($service,$variation_id);
 
             $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
 
-            CartManager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
+            $this->cart_manager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
 
             $buy_now = $request->input('buy_now');
 
+            if(is_api()){
+                return $this->sendSuccess([
+                    'data'=>new CartResource(CartManager::cart())
+                ]);
+            }
             return $this->sendSuccess([
-                'fragments'=>!is_api() ? CartManager::fragments() : [],
+                'fragments'=>!is_api() ? $this->cart_manager::fragments() : [],
                 'url'=>$buy_now ? route('checkout') : '',
             ],
                 !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
@@ -91,11 +105,11 @@ class CartController extends FrontendController
             return $this->sendError('', ['errors' => $validator->errors()]);
         }
 
-        CartManager::remove($request->input('id'));
+        $this->cart_manager::remove($request->input('id'));
 
         return $this->sendSuccess([
-            'fragments'=> CartManager::fragments(),
-            'reload'=>CartManager::count()  ? false: true,
+            'fragments'=> $this->cart_manager::fragments(),
+            'reload'=>$this->cart_manager::count()  ? false: true,
         ],__("Item removed"));
     }
 
@@ -113,16 +127,16 @@ class CartController extends FrontendController
         try {
             foreach ($itemsRequest as $item_id => $value) {
                 $qty = $value['qty'];
-                $cartItem = CartManager::item($item_id);
+                $cartItem = $this->cart_manager::item($item_id);
                 if(!$cartItem){
-                    CartManager::remove($item_id);
+                    $this->cart_manager::remove($item_id);
                 }else{
-                    if(CartManager::validateItem($cartItem, $qty)){
-                        CartManager::update($item_id,$qty);
+                    if($this->cart_manager::validateItem($cartItem, $qty)){
+                        $this->cart_manager::update($item_id,$qty);
                     }
                 }
             }
-            CartManager::calculatorDiscountCoupon();
+            $this->cart_manager::calculatorDiscountCoupon();
 
         }catch (\Exception $exception)
         {
@@ -133,12 +147,12 @@ class CartController extends FrontendController
     }
 
     public function getShippingMethod(Request $request){
-        $res = CartManager::getMethodShipping($request->input('country'));
+        $res = $this->cart_manager::getMethodShipping($request->input('country'));
         return $this->sendSuccess($res,$res['message'] ?? "");
     }
 
     public function getTaxRate(Request $request){
-        $res = CartManager::getTaxRate($request->input('billing_country'),$request->input('shipping_country'));
+        $res = $this->cart_manager::getTaxRate($request->input('billing_country'),$request->input('shipping_country'));
         return $this->sendSuccess($res,$res['message'] ?? "");
     }
 }

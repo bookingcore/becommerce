@@ -21,6 +21,10 @@ class ProductInCategory extends BaseBlock
                         [
                             'value'   => 'style_1',
                             'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
                         ]
                     ],
                 ],
@@ -163,7 +167,7 @@ class ProductInCategory extends BaseBlock
             'load_more_name' => $model['load_more_name'] ?? "",
             'bg_image_url' => !empty($model['bg_image']) ? FileHelper::url($model['bg_image'], 'full') : "",
         ];
-        $style = $model['style'] ? $model['style'] : 'style_1';
+        $style = $model['style'] ?? 'style_1';
 
         return view("blocks.product-in-category.{$style}", $data);
     }

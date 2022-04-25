@@ -136,6 +136,37 @@ class AppServiceProvider extends ServiceProvider
             Config::set('chatify.pusher.options.cluster',setting_item('pusher_cluster'));
             Config::set('broadcasting.connections.pusher.options.cluster',setting_item('pusher_cluster'));
         }
+
+        if(!empty($filesystem_driver  = setting_item('filesystem_default'))){
+            Config::set('filesystems.default',$filesystem_driver);
+            switch ($filesystem_driver){
+                case 's3':
+                    if(!empty(setting_item('filesystem_s3_key'))){
+                        Config::set('filesystems.disks.s3.key',setting_item("filesystem_s3_key"));
+                    }
+                    if(!empty(setting_item('filesystem_s3_secret_access_key'))){
+                        Config::set('filesystems.disks.s3.secret',setting_item("filesystem_s3_secret_access_key"));
+                    }
+                    if(!empty(setting_item('filesystem_s3_region'))){
+                        Config::set('filesystems.disks.s3.region',setting_item("filesystem_s3_region"));
+                    }
+                    if(!empty(setting_item('filesystem_s3_bucket'))){
+                        Config::set('filesystems.disks.s3.bucket',setting_item("filesystem_s3_bucket"));
+                    }
+                break;
+                case 'gcs':
+                    if($val = setting_item('gcs_project_id')){
+                        Config::set('filesystems.disks.gcs.project_id',$val);
+                    }
+                    if($val = setting_item('gcs_key_file')){
+                        Config::set('filesystems.disks.gcs.key_file',storage_path('app/gcs/'.$val));
+                    }
+                    if($val = setting_item('gcs_bucket')){
+                        Config::set('filesystems.disks.gcs.bucket',$val);
+                    }
+                break;
+            }
+        }
     }
 
     protected function setLang(){

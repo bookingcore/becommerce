@@ -12,6 +12,22 @@ class ListCategoryProduct extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'    => 'style',
+                    'type'  => 'radios',
+                    'label' => __('Style'),
+                    'value' => 'style_1',
+                    'values' => [
+                        [
+                            'value'   => 'style_1',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ]
+                    ],
+                ],
+                [
                     'id'        => 'title',
                     'type'      => 'input',
                     'inputType' => 'text',
@@ -114,6 +130,8 @@ class ListCategoryProduct extends BaseBlock
             'categories' => $categories ?? [],
             'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal"
         ];
-        return view('blocks.list-category-product.index', $data);
+        $style = $model['style'] ?? 'index';
+
+        return view("blocks.list-category-product.{$style}", $data);
     }
 }

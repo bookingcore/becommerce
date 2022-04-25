@@ -82,7 +82,7 @@ function ajax_error_to_string(e){
         }
     }
 }
-$('.bc-form-login').on('submit',function (e) {
+$('.axtronic-form-login').on('submit',function (e) {
     e.preventDefault();
     var form = $(this);
     var data = form.serialize()
@@ -133,10 +133,10 @@ $('.bc-form-login').on('submit',function (e) {
     });
     return false;
 });
-$('.bc-form-register').on('submit',function (e) {
+$('.axtronic-form-register').on('submit',function (e) {
     e.preventDefault();
     let form = $(this);
-    var data = form.serialize()
+    var data = form.serialize();
     $.ajax({
         'url':  BC.routes.register,
         'data': data,
@@ -147,7 +147,7 @@ $('.bc-form-register').on('submit',function (e) {
             form.find('.icon-loading').css("display", 'inline-block');
         },
         success: function (data) {
-            form.removeClass('loading')
+            form.removeClass('loading');
             form.find('.icon-loading').hide();
             if(typeof data =='undefined') return;
             if (data.error === true) {
@@ -174,7 +174,7 @@ window.bravo_handle_error_response = function(e){
     switch (e.status) {
         case 401:
             // not logged in
-            $('#login').modal('show');
+            $('.site-user-side').toggleClass('active');
             break;
     }
 };
@@ -1084,7 +1084,6 @@ function getName(select) {
     document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
 }
 var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
-console.log(name);
 if(name && name !== 'undefined'){
     $('#product-cat-name').html(name)
 }else {

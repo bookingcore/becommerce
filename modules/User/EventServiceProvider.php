@@ -2,6 +2,7 @@
 namespace Modules\User;
 
 
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -15,6 +16,7 @@ use Modules\User\Events\UpdateCreditPurchase;
 use Modules\User\Events\UserSubscriberSubmit;
 use Modules\User\Events\UserVerificationSubmit;
 use Modules\User\Events\VendorApproved;
+use Modules\User\Listeners\ClearUserTokens;
 use Modules\User\Listeners\SendAdminUpdateVerifyDataEmail;
 use Modules\User\Listeners\SendMailUserRegisteredListen;
 use Modules\User\Listeners\SendNotifyApproved;
@@ -59,6 +61,9 @@ class EventServiceProvider extends ServiceProvider
         VendorApproved::class => [
             SendVendorApprovedMail::class,
             SendNotifyApproved::class
+        ],
+        PasswordReset::class=>[
+            ClearUserTokens::class
         ]
     ];
 

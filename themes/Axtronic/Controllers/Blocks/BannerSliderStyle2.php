@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Freshen\Controllers\Blocks;
+namespace Themes\Axtronic\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
@@ -110,7 +110,8 @@ class BannerSliderStyle2 extends BaseBlock
                         ]
                     ]
                 ],
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
     public function getName()

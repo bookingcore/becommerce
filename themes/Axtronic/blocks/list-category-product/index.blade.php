@@ -26,13 +26,16 @@
                             <div class="tab-pane fade {{ $key == 0 ? 'active show' : '' }}" id="nav-cat-{{ $item->id }}" role="tabpanel" aria-labelledby="nav-cat-{{ $item->id }}-tab">
                                 @php
                                     $list_items = $list_product_cat[ $item->id ] ?? [];
-                                    var_dump($item->id);
                                 @endphp
                                 @if(!empty($list_items))
                                     <div class="popular_listing_slider1">
-                                        @foreach($categories as $item)
-                                            @include('product.search.loop',['row'=>$item])
-                                        @endforeach
+                                        <div class="row">
+                                            @foreach($list_items as $item)
+                                                <div class="col-sm-3">
+                                                    @include('product.search.loop',['row'=>$item])
+                                                </div>
+                                            @endforeach
+                                        </div>
                                     </div>
                                 @endif
                             </div>

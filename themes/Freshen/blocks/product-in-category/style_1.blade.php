@@ -1,6 +1,6 @@
-<div class="our-shops bgc-f5 mt-5 pt-5">
+<div class="our-shops bgc-f5 pt-5">
     <div class="container">
-        <div class="fruit_custom_widget mb100">
+        <div class="fruit_custom_widget">
             <div class="main-title">
                 <div class="row pl30 pl0-md pr30 pr0-md">
                     <div class="col-sm-6">
