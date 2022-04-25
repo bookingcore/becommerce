@@ -22,13 +22,6 @@ class CartManager
 {
     protected static $session_key='bc_carts';
 
-    /**
-     * @var array | Collection
-     */
-    public static $_shipping_amount = 0;
-    public static $_shipping_method = [];
-    public static $_tax = [];
-
     protected static $_cart;
 
 
@@ -192,15 +185,15 @@ class CartManager
      * @return float
      */
     public static function subtotal(){
-        return static::items()->sum('subtotal');
+        return static::cart()->subtotal();
     }
 
     public static function discountTotal(){
-        return static::cart()->total_discount;
+        return static::cart()->discountTotal();
     }
 
     public static function shippingTotal(){
-        return static::items()->sum('shipping_amount') + static::$_shipping_amount;
+        return static::cart()->shippingTotal();
     }
 
     /**
@@ -209,11 +202,7 @@ class CartManager
      * @return float
      */
     public static function total(){
-        $subTotal = static::subtotal();
-        $discount = static::discountTotal();
-        $shipping = static::shippingTotal();
-        $total = $subTotal + $shipping - $discount;
-        return $total>=0?$total:0;
+        return static::cart()->total;
     }
 
     public static function fragments(){
@@ -301,7 +290,7 @@ class CartManager
         $order->customer_id = auth()->id();
         $order->status = Order::DRAFT;
         $order->locale = app()->getLocale();
-        $order->shipping_amount = static::$_shipping_amount;
+        $order->shipping_amount = static::cart()->shipping_amount;
         $order->discount_amount = static::discountTotal();
         $order->save();
 
@@ -326,9 +315,9 @@ class CartManager
         $order->syncTotal();
 
         //Tax
-        if(!empty( static::$_tax )){
+        if(!empty( $taxItems = static::cart()->tax )){
             $tax_rate = 0;
-            foreach ( static::$_tax as $item ){
+            foreach ( $taxItems as $item ){
                 $tax_rate += $item['tax_rate'];
             }
             $total_amount = $order->total;
@@ -339,7 +328,7 @@ class CartManager
             $order->total = $total_amount;
             $order->tax_amount = $tax_amount;
             $order->save();
-            $order->addMeta('tax',static::$_tax);
+            $order->addMeta('tax',$taxItems);
             $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
         }
 
@@ -430,8 +419,8 @@ class CartManager
         {
             foreach ( $list_methods['shipping_methods'] as $method){
                 if($method['method_id'] == $shipping_method){
-                    static::$_shipping_amount = $method['method_cost'];
-                    static::$_shipping_method = $method;
+                    static::cart()->shipping_amount = $method['method_cost'];
+                    static::cart()->shipping_method = $method;
                     return ['status'=>1];
                 }
             }
@@ -475,7 +464,7 @@ class CartManager
         if( TaxRate::isEnable() ){
             $tax = static::getTaxRate($billing_country , $shipping_country);
             if(!empty($tax['tax'])){
-                static::$_tax = $tax['tax'];
+                static::cart()->setAttribute('tax',$tax['tax']);
             }
         }
     }

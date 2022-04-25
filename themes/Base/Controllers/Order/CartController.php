@@ -93,7 +93,7 @@ class CartController extends FrontendController
             );
 
         }catch (\Exception $exception){
-            return $this->sendError($exception->getMessage(),['code'=>$exception->getCode()]);
+            return $this->sendError($exception->getMessage(),['code'=>$exception->getCode() ?  $exception->getCode() : 'add_to_cart']);
         }
 
     }

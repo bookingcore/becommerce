@@ -12,9 +12,10 @@ class CartResource extends BaseJsonResource
     {
         return [
             'id'=>$this->id,
-            'items'=>CartItemResource::collection($this->items),
             'coupons'=>$this->coupons,
-            'discount_total'=>$this->discount_total
+            'discount_total'=>$this->discount_total,
+            'total'=>$this->total,
+            'items'=>CartItemResource::collection($this->items),
         ];
     }
 }

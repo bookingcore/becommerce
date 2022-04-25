@@ -135,6 +135,8 @@ class CartItem extends Model
     public static function fromArray($data){
         $item = new self();
         foreach ($data as $k=>$v){
+            if($k == 'model') continue;
+            if($k == 'variation') continue;
             $item->setAttribute($k,$v);
         }
         return $item;

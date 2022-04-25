@@ -19,7 +19,7 @@ class ProductResource extends BaseJsonResource
             'price'=>$this->whenNeed('price',function(){
                 return $this->sale_price;
             }),
-            'origin_price'=>$this->origin_price,
+            'origin_price'=>(float) $this->origin_price,
             'sku'=>$this->sku,
             'price_html'=>$this->whenNeed('price',function(){
                 return format_money($this->sale_price);
