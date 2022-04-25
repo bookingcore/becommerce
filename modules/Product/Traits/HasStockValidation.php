@@ -19,7 +19,7 @@ trait HasStockValidation
     }
     public function getRemainStockAttribute()
     {
-        return $this->quantity - $this->on_hold;
+        return max(0,$this->quantity - $this->on_hold);
     }
 
 
