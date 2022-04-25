@@ -48,13 +48,13 @@ class Testimonial extends BaseBlock
                         [
                             'id'        => 'title_item',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Title Item')
                         ],
                         [
                             'id'        => 'job',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Job')
                         ],
                         [
@@ -66,7 +66,7 @@ class Testimonial extends BaseBlock
                         [
                             'id'        => 'number_star',
                             'type'      => 'input',
-                            'inputType' => 'text',
+                            'inputType' => 'number',
                             'label'     => __('Number star')
                         ],
                         [

@@ -5068,6 +5068,9 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
   background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
 }
 
+.axtronic-shopping__header {
+  margin-bottom: 30px;
+}
 .axtronic-shopping__header h2 {
   margin-bottom: 0;
   font-weight: 700;
@@ -5080,7 +5083,6 @@ ul.axtronic-products.product-lists li.product .product-item .shop-action.shop-ac
 }
 
 .axtronic-shopping__actions {
-  margin-top: 30px;
   margin-bottom: 35px;
   display: flex;
   flex-wrap: wrap;

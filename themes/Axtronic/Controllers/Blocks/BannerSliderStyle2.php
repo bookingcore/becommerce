@@ -110,7 +110,8 @@ class BannerSliderStyle2 extends BaseBlock
                         ]
                     ]
                 ],
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
     public function getName()

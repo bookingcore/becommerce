@@ -3,6 +3,7 @@ namespace Modules\Media;
 
 use Illuminate\Support\Facades\Storage;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Core\Helpers\SettingManager;
 use Modules\Media\CustomGcs\GoogleCloudStorageServiceProvider;
 use Modules\ModuleServiceProvider;
 
@@ -13,6 +14,8 @@ class ModuleProvider extends ModuleServiceProvider
         $this->loadMigrationsFrom(__DIR__ . '/Migrations');
 
         AdminMenuManager::register('media',[$this,'getAdminMenu']);
+        SettingManager::register("fileSystem",[$this,'registerFileSystemSetting']);
+
 
     }
 
@@ -40,4 +43,24 @@ class ModuleProvider extends ModuleServiceProvider
             ]
         ];
     }
+    public function registerFileSystemSetting(){
+        return [
+            'title' => __("FileSystem Settings"),
+            'view'      => "Media::admin.settings.file-system",
+            'position'=>85,
+            "keys"=>[
+                'filesystem_default',
+                'filesystem_s3_key',
+                'filesystem_s3_secret_access_key',
+                'filesystem_s3_region',
+                'filesystem_s3_bucket',
+
+                'gcs_project_id',
+                'gcs_bucket',
+                'gcs_key_file',
+            ]
+        ];
+    }
+
+
 }

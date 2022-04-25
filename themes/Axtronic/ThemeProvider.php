@@ -17,8 +17,8 @@ use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
 use Themes\Axtronic\Database\Seeder;
-use Themes\Freshen\Controllers\Blocks\BannerSliderStyle2;
-use Themes\Freshen\Controllers\Blocks\ListCategoryProduct;
+use Themes\Axtronic\Controllers\Blocks\BannerSliderStyle2;
+use Themes\Axtronic\Controllers\Blocks\ListCategoryProduct;
 
 class ThemeProvider extends AbstractThemeProvider
 {

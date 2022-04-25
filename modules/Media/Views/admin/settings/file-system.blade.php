@@ -22,19 +22,19 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label class="">{{__("Key")}}</label>
-                    <input type="text" class="form-control" autocomplete="none" name="filesystem_w3_key" value="{{setting_item('filesystem_w3_key')}}" />
+                    <input type="text" class="form-control" autocomplete="none" name="filesystem_s3_key" value="{{setting_item('filesystem_s3_key')}}" />
                 </div>
                 <div class="form-group">
                     <label class="">{{__("Secret access key")}}</label>
-                    <input type="text" class="form-control" autocomplete="none" name="filesystem_w3_secret_access_key" value="{{setting_item('filesystem_w3_secret_access_key')}}" />
+                    <input type="text" class="form-control" autocomplete="none" name="filesystem_s3_secret_access_key" value="{{setting_item('filesystem_s3_secret_access_key')}}" />
                 </div>
                 <div class="form-group">
                     <label class="">{{__("Default region")}}</label>
-                    <input type="text" class="form-control" autocomplete="none" name="filesystem_w3_region" value="{{setting_item('filesystem_w3_region')}}" />
+                    <input type="text" class="form-control" autocomplete="none" name="filesystem_s3_region" value="{{setting_item('filesystem_s3_region')}}" />
                 </div>
                 <div class="form-group">
                     <label class="">{{__("Bucket")}}</label>
-                    <input type="text" class="form-control" autocomplete="none" name="filesystem_w3_bucket" value="{{setting_item('filesystem_w3_bucket')}}" />
+                    <input type="text" class="form-control" autocomplete="none" name="filesystem_s3_bucket" value="{{setting_item('filesystem_s3_bucket')}}" />
                 </div>
             </div>
         </div>

@@ -24,7 +24,6 @@ class ModuleProvider extends ModuleServiceProvider
         Event::listen(CreateReviewEvent::class,CreateReviewListen::class);
 
         SettingManager::register("general",[$this,'registerGeneralSetting']);
-        SettingManager::register("fileSystem",[$this,'registerFileSystemSetting']);
         SettingManager::register("advance",[$this,'registerAdvanceSetting']);
         SettingManager::register("style",[$this,'registerStyleSetting']);
         SettingManager::register("mobile",[$this,'registerMobileSetting']);
@@ -201,24 +200,6 @@ class ModuleProvider extends ModuleServiceProvider
             'view'      => "Core::admin.settings.groups.mobile",
             'position'=>90,
             "keys"=>[]
-        ];
-    }
-    public function registerFileSystemSetting(){
-        return [
-            'title' => __("FileSystem Settings"),
-            'view'      => "Core::admin.settings.groups.file-system",
-            'position'=>85,
-            "keys"=>[
-                'filesystem_default',
-                'filesystem_w3_key',
-                'filesystem_w3_secret_access_key',
-                'filesystem_w3_region',
-                'filesystem_w3_bucket',
-
-                'gcs_project_id',
-                'gcs_bucket',
-                'gcs_key_file',
-            ]
         ];
     }
 

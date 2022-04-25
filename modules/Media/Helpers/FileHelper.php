@@ -105,6 +105,7 @@ class FileHelper
 
     protected static function maybeResizeS3($fileObj, $size = '',$resize = true){
 
+
         $imageOriginUrl = $fileObj->view_url;
 
         if ($size == 'full' or in_array(strtolower($fileObj->file_extension),['svg','bmp']))
@@ -119,21 +120,20 @@ class FileHelper
         $resizeFile = substr($fileObj->file_path, 0, strrpos($fileObj->file_path, '.')) . '-' . $sizeData[0] . '.' . $fileObj->file_extension;
 
         if (Storage::disk('s3')->exists($resizeFile)) {
-            Storage::disk('s3')->url($resizeFile);
+            return (new MediaFile())->generateUrl($resizeFile);
         }elseif(!$resize){
-            return Storage::disk('s3')->url($fileObj->file_path);
+            return $imageOriginUrl;
         } else {
-            $file =  Storage::disk('s3')->get($fileObj->file_path);
 
-            $mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $file);
-            if(in_array($mime,['image/x-ms-bmp'])){
+            if(in_array($fileObj->file_type,['image/x-ms-bmp'])){
                 return $imageOriginUrl;
             }
 
             if(env('APP_RESIZE_SIMPLE'))
             {
-                return static::resizeSimpleS3($fileObj,$size,$file);
+                return static::resizeSimpleS3($fileObj,$size);
             }
+            return $imageOriginUrl;
 
         }
     }
@@ -159,7 +159,7 @@ class FileHelper
         $resize->saveImage(public_path('uploads/'.$subFolder.$resizeFilePath), "100");
 
         Storage::drive('s3')->put($resizeFilePath,Storage::drive('uploads')->get($subFolder.$resizeFilePath));
-        Storage::drive('uploads')->delete($subFolder.'*');
+        Storage::drive('uploads')->deleteDirectory($subFolder);
 
         return Storage::drive('s3')->url($resizeFilePath);
     }

@@ -21,6 +21,10 @@ class ProductInCategory extends BaseBlock
                         [
                             'value'   => 'style_1',
                             'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
                         ]
                     ],
                 ],
