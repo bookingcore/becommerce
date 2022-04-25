@@ -646,6 +646,8 @@ function get_country_name($name){
 
 function get_page_url($page_id)
 {
+    if(!$page_id) return;
+
     $page = \Modules\Page\Models\Page::find($page_id);
 
     if($page){
