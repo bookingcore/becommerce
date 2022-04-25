@@ -97,7 +97,7 @@ class NewsController extends FrontendController
             'translation'=>$translation,
             'page_title'=>$translation->title,
             'header_title'=>$translation->title,
-            'related_post' => $news->related,
+            'related_post' => $news->related()->limit(3)->get(),
             'is_preview_mode'    => $is_preview_mode,
         ];
         return view('news-detail',$data);

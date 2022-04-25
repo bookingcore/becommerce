@@ -269,7 +269,7 @@ class News extends BaseModel
     }
 
     public function related(){
-        return $this->hasMany(News::class,'cat_id','cat_id')->where('status','publish')->where('id','!=',$this->id)->with(['translation'])->limit(3);
+        return $this->hasMany(News::class,'cat_id','cat_id')->where('status','publish')->where('id','!=',$this->id)->with(['translation']);
     }
 
 
