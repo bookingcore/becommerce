@@ -40,7 +40,11 @@ class FileHelper
         switch ($file->driver){
             case 's3':
             case 'gcs':
-                $url = static::maybeResizeS3($file, $size,$resize);
+                if(config('filesystems.default')!=$file->driver){
+                    $url = '';
+                }else{
+                    $url = static::maybeResizeS3($file, $size,$resize);
+                }
             break;
             default:
                 if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
