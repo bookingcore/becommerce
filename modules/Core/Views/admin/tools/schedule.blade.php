@@ -14,7 +14,7 @@
                             <div class="col-md-12">
                                 <p class="font-weight-bold">{{__('You only need to add a single cron configuration entry to your server that runs the schedule:run command every minute. ')}}</p>
                                 <div class="border rounded p-3 mb-2 w-100">
-                                    <code class=" ">* * * * * cd /path-to-your-project && php artisan schedule:run >> /dev/null 2>&1</code>
+                                    <code class=" ">* * * * * cd {{base_path()}} && php artisan schedule:run >> /dev/null 2>&1</code>
 
                                 </div>
                             </div>
