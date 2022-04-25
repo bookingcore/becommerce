@@ -378,3 +378,7 @@
   text-align: center;
   border: 0;
 }
+
+.error_page .code h1 {
+  font-size: 130px;
+}
