@@ -15,7 +15,8 @@ class ToolsController extends AdminController
     {
         if($request->isMethod('post')){
             \Cache::forget('last_schedule_check');
-            sleep(10);
+            $seconds = strtotime(date('H:i:00',strtotime('+1 minute'))) - time();
+            sleep($seconds+5);
         }
         return view('Core::admin.tools.schedule');
     }

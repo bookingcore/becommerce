@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('sanctum:prune-expired --hours=24')->daily();
 
         if(!\Cache::has('last_schedule_check') or (now() > \Cache::get('last_schedule_check'))){
-            $schedule->command(ScheduleCheckCommand::class)->withoutOverlapping();
+            $schedule->command(ScheduleCheckCommand::class)->everyMinute()->withoutOverlapping();
         }
         $schedule->command(CreatePayoutsCommand::class)->monthlyOn(15);
 
