@@ -19,6 +19,11 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
 	    $active = ThemeManager::current();
 
 	    if(strtolower($active) != "base"){
+
+            $view_paths = config('view.paths');
+            $view_paths[] = __DIR__.'/'.ucfirst($active).'/resources';
+            config()->set('view.paths',$view_paths);
+
             View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($active)));
         }
 
