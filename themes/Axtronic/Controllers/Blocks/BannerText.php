@@ -82,6 +82,6 @@ class BannerText extends BaseBlock
         if (empty($model['banner_width'])) {
             $model['banner_width'] = 'container';
         }
-        return view('blocks.banner.'.$model['style'], $model);
+        return view('blocks.banner-text.'.$model['style'], $model);
     }
 }

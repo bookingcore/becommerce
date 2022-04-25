@@ -15,12 +15,7 @@
     }
 }
 
-
-
 .banner-slider {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -270,6 +265,50 @@
                 border-radius: 8px 8px 8px 8px;
                 padding: 12px 30px;
             }
+        }
+    }
+}
+
+.axtronic-banner-slider{
+    .axtronic-promotions{
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: var(--grid-gutter);
+        .promotions-item{
+            margin-bottom: 0;
+            .item-content{
+                min-height: 290px;
+            }
+        }
+        &.item_style_1{
+            height: 100%;
+        }
+        &.item_style_2{
+            .promotions-item{
+                grid-column-start: 1;
+                grid-column-end: 3;
+
+            }
+        }
+        &.item_style_3{
+            .promotions-item{
+                &:first-child{
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                }
+            }
+        }
+    }
+    .vertical-navigation{
+        position: relative;
+
+        .vertical-navigation-header{
+            display: none;
+        }
+        .vertical-menu-category{
+            z-index: 9;
+            position: static;
+            transform: none;
         }
     }
 }
