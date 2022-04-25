@@ -39,6 +39,7 @@ class FileHelper
         }
         switch ($file->driver){
             case 's3':
+            case 'gcs':
                 $url = static::maybeResizeS3($file, $size,$resize);
             break;
             default:
