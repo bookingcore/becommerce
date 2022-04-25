@@ -2,10 +2,7 @@
 namespace Modules\Core\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
-use Modules\Core\Models\Settings;
 
 class ToolsController extends AdminController
 {
@@ -13,5 +10,14 @@ class ToolsController extends AdminController
     {
         $this->setActiveMenu('admin/module/core/tools');
         return view('Core::admin.tools.index');
+    }
+    public function schedule(Request  $request)
+    {
+        if($request->isMethod('post')){
+            \Cache::forget('last_schedule_check');
+            $seconds = strtotime(date('H:i:00',strtotime('+1 minute'))) - time();
+            sleep($seconds+5);
+        }
+        return view('Core::admin.tools.schedule');
     }
 }
