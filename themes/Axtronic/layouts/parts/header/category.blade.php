@@ -13,7 +13,7 @@ if(!isset($current_cat)) $current_cat = null;
         <i class="axtronic-icon-bars"></i>
         <span class="vertical-navigation-title">Shop by Categories</span>
     </div>
-    <div class="vertical-menu">
+    <div class="vertical-menu vertical-menu-category">
         <ul class="nav menu">
             @php
                 $traverse = function ($categories, $prefix = '') use (&$traverse) {

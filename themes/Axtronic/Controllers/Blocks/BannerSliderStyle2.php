@@ -2,7 +2,6 @@
 namespace Themes\Axtronic\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
-use Modules\Media\Helpers\FileHelper;
 
 class BannerSliderStyle2 extends BaseBlock
 {
@@ -11,20 +10,19 @@ class BannerSliderStyle2 extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'    => 'style',
-                    'type'  => 'radios',
-                    'label' => __('Style'),
-                    'value' => 'style_1',
-                    'values' => [
+                    'id'            => 'width_slider',
+                    'type'          => 'radios',
+                    'label'         => __('Slider width'),
+                    'values'        => [
                         [
-                            'value'   => 'style_1',
-                            'name' => __("Style 1")
+                            'value'   => 'container',
+                            'name' => __("Container")
                         ],
                         [
-                            'value'   => 'style_2',
-                            'name' => __("Style 2")
-                        ]
-                    ],
+                            'value'   => 'container-fluid',
+                            'name' => __("Fluid width")
+                        ],
+                    ]
                 ],
                 [
                     'id'          => 'sliders',
@@ -71,20 +69,30 @@ class BannerSliderStyle2 extends BaseBlock
                 [
                     'id'          => 'sliders_2',
                     'type'        => 'listItem',
-                    'label'       => __('Slider Items Right'),
+                    'label'       => __('Banner Items Right'),
                     'title_field' => 'title',
                     'settings'    => [
-                        [
-                            'id'        => 'title',
+                        [      'id'        => 'sub_title',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Sub Title')
+                        ],
+                        [      'id'        => 'title',
                             'type'      => 'input',
                             'inputType' => 'text',
                             'label'     => __('Title')
                         ],
                         [
-                            'id'        => 'sub_title',
+                            'id'        => 'content',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
-                            'label'     => __('Sub Title')
+                            'inputType' => 'text',
+                            'label'     => __('Content')
+                        ],
+                        [
+                            'id'        => 'link',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Link Product')
                         ],
                         [
                             'id'    => 'image',
@@ -92,23 +100,39 @@ class BannerSliderStyle2 extends BaseBlock
                             'label' => __('Image Uploader')
                         ],
                         [
-                            'id'        => 'sub_text',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Sub Text')
+                            'id'            => 'position',
+                            'type'          => 'select',
+                            'label'         => __('Position'),
+                            'value'         => 'top_left',
+                            'values'        => [
+                                [
+                                    'id'   => 'top_left',
+                                    'name' => __("Top Left")
+                                ],
+                                [
+                                    'id'   => 'top_right',
+                                    'name' => __("Top Right")
+                                ],
+                                [
+                                    'id'   => 'bottom_left',
+                                    'name' => __("Bottom Left")
+                                ],
+                                [
+                                    'id'   => 'bottom_right',
+                                    'name' => __("Bottom Right")
+                                ]
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
                         ],
-                        [
-                            'id'        => 'btn_shop_now',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Text For Button')
-                        ],[
-                            'id'        => 'link_shop_now',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Link For Button')
-                        ]
                     ]
+                ],
+                [
+                    'type'  => "checkbox",
+                    'label' =>__("Show category menu"),
+                    'id'    => "is_category",
+                    'default'   =>false
                 ],
             ],
             'category'=>__("Other")
@@ -116,14 +140,11 @@ class BannerSliderStyle2 extends BaseBlock
     }
     public function getName()
     {
-        return __('BannerText Slider V2');
+        return __('Banner Text Slider');
     }
 
     public function content($model = [])
     {
-
-        $style = $model['style'] ? $model['style'] : 'index';
-
-        return view("blocks.banner.{$style}", $model);
+        return view("blocks.banner-slider.style_2", $model);
     }
 }

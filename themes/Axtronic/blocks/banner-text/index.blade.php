@@ -7,11 +7,11 @@
  */
 ?>
 
-<div class="axtronic-banner {{ $banner_width }}">
+<div class="axtronic-banner {{!empty($banner_width) ? $banner_width : ""}}">
     <div class="banner-wrap " style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">
         <div class="d-flex align-items-center justify-content-center">
             <div class="item-content d-flex align-content-center align-items-center flex-column justify-content-center">
-               {!! clean($content) !!}
+                {!! clean($content) !!}
             </div>
         </div>
     </div>
