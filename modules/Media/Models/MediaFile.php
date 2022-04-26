@@ -90,6 +90,16 @@ class MediaFile extends BaseModel
         }
     }
 
+    public function viewUrl($size = 'thumb'){
+
+        return env('APP_PREVIEW_MEDIA_LINK') ? url('media/preview/'.$this->id.'/'.$size) : get_file_url($this,$size);
+    }
+
+    /**
+     * @param $file_path
+     * @param float|int $mins Minutes, default 1 day
+     * @return string
+     */
     public function generateUrl($file_path,$mins = 24 * 60){
         return Storage::disk($this->driver)->temporaryUrl(
             $file_path, now()->addMinutes($mins)
