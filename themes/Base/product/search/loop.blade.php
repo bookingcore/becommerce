@@ -10,7 +10,7 @@ $score_total = $reviewData['score_total'];
         </a>
         @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
-                <div class="badge">-{{$row->discount_percent}}</div>
+                <div class="badge">-{{$row->discount_percent}}%</div>
             @endif
         @else
             <span class="badge out-stock">{{__('Out Of Stock')}}</span>
