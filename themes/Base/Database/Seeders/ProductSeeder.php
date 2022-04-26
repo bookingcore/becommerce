@@ -58,7 +58,7 @@ class ProductSeeder extends Seeder
         ProductTag::factory()->count(10)->create();
 
         Product::factory()
-            ->count(count($productName))
+            ->times(count($productName))
             ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
                 return [
                     'title'=>$productName[$sequent->index],
