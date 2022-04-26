@@ -109,6 +109,9 @@ class MediaController extends Controller
         $folder = '';
         $id = Auth::id();
         $driver = config('filesystems.default','uploads');
+        if($driver=='local'){
+            $driver = 'uploads';
+        }
         if ($id) {
             $folder .= sprintf('%04d', (int)$id / 1000) . '/' . $id . '/';
         }
