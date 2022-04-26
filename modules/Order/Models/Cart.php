@@ -14,7 +14,7 @@ class Cart extends Model
 
     protected $attributes = [
         'id',
-        'coupons',
+        'coupons'=>'[]',
         'total_discount',
         'shipping_amount',
         'shipping_method',
