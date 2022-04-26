@@ -14,6 +14,7 @@ use Modules\AdminController;
 use Modules\Media\Helpers\FileHelper;
 use Modules\Media\Models\MediaFile;
 use Intervention\Image\ImageManagerStatic as Image;
+use Modules\Media\Resources\MediaResource;
 use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class MediaController extends Controller
@@ -121,25 +122,18 @@ class MediaController extends Controller
 
         $i = 0;
 
-            do {
-                $newFileName2 = $newFileName . ($i ? $i : '');
-                $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
-                $i++;
-            } while (Storage::disk($driver)->exists($testPath));
+        do {
+            $newFileName2 = $newFileName . ($i ? $i : '');
+            $testPath = $folder . '/' . $newFileName2 . '.' . $file->getClientOriginalExtension();
+            $i++;
+        } while (Storage::disk($driver)->exists($testPath));
 
-            $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),$driver);
+        $check = $file->storeAs( $folder, $newFileName2 . '.' . $file->getClientOriginalExtension(),$driver);
         $width = $height = 0;
         if (FileHelper::checkMimeIsImage($file->getMimeType())) {
             [$width, $height, $type, $attr] = getimagesize($file);
         }
-        // Try to compress Images
-        if(function_exists('proc_open') and function_exists('escapeshellarg')){
-            try{
-               // ImageOptimizer::optimize(public_path("uploads/".$check));
-            }catch (\Exception $exception){
 
-            }
-        }
         if ($check) {
             try {
                 $fileObj = new MediaFile();
@@ -212,6 +206,10 @@ class MediaController extends Controller
         }
 
         if(in_array($file_extension = strtolower($file->getClientOriginalExtension()), $allowedExtsImage)) {
+            if( $file_extension == "svg"){
+                return static::validateSVG($file);
+            }
+
             if (!empty($config['max_width']) or !empty($config['max_width'])) {
                 $imagedata = getimagesize($file->getPathname());
                 if (empty($imagedata)) {
@@ -249,15 +247,10 @@ class MediaController extends Controller
             return $this->sendError('There is no permission upload');
         }
         $file_type = $request->input('file_type', 'image');
-        $page = $request->input('page', 1);
         $s = $request->input('s');
-        $offset = ($page - 1) * 32;
-        $driver = config('filesystems.default','uploads');
         $model = MediaFile::query();
-        $model2 = MediaFile::query();
         if (!Auth::user()->hasPermission("media_manage_others")) {
              $model->where('create_user', Auth::id());
-             $model2->where('create_user', Auth::id());
         }
         switch ($file_type) {
             case "image":
@@ -269,57 +262,26 @@ class MediaController extends Controller
                     'bmp',
                     'svg'
                 ]);
-                $model2->whereIn('file_extension', [
-                    'png',
-                    'jpg',
-                    'jpeg',
-                    'gif',
-                    'bmp'
-                ]);
                 break;
             case "cvs":
                 $ext = [
                     'ppt','pptx','pdf','docx','doc'
                 ];
                 $model->whereIn('file_extension', $ext);
-                $model2->whereIn('file_extension',$ext);
                 break;
         }
         if ($s) {
             $model->where('file_name', 'like', '%' . ($s) . '%');
-            $model2->where('file_name', 'like', '%' . ($s) . '%');
         }
-        $files = $model->limit(32)->offset($offset)->orderBy('id', 'desc')->get();
-        // Count
-        $total = $model2->count();
-        $totalPage = ceil($total / 32);
-        if (!empty($files)) {
-            foreach ($files as $file) {
-                switch ($file->driver){
-                    case 's3':
-                    case 'gcs':
-                        $file->thumb_size = get_file_url($file,'thumb');
-                        $file->full_size = get_file_url($file,'full',false);
-                        $file->medium_size = get_file_url($file,'medium',false);
-                    break;
-                    default:
-                        if(env('APP_PREVIEW_MEDIA_LINK')){
-                            $file->thumb_size = url('media/preview/'.$file->id.'/thumb');
-                            $file->full_size = url('media/preview/'.$file->id.'/full');
-                            $file->medium_size = url('media/preview/'.$file->id.'/medium');
-                        }else{
-                            $file->thumb_size = get_file_url($file,'thumb');
-                            $file->full_size = get_file_url($file,'full',false);
-                            $file->medium_size = get_file_url($file,'medium',false);
-                        }
-                }
-
-            }
+        $files = $model->orderBy('id', 'desc')->paginate(32);
+        $res = [];
+        foreach ($files as $file){
+            $res[] = new MediaResource($file);
         }
         return $this->sendSuccess([
-            'data'      => $files,
-            'total'     => $total,
-            'totalPage' => $totalPage,
+            'data'      => $res,
+            'total'     => $files->total(),
+            'totalPage' => $files->lastPage(),
             'accept' =>$this->getMimeFromType($file_type)
         ]);
     }
