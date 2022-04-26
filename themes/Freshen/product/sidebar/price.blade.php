@@ -1,4 +1,6 @@
 @php
+    use Modules\Product\Models\Product;
+    $product_min_max_price  = Product::getMinMaxPrice();
     $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
     $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );
     if (!empty($min_price = Request::query('min_price'))) {
