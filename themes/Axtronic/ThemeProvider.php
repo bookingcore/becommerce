@@ -52,6 +52,7 @@ class ThemeProvider extends AbstractThemeProvider
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
         add_action(Hook::AFTER_SAVING,[$this,'__save_header_style']);
+        add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_footer_style']);
 
         SettingManager::register("axtronic_general",[$this,'registerAdvanceSetting'],1,'axtronic_theme');
         SettingManager::register("axtronic_product",[$this,'registerProductSetting'],1,'axtronic_theme');
@@ -61,9 +62,15 @@ class ThemeProvider extends AbstractThemeProvider
     public function __show_header_style(Page $row){
         echo view('admin.page.header_style',['row'=>$row]);
     }
+    public function __show_footer_style(Page $row){
+        echo view('admin.page.footer_style',['row'=>$row]);
+    }
     public function __save_header_style(Page $row,Request $request){
         if($request->input('save_header_style')){
             $row->addMeta("header_style",$request->input('header_style'));
+        }
+        if($request->input('save_footer_style')){
+            $row->addMeta("footer_style",$request->input('footer_style'));
         }
     }
     public function registerZone(){

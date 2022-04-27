@@ -91,17 +91,18 @@ class RegisterController extends FrontendController
         }
         $user->save();
 
+        $dataVendor['role_request']= setting_item('vendor_role',3);
         $vendorAutoApproved = setting_item('vendor_auto_approved');
         if($vendorAutoApproved==1){
             $dataVendor['status']='approved';
             $dataVendor['approved_time']=now();
+            $user->assignRole((int)$dataVendor['role_request']);
         }else{
             $dataVendor['status']='pending';
+            $user->assignRole(2);
         }
-        $dataVendor['role_request']= setting_item('vendor_role',3);
-        $dataVendor['user_id'] = $user->id;
-        $user->assignRole((int)$dataVendor['role_request']);
 
+        $dataVendor['user_id'] = $user->id;
         $vendor_request = VendorRequest::create($dataVendor);
 
         if(!\auth()->check()) {

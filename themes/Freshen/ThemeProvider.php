@@ -138,6 +138,9 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'fs_search_top_product_ids',
                 'fs_search_top_category_ids',
                 'fs_search_top_carousel',
+
+                'fs_products_sidebar',
+
             ],
             'filter_demo_mode'=>[
             ]
