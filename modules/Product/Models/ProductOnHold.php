@@ -4,9 +4,9 @@
 namespace Modules\Product\Models;
 
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 
-class ProductOnHold extends Model
+class ProductOnHold extends BaseModel
 {
     protected $table ='product_on_hold';
     protected $fillable = [
