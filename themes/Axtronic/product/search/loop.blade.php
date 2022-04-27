@@ -7,7 +7,7 @@ $score_total = $reviewData['score_total'];
     <div class="product-labels">
          @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
-                <span class="onsale product-label">-{{$row->discount_percent}} </span>
+                <span class="onsale product-label">-{{$row->discount_percent}} %</span>
             @else
                 <span class="product-label featured">{{__('Hot')}}</span>
             @endif
@@ -54,6 +54,9 @@ $score_total = $reviewData['score_total'];
         <h2 class="product__title">
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
+        <div class="axtronic-list-dot mb-2">
+            {!! clean($row->short_desc) !!}
+        </div>
         @if(!empty($reviewData['total_review']))
             @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
         @endif

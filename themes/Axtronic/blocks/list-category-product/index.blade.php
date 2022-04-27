@@ -9,10 +9,10 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <div class="popular_listing_sliders row">
+                <div class="popular_listing_tabs {{$style}}">
                     <!-- Nav tabs -->
                     @if(!empty($categories))
-                        <div class="nav nav-tabs mb30 col-lg-12 justify-content-center" role="tablist">
+                        <div class="nav nav-tabs {{$style == 'style_1'? "justify-content-start":"justify-content-center"}}" role="tablist">
                             @foreach($categories as $key => $item)
                                 <button class="nav-link {{ $key == 0 ? 'active' : '' }}" id="nav-shopping-tab" data-bs-toggle="tab" data-bs-target="#nav-cat-{{ $item->id }}" role="tab" aria-controls="nav-cat-{{ $item->id }}" aria-selected="false">
                                     {{ $item->translate()->name }}
@@ -21,7 +21,7 @@
                         </div>
                     @endif
                     <!-- Tab panes -->
-                    <div class="tab-content col-lg-12" id="nav-tabContent">
+                    <div class="tab-content" id="nav-tabContent">
                         @foreach($categories as $key => $item)
                             <div class="tab-pane fade {{ $key == 0 ? 'active show' : '' }}" id="nav-cat-{{ $item->id }}" role="tabpanel" aria-labelledby="nav-cat-{{ $item->id }}-tab">
                                 @php

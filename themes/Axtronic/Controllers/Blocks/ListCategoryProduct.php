@@ -78,7 +78,23 @@ class ListCategoryProduct extends BaseBlock
                     "selectOptions"=> [
                         'hideNoneSelectedText' => "true"
                     ]
-                ]
+                ],
+                [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'value'         => 'style_1',
+                    'values'        => [
+                        [
+                            'value'   => 'style_1',
+                            'name' => __("Style 1 ")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
             ],
             'category'=>__("Product")
         ]);
@@ -109,7 +125,8 @@ class ListCategoryProduct extends BaseBlock
             'rows'       => $list,
             'list_product_cat'       => $list_product_cat,
             'title'      => $model['title'] ?? "",
-            'categories' => $categories ?? []
+            'categories' => $categories ?? [],
+            'style'     => $model['style'] ?? "style_1",
         ];
 
         return view('blocks.list-category-product.index', $data);
