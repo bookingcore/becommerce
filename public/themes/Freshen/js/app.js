@@ -136,6 +136,12 @@ window.bc_number_format = function (number, decimals, dec_point, thousands_sep) 
     }
     return s.join(dec);
 }
+$(document).on('click','.btn-confirm-del',function (e) {
+    var c = confirm(i18n.confirm_delete);
+    if(!c){
+        return false;
+    }
+})
 
 //Login - Register
 function ajax_error_to_string(e){
