@@ -1,6 +1,23 @@
 <div class="sidebar_listing_grid1 mb30">
-@include('product.filter.category_with_count')
-    @include('product.filter.price')
-    @include('product.filter.tag_trending')
-    @include('product.filter.attributes')
+    @foreach(setting_item_with_lang_arr('fs_products_sidebar') as $widget)
+        @if(!empty($widget['type']))
+            @switch($widget['type'])
+                @case('price')
+                @includeIf('product.sidebar.price')
+                @break
+                @case('category')
+                @includeIf('product.sidebar.category')
+                @break
+                @case('tag')
+                @include('product.sidebar.tags')
+                @break
+                @case('attr')
+                @include('product.sidebar.attributes')
+                @break
+                @case('content_text')
+                @includeIf('product.sidebar.text')
+                @break
+            @endswitch
+        @endif
+    @endforeach
 </div>

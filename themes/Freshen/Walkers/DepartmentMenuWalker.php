@@ -14,8 +14,9 @@ class DepartmentMenuWalker
     public function generate()
     {
         $items = json_decode($this->menu->items, true);
+        $class = $this->menu->class ?? '';
         if (!empty($items)) {
-            echo '<ul class="menu bc-department">';
+            echo '<ul class="menu bc-department '.$class.'">';
             $this->generateTree($items);
             echo '</ul>';
         }

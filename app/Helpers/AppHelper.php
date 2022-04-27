@@ -121,6 +121,10 @@ function generate_menu($location = '',$options = [])
                 if(!empty($menu)){
                     $translation = $menu->translate(app()->getLocale());
                     $translation->location = $location;
+                    if(isset($options['class']))
+                    {
+                        $translation->class = $options['class'];
+                    }
                     $walker = new $options['walker']($translation);
 
                     if(!empty($translation)){
