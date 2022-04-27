@@ -1,7 +1,7 @@
 jQuery(function () {
     $(".bc_apply_coupon").click(function () {
         var parent = $(this).closest('.section-coupon-form');
-        parent.find(".fa-spin").removeClass("d-none");
+        parent.find("button .fa-spin").removeClass("d-none");
         parent.find(".message").html('');
         $.ajax({
             'url': '/cart/apply_coupon',
@@ -9,7 +9,7 @@ jQuery(function () {
             'cache': false,
             'method':"post",
             success: function (res) {
-                parent.find(".fa-spin").addClass("d-none");
+                parent.find("button .fa-spin").addClass("d-none");
                 if (res.reload !== undefined) {
                     window.location.reload();
                 }

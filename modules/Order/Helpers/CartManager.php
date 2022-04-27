@@ -137,13 +137,12 @@ class CartManager
      *
      */
     public static function remove($cart_item_id){
-
-        static::items()->reject(function($item) use ($cart_item_id){
+        $items = static::items()->reject(function($item) use ($cart_item_id){
             return $item->id == $cart_item_id;
         });
+        static::cart()->setRelation("items",$items);
         static::save();
         return true;
-
     }
 
     /**
@@ -240,39 +239,39 @@ class CartManager
         $resetDiscount =true ;
 		if(!empty($items) and $coupons->count()>0){
 		    foreach ($coupons as $c=> $coupon){
-		        $services = $coupon->services()->get(['object_id','object_model'])->toArray();
-                if(!empty($services)){
-                    foreach ($items as $cart_item_id=> $item){
-                        $check = \Arr::where($services,function ($value,$key) use ($item){
-                            if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-                                return $value;
+                $coupon = Coupon::find($coupon['id']);
+                if(!empty($coupon)){
+                    $services = $coupon->services()->get(['object_id','object_model'])->toArray();
+                    if(!empty($services)){
+                        foreach ($items as $cart_item_id=> $item){
+                            $check = \Arr::where($services,function ($value,$key) use ($item){
+                                if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                                    return $value;
+                                }
+                            });
+                            if(!empty($check)){
+                                $discount = $coupon->calculatorPrice($item->price);
+                                if($resetDiscount){
+                                    //reset discount_amount
+                                    $item->discount_amount =0;
+                                }
+                                $item->discount_amount+=$discount;
+                                $items->put($cart_item_id,$item);
+                                static::save();
+                                $totalDiscount += $discount;
                             }
-                        });
-                        if(!empty($check)){
-                            $discount = $coupon->calculatorPrice($item->price);
-
-                            if($resetDiscount){
-//                              reset discount_amount
-                                $item->discount_amount =0;
-                            }
-                            $item->discount_amount+=$discount;
-                            $items->put($cart_item_id,$item);
-                            static::save();
-                            $totalDiscount += $discount;
                         }
+                    }else{
+                        $totalDiscount += $coupon->calculatorPrice(static::subtotal());
                     }
-                }else{
-                    $totalDiscount += $coupon->calculatorPrice(static::subtotal());
                 }
                 $resetDiscount = false;
             }
-
 		}
 		if($totalDiscount<0){
 		    $totalDiscount = 0;
         }
 		static::cart()->total_discount = $totalDiscount;
-
 	}
 
     /**
