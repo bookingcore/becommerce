@@ -28,15 +28,17 @@ class RequireChangePassword
      */
     public function handle($request, \Closure $next, $guard = null)
     {
-        if($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request) and !env('DISABLE_REQUIRE_CHANGE_PW')){
-            if($request->expectsJson()){
-                return response()->json([
-                    'status'=>0,
-                    'message'=>__("For security, please change your password to continue"),
-                    'code'=>"need_update_pw"
-                ]);
+        if(!env('DISABLE_REQUIRE_CHANGE_PW',0)) {
+            if ($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request)) {
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => 0,
+                        'message' => __("For security, please change your password to continue"),
+                        'code' => "need_update_pw"
+                    ]);
+                }
+                return redirect(route('user.password', ['need_update_pw' => 1]))->with('warning', __("For security, please change your password to continue"));
             }
-            return redirect(route('user.password',['need_update_pw'=>1]))->with('warning',__("For security, please change your password to continue"));
         }
         return $next($request);
     }
