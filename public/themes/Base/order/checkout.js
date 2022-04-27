@@ -100,10 +100,13 @@
                         total_amount += tax_amount;
                     }
                 }
+                if(total_amount < 0){
+                    total_amount = 0;
+                }
                 return total_amount;
             },
             total_amount_html:function(){
-                if(!this.total_amount) return '';
+                if(!this.total_amount) return '0';
                 return window.bc_format_money(this.total_amount);
             },
             discount_amount_html:function(){
