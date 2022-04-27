@@ -8,10 +8,10 @@ $score_total = $reviewData['score_total'];
         <div class="offer_badge">
             <ul class="mb0">
                 @if($row->is_featured)
-                    <li><span class="offr_tag" href="#"><span>HOT</span></span></li>
+                    <li><span class="offr_tag" href="#"><span>{{__('HOT')}}</span></span></li>
                 @endif
                 @if(!empty($row->discount_percent) && !empty($show_discount_percent=true))
-                    <li><span class="comison_rate" >{{__('- :number',['number'=>$row->discount_percent])}}</span></li>
+                    <li><span class="comison_rate" >{{__('- :number',['number'=>$row->discount_percent])}}%</span></li>
                 @endif
             </ul>
         </div>
