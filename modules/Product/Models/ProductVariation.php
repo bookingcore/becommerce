@@ -148,8 +148,8 @@ class ProductVariation extends BaseModel
             'price'           => format_money($this->sale_price),
             'sale_price'      => $this->sale_price,
             'sold'            => $this->sold,
-            'quantity'        => $parent_manage == false ? $this->quantity : null,
-            'is_manage_stock' => $parent_manage == false ? $this->check_manage_stock() : 0,
+            'quantity'        => $parent_manage == true ? $parent->quantity : ($this->quantity ?? 0),
+            'is_manage_stock' => $parent_manage == true ? $parent_manage    : $this->check_manage_stock(),
             'stock'           => $this->getStockStatus(),
         ];
     }

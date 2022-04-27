@@ -86,12 +86,6 @@ jQuery(function ($) {
             }
         });
     });
-    $(document).on('click','.btn-confirm-del',function (e) {
-        var c = confirm(i18n.confirm_delete);
-        if(!c){
-            return false;
-        }
-    })
     //Review
     $('.review-form .review-items .rates .fa').each(function () {
         var list = $(this).parent(),

@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Models\Payment;
-use Modules\Product\Models\Order;
+use Modules\Order\Models\Order;
 use Omnipay\Omnipay;
 use Omnipay\PayPal\ExpressGateway;
 
