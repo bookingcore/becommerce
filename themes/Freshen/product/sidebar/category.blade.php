@@ -1,8 +1,8 @@
 <?php
+
 use Modules\Product\Models\ProductCategory;
 $categories = ProductCategory::where('status','publish')->with(['translation'])->limit(999)->
-withDepth()->having('depth', '==', 1)
-    ->withCount(['product'])
+withDepth()->having('depth', '==', 0)->withCount('product')
     ->get()->toTree();
 if(!$categories) return;
 ;?>
