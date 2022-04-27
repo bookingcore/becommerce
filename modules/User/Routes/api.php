@@ -6,6 +6,7 @@ Route::group([
 ], function ($router) {
     Route::post('login', 'V1\AuthController@login')->name('user.api.login');
     Route::post('logout', 'V1\AuthController@logout')->name('user.api.logout');
+    Route::post('register', 'V1\User\RegisterController@index')->name('user.api.register');
     Route::put('password', 'V1\AuthController@changePassword')->name('user.api.changePassword');
 });
 

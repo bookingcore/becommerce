@@ -30,7 +30,7 @@
 
 </script>
 <script src="{{asset('libs/jquery-3.6.0.min.js')}}"></script>
-<script src="{{asset('libs/vue/vue'.(!env('APP_DEBUG') ? '.min':'').'.js')}}"></script>
+<script src="{{asset('libs/vue/vue'.(!config('app.debug') ? '.min':'').'.js')}}"></script>
 <script src="{{asset('libs/bootstrap4.0/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('module/media/js/browser.js?_ver='.config('app.version'))}}"></script>
 <script>

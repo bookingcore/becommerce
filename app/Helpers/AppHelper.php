@@ -121,6 +121,10 @@ function generate_menu($location = '',$options = [])
                 if(!empty($menu)){
                     $translation = $menu->translate(app()->getLocale());
                     $translation->location = $location;
+                    if(isset($options['class']))
+                    {
+                        $translation->class = $options['class'];
+                    }
                     $walker = new $options['walker']($translation);
 
                     if(!empty($translation)){
@@ -987,7 +991,7 @@ function is_api(){
 }
 
 function is_demo_mode(){
-    return env('DEMO_MODE',false);
+    return config('bc.demo_mode');
 }
 function credit_to_money($amount){
     return $amount * setting_item('wallet_credit_exchange_rate',1);

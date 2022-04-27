@@ -48,7 +48,7 @@ class FileHelper
             break;
             default:
                 if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
-                    if(env('CF_ENABLE_IMAGE_RESIZE') and !in_array(strtolower($file->file_extension),['svg']))
+                    if(config('bc.cf_enable_image_resize') and !in_array(strtolower($file->file_extension),['svg']))
                     {
                         $width = static::$defaultSize[$size][0] ?? $size;
                         if($width == 'full') $width = '';
@@ -100,7 +100,7 @@ class FileHelper
                 return asset('uploads/' . $fileObj->file_path);
             }
 
-            if(env('APP_RESIZE_SIMPLE'))
+            if(config('bc.resize_simple'))
             {
                 return static::resizeSimple($fileObj,$size);
             }
@@ -134,7 +134,7 @@ class FileHelper
                 return $imageOriginUrl;
             }
 
-            if(env('APP_RESIZE_SIMPLE'))
+            if(config('bc.resize_simple'))
             {
                 return static::resizeSimpleS3($fileObj,$size);
             }

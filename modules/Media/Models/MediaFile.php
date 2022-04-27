@@ -92,7 +92,7 @@ class MediaFile extends BaseModel
 
     public function viewUrl($size = 'thumb'){
 
-        return env('APP_PREVIEW_MEDIA_LINK') ? url('media/preview/'.$this->id.'/'.$size) : get_file_url($this,$size);
+        return config('bc.preview_media_link') ? url('media/preview/'.$this->id.'/'.$size) : get_file_url($this,$size);
     }
 
     /**
