@@ -28,7 +28,7 @@ class RequireChangePassword
      */
     public function handle($request, \Closure $next, $guard = null)
     {
-        if(!env('DISABLE_REQUIRE_CHANGE_PW',0)) {
+        if(!config('bc.disable_require_password')) {
             if ($user = $request->user() and $user->need_update_pw and !$this->inExceptArray($request)) {
                 if ($request->expectsJson()) {
                     return response()->json([

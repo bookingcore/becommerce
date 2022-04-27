@@ -42,5 +42,11 @@ return [
         "css_files"=>[
             '/themes/Base/module/email/css/style.css'
         ]
-    ]
+    ],
+    'disable_require_password'=>env('DISABLE_REQUIRE_CHANGE_PW',0),
+    'demo_mode'=>env('DEMO_MODE',0),
+    'app_https'=>env('APP_HTTPS',0),
+    'cf_enable_image_resize'=>env('CF_ENABLE_IMAGE_RESIZE'),
+    'resize_simple'=>env('APP_RESIZE_SIMPLE'),
+    'preview_media_link'=>env('APP_PREVIEW_MEDIA_LINK')
 ];
