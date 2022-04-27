@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Storage;
 
 class JsonConfigManager
 {
-    protected static $_all = [];
+    protected static $_all = null ;
     protected static function file(){
         return 'bc.json';
     }
@@ -34,12 +34,12 @@ class JsonConfigManager
     }
 
     public static function all(){
-        if(empty(static::$_all)){
+        if(static::$_all === null){
+            static::$_all = [];
             try {
-                if(!static::storage()->exists(static::file())){
-                    static::save([]);
+                if(static::storage()->exists(static::file())){
+                    static::$_all = json_decode(static::storage()->get(static::file()), true);
                 }
-                static::$_all = json_decode(static::storage()->get(static::file()), true);
             }catch (\Exception $exception){
                 Log::debug("JsonConfigManager: ".$exception->getMessage());
             }
