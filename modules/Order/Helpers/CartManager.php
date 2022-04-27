@@ -326,15 +326,16 @@ class CartManager
         }
 
         $coupons = static::getCoupon();
+
         if(!empty($coupons) and count($coupons)>0){
             foreach ($coupons as $coupon){
                 $couponOrder = new CouponOrder();
                 $couponOrder->order_id = $order->id;
                 $couponOrder->order_status = Order::DRAFT;
-                $couponOrder->coupon_code = $coupon->code;
-                $couponOrder->coupon_amount = $coupon->amount;
-                $couponOrder->coupon_discount_type = $coupon->discount_type;
-                $couponOrder->coupon_data = $coupon->toArray();
+                $couponOrder->coupon_code = $coupon['code'];
+                $couponOrder->coupon_amount = $coupon['amount'];
+                $couponOrder->coupon_discount_type = $coupon['discount_type'];
+                $couponOrder->coupon_data = $coupon;
                 $couponOrder->save();
             }
         }
