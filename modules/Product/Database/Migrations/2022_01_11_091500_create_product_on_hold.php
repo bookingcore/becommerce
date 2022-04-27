@@ -15,6 +15,7 @@ class CreateProductOnHold extends Migration
             $table->bigInteger('variant_id');
             $table->integer('qty');
             $table->dateTime('expired_at');
+            $table->bigInteger('create_user')->nullable();
 			$table->timestamps();
 		});
 	}

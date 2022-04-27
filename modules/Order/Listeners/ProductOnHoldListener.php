@@ -23,10 +23,19 @@ class ProductOnHoldListener
                 if(!empty($items)){
                     $setting_expired_at = setting_item('product_on_hold_expired_at',1);
                     $expired_at  = Carbon::now()->addDays($setting_expired_at)->format('Y-m-d H:i:s');
+
                     foreach ($items as $item) {
-                       $productOnHold = ProductOnHold::create(
-                         ['order_id'=>$item->order_id,'product_id'=>$item->object_id,'variant_id'=>$item->variation_id,'qty'=>$item->qty,'expired_at'=>$expired_at]
-                       );
+                        $checkOnHoldExist = ProductOnHold::where([
+                            'order_id'  =>$item->order_id,
+                            'product_id'  =>$item->object_id,
+                            'variant_id'  =>$item->variation_id,
+                        ])->where('expired_at','>=',now())->count();
+
+                        if(empty($checkOnHoldExist)){
+                            ProductOnHold::create(
+                                ['order_id'=>$item->order_id,'product_id'=>$item->object_id,'variant_id'=>$item->variation_id,'qty'=>$item->qty,'expired_at'=>$expired_at]
+                            );
+                        }
                     }
                 }
                 break;
