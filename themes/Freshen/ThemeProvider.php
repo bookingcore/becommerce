@@ -86,9 +86,9 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
     public function registerZone(){
         return [
-            "position"=>10,
-            'title'      => __("Freshen Settings"),
-            'icon'       => 'fa fa-cogs',
+            "position"=>71,
+            'title'      => __("Theme Freshen Settings"),
+            'icon'       => 'fa fa-object-group',
             'permission' => 'setting_update',
             "group"=>"system"
         ];

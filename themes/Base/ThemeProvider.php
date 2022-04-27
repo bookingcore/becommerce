@@ -2,6 +2,7 @@
 namespace Themes\Base;
 
 use Modules\Core\Helpers\SettingManager;
+use Modules\Theme\ThemeManager;
 use Modules\Vendor\VendorMenuManager;
 use Themes\Base\Database\Seeder;
 
@@ -22,6 +23,21 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     }
 
     public function boot(){
+        $active = ThemeManager::current();
+        if(strtolower($active) == "base"){
+            SettingManager::register("base_advance",[$this,'registerAdvanceSetting'],1,'base_theme');
+            SettingManager::registerZone('base_theme',[$this,'registerZone']);
+        }
+    }
+
+    public function registerZone(){
+        return [
+            "position"=>71,
+            'title'      => __("Theme Base Settings"),
+            'icon'       => 'fa fa-object-group',
+            'permission' => 'setting_update',
+            "group"=>"system"
+        ];
     }
 
     public function register()
@@ -31,4 +47,21 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         $this->app->register(RouterServiceProvider::class);
     }
 
+    public function registerAdvanceSetting(){
+        return [
+            'id'   => 'base_theme',
+            'title' => __("General Settings"),
+            'position'=>80,
+            'view'      => "admin.settings.general",
+            "keys"      => [
+                'logo_id',
+                'copyright',
+                'footer_info_text',
+                'list_widget_footer',
+                'page_contact_title',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
 }
