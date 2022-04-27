@@ -137,13 +137,12 @@ class CartManager
      *
      */
     public static function remove($cart_item_id){
-
-        static::items()->reject(function($item) use ($cart_item_id){
+        $items = static::items()->reject(function($item) use ($cart_item_id){
             return $item->id == $cart_item_id;
         });
+        static::cart()->setRelation("items",$items);
         static::save();
         return true;
-
     }
 
     /**
