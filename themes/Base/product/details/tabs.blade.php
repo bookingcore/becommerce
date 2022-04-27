@@ -5,7 +5,7 @@
                 @php $tab_name = $tab['name'] @endphp
                 @if($tab['id'] == 'review')
                     @php
-                        $count = $row->review_list_count;
+                        $count = $row->review_list_count ?? 0;
                         $tab_name = $tab['name']." ($count)";
                     @endphp
                 @endif
