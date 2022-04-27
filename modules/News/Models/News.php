@@ -178,7 +178,7 @@ class News extends BaseModel
 
     public function getReviewNumberPerPage()
     {
-        return setting_item("news_review_number_per_page", 5);
+        return setting_item("news_comment_number_per_page", 5);
     }
 
     public function isReviewRequirePurchase(){
