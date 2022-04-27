@@ -32,6 +32,10 @@ class ListProduct extends BaseBlock
                             'value'   => 'slide_bg',
                             'name' => __("Style Slide with Background")
                         ],
+                        [
+                            'value'   => 'grid',
+                            'name' => __("Style Grid"),
+                        ],
                     ]
                 ],
                 [

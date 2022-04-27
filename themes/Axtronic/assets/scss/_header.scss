@@ -100,6 +100,13 @@ header{
                             font-size: 10px;
                         }
                     }
+                    .dropdown-menu{
+                        a {
+                            i{
+                                margin-right: 5px;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -125,7 +132,7 @@ header{
                 ul.dropdown-menu {
                     display: none;
                     position: absolute;
-                    right: 0px;
+                    right: 0;
                     z-index: 999;
                     text-align: left;
                     top: calc(90% + 3px);
@@ -142,7 +149,8 @@ header{
 
                     }
                     a:hover, a:focus {
-                         color:var(--primary_hover);
+                         color: #fff;
+                        background-color: var(--primary);
                     }
                 }
             }

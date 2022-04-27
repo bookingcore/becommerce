@@ -121,21 +121,21 @@ ul.list-product-items{
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        .product-label {
-            padding: 1px 10px;
-            text-transform: uppercase;
-            font-size: 11px;
-            color: #fff;
-            margin-bottom: 8px;
-            line-height: 22px;
-            min-width: 38px;
-            border-radius: 10px;
-            &.onsale {
-                background: #ef4914;
-            }
-            &.featured {
-                background: var(--secondary);
-            }
+    }
+    .product-label {
+        padding: 1px 10px;
+        text-transform: uppercase;
+        font-size: 11px;
+        color: #fff;
+        margin-bottom: 8px;
+        line-height: 22px;
+        min-width: 38px;
+        border-radius: 10px;
+        &.onsale {
+            background: #ef4914;
+        }
+        &.featured {
+            background: var(--secondary);
         }
     }
     .product-transition {
@@ -222,11 +222,45 @@ ul.list-product-items{
                 font-weight: 500;
             }
         }
+        .axtronic-list-dot{
+            display: none;
+        }
     }
     .shop-action{
         display: block;
         &.shop-action-list{
             display: none;
+        }
+    }
+    &.product-item-grid{
+        display: flex;
+        transition: all ease .4s;
+        border-radius: 8px;
+        overflow: hidden;
+        padding: 16px;
+        align-items: flex-start;
+
+        &:hover{
+            box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
+        }
+        .product-transition{
+            flex: 0 0 160px;
+            margin: 0 15px 0 0;
+            max-width: 160px;
+            border: 0;
+        }
+        .product-caption {
+            h2{
+                margin-top: 0;
+            }
+        }
+        .btn-wishlist{
+            background: transparent;
+            padding: 0;
+            color: var(--accent);
+            &.active, &:hover{
+                color: var(--primary);
+            }
         }
     }
 }
@@ -805,6 +839,72 @@ ul.axtronic-products-special{
         }
     }
 }
+
+.popular_listing_tabs{
+    .nav-tabs{
+        margin-bottom: 30px;
+        .nav-link{
+            font-size: 24px;
+            line-height: 36px;
+            font-weight: 600;
+            position: relative;
+            cursor: pointer;
+            outline: 0;
+            color: var(--light);
+            -ms-transition: all .3s ease;
+            -o-transition: all .3s ease;
+            -moz-transition: all .3s ease;
+            -webkit-transition: all .3s ease;
+            transition: all .3s ease;
+            border: none;
+            margin-right: 24px;
+            padding-bottom: 11px;
+            border-bottom: 3px solid transparent;
+            border-radius: 0;
+            &.active, &:hover{
+                border-bottom-color: var(--primary);
+                color: var(--accent);
+            }
+        }
+    }
+    &.style_2{
+        .nav-tabs{
+            border-bottom: 0;
+            .nav-link{
+                font-size: 16px;
+                font-weight: 600;
+                margin-right: 64px;
+                color: var(--accent);
+                border-bottom: 0;
+                &.active, &:hover{
+                    color: var(--primary);
+                    font-weight: 600;
+                }
+                &:after{
+                    content: '';
+                    position: absolute;
+                    width: 40px;
+                    height: 2px;
+                    top: 50%;
+                    margin-top: -1px;
+                    right: -52px;
+                    left: auto;
+                    background: var(--border);
+                }
+                &:last-child{
+                    margin-right: 0;
+                    &:after{
+                        width: 0;
+                        height: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
 @media (min-width: 768px) {
     .axtronic-products-special{
         li.product-item{
@@ -830,6 +930,7 @@ ul.axtronic-products{
             padding-right: calc(var(--grid-gutter)/2);
         }
     }
+
     &.product-lists{
         margin: 0;
         li.product{
@@ -900,7 +1001,9 @@ ul.axtronic-products{
                 }
             }
         }
-
+        .axtronic-list-dot{
+            display: block;
+        }
     }
 }
 .axtronic-shopping__header{
