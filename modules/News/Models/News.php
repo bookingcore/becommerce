@@ -189,13 +189,10 @@ class News extends BaseModel
         return true;
     }
 
-    public function getReviewListAttribute(){
-        return Review::where('object_id', $this->id)
+    public function review_list(){
+        return $this->hasMany(Review::class,'object_id')
             ->where('object_model', $this->type)
-            ->where("status", "approved")
-            ->orderBy("id", "desc")
-            ->with('author')
-            ->paginate($this->getReviewNumberPerPage());
+            ->where("status", "approved");
     }
 
     public static function getReviewStats()
