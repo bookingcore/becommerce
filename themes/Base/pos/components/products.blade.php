@@ -2,7 +2,7 @@
     <div class="pos-products ">
         <div class="row">
             <div class="col-md-3" v-for="(item,index) in items" @click="add(item)">
-                <div class="p-3 c-pointer">
+                <div class="pt-3 pb-3 c-pointer">
                     <figure class="relative bg-white  border-1 border-e1e1e1">
                         <img :src="item.image_url">
                         <span class="absolute bottom-0 left-0 right-0 p-2 text-center c-white bg-dark-75">@{{item.price_html}}</span>
@@ -29,7 +29,7 @@
                 var me = this;
                 var filter = {};
                 $.ajax({
-                    url:'/api/product',
+                    url:'/api/v1/product',
                     data:filter,
                     success:function (json){
                         if(json.data){

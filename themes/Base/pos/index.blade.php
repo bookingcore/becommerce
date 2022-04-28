@@ -16,7 +16,7 @@
                 <div class="row">
                     <div class="col-md-7">
                         <div class="d-flex align-items-center">
-                            <div class="flex-item mr-5 flex-shrink-0">
+                            <div class="flex-item me-5 flex-shrink-0">
                                 @if($logo_id = setting_item("logo_id"))
                                     <?php $logo = get_file_url($logo_id,'full') ?>
                                     <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
@@ -33,26 +33,27 @@
                     </div>
                 </div>
             </div>
-            <div class="row flex-grow-1">
-                <div class="col-md-7">
-                    <div class="pos-products">
+            <div class="container-fluid flex-grow-1 overflow-hidden">
+                <div class="row h-100 flex-nowrap">
+                    <div class="col-md-7">
                         <pos-products @add="addProduct"/>
                     </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="border-1 border-e1e1e1 bg-white h-100">
-                        <div class="pl-2 pr-2 pt-2">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item" v-for="(order,index) in orders">
-                                    <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(order,index)">@{{ order.title}}</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>
-                                </li>
-                            </ul>
+                    <div class="col-md-5 border-1 border-e1e1e1 bg-white ">
+                        <div class="h-100 d-flex flex-column">
+                            <div class="ps-2 pe-2 pt-2">
+                                <ul class="nav nav-tabs">
+                                    <li class="nav-item" v-for="(order,index) in orders">
+                                        <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(order,index)">@{{ order.title}}</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <pos-order-items :order="currentOrder" @update="updateItem" @delete="deleteProduct"></pos-order-items>
+                            <hr>
+                            <pos-payment :subtotal="_subtotal" :order="currentOrder"></pos-payment>
                         </div>
-                        <pos-order-items :order="currentOrder" @update="updateItem"></pos-order-items>
-                        <pos-payment :order="currentOrder"></pos-payment>
                     </div>
                 </div>
             </div>
@@ -62,10 +63,15 @@
 @endsection
 
 @section('footer')
-    @include('POS.components.header.search')
-    @include('POS.components.products')
-    @include('POS.components.order-items')
-    @include('POS.components.order-payment')
+    <script>
+        window.i18n = Object.assign(window.i18n,{
+
+        });
+    </script>
+    @include('pos.components.header.search')
+    @include('pos.components.products')
+    @include('pos.components.order-items')
+    @include('pos.components.order-payment')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
     <script src="{{theme_url('Base/pos/pos.js')}}"></script>
 @endsection

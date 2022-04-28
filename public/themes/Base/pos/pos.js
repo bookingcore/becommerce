@@ -13,7 +13,12 @@ var POS_App = new Vue({
         currentOrder:{
             items:[]
         },
-        currentOrderIndex:0
+        currentOrderIndex:0,
+        shipping_amount:0,
+        shipping_methods:{},
+        shipping_method:'',
+        prices_include_tax:'yes',
+        tax_lists:[]
     },
     methods:{
         addProduct:function (product){
@@ -28,6 +33,9 @@ var POS_App = new Vue({
                 tmp.qty = 1;
                 this.currentOrder.items.push(tmp)
             }
+        },
+        deleteProduct:function (index){
+            this.currentOrder.items.splice(index,1);
         },
         addOrder:function (){
             let tmp  = Object.assign({},this.defaultOrder);
@@ -44,6 +52,38 @@ var POS_App = new Vue({
             if(find){
                 find[field] = val;
             }
+        },
+        bindHotKeys:function (){
+
+        }
+    },
+    created:function (){
+        this.bindHotKeys();
+    },
+    computed:{
+        _subtotal:function(){
+            var t = 0;
+            this.currentOrder.items.map(function(item){
+                t += item.qty * item.price;
+            })
+            return t;
+        },
+        _total:function(){
+            return this._subtotal + this.shipping_amount + (this.prices_include_tax === 'no' ? this._tax_amount : 0);
+        },
+        _tax_amount:function(){
+            var subtotal = this._subtotal + this.shipping_amount;
+            var tax_percent = 0;
+            var me = this;
+            this.tax_lists.map(function(tax,index){
+                if(tax.active){
+                    tax_percent += tax.tax_rate;
+                }
+            })
+            if(tax_percent){
+                return subtotal * tax_percent/100;
+            }
+            return 0;
         }
     }
 })
