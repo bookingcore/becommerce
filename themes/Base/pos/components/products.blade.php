@@ -27,7 +27,9 @@
         methods: {
             getLists:function (){
                 var me = this;
-                var filter = {};
+                var filter = {
+                    search_type:'join_variation'
+                };
                 $.ajax({
                     url:'/api/v1/product',
                     data:filter,

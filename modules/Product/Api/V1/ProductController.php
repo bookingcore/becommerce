@@ -25,7 +25,8 @@ class ProductController extends ApiController
         return ProductResource::collection($query->paginate(24),[
             'price',
             'categories',
-            'review_data'
+            'review_data',
+            $request->query('search_type')
         ]);
     }
 
