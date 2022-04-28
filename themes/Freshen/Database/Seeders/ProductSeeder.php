@@ -66,11 +66,22 @@ class ProductSeeder extends Seeder
         Product::factory()
             ->times(count($productName))
             ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
+                $product_type = ['simple','variable'][rand(0,1)];
+                if($sequent->index == 0){
+                    $product_type = 'simple';
+                }
+                if($sequent->index == 1){
+                    $product_type = 'variable';
+                }
+                if($sequent->index == 2){
+                    $product_type = 'external';
+                }
                 return [
                     'title'=>$productName[$sequent->index],
                     'brand_id'=>$productBrand->random(1)->first()->id,
-                    'image_id'=> \Arr::random($productImage),
+                    'image_id'=> $productImage["image-".($sequent->index + 1)] ?? $productImage['image-1'],
                     'gallery'     => implode(',',$productGallery),
+                    'product_type'=> $product_type,
                 ];
             })
             ->create();
