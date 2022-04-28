@@ -1,3 +1,6 @@
+<?php
+use Modules\Product\Models\ProductAttr;
+;?>
 <div class="row mb-3">
     <div class="col-sm-4">
         <h3 class="form-group-title">{{__('Product Settings')}}</h3>
@@ -193,15 +196,26 @@
                             </div>
                             <div class="g-items">
                                 <?php
-                                $social_share = setting_item_with_lang_arr('fs_products_sidebar',request()->query('lang'));
-                                if(empty($social_share)) $social_share = [];
+                                $fs_products_sidebar = setting_item_with_lang_arr('fs_products_sidebar',request()->query('lang'));
+                                if(empty($fs_products_sidebar)) $fs_products_sidebar = [];
+                                $attrProduct = ProductAttr::where('service','product')->get();
                                 ?>
-                                @foreach($social_share as $key=>$item)
+                                @foreach($fs_products_sidebar as $key=>$item)
                                     <div class="item" data-number="{{$key}}">
                                         <div class="row">
                                             <div class="col-md-8">
                                                 <input type="text" name="fs_products_sidebar[{{$key}}][title]" class="form-control" placeholder="{{__('Title: About Us')}}" value="{{$item['title'] ?? ''}}">
                                                 <textarea name="fs_products_sidebar[{{$key}}][content]" rows="2" class="form-control" placeholder="{{__("Content")}}">{{$item['content'] ?? ''}}</textarea>
+                                                <div class="form-group" data-condition="'fs_products_sidebar[{{$key}}][type]':is(attr)">
+                                                    <label for="">{{__("Attribute")}}</label>
+                                                    <select name="fs_products_sidebar[{{$key}}][attr]" class="form-control">
+                                                        <option value="">{{__('-- Select --')}}</option>
+                                                    @foreach($attrProduct as  $attr)
+                                                                <option @if(!empty($item['attr']) && $item['attr']==$attr->id) selected @endif value="{{$attr->id}}">{{$attr->name}}</option>
+                                                        @endforeach
+                                                    </select>
+
+                                                </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <select class="form-control" name="fs_products_sidebar[{{$key}}][type]">
@@ -211,6 +225,8 @@
                                                     <option @if(!empty($item['type']) && $item['type']=='tag') selected @endif value="tag">{{__("Tags")}}</option>
                                                     <option @if(!empty($item['type']) && $item['type']=='content_text') selected @endif value="content_text">{{__("Content Text")}}</option>
                                                 </select>
+
+
                                             </div>
                                             <div class="col-md-1">
                                                 <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
@@ -228,6 +244,16 @@
                                         <div class="col-md-8">
                                             <input type="text" __name__="fs_products_sidebar[__number__][title]" class="form-control" placeholder="{{__('Title: About Us')}}">
                                             <textarea __name__="fs_products_sidebar[__number__][content]" rows="3" class="form-control" placeholder="{{__("Content")}}"></textarea>
+                                            <div class="form-group" data-condition="'fs_products_sidebar[__number__][type]':is(attr)">
+                                                <select name="fs_products_sidebar[__number__][attr]" class="form-control">
+                                                    <option value="">{{__('-- Select --')}}</option>
+                                                    @foreach($attrProduct as  $attr)
+                                                        <option value="{{$attr->id}}">{{$attr->name}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
                                         </div>
                                         <div class="col-md-3">
                                             <select class="form-control" __name__="fs_products_sidebar[__number__][type]">

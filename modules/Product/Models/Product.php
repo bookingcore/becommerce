@@ -533,7 +533,6 @@ class Product extends BaseModel
         if (!empty($filters['terms']) and is_array($filters['terms'])) {
             $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $filters['terms']);
         }
-
         if (!empty($filters['review_score']) && is_array($filters['review_score'])) {
             $where_review_score = [];
             foreach ($filters['review_score'] as $number){

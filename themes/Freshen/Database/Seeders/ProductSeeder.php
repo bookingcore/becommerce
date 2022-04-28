@@ -112,6 +112,21 @@ class ProductSeeder extends Seeder
                         "order"=>2
                     ]
                 ]
+            ],
+            [
+                'name'=>'fs_products_sidebar',
+                'val'=>[
+                    ["title"=>"PRODUCT CATEGORIES","content"=>null,"attr"=>null,"type"=>"category"],
+                    ["title"=>"FILTER BY COLOR","content"=>null,"attr"=>"1","type"=>"attr"],
+                    ["title"=>"TRENDING TAGS","content"=>null,"attr"=>null,"type"=>"tag"],
+                    [
+                        "title"=>null,
+                        "content"=>"<div class=\"thumb\"><img src='/themes/Freshen/images/banner/4.jpg' alt=\"4.jpg\"></div><div class='details style2'><p class=\"para\">Tasty Healthy</p><h2 class=\"title\">Fresh Vegetables</h2><a href='/product' class=\"shop_btn style2\">SHOP NOW</a></div>",
+                        "attr"=>null,
+                        "type"=>"content_text"
+                    ]
+
+                ]
             ]
         ];
         setting_update_items($settings);
