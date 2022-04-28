@@ -36,7 +36,7 @@ class FeaturedIcon extends BaseBlock
                 [
                     'id'    => 'image',
                     'type'  => 'uploader',
-                    'label' => __('Image')
+                    'label' => __('Banner Image (With Style 2) ')
                 ],
                 [
                     'id'          => 'list_items',

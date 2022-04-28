@@ -25,7 +25,7 @@ class BannerSliderStyle2 extends BaseBlock
                     ]
                 ],
                 [
-                    'id'          => 'sliders',
+                    'id'          => 'sliders_banner',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),
                     'title_field' => 'title',

@@ -18,12 +18,12 @@
                 </div>
             @endif
             <div class="col-sm-6">
-                @if(!empty($sliders))
+                @if(!empty($sliders_banner))
                     <div class="banner-slider">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper axtronic-modern-slider ">
                             <!-- Slides -->
-                            @foreach($sliders as $slide)
+                            @foreach($sliders_banner as $slide)
                                 <div class="swiper-slide">
                                     <div class="axtronic-box">
                                         <div class="axtronic-box-inner">
@@ -74,7 +74,7 @@
                 @endif
             </div>
             <div class=" {{$is_category ? "col-sm-3" : "col-sm-6"}}">
-                @if(!empty($sliders))
+                @if(!empty($sliders_2))
                     @php
                         switch (count($sliders_2)){
                             case '1': $classItem = "item_style_1"; break;
@@ -85,9 +85,6 @@
                         }
                     @endphp
                     <div class="axtronic-promotions {{$classItem}}">
-                        {{--@php--}}
-                        {{--var_dump(count($sliders_2))--}}
-                        {{--@endphp--}}
                         @foreach($sliders_2 as $key => $item)
                             @php
                                 switch ($item['position']){
@@ -100,7 +97,7 @@
                             <div class="promotions-item {{$classItem}}">
                                 <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
                                 <div class="item-content d-flex flex-column {{ $classPosition }}">
-                                    <span class="sub-title">{{ $item['title'] ?? '' }}</span>
+                                    <span class="sub-title">{{ $item['sub_title'] ?? '' }}</span>
                                     <h3>{{ $item['title'] ?? '' }}</h3>
                                     <p>
                                         {!! $item['content'] ?? '' !!}

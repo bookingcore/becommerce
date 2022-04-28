@@ -6,29 +6,28 @@
  * Time: 11:46 PM
  */
 ?>
-<div class="axtronic-footer">
-    <div class="axtronic-form-newsletter">
-        <div class="">
-            <div class="align-content-center align-items-center">
-                <div class="">
-                    <h3>{{ __("Subscribe to our Email") }}</h3>
-                    <p>{{ __("For lastest News & Updates") }}</p>
-                </div>
-                <div class="form-newsletter">
-                    <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">
-                        @csrf
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
-                            <button class="btn" type="submit">
-                                <i class="axtronic-icon-arrow-right"></i>
-                            </button>
-                        </div>
-                        <div class="form-mess mt-1 fs-12"></div>
-                    </form>
-                </div>
+<div class="axtronic-form-newsletter style-2">
+    <div class="container">
+        <div class="align-content-center align-items-center form-newsletter" style="background-image: url('{{ get_file_url(setting_item('axtronic_footer_bg_image'),'full') }}')">
+            <div class="d-flex align-items-center flex-column">
+                {!! clean(setting_item("axtronic_footer_text_subscribe")) !!}
             </div>
+            <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">
+                @csrf
+                <div class="input-group">
+                    <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >
+                    <button class="btn" type="submit">
+                        <span>{{__('Subcribes')}}</span>
+                        <i class="axtronic-icon-arrow-right"></i>
+                    </button>
+                </div>
+                <div class="form-mess mt-1 fs-12"></div>
+            </form>
         </div>
     </div>
+</div>
+<div class="axtronic-footer">
+
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-xl-3 col-sm-12">
@@ -50,6 +49,7 @@
                         @if($list_widget_footers = setting_item_with_lang("axtronic_list_widget_footer"))
                             @php $list_widget_footers = json_decode($list_widget_footers); @endphp
                             @foreach($list_widget_footers as $key=>$item)
+
                                 <div class="col-sm-{{ $item->size }} col-md-{{ $item->size }} col-lg-{{ $item->size }} col-xl-{{ $item->size }}">
                                     <div class="footer_qlink_widget">
                                         <h5>{{$item->title}}</h5>

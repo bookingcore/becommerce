@@ -7,10 +7,11 @@
         @if($sub_title)
             <p class="mb-4">{{ $sub_title }}</p>
         @endif
-        <div class="row">
+        <div class="row mt-4">
             @foreach($list_items as $key => $item)
                 @php
-                    switch (!empty($item['position'])){
+
+                    switch ($item['position']){
                         case 'top_right': $classPosition = "align-items-end justify-content-start"; break;
                         case 'bottom_left': $classPosition = "align-items-start justify-content-end"; break;
                         case 'bottom_right': $classPosition = "align-items-end justify-content-end"; break;
