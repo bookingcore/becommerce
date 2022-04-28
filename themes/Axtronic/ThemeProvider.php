@@ -79,11 +79,11 @@ class ThemeProvider extends AbstractThemeProvider
     }
     public function registerZone(){
         return [
-            "position"=>80,
+            "position"=>71,
             'title'      => __("Axtronic Settings"),
-            'icon'       => 'fa fa-cogs',
+            'icon'       => 'fa fa-object-group',
             'permission' => 'setting_update',
-            "group"=>"content"
+            "group"=>"system"
         ];
     }
     public function alterSettings($settings){
