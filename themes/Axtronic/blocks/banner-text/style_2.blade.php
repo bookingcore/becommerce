@@ -6,7 +6,7 @@
  * Time: 11:26 PM
  */
 ?>
-<div class="axtronic-banner {{ $banner_width }}">
+<div class="axtronic-banner {{!empty($banner_width) ? $banner_width : ""}} style-2 pb-5">
     <div class="banner-wrap " style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">
         <div class="d-flex align-items-center justify-content-between">
             <div class="item-content d-flex align-content-center align-items-start flex-column justify-content-center">

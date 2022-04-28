@@ -1,5 +1,5 @@
 {{--Axtronic promotions--}}
-<div class="axtronic-promotions pb-5">
+<div class="axtronic-promotions">
     <div class="container">
         @if($title)
             <h3 class="mb-1">{{ $title }}</h3>

@@ -120,7 +120,34 @@ class BannerSliderStyle2 extends BaseBlock
                                 [
                                     'id'   => 'bottom_right',
                                     'name' => __("Bottom Right")
+                                ],
+                                [
+                                    'id'   => 'center_right',
+                                    'name' => __("Right Center")
+                                ],
+                                [
+                                    'id'   => 'center_left',
+                                    'name' => __("Left center")
                                 ]
+
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
+                        ],
+                        [
+                            'id'            => 'style_color',
+                            'type'          => 'select',
+                            'label'         => __('Color Text'),
+                            'values'        => [
+                                [
+                                    'id'   => 'dark',
+                                    'name' => __("Dark")
+                                ],
+                                [
+                                    'id'   => 'light',
+                                    'name' => __("Light")
+                                ],
                             ],
                             "selectOptions"=> [
                                 'hideNoneSelectedText' => "true"

@@ -3501,18 +3501,38 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 }
 .axtronic-promotions.style-2 .promotions-item .item-content p {
   color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
 }
 .axtronic-promotions.style-2 .promotions-item .item-content a.item-button {
   color: var(--accent);
   margin-top: 90px;
 }
 
-.axtronic-banner {
-  margin-bottom: 30px;
+.axtronic-banner.style-1.banner_fluid .banner-wrap {
+  padding: 100px 50px;
+}
+.axtronic-banner.style-1.banner_fluid .banner-wrap .item-content .sub-title {
+  font-size: 28px;
+}
+.axtronic-banner.style-1 .banner-wrap {
+  padding: 50px;
+}
+.axtronic-banner.style-1 .banner-wrap .item-content .sub-title {
+  font-size: 16px;
+}
+.axtronic-banner.style-1 .banner-wrap .item-content h2 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.axtronic-banner.banner_fluid .banner-wrap {
+  border-radius: 0;
 }
 .axtronic-banner .banner-wrap {
   background-color: transparent;
   background-image: linear-gradient(100deg, var(--primary) 50%, var(--primary_hover) 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   padding: 30px 60px;
   border-radius: 12px;
@@ -3537,6 +3557,11 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   font-weight: 500;
   line-height: 1.5em;
   margin-right: 10px;
+}
+.axtronic-banner .banner-wrap .item-content h1 {
+  color: #FFF735;
+  font-size: 80px;
+  margin: 0;
 }
 .axtronic-banner .banner-wrap .item-content h2 {
   color: #fff;
@@ -3572,10 +3597,12 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   color: #ffffff;
   margin-left: 15px;
 }
-.axtronic-banner .banner-wrap .item-content a.item-button {
+.axtronic-banner .banner-wrap .item-content a {
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
+}
+.axtronic-banner .banner-wrap .item-content a.item-button {
   fill: var(--accent);
   color: var(--accent);
   background: var(--background);
@@ -3587,6 +3614,15 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-banner .banner-wrap .item-content a.item-button:hover {
   color: #fff;
   background: var(--accent);
+}
+.axtronic-banner .banner-wrap .item-content a.item-link {
+  text-decoration: underline;
+  background-color: #02010100;
+  padding: 0 0 0 0;
+  color: #fff;
+}
+.axtronic-banner .banner-wrap .item-content a.item-link:hover {
+  color: var(--primary);
 }
 
 .axtronic-testimonial {
@@ -3696,12 +3732,18 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-testimonial .swiper-button-prev, .axtronic-testimonial .swiper-button-next {
   display: none;
 }
+.axtronic-testimonial.style_2 {
+  margin-bottom: 0;
+}
+.axtronic-testimonial.style_2 .swiper-slider-testimonial {
+  overflow: initial;
+}
 .axtronic-testimonial.style_2 .swiper-button-prev, .axtronic-testimonial.style_2 .swiper-button-next {
   display: block;
-  left: 50%;
+  left: 30px;
   transform: translateX(calc(-100% - 5px));
-  top: auto;
-  bottom: -25px;
+  top: 50%;
+  bottom: auto;
   box-shadow: none;
   background: 0 0;
   font-size: 30px;
@@ -3728,7 +3770,8 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   color: var(--primary);
 }
 .axtronic-testimonial.style_2 .swiper-button-next {
-  transform: translateX(5px);
+  transform: translateX(30px);
+  left: auto;
 }
 .axtronic-testimonial.style_2 .swiper-button-next:after {
   content: "";

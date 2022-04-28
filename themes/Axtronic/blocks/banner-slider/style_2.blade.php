@@ -38,13 +38,13 @@
                                                                 <h4 class="sub-title">{{ $slide['sub_title'] }}</h4>
                                                             </div>
                                                         @endif
-                                                        @if($slide['title']))
+                                                        @if($slide['title'])
                                                         <div class="title-wrap">
                                                             <h3 class="title">{!! clean($slide['title']) !!}</h3>
                                                         </div>
                                                         @endif
                                                     </div>
-                                                    @if($slide['sub_text']))
+                                                    @if($slide['sub_text'])
                                                     <div class="description-wrap">
                                                         <div class="description">
                                                             <p>{!! clean($slide['sub_text']) !!}</p>
@@ -91,10 +91,12 @@
                                     case 'top_right': $classPosition = "align-items-end justify-content-start"; break;
                                     case 'bottom_left': $classPosition = "align-items-start justify-content-end"; break;
                                     case 'bottom_right': $classPosition = "align-items-end justify-content-end"; break;
+                                    case 'center_right': $classPosition = "align-items-end justify-content-center"; break;
+                                    case 'center_left': $classPosition = "align-items-start justify-content-center"; break;
                                     default: $classPosition = "align-items-start justify-content-start";
                                 }
                             @endphp
-                            <div class="promotions-item {{$classItem}}">
+                            <div class="promotions-item {{$classItem}} {{ $item['style_color']}}">
                                 <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
                                 <div class="item-content d-flex flex-column {{ $classPosition }}">
                                     <span class="sub-title">{{ $item['sub_title'] ?? '' }}</span>

@@ -1,4 +1,4 @@
-<section class="featured-product pt0">
+<section class="featured-product pb-5">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
