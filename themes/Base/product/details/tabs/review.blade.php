@@ -55,7 +55,7 @@ $review_list = $row->review_list()
                         <div class="mb-3">
                             <div class="form-group review-items">
                                 <div class="item">
-                                    <label>{{__("Your rating of this product")}}</label>
+                                    <label>{{__("Your rating")}}</label>
                                     <input class="review_stats" type="hidden" name="review_rate">
                                     <div class="rates">
                                         <i class="fa fa-star grey"></i>

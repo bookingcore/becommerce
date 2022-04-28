@@ -1,12 +1,17 @@
 @extends('admin.layouts.app')
 @section('content')
     <div class="container-fluid">
+        <div class="mb40">
+            <div class="d-flex justify-content-between">
+                <h1 class="title-bar">{{$zone['title'] ?? __("System Settings")}}</h1>
+            </div>
+            <hr>
+        </div>
         <div class="row">
             <div class="col-md-2">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <i class="{{$zone['icon'] ?? 'icon ion-ios-cog'}} mr-2" style="font-size: 24px"></i>
-                        <strong> {{$zone['title'] ?? __("Settings")}}</strong>
+                        <strong><i class="fa fa-cogs"></i> {{ __("Main Settings") }}</strong>
                     </div>
                     <div class="list-group list-group-flush">
                         @foreach($groups as $id=>$setting)
@@ -21,13 +26,6 @@
                 </div>
             </div>
             <div class="col-md-10">
-
-                <div class="mb40">
-                    <div class="d-flex justify-content-between">
-                        <h1 class="title-bar">{{$group['title']}}</h1>
-                    </div>
-                    <hr>
-                </div>
                 @include('admin.message')
                 <div class="row">
                     <div class="col-md-12">

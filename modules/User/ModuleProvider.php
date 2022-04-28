@@ -51,7 +51,7 @@ class ModuleProvider extends ModuleServiceProvider
         $noti = $noti_verify;
 
         $options = [
-            "position"=>70,
+            "position"=>80,
             'url'        => route('user.admin.index'),
             'title'      => __('Users :count',['count'=>$noti ? sprintf('<span class="badge badge-warning">%d</span>',$noti) : '']),
             'icon'       => 'icon ion-ios-contacts',

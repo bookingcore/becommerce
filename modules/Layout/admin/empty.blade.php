@@ -164,7 +164,7 @@
 <script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.version')) }}"></script>
 
 <script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.version')) }}" ></script>
-<script src="{{ asset('libs/vue/vue'.(!env('APP_DEBUG') ? '.min':'').'.js') }}"></script>
+<script src="{{ asset('libs/vue/vue'.(!config('app.debug') ? '.min':'').'.js') }}"></script>
 
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
 <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>

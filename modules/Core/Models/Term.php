@@ -4,6 +4,9 @@ namespace Modules\Core\Models;
 use App\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductTerm;
+use Modules\Product\Models\ProductVariationTerm;
 
 class Term extends BaseModel
 {
@@ -102,5 +105,10 @@ class Term extends BaseModel
             'name'=>$translation->name,
             'slug'=>$this->slug,
         ];
+    }
+
+
+    public function product(){
+        return $this->hasManyThrough(Product::class, ProductTerm::class,'term_id','id','id','target_id');
     }
 }
