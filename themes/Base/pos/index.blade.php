@@ -12,7 +12,7 @@
 @section('content')
     <div id="pos_app" v-cloak class="bg-f1f1f1 vh-100" >
         <div class="d-flex h-100 flex-column">
-            <div class="pos-header bg-main p-3 flex-shrink-0">
+            <div class="pos-header bg-main p-2 flex-shrink-0">
                 <div class="row">
                     <div class="col-md-7">
                         <div class="d-flex align-items-center">
