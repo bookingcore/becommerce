@@ -42,6 +42,7 @@
                 font-weight: 500;
                 line-height: 1.25em;
                 color: #fff;
+                margin-bottom: 5px;
             }
             h3{
                 font-size: 22px;
@@ -51,8 +52,8 @@
             }
             p{
                 color: #FFFFFF;
-                font-weight: 600;
-                font-size: 16px;
+                font-size: 24px;
+                font-weight: 700;
                 line-height: 24px;
                 span{
                     font-weight: bold;
@@ -70,6 +71,29 @@
                 text-decoration-line: underline;
                 &:hover{
                     color: var( --primary );
+                }
+            }
+        }
+        &.dark{
+            .item-content{
+                color: var(--accent);
+                .sub-title, h3{
+                    color: var(--accent);
+                }
+                .sub-title{
+                    background-color: #fff;
+                }
+                p{
+                    color: var(--primary);
+                   span{
+                       color: var(--light);
+                   }
+                }
+                a.item-button{
+                    color: var(--accent);
+                    &:hover{
+                        color: var(--primary);
+                    }
                 }
             }
         }

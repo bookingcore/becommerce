@@ -3426,6 +3426,7 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   font-weight: 500;
   line-height: 1.25em;
   color: #fff;
+  margin-bottom: 5px;
 }
 .axtronic-promotions .promotions-item .item-content h3 {
   font-size: 22px;
@@ -3435,8 +3436,8 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 }
 .axtronic-promotions .promotions-item .item-content p {
   color: #FFFFFF;
-  font-weight: 600;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 24px;
 }
 .axtronic-promotions .promotions-item .item-content p span {
@@ -3454,6 +3455,27 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   text-decoration-line: underline;
 }
 .axtronic-promotions .promotions-item .item-content a.item-button:hover {
+  color: var(--primary);
+}
+.axtronic-promotions .promotions-item.dark .item-content {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content .sub-title, .axtronic-promotions .promotions-item.dark .item-content h3 {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content .sub-title {
+  background-color: #fff;
+}
+.axtronic-promotions .promotions-item.dark .item-content p {
+  color: var(--primary);
+}
+.axtronic-promotions .promotions-item.dark .item-content p span {
+  color: var(--light);
+}
+.axtronic-promotions .promotions-item.dark .item-content a.item-button {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content a.item-button:hover {
   color: var(--primary);
 }
 .axtronic-promotions.style-2 .promotions-item .item-content {

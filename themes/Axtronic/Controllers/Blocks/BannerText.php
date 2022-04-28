@@ -28,7 +28,7 @@ class BannerText extends BaseBlock
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style 2 (Show 2 content)")
+                            'name' => __("Style 2 ")
                         ],
                     ]
                 ],
@@ -58,6 +58,11 @@ class BannerText extends BaseBlock
                     'type'      => 'textArea',
                     'inputType' => 'textArea',
                     'label'     => __('Content 2')
+                ],
+                [
+                    'id'    => 'image',
+                    'type'  => 'uploader',
+                    'label' => __('Images')
                 ],
                 [
                     'id'    => 'bg_content',

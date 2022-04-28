@@ -110,8 +110,34 @@ class Promotion extends BaseBlock
                                 ],
                                 [
                                     'id'   => 'bottom_right',
-                                    'name' => __("Bottom Right")
+                                    'name' => __("Right Left")
+                                ],
+                                [
+                                    'id'   => 'center_right',
+                                    'name' => __("Right Center")
+                                ],
+                                [
+                                    'id'   => 'center_left',
+                                    'name' => __("Left center")
                                 ]
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
+                        ],
+                        [
+                            'id'            => 'style_color',
+                            'type'          => 'select',
+                            'label'         => __('Color Text'),
+                            'values'        => [
+                                [
+                                    'id'   => 'dark',
+                                    'name' => __("Dark")
+                                ],
+                                [
+                                    'id'   => 'light',
+                                    'name' => __("Light")
+                                ],
                             ],
                             "selectOptions"=> [
                                 'hideNoneSelectedText' => "true"
@@ -140,7 +166,8 @@ class Promotion extends BaseBlock
             'title'  =>  $model['title'] ?? '',
             'sub_title'  =>  $model['sub_title'] ?? '',
             'list_items'  =>  $model['list_items'] ?? '',
-            'col' => $model['col'] ?? 4
+            'col' => $model['col'] ?? 3,
+            'style_color' => $model['style_color'] ?? 'light',
         ];
         return view('blocks.promotion.'.$model['style'], $data);
     }

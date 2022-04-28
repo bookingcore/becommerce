@@ -10,11 +10,12 @@
         <div class="row mt-4">
             @foreach($list_items as $key => $item)
                 @php
-
                     switch ($item['position']){
                         case 'top_right': $classPosition = "align-items-end justify-content-start"; break;
                         case 'bottom_left': $classPosition = "align-items-start justify-content-end"; break;
                         case 'bottom_right': $classPosition = "align-items-end justify-content-end"; break;
+                        case 'center_right': $classPosition = "align-items-end justify-content-center"; break;
+                        case 'center_left': $classPosition = "align-items-start justify-content-center"; break;
                         default: $classPosition = "align-items-start justify-content-start";
                     }
                 @endphp
@@ -27,7 +28,7 @@
                         }
                     @endphp
                     <div class="{{ $colClass }}">
-                        <div class="promotions-item">
+                        <div class="promotions-item {{ $item['style_color']}}">
                             <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
                             <div class="item-content d-flex flex-column {{ $classPosition }}">
                                 <span class="sub-title">{{ $item['title'] ?? '' }}</span>
@@ -48,7 +49,7 @@
                         }
                     @endphp
                     <div class="{{ $colClass }} mb-xl-0 mb-4">
-                        <div class="promotions-item">
+                        <div class="promotions-item {{ $item['style_color']}}">
                             <div class="item-bg" style="background-image: url({{ get_file_url($item['image'] ?? '' , "full") }});"></div>
                             <div class="item-content d-flex flex-column {{ $classPosition }}">
                                 <span class="sub-title">{{ $item['title'] ?? '' }}</span>
