@@ -1,13 +1,18 @@
 <script type="text/x-template" id="POS_products">
-    <div class="pos-products ">
+    <div class="pos-products pt-3">
         <div class="row">
-            <div class="col-md-3" v-for="(item,index) in items" @click="add(item)">
-                <div class="pt-3 pb-3 c-pointer">
-                    <figure class="relative bg-white  border-1 border-e1e1e1">
+            <div class="col-md-3 mb-3 c-pointer " v-for="(item,index) in items" @click="add(item)">
+                <div class="border-1 border-e1e1e1 bg-white h-100">
+                    <figure class="relative ">
                         <img :src="item.image_url">
-                        <span class="absolute bottom-0 left-0 right-0 p-2 text-center c-white bg-dark-75">@{{item.price_html}}</span>
+                        <span class="absolute bottom-0 left-0 right-0 p-2 text-center c-white bg-dark-75">
+                            <span v-if="item.product_type == 'simple'">@{{ formatMoney(item.price) }}</span>
+                            <span v-else-if="item.product_type == 'variable' && item.variation">@{{ formatMoney(item.variation.price) }}</span>
+                        </span>
                     </figure>
-                    <div class="fs-16 mt-2">@{{item.title}}</div>
+                    <div class="fs-16 p-2">@{{item.title}}
+                        <span v-if="item.variation">- @{{ item.variation.term_name.join(', ') }}</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -25,6 +30,9 @@
             this.getLists();
         },
         methods: {
+            formatMoney:function(f){
+                return bc_format_money(f);
+            },
             getLists:function (){
                 var me = this;
                 var filter = {

@@ -20,6 +20,7 @@ class VariationResource extends JsonResource
             'remain_stock'=>$this->remain_stock,
             'stock_status'=>$this->stock_status,
             'is_manage_stock'=>$this->is_manage_stock,
+            'term_name'=>$terms->pluck('name')->all()
         ];
     }
 }

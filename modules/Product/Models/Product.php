@@ -621,8 +621,9 @@ class Product extends BaseModel
             case "join_variation":
                 $variation_table = ProductVariation::getTableName();
                 $query->leftJoin($variation_table,$variation_table.'.product_id','products.id');
-                $query->addSelect(DB::raw($variation_table.'.id as variation_id'));
+                $query->addSelect(DB::raw($variation_table.'.id as `variant_id`'));
                 $query->with('variation');
+                $query->groupBy(['products.id','variant_id']);
                 break;
         }
         $query->groupBy("products.id");

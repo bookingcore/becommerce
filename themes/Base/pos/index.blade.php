@@ -30,6 +30,9 @@
                         </div>
                     </div>
                     <div class="col-md-5">
+                        <ul class="topbar-items nav justify-content-end">
+                            @include('layouts.parts.header.user')
+                        </ul>
                     </div>
                 </div>
             </div>

@@ -15,11 +15,14 @@
             <tbody>
             <tr v-for="(item,index) in order.items">
                 <td>@{{index + 1}}</td>
-                <td>@{{item.id}}</td>
-                <td>@{{item.title}}</td>
+                <td>@{{item.id}}<span v-if="item.variant_id" >_@{{ item.variant_id }}</span>
+                </td>
+                <td>@{{item.title}}
+                    <span v-if="item.variation" class="badge bg-primary">@{{ item.variation.term_name.join(', ') }}</span>
+                </td>
                 <td><input class="form-control h-auto" min="1" type="number" :value="item.qty" @change="updateQty($event,item.id)"></td>
-                <td>@{{item.price}}</td>
-                <td>@{{item.price * item.qty}}</td>
+                <td>@{{formatMoney(item.price)}}</td>
+                <td>@{{formatMoney(item.price * item.qty)}}</td>
                 <td><a href="#" class="text-danger" @click.prevent="deleteItem(index)"><i class="fa fa-close"></i></a></td>
             </tr>
             </tbody>
@@ -45,6 +48,9 @@
         created:function(){
         },
         methods: {
+            formatMoney:function(f){
+                return bc_format_money(f);
+            },
             updateQty:function(event,product_id){
                 this.$emit('update','qty',event.target.value,product_id)
             },

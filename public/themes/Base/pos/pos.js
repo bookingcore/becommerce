@@ -22,14 +22,29 @@ var POS_App = new Vue({
     },
     methods:{
         addProduct:function (product){
-            let find = _.find(this.currentOrder.items,{id:product.id})
+            let q = {id:product.id};
+            if(product.product_type === 'variable'){
+                q.variant_id = product.variation.id;
+            }
+
+            let find = _.find(this.currentOrder.items,q)
             if(find){
                 find.qty += 1;
             }else{
                 let tmp = {};
                 tmp.id = product.id;
+                switch (product.product_type){
+                    case "variable":
+                        tmp.variation = product.variation;
+                        tmp.variant_id = product.variation.id;
+                        tmp.price = tmp.variation.price;
+                        break;
+                    default:
+                        tmp.price = product.price;
+                        break;
+
+                }
                 tmp.title = product.title;
-                tmp.price = product.price;
                 tmp.qty = 1;
                 this.currentOrder.items.push(tmp)
             }
