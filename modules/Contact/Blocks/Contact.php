@@ -28,12 +28,6 @@ class Contact extends BaseBlock
                     'label'     => __('Right Title')
                 ],
                 [
-                    'id'        => 'sub_right_title',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Sub Right Title')
-                ],
-                [
                     'id'        => 'address',
                     'type'      => 'input',
                     'inputType' => 'text',
@@ -56,24 +50,6 @@ class Contact extends BaseBlock
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Website')
-                ],
-                [
-                    'id'        => 'open_door_1',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Monday - Friday')
-                ],
-                [
-                    'id'        => 'open_door_2',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Saturday & Sunday')
-                ],
-                [
-                    'id'        => 'iframe_map',
-                    'type'      => 'textArea',
-                    'inputType' => 'textArea',
-                    'label'     => __('Iframe Map')
                 ],
             ]
         ]);

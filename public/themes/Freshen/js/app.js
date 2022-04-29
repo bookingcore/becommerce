@@ -142,6 +142,15 @@ $(document).on('click','.btn-confirm-del',function (e) {
         return false;
     }
 })
+function parseErrorMessage(e) {
+    var html = '';
+    if (e.responseJSON) {
+        if (e.responseJSON.errors) {
+            return Object.values(e.responseJSON.errors).join('<br>');
+        }
+    }
+    return html;
+}
 
 //Login - Register
 function ajax_error_to_string(e){
@@ -418,6 +427,45 @@ jQuery(function ($) {
 
         return false;
     });
+
+    //Contact
+    var onSubmitContact = false;
+    $('.bc-contact-block').submit(function(e) {
+        e.preventDefault();
+        if (onSubmitContact)
+            return;
+        $(this).addClass('loading');
+        var me = $(this);
+        me.find('.form-mess').html('');
+        $.ajax({
+            url: me.attr('action'),
+            type: 'post',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function(json) {
+                onSubmitContact = false;
+                me.removeClass('loading');
+                if (json.message) {
+                    me.find('.form-mess').html('<span class="' + (json.status ? 'text-success' : 'text-danger') + '">' + json.message + '</span>');
+                }
+                if (json.status) {
+                    me.find('input:not(input[type=submit])').val('');
+                    me.find('textarea').val('');
+                }
+            },
+            error: function(e) {
+                console.log(e);
+                onSubmitContact = false;
+                me.removeClass('loading');
+                if (parseErrorMessage(e)) {
+                    me.find('.form-mess').html('<span class="text-danger">' + parseErrorMessage(e) + '</span>');
+                } else if (e.responseText) {
+                    me.find('.form-mess').html('<span class="text-danger">' + e.responseText + '</span>');
+                }
+            }
+        });
+        return false;
+    });
 });
 
 
@@ -534,6 +582,4 @@ jQuery(function ($) {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
-
-
 });

@@ -212,10 +212,10 @@
   color: #86BC42;
 }
 
-.bc-form-login .fa.fa-spinner, .bc-form-register .fa.fa-spinner {
+.bc-form-login .fa.fa-spinner, .bc-form-register .fa.fa-spinner, .bc-contact-block .fa.fa-spinner {
   display: none;
 }
-.bc-form-login.loading .fa.fa-spinner, .bc-form-register.loading .fa.fa-spinner {
+.bc-form-login.loading .fa.fa-spinner, .bc-form-register.loading .fa.fa-spinner, .bc-contact-block.loading .fa.fa-spinner {
   display: inline-block;
 }
 
@@ -230,7 +230,7 @@
 }
 .bc-user-header:hover .dropdown-menu {
   display: block;
-  transform: translate(-135px, 43px);
+  transform: translate(-101px, 43px);
   position: absolute;
   inset: 0px auto auto 0px;
 }

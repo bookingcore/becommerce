@@ -227,7 +227,7 @@
         }
     }
 }
-.bc-form-login,.bc-form-register{
+.bc-form-login,.bc-form-register,.bc-contact-block{
     .fa.fa-spinner{
         display: none;
     }
@@ -250,7 +250,7 @@
     &:hover{
         .dropdown-menu{
             display: block;
-            transform: translate(-135px, 43px);
+            transform: translate(-101px, 43px);
             position: absolute;
             inset: 0px auto auto 0px;
         }

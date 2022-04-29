@@ -119,6 +119,13 @@ class GeneralSeeder extends Seeder
                 "is_removed" => true,
                 "children" => [
                     [
+                        "name" => "About us",
+                        "url" => "/page/freshen-about-us",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "target" => "",
+                    ],
+                    [
                         "name" => "Shopping Cart",
                         "url" => "/cart",
                         "item_model" => "custom",
@@ -164,8 +171,8 @@ class GeneralSeeder extends Seeder
                 ]
             ],
             [
-                "name" => "About us",
-                "url" => "/page/freshen-about-us",
+                "name" => "Contact",
+                "url" => "/page/freshen-contact",
                 "item_model" => "custom",
                 "_open" => false,
                 "target" => "",
@@ -463,6 +470,23 @@ class GeneralSeeder extends Seeder
             'title'         => 'Freshen About Us',
             'slug'          => 'freshen-about-us',
             'template_id'   => $freshen_page_about_id,
+            'show_template' => 1,
+            'author_id'     => 1,
+            'create_user'   => '1',
+            'status'        => 'publish',
+            'created_at'    => date("Y-m-d H:i:s")
+        ]);
+
+        $freshen_contact_id = DB::table('core_templates')->insertGetId([
+            'title'       => 'Freshen Contact',
+            'content'     => '[{"type":"breadcrumb","name":"Breadcrumb","model":{"title":"CONTACT US","list_items":[{"_active":true,"name":"CONTACT US","url":"#"}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"featured_icon","name":"Featured Icon","model":{"list_items":[{"_active":true,"title":"OUR STORE","sub_title":"Collins Street West, Victoria 8007, Australia.","icon":"flaticon-map"},{"_active":true,"title":"HOTLINE","sub_title":"+ (315) 905-2321","icon":"flaticon-phone-call"},{"_active":true,"title":"EMAIL CONTACT","sub_title":"order@freshen.com","icon":"flaticon-email"},{"_active":true,"title":"Working Hours","sub_title":"Mon-Fri: 8 AM - 5 PM  <br>  Sat-Sun: 8 AM - 2 PM","icon":"flaticon-wall-clock"}]},"component":"RegularBlock","open":true,"is_container":false},{"type":"contact_block","name":"Contact Block","model":{"class":"","title":"Let\'s get in touch","right_title":"Get in touch","sub_title":"We\'re open for any suggestion or just to have a chat","address":"198 West 21th Street, Suite 721 New York NY 10016","phone":"1234 5678 89","email":"contact@becommerce.test","website":"yoursite.com"},"component":"RegularBlock","open":true,"is_container":false}]',
+            'create_user' => '1',
+            'created_at'  => date("Y-m-d H:i:s")
+        ]);
+        DB::table('core_pages')->insertGetId([
+            'title'         => 'Freshen Contact',
+            'slug'          => 'freshen-contact',
+            'template_id'   => $freshen_contact_id,
             'show_template' => 1,
             'author_id'     => 1,
             'create_user'   => '1',
