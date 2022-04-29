@@ -2,11 +2,10 @@
 namespace Themes\Freshen\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductCategory;
-use Modules\Product\Models\ProductBrand;
-use Modules\Product\Models\ProductCategoryRelation;
-use Modules\Product\Models\ProductTag;
+use Themes\Freshen\Models\Product;
+use Themes\Freshen\Models\ProductCategory;
+use Themes\Freshen\Models\ProductBrand;
+use Themes\Freshen\Models\ProductTag;
 
 class ProductSeeder extends Seeder
 {
@@ -63,7 +62,7 @@ class ProductSeeder extends Seeder
 
         ProductTag::factory()->count(10)->create();
 
-        Product::factory()
+        \Themes\Freshen\Models\Product::factory()
             ->times(count($productName))
             ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
                 $product_type = ['simple','variable'][rand(0,1)];

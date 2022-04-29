@@ -2,7 +2,7 @@
 namespace Themes\Freshen\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Product\Models\ProductCategory;
+use Themes\Freshen\Models\ProductCategory;
 
 class ProductCategorySeeder extends Seeder
 {
