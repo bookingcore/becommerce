@@ -368,14 +368,24 @@ ul.list-product-items{
                 color: var(--primary);
             }
         }
+        &.style-grid{
+            .heading-title{
+                color: var(--accent);
+            }
+            .product-box-title {
+                border-bottom: 0;
+            }
+        }
         .product-box-title {
             display: block;
+            border-bottom: 0;
             .list-category-name{
                 justify-content: center;
                 margin: 15px 0;
             }
         }
     }
+
 }
 
 .product-slider{

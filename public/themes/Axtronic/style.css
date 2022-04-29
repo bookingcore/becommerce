@@ -4698,8 +4698,15 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .axtronic-list-products.style_3 .heading-title span {
   color: var(--primary);
 }
+.axtronic-list-products.style_3.style-grid .heading-title {
+  color: var(--accent);
+}
+.axtronic-list-products.style_3.style-grid .product-box-title {
+  border-bottom: 0;
+}
 .axtronic-list-products.style_3 .product-box-title {
   display: block;
+  border-bottom: 0;
 }
 .axtronic-list-products.style_3 .product-box-title .list-category-name {
   justify-content: center;

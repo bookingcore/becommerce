@@ -7,7 +7,7 @@
  */
 ?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products my-5 {{ $style_header }}">
+    <div class="axtronic-list-products my-5 style-grid {{ $style_header }}">
         <div class="container">
             <div class="product-box">
                 <div class="product-box-title mb-4">

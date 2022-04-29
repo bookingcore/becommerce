@@ -23,6 +23,14 @@ $translation = $row->translate();
                     @endforeach
                 </div>
             @endif
+            @if($row->cat)
+                <?php
+                $cat_tran = $row->cat->translate();
+                ?>
+                    <div class="meta-categories">
+                        <a class="category tag" href="{{$row->cat->getDetailUrl()}}">{{$cat_tran->name}}</a>
+                    </div>
+            @endif
             <div class="posted-on">
                 <a href="#">{{display_date($row->created_at)}}</a>
             </div>

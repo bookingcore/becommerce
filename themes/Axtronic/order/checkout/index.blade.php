@@ -67,8 +67,8 @@
             process:'{{route('checkout.process')}}'
         }
     </script>
-    <script src="{{ theme_url('Base/order/cart.js') }}"></script>
-    <script src="{{ theme_url('Base/order/checkout.js') }}"></script>
+    <script src="{{ theme_url('Axtronic/order/cart.js') }}"></script>
+    <script src="{{ theme_url('Axtronic/order/checkout.js') }}"></script>
     <script type="text/javascript">
     </script>
 @endsection

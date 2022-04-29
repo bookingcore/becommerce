@@ -87,7 +87,7 @@
             <script src="{{ theme_url('Axtronic') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->
             <script  src="{{ theme_url('Axtronic/js/countdown.js') }}"></script>
-            <script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
+            <script  src="{{ theme_url('Axtronic/js/app.js?_v='.config('app.asset_version')) }}"></script>
 
 
             @yield('footer')

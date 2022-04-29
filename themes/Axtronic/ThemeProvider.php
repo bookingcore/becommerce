@@ -17,7 +17,6 @@ use Themes\Axtronic\Controllers\Blocks\FeaturedIcon;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
-use Themes\Axtronic\Controllers\Blocks\Title;
 use Themes\Axtronic\Database\Seeder;
 use Themes\Axtronic\Controllers\Blocks\BannerSliderStyle2;
 use Themes\Axtronic\Controllers\Blocks\ListCategoryProduct;
