@@ -33,7 +33,7 @@
     <div class="col-sm-4">
         <h3 class="form-group-title">{{__('Registration')}}</h3>
         <div class="form-group-desc">{{ __('Email send to Customer or Administrator when user registered.')}}
-            @foreach(\Modules\User\Listeners\SendMailUserRegisteredListen::CODE as $item=>$value)
+            @foreach(\Modules\User\Listeners\UserEventSubscriber::CODE as $item=>$value)
                 <div><code>{{$value}}</code></div>
             @endforeach
         </div>
