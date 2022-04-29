@@ -15,7 +15,7 @@ class ListCategoryProduct extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',
@@ -130,8 +130,7 @@ class ListCategoryProduct extends BaseBlock
             'categories' => $categories ?? [],
             'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal"
         ];
-        $style = $model['style'] ?? 'index';
-
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.list-category-product.{$style}", $data);
     }
 }

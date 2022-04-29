@@ -14,7 +14,7 @@ class Promotion extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',
@@ -78,7 +78,7 @@ class Promotion extends BaseBlock
             'list_items'  =>  $model['list_items'] ?? '',
             'col' => $model['col'] ?? 4
         ];
-        $style = $model['style'] ?? 'index';
+        $style = $model['style'] ?? 'style_1';
 
         return view("blocks.promotion.{$style}", $data);
     }

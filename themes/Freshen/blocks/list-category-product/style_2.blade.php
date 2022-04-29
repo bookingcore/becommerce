@@ -10,7 +10,7 @@
                         <div class="popular_listing_sliders home4_style">
                             <!-- Nav tabs -->
                             @if(!empty($categories))
-                                <div class="nav nav-tabs justify-content-center" role="tablist">
+                                <div class="nav nav-tabs justify-content-end" role="tablist">
                                     @foreach($categories as $key => $item)
                                         <button class="nav-link @if($key == 0) active @endif" id="nav-{{ $item->id }}-tab" data-bs-toggle="tab" data-bs-target="#nav-{{ $item->id }}" role="tab" aria-controls="nav-{{ $item->id }}" aria-selected="true">
                                             <span class="flaticon-harvest mr5"></span> {{ $item->translate()->name }}

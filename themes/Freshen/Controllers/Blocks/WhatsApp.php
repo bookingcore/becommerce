@@ -56,7 +56,7 @@ class WhatsApp extends BaseBlock
             'title2'  =>  $model['title2'] ?? '',
             'icon'  =>  $model['icon'] ?? '',
         ];
-        $style = $model['style'] ? $model['style'] : 'style_1';
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.whats-app.{$style}", $data);
     }
 }

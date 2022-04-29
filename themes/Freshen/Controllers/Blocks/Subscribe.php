@@ -14,7 +14,7 @@ class Subscribe extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',

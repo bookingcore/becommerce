@@ -65,6 +65,8 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("our_teams",\Themes\Freshen\Controllers\Blocks\OurTeams::class );
         BlockManager::register("list_logos",\Themes\Freshen\Controllers\Blocks\ListLogos::class );
         BlockManager::register("subscribe",\Themes\Freshen\Controllers\Blocks\Subscribe::class );
+        BlockManager::register("list_product",\Themes\Freshen\Controllers\Blocks\ListProduct::class);
+
 
         if(!is_admin_dashboard()){
         Paginator::defaultView('pagination');
