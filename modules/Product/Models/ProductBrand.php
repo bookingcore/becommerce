@@ -5,7 +5,7 @@ use App\BaseModel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Theme\ThemeManager;
+use Themes\Base\Database\Factories\ProductBrandFactory;
 
 class ProductBrand extends BaseModel
 {
@@ -27,11 +27,7 @@ class ProductBrand extends BaseModel
 
     protected static function newFactory()
     {
-        $active = ThemeManager::current();
-        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductBrandFactory";
-        if(class_exists($class)) {
-            return new $class();
-        }
+        return ProductBrandFactory::new();
     }
 
     public static function searchForMenu($q = false)
