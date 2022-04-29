@@ -903,7 +903,53 @@ ul.axtronic-products-special{
     }
 }
 
-
+.banner-product{
+    .axtronic-promotions{
+        .promotions-item{
+            min-height: 448px;
+            padding: 48px;
+            justify-content: flex-start;
+            .item-content{
+                h3{
+                    font-size: 40px;
+                    font-weight: 600;
+                    line-height: 1.2em;
+                    color: var(--accent);
+                }
+                .sub-content{
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 1.5;
+                    margin-bottom: 15px;
+                    color: var(--accent);
+                }
+                p{
+                    font-weight: 400;
+                    line-height: 2.5em;
+                    color: var(--accent);
+                    sup{
+                        font-size: 25px;
+                        font-weight: 600;
+                    }
+                    span{
+                        font-size: 50px;
+                        font-weight: 600;
+                        color: var(--accent);
+                    }
+                }
+                .item-button{
+                    color: #FFF;
+                    background-color: var(--primary);
+                    border-radius: 8px;
+                    padding: 12px 32px 12px 32px;
+                    &:hover{
+                        background-color: var(--primary_hover);
+                    }
+                }
+            }
+        }
+    }
+}
 
 @media (min-width: 768px) {
     .axtronic-products-special{

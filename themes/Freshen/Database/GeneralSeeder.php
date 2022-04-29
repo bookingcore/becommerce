@@ -14,13 +14,182 @@ class GeneralSeeder extends Seeder
      */
     public function run()
     {
+        $primary_menu = [
+            [
+                "id"            => 1,
+                "name"          => "Home Page",
+                "url"           => "/",
+                "class"         => "",
+                "target"        => "",
+                "item_model" => "custom",
+                "_open"         => false,
+                "origin_edit_url"=> "",
+                "children"  =>  [
+                    [
+                        "name" => "Home Page 1",
+                        "url" => "/page/freshen-home-page-1",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Home Page 2",
+                        "url" => "/page/freshen-home-page-2",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Home Page 3",
+                        "url" => "/page/freshen-home-page-3",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Home Page 4",
+                        "url" => "/page/freshen-home-page-4",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                ]
+            ],
+            [
+                "name" =>"Shop",
+                "url"  =>"",
+                "item_model" => "custom",
+                "_open" => false,
+                "model_name"=> "Custom",
+                "is_removed"=> true,
+                "children"  =>  [
+                    [
+                        "name" => "Shop",
+                        "url" => "/product",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Category Layout",
+                        "url" => "/category/vegetables",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+
+                    [
+                        "name" => "Simple Product",
+                        "url" => "/product/pineapple-tropical-gold",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Variable Product",
+                        "url" => "/product/silver-heinz-ketchup",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Affiliate Product",
+                        "url" => "/product/augason-farms-freeze-dried-beef-chunks",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                ]
+            ],
+            [
+                "name" => "Pages",
+                "url" => "",
+                "item_model" => "custom",
+                "_open" => false,
+                "model_name" => "Custom",
+                "is_removed" => true,
+                "children" => [
+                    [
+                        "name" => "Shopping Cart",
+                        "url" => "/cart",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "Wishlist",
+                        "url" => "/user/wishlist",
+                        "item_model" => "custom",
+                        "_open" => false,
+                        "model_name" => "Custom",
+                        "is_removed" => true
+                    ],
+                    [
+                        "name" => "My account",
+                        "url" => "/user/profile",
+                        "item_model" => "custom",
+                        "_open" => false
+                    ]
+                ]
+            ],
+            [
+                "name" => "News",
+                "url" => "",
+                "item_model" => "custom",
+                "_open" => false,
+                "target" => "",
+                "children" => [
+                    [
+                        "name" => "News List",
+                        "url" => "/news",
+                        "item_model" => "custom",
+                        "_open" => false
+                    ],
+                    [
+                        "name" => "News Detail",
+                        "url" => "/news/explore-fashion-trending-for-guys-in-autumn-2017",
+                        "item_model" => "custom",
+                        "_open" => false
+                    ],
+                ]
+            ],
+            [
+                "name" => "About us",
+                "url" => "/page/freshen-about-us",
+                "item_model" => "custom",
+                "_open" => false,
+                "target" => "",
+            ]
+        ];
+        //Menu
+        $menu_id = DB::table('core_menus')->insertGetId(
+            [
+                'name'  => "Freshen Menu",
+                'items' =>  json_encode($primary_menu,true),
+                'create_user'   =>  1,
+                'update_user'   =>  1
+            ]
+        );
+
         $menu_department = $this->generalMenuDepartment();
-        DB::table('core_menus')->insertGetId([
+        $department_id = DB::table('core_menus')->insertGetId([
             'name'        => 'Menu Department',
             'items'       => json_encode($menu_department),
             'create_user' => '1',
             'created_at'  => date("Y-m-d H:i:s")
         ]);
+
+        setting_update_item('menu_locations','{"primary":'.$menu_id.',"department":'.$department_id.'}');
 
         $logo_light = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-light', 'file_path' => 'freshen/general/logo-light.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-light']);
         $logo_dark = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-dark', 'file_path' => 'freshen/general/logo-dark.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-dark']);

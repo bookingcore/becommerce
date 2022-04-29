@@ -62,7 +62,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label>{{__("Footer Background Image")}}</label>
+                        <label>{{__("Footer Text Subscribe")}}</label>
+                        <div class="form-controls">
+                            <div id="info_text_editor_1" class="ace-editor" style="height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('axtronic_footer_text_subscribe')}}</div>
+                            <textarea class="d-none" name="axtronic_footer_text_subscribe" > {{ setting_item_with_lang('axtronic_footer_text_subscribe') }} </textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>{{__("Footer Background Image Subscribe")}}</label>
                         <div class="form-controls form-group-image">
                             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('axtronic_footer_bg_image',setting_item('axtronic_footer_bg_image') ?? '') !!}
                         </div>

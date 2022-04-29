@@ -18,7 +18,7 @@ namespace Database\Seeders;
                 [
                     [
                         'name'  => 'menu_locations',
-                        'val'   => '{"primary":1,"department":2,"menu_right":3,"menu_header_top":4}',
+                        'val'   => '{"primary":1,"department":2}',
                         'group' => "general",
                     ],
                     [

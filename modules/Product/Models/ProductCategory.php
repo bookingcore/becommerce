@@ -71,6 +71,6 @@ class ProductCategory extends BaseModel
     }
 
     public function product(){
-        return $this->hasMany(Product::class,'category_id');
+        return $this->hasManyThrough(Product::class, ProductCategoryRelation::class,'cat_id','id','id','target_id');
     }
 }

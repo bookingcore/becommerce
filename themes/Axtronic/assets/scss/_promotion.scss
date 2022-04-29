@@ -42,6 +42,7 @@
                 font-weight: 500;
                 line-height: 1.25em;
                 color: #fff;
+                margin-bottom: 5px;
             }
             h3{
                 font-size: 22px;
@@ -51,8 +52,8 @@
             }
             p{
                 color: #FFFFFF;
-                font-weight: 600;
-                font-size: 16px;
+                font-size: 24px;
+                font-weight: 700;
                 line-height: 24px;
                 span{
                     font-weight: bold;
@@ -70,6 +71,29 @@
                 text-decoration-line: underline;
                 &:hover{
                     color: var( --primary );
+                }
+            }
+        }
+        &.dark{
+            .item-content{
+                color: var(--accent);
+                .sub-title, h3{
+                    color: var(--accent);
+                }
+                .sub-title{
+                    background-color: #fff;
+                }
+                p{
+                    color: var(--primary);
+                   span{
+                       color: var(--light);
+                   }
+                }
+                a.item-button{
+                    color: var(--accent);
+                    &:hover{
+                        color: var(--primary);
+                    }
                 }
             }
         }
@@ -98,6 +122,8 @@
                 }
                 p{
                     color: var(--primary);
+                    font-size: 16px;
+                    font-weight: 600;
                 }
                 a.item-button{
                     color: var(--accent);
@@ -110,10 +136,42 @@
 
 
 .axtronic-banner{
-    margin-bottom: 30px;
+    &.style-1{
+        &.banner_fluid{
+            .banner-wrap {
+                padding: 100px 50px;
+                .item-content{
+                    .sub-title{
+                        font-size: 28px;
+                    }
+                }
+
+            }
+        }
+        .banner-wrap {
+            padding: 50px;
+            .item-content{
+                .sub-title{
+                    font-size: 16px;
+                }
+                h2{
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+            }
+
+        }
+    }
+    &.banner_fluid{
+        .banner-wrap{
+            border-radius: 0;
+        }
+    }
     .banner-wrap{
         background-color: transparent;
         background-image: linear-gradient(100deg,var( --primary ) 50%,var( --primary_hover ) 100%);
+        background-size: cover;
+        background-repeat: no-repeat;
         transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
         padding: 30px 60px;
         border-radius: 12px;
@@ -136,6 +194,11 @@
                     line-height: 1.5em;
                     margin-right: 10px;
                 }
+            }
+            h1{
+                color: #FFF735;
+                font-size: 80px;
+                margin: 0;
             }
             h2{
                 color: #fff;
@@ -171,20 +234,31 @@
                     margin-left: 15px;
                 }
             }
-            a.item-button{
+            a{
                 font-weight: 600;
                 font-size: 16px;
                 line-height: 24px;
-                fill: var( --accent );
-                color: var( --accent );
-                background: var( --background );
-                text-transform: capitalize;
-                border-radius: 8px 8px 8px 8px;
-                padding: 12px 30px;
-                text-decoration: none;
-                &:hover{
+                &.item-button{
+                    fill: var( --accent );
+                    color: var( --accent );
+                    background: var( --background );
+                    text-transform: capitalize;
+                    border-radius: 8px 8px 8px 8px;
+                    padding: 12px 30px;
+                    text-decoration: none;
+                    &:hover{
+                        color: #fff;
+                        background: var( --accent );
+                    }
+                }
+                &.item-link{
+                    text-decoration: underline;
+                    background-color: #02010100;
+                    padding: 0 0 0 0;
                     color: #fff;
-                    background: var( --accent );
+                    &:hover{
+                        color: var( --primary );
+                    }
                 }
             }
         }
@@ -305,12 +379,16 @@
         display: none;
     }
     &.style_2{
+        margin-bottom: 0;
+        .swiper-slider-testimonial{
+            overflow: initial;
+        }
         .swiper-button-prev, .swiper-button-next{
             display: block;
-            left: 50%;
+            left: 30px;
             transform: translateX(calc(-100% - 5px));
-            top: auto;
-            bottom: -25px;
+            top: 50%;
+            bottom: auto;
             box-shadow: none;
             background: 0 0;
             font-size: 30px;
@@ -332,7 +410,8 @@
             }
         }
         .swiper-button-next{
-            transform: translateX(5px);
+            transform: translateX(30px);
+            left: auto;
             &:after{
                 content: themecustom-char(arrow-right);
             }
