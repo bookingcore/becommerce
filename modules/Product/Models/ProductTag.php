@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Modules\News\Models\News;
 use Modules\News\Models\NewsTag;
 use Modules\Theme\ThemeManager;
+use Themes\Base\Database\Factories\ProductTagFactory;
 
 class ProductTag extends BaseModel
 {
@@ -71,10 +72,6 @@ class ProductTag extends BaseModel
 
     protected static function newFactory()
     {
-        $active = ThemeManager::current();
-        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductTagFactory";
-        if(class_exists($class)) {
-            return new $class();
-        }
+        return ProductTagFactory::new();
     }
 }

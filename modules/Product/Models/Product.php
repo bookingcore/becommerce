@@ -21,8 +21,8 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
-use Modules\Theme\ThemeManager;
 use Modules\User\Models\UserWishList;
+use Themes\Base\Database\Factories\ProductFactory;
 
 class Product extends BaseModel
 {
@@ -74,11 +74,7 @@ class Product extends BaseModel
 
     protected static function newFactory()
     {
-        $active = ThemeManager::current();
-        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductFactory";
-        if(class_exists($class)) {
-            return new $class();
-        }
+        return ProductFactory::new();
     }
 
     public static function getModelName()
