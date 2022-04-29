@@ -41,7 +41,7 @@ if(!isset($current_cat)) $current_cat = null;
                         </div>
                     </div>
                     <div class="col-auto p0">
-                        <div class="advscrh_frm_btn text-end">
+                        <div class="advscrh_frm_btn">
                             <button type="submit" class="btn search-btn home{{ $header_style ?? setting_item('freshen_header_style') }}"><span class="flaticon-search"></span></button>
                         </div>
                     </div>
