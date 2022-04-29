@@ -63,7 +63,7 @@ class ProductSeeder extends Seeder
 
         ProductTag::factory()->count(10)->create();
 
-        Product::factory()
+        \Themes\Freshen\Models\Product::factory()
             ->times(count($productName))
             ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
                 return [
