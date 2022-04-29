@@ -22,8 +22,8 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
-use Modules\Theme\ThemeManager;
 use Modules\User\Models\UserWishList;
+use Themes\Base\Database\Factories\ProductFactory;
 
 class Product extends BaseModel
 {
@@ -75,11 +75,7 @@ class Product extends BaseModel
 
     protected static function newFactory()
     {
-        $active = ThemeManager::current();
-        $class = "\Themes\\".ucfirst($active)."\\Database\\Factories\\ProductFactory";
-        if(class_exists($class)) {
-            return new $class();
-        }
+        return ProductFactory::new();
     }
 
     public static function getModelName()
@@ -541,7 +537,6 @@ class Product extends BaseModel
         if (!empty($filters['terms']) and is_array($filters['terms'])) {
             $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $filters['terms']);
         }
-
         if (!empty($filters['review_score']) && is_array($filters['review_score'])) {
             $where_review_score = [];
             foreach ($filters['review_score'] as $number){

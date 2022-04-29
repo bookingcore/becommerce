@@ -10,7 +10,7 @@ if(!$tags) return;
     <ul class="tag_list">
         @foreach($tags as $tag)
             @php($translate = $tag->translate(app()->getLocale()))
-            <li class="list-inline-item"><a href="#">{{$translate->name}}</a></li>
+            <li class="list-inline-item"><a href="{{request()->fullUrlWithQuery(['tag'=>$tag->slug])}}">{{$translate->name}}</a></li>
         @endforeach
     </ul>
 </div>

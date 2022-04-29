@@ -2,11 +2,10 @@
 namespace Themes\Freshen\Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Modules\Product\Models\Product;
-use Modules\Product\Models\ProductCategory;
-use Modules\Product\Models\ProductBrand;
-use Modules\Product\Models\ProductCategoryRelation;
-use Modules\Product\Models\ProductTag;
+use Themes\Freshen\Models\Product;
+use Themes\Freshen\Models\ProductCategory;
+use Themes\Freshen\Models\ProductBrand;
+use Themes\Freshen\Models\ProductTag;
 
 class ProductSeeder extends Seeder
 {
@@ -63,14 +62,25 @@ class ProductSeeder extends Seeder
 
         ProductTag::factory()->count(10)->create();
 
-        Product::factory()
+        \Themes\Freshen\Models\Product::factory()
             ->times(count($productName))
             ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
+                $product_type = ['simple','variable'][rand(0,1)];
+                if($sequent->index == 0){
+                    $product_type = 'simple';
+                }
+                if($sequent->index == 1){
+                    $product_type = 'variable';
+                }
+                if($sequent->index == 2){
+                    $product_type = 'external';
+                }
                 return [
                     'title'=>$productName[$sequent->index],
                     'brand_id'=>$productBrand->random(1)->first()->id,
-                    'image_id'=> \Arr::random($productImage),
+                    'image_id'=> $productImage["image-".($sequent->index + 1)] ?? $productImage['image-1'],
                     'gallery'     => implode(',',$productGallery),
+                    'product_type'=> $product_type,
                 ];
             })
             ->create();
@@ -111,6 +121,21 @@ class ProductSeeder extends Seeder
                         "image_id"=>$productTopCarousel,
                         "order"=>2
                     ]
+                ]
+            ],
+            [
+                'name'=>'fs_products_sidebar',
+                'val'=>[
+                    ["title"=>"PRODUCT CATEGORIES","content"=>null,"attr"=>null,"type"=>"category"],
+                    ["title"=>"FILTER BY COLOR","content"=>null,"attr"=>"1","type"=>"attr"],
+                    ["title"=>"TRENDING TAGS","content"=>null,"attr"=>null,"type"=>"tag"],
+                    [
+                        "title"=>null,
+                        "content"=>"<div class=\"thumb\"><img src='/themes/Freshen/images/banner/4.jpg' alt=\"4.jpg\"></div><div class='details style2'><p class=\"para\">Tasty Healthy</p><h2 class=\"title\">Fresh Vegetables</h2><a href='/product' class=\"shop_btn style2\">SHOP NOW</a></div>",
+                        "attr"=>null,
+                        "type"=>"content_text"
+                    ]
+
                 ]
             ]
         ];

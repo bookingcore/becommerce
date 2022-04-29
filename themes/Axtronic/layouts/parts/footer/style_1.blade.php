@@ -45,8 +45,7 @@
                     <div class="">
                         <div class="align-content-center align-items-center">
                             <div class="">
-                                <h3>{{ __("Subscribe to our Email") }}</h3>
-                                <p>{{ __("For lastest News & Updates") }}</p>
+                                {!! setting_item("axtronic_footer_text_subscribe") !!}
                             </div>
                             <div class="form-newsletter">
                                 <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">

@@ -9,6 +9,7 @@ use Modules\Page\Hook;
 use Modules\Page\Models\Page;
 use Modules\Template\BlockManager;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
+use Themes\Axtronic\Controllers\Blocks\BannerProduct;
 use Themes\Axtronic\Controllers\Blocks\BannerText;
 use Themes\Axtronic\Controllers\Blocks\Brands;
 use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
@@ -16,6 +17,7 @@ use Themes\Axtronic\Controllers\Blocks\FeaturedIcon;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
+use Themes\Axtronic\Controllers\Blocks\Title;
 use Themes\Axtronic\Database\Seeder;
 use Themes\Axtronic\Controllers\Blocks\BannerSliderStyle2;
 use Themes\Axtronic\Controllers\Blocks\ListCategoryProduct;
@@ -48,6 +50,8 @@ class ThemeProvider extends AbstractThemeProvider
             ["banner_slider_v2", BannerSliderStyle2::class],
             ["banner_text", BannerText::class],
             ["featured_icon_2", FeaturedIcon::class],
+            ["banner_product", BannerProduct::class],
+            ["title", Title::class]
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
@@ -75,11 +79,11 @@ class ThemeProvider extends AbstractThemeProvider
     }
     public function registerZone(){
         return [
-            "position"=>80,
+            "position"=>71,
             'title'      => __("Axtronic Settings"),
-            'icon'       => 'fa fa-cogs',
+            'icon'       => 'fa fa-object-group',
             'permission' => 'setting_update',
-            "group"=>"content"
+            "group"=>"system"
         ];
     }
     public function alterSettings($settings){
@@ -107,6 +111,7 @@ class ThemeProvider extends AbstractThemeProvider
                 'axtronic_footer_text_right',
                 'axtronic_copyright',
                 'axtronic_hotline_text',
+                'axtronic_footer_text_subscribe',
             ],
             'filter_demo_mode'=>[
             ]

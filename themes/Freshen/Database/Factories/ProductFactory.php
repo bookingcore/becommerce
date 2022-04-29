@@ -36,7 +36,7 @@ class ProductFactory extends Factory
             'brand_id'    => '',
             'gallery'     => '',
             'price'         =>$price,
-            'origin_price'  => $origin_price,
+            'origin_price'  => rand(1,2) == 1 ? $origin_price : "",
             'status'      => 'publish',
             'stock_status'=> 'in',
             'product_type'=> ['simple','variable'][rand(0,1)],

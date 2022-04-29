@@ -9,7 +9,7 @@ if(!isset($current_cat)) $current_cat = null;
                 <div class="row">
                     <div class="col-auto pr0">
                         <div class="actegory">
-                            <select class="custom_select_dd" id="selectbox_alCategory">
+                            <select name="cat_slug" class="custom_select_dd" id="selectbox_alCategory">
                                 <option value="">{{__("All Category")}}</option>
                                 @php
                                     $traverse = function ($categories, $prefix = '',$level = 0) use (&$traverse,$current_cat) {

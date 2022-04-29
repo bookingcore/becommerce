@@ -1,6 +1,6 @@
 <!-- Slider main container -->
 @if(!empty($sliders))
-<div class="{{!empty($width_slider) ? $width_slider : ""}} ">
+<div class="{{$width_slider == 'container' ? $width_slider.' pt-4' : ""}} ">
     <div class="banner-slider swiper-container">
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper axtronic-modern-slider ">
@@ -20,13 +20,13 @@
                                         <h4 class="sub-title">{{ $slide['sub_title'] }}</h4>
                                     </div>
                                     @endif
-                                    @if($slide['title']))
+                                    @if($slide['title'])
                                         <div class="title-wrap">
                                             <h3 class="title">{!! clean($slide['title']) !!}</h3>
                                         </div>
                                     @endif
                                 </div>
-                                @if($slide['sub_text']))
+                                @if($slide['sub_text'])
                                     <div class="description-wrap">
                                         <div class="description">
                                             <p>{!! clean($slide['sub_text']) !!}</p>

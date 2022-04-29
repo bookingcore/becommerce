@@ -2818,13 +2818,6 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .footer .axtronic-footer .address .socials-list a:hover {
   color: var(--primary);
 }
-.footer .axtronic-footer .widget-footer h5 {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.5em;
-  margin-bottom: 20px;
-}
 .footer .axtronic-footer .widget-footer ul {
   list-style: none;
   margin-left: 0;
@@ -2838,25 +2831,44 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .footer .axtronic-footer .widget-footer ul li a:hover {
   color: var(--primary) !important;
 }
-.footer .axtronic-footer .axtronic-form-newsletter h3 {
+.footer h5 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5em;
+  margin-bottom: 20px;
+}
+.footer .copy-right {
+  text-align: center;
+  border-style: solid;
+  border-width: 1px 0 0;
+  border-color: #31353d;
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 20px 0;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5em;
+  color: #fff;
+}
+.footer .axtronic-form-newsletter h3 {
   color: #fff;
   font-size: 16px;
   font-weight: 600;
   line-height: 1.5em;
   margin-bottom: 10px;
 }
-.footer .axtronic-footer .axtronic-form-newsletter p {
+.footer .axtronic-form-newsletter p {
   color: #94989e;
   font-size: 24px;
   font-weight: 500;
   line-height: 1.5em;
   margin-bottom: 20px;
 }
-.footer .axtronic-footer .axtronic-form-newsletter .form-newsletter {
+.footer .axtronic-form-newsletter .form-newsletter {
   position: relative;
 }
-.footer .axtronic-footer .axtronic-form-newsletter .form-newsletter form .input-group input {
-  border-radius: 30px;
+.footer .axtronic-form-newsletter .form-newsletter form .input-group input {
+  border-radius: 30px !important;
   font-size: 15px;
   padding: 12px 1em;
   background-color: #ffffff;
@@ -2871,7 +2883,10 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   transition: all ease-in-out 0.3s;
   line-height: 24px;
 }
-.footer .axtronic-footer .axtronic-form-newsletter .form-newsletter form .input-group button.btn {
+.footer .axtronic-form-newsletter .form-newsletter form .input-group input:focus {
+  border-color: var(--accent);
+}
+.footer .axtronic-form-newsletter .form-newsletter form .input-group button.btn {
   line-height: 1;
   position: absolute;
   top: 5px;
@@ -2884,20 +2899,60 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   border-radius: 50% !important;
   background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
 }
-.footer .axtronic-footer .axtronic-form-newsletter .form-newsletter form .input-group button.btn:hover {
+.footer .axtronic-form-newsletter .form-newsletter form .input-group button.btn:hover {
   background: linear-gradient(225deg, var(--primary_hover) 0%, var(--primary) 100%);
 }
-.footer .copy-right {
-  text-align: center;
-  border-style: solid;
-  border-width: 1px 0 0;
-  border-color: #31353d;
-  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
-  padding: 20px 0;
-  font-size: 14px;
+.footer .axtronic-form-newsletter.style-2 {
+  background-color: transparent;
+  background-image: linear-gradient(180deg, #FFFFFF 50%, #031424 0%);
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter {
+  display: flex;
+  justify-content: center;
+  padding: 50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 12px;
+  flex-direction: column;
+}
+.footer .axtronic-form-newsletter.style-2 h3 {
+  color: #f1f1f1;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1.5em;
+}
+.footer .axtronic-form-newsletter.style-2 p {
   color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.22222em;
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter {
+  position: relative;
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter form {
+  width: 100%;
+  max-width: 540px;
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter form .input-group {
+  flex-wrap: nowrap;
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter form .input-group input {
+  width: calc(100% - 138px);
+  border-radius: 12px;
+}
+.footer .axtronic-form-newsletter.style-2 .form-newsletter form .input-group button.btn {
+  position: static;
+  width: 180px;
+  border-radius: 8px !important;
+  padding: 12px 30px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: capitalize;
+  line-height: 24px;
+  margin-left: 8px !important;
 }
 
 .slider-fluid .banner-slider {
@@ -3371,6 +3426,7 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   font-weight: 500;
   line-height: 1.25em;
   color: #fff;
+  margin-bottom: 5px;
 }
 .axtronic-promotions .promotions-item .item-content h3 {
   font-size: 22px;
@@ -3380,8 +3436,8 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 }
 .axtronic-promotions .promotions-item .item-content p {
   color: #FFFFFF;
-  font-weight: 600;
-  font-size: 16px;
+  font-size: 24px;
+  font-weight: 700;
   line-height: 24px;
 }
 .axtronic-promotions .promotions-item .item-content p span {
@@ -3399,6 +3455,27 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   text-decoration-line: underline;
 }
 .axtronic-promotions .promotions-item .item-content a.item-button:hover {
+  color: var(--primary);
+}
+.axtronic-promotions .promotions-item.dark .item-content {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content .sub-title, .axtronic-promotions .promotions-item.dark .item-content h3 {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content .sub-title {
+  background-color: #fff;
+}
+.axtronic-promotions .promotions-item.dark .item-content p {
+  color: var(--primary);
+}
+.axtronic-promotions .promotions-item.dark .item-content p span {
+  color: var(--light);
+}
+.axtronic-promotions .promotions-item.dark .item-content a.item-button {
+  color: var(--accent);
+}
+.axtronic-promotions .promotions-item.dark .item-content a.item-button:hover {
   color: var(--primary);
 }
 .axtronic-promotions.style-2 .promotions-item .item-content {
@@ -3424,18 +3501,38 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 }
 .axtronic-promotions.style-2 .promotions-item .item-content p {
   color: var(--primary);
+  font-size: 16px;
+  font-weight: 600;
 }
 .axtronic-promotions.style-2 .promotions-item .item-content a.item-button {
   color: var(--accent);
   margin-top: 90px;
 }
 
-.axtronic-banner {
-  margin-bottom: 30px;
+.axtronic-banner.style-1.banner_fluid .banner-wrap {
+  padding: 100px 50px;
+}
+.axtronic-banner.style-1.banner_fluid .banner-wrap .item-content .sub-title {
+  font-size: 28px;
+}
+.axtronic-banner.style-1 .banner-wrap {
+  padding: 50px;
+}
+.axtronic-banner.style-1 .banner-wrap .item-content .sub-title {
+  font-size: 16px;
+}
+.axtronic-banner.style-1 .banner-wrap .item-content h2 {
+  font-size: 28px;
+  font-weight: 600;
+}
+.axtronic-banner.banner_fluid .banner-wrap {
+  border-radius: 0;
 }
 .axtronic-banner .banner-wrap {
   background-color: transparent;
   background-image: linear-gradient(100deg, var(--primary) 50%, var(--primary_hover) 100%);
+  background-size: cover;
+  background-repeat: no-repeat;
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   padding: 30px 60px;
   border-radius: 12px;
@@ -3460,6 +3557,11 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   font-weight: 500;
   line-height: 1.5em;
   margin-right: 10px;
+}
+.axtronic-banner .banner-wrap .item-content h1 {
+  color: #FFF735;
+  font-size: 80px;
+  margin: 0;
 }
 .axtronic-banner .banner-wrap .item-content h2 {
   color: #fff;
@@ -3495,10 +3597,12 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   color: #ffffff;
   margin-left: 15px;
 }
-.axtronic-banner .banner-wrap .item-content a.item-button {
+.axtronic-banner .banner-wrap .item-content a {
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
+}
+.axtronic-banner .banner-wrap .item-content a.item-button {
   fill: var(--accent);
   color: var(--accent);
   background: var(--background);
@@ -3510,6 +3614,15 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-banner .banner-wrap .item-content a.item-button:hover {
   color: #fff;
   background: var(--accent);
+}
+.axtronic-banner .banner-wrap .item-content a.item-link {
+  text-decoration: underline;
+  background-color: #02010100;
+  padding: 0 0 0 0;
+  color: #fff;
+}
+.axtronic-banner .banner-wrap .item-content a.item-link:hover {
+  color: var(--primary);
 }
 
 .axtronic-testimonial {
@@ -3619,12 +3732,18 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-testimonial .swiper-button-prev, .axtronic-testimonial .swiper-button-next {
   display: none;
 }
+.axtronic-testimonial.style_2 {
+  margin-bottom: 0;
+}
+.axtronic-testimonial.style_2 .swiper-slider-testimonial {
+  overflow: initial;
+}
 .axtronic-testimonial.style_2 .swiper-button-prev, .axtronic-testimonial.style_2 .swiper-button-next {
   display: block;
-  left: 50%;
+  left: 30px;
   transform: translateX(calc(-100% - 5px));
-  top: auto;
-  bottom: -25px;
+  top: 50%;
+  bottom: auto;
   box-shadow: none;
   background: 0 0;
   font-size: 30px;
@@ -3651,7 +3770,8 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   color: var(--primary);
 }
 .axtronic-testimonial.style_2 .swiper-button-next {
-  transform: translateX(5px);
+  transform: translateX(30px);
+  left: auto;
 }
 .axtronic-testimonial.style_2 .swiper-button-next:after {
   content: "";
@@ -5107,6 +5227,48 @@ ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .cou
 .popular_listing_tabs.style_2 .nav-tabs .nav-link:last-child:after {
   width: 0;
   height: 0;
+}
+
+.banner-product .axtronic-promotions .promotions-item {
+  min-height: 448px;
+  padding: 48px;
+  justify-content: flex-start;
+}
+.banner-product .axtronic-promotions .promotions-item .item-content h3 {
+  font-size: 40px;
+  font-weight: 600;
+  line-height: 1.2em;
+  color: var(--accent);
+}
+.banner-product .axtronic-promotions .promotions-item .item-content .sub-content {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 15px;
+  color: var(--accent);
+}
+.banner-product .axtronic-promotions .promotions-item .item-content p {
+  font-weight: 400;
+  line-height: 2.5em;
+  color: var(--accent);
+}
+.banner-product .axtronic-promotions .promotions-item .item-content p sup {
+  font-size: 25px;
+  font-weight: 600;
+}
+.banner-product .axtronic-promotions .promotions-item .item-content p span {
+  font-size: 50px;
+  font-weight: 600;
+  color: var(--accent);
+}
+.banner-product .axtronic-promotions .promotions-item .item-content .item-button {
+  color: #FFF;
+  background-color: var(--primary);
+  border-radius: 8px;
+  padding: 12px 32px 12px 32px;
+}
+.banner-product .axtronic-promotions .promotions-item .item-content .item-button:hover {
+  background-color: var(--primary_hover);
 }
 
 @media (min-width: 768px) {

@@ -1,4 +1,4 @@
-<div class="sidebar_listing_grid1 mb30">
+<div class="sidebar_listing_grid1 mb30  dn-lg">
     @foreach(setting_item_with_lang_arr('fs_products_sidebar') as $widget)
         @if(!empty($widget['type']))
             @switch($widget['type'])

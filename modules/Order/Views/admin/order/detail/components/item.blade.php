@@ -119,7 +119,8 @@
                 this.productChange(data)
                 this.save();
             },
-            variationChange:function (variation_id) {
+            variationChange:function (e) {
+                let variation_id = e.target.value;
                 var find = this.variations.find(function(item){
                     return item.id == variation_id;
                 })

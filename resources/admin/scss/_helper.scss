@@ -12,7 +12,7 @@
 }
 [v-cloak] {display: none}
 .bc-upload-box{
-    max-width: 250px;
+    max-width: 180px;
     /*margin: 0px auto;*/
     position: relative;
     .upload-box{
@@ -24,6 +24,10 @@
         svg{
             width: 120px;
             height: 100px;
+            margin-bottom: 15px;
+        }
+        img{
+            max-width: 100px;
             margin-bottom: 15px;
         }
         &:hover{
