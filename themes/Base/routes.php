@@ -106,6 +106,6 @@ Route::post('register','UserController@register')->name('register');
 //Newsletter
 Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
 
-Route::group(['prefix'=>'pos'],function(){
+Route::group(['prefix'=>'pos','middleware'=>['auth','verified']],function(){
     Route::get('/','POSController@index')->name('pos');
 });

@@ -18,7 +18,8 @@ var POS_App = new Vue({
         shipping_methods:{},
         shipping_method:'',
         prices_include_tax:'yes',
-        tax_lists:[]
+        tax_lists:[],
+        isSubmit:false,
     },
     methods:{
         addProduct:function (product){
@@ -70,6 +71,20 @@ var POS_App = new Vue({
         },
         bindHotKeys:function (){
 
+        },
+        submitOrder:function (){
+            if(this.isSubmit) return;
+            if(!this.validateOrder()){
+                return;
+            }
+            this.isSubmit  = true;
+            $.ajax({
+                url:'/api/v1/order',
+                type:'POST'
+            })
+        },
+        validateOrder:function (){
+
         }
     },
     created:function (){
@@ -82,6 +97,14 @@ var POS_App = new Vue({
                 t += item.qty * item.price;
             })
             return t;
+        },
+        _discount_amount:{
+            get:function(){
+                return this.currentOrder.discount_amount;
+            },
+            set:function (val){
+                this.currentOrder.discount_amount = val;
+            }
         },
         _total:function(){
             return this._subtotal + this.shipping_amount + (this.prices_include_tax === 'no' ? this._tax_amount : 0);

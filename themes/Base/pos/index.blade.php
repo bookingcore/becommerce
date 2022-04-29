@@ -12,8 +12,9 @@
 @section('content')
     <div id="pos_app" v-cloak class="bg-f1f1f1 vh-100" >
         <div class="d-flex h-100 flex-column">
-            <div class="pos-header bg-main p-2 flex-shrink-0">
-                <div class="row">
+            <div class="pos-header bg-main pt-2 pb-2 flex-shrink-0">
+                <div class="container-fluid">
+                    <div class="row">
                     <div class="col-md-7">
                         <div class="d-flex align-items-center">
                             <div class="flex-item me-5 flex-shrink-0">
@@ -35,10 +36,11 @@
                         </ul>
                     </div>
                 </div>
+                </div>
             </div>
             <div class="container-fluid flex-grow-1 overflow-hidden">
                 <div class="row h-100 flex-nowrap">
-                    <div class="col-md-7">
+                    <div class="col-md-7  overflow-auto py-3">
                         <pos-products @add="addProduct"/>
                     </div>
                     <div class="col-md-5 border-1 border-e1e1e1 bg-white ">
@@ -55,7 +57,7 @@
                             </div>
                             <pos-order-items :order="currentOrder" @update="updateItem" @delete="deleteProduct"></pos-order-items>
                             <hr>
-                            <pos-payment :subtotal="_subtotal" :order="currentOrder"></pos-payment>
+                            <pos-payment @submit="submitOrder" :shipping_methods="shipping_methods" :order="currentOrder"></pos-payment>
                         </div>
                     </div>
                 </div>
@@ -71,6 +73,7 @@
 
         });
     </script>
+    @include('global.components.pagination')
     @include('pos.components.header.search')
     @include('pos.components.products')
     @include('pos.components.order-items')
