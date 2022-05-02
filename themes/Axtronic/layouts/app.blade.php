@@ -83,6 +83,7 @@
             <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+            <script src="{{ theme_url('Axtronic') }}/libs/vue/vue.js"></script>
             <script src="{{ theme_url('Axtronic') }}/libs/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Axtronic') }}/libs/slick/slick.min.js"></script>
             <!-- custom scripts-->

@@ -3,7 +3,7 @@
     @include('global.breadcrumb')
     <div class="checkout-page mb-5" id="bravo-checkout-page" v-cloak>
         <div class="container">
-            <h1 class="mb-3">{{__("Checkout")}}</h1>
+            <h2 class="mb-3">{{__("Checkout")}}</h2>
             @if(\Modules\Order\Helpers\CartManager::count())
             <div class="row">
                 <div class="column col-lg-8 col-md-12 col-sm-12">
@@ -62,7 +62,7 @@
 @endsection
 @section('footer')
     <script>
-        var axtronic_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( new \Modules\Order\Helpers\CartManager ) )  !!};
+        var axtronic_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( new \Modules\Order\Helpers\CartManager ) )  !!}
         BC.routes.checkout = {
             process:'{{route('checkout.process')}}'
         }

@@ -27,8 +27,8 @@
             onGetTaxRate:false
         },
         created:function(){
-            for(var k in bc_order_data){
-                this[k] = bc_order_data[k];
+            for(var k in axtronic_order_data){
+                this[k] = axtronic_order_data[k];
             }
             var me = this;
             this.$nextTick(function(){

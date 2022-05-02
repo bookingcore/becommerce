@@ -196,9 +196,10 @@ $('.axtronic_form_add_to_cart').on('submit',function(e){
                     $(k).html(json.fragments[k]);
                 }
             }
-            if(json.url){
+            if(json.status === 1){
                 window.location.href = json.url;
             }
+            console.log(json);
             if(json.message){
                 BCApp.showAjaxMessage(json);
             }
@@ -208,7 +209,7 @@ $('.axtronic_form_add_to_cart').on('submit',function(e){
             me.removeClass('loading');
         }
     })
-})
+});
 $(document).on('click','.axtronic_delete_cart_item',function(e){
     e.preventDefault();
     var c = confirm("Do you want to delete this cart item?");
