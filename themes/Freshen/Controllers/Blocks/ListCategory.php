@@ -16,7 +16,7 @@ class ListCategory extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',
@@ -153,8 +153,7 @@ class ListCategory extends BaseBlock
             }
             $model['list_items_2'] = $list_items_2;
         }
-
-        $style = $model['style'] ?? 'index';
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.list-category.{$style}", $model);
     }
 }

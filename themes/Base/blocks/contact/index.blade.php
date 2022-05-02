@@ -1,4 +1,4 @@
-<div class="bc-contact-block {{ $class ?? '' }} my-5">
+<div class="bc-contact-block {{ $class ?? '' }} my-5 fz14">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -42,7 +42,7 @@
                                             <p>
                                                 <button class="submit btn btn-primary " type="submit">
                                                     {{ __('Send Message') }}
-                                                    <i class="fa fa-spinner fa-pulse fa-fw d-none"></i>
+                                                    <i class="fa fa-spinner fa-pulse fa-fw"></i>
                                                 </button>
                                             </p>
                                         </div>

@@ -16,7 +16,7 @@ class ProductInCategory extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',
@@ -174,8 +174,7 @@ class ProductInCategory extends BaseBlock
             'text_class' => $model['text_class'] ?? "",
             'bg_image_url' => !empty($model['bg_image']) ? FileHelper::url($model['bg_image'], 'full') : "",
         ];
-        $style = $model['style'] ?? 'style_1';
-
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.product-in-category.{$style}", $data);
     }
 }

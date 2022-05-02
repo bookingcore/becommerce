@@ -10,7 +10,7 @@
                             </div>
                             <div class="details">
                                 <h5 class="title">{{ $item['title'] ?? '' }}</h5>
-                                <p class="para">{{$item['sub_title'] ?? ''}}</p>
+                                <p class="para">{!! $item['sub_title'] ?? '' !!}</p>
                             </div>
                         </div>
                     </div>

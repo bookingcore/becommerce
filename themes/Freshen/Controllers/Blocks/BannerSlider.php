@@ -14,7 +14,7 @@ class BannerSlider extends BaseBlock
                     'id'    => 'style',
                     'type'  => 'radios',
                     'label' => __('Style'),
-                    'value' => 'style_1',
+                    'std' => 'style_1',
                     'values' => [
                         [
                             'value'   => 'style_1',
@@ -120,9 +120,7 @@ class BannerSlider extends BaseBlock
 
     public function content($model = [])
     {
-
-        $style = $model['style'] ?? 'style_1';
-
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.banner.{$style}", $model);
     }
 }

@@ -1,4 +1,4 @@
-<section class="footer_one footer_about_widget home2">
+<section class="footer_one footer_about_widget home2 style_2">
     <div class="footer_top_img"></div>
     @if(!empty($bg_footer = setting_item('freshen_footer_bg_image')))
         <div class="footer_bg_img" style="background-image: url('{{ get_file_url($bg_footer,'full') }}')"></div>
@@ -39,7 +39,7 @@
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="footer_about_widget home2">
                     <div class="logo mb40">
-                        @if($logo_id = setting_item("freshen_logo_light"))
+                        @if($logo_id = setting_item("freshen_logo_dark"))
                             <?php $logo = get_file_url($logo_id,'full') ?>
                             <a href="{{ home_url() }}">
                                 <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
