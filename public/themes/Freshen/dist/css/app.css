@@ -129,7 +129,7 @@
   opacity: 0.3;
 }
 .bc-product-variations .item-active {
-  border-color: #0000003b !important;
+  border-color: rgba(0, 0, 0, 0.231372549) !important;
   color: #7e7e7e !important;
   box-shadow: 0 0 5px #7e7e7e !important;
 }
@@ -381,4 +381,13 @@
 
 .error_page .code h1 {
   font-size: 130px;
+}
+
+.checkout-page label {
+  color: #121212;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
 }
