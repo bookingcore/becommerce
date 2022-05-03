@@ -1,9 +1,9 @@
-<section class="footer_one home4">
+<div class="footer_one home4 mt100">
     <div class="container pb70">
         <div class="row">
             <div class="col-sm-6 col-md-4 col-lg-3 col-xl-3">
                 <div class="footer_about_widget home2">
-                    @if($logo_id = setting_item("freshen_logo_light"))
+                    @if($logo_id = setting_item("freshen_logo_dark"))
                         <?php $logo = get_file_url($logo_id,'full') ?>
                         <div class="logo mb40"><img src="{{$logo}}" alt="{{setting_item("site_title")}}"></div>
                     @endif
@@ -47,4 +47,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>

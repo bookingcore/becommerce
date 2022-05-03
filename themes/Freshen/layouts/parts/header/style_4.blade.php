@@ -10,7 +10,7 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            @if($logo_id = setting_item("freshen_logo_dark"))
+            @if($logo_id = setting_item("freshen_logo_light"))
                 <?php $logo = get_file_url($logo_id,'full') ?>
                 <a href="{{ home_url() }}" class="navbar_brand float-start dn-md mt5-lg">
                     <img src="{{$logo}}" alt="{{setting_item("site_title")}}">

@@ -1,4 +1,4 @@
-<section class="footer_one footer_about_widget home2 style_2">
+<div class="footer_one footer_about_widget home2 style_2 mt100">
     <div class="footer_top_img"></div>
     @if(!empty($bg_footer = setting_item('freshen_footer_bg_image')))
         <div class="footer_bg_img" style="background-image: url('{{ get_file_url($bg_footer,'full') }}')"></div>
@@ -80,4 +80,4 @@
             </div>
         </div>
     </div>
-</section>
+</div>
