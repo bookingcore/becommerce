@@ -16,7 +16,7 @@
             <div class="col-lg-6 col-xl-6">
                 @include('layouts.parts.header.search')
             </div>
-            <div class="col-lg-4 col-xl-3">
+            <div class="col-lg-4 col-xl-3 {{ (isset($header_style)) ? 'style_'.$header_style : '' }}">
                 <div class="log_fav_cart_widget">
                     <div class="wrapper">
                         <ul class="mb0 cart">

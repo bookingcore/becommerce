@@ -46,7 +46,16 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="panel">
+                            <div class="panel-title"><strong>{{__('Custom Theme Setting')}}</strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <?php do_action(\Modules\Page\Hook::FORM_AFTER_DISPLAY_TYPE,$row) ?>
+                                </div>
+                            </div>
+                        </div>
                         @include('Core::admin/seo-meta/seo-meta')
+
                     </div>
                     <div class="col-md-3">
                         <div class="panel">
@@ -72,7 +81,6 @@
                                         <label><input @if(!$row->show_template) checked @endif type="radio" name="show_template" value="0"> {{__("Content")}}
                                         </label></div>
                                 </div>
-                                <?php do_action(\Modules\Page\Hook::FORM_AFTER_DISPLAY_TYPE,$row) ?>
                             </div>
                             <div class="panel-footer">
                                 <div class="text-right">
