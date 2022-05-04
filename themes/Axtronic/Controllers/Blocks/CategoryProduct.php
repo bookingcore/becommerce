@@ -25,6 +25,21 @@ class CategoryProduct extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'values'        => [
+                        [
+                            'value'   => '',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
+                [
                     'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),
@@ -46,9 +61,10 @@ class CategoryProduct extends BaseBlock
                             'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1])
                         ],
                         [
-                            'id'    => 'image_id',
-                            'type'  => 'uploader',
-                            'label' => __('Icon Image')
+                            'id'    => 'icon',
+                            'type'  => 'input',
+                            'inputType' => 'text',
+                            'label' => __('Icon ')
                         ],
                     ]
                 ]
@@ -68,6 +84,7 @@ class CategoryProduct extends BaseBlock
             $categories = ProductCategory::query()->whereIn("id",$ids)->get();
             $model['categories'] = $categories;
         }
-        return view('blocks.list-product.category', $model);
+        $style = $model['style'] ? $model['style'] : 'index';
+        return view("blocks.category.{$style}", $model);
     }
 }
