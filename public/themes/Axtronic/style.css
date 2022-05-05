@@ -3315,13 +3315,6 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   font-size: 32px;
 }
 
-.heading-title {
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 1.5em;
-  color: var(--accent);
-}
-
 .axtronic-category .swiper-slider-icon {
   margin-bottom: 30px;
   margin-left: auto;
@@ -3382,6 +3375,49 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-category .swiper-slider-icon .swiper-button-prev {
   right: 50px;
 }
+.axtronic-category.style-2 {
+  background-color: var(--background2);
+  padding: 60px 24px;
+}
+.axtronic-category.style-2 .heading-title {
+  margin-bottom: 60px;
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide {
+  background: transparent;
+  padding: 0;
+  border-radius: 0;
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide .item-icons {
+  border-radius: 12px;
+  overflow: hidden;
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide .item-title {
+  margin-top: 24px;
+  background-color: #fff;
+  padding: 8px 16px;
+  border-radius: 6px;
+  display: inline-block;
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide .item-title:hover {
+  background-color: var(--primary);
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide:hover .item-title {
+  background-color: var(--primary);
+}
+.axtronic-category.style-2 .swiper-slider-icon .swiper-slide:hover .item-icons i {
+  color: var(--primary);
+}
+
+.heading-title {
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 1.5em;
+  color: var(--accent);
+}
+.heading-title.light {
+  color: #ffffff;
+}
+
 .axtronic-promotions .promotions-item {
   border-radius: 8px;
   position: relative;
@@ -4781,7 +4817,7 @@ ul.axtronic-products-special {
   clear: both;
   flex-wrap: wrap;
 }
-ul.axtronic-products-special li.product-item {
+ul.axtronic-products-special li.list-item {
   display: list-item;
   flex: 0 0 100%;
   max-width: 100%;
@@ -4790,13 +4826,13 @@ ul.axtronic-products-special li.product-item {
   list-style: none;
   clear: none;
   width: 100%;
-  margin-bottom: 0;
+  margin-bottom: 10px;
 }
-ul.axtronic-products-special li.product-item:first-child {
+ul.axtronic-products-special li.list-item:first-child {
   grid-column: 2;
   grid-row: 1/4;
 }
-ul.axtronic-products-special li.product-item .product-block {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block {
   padding: 24px;
   border: 2px solid var(--primary);
   border-radius: 12px;
@@ -4810,13 +4846,17 @@ ul.axtronic-products-special li.product-item .product-block {
   width: 100%;
   background: var(--background);
 }
-ul.axtronic-products-special li.product-item .product-block:hover {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .axtronic-loop-product {
+  background: transparent;
+  flex-flow: column;
+}
+ul.axtronic-products-special li.list-item.product-style-2 .product-block:hover {
   background: var(--background2);
 }
-ul.axtronic-products-special li.product-item .product-block:hover .product-transition {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block:hover .product-transition {
   border-color: var(--border);
 }
-ul.axtronic-products-special li.product-item .product-block .hot-title {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .hot-title {
   font-size: 24px;
   font-weight: 600;
   line-height: 32px;
@@ -4825,11 +4865,11 @@ ul.axtronic-products-special li.product-item .product-block .hot-title {
   margin-top: 12px;
   margin-bottom: 12px;
 }
-ul.axtronic-products-special li.product-item .product-block .time-sale {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .time-sale {
   margin-bottom: 30px;
   flex-direction: column;
 }
-ul.axtronic-products-special li.product-item .product-block .time-sale .deal-text {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .time-sale .deal-text {
   order: 0;
   margin-left: 0;
   font-size: 14px;
@@ -4837,32 +4877,32 @@ ul.axtronic-products-special li.product-item .product-block .time-sale .deal-tex
   margin-bottom: 8px;
   text-align: center;
 }
-ul.axtronic-products-special li.product-item .product-block .time-sale .axtronic-countdown {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .time-sale .axtronic-countdown {
   justify-content: center;
 }
-ul.axtronic-products-special li.product-item .product-block .product-caption h2 {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .product-caption h2 {
   font-size: 18px;
 }
-ul.axtronic-products-special li.product-item .product-block .price {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .price {
   font-size: 18px;
   margin-bottom: 20px;
 }
-ul.axtronic-products-special li.product-item .product-block .product-img-wrap img {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .product-img-wrap img {
   width: 100%;
 }
-ul.axtronic-products-special li.product-item .product-block .deal-sold {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .deal-sold {
   margin-bottom: 24px;
 }
-ul.axtronic-products-special li.product-item .product-block .deal-sold .deal-sold-text {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .deal-sold .deal-sold-text {
   text-align: center;
   color: var(--accent);
   margin-bottom: 12px;
 }
-ul.axtronic-products-special li.product-item .product-block .deal-sold .deal-sold-text span {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .deal-sold .deal-sold-text span {
   color: var(--primary);
   font-weight: 500;
 }
-ul.axtronic-products-special li.product-item .product-block .deal-sold .deal-progress .progress-bar {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .deal-sold .deal-progress .progress-bar {
   width: 100%;
   max-width: unset;
   height: 8px;
@@ -4871,14 +4911,14 @@ ul.axtronic-products-special li.product-item .product-block .deal-sold .deal-pro
   overflow: hidden;
   border-radius: 3px;
 }
-ul.axtronic-products-special li.product-item .product-block .deal-sold .deal-progress .progress-value {
+ul.axtronic-products-special li.list-item.product-style-2 .product-block .deal-sold .deal-progress .progress-value {
   position: absolute;
   top: 0;
   bottom: 0;
   left: 0;
   background-color: var(--primary);
 }
-ul.axtronic-products-special li.product-item .product-list-wrap {
+ul.axtronic-products-special li.list-item .product-item-grid {
   position: relative;
   display: flex;
   flex-wrap: wrap;
@@ -4888,57 +4928,58 @@ ul.axtronic-products-special li.product-item .product-list-wrap {
   border-radius: 8px;
   padding: 16px;
   align-items: flex-start;
+  margin-bottom: 0;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap:hover {
-  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+ul.axtronic-products-special li.list-item .product-item-grid:hover {
+  box-shadow: 0 4px 32px rgba(0, 0, 0, 0.1);
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .product-transition {
+ul.axtronic-products-special li.list-item .product-item-grid .product-transition {
   flex: 0 0 160px;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .product-labels {
+ul.axtronic-products-special li.list-item .product-item-grid .product-labels {
   position: static;
   flex-direction: row;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .star-rating {
+ul.axtronic-products-special li.list-item .product-item-grid .star-rating {
   margin: 8px 0 12px;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .price {
+ul.axtronic-products-special li.list-item .product-item-grid .price {
   font-weight: 600;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .price del {
+ul.axtronic-products-special li.list-item .product-item-grid .price del {
   color: var(--light);
   font-size: 0.85em;
   font-weight: 500;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .price ins {
+ul.axtronic-products-special li.list-item .product-item-grid .price ins {
   color: var(--primary);
   margin-left: 0.327em;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .time-sale {
+ul.axtronic-products-special li.list-item .product-item-grid .time-sale {
   width: 100%;
 }
-ul.axtronic-products-special li.product-item .product-list-wrap .time-sale .deal-text {
+ul.axtronic-products-special li.list-item .product-item-grid .time-sale .deal-text {
   order: 2;
   margin-left: 15px;
   margin-bottom: 15px;
 }
-ul.axtronic-products-special li.product-item .time-sale {
+ul.axtronic-products-special li.list-item .time-sale {
   display: flex;
   font-size: 12px;
   align-items: center;
   margin-top: 10px;
 }
-ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown {
+ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown {
   display: flex;
   flex-wrap: wrap;
   margin-left: -5px;
   margin-right: -5px;
 }
-ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .countdown-item {
+ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countdown-item {
   padding: 0 5px;
   text-align: center;
 }
-ul.axtronic-products-special li.product-item .time-sale .axtronic-countdown .countdown-item .countdown-digits {
+ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countdown-item .countdown-digits {
   min-width: 36px;
   height: 36px;
   font-size: 14px;

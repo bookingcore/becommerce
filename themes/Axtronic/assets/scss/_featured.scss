@@ -70,12 +70,7 @@
         }
     }
 }
-.heading-title{
-    font-weight: 600;
-    font-size: 28px;
-    line-height: 1.5em;;
-    color: var(--accent);
-}
+
 .axtronic-category{
     .swiper-slider-icon{
         margin-bottom: 30px;
@@ -138,6 +133,50 @@
         }
     }
     &.style-2{
+        background-color: var(--background2);
+        padding: 60px 24px;
+        .heading-title{
+            margin-bottom: 60px;
+        }
+        .swiper-slider-icon {
+            .swiper-slide{
+                background: transparent;
+                padding: 0;
+                border-radius: 0;
+                .item-icons{
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+                .item-title{
+                    margin-top: 24px;
+                    background-color: #fff;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    display: inline-block;
+                    &:hover{
+                        background-color: var(--primary);
+                    }
+                }
+                &:hover{
+                    .item-title {
+                        background-color: var(--primary);
+                    }
+                    .item-icons i{
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+    }
+}
 
+
+.heading-title{
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.5em;;
+    color: var(--accent);
+    &.light{
+        color: #ffffff;
     }
 }

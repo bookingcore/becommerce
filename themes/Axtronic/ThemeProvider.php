@@ -15,6 +15,7 @@ use Themes\Axtronic\Controllers\Blocks\Brands;
 use Themes\Axtronic\Controllers\Blocks\CategoryProduct;
 use Themes\Axtronic\Controllers\Blocks\FeaturedIcon;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
+use Themes\Axtronic\Controllers\Blocks\ProductFeature;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
 use Themes\Axtronic\Database\Seeder;
@@ -50,7 +51,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["banner_text", BannerText::class],
             ["featured_icon_2", FeaturedIcon::class],
             ["banner_product", BannerProduct::class],
-            ["title", Title::class]
+            ["product_feature", ProductFeature::class]
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);

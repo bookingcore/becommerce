@@ -462,7 +462,7 @@ ul.axtronic-products-special{
     clear: both;
     flex-wrap: wrap;
 
-    li.product-item{
+    li.list-item{
         display: list-item;
         flex: 0 0 100%;
         max-width: 100%;
@@ -471,98 +471,104 @@ ul.axtronic-products-special{
         list-style: none;
         clear: none;
         width: 100%;
-        margin-bottom: 0;
+        margin-bottom: 10px;
         &:first-child{
             grid-column: 2;
             grid-row: 1/4;
         }
-        .product-block{
-            padding: 24px;
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-            transition: all .4s ease-in-out;
-            height: 100%;
-            width: 100%;
-            background: var(--background);
-            &:hover{
-                background: var(--background2);
-                .product-transition{
-                    border-color: var(--border);
-                }
-            }
-            .hot-title{
-                font-size: 24px;
-                font-weight: 600;
-                line-height: 32px;
-                text-align: center;
-                color: var(--primary);
-                margin-top: 12px;
-                margin-bottom: 12px;
-            }
-            .time-sale{
-                margin-bottom: 30px;
+        &.product-style-2{
+            .product-block{
+                padding: 24px;
+                border: 2px solid var(--primary);
+                border-radius: 12px;
+                display: flex;
                 flex-direction: column;
-                .deal-text{
-                    order: 0;
-                    margin-left: 0;
-                    font-size: 14px;
-                    color: var(--accent);
-                    margin-bottom: 8px;
+                box-sizing: border-box;
+                overflow: hidden;
+                position: relative;
+                transition: all .4s ease-in-out;
+                height: 100%;
+                width: 100%;
+                background: var(--background);
+                .axtronic-loop-product{
+                    background: transparent;
+                    flex-flow: column;
+                }
+                &:hover{
+                    background: var(--background2);
+                    .product-transition{
+                        border-color: var(--border);
+                    }
+                }
+                .hot-title{
+                    font-size: 24px;
+                    font-weight: 600;
+                    line-height: 32px;
                     text-align: center;
-                }
-                .axtronic-countdown{
-                    justify-content: center;
-                }
-            }
-            .product-caption h2{
-                font-size: 18px;
-            }
-            .price{
-                font-size: 18px;
-                margin-bottom: 20px;
-            }
-            .product-img-wrap{
-                img{
-                    width: 100%;
-                }
-            }
-            .deal-sold{
-                margin-bottom: 24px;
-                .deal-sold-text{
-                    text-align: center;
-                    color: var(--accent);
+                    color: var(--primary);
+                    margin-top: 12px;
                     margin-bottom: 12px;
-                    span{
-                        color: var(--primary);
-                        font-weight: 500;
+                }
+                .time-sale{
+                    margin-bottom: 30px;
+                    flex-direction: column;
+                    .deal-text{
+                        order: 0;
+                        margin-left: 0;
+                        font-size: 14px;
+                        color: var(--accent);
+                        margin-bottom: 8px;
+                        text-align: center;
+                    }
+                    .axtronic-countdown{
+                        justify-content: center;
                     }
                 }
-                .deal-progress{
-                    .progress-bar{
+                .product-caption h2{
+                    font-size: 18px;
+                }
+                .price{
+                    font-size: 18px;
+                    margin-bottom: 20px;
+                }
+                .product-img-wrap{
+                    img{
                         width: 100%;
-                        max-width: unset;
-                        height: 8px;
-                        background-color: #f5f5f5;
-                        position: relative;
-                        overflow: hidden;
-                        border-radius: 3px;
                     }
-                    .progress-value{
-                        position: absolute;
-                        top: 0;
-                        bottom: 0;
-                        left: 0;
-                        background-color: var(--primary);
+                }
+                .deal-sold{
+                    margin-bottom: 24px;
+                    .deal-sold-text{
+                        text-align: center;
+                        color: var(--accent);
+                        margin-bottom: 12px;
+                        span{
+                            color: var(--primary);
+                            font-weight: 500;
+                        }
+                    }
+                    .deal-progress{
+                        .progress-bar{
+                            width: 100%;
+                            max-width: unset;
+                            height: 8px;
+                            background-color: #f5f5f5;
+                            position: relative;
+                            overflow: hidden;
+                            border-radius: 3px;
+                        }
+                        .progress-value{
+                            position: absolute;
+                            top: 0;
+                            bottom: 0;
+                            left: 0;
+                            background-color: var(--primary);
+                        }
                     }
                 }
             }
         }
-        .product-list-wrap{
+        .product-item-grid{
             position: relative;
             display: flex;
             flex-wrap: wrap;
@@ -572,12 +578,12 @@ ul.axtronic-products-special{
             border-radius: 8px;
             padding: 16px;
             align-items: flex-start;
+            margin-bottom: 0;
             &:hover{
-                box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
+                box-shadow: 0 4px 32px rgb(0 0 0 / 10%);
             }
             .product-transition{
                 flex: 0 0 160px;
-
             }
             .product-labels{
                 position: static;
