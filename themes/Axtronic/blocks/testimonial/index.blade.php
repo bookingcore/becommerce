@@ -8,11 +8,14 @@
 ?>
 
 @if($list_testimonial)
-    <div class="axtronic-testimonial {{ $style }}">
+    <div class="axtronic-testimonial  " style="background-color: {{ $bg_color }}">
         <div class="container">
             @if($title)
-                <h2 class="heading-title text-center">{{ $title  }}</h2>
+                <div class="product-box-title {{ $style_header }}">
+                    <h2 class="heading-title text-center {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
+                </div>
             @endif
+
             <div class="swiper-slider-testimonial swiper-container">
                 <div class="swiper-wrapper">
                     @foreach($list_testimonial as $item)

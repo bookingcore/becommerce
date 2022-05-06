@@ -7,12 +7,16 @@
  */
 
 ?>
-<div class="axtronic-list-products py-5 mb-5 {{ $style_header }} " style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">
+
+@php
+    $bg_image = get_file_url( $bg_content ?? false,'full');
+@endphp
+<div class="axtronic-list-products py-5 mb-5 {{ $style_header }} " style="background-image: url('{{ $bg_image }}'); background-color: {{ $bg_color }}">
     <div class="container">
         <div class="product-box-title ">
             <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
             <ul class="list-unstyled list-category-name">
-                <li><a href="/product" class="button">{{ $style_header == 'style_2' ? "View all" : "See all" }}</a></li>
+                <li><a href="/product" class="button {{ $is_dark ? "dark" : 'light' }}">{{ $style_header == 'style_2' ? "View all" : "See all" }}</a></li>
             </ul>
         </div>
         <ul class="nav list-items list-product-items axtronic-products-special">
@@ -21,7 +25,8 @@
                    @if($key == 0)
                         <li class="list-item product-style-2">
                             <div class="product-block">
-                                <span class="hot-title">{{__("Hot Offer")}}</span>
+                                <span class="hot-title mb-3">{{ $title_content }}</span>
+                                <p class="text-center mb-5">{{ $content }}</p>
                                 @include('product.search.loop')
                             </div>
                         </li>

@@ -3,7 +3,8 @@ $translation = $row->translate();
 ?>
 <div class="axtronic-post post">
     <div class="post-thumbnail">
-        <a href="{{$row->getDetailUrl()}}" class="ratio ratio-16x9 d-block">
+        <div class="posted-on-square"><b>{{$row->created_at->format('d')}}</b> {{month_translation($row->created_at->format('m') - 1)}}</div>
+        <a href="{{$row->getDetailUrl()}}" class="d-block">
             {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
         </a>
     </div>
@@ -32,7 +33,7 @@ $translation = $row->translate();
                     </div>
             @endif
             <div class="posted-on">
-                <a href="#">{{display_date($row->created_at)}}</a>
+                <a href="#"> {{display_date($row->created_at)}}</a>
             </div>
         </div>
         <h2 class="entry-title">

@@ -45,6 +45,18 @@ class ProductFeature extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
+                    'id'        => 'title_content',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Title Content')
+                ],
+                [
+                    'id'        => 'content',
+                    'type'      => 'textArea',
+                    'inputType' => 'textArea',
+                    'label'     => __('Content')
+                ],
+                [
                     'type'=> "checkbox",
                     'label'=>__("Color title dark?"),
                     'id'=> "is_dark",
@@ -101,6 +113,12 @@ class ProductFeature extends BaseBlock
                     'type'  => 'uploader',
                     'label' => __('Background image')
                 ],
+                [
+                    'id'    => 'bg_color',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label' => __('Background Color')
+                ],
             ],
             'category'=>__("Product")
         ]);
@@ -119,11 +137,14 @@ class ProductFeature extends BaseBlock
         $model['is_featured'] = true;
         $list = Product::search($model)->paginate(7);
         $data = [
-            'rows'       => $list,
-            'title'      => $model['title'] ?? "",
-            'bg_content' => $model['bg_content'] ?? "",
-            'style_header' => !empty($model['style_header']) ? $model['style_header'] : "",
+            'rows'          => $list,
+            'title'         => $model['title'] ?? "",
+            'bg_content'    => $model['bg_content'] ?? "",
+            'style_header'  => !empty($model['style_header']) ? $model['style_header'] : "",
             'is_dark'       => $model['is_dark'] ?? false,
+            'bg_color'      => $model['bg_color'],
+            'title_content' => $model['title_content'],
+            'content'       => $model['content']
         ];
         return view('blocks.feature-product.index', $data);
     }
