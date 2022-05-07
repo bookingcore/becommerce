@@ -15,9 +15,6 @@
     <div class="container">
         <div class="product-box-title ">
             <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
-            <ul class="list-unstyled list-category-name">
-                <li><a href="/product" class="button {{ $is_dark ? "dark" : 'light' }}">{{ $style_header == 'style_2' ? "View all" : "See all" }}</a></li>
-            </ul>
         </div>
         <ul class="nav list-items list-product-items axtronic-products-special">
             @if(!empty($rows))

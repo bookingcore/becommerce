@@ -19,6 +19,14 @@
                             {!! \Modules\Media\Helpers\FileHelper::fieldUpload('axtronic_logo_dark',setting_item('axtronic_logo_dark') ?? '') !!}
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="header_contact">{{__("Header Contact  ")}}</label>
+                        <div class="form-controls">
+                            <div class="form-controls">
+                                <input type="text" id="header_contact" class="form-control" name="axtronic_header_contact" value="{{setting_item('axtronic_header_contact')}}">
+                            </div>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

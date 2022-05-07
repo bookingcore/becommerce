@@ -27,6 +27,25 @@ class RecentNews extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
+                    'id'            => 'style_title',
+                    'type'          => 'radios',
+                    'label'         => __('Title style'),
+                    'values'        => [
+                        [
+                            'value'   => 'text-left',
+                            'name' => __("Left"),
+                        ],
+                        [
+                            'value'   => 'text-right',
+                            'name' => __("Right")
+                        ],
+                        [
+                            'value'   => 'text-center',
+                            'name' => __("Center")
+                        ],
+                    ]
+                ],
+                [
                     'id'      => 'category_id',
                     'type'    => 'select2',
                     'label'   => __('Filter by Category'),
@@ -85,7 +104,8 @@ class RecentNews extends BaseBlock
         $list = $this->query($model);
         $data = [
             'rows'       => $list,
-            'title'      => $model['title'] ?? ""
+            'title'      => $model['title'] ?? "",
+            'style_title'  => $model['style_title'] ?? 'text-left',
         ];
 
         return view('blocks.News.index', $data);

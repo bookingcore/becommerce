@@ -179,4 +179,7 @@
     &.light{
         color: #ffffff;
     }
+    &.dark{
+        color: var(--accent) !important;
+    }
 }

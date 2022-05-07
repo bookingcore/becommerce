@@ -8,7 +8,7 @@
 ?>
 <div class="axtronic-news">
     <div class="container">
-        <h2 class="heading-title ">{{ $title }}</h2>
+        <h2 class="heading-title mb-4 {{ $style_title }}">{{ $title }}</h2>
         <div class="swiper-slider-news swiper-container">
             <div class="swiper-wrapper">
                 @foreach($rows as $k=>$row)

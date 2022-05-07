@@ -3,7 +3,7 @@
         <div class="container">
             <div class="product-box">
                 <div class="product-box-title ">
-                    <h2 class="heading-title">{!! clean($title) !!}</h2>
+                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
                     @if($categories)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)

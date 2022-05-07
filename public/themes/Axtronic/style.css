@@ -1943,55 +1943,134 @@ header {
 header a:not(.button) {
   color: #fff;
 }
-header.header-transparent {
+header.header-style_1 {
   background-color: transparent;
 }
-header.header-transparent a:not(.button) {
+header.header-style_1 a:not(.button) {
   color: var(--accent);
 }
-header.header-transparent .site-member ul.topbar-items .group-icon-content .sub-text, header.header-transparent .site-member ul.topbar-items .group-icon-content .sub-title {
+header.header-style_1 .topbar-left ul li {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+header.header-style_1 .topbar-left ul li a {
+  color: #ffffff;
+}
+header.header-style_1 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-style_1 .site-member ul.topbar-items .group-icon-content .sub-title {
   color: var(--accent);
 }
-header.header-transparent .site-navigation {
+header.header-style_1 .site-navigation {
   margin: 0 60px;
 }
-header.header-transparent .header__content-bottom {
+header.header-style_1 .header__content-bottom {
   background-color: transparent;
+  padding-top: 0;
 }
-header.header-transparent .header__content-bottom .vertical-navigation {
+header.header-style_1 .header__content-bottom .vertical-navigation {
   background-color: var(--background2);
 }
-header.header-transparent .header__content-bottom .vertical-navigation .vertical-navigation-header {
+header.header-style_1 .header__content-bottom .vertical-navigation .vertical-navigation-header {
   color: var(--accent);
   font-weight: 400;
 }
-header.header-transparent .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-transparent .axtronic-form-quick-search input, header.header-transparent .axtronic-form-quick-search button.btn {
+header.header-style_1 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-style_1 .axtronic-form-quick-search input, header.header-style_1 .axtronic-form-quick-search button.btn {
   border-color: var(--primary);
 }
-header.header-transparent .axtronic-form-quick-search input {
+header.header-style_1 .axtronic-form-quick-search input {
   border-width: 1px;
   border-left-color: var(--border);
   border-right-width: 0;
 }
-header.header-transparent .axtronic-form-quick-search button.btn {
+header.header-style_1 .axtronic-form-quick-search button.btn {
   color: var(--accent);
   background-color: transparent;
 }
-header.header-transparent .axtronic-form-quick-search button.btn:hover {
+header.header-style_1 .axtronic-form-quick-search button.btn:hover {
   border-color: var(--primary);
   color: #ffffff;
   background-color: var(--primary);
 }
-header.header-transparent .axtronic-form-quick-search button.btn span {
+header.header-style_1 .axtronic-form-quick-search button.btn span {
   display: none;
 }
-header.header-transparent .axtronic-form-quick-search button.btn i {
+header.header-style_1 .axtronic-form-quick-search button.btn i {
   display: block;
 }
-header.header-transparent .site-member .group-icon-action i {
+header.header-style_1 .site-member .group-icon-action i {
   color: var(--accent);
 }
-header.header-transparent .site-member .group-icon-action a:hover i {
+header.header-style_1 .site-member .group-icon-action a:hover i {
+  color: var(--primary);
+}
+header.header-style_2 {
+  background-color: transparent;
+}
+header.header-style_2 a:not(.button) {
+  color: var(--accent);
+}
+header.header-style_2 .topbar-left ul li {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+header.header-style_2 .topbar-left ul li a {
+  color: #ffffff;
+}
+header.header-style_2 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-style_2 .site-member ul.topbar-items .group-icon-content .sub-title {
+  color: var(--accent);
+}
+header.header-style_2 .site-navigation {
+  margin: 0 60px;
+}
+header.header-style_2 .header__content-bottom {
+  padding: 0;
+}
+header.header-style_2 .header__content-bottom .site-main-menu ul {
+  justify-content: start;
+}
+header.header-style_2 .header__content-bottom .site-main-menu ul li a {
+  color: #ffffff;
+}
+header.header-style_2 .header__content-bottom .vertical-navigation {
+  background-color: #FFFFFF12;
+  border-radius: 1px 1px 1px 1px;
+}
+header.header-style_2 .header__content-bottom .vertical-navigation .vertical-navigation-header {
+  color: #ffffff;
+  font-weight: 400;
+}
+header.header-style_2 .icon-box-header .icon-box-icon span {
+  background-color: var(--secondary);
+}
+header.header-style_2 .icon-box-header .icon-box-content p.icon-box-description, header.header-style_2 .icon-box-header .icon-box-content .icon-box-title {
+  color: #ffffff;
+}
+header.header-style_2 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-style_2 .axtronic-form-quick-search input, header.header-style_2 .axtronic-form-quick-search button.btn {
+  border-color: var(--primary);
+}
+header.header-style_2 .axtronic-form-quick-search input {
+  border-width: 1px;
+  border-left-color: var(--border);
+  border-right-width: 0;
+}
+header.header-style_2 .axtronic-form-quick-search button.btn {
+  color: var(--accent);
+  background-color: transparent;
+}
+header.header-style_2 .axtronic-form-quick-search button.btn:hover {
+  border-color: var(--primary);
+  color: #ffffff;
+  background-color: var(--primary);
+}
+header.header-style_2 .axtronic-form-quick-search button.btn span {
+  display: none;
+}
+header.header-style_2 .axtronic-form-quick-search button.btn i {
+  display: block;
+}
+header.header-style_2 .site-member .group-icon-action i {
+  color: var(--accent);
+}
+header.header-style_2 .site-member .group-icon-action a:hover i {
   color: var(--primary);
 }
 header .axtronic_topbar {
@@ -2500,6 +2579,10 @@ header .icon-box-header .icon-box-content p.icon-box-description {
   line-height: 1.5em;
   color: var(--accent);
   text-align: left;
+}
+header .list-group-item.active {
+  background-color: #ffffff;
+  border-color: #ffffff;
 }
 
 .vertical-menu {
@@ -3417,6 +3500,9 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .heading-title.light {
   color: #ffffff;
 }
+.heading-title.dark {
+  color: var(--accent) !important;
+}
 
 .axtronic-promotions .promotions-item {
   border-radius: 8px;
@@ -3663,7 +3749,6 @@ header .icon-box-header .icon-box-content p.icon-box-description {
 .axtronic-testimonial {
   transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
   margin-top: 0;
-  margin-bottom: 70px;
   padding: 60px 0;
   background-color: #f0f0f0;
 }
@@ -5305,18 +5390,19 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   font-weight: 600;
   line-height: 1.2em;
   color: var(--accent);
+  margin-bottom: 0;
 }
 .banner-product .axtronic-promotions .promotions-item .item-content .sub-content {
   font-weight: 400;
   font-size: 16px;
   line-height: 1.5;
-  margin-bottom: 15px;
   color: var(--accent);
 }
 .banner-product .axtronic-promotions .promotions-item .item-content p {
   font-weight: 400;
   line-height: 2.5em;
   color: var(--accent);
+  margin-bottom: 15px;
 }
 .banner-product .axtronic-promotions .promotions-item .item-content p sup {
   font-size: 25px;

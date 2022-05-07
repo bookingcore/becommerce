@@ -53,9 +53,15 @@ class ListProduct extends BaseBlock
                         ],
                         [
                             'value'   => 'style_3',
-                            'name' => __("Style 3")
+                            'name' => __("Text Center")
                         ],
                     ]
+                ],
+                [
+                    'type'=> "checkbox",
+                    'label'=>__("Color title dark?"),
+                    'id'=> "is_dark",
+                    'default'=>false
                 ],
                 [
                     'id'        => 'title',
@@ -158,6 +164,7 @@ class ListProduct extends BaseBlock
         $data = [
             'rows'       => $list,
             'title'      => $model['title'] ?? "",
+            'is_dark'      => $model['title'] ?? true,
             'categories' => $categories ?? [],
             'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal",
             'bg_content' => $model['bg_content'] ?? "",

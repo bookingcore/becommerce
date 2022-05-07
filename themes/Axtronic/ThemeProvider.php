@@ -102,6 +102,7 @@ class ThemeProvider extends AbstractThemeProvider
             "keys"      => [
                 'axtronic_logo_light',
                 'axtronic_logo_dark',
+                'axtronic_header_contact',
                 'axtronic_footer_style',
                 'axtronic_footer_bg_image',
                 'axtronic_hotline_contact',
@@ -124,7 +125,6 @@ class ThemeProvider extends AbstractThemeProvider
             'position'=>80,
             'view'      => "admin.settings.product",
             "keys"      => [
-                'axtronic_header_contact',
                 'axtronic_product_category'
             ],
             'filter_demo_mode'=>[

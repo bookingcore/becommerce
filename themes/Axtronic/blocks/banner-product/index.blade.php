@@ -10,8 +10,8 @@
 <section class="banner-product">
     <div class="container">
         @if(!empty($title_header))
-            <div class="main-title text-left">
-                <h2>{{ $title_header }}</h2>
+            <div class="product-box-title style_2">
+                <h2 class="heading-title ">{!! clean($title_header) !!}</h2>
             </div>
         @endif
         <div class="row ">

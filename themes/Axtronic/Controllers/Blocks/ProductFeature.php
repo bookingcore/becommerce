@@ -20,6 +20,47 @@ class ProductFeature extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'    => 'style',
+                    'type'  => 'radios',
+                    'label' => __('Style'),
+                    'value' => 'style_1',
+                    'values' => [
+                        [
+                            'value'   => '',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ]
+                    ],
+                ],
+
+                [
+                    'id'        => 'title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Title')
+                ],
+                [
+                    'type'=> "checkbox",
+                    'label'=>__("Color title dark?"),
+                    'id'=> "is_dark",
+                    'default'=>false
+                ],
+                [
+                    'id'        => 'title_content',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Title Content')
+                ],
+                [
+                    'id'        => 'content',
+                    'type'      => 'textArea',
+                    'inputType' => 'textArea',
+                    'label'     => __('Content')
+                ],
+                [
                     'id'            => 'style_header',
                     'type'          => 'radios',
                     'label'         => __('Title style'),
@@ -37,30 +78,6 @@ class ProductFeature extends BaseBlock
                             'name' => __("Style 3")
                         ],
                     ]
-                ],
-                [
-                    'id'        => 'title',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Title')
-                ],
-                [
-                    'id'        => 'title_content',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Title Content')
-                ],
-                [
-                    'id'        => 'content',
-                    'type'      => 'textArea',
-                    'inputType' => 'textArea',
-                    'label'     => __('Content')
-                ],
-                [
-                    'type'=> "checkbox",
-                    'label'=>__("Color title dark?"),
-                    'id'=> "is_dark",
-                    'default'=>false
                 ],
                 [
                     'id'            => 'order',
@@ -146,6 +163,7 @@ class ProductFeature extends BaseBlock
             'title_content' => $model['title_content'],
             'content'       => $model['content']
         ];
-        return view('blocks.feature-product.index', $data);
+        $style = $model['style'] ? $model['style'] : 'index';
+        return view("blocks.feature-product.{$style}", $data);
     }
 }

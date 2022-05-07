@@ -5,10 +5,20 @@ header{
     a:not(.button) {
         color: #fff;
     }
-    &.header-transparent{
+    &.header-style_1{
         background-color: transparent;
         a:not(.button) {
             color: var(--accent);
+        }
+        .topbar-left{
+            ul li{
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                a{
+                    color: #ffffff;
+                }
+            }
+
         }
         .site-member ul.topbar-items .group-icon-content {
             .sub-text, .sub-title{
@@ -20,11 +30,106 @@ header{
         }
         .header__content-bottom{
             background-color: transparent;
+            padding-top: 0;
             .vertical-navigation{
                 background-color: var(--background2);
                 .vertical-navigation-header{
                     color: var(--accent);
                     font-weight: 400;
+                }
+            }
+        }
+        .axtronic-form-quick-search {
+            .product-cat .product-cat-label .box, input, button.btn{
+                border-color: var(--primary);
+            }
+            input{
+                border-width: 1px;
+                border-left-color: var(--border);
+                border-right-width: 0;
+            }
+            button.btn{
+                color: var(--accent);
+                &:hover{
+                    border-color: var(--primary);
+                    color: #ffffff;
+                    background-color: var(--primary);;
+                }
+                span{
+                    display: none;
+                }
+                i{
+                    display: block;
+                }
+                background-color: transparent;
+
+            }
+        }
+        .site-member {
+            .group-icon-action{
+                i{
+                    color: var(--accent);
+                }
+                a{
+
+                    &:hover{
+                        i{
+                            color: var(--primary);
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+    &.header-style_2{
+        background-color: transparent;
+        a:not(.button) {
+            color: var(--accent);
+        }
+        .topbar-left{
+            ul li{
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                a{
+                    color: #ffffff;
+                }
+            }
+
+        }
+        .site-member ul.topbar-items .group-icon-content {
+            .sub-text, .sub-title{
+                color: var(--accent);
+            }
+        }
+        .site-navigation{
+            margin: 0 60px;
+        }
+        .header__content-bottom{
+            padding: 0;
+
+            .site-main-menu ul {
+                justify-content: start;
+                li a{
+                    color: #ffffff;
+                }
+            }
+            .vertical-navigation{
+                background-color: #FFFFFF12;
+                border-radius: 1px 1px 1px 1px;
+                .vertical-navigation-header{
+                    color: #ffffff;
+                    font-weight: 400;
+                }
+            }
+        }
+        .icon-box-header {
+            .icon-box-icon span{
+                background-color:var(--secondary) ;
+            }
+            .icon-box-content{
+                p.icon-box-description, .icon-box-title{
+                    color: #ffffff;
                 }
             }
         }
@@ -606,6 +711,10 @@ header{
                 text-align: left;
             }
         }
+    }
+    .list-group-item.active{
+        background-color: #ffffff;
+        border-color: #ffffff;
     }
 }
 .vertical-menu{

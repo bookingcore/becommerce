@@ -2,23 +2,7 @@
     <div class="container">
         <div class="topbar-box d-flex justify-content-lg-between justify-content-end align-items-center">
             <div class="topbar-left align-items-center d-none d-md-flex">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Support
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            Featured Products
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            FAQ
-                        </a>
-                    </li>
-                </ul>
+                @php generate_menu('department',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
             </div>
             <div class="topbar-right">
                 <ul class="topbar-items nav">
