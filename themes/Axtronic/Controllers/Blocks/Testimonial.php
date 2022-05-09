@@ -31,23 +31,17 @@ class Testimonial extends BaseBlock
                     'values'        => [
                         [
                             'value'   => '',
-                            'name' => __("Style 1"),
+                            'name' => __("Left"),
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style 2")
+                            'name' => __("Left border bottom")
                         ],
                         [
                             'value'   => 'style_3',
-                            'name' => __("Style 3")
+                            'name' => __("Center")
                         ],
                     ]
-                ],
-                [
-                    'id'        => 'bg_color',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Background Color')
                 ],
                 [
                     'type'      => "checkbox",
@@ -73,6 +67,12 @@ class Testimonial extends BaseBlock
                             'name' => __("Style 3")
                         ],
                     ]
+                ],
+                [
+                    'id'        => 'bg_color',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Background Color')
                 ],
                 [
                     'id'          => 'list_testimonial',

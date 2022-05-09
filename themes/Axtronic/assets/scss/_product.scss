@@ -989,7 +989,23 @@ ul.axtronic-products-special{
         }
     }
 }
-
+.axtronic-features{
+    padding: 60px 60px 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    .product-item{
+        background: transparent;
+        .product-caption {
+            h2 a{
+                color: #ffffff;
+            }
+            .price{
+                color: #ffffff;
+            }
+        }
+    }
+}
 @media (min-width: 768px) {
     .axtronic-products-special{
         li.product-item{

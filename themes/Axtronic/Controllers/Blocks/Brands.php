@@ -30,7 +30,17 @@ class Brands extends BaseBlock
                             'value'   => 'style_2',
                             'name' => __("Style 2")
                         ],
+                        [
+                            'value'   => 'style_3',
+                            'name' => __("Style 3")
+                        ],
                     ]
+                ],
+                [
+                    'id'        => 'bg_color',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Background Color')
                 ],
                 [
                     'id'          => 'brands',
@@ -57,7 +67,8 @@ class Brands extends BaseBlock
                         ]
                     ]
                 ]
-            ]
+            ],
+            'category'=>__("Other")
         ]);
     }
 

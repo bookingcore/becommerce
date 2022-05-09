@@ -305,26 +305,26 @@
             font-size: 14px;
             margin-bottom: 0;
         }
+        .details{
+            h2.name{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 26px;
+                color: var(--accent);
+                margin-bottom: 0;
+            }
+            h3.job{
+                color: var(--light);
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+        }
         .caption{
             width: 100%;
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .details{
-                h2.name{
-                    font-weight: 600;
-                    font-size: 20px;
-                    line-height: 26px;
-                    color: var(--accent);
-                    margin-bottom: 0;
-                }
-                h3.job{
-                    color: var(--light);
-                    font-size: 14px;
-                    margin-bottom: 0;
-                }
-            }
             .stars{
                 color: #ffb627;
                 font-size: 18px;
@@ -422,6 +422,29 @@
             display: none;
         }
     }
+    &.style_3{
+        .swiper-slider-testimonial {
+            .inner{
+                padding: 30px;
+                margin-top: 0;
+            }
+            .testimonial-image{
+                margin-top: 0;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                img{
+                    width: 60px;
+                    height: 60px;
+                    border: 0;
+                }
+            }
+            .details h2.name{
+                margin-left: 20px;
+                font-size: 14px;
+            }
+        }
+    }
 }
 
 .swiper-container{
@@ -492,6 +515,17 @@
             }
             .swiper-button-prev:after{
                 content: themecustom-char(arrow-left);
+            }
+        }
+    }
+    &.style-3{
+        .swiper-slide {
+            img{
+                -webkit-filter: grayscale(0);
+                filter: grayscale(0);
+            }
+            &:hover{
+                transform: scale(1.1);
             }
         }
     }

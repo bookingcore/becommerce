@@ -164,7 +164,7 @@ class ListProduct extends BaseBlock
         $data = [
             'rows'       => $list,
             'title'      => $model['title'] ?? "",
-            'is_dark'      => $model['title'] ?? true,
+            'is_dark'      => $model['is_dark'] ?? true,
             'categories' => $categories ?? [],
             'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal",
             'bg_content' => $model['bg_content'] ?? "",

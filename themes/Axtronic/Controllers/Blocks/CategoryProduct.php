@@ -31,11 +31,11 @@ class CategoryProduct extends BaseBlock
                     'values'        => [
                         [
                             'value'   => '',
-                            'name' => __("Style 1")
+                            'name' => __("Style with Image Category")
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style 2")
+                            'name' => __("Style with Icon")
                         ],
                     ]
                 ],
@@ -68,7 +68,8 @@ class CategoryProduct extends BaseBlock
                         ],
                     ]
                 ]
-            ]
+            ],
+            'category'=>__("Product")
         ]);
     }
 

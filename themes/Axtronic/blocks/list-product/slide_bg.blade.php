@@ -5,6 +5,7 @@
  * Date: 4/21/2022
  * Time: 9:03 AM
  */
+
 ?>
 @if(!empty($rows->count()))
     <div class="axtronic-list-products axtronic-slider-best mb-5 list-products-bg py-5 {{ $style_header }}" style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">

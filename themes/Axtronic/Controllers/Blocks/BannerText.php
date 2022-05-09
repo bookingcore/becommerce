@@ -28,7 +28,7 @@ class BannerText extends BaseBlock
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style 2 ")
+                            'name' => __("Style with Image ")
                         ],
                     ]
                 ],

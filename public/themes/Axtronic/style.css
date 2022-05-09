@@ -3786,24 +3786,24 @@ header .list-group-item.active {
   font-size: 14px;
   margin-bottom: 0;
 }
-.axtronic-testimonial .swiper-slider-testimonial .caption {
-  width: 100%;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.axtronic-testimonial .swiper-slider-testimonial .caption .details h2.name {
+.axtronic-testimonial .swiper-slider-testimonial .details h2.name {
   font-weight: 600;
   font-size: 20px;
   line-height: 26px;
   color: var(--accent);
   margin-bottom: 0;
 }
-.axtronic-testimonial .swiper-slider-testimonial .caption .details h3.job {
+.axtronic-testimonial .swiper-slider-testimonial .details h3.job {
   color: var(--light);
   font-size: 14px;
   margin-bottom: 0;
+}
+.axtronic-testimonial .swiper-slider-testimonial .caption {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 .axtronic-testimonial .swiper-slider-testimonial .caption .stars {
   color: #ffb627;
@@ -3902,6 +3902,25 @@ header .list-group-item.active {
 .axtronic-testimonial.style_2 .swiper-slider-testimonial .caption .details h3.job {
   display: none;
 }
+.axtronic-testimonial.style_3 .swiper-slider-testimonial .inner {
+  padding: 30px;
+  margin-top: 0;
+}
+.axtronic-testimonial.style_3 .swiper-slider-testimonial .testimonial-image {
+  margin-top: 0;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.axtronic-testimonial.style_3 .swiper-slider-testimonial .testimonial-image img {
+  width: 60px;
+  height: 60px;
+  border: 0;
+}
+.axtronic-testimonial.style_3 .swiper-slider-testimonial .details h2.name {
+  margin-left: 20px;
+  font-size: 14px;
+}
 
 .swiper-container {
   margin-left: auto;
@@ -3970,6 +3989,13 @@ header .list-group-item.active {
 }
 .axtronic-brands.style-2 .swiper-slider-brands-2 .swiper-button-prev:after {
   content: "";
+}
+.axtronic-brands.style-3 .swiper-slide img {
+  -webkit-filter: grayscale(0);
+  filter: grayscale(0);
+}
+.axtronic-brands.style-3 .swiper-slide:hover {
+  transform: scale(1.1);
 }
 
 .side-wrap {
@@ -5421,6 +5447,22 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
 }
 .banner-product .axtronic-promotions .promotions-item .item-content .item-button:hover {
   background-color: var(--primary_hover);
+}
+
+.axtronic-features {
+  padding: 60px 60px 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.axtronic-features .product-item {
+  background: transparent;
+}
+.axtronic-features .product-item .product-caption h2 a {
+  color: #ffffff;
+}
+.axtronic-features .product-item .product-caption .price {
+  color: #ffffff;
 }
 
 @media (min-width: 768px) {

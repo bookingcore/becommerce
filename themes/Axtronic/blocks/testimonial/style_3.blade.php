@@ -21,12 +21,12 @@
                             <div class="inner">
                                 <div class="testimonial-image">
                                     <img src="{{ get_file_url($item['image']?? false,'full') }}" class="attachment-full size-full" alt="{{ $item['title_item'] }}" >
-                                </div>
-                                <div class="caption">
                                     <div class="details">
                                         <h2 class="name">{{ $item['title_item']  }}</h2>
-                                        <h3 class="job">{{ $item['job'] }}</h3>
                                     </div>
+                                </div>
+                                <div class="caption">
+
                                     <div class="stars">
                                         @for($i = 1; $i <= $item['number_star']; $i++)
                                             <i class="axtronic-icon-star-sharp"></i>
