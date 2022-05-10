@@ -253,13 +253,15 @@ class RoleController extends AdminController
     {
         $matrix = $request->input('matrix');
         $matrix = is_array($matrix) ? $matrix : [];
-        if (!empty($matrix)) {
-            foreach ($matrix as $role_id => $permissions) {
-                $role = Role::find($role_id);
-                if (!empty($role)) {
-                    $role->syncPermissions($permissions);
-                }
+
+        $roles = Role::query()->get();
+        foreach ($roles as $role){
+            if(empty($matrix[$role->id]))
+            {
+                $role->syncPermissions();
+                continue;
             }
+            $role->syncPermissions($permissions);
         }
         return redirect()->back()->with('success', __('Permission Matrix updated'));
     }
