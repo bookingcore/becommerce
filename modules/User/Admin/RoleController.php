@@ -261,6 +261,7 @@ class RoleController extends AdminController
                 $role->syncPermissions();
                 continue;
             }
+            $permissions = $matrix[$role->id];
             $role->syncPermissions($permissions);
         }
         return redirect()->back()->with('success', __('Permission Matrix updated'));
