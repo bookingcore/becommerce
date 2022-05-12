@@ -27,7 +27,7 @@ class FileHelper
         ],
     ];
 
-    public static function url($fileId, $size = 'medium',$resize = true)
+    public static function url($fileId, $size = 'medium',$resize = true,$default_image = true)
     {
         if ($fileId instanceof MediaFile) {
             $file = $fileId;
@@ -47,6 +47,7 @@ class FileHelper
                 }
             break;
             default:
+                $url = $file->view_url;
                 if (static::isImage($file) and Storage::disk('uploads')->exists($file->file_path)) {
                     if(config('bc.cf_enable_image_resize') and !in_array(strtolower($file->file_extension),['svg']))
                     {
@@ -57,7 +58,6 @@ class FileHelper
                         $url = static::maybeResize($file, $size,$resize);
                     }
                 }
-                $url = $file->view_url;
         }
         return $url;
 

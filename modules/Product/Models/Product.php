@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\DB;
 use Modules\Campaign\Models\CampaignProduct;
 use Modules\Core\Models\Attribute;
 use Modules\Core\Models\Term;
@@ -402,6 +403,14 @@ class Product extends BaseModel
     	return $this->hasMany(ProductVariation::class);
     }
 
+    /**
+     * In case of search_type = join_variation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function variation(){
+    	return $this->belongsTo(ProductVariation::class,'variant_id');
+    }
+
 	public function getProductJsAdminDataAttribute(){
         return [
             'attributes'=>Attribute::query()->ofType($this->type)->get(),
@@ -516,7 +525,6 @@ class Product extends BaseModel
 
     public static function search($filters)
     {
-
         $query = parent::query()->select("products.*");
 
         $query->where("products.status", "publish");
@@ -602,6 +610,16 @@ class Product extends BaseModel
             default:
                 $query->orderBy("is_featured", "desc");
                 $query->orderBy("id", "desc");
+        }
+
+        switch ($filters['search_type']){
+            case "join_variation":
+                $variation_table = ProductVariation::getTableName();
+                $query->leftJoin($variation_table,$variation_table.'.product_id','products.id');
+                $query->addSelect(DB::raw($variation_table.'.id as `variant_id`'));
+                $query->with('variation');
+                $query->groupBy(['products.id','variant_id']);
+                break;
         }
         $query->groupBy("products.id");
         return $query->with(['hasWishList','brand','translation']);

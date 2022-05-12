@@ -166,9 +166,14 @@ function getDatefomat($value) {
 
 }
 
-function get_file_url($file_id,$size="thumb",$resize = true){
-    if(empty($file_id)) return null;
-    return \Modules\Media\Helpers\FileHelper::url($file_id,$size,$resize);
+function get_file_url($file_id,$size="thumb",$resize = true,$default_image = true){
+    if(empty($file_id)){
+        if($default_image){
+            return asset('/images/image-error.png');
+        }
+        return null;
+    };
+    return \Modules\Media\Helpers\FileHelper::url($file_id,$size,$resize,$default_image);
 }
 
 function get_image_tag($image_id,$size = 'medium',$options = []){
