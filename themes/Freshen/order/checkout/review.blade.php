@@ -1,5 +1,5 @@
 <div class="order-box">
-    <h3>{{__('Summary')}}</h3>
+    <h4 class="title">{{__('Your Order')}}</h4>
     <table class="table">
         <thead>
         <tr>
@@ -42,7 +42,7 @@
         <tfoot>
         @include ('order.checkout.shipping-method')
         <tr v-if="discount_amount > 0">
-            <td>{{__('Discount')}}</td>
+            <td class="font-weight-bold">{{__('Discount')}}</td>
             <td></td>
             <td class="text-end">
                 <span class="amount">
@@ -51,7 +51,7 @@
             </td>
         </tr>
         <tr v-if="tax_amount > 0">
-            <td>
+            <td class="font-weight-bold">
                 {{__('Tax')}} <span v-if="prices_include_tax == 'yes'">({{ __("include") }})</span>
             </td>
             <td></td>
@@ -61,8 +61,8 @@
                 </span>
             </td>
         </tr>
-        <tr class="order-total">
-            <td>{{__('Total')}}</td>
+        <tr class="order-total ">
+            <td class="font-weight-bold">{{__('Total')}}</td>
             <td></td>
             <td class="text-end">
                 <span class="amount">
