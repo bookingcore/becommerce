@@ -1,7 +1,7 @@
 @extends("layouts.app")
 @section('content')
     @include('global.breadcrumb')
-    <section class="shop-checkouts" id="bravo-checkout-page" v-cloak>
+    <section class="shop-checkouts fs-14" id="bravo-checkout-page" v-cloak>
         <div class="container checkout_form ">
             <h1 class="mb-3">{{__("Checkout")}}</h1>
             @if(\Modules\Order\Helpers\CartManager::count())

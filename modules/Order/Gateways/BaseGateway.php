@@ -115,6 +115,7 @@ abstract class BaseGateway
     public function getDisplayLogo()
     {
         $logo_id = $this->getOption('logo_id');
+        if(!$logo_id) return false;
         return get_file_url($logo_id);
     }
 

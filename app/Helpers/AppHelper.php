@@ -169,7 +169,7 @@ function getDatefomat($value) {
 function get_file_url($file_id,$size="thumb",$resize = true,$default_image = true){
     if(empty($file_id)){
         if($default_image){
-            return asset('/images/image-error.png');
+            return asset('/images/image-error.jpg');
         }
         return null;
     };
