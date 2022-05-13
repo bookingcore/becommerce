@@ -1,21 +1,21 @@
 <div class="row">
     <div class="col-sm-6">
         <div class="form-group mb-3">
-            <label>{{__('First name')}} <span class="text-danger">*</span></label>
+            <label class="form-label">{{__('First name')}} <span class="text-danger">*</span></label>
             <input class="form-control" type="text" name="{{$prefix}}first_name" required value="{{old($prefix.'first_name',$address->first_name ?? '')}}">
             <span class="input-error {{$prefix}}first_name"></span>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="form-group mb-3">
-            <label>{{__('Last name')}} <span class="text-danger">*</span></label>
+            <label class="form-label">{{__('Last name')}} <span class="text-danger">*</span></label>
             <input class="form-control" type="text" name="{{$prefix}}last_name" required value="{{old($prefix.'last_name',$address->last_name ?? '')}}">
             <span class="input-error {{$prefix}}last_name"></span>
         </div>
     </div>
     <div class="col-sm-12">
         <div class="form-group mb-3">
-            <label>{{__('Company (optional)')}}</label>
+            <label class="form-label">{{__('Company (optional)')}}</label>
             <input class="form-control" type="text" name="{{$prefix}}company" value="{{old($prefix.'company',$address->company ?? '')}}">
         </div>
     </div>
@@ -52,20 +52,20 @@
     </div>
     <div class="col-sm-6">
         <div class="form-group mb-3">
-            <label>{{__('City')}} <span class="text-danger">*</span></label>
+            <label class="form-label">{{__('City')}} <span class="text-danger">*</span></label>
             <input class="form-control" type="text" name="{{$prefix}}city" required value="{{old($prefix.'city',$address->city ?? '')}}">
             <span class="input-error {{$prefix}}city"></span>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="form-group mb-3">
-            <label>{{__('State (optional)')}}</label>
+            <label class="form-label">{{__('State (optional)')}}</label>
             <input class="form-control" type="text" name="{{$prefix}}state" value="{{old($prefix.'state',$address->state ?? '')}}">
         </div>
     </div>
     <div class="col-sm-12">
         <div class="form-group mb-3 ">
-            <label class="">
+            <label class="form-label">
                 {{__('Phone')}} <span class="text-danger">*</span>
             </label>
             <input type="text" class="form-control " name="{{$prefix}}phone" required  value="{{old($prefix.'phone',$address->phone ?? '')}}">
@@ -74,7 +74,7 @@
     </div>
     <div class="col-sm-12">
         <div class="form-group mb-3 ">
-            <label class="">
+            <label class="form-label">
                 {{__('Email')}} <span class="text-danger">*</span>
             </label>
             <input type="email" class="form-control" name="{{$prefix}}email" required  value="{{old($prefix.'email',$address->email ?? '')}}">

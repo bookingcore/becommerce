@@ -413,3 +413,10 @@
         letter-spacing: 0em;
     }
 }
+.order-box{
+    .table{
+        td,th{
+            border-bottom-color:rgb(119, 119, 119)
+        }
+    }
+}

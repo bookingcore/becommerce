@@ -2,11 +2,11 @@
 @section('content')
     @include('global.breadcrumb')
     <section class="shop-checkouts" id="bravo-checkout-page" v-cloak>
-        <div class="container">
+        <div class="container checkout_form ">
             <h1 class="mb-3">{{__("Checkout")}}</h1>
             @if(\Modules\Order\Helpers\CartManager::count())
-            <div class="row">
-                <div class="column col-lg-8 col-md-12 col-sm-12">
+            <div class="row checkout_coupon">
+                <div class=" form2 column col-lg-8 col-md-12 col-sm-12">
                     @if(!auth()->check())
                         <div class="card mb-4">
                             <div class="card-header">
@@ -46,8 +46,8 @@
                                 <div class="html_before_actions"></div>
                                 <p class="alert mt-1" v-show=" message.content" v-html="message.content" :class="{'alert-danger':!message.type,'alert-success':message.type}"></p>
 
-                                <div class="form-actions">
-                                    <button class="btn btn-primary" @click="doCheckout">{{__('Place Order')}}
+                                <div class="ui_kit_button payment_widget_btn">
+                                    <button type="button" class="btn btn-thm btn-block" @click="doCheckout">{{__('PLACE ORDER')}}
                                         <i class="fa fa-spin fa-spinner" v-show="onSubmit"></i>
                                     </button>
                                 </div>

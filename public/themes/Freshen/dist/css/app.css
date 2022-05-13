@@ -129,7 +129,7 @@
   opacity: 0.3;
 }
 .bc-product-variations .item-active {
-  border-color: rgba(0, 0, 0, 0.231372549) !important;
+  border-color: #0000003b !important;
   color: #7e7e7e !important;
   box-shadow: 0 0 5px #7e7e7e !important;
 }
@@ -390,4 +390,8 @@
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
+}
+
+.order-box .table td, .order-box .table th {
+  border-bottom-color: #777777;
 }

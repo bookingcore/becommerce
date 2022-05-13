@@ -1,8 +1,8 @@
 <div class="order-box">
     <h4 class="title">{{__('Your Order')}}</h4>
     <table class="table">
-        <thead>
-        <tr>
+        <thead class="">
+        <tr class="">
             <th><strong>{{__('Product')}}</strong></th>
             <th width="25%" class="text-center"><strong>{{__('Quality')}}</strong></th>
             <th width="25%" class="text-end"><strong>{{__('Subtotal')}}</strong></th>
