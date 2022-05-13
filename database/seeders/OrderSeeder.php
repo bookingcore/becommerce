@@ -29,6 +29,7 @@ class OrderSeeder extends Seeder
             $order->order_date = date('Y-m-').rand(1,20);
             $order->gateway = 'paypal';
             $order->shipping_amount = rand(3,7);
+            $order->discount_amount = rand(3,7);
             $order->save();
 
             $t = 0;
