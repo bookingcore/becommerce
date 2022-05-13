@@ -25,7 +25,13 @@ class Contact extends BaseBlock
                     'id'        => 'right_title',
                     'type'      => 'input',
                     'inputType' => 'text',
-                    'label'     => __('Right Title')
+                    'label'     => __('Title form contact')
+                ],
+                [
+                    'id'        => 'sub_right_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Sub title form contact')
                 ],
                 [
                     'id'        => 'address',
@@ -50,6 +56,12 @@ class Contact extends BaseBlock
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Website')
+                ],
+                [
+                    'id'        => 'iframe_map',
+                    'type'      => 'textArea',
+                    'inputType' => 'textArea',
+                    'label'     => __('Url Iframe')
                 ],
             ]
         ]);

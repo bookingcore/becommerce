@@ -5,7 +5,7 @@ $translation = $row->translate();
     <div class="post-thumbnail">
         <div class="posted-on-square"><b>{{$row->created_at->format('d')}}</b> {{month_translation($row->created_at->format('m') - 1)}}</div>
         <a href="{{$row->getDetailUrl()}}" class="d-block">
-            {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
+            {!! get_image_tag($row->image_id,'medium',['class'=>'object-cover img-whp','alt'=>$translation->title]) !!}
         </a>
     </div>
     <div class="entry-content">

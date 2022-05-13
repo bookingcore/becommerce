@@ -343,6 +343,7 @@ class GeneralSeeder extends Seeder
             'status'      => 'publish',
             'created_at'  => date("Y-m-d H:i:s")
         ]);
+
         DB::table('core_page_meta')->insert([[
             'parent_id'       => $freshen_page2_id,
             'name'        => 'header_style',

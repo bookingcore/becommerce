@@ -11,8 +11,9 @@
 @php
     $bg_image = get_file_url( $bg_content ?? false,'full');
 @endphp
+@if(!empty($rows->count()))
 <div class="{{$width_style}}">
-    <div class="axtronic-list-products py-5 mb-5 {{ $style_header }} " style="background-image: url('{{ $bg_image }}'); background-color: {{ $bg_color }}">
+    <div class="axtronic-list-products pt-5 {{ $style_header }} " style="background-image: url('{{ $bg_image }}'); background-color: {{ $bg_color }}">
         <div class="product-box-title ">
             <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
         </div>
@@ -38,3 +39,4 @@
         </ul>
     </div>
 </div>
+@endif

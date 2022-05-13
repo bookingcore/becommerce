@@ -27,11 +27,15 @@ class ProductFeature extends BaseBlock
                     'values' => [
                         [
                             'value'   => '',
-                            'name' => __("Style 1")
+                            'name' => __("Gird")
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style 2")
+                            'name' => __("Normal")
+                        ],
+                        [
+                            'value'   => 'style_3',
+                            'name' => __("Slider")
                         ]
                     ],
                 ],

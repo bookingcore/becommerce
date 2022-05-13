@@ -994,6 +994,11 @@ ul.axtronic-products-special{
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    &.axtronic-features-slider{
+        transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+        padding: 60px 30px 30px;
+        border-radius: 12px;
+    }
     .product-item{
         background: transparent;
         .product-caption {

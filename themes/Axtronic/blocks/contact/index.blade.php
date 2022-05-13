@@ -111,7 +111,7 @@
                         </form>
                     </div>
                     <div class="contact-social">
-                        <div class="title-social">Connect with social media</div>
+                        <div class="title-social">{{ __("Connect with social media") }}</div>
                         <div class="divider-social"></div>
                         <div class="icon-social">
                             <ul class="list-unstyled">
