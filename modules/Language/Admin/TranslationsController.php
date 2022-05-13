@@ -280,6 +280,9 @@ class TranslationsController extends AdminController
                 $lang->save();
             }
         }
+        if(\request()->get('back')){
+            return back()->with('success',__("Found :count strings",['count'=>count($keys)]));
+        }
         // Return the number of found translations
         return count($keys);
     }
