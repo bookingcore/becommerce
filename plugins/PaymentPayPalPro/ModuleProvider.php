@@ -2,8 +2,8 @@
 namespace Plugins\PaymentPayPalPro;
 
 use Modules\ModuleServiceProvider;
+use Modules\Order\Helpers\PaymentGatewayManager;
 use Plugins\PaymentPayPalPro\Gateway\PayPalProGateway;
-use Plugins\PaymentTwoCheckout\Gateway\TwoCheckoutGateway;
 
 class ModuleProvider extends ModuleServiceProvider
 {
@@ -12,12 +12,10 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(RouterServiceProvider::class);
     }
 
-    public static function getPaymentGateway()
-    {
-        return [
-            'paypal_pro' => PayPalProGateway::class
-        ];
+    public function boot(){
+        PaymentGatewayManager::register('paypal_pro',PayPalProGateway::class);
     }
+
 
     public static function getPluginInfo()
     {

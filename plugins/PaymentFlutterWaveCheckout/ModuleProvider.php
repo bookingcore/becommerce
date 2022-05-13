@@ -2,6 +2,7 @@
 namespace Plugins\PaymentFlutterWaveCheckout;
 
 use Modules\ModuleServiceProvider;
+use Modules\Order\Helpers\PaymentGatewayManager;
 use Plugins\PaymentFlutterWaveCheckout\Gateway\FlutterWaveCheckoutGateway;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -10,12 +11,8 @@ class ModuleProvider extends ModuleServiceProvider
     {
         $this->app->register(RouterServiceProvider::class);
     }
-
-    public static function getPaymentGateway()
-    {
-        return [
-            'flutter_wave_checkout_gateway' => FlutterWaveCheckoutGateway::class
-        ];
+    public function boot(){
+        PaymentGatewayManager::register('flutter_wave',FlutterWaveCheckoutGateway::class);
     }
 
     public static function getPluginInfo()

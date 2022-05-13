@@ -75,9 +75,17 @@ class StripeCheckoutGateway extends BaseGateway
             ],
             [
                 'type' => 'input',
+                'readonly'=>1,
+                'value'=>route('order.callback',['gateway'=>$this->id]),
+                'label' => __('Webhook URL'),
+                'desc'=>__("Copy this url and use it for Stripe Webhook Url")
+            ],
+            [
+                'type' => 'input',
                 'id' => 'endpoint_secret',
                 'label' => __('Endpoint Secret for Webhooks'),
-            ]
+            ],
+
         ];
     }
 

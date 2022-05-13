@@ -2,20 +2,17 @@
 namespace Plugins\PaymentTwoCheckout;
 
 use Modules\ModuleServiceProvider;
+use Modules\Order\Helpers\PaymentGatewayManager;
 use Plugins\PaymentTwoCheckout\Gateway\TwoCheckoutGateway;
 
 class ModuleProvider extends ModuleServiceProvider
 {
+    public function boot(){
+        PaymentGatewayManager::register('two_checkout',TwoCheckoutGateway::class);
+    }
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
-    }
-
-    public static function getPaymentGateway()
-    {
-        return [
-            'two_checkout_gateway' => TwoCheckoutGateway::class
-        ];
     }
 
     public static function getPluginInfo()
