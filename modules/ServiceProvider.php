@@ -1,7 +1,8 @@
 <?php
 namespace Modules;
 
-use File;
+
+use Illuminate\Support\Facades\File;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {

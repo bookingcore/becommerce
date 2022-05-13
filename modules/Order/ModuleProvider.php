@@ -97,6 +97,7 @@ class ModuleProvider extends ModuleServiceProvider
             $options = $gateway->getOptionsConfigs();
             if (!empty($options)) {
                 foreach ($options as $option) {
+                    if(empty($option['id'])) continue;
                     $keys[] = 'g_' . $k . '_' . $option['id'];
                     if( !empty($option['multi_lang']) && !empty($languages) && setting_item('site_enable_multi_lang') && setting_item('site_locale')){
                         foreach($languages as $language){

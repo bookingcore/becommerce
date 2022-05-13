@@ -26,6 +26,19 @@
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
+        var BC = {
+            url: '{{url('/')}}',
+            routes:{
+                login:'{{route('login')}}',
+                register:'{{route('register')}}',
+            },
+            booking_decimals:'{{ (int)get_current_currency('currency_no_decimal',2) }}',
+            thousand_separator:'{{ get_current_currency('currency_thousand') }}',
+            decimal_separator:'{{ get_current_currency('currency_decimal') }}',
+            currency_position:'{{ get_current_currency('currency_format') }}',
+            currency_symbol:'{{ currency_symbol() }}',
+            currency_rate:'{{ get_current_currency('rate',1) }}',
+        }
         var i18n = {
             warning:"{{__("Warning")}}",
             success:"{{__("Success")}}",
@@ -58,6 +71,7 @@
 
     <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
     <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('libs/vue/vue.js') }}"></script>
     <!-- custom scripts-->
     <script  src="{{ theme_url('Base/js/app.js') }}"></script>
     @yield('footer')

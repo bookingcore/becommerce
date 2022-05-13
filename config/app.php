@@ -41,6 +41,8 @@ return [
 
     'debug' => env('APP_DEBUG', false),
 
+    'script_debug' => env('SCRIPT_DEBUG', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -178,6 +180,7 @@ return [
         * Custom Service Providers...
         */
         Modules\ServiceProvider::class,
+        Plugins\ServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class, // Xử lý ảnh,
         Barryvdh\Debugbar\ServiceProvider::class, // Debug BAR
 

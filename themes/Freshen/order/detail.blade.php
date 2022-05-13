@@ -1,128 +1,115 @@
 @extends("layouts.app")
 @section('content')
     @include('global.breadcrumb')
-    <div class="order-confirmation">
+    <section class="order-confirmation">
         <div class="container">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="fs-24">
-                    @switch($row->status)
-                        @case('completed')
-                        <span class="icon fa fa-check"></span>
-                        @break
-                        @default
-                        <span class="icon fa fa-info"></span>
-                        @break
-                    @endswitch
-                        @switch($row->status)
-                            @case('completed')
-                            {{__('Your order is completed!')}}
-                            @break
-                            @default
-                            {{__('Your order detail')}}
-                            @break
-                        @endswitch
-                    </h4>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="order_complete_message text-center">
+                        <div class="icon bgc-thm">
+                            @switch($row->status)
+                                @case('completed')
+                                <span class="icon fa fa-check text-white"></span>
+                                @break
+                                @default
+                                <span class="icon fa fa-info text-white"></span>
+                                @break
+                            @endswitch
+                        </div>
+                        <h2>
+                            @switch($row->status)
+                                @case('completed')
+                                {{__('Your order is completed!')}}
+                                @break
+                                @default
+                                {{__('Your order detail')}}
+                                @break
+                            @endswitch
+                        </h2>
+                        <p class="fz14">
+                            @switch($row->status)
+                                @case('completed')
+                                {{__('Thank you. Your order has been received.')}}
+                                @break
+                                @default
+                                {{__('Here is your order detail')}}
+                                @break
+                            @endswitch
+                        </p>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <div class="text h5 fs-18">
-                        @switch($row->status)
-                            @case('completed')
-                            {{__('Thank you. Your order has been received.')}}
-                            @break
-                            @default
-                            {{__('Here is your order detail')}}
-                            @break
-                        @endswitch
+            </div>
+            <div class="row">
+                <div class="col-xl-8 offset-xl-2">
+                    <div class="shop_order_box mt40">
+                        <div class="order_list_raw">
+                            <ul>
+                                <li class="list-inline-item">
+                                    <p>{{__('Order Number')}}</p>
+                                    <h5>#{{$row->id}}</h5>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p>{{__('Date')}}</p>
+                                    <h5>{{display_date($row->order_date)}}</h5>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p>{{__('Total')}}</p>
+                                    <h5>{{format_money($row->total)}}</h5>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p>{{__('Payment Method')}}</p>
+                                    <h5>{{$row->gateway_obj ? $row->gateway_obj->getDisplayName() : ''}}</h5>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="order_details">
+                            <h4 class="title text-center mb40">{{__('ORDER DETAILS')}}</h4>
+                            <div class="od_content">
+                                <ul>
+                                    <li class="subtitle bb1 mb20 pb5"><p>{{__('Product')}} <span class="float-end">{{__('Subtotal')}}</span></p></li>
+                                    @foreach($row->items as $orderItem)
+                                        <?php $model = $orderItem->model; ?>
+                                        <li class="cart-item">
+                                            <p class="product_name_qnt">{{$model ? $model->title : $orderItem->name }} x{{$orderItem->qty}}
+
+                                                @if(!empty($orderItem->meta['package']))
+                                                    <div class="mt-3">{{__('Package: ')}} {{package_key_to_name($orderItem->meta['package'])}} ({{format_money($orderItem->price)}})</div>
+                                                @endif
+                                                @if(!empty($orderItem->meta['extra_prices']))
+                                                    <div class="mt-3"><strong>{{__("Extra Prices:")}}</strong></div>
+                                                    <ul class="list-unstyled mt-2">
+                                                        @foreach($orderItem->meta['extra_prices'] as $extra_price)
+                                                            <li>{{$extra_price['name'] ?? ''}} : {{format_money($extra_price['price'] ?? 0)}}</li>
+                                                        @endforeach
+                                                    </ul>
+                                                @endif
+                                                <span class="product-total float-end">{{format_money($orderItem->subtotal)}}</span>
+                                            </p>
+                                        </li>
+                                    @endforeach
+                                    @if(!empty($row->shipping_amount) and $row->shipping_amount > 0)
+                                        <li class="subtitle bb1 mb20 pb5"><p>{{__('Shipping Amount')}} <span class="float-end">{{format_money($row->shipping_amount )}}</span></p></li>
+                                    @endif
+                                    @if(!empty($row->discount_amount) and $row->discount_amount > 0)
+                                        <li class="subtitle bb1 mb20 pb5"><p>{{__('Discount Amount')}}
+                                            <span class="float-end">-{{format_money($row->discount_amount )}}</span></p>
+                                        </li>
+                                    @endif
+                                    @if(!empty($row->tax_amount) and $row->tax_amount > 0)
+                                        <li class="subtitle bb1 mb20 pb5"><p>{{__('Tax')}}
+                                                 @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
+                                            <span class="float-end">{{format_money($row->tax_amount )}}</span></p>
+                                        </li>
+                                    @endif
+                                    <li class="subtitle bb1 mb20 pb5"><p>{{__('Total')}}
+                                            <span class="float-end">{{format_money($row->total)}}</span></p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
-                    <ul class="order-info list-unstyled">
-                        <li>
-                            <span>{{__('Order Number')}}</span>
-                            <strong>#{{$row->id}}</strong>
-                        </li>
-
-                        <li>
-                            <span>{{__('Date')}}</span>
-                            <strong>{{display_date($row->created_at)}}</strong>
-                        </li>
-
-                        <li>
-                            <span>{{__('Total')}}</span>
-                            <strong>{{format_money($row->total)}}</strong>
-                        </li>
-
-                        <li>
-                            <span>{{__('Payment Method')}}</span>
-                            <strong>{{$row->gateway_obj ? $row->gateway_obj->getDisplayName() : ''}}</strong>
-                        </li>
-                        <li>
-                            <span>{{__('Status')}}</span>
-                            <strong>{{$row->status_name}}</strong>
-                        </li>
-                    </ul>
-                    <div class="order-box border-top pt-3">
-                        <h4 class="fs-18">{{__('Order details')}}</h4>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th><strong>{{__('Product')}}</strong></th>
-                                <th width="20%"><strong>{{__('Subtotal')}}</strong></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($row->items as $orderItem)
-                                <?php $model = $orderItem->model; ?>
-                                <tr class="cart-item">
-                                    <td class="product-name">{{$model ? $model->title : $orderItem->name }} x{{$orderItem->qty}}
-
-                                        @if(!empty($orderItem->meta['package']))
-                                            <div class="mt-3">{{__('Package: ')}} {{package_key_to_name($orderItem->meta['package'])}} ({{format_money($orderItem->price)}})</div>
-                                        @endif
-                                        @if(!empty($orderItem->meta['extra_prices']))
-                                            <div class="mt-3"><strong>{{__("Extra Prices:")}}</strong></div>
-                                            <ul class="list-unstyled mt-2">
-                                                @foreach($orderItem->meta['extra_prices'] as $extra_price)
-                                                    <li>{{$extra_price['name'] ?? ''}} : {{format_money($extra_price['price'] ?? 0)}}</li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </td>
-                                    <td class="product-total">{{format_money($orderItem->subtotal)}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                            <tfoot>
-                            @if(!empty($row->shipping_amount) and $row->shipping_amount > 0)
-                                <tr class="shipping-amount">
-                                    <td>{{__('Shipping Amount')}}</td>
-                                    <td><span class="amount">{{format_money($row->shipping_amount )}}</span></td>
-                                </tr>
-                            @endif
-                            @if(!empty($row->discount_amount) and $row->discount_amount > 0)
-                                <tr class="discount-amount">
-                                    <td>{{__('Discount Amount')}}</td>
-                                    <td><span class="amount">-{{format_money($row->discount_amount )}}</span></td>
-                                </tr>
-                            @endif
-                            @if(!empty($row->tax_amount) and $row->tax_amount > 0)
-                                <tr class="tax-amount">
-                                    <td>
-                                        {{__('Tax')}} @if($row->getMeta('prices_include_tax') == "yes")<span >({{ __("include") }})</span> @endif
-                                    </td>
-                                    <td><span class="amount">{{format_money($row->tax_amount )}}</span></td>
-                                </tr>
-                            @endif
-                            <tr class="order-total">
-                                <td>{{__('Total')}}</td>
-                                <td><span class="amount">{{format_money($row->total)}}</span></td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-                    <hr>
-                    @include('order.emails.parts.order-address',['order'=>$row])
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection

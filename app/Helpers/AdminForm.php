@@ -36,6 +36,7 @@ class AdminForm{
         {
             foreach ($options as $option)
             {
+                $val = $option['value'] ?? '';
                 switch ($option['type'])
                 {
                     case "checkbox":
@@ -52,7 +53,7 @@ class AdminForm{
                         <div class="form-group" <?php if(!empty($option['condition'])) echo 'data-condition="'.e($option['condition']).'"'; ?> >
                             <label class="" ><?php echo e($option['label']) ?></label>
                             <div class="form-controls">
-                                <input type="<?php e($option['input_type'] ?? 'text') ?>" class="form-control" name="<?php echo e($option['id']) ?>" value="<?php echo e($option['value'] ?? '') ?>" <?php echo e(!empty($option['step'])?'step='.$option['step']:'')?> >
+                                <input type="<?php e($option['input_type'] ?? 'text') ?>" class="form-control" <?php if(empty($option['readonly'])):  ?> name="<?php echo e($option['id']) ?>" <?php else: echo 'readonly'; endif; ?> value="<?php echo e($val) ?>" <?php echo e(!empty($option['step'])?'step='.$option['step']:'')?> >
                             </div>
                             <?php if(!empty($option['desc'])){
                                 printf('<small class="form-text text-muted">%s</small>',$option['desc']);

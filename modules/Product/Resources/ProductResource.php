@@ -13,9 +13,10 @@ class ProductResource extends BaseJsonResource
     public function toArray($request)
     {
         $translation = $this->translate(app()->getLocale());
+        $title = $translation->title;
         return [
             'id'=>$this->id,
-            'title'=>$translation->title,
+            'title'=>$title,
             'price'=>$this->whenNeed('price',function(){
                 return $this->sale_price;
             }),
@@ -50,6 +51,9 @@ class ProductResource extends BaseJsonResource
             }),
             'gallery'=>$this->whenNeed('gallery',function(){
                 return $this->getGallery();
+            }),
+            'variation'=>$this->whenNeed('join_variation',function(){
+                return new VariationResource($this->variation);
             })
         ];
     }

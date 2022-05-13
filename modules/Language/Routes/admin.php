@@ -1,8 +1,8 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-Route::match(['get', 'post'],'/','LanguageController@index')->name('language.admin.index');
-Route::match(['get', 'post'],'edit/{id}','LanguageController@edit')->name('language.admin.edit');
+Route::match(['get'],'/','LanguageController@index')->name('language.admin.index');
+Route::match(['get','post'],'edit/{id}','LanguageController@edit')->name('language.admin.edit');
 Route::post('editBulk','LanguageController@editBulk')->name('language.admin.editBulk');
 
 

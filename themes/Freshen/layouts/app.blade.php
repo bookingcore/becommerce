@@ -72,6 +72,7 @@
 
 
     </script>
+    <script src="{{ theme_url('Base') }}/libs/vue/vue{{!config('app.script_debug') ? '.min' : '' }}.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-3.6.0.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/jquery-migrate-3.0.0.min.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/popper.min.js"></script>

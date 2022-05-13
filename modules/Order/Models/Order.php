@@ -174,8 +174,8 @@ class Order extends BaseModel
     public function getOrderReportData($from, $to){
         $report_data = new \stdClass();
         $dataOrder = parent::query()
-            ->selectRaw('sum(`total`) as total_price')
-            ->whereBetween('created_at', [$from, $to])
+            ->selectRaw('sum(`total` + `tax_amount` + IFNULL(`shipping_amount`,0)) as total_price,sum(total) as net_sales, sum(IFNULL(`shipping_amount`,0)) as total_ship,sum(discount_amount) as total_discount')
+            ->whereBetween('order_date', [$from, $to])
             ->where('status', self::COMPLETED)
             ->first();
 
@@ -183,26 +183,26 @@ class Order extends BaseModel
         $report_data->gloss_sales = $dataOrder->total_price ?? 0;
 
         //Net Sales
-        $report_data->net_sales = 0;
+        $report_data->net_sales = $dataOrder->net_sales?? 0;
 
         //Orders Placed
         $report_data->orders_placed = parent::query()
-            ->whereBetween('created_at', [$from, $to])
+            ->whereBetween('order_date', [$from, $to])
             ->where('status', self::COMPLETED)
             ->get()->count();
 
         //Items Purchased
         $report_data->items_purchased = OrderItem::query()
             ->whereHas('order', function ($q) use ($from, $to){
-                $q->whereBetween('created_at', [$from, $to]);
+                $q->whereBetween('order_date', [$from, $to]);
                 $q->where('status', self::COMPLETED);
             })->get()->count();
 
         //Charged for shipping
-        $report_data->total_shipping = 0;
+        $report_data->total_shipping = $dataOrder->total_ship ?? 0;
 
         //Worth of coupons used
-        $report_data->coupons_used = 0;
+        $report_data->coupons_used = $dataOrder->total_discount ?? 0;
 
         return $report_data;
     }

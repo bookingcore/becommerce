@@ -52,14 +52,19 @@ abstract class BaseGateway
         $options = $this->getOptionsConfigs();
         if (!empty($options)) {
             foreach ($options as &$option) {
-                $option['value'] = $this->getOption($option['id'], $option['std'] ?? '');
+                if(empty($option['readonly'])){
+                    $option['value'] = $this->getOption($option['id'], $option['std'] ?? '');
+                }
                 if( !empty($option['multi_lang']) && !empty($languages) && setting_item('site_enable_multi_lang') && setting_item('site_locale')){
                     foreach($languages as $language){
                         if( setting_item('site_locale') == $language->locale) continue;
                         $option["value_".$language->locale] = $this->getOption($option['id']."_".$language->locale, '');
                     }
                 }
-                $option['id'] = 'g_' . $this->id . '_' . $option['id'];
+
+                if(!empty($option['id'])){
+                    $option['id'] = 'g_' . $this->id . '_' . $option['id'];
+                }
             }
         }
         return $options;
@@ -115,6 +120,7 @@ abstract class BaseGateway
     public function getDisplayLogo()
     {
         $logo_id = $this->getOption('logo_id');
+        if(!$logo_id) return false;
         return get_file_url($logo_id);
     }
 

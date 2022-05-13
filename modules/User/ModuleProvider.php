@@ -63,13 +63,13 @@ class ModuleProvider extends ModuleServiceProvider
                     'title' => __('All Users'),
                     'icon'  => 'fa fa-user',
                 ],
-                'plan'=>[
-                    "position"=>50,
-                    'url'        => route('user.admin.plan.index'),
-                    'title'      => __('User Plans'),
-                    'icon'       => 'icon ion-ios-contacts',
-                    'permission' => 'user_manage',
-                ],
+//                'plan'=>[
+//                    "position"=>50,
+//                    'url'        => route('user.admin.plan.index'),
+//                    'title'      => __('User Plans'),
+//                    'icon'       => 'icon ion-ios-contacts',
+//                    'permission' => 'user_manage',
+//                ],
                 'role'=>[
                     'url'        => route('user.admin.role.index'),
                     'title'      => __('Role Manager'),

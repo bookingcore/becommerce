@@ -1,6 +1,9 @@
 :root{
     --main-color:#86BC42
 }
+.fs-14{
+    font-size: 14px;
+}
 .footer_one{
     &:before{
         display: none !important;
@@ -329,7 +332,6 @@
         }
     }
     .bc_apply_coupon{
-        height: 50px;
         line-height: 1.2;
         margin-bottom: 0;
         width: 170px;
@@ -411,5 +413,15 @@
         font-weight: 400;
         line-height: 24px;
         letter-spacing: 0em;
+    }
+}
+body .order-box{
+    .table{
+        td,th{
+            border-bottom-color:rgb(119, 119, 119)
+        }
+        .product-total{
+            font-weight: 700;
+        }
     }
 }

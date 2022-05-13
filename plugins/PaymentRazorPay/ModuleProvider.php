@@ -2,6 +2,7 @@
 namespace Plugins\PaymentRazorPay;
 
 use Modules\ModuleServiceProvider;
+use Modules\Order\Helpers\PaymentGatewayManager;
 use Plugins\PaymentRazorPay\Gateway\RazorPayCheckoutGateway;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -11,11 +12,8 @@ class ModuleProvider extends ModuleServiceProvider
         $this->app->register(RouterServiceProvider::class);
     }
 
-    public static function getPaymentGateway()
-    {
-        return [
-            'razorpay_gateway' => RazorPayCheckoutGateway::class
-        ];
+    public function boot(){
+        PaymentGatewayManager::register('razorpay',RazorPayCheckoutGateway::class);
     }
 
     public static function getPluginInfo()
