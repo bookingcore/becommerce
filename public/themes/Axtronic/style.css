@@ -3432,6 +3432,7 @@ header .list-group-item.active {
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5em;
+  text-align: center;
 }
 .axtronic-category .swiper-slider-icon .swiper-slide h3.item-title a {
   color: var(--text);
@@ -5455,6 +5456,11 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   background-repeat: no-repeat;
   background-position: center;
 }
+.axtronic-features.axtronic-features-slider {
+  transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
+  padding: 60px 30px 30px;
+  border-radius: 12px;
+}
 .axtronic-features .product-item {
   background: transparent;
 }
@@ -6062,7 +6068,7 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
 }
 
 .swiper-slider-news {
-  margin-bottom: 80px;
+  margin-bottom: 30px;
   padding-bottom: 30px;
 }
 .swiper-slider-news .axtronic-post.post {

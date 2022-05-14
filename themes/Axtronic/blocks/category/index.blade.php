@@ -6,7 +6,7 @@
  * Time: 9:52 PM
  */
 ?>
-@if($list_items)
+@if(!empty($list_items))
     <div class="axtronic-category mt-3">
         <div class="container">
             <h2 class="heading-title">{{ $title_name }}</h2>
