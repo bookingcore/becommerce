@@ -896,9 +896,9 @@ ul.axtronic-products-special{
             transition: all .3s ease;
             border: none;
             margin-right: 24px;
-            padding-bottom: 11px;
             border-bottom: 3px solid transparent;
             border-radius: 0;
+            padding: 8px 0 12px;
             &.active, &:hover{
                 border-bottom-color: var(--primary);
                 color: var(--accent);

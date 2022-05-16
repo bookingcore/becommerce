@@ -5,10 +5,13 @@
  * Date: 4/21/2022
  * Time: 9:03 AM
  */
-
+$bg_image = "";
+if (!empty($bg_content)){
+    $bg_image = get_file_url( $bg_content ?? false,'full');
+}
 ?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products axtronic-slider-best mb-5 list-products-bg py-5 {{ $style_header }}" style="background-image: url('{{ get_file_url( $bg_content ?? false,'full') }}')">
+    <div class="axtronic-list-products axtronic-slider-best mb-5 list-products-bg py-5 {{ $style_header }}" style="background-image: url('{{ $bg_image }}')">
         <div class="container">
             <div class="product-box">
                 <div class="product-box-title ">
