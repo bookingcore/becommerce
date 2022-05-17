@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Themes\Freshen\Models;
+namespace Themes\Axtronic\Models;
 
 
-use Themes\Freshen\Database\Factories\ProductTagFactory;
+use Themes\Axtronic\Database\Factories\ProductTagFactory;
 
 class ProductTag extends \Modules\Product\Models\ProductTag
 {
