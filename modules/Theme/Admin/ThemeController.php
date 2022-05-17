@@ -43,6 +43,9 @@ class ThemeController extends AdminController
     }
 
     public function upload_post(Request $request){
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do that"));
+        }
         $this->checkPermission("theme_manage");
 
         $request->validate([
@@ -69,19 +72,26 @@ class ThemeController extends AdminController
     }
 
     public function activate($theme){
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do that"));
+        }
         $this->checkPermission("theme_manage");
 
         try{
             JsonConfigManager::set("active_theme",trim($theme));
         }catch (\Throwable $throwable)
         {
-            back()->with('danger',$throwable->getMessage());
+            return back()->with('danger',$throwable->getMessage());
         }
 
         return back()->with('success',__("Theme activated"));
     }
 
     public function seeding($theme){
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do that"));
+        }
+
         $this->checkPermission("theme_manage");
 
         $provider = $this->theme_manager::theme($theme);

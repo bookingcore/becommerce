@@ -61,7 +61,7 @@ class ProductTag extends BaseModel
         return route('product.tag',['slug'=>$this->slug]);
     }
 
-    public function search($filters = []){
+    public static function search($filters = []){
         return parent::query();
     }
 
