@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Freshen\Walkers;
+namespace Themes\Axtronic\Walkers;
 
 class DepartmentMenuWalker
 {
