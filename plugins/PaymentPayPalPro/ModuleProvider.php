@@ -22,7 +22,7 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'title'   => __('Gateway PayPal Pro'),
             'desc'    => __('Gateway PayPal Pro is one of the best payment Gateway to accept online payments from buyers around the world which allow your customers to make purchases in many payment methods, 15 languages, 87 currencies, and more than 200 markets in the world.'),
-            'author'  => "Booking Core",
+            'author'  => "Becommerce",
             'version' => "1.2.0",
         ];
     }

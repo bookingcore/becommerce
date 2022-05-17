@@ -20,7 +20,7 @@ class ModuleProvider extends ModuleServiceProvider
         return [
             'title'   => __('Gateway FlutterWave'),
             'desc'    => __('Welcome to FlutterWave!'),
-            'author'  => "Booking Core",
+            'author'  => "Becommerce",
             'version' => "1.0.1",
         ];
     }
