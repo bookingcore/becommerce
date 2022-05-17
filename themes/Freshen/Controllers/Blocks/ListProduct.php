@@ -1,6 +1,7 @@
 <?php
 namespace Themes\Freshen\Controllers\Blocks;
 
+use Illuminate\Support\Facades\View;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
@@ -128,6 +129,7 @@ class ListProduct extends BaseBlock
             'categories' => $categories ?? [],
             'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal"
         ];
+        if(View::exists('blocks.list-product.'.$data['style_list']))
         return view('blocks.list-product.'.$data['style_list'], $data);
     }
 }
