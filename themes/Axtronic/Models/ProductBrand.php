@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Themes\Freshen\Models;
+namespace Themes\Axtronic\Models;
 
 
-use Themes\Freshen\Database\Factories\ProductBrandFactory;
+use Themes\Axtronic\Database\Factories\ProductBrandFactory;
 
 class ProductBrand extends \Modules\Product\Models\ProductBrand
 {
