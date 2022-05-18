@@ -5,6 +5,7 @@ namespace Modules\Campaign\Models;
 
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Modules\Product\Models\Product;
 
 class CampaignProduct extends BaseModel
@@ -31,17 +32,24 @@ class CampaignProduct extends BaseModel
         if($this->end_date->timestamp < time()) return false;
         return true;
     }
-
-    public function getPriceAttribute(){
-        $price = $this->product->price ?? '';
-        return $price;
+    public function price() : Attribute{
+        return Attribute::make(
+            get:function($value){
+                $price = $this->product->price ?? '';
+                return $price;
+            }
+        );
     }
-    public function getDiscountedPriceAttribute(){
-        $price = $this->price ?? 0;
-        if($this->discount_amount){
-            $price -= $price * $this->discount_amount / 100;
-        }
-        return $price;
-    }
+    public function discountedPrice(): Attribute{
 
+        return Attribute::make(
+            get:function($value){
+                $price = $this->price ?? 0;
+                if($this->discount_amount){
+                    $price -= $price * $this->discount_amount / 100;
+                }
+                return $price;
+            }
+        );
+    }
 }

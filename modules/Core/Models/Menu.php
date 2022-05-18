@@ -2,6 +2,7 @@
 namespace Modules\Core\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Cache;
 
 class Menu extends BaseModel
@@ -10,10 +11,14 @@ class Menu extends BaseModel
     protected static $currentMenuItem = false;
     public $lastIndex = 0;
 
-    public function getItemsJsonAttribute()
+    public function itemsJson(): Attribute
     {
-        $items = json_decode($this->items, true);
-        return $this->filterMenuItems($items,$this->lastIndex);
+        return Attribute::make(
+            get:function($value){
+                $items = json_decode($this->items, true);
+                return $this->filterMenuItems($items,$this->lastIndex);
+            }
+        );
     }
 
     protected function filterMenuItems($items,&$i = 0){
