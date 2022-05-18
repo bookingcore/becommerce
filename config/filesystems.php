@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -33,15 +33,18 @@ return [
         'demo' => [
             'driver' => 'local',
             'root' => storage_path('demo'),
+            'throw' => false,
         ],
         'local' => [
             'driver' => 'local',
             'root' => storage_path('app'),
+            'throw' => false,
         ],
 
         'uploads' => [
             'driver' => 'local',
             'root' => public_path('uploads'),
+            'throw' => false,
         ],
 
         'public' => [
@@ -49,6 +52,7 @@ return [
             'root' => storage_path('app/public'),
             'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
+            'throw' => false,
         ],
 
         's3' => [
@@ -60,6 +64,7 @@ return [
             'url' => env('AWS_URL'),
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
+            'throw' => false,
         ],
         'gcs' => [
             'driver' => 'gcs',
@@ -68,7 +73,8 @@ return [
             'bucket' => env('GOOGLE_CLOUD_STORAGE_BUCKET', 'your-bucket'),
             'path_prefix' => env('GOOGLE_CLOUD_STORAGE_PATH_PREFIX', null), // optional: /default/path/to/apply/in/bucket
             'storage_api_uri' => env('GOOGLE_CLOUD_STORAGE_API_URI', null), // see: Public URLs below
-            'visibility' => 'private', // optional: public|private
+            'visibility' => 'private', // optional: public|private,
+            'throw' => false,
         ],
 
     ],
