@@ -5,6 +5,7 @@ namespace Modules\Product\Models;
 
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class UserAddress extends BaseModel
 {
@@ -27,16 +28,21 @@ class UserAddress extends BaseModel
         'address_type',
     ];
 
-    public function getHtmlAttribute(){
-        $data = [
-            $this->first_name.' '.$this->last_name,
-            $this->company,
-            $this->address,
-            $this->address2,
-            $this->city.', '.$this->state.' '.$this->post_code,
-            get_country_name($this->country)
-        ];
-        $data = array_filter($data);
-        return implode("<br>",$data);
+    public function html(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $data = [
+                    $this->first_name.' '.$this->last_name,
+                    $this->company,
+                    $this->address,
+                    $this->address2,
+                    $this->city.', '.$this->state.' '.$this->post_code,
+                    get_country_name($this->country)
+                ];
+                $data = array_filter($data);
+                return implode("<br>",$data);
+            }
+        );
     }
 }

@@ -2,6 +2,7 @@
 namespace Modules\Template\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Modules\Template\BlockManager;
 use PhpParser\Node\Expr\Cast\Object_;
 
@@ -35,16 +36,24 @@ class Template extends BaseModel
         return $a;
     }
 
-    public function getEditUrlAttribute()
+    public function editUrl(): Attribute
     {
-        return url('admin/module/template/edit/' . $this->id);
+        return Attribute::make(
+            get:function($value){
+                return url('admin/module/template/edit/' . $this->id);
+            }
+        );
     }
 
-    public function getContentJsonAttribute()
+    public function contentJson(): Attribute
     {
-        $json = json_decode($this->content, true);
-        $this->filterContentJson($json);
-        return $json;
+        return Attribute::make(
+            get:function($value){
+                $json = json_decode($this->content, true);
+                $this->filterContentJson($json);
+                return $json;
+            }
+        );
     }
 
     protected function filterContentJson(&$json)

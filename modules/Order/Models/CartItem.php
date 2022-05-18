@@ -3,6 +3,7 @@
 
 namespace Modules\Order\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
@@ -97,11 +98,21 @@ class CartItem extends Model
         $this->id = uniqid().rand(0,99999);
     }
 
-    public function getSubtotalAttribute(){
-        return $this->price * $this->qty + $this->extra_price_total;
+    public function subtotal(): Attribute
+    {
+       return Attribute::make(
+           get:function($value){
+               return $this->price * $this->qty + $this->extra_price_total;
+           }
+       );
     }
-    public function getSubtotalDiscountAttribute(){
-        return $this->price * $this->qty + $this->extra_price_total - $this->discount_amount;
+    public function subtotalDiscount(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                return $this->price * $this->qty + $this->extra_price_total - $this->discount_amount;
+            }
+        );
     }
 
     public function getDetailUrl(){
@@ -111,15 +122,20 @@ class CartItem extends Model
         return '';
     }
 
-    public function getExtraPriceTotalAttribute(){
-        $t = 0;
-        if(!empty($this->meta['extra_prices']))
-        {
-            foreach ($this->meta['extra_prices'] as $extra_price){
-                $t += (float)($extra_price['price']);
+    public function extraPriceTotal(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $t = 0;
+                if(!empty($this->meta['extra_prices']))
+                {
+                    foreach ($this->meta['extra_prices'] as $extra_price){
+                        $t += (float)($extra_price['price']);
+                    }
+                }
+                return $t;
             }
-        }
-        return $t;
+        );
     }
 
     public function updatePrice(){

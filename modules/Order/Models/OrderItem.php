@@ -8,6 +8,7 @@ use App\BaseModel;
 use App\Traits\HasMeta;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Product\Models\Product;
 
@@ -41,19 +42,30 @@ class OrderItem extends BaseModel
         return $this->belongsTo(User::class,'vendor_id');
     }
 
-    public function getSubtotalAttribute(){
-        return $this->price * $this->qty + $this->extra_price_total;
+    public function subtotal(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                return $this->price * $this->qty + $this->extra_price_total;
+
+            }
+        );
     }
 
-    public function getExtraPriceTotalAttribute(){
-        $t = 0;
-        if(!empty($this->meta['extra_prices']))
-        {
-            foreach ($this->meta['extra_prices'] as $extra_price){
-                $t += (float)($extra_price['price']);
+    public function extraPriceTotal(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $t = 0;
+                if(!empty($this->meta['extra_prices']))
+                {
+                    foreach ($this->meta['extra_prices'] as $extra_price){
+                        $t += (float)($extra_price['price']);
+                    }
+                }
+                return $t;
             }
-        }
-        return $t;
+        );
     }
 
     public function search($filters = [])

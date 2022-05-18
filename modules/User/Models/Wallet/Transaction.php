@@ -5,6 +5,7 @@ namespace Modules\User\Models\Wallet;
 
 
 use App\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Modules\Order\Models\Payment;
 
@@ -30,26 +31,35 @@ class Transaction extends \Bavix\Wallet\Models\Transaction
         return $this->belongsTo(User::class,'create_user')->withDefault();
     }
 
-    public function getStatusNameAttribute(){
-        if($this->confirmed){
-            return __("Confirmed");
-        }
-        if(!$this->payment_id || !$this->payment){
-            return __("Pending");
-        }
-        return $this->payment->status_name;
-    }
-    public function getStatusClassAttribute(){
-        if($this->confirmed){
-            return 'success';
-        }
-        if($this->payment_id && $this->payment){
-            switch ($this->payment->status){
-                case "processing":
-                    return 'warning';
-                    break;
+    public function statusName(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                if($this->confirmed){
+                    return __("Confirmed");
+                }
+                if(!$this->payment_id || !$this->payment){
+                    return __("Pending");
+                }
+                return $this->payment->status_name;
             }
-        }
-        return 'warning';
+        );
+    }
+    public function statusClass(){
+        return Attribute::make(
+          get:function($value){
+                if($this->confirmed){
+                    return 'success';
+                }
+                if($this->payment_id && $this->payment){
+                    switch ($this->payment->status){
+                        case "processing":
+                            return 'warning';
+                        break;
+                    }
+                }
+                return 'warning';
+            }
+        );
     }
 }

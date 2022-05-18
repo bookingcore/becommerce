@@ -4,6 +4,7 @@ namespace Modules\Product\Models;
 
 use App\BaseModel;
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Http\Request;
 use Modules\Core\Models\Term;
 use Modules\Product\Traits\HasStockValidation;
@@ -53,38 +54,53 @@ class ProductVariation extends BaseModel
     }
 
 
-    public function getStockStatusCodeAttribute(){
-        if(!$this->check_manage_stock()){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
+    public function stockStatusCode(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                if(!$this->check_manage_stock()){
+                    return 'in_stock';
+                }
+                switch ($this->stock_status){
+                    case 'in':
+                        return 'in_stock';
+                    break;
+                    case 'out':
+                        return 'out_stock';
+                    break;
 
-        }
+                }
+            }
+        );
     }
-    public function getStockStatusTextAttribute(){
-        if(!$this->check_manage_stock()){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return __("In Stock");
-                break;
-            case 'out':
-                return __("Out Stock");
-                break;
+    public function stockStatusText(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                if(!$this->check_manage_stock()){
+                    return __('In Stock');
+                }
+                switch ($this->stock_status){
+                    case 'in':
+                        return __("In Stock");
+                    break;
+                    case 'out':
+                        return __("Out Stock");
+                    break;
 
-        }
+                }
+            }
+        );
     }
 
 
-    public function getTermIdsAttribute(){
-        return ProductVariationTerm::query()->where('variation_id',$this->id)->get()->pluck('term_id')->toArray();
+    public function termIds(): Attribute
+    {
+        return Attribute::make(
+          get:function($value){
+                return ProductVariationTerm::query()->where('variation_id',$this->id)->get()->pluck('term_id')->toArray();
+            }
+        );
     }
 
     public function getStockStatus(){

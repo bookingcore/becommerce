@@ -172,53 +172,62 @@
             return $moduleClass::getVendorServicesQuery()->take($limit);
         }
 
-        public function getReviewCountAttribute(){
-            return Review::query()->where('vendor_id',$this->id)->where('status','approved')->count('id');
+
+        protected function reviewCount(): Attribute
+        {
+            return Attribute::make(
+                get:function($value){
+                    return Review::query()->where('vendor_id',$this->id)->where('status','approved')->count('id');
+                }
+            );
+
         }
+
         public function vendorRequest(){
             return $this->hasOne(VendorRequest::class);
         }
 
 
-        /**
-         * @todo get All Fields That you need to verification
-         * @return array
-         */
-        public function getVerificationFieldsAttribute(){
 
-            $all = get_all_verify_fields();
-            $role_id = $this->role_id;
-            $res = [];
-            foreach ($all as $id=>$field)
-            {
-                if(!empty($field['roles']) and is_array($field['roles']) and in_array($role_id,$field['roles']))
-                {
-                    $field['id'] = $id;
-                    $field['field_id'] = 'verify_data_'.$id;
-                    $field['is_verified'] = $this->isVerifiedField($id);
-                    $field['data'] = old('verify_data_'.$id,$this->getVerifyData($id));
-
-                    switch ($field['type'])
+        protected function verificationFields(): Attribute
+        {
+            return Attribute::make(
+                get:function ($value){
+                    $all = get_all_verify_fields();
+                    $role_id = $this->role_id;
+                    $res = [];
+                    foreach ($all as $id=>$field)
                     {
-                        case "multi_files":
-                            $field['data'] = json_decode($field['data'],true);
-                            if(!empty($field['data']))
-                            {
-                                foreach ($field['data'] as $k=>$v){
-                                    if(!is_array($v)){
-                                        $field['data'][$k] = json_decode($v,true);
-                                    }
-                                }
-                            }
-                            break;
-                    }
-                    $res[$id] = $field;
-                }
-            }
+                        if(!empty($field['roles']) and is_array($field['roles']) and in_array($role_id,$field['roles']))
+                        {
+                            $field['id'] = $id;
+                            $field['field_id'] = 'verify_data_'.$id;
+                            $field['is_verified'] = $this->isVerifiedField($id);
+                            $field['data'] = old('verify_data_'.$id,$this->getVerifyData($id));
 
-            return \Illuminate\Support\Arr::sort($res, function ($value) {
-                return $value['order'] ?? 0;
-            });
+                            switch ($field['type'])
+                            {
+                                case "multi_files":
+                                    $field['data'] = json_decode($field['data'],true);
+                                    if(!empty($field['data']))
+                                    {
+                                        foreach ($field['data'] as $k=>$v){
+                                            if(!is_array($v)){
+                                                $field['data'][$k] = json_decode($v,true);
+                                            }
+                                        }
+                                    }
+                                break;
+                            }
+                            $res[$id] = $field;
+                        }
+                    }
+
+                    return \Illuminate\Support\Arr::sort($res, function ($value) {
+                        return $value['order'] ?? 0;
+                    });
+                }
+            );
 
         }
 
@@ -268,8 +277,15 @@
             }
         }
 
-        public function getNameAttribute(){
-            return $this->first_name.' '.$this->last_name;
+
+        protected function name(): Attribute
+        {
+            return Attribute::make(
+                get:function($value){
+                    return $this->first_name.' '.$this->last_name;
+                }
+            );
+
         }
 
         public function department(){
@@ -338,19 +354,40 @@
             $user_plan->fillByAttr(array_keys($data),$data);
             $user_plan->save();
         }
-        public function getStatusBadgeAttribute(){
-            return get_status_badge($this->status);
+
+
+        protected function statusTBadge(): Attribute
+        {
+            return Attribute::make(
+                get:function($value){
+                    return get_status_badge($this->status);
+                }
+            );
+
         }
 
-        public function getStatusTextAttribute(){
-            return get_status_text($this->status);
+        protected function statusText(): Attribute
+        {
+            return Attribute::make(
+                get:function($value){
+                    return get_status_text($this->status);
+                }
+            );
+
         }
 
-        public function getPermissionsAttribute(){
-            $role = $this->role;
-            if(!$role) return [];
 
-            return $role->permissions->pluck('permission')->all();
+        protected function permissions(): Attribute
+        {
+            return Attribute::make(
+                get:function($value){
+                    $role = $this->role;
+                    if(!$role) return [];
+
+                    return $role->permissions->pluck('permission')->all();
+                }
+            );
+
         }
 
         public function getStoreUrl(){

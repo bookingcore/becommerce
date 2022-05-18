@@ -6,6 +6,7 @@ namespace Modules\User\Models;
 
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Cache;
 use Modules\User\Helpers\PermissionHelper;
 
@@ -105,12 +106,18 @@ class Role extends BaseModel
         return $this->hasMany(Plan::class,'role_id');
     }
 
-    public function getCommissionTextAttribute(){
+    public function commissionText(): Attribute
+    {
 
-        if($this->commission_type != 'default'){
-            return $this->commission_type == 'percent' ? $this->commission.'%' : format_money($this->commission);
-        }else{
-            return "<strong>".__("[Default]")."</strong> ".(setting_item('vendor_commission_type') == 'percent' ? setting_item('vendor_commission_amount').'%' : format_money(setting_item('vendor_commission_amount')));
-        }
+        return Attribute::make(
+            get:function(){
+                if($this->commission_type != 'default'){
+                    return $this->commission_type == 'percent' ? $this->commission.'%' : format_money($this->commission);
+                }else{
+                    return "<strong>".__("[Default]")."</strong> ".(setting_item('vendor_commission_type') == 'percent' ? setting_item('vendor_commission_amount').'%' : format_money(setting_item('vendor_commission_amount')));
+                }
+            }
+        );
+
     }
 }

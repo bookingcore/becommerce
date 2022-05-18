@@ -24,6 +24,7 @@ use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
 use Themes\Base\Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 
 class Product extends BaseModel
 {
@@ -92,18 +93,23 @@ class Product extends BaseModel
         return __('Simple Product');
     }
 
-    public function getTypeNameAttribute(){
-        switch ($this->product_type){
-            case "simple":
-                return __('Simple Product');
-                break;
-            case "variable":
-                return __('Variable Product');
-                break;
-            case "external":
-                return __('External Product');
-                break;
-        }
+    protected function typeName(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                switch ($this->product_type){
+                    case "simple":
+                        return __('Simple Product');
+                    break;
+                    case "variable":
+                        return __('Variable Product');
+                    break;
+                    case "external":
+                        return __('External Product');
+                    break;
+                }
+            }
+        );
     }
 
     /**
@@ -330,37 +336,43 @@ class Product extends BaseModel
     /**
      * Single Tabs
      */
-    public function getTabsAttribute(){
-        $tabs = [
-            [
-                'id' => 'content',
-                'name' => __('Description'),
-                'position' => 10
-            ],
-            [
-                'id' => 'policies',
-                'name' => __('Policies'),
-                'position' => 40
-            ]
-        ];
-        if(is_vendor_enable()){
-           $tabs[] = [
-                   'id' => 'vendor',
-                   'name' => __('Vendor'),
-                   'position' => 20
-               ];
-        }
-        if (setting_item('product_enable_review')){
-            $tabs[] =[
-                    'id' => 'review',
-                    'name' => __('Review'),
-                    'position' => 30
+    public function tabs(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                $tabs = [
+                    [
+                        'id' => 'content',
+                        'name' => __('Description'),
+                        'position' => 10
+                    ],
+                    [
+                        'id' => 'policies',
+                        'name' => __('Policies'),
+                        'position' => 40
+                    ]
                 ];
-        }
+                if(is_vendor_enable()){
+                    $tabs[] = [
+                        'id' => 'vendor',
+                        'name' => __('Vendor'),
+                        'position' => 20
+                    ];
+                }
+                if (setting_item('product_enable_review')){
+                    $tabs[] =[
+                        'id' => 'review',
+                        'name' => __('Review'),
+                        'position' => 30
+                    ];
+                }
 
-        return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
-            return $value['position'] ?? 10;
-        }));
+                return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
+                    return $value['position'] ?? 10;
+                }));
+            }
+        );
+
     }
 
     public function categorySeeder(){
@@ -396,11 +408,17 @@ class Product extends BaseModel
     	return $this->belongsTo(ProductVariation::class,'variant_id');
     }
 
-	public function getProductJsAdminDataAttribute(){
-        return [
-            'attributes'=>Attribute::query()->ofType($this->type)->get(),
-            'attributes_for_variation'=>$this->attributes_for_variation
-        ];
+	public function productJsAdminData(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                return [
+                    'attributes'=>Attribute::query()->ofType($this->type)->get(),
+                    'attributes_for_variation'=>$this->attributes_for_variation
+                ];
+            }
+        );
+
     }
 
     public function getTermsOfAttr($attr_id)
@@ -408,21 +426,27 @@ class Product extends BaseModel
          return Term::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
     }
 
-    public function getAttributesForVariationDataAttribute(){
-	    $res = [];
-	    if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
-        {
-            foreach ($this->attributes_for_variation as $attr_id) {
-                $attr = Attribute::find($attr_id);
-                if(empty($attr)) continue;
+    public function attributesForVariationData(): AttributeCasts
+    {
+        return AttributeCasts::make(
+          get:function($value){
+                $res = [];
+                if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
+                {
+                    foreach ($this->attributes_for_variation as $attr_id) {
+                        $attr = Attribute::find($attr_id);
+                        if(empty($attr)) continue;
 
-                $res[$attr_id] = [
-                    'attr'=>$attr,
-                    'terms'=>$this->getTermsOfAttr($attr_id)
-                ];
+                        $res[$attr_id] = [
+                            'attr'=>$attr,
+                            'terms'=>$this->getTermsOfAttr($attr_id)
+                        ];
+                    }
+                }
+                return $res;
             }
-        }
-	    return $res;
+        );
+
     }
     protected function get_stock($st, $pr){
         $sold = (!empty($pr->sold)) ? $pr->sold : 0;

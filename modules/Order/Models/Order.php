@@ -7,6 +7,7 @@ use App\BaseModel;
 use App\Traits\HasMeta;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
 use Modules\Core\Helpers\HookManager;
@@ -101,21 +102,38 @@ class Order extends BaseModel
     }
 
 
-    public function getDisplayNameAttribute(){
-        return $this->first_name.' '.$this->last_name;
+    public function displayName(): Attribute
+    {
+        return Attribute::make(
+            get:function(){
+                return $this->first_name.' '.$this->last_name;
+
+            }
+        );
     }
-    public function getShippingDisplayNameAttribute(){
-        return $this->shipping_first_name.' '.$this->shipping_last_name;
+    public function shippingDisplayName(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                return $this->shipping_first_name.' '.$this->shipping_last_name;
+
+            }
+        );
     }
-    public function getShippingFulLAddressAttribute(){
-        $add = [
-            $this->shipping_address,
-            $this->shipping_city,
-            $this->shipping_state,
-            $this->shipping_postcode,
-            $this->shipping_country,
-        ];
-        return implode(', ',array_filter($add));
+    public function shippingFulLAddress(): Attribute
+    {
+       return Attribute::make(
+           get:function($value){
+               $add = [
+                   $this->shipping_address,
+                   $this->shipping_city,
+                   $this->shipping_state,
+                   $this->shipping_postcode,
+                   $this->shipping_country,
+               ];
+               return implode(', ',array_filter($add));
+           }
+       );
     }
 
     public function search($filters){

@@ -2,6 +2,7 @@
 namespace Modules\Media\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -78,19 +79,24 @@ class MediaFile extends BaseModel
     }
 
 
-    public function getViewUrlAttribute(){
-        switch ($this->driver){
-            case "s3":
-            case "gcs":
-                return $this->generateUrl($this->file_path);
-                break;
-            default:
-                return asset('uploads/' . $this->file_path);
-                break;
-        }
+    public function viewUrl(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                switch ($this->driver){
+                    case "s3":
+                    case "gcs":
+                        return $this->generateUrl($this->file_path);
+                    break;
+                    default:
+                        return asset('uploads/' . $this->file_path);
+                    break;
+                }
+            }
+        );
     }
 
-    public function viewUrl($size = 'thumb'){
+    public function _viewUrl($size = 'thumb'){
 
         return config('bc.preview_media_link') ? url('media/preview/'.$this->id.'/'.$size) : get_file_url($this,$size);
     }

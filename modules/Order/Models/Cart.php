@@ -5,6 +5,7 @@ namespace Modules\Order\Models;
 
 
 use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 
@@ -53,13 +54,18 @@ class Cart extends Model
         }
     }
 
-    public function getTotalAttribute(){
-        $subTotal = $this->subtotal();
-        $discount = $this->discountTotal();
-        $shipping = $this->shippingTotal();
-        $total = $subTotal + $shipping - $discount;
+    public function total(): Attribute
+    {
+       return Attribute::make(
+           get:function($value){
+               $subTotal = $this->subtotal();
+               $discount = $this->discountTotal();
+               $shipping = $this->shippingTotal();
+               $total = $subTotal + $shipping - $discount;
 
-        return max(0,$total);
+               return max(0,$total);
+           }
+       );
     }
 
     /**

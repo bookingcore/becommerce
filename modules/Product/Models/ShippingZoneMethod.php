@@ -2,6 +2,7 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class ShippingZoneMethod extends BaseModel
 {
@@ -17,17 +18,27 @@ class ShippingZoneMethod extends BaseModel
     public function methods(){
         return config('product.shipping_methods');
     }
-    public function getMethodNameAttribute(){
-        $methods = $this->methods();
+    public function methodName(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $methods = $this->methods();
 
-        return $methods[$this->method_id]['name'] ?? __("Flat rate");
+                return $methods[$this->method_id]['name'] ?? __("Flat rate");
+            }
+        );
     }
 
-    public function getMethodDescAttribute(){
+    public function methodDesc(): Attribute
+    {
 
-        $methods = $this->methods();
+        return Attribute::make(
+            get:function($value){
+                $methods = $this->methods();
 
-        return $methods[$this->method_id]['desc'] ?? __("Flat rate");
+                return $methods[$this->method_id]['desc'] ?? __("Flat rate");
+            }
+        );
     }
 
     public static function countMethodAvailable(){

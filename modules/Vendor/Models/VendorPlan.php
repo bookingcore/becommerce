@@ -2,6 +2,7 @@
 namespace Modules\Vendor\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Models\SEO;
@@ -40,8 +41,13 @@ class VendorPlan extends BaseModel
         return $this->hasMany(VendorPlanMeta::class);
     }
 
-    public function getEditUrlAttribute()
+
+    protected function editUrl(): Attribute
     {
-        return url('admin/module/vendor-plan/edit/' . $this->id);
+        return Attribute::make(
+            get:function($value){
+                return url('admin/module/vendor-plan/edit/' . $this->id);
+            }
+        );
     }
 }
