@@ -5,6 +5,7 @@
     use App\Traits\HasMeta;
     use App\Traits\HasSlug;
     use Illuminate\Contracts\Auth\MustVerifyEmail;
+    use Illuminate\Database\Eloquent\Casts\Attribute;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Notifications\Notifiable;
     use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -90,11 +91,15 @@
             }
         }
 
-        public function getNameOrEmailAttribute()
+        protected function nameOrEmail(): Attribute
         {
-            if ($this->first_name) return $this->first_name;
+            return Attribute::make(
+              get:function($value){
+                    if ($this->first_name) return $this->first_name;
 
-            return $this->email;
+                    return $this->email;
+                }
+            );
         }
 
         public static function getUserBySocialId($provider, $socialId)
@@ -127,21 +132,35 @@
             }
             return '<img src="'.asset('images/avatar.png').'" alt="'.$display_name.'">';
         }
-        public function getAvatarUrlAttribute()
+
+
+        protected function avatarUrl(): Attribute
         {
-            return $this->getAvatarUrl();
+            return Attribute::make(
+                get:function($value){
+                    return $this->getAvatarUrl();
+                }
+            );
+
         }
 
-        public function getDisplayNameAttribute()
+
+
+        protected function displayName(): Attribute
         {
-            $name = '';
-            if (!empty($this->first_name) or !empty($this->last_name)) {
-                $name = implode(' ', [$this->first_name, $this->last_name]);
-            }
-            if( !empty($this->business_name) ){
-                $name  = $this->business_name;
-            }
-            return trim($name);
+            return Attribute::make(
+                get:function($value){
+                    $name = '';
+                    if (!empty($this->first_name) or !empty($this->last_name)) {
+                        $name = implode(' ', [$this->first_name, $this->last_name]);
+                    }
+                    if( !empty($this->business_name) ){
+                        $name  = $this->business_name;
+                    }
+                    return trim($name);
+                }
+            );
+
         }
 
         public function sendPasswordResetNotification($token)

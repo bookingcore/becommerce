@@ -6,6 +6,7 @@ namespace Modules\Vendor\Models;
 
 use App\BaseModel;
 use App\User;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 use Modules\Order\Models\OrderItem;
@@ -49,15 +50,26 @@ class VendorPayout extends BaseModel
         return $this->belongsTo(User::class,'vendor_id');
     }
 
-    public function getDateAttribute(){
-        return new \DateTime($this->year.'-'.$this->month.'-01');
+
+    protected function date(): Attribute
+    {
+        return Attribute::make(
+            get:function(){
+                return new \DateTime($this->year.'-'.$this->month.'-01');
+            });
     }
-    public function getMethodNameAttribute(){
-        $all = setting_item_array('vendor_payout_methods');
-        foreach ($all as $item){
-            if(!isset($item['id'])) continue;
-            if($item['id'] == $this->payout_method) return $item['name'] ?? '';
-        }
-        return $this->payout_method;
+
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $all = setting_item_array('vendor_payout_methods');
+                foreach ($all as $item){
+                    if(!isset($item['id'])) continue;
+                    if($item['id'] == $this->payout_method) return $item['name'] ?? '';
+                }
+                return $this->payout_method;
+            }
+        );
     }
 }
