@@ -1,5 +1,4 @@
-@php($broadcast_driver=["pusher", "ably", "redis", "log", "null"])
-
+@php($broadcast_driver=["pusher",  "redis", "log", "null"])
 @if(is_default_lang())
     <hr>
     <div class="row">
@@ -15,7 +14,7 @@
                         <div class="form-controls">
                             <select name="broadcast_driver" class="form-control">
                                 @foreach($broadcast_driver as $item=>$value)
-                                    <option value="{{$value}}" {{($settings['broadcast_driver'] ?? '') == $value ? 'selected' : ''  }}>{{__(strtoupper($value))}}</option>
+                                    <option value="{{$value}}" {{($settings['broadcast_driver'] ?? 'null') == $value ? 'selected' : ''  }}>{{__(strtoupper($value))}}</option>
                                 @endforeach
                             </select>
                         </div>
