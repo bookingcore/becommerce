@@ -19,17 +19,17 @@
         "laravel/socialite": "^5.2.6",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^3.4",
-        "league/flysystem-aws-s3-v3": "^1.0",
+        "league/flysystem-aws-s3-v3": "^3.0",
         "league/omnipay": "^3",
         "maatwebsite/excel": "^3.1",
         "mews/purifier": "^3.3.6",
         "omnipay/paypal": "^3.0",
         "omnipay/stripe": "^3.0",
         "rachidlaasri/laravel-installer": "^4.0",
-        "rap2hpoutre/laravel-log-viewer": "^1.7",
+        "rap2hpoutre/laravel-log-viewer": "^2.2.0",
         "stripe/stripe-php": "^7.107",
-        "superbalist/laravel-google-cloud-storage": "^2.2",
-        "tijsverkoyen/css-to-inline-styles": "^2.2"
+        "tijsverkoyen/css-to-inline-styles": "^2.2",
+        "spatie/laravel-google-cloud-storage": "^2.0.3"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^v3.6.5",

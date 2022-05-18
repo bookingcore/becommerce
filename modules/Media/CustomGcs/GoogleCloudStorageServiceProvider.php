@@ -8,7 +8,7 @@ use Google\Cloud\Storage\StorageClient;
 use Illuminate\Filesystem\FilesystemManager;
 use Illuminate\Support\Arr;
 
-class GoogleCloudStorageServiceProvider extends \Superbalist\LaravelGoogleCloudStorage\GoogleCloudStorageServiceProvider
+class GoogleCloudStorageServiceProvider extends \Spatie\GoogleCloudStorage\GoogleCloudStorageServiceProvider
 {
 
     public function boot()

@@ -4,11 +4,10 @@
 namespace Modules\Media\CustomGcs;
 
 
-use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
-use Superbalist\Flysystem\GoogleStorage\GoogleStorageAdapter;
+use Spatie\GoogleCloudStorage\GoogleCloudStorageAdapter;
 
-class CustomGoogleStorageAdapter extends GoogleStorageAdapter
+class CustomGoogleStorageAdapter extends GoogleCloudStorageAdapter
 {
     /**
      * {@inheritdoc}

@@ -27,7 +27,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
-        $this->app->register(GoogleCloudStorageServiceProvider::class);
+        //$this->app->register(GoogleCloudStorageServiceProvider::class);
     }
 
     public static function getAdminMenu()
