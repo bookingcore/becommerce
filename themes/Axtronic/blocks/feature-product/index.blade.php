@@ -5,15 +5,15 @@
  * Date: 5/5/2022
  * Time: 8:32 AM
  */
-
+$image = "";
+if (!empty($bg_content)){
+    $image = get_file_url( $bg_content ?? false,'full');
+}
 ?>
 
-@php
-    $bg_image = get_file_url( $bg_content ?? false,'full');
-@endphp
 @if(!empty($rows->count()))
 <div class="{{$width_style}}">
-    <div class="axtronic-list-products pt-5 {{ $style_header }} " style="background-image: url('{{ $bg_image }}'); background-color: {{ $bg_color }}">
+    <div class="axtronic-list-products pt-5 {{ $style_header }} " style="background-image: url('{{ $image}}'); background-color: {{ $bg_color }}">
         <div class="product-box-title ">
             <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
         </div>

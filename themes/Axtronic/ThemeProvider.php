@@ -17,6 +17,7 @@ use Themes\Axtronic\Controllers\Blocks\FeaturedIcon;
 use Themes\Axtronic\Controllers\Blocks\Gap;
 use Themes\Axtronic\Controllers\Blocks\ListProduct;
 use Themes\Axtronic\Controllers\Blocks\ProductFeature;
+use Themes\Axtronic\Controllers\Blocks\ProductTab;
 use Themes\Axtronic\Controllers\Blocks\RecentNews;
 use Themes\Axtronic\Controllers\Blocks\Testimonial;
 use Themes\Axtronic\Database\Seeder;
@@ -54,6 +55,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["banner_product", BannerProduct::class],
             ["product_feature", ProductFeature::class],
             ["gap", Gap::class],
+            ["product_tab", ProductTab::class],
         ]);
 
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);

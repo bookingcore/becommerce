@@ -16,9 +16,36 @@
                 'csrfToken' => csrf_token(),
             ]); ?>
         </script>
+        <style>
+            .logo-text,.logo-1,.logo-2{
+                text-decoration: none;
+            }
+            .c-000000 {
+                color: white;
+            }
+            .fw-700 {
+                font-weight: 700;
+            }
+            .fs-33 {
+                font-size: 33px;
+            }
+            .hl {
+                color: #28afb1;
+            }
+            .has_header2 .c-000000,.responsive-sidebar .c-000000,.sticky .c-000000{
+                color:black;
+            }
+            .px-3{
+                padding:30px 0px;
+            }
+        </style>
     </head>
     <body>
         <div class="master">
+            <div>
+            <div class="text-center px-3">
+                <span class="logo-text fs-33 fw-700 c-000000">Be<span class="hl fw-700">Commerce</span></span>
+            </div>
             <div class="box">
                 <div class="header">
                     <h1 class="header__title">@yield('title')</h1>
@@ -86,6 +113,7 @@
                     @endif
                     @yield('container')
                 </div>
+            </div>
             </div>
         </div>
         @yield('scripts')

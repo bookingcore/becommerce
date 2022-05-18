@@ -33,7 +33,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
     public function registerZone(){
         return [
             "position"=>71,
-            'title'      => __("Base Settings"),
+            'title'      => __("Theme Settings"),
             'icon'       => 'fa fa-object-group',
             'permission' => 'setting_update',
             "group"=>"system"

@@ -40,22 +40,6 @@ class ProductFeature extends BaseBlock
                     ],
                 ],
                 [
-                    'id'            => 'width_style',
-                    'type'          => 'radios',
-                    'label'         => __('Slider width'),
-                    'value'         => 'container',
-                    'values'        => [
-                        [
-                            'value'   => 'container',
-                            'name' => __("Container")
-                        ],
-                        [
-                            'value'   => 'container-fluid',
-                            'name' => __("Fluid width")
-                        ],
-                    ]
-                ],
-                [
                     'id'        => 'title',
                     'type'      => 'input',
                     'inputType' => 'text',
@@ -175,7 +159,7 @@ class ProductFeature extends BaseBlock
         $data = [
             'rows'          => $list,
             'title'         => $model['title'] ?? "",
-            'bg_content'    => $model['bg_content'] ?? "",
+            'bg_content'    => $model['bg_content'] ?? '',
             'style_header'  => !empty($model['style_header']) ? $model['style_header'] : "",
             'is_dark'       => $model['is_dark'] ?? false,
             'bg_color'      => $model['bg_color'],

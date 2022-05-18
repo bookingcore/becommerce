@@ -1,4 +1,4 @@
-@if($list_items)
+@if(!empty($list_items))
     <section class="our-testimonial">
         <div class="container">
             <div class="row">

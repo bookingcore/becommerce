@@ -5366,9 +5366,9 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   transition: all 0.3s ease;
   border: none;
   margin-right: 24px;
-  padding-bottom: 11px;
   border-bottom: 3px solid transparent;
   border-radius: 0;
+  padding: 8px 0 12px;
 }
 .popular_listing_tabs .nav-tabs .nav-link.active, .popular_listing_tabs .nav-tabs .nav-link:hover {
   border-bottom-color: var(--primary);

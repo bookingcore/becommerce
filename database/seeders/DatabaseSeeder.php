@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call(TemplateSeeder::class);
 
 
-        $listModule = array_map('basename', File::directories(base_path('modules')));
+        $listModule = array_map('basename', \Illuminate\Support\Facades\File::directories(base_path('modules')));
         $seededClasses = [];
         foreach ($listModule as $module) {
             $class = "\Modules\\".ucfirst($module)."\\Database\\DatabaseSeeder";
@@ -37,16 +37,17 @@ class DatabaseSeeder extends Seeder
             }
         }
 
-        $provider = ThemeManager::currentProvider();
+        if(ThemeManager::current() != 'base') {
+            $provider = ThemeManager::currentProvider();
 
-        if(class_exists($provider))
-        {
-            $seeder = $provider::$seeder;
-            if(class_exists($seeder)){
-                $this->call($seeder);
-                $provider::updateLastSeederRun();
+            if (class_exists($provider)) {
+                $seeder = $provider::$seeder;
+                if (class_exists($seeder)) {
+                    $this->call($seeder);
+                    $provider::updateLastSeederRun();
+                }
+
             }
-
         }
 
     }
