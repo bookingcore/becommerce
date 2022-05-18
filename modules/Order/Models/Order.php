@@ -64,6 +64,16 @@ class Order extends BaseModel
     public function getDetailUrl(){
         return route('order.detail',['code'=>$this->code]);
     }
+
+    protected function gatewayObj(): Attribute
+    {
+        return Attribute::make(
+            get: function ($value,$attributes) {
+
+            }
+        );
+    }
+
     public function getGatewayObjAttribute()
     {
         return $this->gateway ? get_payment_gateway_obj($this->gateway) : false;
@@ -72,11 +82,6 @@ class Order extends BaseModel
     {
         $obj = $this->gateway_obj;
         if($obj) return $obj->getDisplayName();
-    }
-
-    public function getStatusNameAttribute()
-    {
-        return status_to_text($this->status);
     }
 
     public function paymentUpdated(Payment $payment){

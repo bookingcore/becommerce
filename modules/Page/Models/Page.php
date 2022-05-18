@@ -3,6 +3,7 @@ namespace Modules\Page\Models;
 
 use App\BaseModel;
 use App\Traits\HasMeta;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends BaseModel
@@ -68,9 +69,12 @@ class Page extends BaseModel
         return $a;
     }
 
-    public function getEditUrlAttribute()
-    {
-        return url('admin/module/page/edit/' . $this->id);
+    protected function editUrl():Attribute {
+        return Attribute::make(
+            get:function($val,$attrs){
+                return url('admin/module/page/edit/' . $attrs['id']);
+            }
+        );
     }
 
     public function template()

@@ -2,6 +2,7 @@
 namespace Modules\News\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 use Modules\Core\Models\SEO;
@@ -35,11 +36,6 @@ class News extends BaseModel
 
 
     public $review_type = 'comment';
-
-    public function getDetailUrlAttribute()
-    {
-        return url('news-' . $this->slug);
-    }
 
     public function geCategorylink()
     {
@@ -220,55 +216,9 @@ class News extends BaseModel
         return $list_score;
     }
 
-    public function getReviewDataAttribute()
-    {
-        $list_score = [
-            'score_total'  => 0,
-            'score_text'   => __("Not Rate"),
-            'total_review' => 0,
-            'rate_score'   => [],
-        ];
-        $dataTotalReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->first();
-        if (!empty($dataTotalReview->score_total)) {
-            $list_score['score_total'] = number_format($dataTotalReview->score_total, 1);
-            $list_score['score_text'] = Review::getDisplayTextScoreByLever(round($list_score['score_total']));
-        }
-        if (!empty($dataTotalReview->total_review)) {
-            $list_score['total_review'] = $dataTotalReview->total_review;
-        }
-        for ($rate = 5; $rate >= 1; $rate--) {
-            $number = $this->reviewClass::where('rate_number', $rate)->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->count();
-            if (!empty($list_score['total_review'])) {
-                $percent = ($number / $list_score['total_review']) * 100;
-            } else {
-                $percent = 0;
-            }
-            $list_score['rate_score'][$rate] = [
-                'title'   => $this->reviewClass::getDisplayTextScoreByLever($rate),
-                'total'   => $number,
-                'percent' => round($percent),
-            ];
-        }
-        return $list_score;
-    }
-
-
-    public function reviewsCount($with_text = false){
-        $count = Review::query()->where('object_id', $this->id)
-            ->where('object_model', 'news')
-            ->where("status", "approved")
-            ->orderBy("id", "desc")->count();
-        if($with_text){
-            return $count .' ' . ($count == 1 ? __("review") : __("reviews"));
-        }else{
-            return $count;
-        }
-    }
-
     public function related(){
         return $this->hasMany(News::class,'cat_id','cat_id')->where('status','publish')->where('id','!=',$this->id)->with(['translation']);
     }
-
 
     public function comments(){
         return $this->hasMany(Review::class,'object_id')->where('object_model','news');
