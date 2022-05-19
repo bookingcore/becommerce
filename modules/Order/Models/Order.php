@@ -56,7 +56,7 @@ class Order extends BaseModel
         $shipping  = $this->shipping_amount;
         $this->total = $this->subtotal + $shipping - $discount;
         if($this->total<0){
-            $this->total=0;
+               $this->total=0;
         }
         $this->save();
     }
@@ -68,20 +68,19 @@ class Order extends BaseModel
     protected function gatewayObj(): Attribute
     {
         return Attribute::make(
-            get: function ($value,$attributes) {
-
+            get:function(){
+                return $this->gateway ? get_payment_gateway_obj($this->gateway) : false;
             }
         );
     }
-
-    public function getGatewayObjAttribute()
+    protected function gatewayName(): Attribute
     {
-        return $this->gateway ? get_payment_gateway_obj($this->gateway) : false;
-    }
-    public function getGatewayNameAttribute()
-    {
-        $obj = $this->gateway_obj;
-        if($obj) return $obj->getDisplayName();
+        return Attribute::make(
+            get:function(){
+                $obj = $this->gateway_obj;
+                if($obj) return $obj->getDisplayName();
+            }
+        );
     }
 
     public function paymentUpdated(Payment $payment){
