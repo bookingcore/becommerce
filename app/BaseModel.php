@@ -4,6 +4,7 @@ namespace App;
 use App\Traits\HasSEO;
 use App\Traits\HasSlug;
 use App\Traits\HasTranslations;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
@@ -103,22 +104,19 @@ class BaseModel extends Model
         return $this->hasOne(get_class($this),'id','origin_id');
     }
 
-    public function getIsTranslationAttribute(){
-        if($this->origin_id) return true;
-        return false;
+    public function isTranslation() : Attribute{
+        return Attribute::make(
+            get:function($value){
+                return $this->origin_id;
+            }
+        );
     }
-
-    public function getIsPublishedAttribute(){
-
-        if($this->is_translation){
-
-            $origin = $this->origin;
-
-            if(empty($origin)) return false;
-            return $origin->status == 'publish';
-        }else{
-            return $this->status == 'publish';
-        }
+    public function isPublished(): Attribute{
+        return Attribute::make(
+            get:function($value,$attributes){
+                return $this->status == 'publish';
+            }
+        );
     }
 
 
@@ -161,32 +159,38 @@ class BaseModel extends Model
     public function wishlist(){
         return $this->hasOne(UserWishList::class,'object_id')->where('object_model',$this->type);
     }
-
-    public function getStatusTextAttribute(){
-        return status_to_text($this->status);
+    public function statusText(): Attribute {
+        return Attribute::make(
+            get: fn ($value,$attributes) => status_to_text($attributes['status'] ?? ''),
+        );
     }
-    public function getStatusBadgeAttribute(){
-        switch ($this->status){
-            case "publish":
-            case "paid":
-            case "completed":
-            case "approved":
-            case "active":
-                return "success";
-                break;
-            case "pending":
-                return "warning";
-                break;
-            case "rejected":
-                return "danger";
-                break;
-            case "processing":
-                return "primary";
-            case "draft":
-            default:
-                return "secondary";
-                break;
-        }
+
+    public function statusBadge(): Attribute {
+        return Attribute::make(
+            get: function ($value,$attributes) {
+                switch ($attributes['status'] ?? ''){
+                    case "publish":
+                    case "paid":
+                    case "completed":
+                    case "approved":
+                    case "active":
+                        return "success";
+                        break;
+                    case "pending":
+                        return "warning";
+                        break;
+                    case "rejected":
+                        return "danger";
+                        break;
+                    case "processing":
+                        return "primary";
+                    case "draft":
+                    default:
+                        return "secondary";
+                        break;
+                }
+             },
+        );
     }
 
     public function scopeIsActive($query){

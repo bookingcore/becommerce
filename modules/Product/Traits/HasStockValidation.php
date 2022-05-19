@@ -4,6 +4,7 @@
 namespace Modules\Product\Traits;
 
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Modules\Product\Models\ProductOnHold;
 
 trait HasStockValidation
@@ -13,13 +14,20 @@ trait HasStockValidation
         return $this->hasMany(ProductOnHold::class,'product_id','id')->where('expired_at','>',now());
     }
 
-    public function getOnHoldAttribute()
-    {
-        return $this->productOnHold()->sum('qty');
+    protected function onHold():Attribute{
+        return Attribute::make(
+            get:function(){
+                return $this->productOnHold()->sum('qty');
+            }
+        );
     }
-    public function getRemainStockAttribute()
-    {
-        return max(0,$this->quantity - $this->on_hold);
+
+    protected function remainStock():Attribute{
+        return Attribute::make(
+            get:function(){
+                return max(0,$this->quantity - $this->on_hold);
+            }
+        );
     }
 
 

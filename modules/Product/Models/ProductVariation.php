@@ -139,15 +139,18 @@ class ProductVariation extends BaseModel
         return true;
     }
 
-    public function getSalePriceAttribute()
-    {
-        $price = $this->price;
-        $active_campaign  = $this->parent->active_campaign ?? false;
-        if($active_campaign and $active_campaign->isActiveNow()){
-            $price -= $price * $active_campaign->discount_amount/100;
-        }
+    protected function salePrice():Attribute{
+        return Attribute::make(
+            get:function(){
+                $price = $this->price;
+                $active_campaign  = $this->parent->active_campaign ?? false;
+                if($active_campaign and $active_campaign->isActiveNow()){
+                    $price -= $price * $active_campaign->discount_amount/100;
+                }
 
-        return $price;
+                return $price;
+            }
+        );
     }
 
     public function getAttributesForDetail()

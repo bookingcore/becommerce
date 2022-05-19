@@ -168,11 +168,6 @@
             Mail::to($this->email)->send(new ResetPasswordToken($token,$this));
         }
 
-        public function getVendorServicesQuery($moduleClass,$limit = 10){
-            return $moduleClass::getVendorServicesQuery()->take($limit);
-        }
-
-
         protected function reviewCount(): Attribute
         {
             return Attribute::make(
