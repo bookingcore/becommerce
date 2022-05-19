@@ -12,6 +12,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
+use Laravel\Scout\Searchable;
 use Modules\Campaign\Models\CampaignProduct;
 use Modules\Core\Models\Attribute;
 use Modules\Core\Models\Term;
@@ -29,6 +30,8 @@ use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 class Product extends BaseModel
 {
     use HasFactory, HasStockValidation, SoftDeletes;
+    use Searchable;
+
     protected $table = 'products';
     public $type = 'product';
 

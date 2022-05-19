@@ -42,6 +42,11 @@
                 currency_position:'{{ get_current_currency('currency_format') }}',
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
+                search:{
+                    driver:'{{$driver = setting_item('search_driver')}}',
+                    app_id:'{{setting_item($driver.'_app_id')}}',
+                    public_key:'{{setting_item($driver.'_public')}}'
+                }
             }
             var i18n = {
                 warning:"{{__("Warning")}}",
@@ -60,6 +65,7 @@
         </main>
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
+            @include('global.components.search-autocomplete')
             @include('product.compare.compare-modal')
 
             <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
@@ -84,6 +90,11 @@
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
             <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
+            @switch(setting_item('search_driver'))
+                @case ('algolia')
+                <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
+                @break
+            @endswitch
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js?_v='.config('app.asset_version')) }}"></script>
             @yield('footer')

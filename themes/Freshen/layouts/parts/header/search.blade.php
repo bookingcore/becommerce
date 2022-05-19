@@ -50,3 +50,5 @@ if(!isset($current_cat)) $current_cat = null;
         </div>
     </div>
 </div>
+
+@include('global.components.search-autocomplete')
