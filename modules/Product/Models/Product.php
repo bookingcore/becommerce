@@ -8,19 +8,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
-use Laravel\Scout\Searchable;
 use Modules\Campaign\Models\CampaignProduct;
 use Modules\Core\Models\Attribute;
 use Modules\Core\Models\Term;
+use Modules\Core\Traits\BCSearchable;
 use Modules\Media\Helpers\FileHelper;
-use Modules\News\Models\Tag;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Resources\BrandResource;
+use Modules\Product\Resources\CategoryResource;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -30,7 +30,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 class Product extends BaseModel
 {
     use HasFactory, HasStockValidation, SoftDeletes;
-    use Searchable;
+    use BCSearchable;
 
     protected $table = 'products';
     public $type = 'product';
@@ -782,5 +782,17 @@ class Product extends BaseModel
         }
 
         return $query;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id'=>$this->id,
+            'title'=>$this->title,
+            'image'=>get_file_url($this->image_id),
+            'categories'=>CategoryResource::collection($this->categories),
+            'brand'=>new BrandResource($this->brand),
+            'url'=>$this->getDetailUrl()
+        ];
     }
 }

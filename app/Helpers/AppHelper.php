@@ -1390,3 +1390,6 @@ function month_translation($month){
     return $months[$month] ?? $month;
 
 }
+function get_search_engine(){
+    return setting_item('search_driver');
+}

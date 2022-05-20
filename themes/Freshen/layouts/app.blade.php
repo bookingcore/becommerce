@@ -95,7 +95,7 @@
     <script src="{{ theme_url('Freshen') }}/js/progressbar.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/slider.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/timepicker.js"></script>
-    @switch(setting_item('search_driver'))
+    @switch(get_search_engine())
         @case ('algolia')
         <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
         @break

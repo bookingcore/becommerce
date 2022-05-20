@@ -43,6 +43,11 @@
                 currency_position:'{{ get_current_currency('currency_format') }}',
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
+                search:{
+                    driver:'{{$driver = setting_item('search_driver')}}',
+                    app_id:'{{setting_item($driver.'_app_id')}}',
+                    public_key:'{{setting_item($driver.'_public')}}'
+                }
             };
             var i18n = {
                 warning:"{{__("Warning")}}",
@@ -66,7 +71,6 @@
 
             <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
             <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
-            <script async src="{{asset('libs/bootbox/bootbox.all.min.js')}}"></script>
             <script>
 
                 window.lazyLoadOptions = {
@@ -89,7 +93,11 @@
             <!-- custom scripts-->
             <script  src="{{ theme_url('Axtronic/js/countdown.js') }}"></script>
             <script  src="{{ theme_url('Axtronic/js/app.js?_v='.config('app.asset_version')) }}"></script>
-
+            @switch(get_search_engine())
+                @case ('algolia')
+                <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
+                @break
+            @endswitch
 
             @yield('footer')
         </footer>

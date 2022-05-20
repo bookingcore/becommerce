@@ -5,7 +5,10 @@ if(!isset($current_cat)) $current_cat = null;
 <div class="header_middle_advnc_search {{ isset($header_style) ? 'home'.$header_style : '' }}">
     <div class="search_form_wrapper">
         <div class="top-search">
-            <form action="{{route('product.index')}}" method="get" class="form-search">
+            @if(get_search_engine())
+                <div id="bc_autocomplete" data-placeholder="{{__("I'm shopping for...")}}"></div>
+            @else
+             <form action="{{route('product.index')}}" method="get" class="form-search">
                 <div class="row">
                     <div class="col-auto pr0">
                         <div class="actegory">
@@ -34,7 +37,7 @@ if(!isset($current_cat)) $current_cat = null;
                     <div class="col-auto pr0">
                         <div class="top-search">
                             <div class="form-search">
-                                <div class="box-search pre_line">
+                                <div class="box-search pre_line" >
                                     <input name="s" class="form_control" type="text" placeholder="{{ __("I'm shopping for...") }}" value="{{ request()->input("s") }}">
                                 </div>
                             </div>
@@ -47,8 +50,7 @@ if(!isset($current_cat)) $current_cat = null;
                     </div>
                 </div>
             </form>
+            @endif
         </div>
     </div>
 </div>
-
-@include('global.components.search-autocomplete')
