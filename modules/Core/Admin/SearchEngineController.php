@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Artisan;
 use Modules\AdminController;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
+use Modules\Product\Models\ProductCategory;
 
 class SearchEngineController extends AdminController
 {
@@ -19,6 +20,7 @@ class SearchEngineController extends AdminController
         $models = [
             Product::class,
             ProductBrand::class,
+            ProductCategory::class,
         ];
         switch ($driver){
             case "algolia":

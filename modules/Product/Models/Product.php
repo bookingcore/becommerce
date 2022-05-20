@@ -21,6 +21,8 @@ use Modules\News\Models\Tag;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Resources\BrandResource;
+use Modules\Product\Resources\CategoryResource;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -782,5 +784,17 @@ class Product extends BaseModel
         }
 
         return $query;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id'=>$this->id,
+            'title'=>$this->title,
+            'image'=>get_file_url($this->image_id),
+            'categories'=>CategoryResource::collection($this->categories),
+            'brand'=>new BrandResource($this->brand),
+            'url'=>$this->getDetailUrl()
+        ];
     }
 }

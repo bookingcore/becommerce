@@ -44,4 +44,13 @@ class ProductBrand extends BaseModel
     public function products(){
 		return $this->hasMany(Product::class,'brand_id');
     }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id'=>$this->id,
+            'name'=>$this->name,
+            'image'=>get_file_url($this->image_id),
+        ];
+    }
 }
