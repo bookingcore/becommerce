@@ -41,6 +41,19 @@ class Settings extends BaseModel
         return $value;
     }
 
+    public static function cachedItem($item, $default = false)
+    {
+        if(isset(static::$_cached[$item])){
+            return static::$_cached[$item];
+        }
+
+        $value = Cache::pull('setting_' . $item,$default);
+
+        static::$_cached[$item] = $value;
+
+        return $value;
+    }
+
     public static function store($key,$data){
 
         $check = Settings::where('name', $key)->first();
