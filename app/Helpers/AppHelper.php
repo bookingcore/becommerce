@@ -1400,5 +1400,5 @@ function month_translation($month){
 
 }
 function get_search_engine(){
-    return setting_item('search_driver');
+    return setting_item('search_driver',config('scount.driver'));
 }

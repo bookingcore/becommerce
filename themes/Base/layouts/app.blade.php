@@ -43,9 +43,9 @@
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
                 search:{
-                    driver:'{{$driver = setting_item('search_driver')}}',
-                    app_id:'{{setting_item($driver.'_app_id')}}',
-                    public_key:'{{setting_item($driver.'_public')}}'
+                    driver:'{{$driver = get_search_engine()}}',
+                    app_id:'{{setting_item($driver.'_app_id',config('scount.algolia.id'))}}',
+                    public_key:'{{setting_item($driver.'_public',config('scount.algolia.public'))}}'
                 }
             }
             var i18n = {
