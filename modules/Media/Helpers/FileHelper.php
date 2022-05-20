@@ -104,6 +104,7 @@ class FileHelper
             {
                 return static::resizeSimple($fileObj,$size);
             }
+            return $fileObj->view_url;
 
         }
     }
