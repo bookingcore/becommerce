@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Kalnoy\Nestedset\NodeTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
+use Modules\Core\Traits\BCSearchable;
 use Themes\Base\Database\Factories\ProductBrandFactory;
 
 class ProductBrand extends BaseModel
 {
     use HasFactory;
-    use Searchable;
+    use BCSearchable;
     protected $table = 'product_brand';
     protected $fillable = [
         'name',
