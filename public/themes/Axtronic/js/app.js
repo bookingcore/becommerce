@@ -479,6 +479,8 @@ jQuery(function ($) {
             success: function (res) {
                 if(res.status){
                     $this.toggleClass('active');
+                    $this.removeClass("loading");
+                    // $('.site-wishlist-side').toggleClass('active');
                 }
                 if(res.fragments){
                     for(var k in res.fragments){

@@ -25,9 +25,10 @@
                     </button>
                 @endif
                 @if($row->product_type == 'external')
-                    <a href="{{ $row->external_url }}" rel="nofollow" class="btn ">
-                        {{ $row->button_text }}
-                    </a>
+                    <button type="button" class="btn btn-add-to-cart" onclick="window.location='{{ $row->external_url }}'">
+
+                        {{ (!empty($row->button_text) )? $row->button_text : 'Buy now' }}
+                    </button>
                 @endif
                 <button class="service-wishlist btn {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
                     <i class="axtronic-icon-heart"></i>

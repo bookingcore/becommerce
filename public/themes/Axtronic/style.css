@@ -2362,7 +2362,7 @@ header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item a:before {
   content: "";
   width: 9px;
   height: 1px;
-  background: #cdaa7c;
+  background: #ffffff;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -2373,15 +2373,13 @@ header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item a:before {
   left: 25px;
   opacity: 0;
 }
-header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item:hover {
-  background: var(--background2);
-}
-header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item:hover a {
-  color: var(--primary);
+header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item:hover a, header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item.active a {
+  background: var(--primary);
+  color: #ffffff;
   padding-left: 40px;
   padding-right: 20px;
 }
-header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item:hover a:before {
+header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item:hover a:before, header .site-main-menu ul li.dropdown ul.dropdown-menu li.nav-item.active a:before {
   opacity: 1;
 }
 header .site-main-menu ul li.dropdown ul.dropdown-menu a:not(.button) {
@@ -4728,6 +4726,30 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .product-item .product-transition .shop-action .btn-tooltips.btn-compare {
   transition: all 0.55s ease-in-out;
 }
+.product-item .product-transition .shop-action .btn-tooltips.loading i {
+  display: none;
+}
+.product-item .product-transition .shop-action .btn-tooltips.loading:before {
+  display: block;
+}
+.product-item .product-transition .shop-action .btn-tooltips:before {
+  font-family: "axtronic-icon";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: normal;
+  line-height: 1;
+  vertical-align: middle;
+  content: "";
+  font-size: 20px;
+  text-align: center;
+  position: absolute;
+  -webkit-animation: fa-spin 2s infinite linear;
+  animation: fa-spin 2s infinite linear;
+  display: none;
+}
 .product-item .product-caption {
   padding: 0;
   padding-top: 10px;
@@ -5174,26 +5196,26 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   padding: 0 5px;
 }
 
-.axtronic-page--shop .widget {
+.widget {
   font-size: 14px;
 }
-.axtronic-page--shop .widget:first-child {
+.widget:first-child {
   margin-bottom: var(--grid-gutter);
   border-radius: 8px;
 }
-.axtronic-page--shop .widget ul {
+.widget ul {
   margin-left: 0;
   margin-bottom: 0;
   list-style: none;
 }
-.axtronic-page--shop .widget ul li {
+.widget ul li {
   margin-bottom: 15px;
   cursor: pointer;
 }
-.axtronic-page--shop .widget ul li.menu-item-has-children {
+.widget ul li.menu-item-has-children {
   position: relative;
 }
-.axtronic-page--shop .widget ul li.menu-item-has-children:after {
+.widget ul li.menu-item-has-children:after {
   position: absolute;
   right: 0;
   top: 0;
@@ -5214,27 +5236,27 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   color: var(--accent);
   margin-left: auto;
 }
-.axtronic-page--shop .widget ul li:hover {
+.widget ul li:hover {
   color: var(--primary);
 }
-.axtronic-page--shop .widget ul li a {
+.widget ul li a {
   color: var(--text);
   display: block;
 }
-.axtronic-page--shop .widget ul li a:hover {
+.widget ul li a:hover {
   color: var(--primary);
 }
-.axtronic-page--shop .widget ul li ul.sub-cat {
+.widget ul li ul.sub-cat {
   margin-top: calc(var(--grid-gutter) / 2);
   margin-left: calc(var(--grid-gutter) / 2);
 }
-.axtronic-page--shop .widget .slider-meta {
+.widget .slider-meta {
   margin-top: 10px;
 }
-.axtronic-page--shop .widget .slider-meta .slider-value {
+.widget .slider-meta .slider-value {
   color: var(--primary);
 }
-.axtronic-page--shop .widget .btn {
+.widget .btn {
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
@@ -5244,17 +5266,18 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   margin-top: 20px;
   width: 100%;
 }
-.axtronic-page--shop .widget.widget_shop {
+.widget.widget_shop {
   border-radius: 8px 8px 0 0;
 }
-.axtronic-page--shop .widget.widget-attributes {
+.widget.widget-attributes {
   padding: 0;
 }
-.axtronic-page--shop .widget.widget-attributes .widget-attribute {
+.widget.widget-attributes .widget-attribute {
   padding: var(--grid-gutter);
   border-bottom: 1px solid var(--border);
 }
-.axtronic-page--shop .noUi-connect {
+
+.axtronic-slider-price .noUi-connect {
   position: absolute;
   z-index: 1;
   font-size: 0.7em;
@@ -5266,13 +5289,13 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   border-bottom-left-radius: 1em;
   border-bottom-right-radius: 1em;
 }
-.axtronic-page--shop .noUi-horizontal {
+.axtronic-slider-price .noUi-horizontal {
   border-radius: 5px;
   background: #e4e4e4;
   border: 0;
   height: 2px;
 }
-.axtronic-page--shop .noUi-horizontal .noUi-handle {
+.axtronic-slider-price .noUi-horizontal .noUi-handle {
   position: absolute;
   top: auto;
   z-index: 2;
@@ -5291,10 +5314,10 @@ ul.axtronic-products-special li.list-item .time-sale .axtronic-countdown .countd
   border: 3px solid var(--accent);
   right: -6px !important;
 }
-.axtronic-page--shop .noUi-horizontal .noUi-handle:hover {
+.axtronic-slider-price .noUi-horizontal .noUi-handle:hover {
   box-shadow: 0 0 0 0.236em rgba(0, 0, 0, 0.1);
 }
-.axtronic-page--shop .noUi-horizontal .noUi-handle:before, .axtronic-page--shop .noUi-horizontal .noUi-handle:after {
+.axtronic-slider-price .noUi-horizontal .noUi-handle:before, .axtronic-slider-price .noUi-horizontal .noUi-handle:after {
   display: none;
 }
 
@@ -6086,15 +6109,15 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
   font-weight: 600;
 }
 
-.axtronic-pagination .pagination {
+.axtronic-pagination .pagination, .bc-pagination .pagination {
   margin-left: 0;
   justify-content: center;
 }
-.axtronic-pagination .pagination li.page-item {
+.axtronic-pagination .pagination li.page-item, .bc-pagination .pagination li.page-item {
   display: inline-block;
   margin-right: 5px;
 }
-.axtronic-pagination .pagination li.page-item .page-link {
+.axtronic-pagination .pagination li.page-item .page-link, .bc-pagination .pagination li.page-item .page-link {
   display: inline-block;
   text-align: center;
   font-weight: 500;
@@ -6108,12 +6131,57 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
   background: var(--background2);
   border: none;
 }
-.axtronic-pagination .pagination li.page-item.active .page-link, .axtronic-pagination .pagination li.page-item:hover .page-link {
+.axtronic-pagination .pagination li.page-item.active .page-link, .axtronic-pagination .pagination li.page-item:hover .page-link, .bc-pagination .pagination li.page-item.active .page-link, .bc-pagination .pagination li.page-item:hover .page-link {
   background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
   color: #fff;
 }
-.axtronic-pagination .pagination li.page-item:focus {
+.axtronic-pagination .pagination li.page-item:focus, .bc-pagination .pagination li.page-item:focus {
   outline: none;
+}
+
+.bc_form_filter ul.navbar-nav {
+  margin-left: 0;
+}
+
+.bravo_compare_box .modal-dialog {
+  margin: 0;
+  max-width: 100%;
+  width: 100%;
+  background-color: var(--accent);
+  padding: 1rem;
+}
+.bravo_compare_box .modal-dialog .modal-body {
+  padding: 0;
+}
+.bravo_compare_box .modal-dialog .btn-close {
+  z-index: 6;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  display: block;
+  min-width: 52px;
+  min-height: 52px;
+  background-color: #eee;
+  background-image: none;
+  opacity: 0.8;
+}
+.bravo_compare_box .modal-dialog .btn-close:hover {
+  opacity: 1;
+}
+.bravo_compare_box table tr td {
+  border-collapse: collapse;
+  vertical-align: middle;
+  text-align: left;
+  width: auto;
+  min-width: 200px;
+  max-width: 300px;
+  color: #43454b;
+  font-weight: 600;
+  border-image-width: 0;
+  padding: 15px;
+  border: 1px solid var(--border);
+  z-index: 7;
 }
 
 .swiper-slider-news {
@@ -6645,6 +6713,22 @@ nav.navigation .nav-next img {
   background-color: var(--primary);
   border-color: var(--primary);
   color: #ffffff;
+}
+
+.axtronic-notifications ul {
+  margin-left: 0;
+}
+.axtronic-notifications ul.nav-tabs {
+  border-bottom: 0;
+}
+.axtronic-notifications ul.nav-tabs .nav-link {
+  border: 0;
+  border-bottom: 5px solid transparent;
+  color: var(--accent);
+}
+.axtronic-notifications ul.nav-tabs .nav-link.active, .axtronic-notifications ul.nav-tabs .nav-link:hover {
+  border-bottom-color: var(--primary);
+  color: var(--primary);
 }
 
 @media (min-width: 1441px) and (max-width: 99999px) {
