@@ -235,7 +235,7 @@ class GeneralSeeder extends Seeder
         //Menu
         $menu_id = DB::table('core_menus')->insertGetId(
             [
-                'name'  => "axtronic Menu",
+                'name'  => "Axtronic Menu",
                 'items' =>  json_encode($primary_menu,true),
                 'create_user'   =>  1,
                 'update_user'   =>  1

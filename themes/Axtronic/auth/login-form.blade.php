@@ -5,13 +5,13 @@
     <div>
         <div class="">
             <div class="form-group mb-3">
-                <span class="label">{{__('Username or email?')}} <span class="required">*</span></span>
-                <input class="form-control" type="email" name="email" >
+                <label for="email" class="label">{{__('Email')}} <span class="required">*</span></label>
+                <input id="email" class="form-control" type="email" name="email" >
                 <p class="error-email"></p>
             </div>
             <div class="form-group mb-3">
-                <span class="label">{{__('Password?')}} <span class="required">*</span></span>
-                <input class="form-control" type="password" name="password">
+                <label for="password" class="label">{{__('Password?')}} <span class="required">*</span></label>
+                <input id="password" class="form-control" type="password" name="password">
                 <p class="error-password"></p>
             </div>
             <div class="error message-error invalid-feedback"></div>

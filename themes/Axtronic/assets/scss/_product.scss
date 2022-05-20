@@ -319,6 +319,7 @@ ul.list-product-items{
 
 }
 .axtronic-list-products{
+    padding: 50px 24px;
     &.style_2{
         .product-box{
             box-shadow: 0px 4px 32px 0px rgb(0 0 0 / 4%);
@@ -412,7 +413,7 @@ ul.list-product-items{
 
 .product-slider{
     .swiper-wrapper{
-        padding-bottom: 40px;
+        padding-bottom: 50px;
     }
     .swiper-pagination{
         bottom: 0;
@@ -464,7 +465,6 @@ ul.list-product-items{
     }
     .product-slider{
         .swiper-pagination{
-            bottom: -10px;
             .swiper-pagination-bullet{
                 background: #ffffff;
                 &.swiper-pagination-bullet-active{
