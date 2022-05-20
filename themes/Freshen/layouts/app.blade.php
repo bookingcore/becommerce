@@ -39,6 +39,11 @@
             currency_position:'{{ get_current_currency('currency_format') }}',
             currency_symbol:'{{ currency_symbol() }}',
             currency_rate:'{{ get_current_currency('rate',1) }}',
+            search:{
+                driver:'{{$driver = setting_item('search_driver')}}',
+                app_id:'{{setting_item($driver.'_app_id')}}',
+                public_key:'{{setting_item($driver.'_public')}}'
+            }
         }
         var i18n = {
             warning:"{{__("Warning")}}",
@@ -90,6 +95,11 @@
     <script src="{{ theme_url('Freshen') }}/js/progressbar.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/slider.js"></script>
     <script src="{{ theme_url('Freshen') }}/js/timepicker.js"></script>
+    @switch(setting_item('search_driver'))
+        @case ('algolia')
+        <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
+        @break
+    @endswitch
     <!-- Custom script for all pages -->
     <script src="{{ theme_url('Freshen') }}/js/script.js"></script>
     <script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>

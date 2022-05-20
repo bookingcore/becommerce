@@ -39,3 +39,5 @@ Route::group(['prefix' => 'menu'], function () {
 });
 
 Route::get('mobile/to-builder','MobileController@toBuilder')->name('core.admin.mobile.toBuilder');
+
+Route::get('search/sync/{driver}','SearchEngineController@sync')->name('core.admin.search.sync')->middleware('signed');

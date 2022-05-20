@@ -11,6 +11,7 @@ use Modules\Core\Helpers\SitemapHelper;
 use Modules\Core\Listeners\CreatedServicesListen;
 use Modules\Core\Listeners\CreateReviewListen;
 use Modules\Core\Listeners\UpdatedServicesListen;
+use Modules\Core\Providers\SearchEngineProvider;
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -40,6 +41,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         $this->app->register(RouterServiceProvider::class);
         $this->app->register(BladeServiceProvider::class);
+        $this->app->register(SearchEngineProvider::class);
         $this->app->singleton(SitemapHelper::class,function($app){
             return new SitemapHelper();
         });
@@ -202,6 +204,5 @@ class ModuleProvider extends ModuleServiceProvider
             "keys"=>[]
         ];
     }
-
 
 }
