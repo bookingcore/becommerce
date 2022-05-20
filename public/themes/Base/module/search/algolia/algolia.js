@@ -38,7 +38,6 @@ const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
 autocomplete({
     container: wrap,
     placeholder:wrap.getAttribute('data-placeholder'),
-    debug:true,
     getSources({ query }) {
         return [
             {
