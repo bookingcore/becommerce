@@ -59,7 +59,7 @@ class Tag extends BaseModel
         return route('news.tag',['slug'=>$this->slug]);
     }
 
-    public function search($filters = []){
+    public static function search($filters = []){
         return parent::query();
     }
 

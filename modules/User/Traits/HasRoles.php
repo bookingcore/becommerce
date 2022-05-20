@@ -4,6 +4,7 @@
 namespace Modules\User\Traits;
 
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Modules\User\Helpers\PermissionHelper;
 use Modules\User\Models\Role;
 
@@ -45,9 +46,12 @@ trait HasRoles
         }
     }
 
-
-    public function getRoleNameAttribute(){
-        return $this->role->name ?? '';
+    protected function roleName():Attribute{
+        return Attribute::make(
+          get:function(){
+                  return $this->role->name ?? '';
+            }
+        );
     }
 
     public function role(){

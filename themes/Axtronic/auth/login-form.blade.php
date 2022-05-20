@@ -22,8 +22,8 @@
         </div>
     </div>
 </form>
-<a href="#" class="lostpass-link" title="Lost your password?">Lost your password?</a>
+<a href="#" class="lostpass-link" title="Lost your password?">{{__("Lost your password?")}}</a>
 <div class="login-form-bottom">
-    <span class="create-account-text">No account yet?</span>
-    <a class="register-link" href="#" title="Register">Create an Account</a>
+    <span class="create-account-text">{{__("No account yet?")}}</span>
+    <a class="register-link" href="#" title="Register">{{__("Create an Account")}}</a>
 </div>
