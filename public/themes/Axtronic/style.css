@@ -2082,10 +2082,6 @@ header .axtronic_topbar .topbar-box {
   font-size: 14px;
   font-weight: 400;
 }
-header .axtronic_topbar .topbar-left ul li {
-  margin-right: calc(25px/2);
-  margin-left: calc(25px/2);
-}
 header .axtronic_topbar .topbar-left ul li:first-child {
   margin-left: 0;
 }

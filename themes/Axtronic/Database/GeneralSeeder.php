@@ -17,9 +17,9 @@ class GeneralSeeder extends Seeder
     {
         //  User
         $user = new User([
-            'first_name' => 'System',
+            'first_name' => 'Axtronic',
             'last_name' => 'Admin',
-            'email' => 'admin@atronic.test ',
+            'email' => 'admin@axtronic.test',
             'password' => bcrypt('admin123'),
             'phone'   => '112 666 888',
             'status'   => 'publish',

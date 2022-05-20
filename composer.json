@@ -22,7 +22,7 @@
         "laravel/ui": "^3.4",
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/omnipay": "^3",
-        "maatwebsite/excel": "^3.1.30",
+        "maatwebsite/excel": "^3.1.36",
         "mews/purifier": "^3.3.6",
         "omnipay/paypal": "^3.0",
         "omnipay/stripe": "^3.0",
