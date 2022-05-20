@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Cache;
 use Modules\Product\Models\Product;
 use Modules\User\Models\UserWishList;
 
-//include '../../custom/Helpers/CustomHelper.php';
-
 define( 'MINUTE_IN_SECONDS', 60 );
 define( 'HOUR_IN_SECONDS', 60 * MINUTE_IN_SECONDS );
 define( 'DAY_IN_SECONDS', 24 * HOUR_IN_SECONDS );
@@ -18,6 +16,17 @@ define( 'YEAR_IN_SECONDS', 365 * DAY_IN_SECONDS );
 function setting_item($item,$default = '',$isArray = false){
 
     $res = Settings::item($item,$default);
+
+    if($isArray and !is_array($res)){
+        $res = (array) json_decode($res,true);
+    }
+
+    return $res;
+
+}
+function cached_setting_item($item,$default = '',$isArray = false){
+
+    $res = Settings::cachedItem($item,$default);
 
     if($isArray and !is_array($res)){
         $res = (array) json_decode($res,true);
@@ -1391,5 +1400,5 @@ function month_translation($month){
 
 }
 function get_search_engine(){
-    return setting_item('search_driver');
+    return setting_item('search_driver',config('scount.driver'));
 }
