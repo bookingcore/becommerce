@@ -101,7 +101,8 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
 });
 
 
-Route::post('register','UserController@register')->name('register');
+Route::get('register','User\RegisterController@index')->name('register');
+Route::post('register','User\RegisterController@store')->name('register.store');
 
 //Newsletter
 Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');

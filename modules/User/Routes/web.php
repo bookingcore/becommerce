@@ -1,9 +1,6 @@
 <?php
 use \Illuminate\Support\Facades\Route;
 Route::group(['prefix'=>'user','middleware' => ['auth','verified']],function(){
-    Route::post('/wishlist','UserWishListController@handleWishList')->name("user.wishList.handle");
-    Route::get('/wishlist/remove','UserWishListController@remove')->name("user.wishList.remove");
-
     Route::group(['prefix'=>'verification'],function(){
         Route::match(['get'],'/','VerificationController@index')->name("user.verification.index");
         Route::match(['get'],'/update','VerificationController@update')->name("user.verification.update");
