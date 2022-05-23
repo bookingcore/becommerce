@@ -6169,6 +6169,17 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
 .bravo_compare_box .modal-dialog .btn-close:hover {
   opacity: 1;
 }
+.bravo_compare_box .modal-dialog .axtronic-remove-compare {
+  color: var(--accent);
+  font-size: 12px;
+  margin-left: 15px;
+}
+.bravo_compare_box .modal-dialog .image img {
+  margin: 0 auto;
+}
+.bravo_compare_box .modal-dialog .axtronic-product-price {
+  margin-bottom: 0;
+}
 .bravo_compare_box table tr td {
   border-collapse: collapse;
   vertical-align: middle;
@@ -6182,6 +6193,9 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
   padding: 15px;
   border: 1px solid var(--border);
   z-index: 7;
+}
+.bravo_compare_box table tr td li, .bravo_compare_box table tr td p {
+  font-weight: 400;
 }
 
 .swiper-slider-news {

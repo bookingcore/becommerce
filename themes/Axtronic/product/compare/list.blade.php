@@ -17,7 +17,7 @@
         <tr class="image">
             <td>{{ __("Image") }}</td>
             @foreach ($compare as $row)
-                <td>
+                <td class="image">
                     @if(!empty($img = get_file_url($row['image_id'])))
                         <img src="{{ $img }}" alt="{{$row['title']}}">
                     @endif
@@ -33,16 +33,13 @@
                 </td>
             @endforeach
         </tr>
-        <tr class="add-to-cart">
-            <td></td>
-            @foreach ($compare as $row)
-                <td><a href="{{$row['detail_url']}}">{{ __("View Detail") }}</a></td>
-            @endforeach
-        </tr>
         <tr class="description">
             <td>{{ __('Description') }}</td>
             @foreach ($compare as $row)
-                <td class="text-start">{!! clean($row['short_desc']) !!}</td>
+                <td class="text-start">
+                    {!! clean($row['short_desc']) !!}
+                    <a href="{{$row['detail_url']}}">{{ __("View Detail") }}</a>
+                </td>
             @endforeach
         </tr>
         <tr class="stock">

@@ -1685,7 +1685,21 @@ ul.axtronic-products{
                 opacity: 1;
             }
         }
+        .axtronic-remove-compare{
+            color: var(--accent);
+            font-size: 12px;
+            margin-left: 15px;
+        }
+        .image{
+            img{
+                margin: 0 auto;
+            }
+        }
+        .axtronic-product-price{
+            margin-bottom: 0;
+        }
     }
+
     table{
         tr{
             td{
@@ -1701,6 +1715,9 @@ ul.axtronic-products{
                 padding: 15px;
                 border: 1px solid var(--border);
                 z-index: 7;
+                li, p{
+                    font-weight: 400;
+                }
             }
         }
     }
