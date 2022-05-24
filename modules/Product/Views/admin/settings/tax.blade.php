@@ -84,7 +84,7 @@
                                                 </button>
                                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                     <a href="{{ route('product.tax.edit', ['id' => $taxRate->id]) }}" class="dropdown-item"><i class="fa fa-edit"></i> {{__('Edit')}}</a>
-                                                    <a href="{{ route('product.tax.delete', ['id' => $taxRate->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
+                                                    <a href="{{ \Illuminate\Support\Facades\URL::signedRoute('product.tax.delete', ['id' => $taxRate->id]) }}" data-confirm="{{__("Do you want to delete?")}}" class="dropdown-item bc-delete-item" ><i class="fa fa-times"></i> {{__('Delete')}}</a>
                                                 </div>
                                             </div>
                                         </td>

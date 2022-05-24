@@ -93,5 +93,5 @@ Route::group(['prefix' => 'settings'], function (){
     Route::get('/tax/create', 'TaxController@create')->name('product.tax.create');
     Route::get('/tax/edit/{id}', 'TaxController@edit')->name('product.tax.edit');
     Route::post('/tax/store', 'TaxController@store')->name('product.tax.store');
-    Route::get('/tax/delete/{id}', 'TaxController@delete')->name('product.tax.delete');
+    Route::get('/tax/delete/{id}', 'TaxController@delete')->name('product.tax.delete')->middleware('signed');
 });

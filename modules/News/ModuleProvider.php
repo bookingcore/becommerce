@@ -89,7 +89,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'news_enable_comment',
                 'news_comment_approved',
                 'news_comment_number_per_page',
-                'news_page_description'
+                'news_page_description',
+                'news_sidebar'
             ],
             'html_keys'=>[
 

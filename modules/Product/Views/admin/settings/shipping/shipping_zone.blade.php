@@ -10,7 +10,7 @@
         @include('admin.message')
         <div class="row">
             <div class="col-md-12 mb-3">
-                <a href="/admin/module/core/settings/index/shipping" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-o-left"></i> {{ __("Shipping Zones") }}</a>
+                <a href="/admin/module/core/settings/shipping" class="btn btn-sm btn-default"><i class="fa fa-arrow-circle-o-left"></i> {{ __("Shipping Zones") }}</a>
             </div>
 
             <div class="col-md-12">

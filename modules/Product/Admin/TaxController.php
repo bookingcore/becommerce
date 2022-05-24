@@ -92,12 +92,11 @@ class TaxController extends AdminController
     public function delete(Request $request, $id){
         $this->checkPermission('setting_manage');
 
-        $taxRate = TaxRate::with('locations')->find($id);
+        $taxRate = TaxRate::find($id);
         if (!empty($taxRate)) {
-            $taxRate->locations()->delete();
             $taxRate->delete();
         }
 
-        return back();
+        return back()->with('success',__("Deleted"));
     }
 }
