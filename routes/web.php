@@ -16,16 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/intro','LandingpageController@index');
 Route::post('/install/check-db', 'HomeController@checkConnectDatabase');
 
-// Social Login
-Route::get('social-login/{provider}', 'Auth\LoginController@socialLogin');
-Route::get('social-callback/{provider}', 'Auth\LoginController@socialCallBack');
 
 //Contact
 Route::match(['get'],'/contact','\Modules\Contact\Controllers\ContactController@index'); // Contact
 Route::match(['post'],'/contact/store','\Modules\Contact\Controllers\ContactController@store'); // Contact
-
-
-//Homepage
 
 // Media
 Route::group(['prefix'=>'media'],function(){
