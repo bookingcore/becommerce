@@ -179,12 +179,31 @@ ul.list-product-items{
                 }
                 &.btn-wishlist {
                     transition: all .35s ease-in-out;
+
                 }
                 &.btn-quickview {
                     transition: all .45s ease-in-out;
                 }
                 &.btn-compare {
                     transition: all .55s ease-in-out;
+                }
+                &.loading{
+                    i{
+                        display: none;
+                    }
+                    &:before{
+                        display: block;
+                    }
+                }
+                &:before{
+                    @include themecustom-icon;
+                    content: themecustom-char(spinner);
+                    font-size: 20px;
+                    text-align: center;
+                    position: absolute;
+                    -webkit-animation: fa-spin 2s infinite linear;
+                    animation: fa-spin 2s infinite linear;
+                    display: none;
                 }
             }
 
@@ -319,6 +338,7 @@ ul.list-product-items{
 
 }
 .axtronic-list-products{
+    padding: 50px 24px;
     &.style_2{
         .product-box{
             box-shadow: 0px 4px 32px 0px rgb(0 0 0 / 4%);
@@ -412,7 +432,7 @@ ul.list-product-items{
 
 .product-slider{
     .swiper-wrapper{
-        padding-bottom: 40px;
+        padding-bottom: 50px;
     }
     .swiper-pagination{
         bottom: 0;
@@ -464,7 +484,6 @@ ul.list-product-items{
     }
     .product-slider{
         .swiper-pagination{
-            bottom: -10px;
             .swiper-pagination-bullet{
                 background: #ffffff;
                 &.swiper-pagination-bullet-active{
@@ -668,8 +687,7 @@ ul.axtronic-products-special{
     }
 }
 
-.axtronic-page--shop{
-    .widget{
+.widget{
         font-size: 14px;
         &:first-child{
             margin-bottom: var(--grid-gutter);
@@ -743,6 +761,8 @@ ul.axtronic-products-special{
 
         }
     }
+
+.axtronic-slider-price{
 
     .noUi-connect{
         position: absolute;
@@ -1599,7 +1619,7 @@ ul.axtronic-products{
     }
 }
 
-.axtronic-pagination{
+.axtronic-pagination, .bc-pagination{
     .pagination{
         margin-left: 0;
         justify-content: center;
@@ -1628,6 +1648,76 @@ ul.axtronic-products{
             }
             &:focus{
                 outline: none;
+            }
+        }
+    }
+}
+.bc_form_filter{
+    ul.navbar-nav{
+        margin-left: 0;
+    }
+}
+
+
+.bravo_compare_box{
+    .modal-dialog{
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+        background-color: var(--accent);
+        padding: 1rem;
+        .modal-body{
+            padding: 0;
+        }
+        .btn-close{
+            z-index: 6;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            display: block;
+            min-width: 52px;
+            min-height: 52px;
+            background-color: #eee;
+            background-image: none;
+            opacity: 0.8;
+            &:hover{
+                opacity: 1;
+            }
+        }
+        .axtronic-remove-compare{
+            color: var(--accent);
+            font-size: 12px;
+            margin-left: 15px;
+        }
+        .image{
+            img{
+                margin: 0 auto;
+            }
+        }
+        .axtronic-product-price{
+            margin-bottom: 0;
+        }
+    }
+
+    table{
+        tr{
+            td{
+                border-collapse: collapse;
+                vertical-align: middle;
+                text-align: left;
+                width: auto;
+                min-width: 200px;
+                max-width: 300px;
+                color: #43454b;
+                font-weight: 600;
+                border-image-width: 0;
+                padding: 15px;
+                border: 1px solid var(--border);
+                z-index: 7;
+                li, p{
+                    font-weight: 400;
+                }
             }
         }
     }

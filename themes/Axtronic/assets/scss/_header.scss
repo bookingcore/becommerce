@@ -187,8 +187,6 @@ header{
         .topbar-left {
             ul{
                 li{
-                    margin-right: calc(25px/2);
-                    margin-left: calc(25px/2);
                     &:first-child{
                         margin-left: 0;
                     }
@@ -492,7 +490,7 @@ header{
                                 content: "";
                                 width: 9px;
                                 height: 1px;
-                                background: #cdaa7c;
+                                background: #ffffff;
                                 position: absolute;
                                 top: 50%;
                                 transform: translateY(-50%);
@@ -504,10 +502,11 @@ header{
                                 opacity: 0;
                             }
                         }
-                        &:hover {
-                            background: var(--background2);
+                        &:hover, &.active {
+
                             a {
-                                color: var(--primary);
+                                background: var(--primary);
+                                color: #ffffff;
                                 padding-left: 40px;
                                 padding-right: 20px;
                                 &:before {

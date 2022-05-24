@@ -13,9 +13,9 @@ class MediaResource extends BaseJsonResource
     {
         return [
             'id'=>$this->id,
-            'thumb_size'=>$this->viewUrl('thumb'),
-            'full_size'=>$this->viewUrl('full'),
-            'medium_size'=>$this->viewUrl('medium'),
+            'thumb_size'=>$this->getViewUrl('thumb'),
+            'full_size'=>$this->getViewUrl('full'),
+            'medium_size'=>$this->getViewUrl('medium'),
             'file_path'=>$this->file_path,
             'file_name'=>$this->file_name,
             'file_type'=>$this->file_type,

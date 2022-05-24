@@ -42,7 +42,7 @@ $score_total = $reviewData['score_total'];
                         <i class="axtronic-icon-shopping-cart"></i>
                     </a>
                 @endif
-                <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+                <a href="javascript:void(0)"  class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></a>
                 <button class="btn-tooltips btn-quickview" ><i class="axtronic-icon-eye"></i></button>
                 <button class="btn-tooltips btn-compare axtronic-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
             </form>
@@ -64,7 +64,7 @@ $score_total = $reviewData['score_total'];
         </div>
         <div class="shop-action shop-action-list">
             <button class="btn-tooltips btn-addtocart "><i class="axtronic-icon-shopping-cart"></i> {{ __('Add to card')  }}</button>
-            <button class="btn-tooltips btn-wishlist  service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+            <a href="javascript:void(0)" class="btn-tooltips btn-wishlist service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></a>
             <button class="btn-tooltips btn-quickview " ><i class="axtronic-icon-eye"></i></button>
             <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
         </div>

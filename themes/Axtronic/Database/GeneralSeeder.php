@@ -1,5 +1,6 @@
 <?php
 namespace Themes\Axtronic\Database;
+use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,35 @@ class GeneralSeeder extends Seeder
      */
     public function run()
     {
+        //  User
+        $user = new User([
+            'first_name' => 'Axtronic',
+            'last_name' => 'Admin',
+            'email' => 'admin@axtronic.test',
+            'password' => bcrypt('admin123'),
+            'phone'   => '112 666 888',
+            'status'   => 'publish',
+            'created_at' =>  date("Y-m-d H:i:s"),
+            'bio'=> 'We\'re designers who have fallen in love with creating spaces for others to reflect, reset, and create. We split our time between two deserts (the Mojave, and the Sonoran). We love the way the heat sinks into our bones, the vibrant sunsets, and the wildlife we get to call our neighbors.',
+        ]);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->need_update_pw = 1;
+        $user->save();
+        $user->assignRole('admin');
+
+        $user = new User([
+            'first_name' => 'Customer',
+            'email' => 'customer@atronic.test',
+            'password' => bcrypt('admin123'),
+            'phone'   => '112 666 888',
+            'status'   => 'publish',
+            'created_at' =>  date("Y-m-d H:i:s"),
+        ]);
+        $user->email_verified_at = date('Y-m-d H:i:s');
+        $user->need_update_pw = 1;
+        $user->save();
+        $user->assignRole('customer');
+
         $primary_menu = [
             [
                 "id"            => 1,
@@ -205,7 +235,7 @@ class GeneralSeeder extends Seeder
         //Menu
         $menu_id = DB::table('core_menus')->insertGetId(
             [
-                'name'  => "axtronic Menu",
+                'name'  => "Axtronic Menu",
                 'items' =>  json_encode($primary_menu,true),
                 'create_user'   =>  1,
                 'update_user'   =>  1

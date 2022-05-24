@@ -96,7 +96,7 @@ class MediaFile extends BaseModel
         );
     }
 
-    public function _viewUrl($size = 'thumb'){
+    public function getViewUrl($size = 'thumb'){
 
         return config('bc.preview_media_link') ? url('media/preview/'.$this->id.'/'.$size) : get_file_url($this,$size);
     }

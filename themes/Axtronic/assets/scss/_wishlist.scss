@@ -17,3 +17,21 @@
         }
     }
 }
+.axtronic-notifications{
+    ul{
+
+        margin-left: 0;
+    }
+    ul.nav-tabs{
+        border-bottom: 0 ;
+        .nav-link{
+            border: 0;
+            border-bottom: 5px solid transparent;
+            color: var(--accent);
+            &.active, &:hover{
+                border-bottom-color: var(--primary);
+                color: var(--primary);
+            }
+        }
+    }
+}

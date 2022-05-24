@@ -7,21 +7,21 @@
         "frontend-prod": "cross-env process.env.section=frontend NODE_ENV=production mix --production"
     },
     "devDependencies": {
-        "autoprefixer": "^10.4.2",
+        "autoprefixer": "^10.4.7",
         "cross-env": "^5.2.1",
         "jquery": "^3.5.1",
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
-        "postcss": "^8.4.5",
+        "postcss": "^8.4.14",
         "resolve-url-loader": "4.0.0",
-        "sass": "^1.48.0",
+        "sass": "^1.51.0",
         "sass-loader": "^7.3.1",
-        "tailwindcss": "^3.0.15",
+        "tailwindcss": "^3.0.24",
         "vue": "^2.6.11",
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
-        "@tailwindcss/forms": "^0.4.0",
+        "@tailwindcss/forms": "^0.4.1",
         "@tinymce/tinymce-vue": "^3.2.1",
         "font-awesome": "^4.7.0",
         "he-tree-vue": "^1.1.4",
@@ -32,6 +32,6 @@
         "vue-form-generator": "^2.3.4",
         "vue-loader": "^15.9.8",
         "vuedraggable": "^2.23.2",
-        "webpack": "^5.66.0"
+        "webpack": "^5.72.1"
     }
 }

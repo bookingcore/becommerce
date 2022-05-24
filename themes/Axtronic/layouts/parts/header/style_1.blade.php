@@ -81,14 +81,14 @@
                     <li class="cart-item">
                         <div class="site-header-cart">
                             <a class="cart-contents" href="#">
-                                    <span class="group-icon-action">
-                                        <i class="axtronic-icon-shopping-cart"></i>
-                                        <span class="count">{{\Modules\Order\Helpers\CartManager::count()}}</span>
-                                    </span>
-                                {{--<span class="account-content group-icon-content">--}}
-                                {{--<span class="sub-text">{{__('Total')}}</span>--}}
-                                {{--<span class="sub-title">{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span>--}}
-                                {{--</span>--}}
+                                <span class="group-icon-action">
+                                    <i class="axtronic-icon-shopping-cart"></i>
+                                    <span class="count">{{\Modules\Order\Helpers\CartManager::count()}}</span>
+                                </span>
+                                <span class="account-content group-icon-content">
+                                <span class="sub-text">{{__('Total')}}</span>
+                                <span class="sub-title">{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</span>
+                                </span>
                             </a>
                         </div>
                     </li>

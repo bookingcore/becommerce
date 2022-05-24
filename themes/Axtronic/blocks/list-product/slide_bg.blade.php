@@ -11,7 +11,7 @@ if (!empty($bg_content)){
 }
 ?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products axtronic-slider-best mb-5 list-products-bg py-5 {{ $style_header }}" style="background-image: url('{{ $bg_image }}')">
+    <div class="axtronic-list-products axtronic-slider-best mb-5 list-products-bg{{ $style_header }}" style="background-image: url('{{ $bg_image }}')">
         <div class="container">
             <div class="product-box">
                 <div class="product-box-title ">
