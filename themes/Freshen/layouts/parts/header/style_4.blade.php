@@ -41,7 +41,7 @@
                 <div class="log_fav_cart_widget home4_style">
                     <div class="wrapper">
                         <ul class="mb0 cart">
-                            @if(!Auth::id())
+                            @if(!Auth::user())
                                 <li class="list-inline-item mr15-lg"><a href="#" data-bs-toggle="modal" data-bs-target="#logInModal"><span class="flaticon-user icon text-white"></span> <span class="price text-white ml5 dn-lg">{{ __("LOGIN") }}</span></a></li>
                             @else
                                 @include('layouts.parts.header.user')

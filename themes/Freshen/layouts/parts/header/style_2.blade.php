@@ -20,7 +20,7 @@
                 <div class="log_fav_cart_widget">
                     <div class="wrapper">
                         <ul class="mb0 cart">
-                            @if(!Auth::id())
+                            @if(!Auth::user())
                                 <li class="list-inline-item text-end">
                                     <a href="#" data-bs-toggle="modal" data-bs-target="#login"><span class="flaticon-user icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}"></span></a>
                                 </li>
