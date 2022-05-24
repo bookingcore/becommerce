@@ -803,11 +803,21 @@ jQuery(function ($) {
     $(document).on('click','.menu-mobile-nav-button',function (e) {
         e.preventDefault();
         $('.site-menu-side').toggleClass('active');
-    })
+    });
     $('.close-menu-side,.menu-side-overlay').on('click', function (e) {
         e.preventDefault();
         $('.site-menu-side').removeClass('active');
     });
+
+    $(document).on('click','.notifications-contents',function (e) {
+        e.preventDefault();
+        $('.site-notifications-side').toggleClass('active');
+    })
+    $('.close-notifications-side,.notifications-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-notifications-side').removeClass('active');
+    });
+
 
     var $container = $('.side-account-form-wrap');
     $('.register-link', $container).on('click', function(e){

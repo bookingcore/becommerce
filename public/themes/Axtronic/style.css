@@ -4470,6 +4470,17 @@ header .list-group-item.active {
   display: none;
 }
 
+.site-notifications-side .axtronic-notifications-bottom {
+  padding-top: 3em;
+  margin: 0;
+  border-top: 2px dashed;
+  border-top-color: var(--border);
+}
+.site-notifications-side .axtronic-notifications-bottom a.button {
+  font-size: 14px;
+  display: block;
+  text-align: center;
+}
 .side-wrap-content {
   margin-bottom: 0;
   position: relative;

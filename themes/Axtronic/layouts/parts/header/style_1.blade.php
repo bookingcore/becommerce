@@ -61,19 +61,19 @@
                     </li>
                     <li class="site-header-menu">
                         <a href="#" class="menu-mobile-nav-button">
-                                <span class="group-icon-action">
-                                    <i class="axtronic-icon-bars"></i>
-                                </span>
+                            <span class="group-icon-action">
+                                <i class="axtronic-icon-bars"></i>
+                            </span>
                         </a>
                     </li>
                 @else
                     <li class="wishlist-item">
                         <div class="site-header-wishlist">
                             <a class="wishlist-contents" href="{{route('user.wishList.index')}}">
-                                    <span class="group-icon-action">
-                                        <i class="axtronic-icon-heart"></i>
-                                        <span class="count">{{ countWishlist() }}</span>
-                                    </span>
+                                <span class="group-icon-action">
+                                    <i class="axtronic-icon-heart"></i>
+                                    <span class="count">{{ countWishlist() }}</span>
+                                </span>
                             </a>
                         </div>
                     </li>
