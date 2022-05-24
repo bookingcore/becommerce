@@ -17,6 +17,14 @@ class UserEventSubscriber
 
     ];
 
+    public function subscribe($events)
+    {
+        return [
+            Registered::class=>'handleUserRegister',
+            Verified::class=>'handleUserVerified',
+        ];
+    }
+
     public function handleUserRegister($event){
 
 
@@ -37,18 +45,7 @@ class UserEventSubscriber
             $event->user->sendEmailVerificationNotification();
         }
     }
-    public function subscribe($events)
-    {
-        $events->listen(
-            Registered::class,
-            [UserEventSubscriber::class, 'handleUserLogin']
-        );
 
-        $events->listen(
-            Verified::class,
-            [UserEventSubscriber::class, 'handleUserLogout']
-        );
-    }
 
 
     public function replaceContentEmail($event, $content)
