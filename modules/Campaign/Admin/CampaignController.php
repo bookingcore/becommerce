@@ -114,7 +114,7 @@ class CampaignController extends AdminController
         $request->validate([
             'name'=>'required',
             'start_date'=>'required|date:Y-m-d',
-            'end_date'=>'required|date:Y-m-d',
+            'end_date'=>'required|date:Y-m-d|after_or_equal:start_date',
             'discount_amount'=>'required|max:100'
         ]);
 

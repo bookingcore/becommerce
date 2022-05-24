@@ -140,7 +140,7 @@ class Order extends BaseModel
        );
     }
 
-    public function search($filters){
+    public static function search($filters){
         $query = parent::query();
         return $query;
     }

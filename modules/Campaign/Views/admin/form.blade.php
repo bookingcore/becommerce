@@ -17,7 +17,7 @@
 <div class="form-group">
     <label>{{__("Status")}}</label>
     <select class="form-control" name="status">
-        <option value="">{{__("Draft")}}</option>
+        <option value="draft">{{__("Draft")}}</option>
         <option @if(old('status',$row->status) == 'active') selected @endif value="active">{{__("Active")}}</option>
     </select>
 </div>

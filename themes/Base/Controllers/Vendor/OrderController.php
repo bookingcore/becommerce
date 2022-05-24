@@ -9,14 +9,18 @@ use Themes\Base\Controllers\FrontendController;
 
 class OrderController extends FrontendController
 {
-    public function __construct()
+    protected $orderItem = null;
+
+    public function __construct(OrderItem $orderItem)
     {
         parent::__construct();
         VendorMenuManager::setActive('order');
+
+        $this->orderItem = $orderItem;
     }
 
     public function index(Request $request){
-        $orders = OrderItem::search([
+        $orders = $this->orderItem::search([
             'vendor_id'=>auth()->id()
         ])->orderByDesc('id');
         $data = [
