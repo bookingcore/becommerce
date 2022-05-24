@@ -31,14 +31,11 @@ class RoleController extends AdminController
 
     public function create(Request $request)
     {
-        if (!empty($request->input())) {
+        $row = new User();
+        $row->fill([
+            'status' => 'publish'
+        ]);
 
-        } else {
-            $row = new User();
-            $row->fill([
-                'status' => 'publish'
-            ]);
-        }
         $data = [
             'row' => $row
         ];
@@ -66,6 +63,9 @@ class RoleController extends AdminController
     }
 
     public function store(Request $request, $id){
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         if($id>0){
             $this->checkPermission('role_manage');
             $row = Role::whereId($id)->first();
@@ -159,6 +159,10 @@ class RoleController extends AdminController
     }
 
     public function verifyFieldsStore(){
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+
         $this->checkPermission('role_manage');
 
         $all = setting_item_array('role_verify_fields',[]);
@@ -251,6 +255,10 @@ class RoleController extends AdminController
 
     public function save_permissions(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+
         $matrix = $request->input('matrix');
         $matrix = is_array($matrix) ? $matrix : [];
 

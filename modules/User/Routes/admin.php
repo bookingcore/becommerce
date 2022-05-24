@@ -32,16 +32,6 @@ Route::group(['prefix' => 'verification'], function () {
     Route::post('/bulkEdit', 'VerificationController@bulkEdit')->name('user.admin.verification.bulkEdit');
 });
 
-
-Route::group(['prefix'=>'wallet'],function (){
-    Route::get('/add-credit/{id}','WalletController@addCredit')->name('user.admin.wallet.addCredit');
-    Route::post('/add-credit/{id}','WalletController@store')->name('user.admin.wallet.store');
-    Route::get('/report','WalletController@report')->name('user.admin.wallet.report');
-    Route::post('/reportBulkEdit','WalletController@reportBulkEdit')->name('user.admin.wallet.reportBulkEdit');
-
-});
-
-
 Route::group(['prefix' => 'subscriber'], function () {
     Route::get('/', 'SubscriberController@index')->name('user.admin.subscriber.index');
     Route::get('edit/{id}', 'SubscriberController@edit')->name('user.admin.subscriber.edit');

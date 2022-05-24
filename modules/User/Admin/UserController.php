@@ -153,6 +153,10 @@ class UserController extends AdminController
     public function store(Request $request, $id)
     {
 
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+
         if($id and $id>0){
             $row = User::find($id);
             if(empty($row)){

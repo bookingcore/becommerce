@@ -71,10 +71,11 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'tools'=>[
                 "position"=>90,
-                'url'      => 'admin/module/core/tools',
+                'url'      => route('core.admin.tool'),
                 'title'    => __("Tools"),
                 'icon'     => 'icon ion-ios-hammer',
                 "group"=>"system",
+                'permission' => 'language_manage',
                 'children' => [
                     'language'=>[
                         'url'        => 'admin/module/language',
