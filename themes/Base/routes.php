@@ -110,3 +110,8 @@ Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter
 Route::group(['prefix'=>'pos','middleware'=>['auth','verified']],function(){
     //Route::get('/','POSController@index')->name('pos');
 });
+
+
+// Social Login
+Route::get('social-login/{provider}', 'User\SocialLoginController@login');
+Route::get('social-callback/{provider}', 'User\SocialLoginController@callBack');
