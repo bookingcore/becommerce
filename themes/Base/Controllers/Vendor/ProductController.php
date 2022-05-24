@@ -112,6 +112,9 @@ class ProductController extends FrontendController
     }
 
     public function store(Request $request,$id = ''){
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $request->validate([
             'title'=>'required'
         ]);

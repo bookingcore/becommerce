@@ -32,6 +32,10 @@ class RegisterController extends FrontendController
 
     public function store(Request $request){
 
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+
         $check = $this->validateRequest();
         if($check !== true) return $check;
 
