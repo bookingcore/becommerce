@@ -133,13 +133,6 @@
                             {{ trans('installer_messages.environment.wizard.form.app_tabs.broadcasting_title') }}
                         </span>
                     </label>
-
-
-
-
-
-
-
                     <div class="info">
                         <div class="form-group {{ $errors->has('broadcast_driver') ? ' has-error ' : '' }}">
                             <label for="broadcast_driver">{{ trans('installer_messages.environment.wizard.form.app_tabs.broadcasting_label') }}
@@ -420,7 +413,7 @@
         function startInstall(e) {
             e.preventDefault();
             checkDB(function (data){
-                if(data.success){
+                if(data.status){
                     $('#form_installer').submit();
                 }
             })
@@ -452,9 +445,10 @@
                 dataType: 'json',
                 type: 'post',
                 success: function (data) {
-                    alert(data.message);
-                    if(data.success){
+                    if(data.status){
                         cb(data)
+                    }else{
+                        alert(data.message);
                     }
                 },
                 cache:false

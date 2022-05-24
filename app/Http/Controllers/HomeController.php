@@ -98,7 +98,7 @@ class HomeController extends Controller
             if(DB::connection()->getDatabaseName()){
                 return $this->sendSuccess(false , __("Yes! Successfully connected to the DB: ".DB::connection()->getDatabaseName()));
             }else{
-                return $this->sendSuccess(false , __("Could not find the database. Please check your configuration."));
+                return $this->sendError(__("Could not find the database. Please check your configuration."));
             }
         } catch (\Exception $e) {
             return $this->sendError( $e->getMessage() );
