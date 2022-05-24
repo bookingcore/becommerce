@@ -123,7 +123,7 @@ class CartController extends FrontendController
             return $this->sendError(__("You have to verify email first"), ['url' => url('/email/verify')]);
         }
 
-        $itemsRequest = $request->input('cart_item');
+        $itemsRequest = $request->input('cart_item',[]);
         try {
             foreach ($itemsRequest as $item_id => $value) {
                 $qty = $value['qty'];

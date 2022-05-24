@@ -48,7 +48,7 @@
                                                         </ul>
                                                     </th>
                                                     <td>{{format_money($cartItem->price)}}</td>
-                                                    <td><input class="cart_count text-center" value="{{$cartItem->qty}}" type="number"></td>
+                                                    <td><input class="cart_count text-center" name="cart_item[{{$cartItem->id}}][qty]" value="{{$cartItem->qty}}" type="number"></td>
                                                     <td class="text-thm">{{format_money($cartItem->sub_total)}}</td>
                                                 </tr>
                                             @endforeach
