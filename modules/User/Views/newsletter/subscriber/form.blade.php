@@ -1,6 +1,6 @@
 <div class="form-group">
-    <label>{{__("Email")}}</label>
-    <input type="text" value="{{$row->email}}" placeholder="{{__("Email")}}" name="email" class="form-control">
+    <label>{{__("Email")}} <span class="text-danger">*</span></label>
+    <input type="email" required value="{{$row->email}}" placeholder="{{__("Email")}}" name="email" class="form-control">
 </div>
 <div class="form-group">
     <label>{{__("First name")}}</label>
