@@ -4,6 +4,7 @@
 namespace Modules\Product\Listeners;
 
 
+use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 
@@ -20,8 +21,9 @@ class DeleteVariation
      *
      * @return void
      */
-    public function handle(Product $product)
+    public function handle(ProductDeleteEvent $product_delete_event)
     {
+        $product = $product_delete_event->product;
         $this->productVariation->where('product_id',$product->id)->delete();
     }
 }
