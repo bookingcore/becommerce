@@ -35,7 +35,7 @@ if(!isset($current_cat)) $current_cat = null;
                 </div>
             </div>
         </div>
-        <input name="s" class="form-control" type="text" value="{{request('s')}}" placeholder="{{ __("Search products...") }}">
+        <input name="s" class="form-control" type="text" value="{{ request()->input("s") }}" placeholder="{{ __("Search products...") }}">
         <button type="submit" class="btn"><i class="axtronic-icon-search"></i><span>{{ __("Search") }}</span></button>
     </div>
 </form>

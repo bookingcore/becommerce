@@ -492,102 +492,133 @@
                 display: none;
             }
         }
+        .product-item .product-labels{
+            top: 6px;
+            left: 6px;
+            .product-label.onsale{
+                padding: 0 8px;
+                font-size: 7px;
+                color: #fff;
+                min-width: auto;
+            }
+        }
     }
 }
 .site-notifications-side{
-    .axtronic-notifications-bottom{
-        padding-top: 3em;
-        margin: 0;
-        border-top: 2px dashed;
-        border-top-color: var(--border);
-        a.button{
-            font-size: 14px;
-            display: block;
-            text-align: center;
-        }
+.axtronic-notifications-bottom{
+    padding-top: 3em;
+    margin: 0;
+    border-top: 2px dashed;
+    border-top-color: var(--border);
+    a.button{
+        font-size: 14px;
+        display: block;
+        text-align: center;
     }
-    .axtronic-notifications-content{
+}
+.axtronic-notifications-content{
 
-    }
+}
 }
 
 .side-wrap-content{
-    margin-bottom: 0;
+margin-bottom: 0;
+position: relative;
+flex: 1 1 auto;
+display: flex;
+flex-direction: column;
+padding: 20px 15px 30px;
+.axtronic-content-scroll{
     position: relative;
     flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    padding: 20px 15px 30px;
-    .axtronic-content-scroll{
-        position: relative;
-        flex: 1 1 auto;
-        overflow-y: auto;
-        padding-right: 15px;
-        margin-right: -15px;
-        &::-webkit-scrollbar-track
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-            background-color: #F5F5F5;
-        }
-
-        &::-webkit-scrollbar
-        {
-            width: 6px;
-            background-color: #F5F5F5;
-        }
-
-        &::-webkit-scrollbar-thumb
-        {
-            background: linear-gradient(var(--primary) 0%, var(--primary_hover) 100%)
-        }
+    overflow-y: auto;
+    padding-right: 15px;
+    margin-right: -15px;
+    &::-webkit-scrollbar-track
+    {
+        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        background-color: #F5F5F5;
     }
-    ul.list-product-items {
-        li{
-            &.product-item {
 
-                .product-caption h2{
-                    margin-top: 0;
-                    line-height: 24px;
-                    a{
-                        color: var(--accent);
-                        &:hover{
-                            color: var(--primary_hover);
-                        }
+    &::-webkit-scrollbar
+    {
+        width: 6px;
+        background-color: #F5F5F5;
+    }
+
+    &::-webkit-scrollbar-thumb
+    {
+        background: linear-gradient(var(--primary) 0%, var(--primary_hover) 100%)
+    }
+}
+ul.list-product-items {
+    li{
+        &.product-item {
+
+            .product-caption h2{
+                margin-top: 0;
+                line-height: 24px;
+                a{
+                    color: var(--accent);
+                    &:hover{
+                        color: var(--primary_hover);
                     }
                 }
-                .remove_button{
-                    position: absolute;
-                    top: 50%;
-                    font-size: 0;
-                    color: var(--light);
-                    right: 0;
-                    transform: translate(0, -50%);
-                    &:hover{
-                        color: var(--primary);
-                    }
-                    &:before{
-                        @include themecustom-icon;
-                        content: themecustom-char(trash);
-                        line-height: 1;
-                        vertical-align: middle;
-                        font-size: 22px;
-                    }
+            }
+            .remove_button{
+                position: absolute;
+                top: 50%;
+                font-size: 0;
+                color: var(--light);
+                right: 0;
+                transform: translate(0, -50%);
+                &:hover{
+                    color: var(--primary);
+                }
+                &:before{
+                    @include themecustom-icon;
+                    content: themecustom-char(trash);
+                    line-height: 1;
+                    vertical-align: middle;
+                    font-size: 22px;
                 }
             }
         }
     }
-    .axtronic-card-bottom{
+}
+.axtronic-card-bottom{
 
-    }
+}
 }
 
 .axtronic-list--social{
-    margin-left: 0;
+margin-left: 0;
 }
 
 @media (min-width: 1024px) {
-    .side-wrap {
-        width: 440px;
-        transform: translate3d(440px,0,0);
+.side-wrap {
+    width: 440px;
+    transform: translate3d(440px,0,0);
+}
+}
+.bc-form{
+    .bc-form__content{
+        .form-submit{
+            i{
+                display: none;
+                margin-left: 30px;
+            }
+        }
+    }
+    &.loading{
+        .bc-form__content{
+            .form-submit{
+                i{
+                    display: inline-block;
+                }
+            }
+        }
     }
 }
+
+
