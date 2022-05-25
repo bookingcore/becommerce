@@ -96,6 +96,7 @@ class AttributeController extends AdminController
             $row->service = 'product';
         }
         $row->fill($request->input());
+        $row->display_type = $request->input('display_type');
         if(is_default_lang($request->input('lang'))){
             $row->save();
         }
