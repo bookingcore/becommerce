@@ -5,6 +5,7 @@ namespace Modules\Campaign\Listeners;
 
 
 use Modules\Campaign\Models\CampaignProduct;
+use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Models\Product;
 
 class DeleteCampaignProduct
@@ -20,8 +21,9 @@ class DeleteCampaignProduct
      *
      * @return void
      */
-    public function handle(Product $product)
+    public function handle(ProductDeleteEvent $product_delete_event)
     {
+        $product = $product_delete_event->product;
         $this->campaign_product->where('product_id',$product->id)->delete();
     }
 }

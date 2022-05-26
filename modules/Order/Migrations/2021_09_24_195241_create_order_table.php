@@ -23,6 +23,7 @@ class CreateOrderTable extends Migration
 	        $table->string('currency',20)->nullable();
 	        $table->bigInteger('payment_id')->nullable();
             $table->string('gateway',50)->nullable();
+            $table->string('gateway_transaction_id')->nullable();
             $table->string('status',30)->nullable();
             $table->decimal('paid',10,2)->nullable();
 
@@ -33,6 +34,8 @@ class CreateOrderTable extends Migration
 		    $table->decimal('tax_amount',10,2)->nullable();
 		    $table->decimal('shipping_amount',10,2)->nullable();
 		    $table->decimal('discount_amount',10,2)->nullable();
+
+            $table->decimal('payment_fee',10,2)->nullable()->default(0);
 
             $table->decimal('commission_amount',10,2)->nullable()->default(0);
 
@@ -104,6 +107,20 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('core_order_notes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('order_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('val')->nullable();
+            $table->text('extra')->nullable();
+
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->index(['order_id','name']);
+            $table->timestamps();
+        });
+
         Schema::create('core_order_item_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('order_item_id')->nullable();
@@ -125,6 +142,7 @@ class CreateOrderTable extends Migration
             $table->string('gateway',50)->nullable();
             $table->decimal('amount',10,2)->nullable();
             $table->string('currency',10)->nullable();
+            $table->decimal('fee',10,2)->nullable();
 
             $table->decimal('converted_amount',10,2)->nullable();
             $table->string('converted_currency',10)->nullable();

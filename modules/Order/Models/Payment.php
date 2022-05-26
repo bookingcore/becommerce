@@ -7,6 +7,7 @@ namespace Modules\Order\Models;
 use App\BaseModel;
 use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Order\Events\PaymentUpdated;
 
 class Payment extends BaseModel
 {
@@ -15,11 +16,19 @@ class Payment extends BaseModel
     protected $meta_parent_key = 'payment_id';
     protected $metaClass = PaymentMeta::class;
 
-    CONST ON_HOLD = 'on_hold';
+    CONST COMPLETED = 'completed';
+    CONST PENDING = 'pending';
+    const FAILED = 'failed';
+
+
     protected $table = 'core_payments';
 
     protected $attributes = [
         'status'=>'draft'
+    ];
+
+    protected $casts = [
+        'logs'=>'array'
     ];
 
 
@@ -38,4 +47,12 @@ class Payment extends BaseModel
                 return $this->belongsTo(Order::class,'object_id')->withDefault();
         }
     }
+
+    public function updateStatus($status){
+        $this->status = $status;
+        $this->save();
+
+        PaymentUpdated::dispatch($this);
+    }
+
 }

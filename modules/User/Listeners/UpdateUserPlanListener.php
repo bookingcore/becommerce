@@ -4,7 +4,7 @@
 namespace Modules\User\Listeners;
 
 
-use Modules\Order\Events\OrderUpdated;
+use Modules\Order\Events\OrderStatusUpdated;
 use Modules\User\Models\Plan;
 
 class UpdateUserPlanListener
@@ -12,10 +12,10 @@ class UpdateUserPlanListener
     /**
      * Handle the event.
      *
-     * @param $event OrderUpdated
+     * @param $event OrderStatusUpdated
      * @return void
      */
-    public function handle(OrderUpdated $event)
+    public function handle(OrderStatusUpdated $event)
     {
         $order = $event->_order;
         switch ($order->status){

@@ -3,15 +3,10 @@ namespace Modules\User;
 
 
 use Illuminate\Auth\Events\PasswordReset;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\Order\Events\OrderUpdated;
+use Modules\Order\Events\OrderStatusUpdated;
 use Modules\User\Events\AdminUpdateVerificationData;
-use Modules\User\Events\NewVendorRegistered;
 use Modules\User\Events\RequestCreditPurchase;
-use Modules\User\Events\SendMailUserRegistered;
 use Modules\User\Events\UpdateCreditPurchase;
 use Modules\User\Events\UserSubscriberSubmit;
 use Modules\User\Events\UserVerificationSubmit;
@@ -25,7 +20,6 @@ use Modules\User\Listeners\SendNotifyUpdateVerificationData;
 use Modules\User\Listeners\SendNotifyVerificationData;
 use Modules\User\Listeners\SendUserSubmitVerifyDataEmail;
 use Modules\User\Listeners\SendVendorApprovedMail;
-use Modules\User\Listeners\SendVendorRegisterdEmail;
 use Modules\User\Listeners\UpdateUserPlanListener;
 use Modules\User\Listeners\UserSubscriberSubmitListeners;
 
@@ -54,7 +48,7 @@ class EventServiceProvider extends ServiceProvider
         UserSubscriberSubmit::class => [
             UserSubscriberSubmitListeners::class
         ],
-        OrderUpdated::class=>[
+        OrderStatusUpdated::class=>[
             UpdateUserPlanListener::class
         ],
         VendorApproved::class => [

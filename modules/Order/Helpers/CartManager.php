@@ -280,7 +280,7 @@ class CartManager
     public static function order(){
         $order = new Order();
         $order->customer_id = auth()->id();
-        $order->status = Order::DRAFT;
+        $order->status = Order::PROCESSING;
         $order->locale = app()->getLocale();
         $order->shipping_amount = static::cart()->shipping_amount;
         $order->discount_amount = static::discountTotal();
@@ -296,7 +296,7 @@ class CartManager
             $order_item->discount_amount = $item->discount_amount;
             $order_item->qty = $item->qty;
             $order_item->subtotal = $item->subtotal;
-            $order_item->status = Order::DRAFT;
+            $order_item->status = $order->status;
             $order_item->meta = $item->meta;
             $order_item->variation_id = $item->variation_id;
             $order_item->vendor_id = $item->author_id;

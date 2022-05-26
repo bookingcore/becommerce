@@ -16,8 +16,8 @@
 </div>
 <div class="form-group">
     <label>{{__("Status")}}</label>
-    <select name="display_type" class="form-control">
+    <select name="status" class="form-control">
         <option @if($row->status == 'publish') selected @endif value="publish">{{ __('Publish') }}</option>
-        <option @if($row->display_type == 'draft') selected @endif value="draft">{{ __('Draft') }}</option>
+        <option @if($row->status == 'draft') selected @endif value="draft">{{ __('Draft') }}</option>
     </select>
 </div>

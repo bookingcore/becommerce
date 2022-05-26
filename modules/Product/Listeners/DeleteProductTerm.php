@@ -4,6 +4,7 @@
 namespace Modules\Product\Listeners;
 
 
+use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductVariation;
@@ -21,8 +22,9 @@ class DeleteProductTerm
      *
      * @return void
      */
-    public function handle(Product $product)
+    public function handle(ProductDeleteEvent $product_delete_event)
     {
+        $product = $product_delete_event->product;
         $this->productTerm->where('target_id',$product->id)->delete();
     }
 }

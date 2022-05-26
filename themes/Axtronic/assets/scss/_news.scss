@@ -162,6 +162,21 @@
         }
     }
 }
+.related-post{
+    .axtronic-post.post{
+        h2.entry-title{
+            font-size: 18px;
+            line-height: 24px;
+            width: 100%;
+            font-weight: 600;
+            margin-bottom: 0;
+            a{
+                color: var(--accent);;
+            }
+        }
+    }
+
+}
 .widget{
     padding: var(--grid-gutter);
     border: 1px solid var(--border);

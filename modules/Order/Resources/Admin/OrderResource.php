@@ -24,7 +24,7 @@ class OrderResource extends BaseJsonResource
             'customer'=> $this->customer ? new UserResource($this->customer,['address']) : [],
             'billing'=>$this->getJsonMeta('billing'),
             'shipping'=>$this->getJsonMeta('shipping'),
-            'status'=>$this->status ?? Order::PENDING,
+            'status'=>$this->status ?? Order::DRAFT,
             'created_at'=>$this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
             'email'=>$this->email,
             'phone'=>$this->phone,

@@ -4469,6 +4469,16 @@ header .list-group-item.active {
 .site-wishlist-side .axtronic-wishlist-content .axtronic-loop-product .shop-action {
   display: none;
 }
+.site-wishlist-side .axtronic-wishlist-content .product-item .product-labels {
+  top: 6px;
+  left: 6px;
+}
+.site-wishlist-side .axtronic-wishlist-content .product-item .product-labels .product-label.onsale {
+  padding: 0 8px;
+  font-size: 7px;
+  color: #fff;
+  min-width: auto;
+}
 
 .site-notifications-side .axtronic-notifications-bottom {
   padding-top: 3em;
@@ -4553,6 +4563,14 @@ header .list-group-item.active {
     transform: translate3d(440px, 0, 0);
   }
 }
+.bc-form .bc-form__content .form-submit i {
+  display: none;
+  margin-left: 30px;
+}
+.bc-form.loading .bc-form__content .form-submit i {
+  display: inline-block;
+}
+
 ul.list-product-items {
   flex-direction: column;
   margin: 0;
@@ -5150,8 +5168,11 @@ ul.axtronic-products-special li.list-item .product-item-grid .product-transition
   flex: 0 0 160px;
 }
 ul.axtronic-products-special li.list-item .product-item-grid .product-labels {
-  position: static;
-  flex-direction: row;
+  top: var(--grid-gutter);
+  left: var(--grid-gutter);
+}
+ul.axtronic-products-special li.list-item .product-item-grid .product-labels i {
+  font-size: 20px;
 }
 ul.axtronic-products-special li.list-item .product-item-grid .star-rating {
   margin: 8px 0 12px;
@@ -6355,6 +6376,17 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
 }
 .axtronic-post.post a.button {
   padding: 8px 16px;
+}
+
+.related-post .axtronic-post.post h2.entry-title {
+  font-size: 18px;
+  line-height: 24px;
+  width: 100%;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+.related-post .axtronic-post.post h2.entry-title a {
+  color: var(--accent);
 }
 
 .widget {

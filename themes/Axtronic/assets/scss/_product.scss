@@ -627,8 +627,11 @@ ul.axtronic-products-special{
                 flex: 0 0 160px;
             }
             .product-labels{
-                position: static;
-                flex-direction: row;
+                top: var(--grid-gutter);
+                left: var(--grid-gutter);
+                i{
+                    font-size: 20px;
+                }
             }
             .star-rating{
                 margin: 8px 0 12px;
