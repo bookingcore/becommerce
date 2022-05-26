@@ -4,7 +4,7 @@ if(!$categories) return;
 if(!isset($current_cat)) $current_cat = null;
 ?>
 <div class="terms_condition_widget">
-    <h4 class="title">{{__('Categories')}}</h4>
+    <h4 class="title">{{$widget['title'] ?? __('Categories')}}</h4>
     <div class="widget_list">
         <ul class="list_details">
             @php

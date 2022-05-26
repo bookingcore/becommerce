@@ -3,7 +3,7 @@ $tags = \Modules\News\Models\Tag::search()->withCount(['news'])->orderByDesc('ne
 if(!count($tags)) return;
 ?>
 <div class="blog_tag_widget">
-    <h4 class="title">{{__('Trending Tags')}}</h4>
+    <h4 class="title">{{ $widget['title'] ??  __('Trending Tags') }}</h4>
     <ul class="tag_list">
         @foreach($tags as $tag)
 

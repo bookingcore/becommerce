@@ -154,7 +154,6 @@ class PaypalGateway extends BaseGateway
          */
         $payment = Payment::find($pid);
         if ($payment) {
-            $order = $payment->order;
             $response = $this->captureOrder($request->input('token'));
             $json = $response->json();
             if ($response->successful() and !empty($json['status'])) {

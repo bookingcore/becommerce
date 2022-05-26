@@ -425,3 +425,27 @@ body .order-box{
         }
     }
 }
+.bc-menu-mobile{
+    .mm-panel ul.mm-listview{
+        .mm-listitem__btn{
+            border-left: none;
+        }
+        li:first-child.mm-listitem {
+            margin-top: 15px;
+        }
+    }
+    .mm-navbar__title{
+        font-size: 17px;
+        font-weight: bold;
+        line-height: 50px !important;
+    }
+}
+
+.bc-main-header-mobile{
+    .cart{
+        .dropdown_content{
+            height:auto;
+            max-height: 468px;
+        }
+    }
+}

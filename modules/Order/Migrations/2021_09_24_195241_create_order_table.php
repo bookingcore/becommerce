@@ -23,6 +23,7 @@ class CreateOrderTable extends Migration
 	        $table->string('currency',20)->nullable();
 	        $table->bigInteger('payment_id')->nullable();
             $table->string('gateway',50)->nullable();
+            $table->string('gateway_transaction_id')->nullable();
             $table->string('status',30)->nullable();
             $table->decimal('paid',10,2)->nullable();
 

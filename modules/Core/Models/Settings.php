@@ -77,7 +77,7 @@ class Settings extends BaseModel
         if(!empty($langs)){
             foreach ($langs as $lang)
             {
-                Cache::forget("custom_css_".$lang->locale);
+                Cache::forget("custom_css_". config('bc.active_theme').'_' .$lang->locale);
             }
         }
     }

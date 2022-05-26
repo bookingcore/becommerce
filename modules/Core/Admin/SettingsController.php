@@ -154,6 +154,10 @@ class SettingsController extends AdminController
                 //Clear Cache for currency
                 Session::put('core_current_currency',"");
             }
+            if(in_array('style_custom_css',$keys)){
+                //Clear Cache Custom Css
+                Settings::clearCustomCssCache();
+            }
             if(!empty($group_data['after_saving']) and is_callable($group_data['after_saving']))
             {
                 call_user_func($group_data['after_saving']);

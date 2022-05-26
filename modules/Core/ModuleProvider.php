@@ -157,14 +157,10 @@ class ModuleProvider extends ModuleServiceProvider
             'title' => __("Style Settings"),
             'position'=>70,
             'keys'=>[
-                'enable_preloader',
-                'style_main_color',
                 'style_custom_css',
-                'style_typo',
             ],
             'filter_demo_mode'=>[
                 'style_custom_css',
-                'style_typo',
             ]
         ];
     }

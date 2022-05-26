@@ -46,6 +46,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
         SettingManager::register("freshen_general",[$this,'registerGeneralSetting'],1,'freshen_theme');
         SettingManager::register("freshen_product",[$this,'registerProductSetting'],1,'freshen_theme');
+        SettingManager::register("freshen_style",[$this,'registerStyleSetting'],1,'freshen_theme');
         SettingManager::registerZone('freshen_theme',[$this,'registerZone']);
 
         BlockManager::register("list_category",\Themes\Freshen\Controllers\Blocks\ListCategory::class);
@@ -118,6 +119,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'freshen_email_contact',
                 'freshen_list_widget_footer',
                 'freshen_footer_info_text',
+                'freshen_footer_mobile_menu_info',
                 'freshen_footer_text_right',
                 'freshen_copyright',
             ],
@@ -145,6 +147,22 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
             ],
             'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerStyleSetting(){
+        return [
+            'id'   => 'freshen_style',
+            'title' => __("Style Settings"),
+            'position'=>80,
+            'view'      => "admin.settings.style",
+            "keys"      => [
+                'freshen_enable_preloader',
+                'freshen_style_main_color',
+                'freshen_style_typo',
+            ],
+            'filter_demo_mode'=>[
+
             ]
         ];
     }

@@ -188,7 +188,11 @@
 
     /* ----- Mobile Nav ----- */
     $(function() {
-        $('nav#menu').mmenu();
+        $('nav#menu').mmenu({
+            navbar:{
+                title: i18n.main_menu
+            }
+        });
     });
 
     $(function () {
