@@ -50,6 +50,7 @@
             success:"{{__("Success")}}",
             please_fill_out:'{{__("Please fill out this field.")}}',
             delete_cart_item_confirm:'{{__("Do you want to delete this cart item?")}}',
+            main_menu:'{{__("Main Menu")}}',
         };
     </script>
     @yield('head')

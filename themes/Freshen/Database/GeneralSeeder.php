@@ -252,6 +252,23 @@ class GeneralSeeder extends Seeder
 </div>',
                 ],
                 [
+                    'name'  => 'freshen_footer_mobile_menu_info',
+                    'val'   => '<span class="border-none">
+    <span class="contact-info">
+      <span class="phone-num"><i class="fas fa-phone"></i> <a href="#">Call us <span class="text-thm">123 456</span></a></span>
+      <span class="address">Collins Street West, Victoria <br>8007, Australia.</span><br><br>
+      <a href="#" class="shop_btn thm style2">SHOP NOW</a><br><br>
+    </span>
+    <span class="social-links">
+      <a href="#"><span class="fab fa-facebook-f"></span></a>
+      <a href="#"><span class="fab fa-twitter"></span></a>
+      <a href="#"><span class="fab fa-instagram"></span></a>
+      <a href="#"><span class="fab fa-youtube"></span></a>
+      <a href="#"><span class="fab fa-pinterest"></span></a>
+    </span>
+</span>',
+                ],
+                [
                     'name'  => 'freshen_footer_text_right',
                     'val'   => '<p><img src="/uploads/freshen/general/payment-getway.png" /></p>',
                 ],

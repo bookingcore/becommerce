@@ -118,6 +118,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'freshen_email_contact',
                 'freshen_list_widget_footer',
                 'freshen_footer_info_text',
+                'freshen_footer_mobile_menu_info',
                 'freshen_footer_text_right',
                 'freshen_copyright',
             ],

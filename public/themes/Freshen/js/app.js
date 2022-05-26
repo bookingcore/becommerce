@@ -284,7 +284,9 @@ $('.bc_form_add_to_cart').on('submit',function(e){
             me.removeClass('loading');
             if(json.fragments){
                 for(var k in json.fragments){
-                    $(k).html(json.fragments[k]);
+                    $(k).each(function (){
+                        $(this).html(json.fragments[k]);
+                    });
                 }
             }
             if(json.url){
