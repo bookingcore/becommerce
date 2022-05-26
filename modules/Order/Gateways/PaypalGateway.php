@@ -126,9 +126,10 @@ class PaypalGateway extends BaseGateway
                     $url = $link['href'];
                 }
             }
-            $payment->updateStatus($payment::PENDING);
+            $order->updateStatus($order::ON_HOLD);
 
             return ['url' => $url];
+
         } else {
             if (!empty($json['error_description'])) {
                 $message = $json['error_description'];
