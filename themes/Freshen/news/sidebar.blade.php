@@ -3,6 +3,9 @@
         @switch($widget['type'])
             @case ('search_form')
                 <div class="sidebar_search_widget">
+                    @if(!empty($widget['title']))
+                        <h4 class="title mb-4">{{$widget['title']}}</h4>
+                    @endif
                     <form action="{{route('news')}}" class="blog_search_widget">
                         <div class="input-group">
                             <input type="text" class="form-control" name="s" value="{{request('s')}}" placeholder="{{__('Search')}}" >

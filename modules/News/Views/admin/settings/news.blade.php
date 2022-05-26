@@ -150,6 +150,7 @@
                             <div class="g-items">
                                 <?php
                                 $social_share = setting_item_with_lang_arr('news_sidebar',request()->query('lang'));
+                                dump($social_share);
                                 if(empty($social_share)) $social_share = [];
                                 ?>
                                 @foreach($social_share as $key=>$item)
