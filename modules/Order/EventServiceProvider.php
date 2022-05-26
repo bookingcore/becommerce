@@ -15,9 +15,6 @@ class EventServiceProvider extends ServiceProvider
 {
 
     protected $listen = [
-        PaymentUpdated::class =>[
-            PaymentUpdatedListener::class
-        ],
         OrderStatusUpdated::class=>[
             ProductOnHoldListener::class,
             ProductStockListener::class,

@@ -83,31 +83,6 @@ class Order extends BaseModel
         );
     }
 
-    public function paymentUpdated(Payment $payment){
-        if($payment->status == $payment::COMPLETED){
-            $this->paid += $payment->amount;
-        }
-        switch ($payment->status){
-            case $payment::PENDING:
-                // On hold order
-                $this->payment_id = $payment->id;
-                $this->updateStatus(self::ON_HOLD);
-
-                break;
-            case $payment::COMPLETED:
-
-                $this->updateStatus(self::PROCESSING);
-                break;
-
-            case $payment::FAILED:
-
-                $this->updateStatus(self::FAILED);
-                break;
-
-        }
-    }
-
-
     public function displayName(): Attribute
     {
         return Attribute::make(
@@ -315,6 +290,11 @@ class Order extends BaseModel
         return $this->hasMany(OrderNote::class);
     }
 
+    /**
+     * Change Order Status, Add note, Dispatch event
+     *
+     * @param $status
+     */
     public function updateStatus($status){
 
         if($status === $this->status){
@@ -339,5 +319,12 @@ class Order extends BaseModel
         ]);
 
         $this->notes()->save($note);
+    }
+
+    public function needPayment(){
+        if(in_array($this->status,[$this::FAILED,$this::ON_HOLD,$this::DRAFT]) and $this->total){
+            return true;
+        }
+        return false;
     }
 }

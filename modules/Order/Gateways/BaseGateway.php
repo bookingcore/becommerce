@@ -27,10 +27,6 @@ abstract class BaseGateway
     }
 
 
-    public function processNormal($payment){
-
-    }
-
     public function cancelPayment(Request $request)
     {
 
@@ -135,27 +131,6 @@ abstract class BaseGateway
         return $this->getDisplayHtml();
     }
 
-    public function confirmNormalPayment(){
-
-    }
-
-    public function cancelNormalPayment()
-    {
-        /**
-         * @var Payment $payment
-         */
-        $request = \request();
-        $c = $request->query('pid');
-        $payment = Payment::where('code', $c)->first();
-        if ($payment) {
-            if($payment->status == 'cancel'){
-                return [false,__("Your payment has been canceled")];
-            }
-            return $payment->markAsCancel();
-        }
-
-        return [false];
-    }
 
     public function getValidationRules(){
         return [];

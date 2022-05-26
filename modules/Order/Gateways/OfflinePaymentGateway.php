@@ -4,25 +4,20 @@
 namespace Modules\Order\Gateways;
 
 
-use Illuminate\Http\Request;
-use Mockery\Exception;
-use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Models\Order;
-use Modules\Order\Models\Payment;
 
 class OfflinePaymentGateway extends BaseGateway
 {
     public $name = 'Offline Payment';
 
     /**
-     * @var Order $order
      *
-     * @param Payment $payment
+     * @param Order $order
      * @return bool
      */
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
-        $payment->updateStatus(Payment::COMPLETED);
+        $order->updateStatus($order::PROCESSING);
 
         return true;
     }

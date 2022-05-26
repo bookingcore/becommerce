@@ -3,6 +3,7 @@
 
 namespace Modules\Order\Helpers;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
@@ -277,13 +278,25 @@ class CartManager
     /**
      * return Order
      */
-    public static function order(){
+    public static function order(Request $request){
+
+        $shipping_country = $request->input($request->input('shipping_same_address') ? 'billing_country' : 'shipping_country');
+        // CartManager add shipping
+        if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
+            if($res['status'] == 0){
+                throw new \Exception($res['message'] ?? __("Can not add shipping"));
+            }
+        }
+
+        CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
+
         $order = new Order();
         $order->customer_id = auth()->id();
         $order->status = Order::PROCESSING;
         $order->locale = app()->getLocale();
         $order->shipping_amount = static::cart()->shipping_amount;
         $order->discount_amount = static::discountTotal();
+        $order->gateway = $request->input('payment_gateway');
         $order->save();
 
         $items = static::items();
