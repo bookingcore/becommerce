@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Notification;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderStatusUpdated;
-use Modules\Order\Notifications\NewOrderNotification;
+use Modules\Order\Notifications\OrderNotification;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\TaxRate;
 
@@ -36,6 +36,7 @@ class Order extends BaseModel
     const CANCELLED = 'cancelled';
     const PAID = 'paid';
     const UNPAID = 'unpaid';
+    const REFUNDED = 'refunded';
 
     protected $casts = [
         'order_date'=>'datetime'
@@ -155,58 +156,30 @@ class Order extends BaseModel
         return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
     }
 
-    public function sendNewOrderNotifications(){
+    public function sendOrderNotifications($type){
 
         // Send Email
-        if(setting_item('email_c_new_order_enable')) {
-            Mail::to($this->customer)->locale($this->locale)->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
+        if(setting_item('email_c_'.$type.'_enable')) {
             if($this->customer){
-                $this->customer->notify(new NewOrderNotification($this));
+                $this->customer->notify(new OrderNotification($this,$type));
             }else{
-                Notification::route('mail',$this->email)->notify(new NewOrderNotification($this));
+                Notification::route('mail',$this->email)->notify(new OrderNotification($this,$type));
             }
         }
-        if(setting_item('email_v_new_order_enable') and is_vendor_enable()) {
+        if(setting_item('email_v_'.$type.'_enable') and is_vendor_enable()) {
             $vendor_ids = $this->items->pluck('vendor_id')->all();
             $vendors = User::query()->whereIn('id',$vendor_ids)->get();
             if ($vendors) {
                 foreach ($vendors as $vendor) {
-                    $vendor->notify(new NewOrderNotification($this,'vendor'));
+                    $vendor->notify(new OrderNotification($this,$type,'vendor'));
                 }
             }
         }
 
-        if(setting_item('email_a_new_order_enable') and $address = setting_item('admin_email')) {
-            Notification::route('mail',$address)->notify(new NewOrderNotification($this));
+        if(setting_item('email_a_'.$type.'_enable') and $address = setting_item('admin_email')) {
+            Notification::route('mail',$address)->notify(new OrderNotification($this,$type,'admin'));
         }
     }
-
-    public function sendCancelledOrderEmails(){
-
-        // Send Email
-        if(setting_item('email_c_new_order_enable')) {
-            Mail::to($this->customer)->locale($this->locale)->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
-            if($this->customer){
-                $this->customer->notify(new NewOrderNotification($this));
-            }else{
-                Notification::route('mail',$this->email)->notify(new NewOrderNotification($this));
-            }
-        }
-        if(setting_item('email_v_new_order_enable') and is_vendor_enable()) {
-            $vendor_ids = $this->items->pluck('vendor_id')->all();
-            $vendors = User::query()->whereIn('id',$vendor_ids)->get();
-            if ($vendors) {
-                foreach ($vendors as $vendor) {
-                    $vendor->notify(new NewOrderNotification($this,'vendor'));
-                }
-            }
-        }
-
-        if(setting_item('email_a_new_order_enable') and $address = setting_item('admin_email')) {
-            Notification::route('mail',$address)->notify(new NewOrderNotification($this));
-        }
-    }
-
 
     public function getOrderReportData($from, $to){
         $report_data = new \stdClass();

@@ -36,13 +36,14 @@ class ProductOnHoldListener
                     }
                 }
                 break;
+            case Order::PROCESSING:
             case Order::COMPLETED:
+            case Order::FAILED:
 //              remove product on-hold in order item
                 ProductOnHold::where('order_id',$order->id)->delete();
                 break;
             case Order::CANCELLED:
             case Order::DRAFT:
-            case Order::FAILED:
                 break;
         }
     }

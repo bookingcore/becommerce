@@ -6,6 +6,7 @@ namespace Modules\Order\Listeners;
 
 use Modules\Order\Events\OrderStatusUpdated;
 use Modules\Order\Models\Order;
+use Modules\Order\Notifications\OrderNotification;
 
 class OrderStatusUpdatedNotification
 {
@@ -20,11 +21,19 @@ class OrderStatusUpdatedNotification
         $order = $event->_order;
 
         if(in_array($event->_old_status,[Order::DRAFT,Order::FAILED,Order::CANCELLED]) and in_array($order->status,[Order::COMPLETED,Order::PROCESSING,Order::ON_HOLD])){
-            return $order->sendNewOrderNotifications();
+            return $order->sendOrderNotifications(OrderNotification::NEW_ORDER);
         }
 
         if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT]) and in_array($order->status,[Order::CANCELLED])){
-            return $order->sendCancelledOrderEmails();
+            return $order->sendOrderNotifications(OrderNotification::CANCELLED_ORDER);
+        }
+
+        if(in_array($event->_old_status,[Order::PROCESSING]) and in_array($order->status,[Order::COMPLETED])){
+            return $order->sendOrderNotifications(OrderNotification::COMPLETED_ORDER);
+        }
+
+        if(in_array($event->_old_status,[Order::COMPLETED]) and in_array($order->status,[Order::REFUNDED])){
+            return $order->sendOrderNotifications(OrderNotification::REFUNDED_ORDER);
         }
     }
 }

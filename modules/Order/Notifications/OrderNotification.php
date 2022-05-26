@@ -14,9 +14,15 @@ use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Models\Order;
 use function Symfony\Component\Mime\to;
 
-class NewOrderNotification extends Notification implements ShouldQueue
+class OrderNotification extends Notification implements ShouldQueue
 {
     use Queueable;
+
+
+    const NEW_ORDER = 'new_order';
+    const CANCELLED_ORDER = 'cancelled_order';
+    const REFUNDED_ORDER = 'refunded_order';
+    const COMPLETED_ORDER = 'completed_order';
 
     /**
      * @var Order
@@ -25,10 +31,13 @@ class NewOrderNotification extends Notification implements ShouldQueue
 
     protected $_to;
 
-    public function __construct(Order $order,$to = 'customer')
+    protected $_type;
+
+    public function __construct(Order $order,$type = 'new_order',$to = 'customer')
     {
         $this->_order = $order;
         $this->_to = $to;
+        $this->_type = $type;
     }
 
 
@@ -55,6 +64,11 @@ class NewOrderNotification extends Notification implements ShouldQueue
             ? $notifiable->routeNotificationFor('mail')
             : $notifiable->email;
 
-        return (new OrderEmail(OrderEmail::NEW_ORDER,$this->_order,$this->_to))->to($address);
+        $mail =  (new OrderEmail($this->_type,$this->_order,$this->_to))->to($address);
+
+        if($this->_to == 'customer'){
+            $mail->locale($this->_order->locale);
+        }
+        return $mail;
     }
 }

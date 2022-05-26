@@ -34,7 +34,7 @@ class ModuleProvider extends ModuleServiceProvider
     }
 
     public function getEmailSettings(){
-        return [
+        $settings =  [
             'id'   => 'email',
             'title' => __("Email Settings"),
             'position'=> 35,
@@ -60,46 +60,6 @@ class ModuleProvider extends ModuleServiceProvider
                 'email_from_name',
                 'email_from_address',
 
-
-                // For Customer
-                'email_c_new_order_enable',
-                'email_c_new_order_subject',
-                'email_c_cancelled_order_enable',
-                'email_c_cancelled_order_subject',
-
-
-                // For Admin
-                'email_a_new_order_enable',
-                'email_a_new_order_recipient',
-                'email_a_new_order_subject',
-                'email_a_cancelled_order_enable',
-                'email_a_cancelled_order_subject',
-                'email_a_cancelled_order_recipient',
-
-                // For Vendor
-                'email_v_new_order_enable',
-                'email_v_new_order_subject',
-                'email_v_cancelled_order_enable',
-                'email_v_cancelled_order_subject',
-
-                'email_cancelled_order_enable',
-                'email_cancelled_order_subject',
-
-                'email_failed_order_enable',
-                'email_failed_order_recipient',
-                'email_failed_order_subject',
-
-                'email_order_on_hold_enable',
-                'email_order_on_hold_subject',
-
-                'email_processing_order_enable',
-                'email_processing_order_subject',
-
-                'email_completed_order_enable',
-                'email_completed_order_subject',
-
-                'email_refunded_order_enable',
-                'email_refunded_order_subject',
             ],
             'translation_keys'=>[
                 'email_c_new_order_subject',
@@ -115,6 +75,34 @@ class ModuleProvider extends ModuleServiceProvider
             ],
             'after_saving'=>[$this,'queueRestart']
         ];
+
+        $types = [
+            'new'=>[
+                'default'=>__('Thanks for shopping with us')
+            ],
+            'completed'=>[
+                'default'=>__('Completed Order')
+            ],
+            'cancelled'=>[
+                'default'=>__('Cancelled Order')
+            ],
+            'refunded'=>[
+                'default'=>__('Refunded Order')
+            ],
+        ];
+        foreach ($types as $type_id=>$configs){
+            $settings['key'][] = 'email_c_'.$type_id.'_order_enable';
+            $settings['key'][] = 'email_c_'.$type_id.'_order_subject';
+            $settings['key'][] = 'email_v_'.$type_id.'_order_enable';
+            $settings['key'][] = 'email_v_'.$type_id.'_order_subject';
+            $settings['key'][] = 'email_a_'.$type_id.'_order_enable';
+            $settings['key'][] = 'email_a_'.$type_id.'_order_subject';
+
+            $settings['translation_keys'][] = 'email_c_'.$type_id.'_order_subject';
+            $settings['translation_keys'][] = 'email_v_'.$type_id.'_order_subject';
+            $settings['translation_keys'][] = 'email_a_'.$type_id.'_order_subject';
+        }
+        return $settings;
     }
 
     public function queueRestart(){
