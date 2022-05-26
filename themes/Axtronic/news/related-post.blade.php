@@ -13,48 +13,51 @@
             @foreach($related_post as $post)
                 @php $translation = $post->translate(); @endphp
                 <div class="col-lg-4">
-                    <div class="post-review">
-                        <a href="{{ $post->getDetailUrl() }}">
-                            <img class="img-cover" src="{{ get_file_url($post->image_id) }}" alt="{{ $translation->title }}">
-                        </a>
+                    <div class="axtronic-post post">
+                        <div class="post-thumbnail">
+                            <div class="posted-on-square"><b>{{$post->created_at->format('d')}}</b> {{month_translation($post->created_at->format('m') - 1)}}</div>
+                            <a href="{{$post->getDetailUrl()}}" class="d-block ratio ratio-16x9">
+                                {!! get_image_tag($post->image_id,'medium',['class'=>'object-cover img-whp lazy loaded','alt'=>$translation->title]) !!}
+                            </a>
+                        </div>
+                        <div class="entry-content">
+                            <div class="entry-meta">
+                                <div class="post-author">
+                                    <span class="label">{{ __('By') }} </span>
+                                    <a href="#" rel="author">
+                                        <span class="vcard author author_name">{{$post->author->last_name}} </span>
+                                    </a>
+                                </div>
+                                @if($post->tags->count())
+                                    <div class="meta-categories">
+                                        @php $tags = []; @endphp
+                                        @foreach($post->tags as $tag)
+                                            <a class="category tag" href="{{ route('news.tag',['slug' => $tag->slug]) }}">{{ $tag->name }}</a>@if(!$loop->last),@endif
+                                        @endforeach
+                                    </div>
+                                @endif
+                                @if($post->cat)
+                                    <?php
+                                    $cat_tran = $post->cat->translate();
+                                    ?>
+                                    <div class="meta-categories">
+                                        <a class="category tag" href="{{$post->cat->getDetailUrl()}}">{{$cat_tran->name}}</a>
+                                    </div>
+                                @endif
+                                <div class="posted-on">
+                                    <a href="#"> {{display_date($post->created_at)}}</a>
+                                </div>
+                            </div>
+                            <h2 class="entry-title">
+                                <a href="{{$post->getDetailUrl()}}" >{{$translation->title}}</a>
+                            </h2>
+                            <p class="card-text">{!! \Illuminate\Support\Str::words(strip_tags($translation->content), 50, ' ...') !!}</p>
+
+                        </div>
                     </div>
-                    <div class="post-body">
-                        <h6 class="post-title">{{ $translation->title }}</h6>
-                        <p class="m-0 post-date opacity-75">{{ display_date($post->created_at) }}</p>
-                    </div>
+
                 </div>
             @endforeach
         </div>
     </div>
 </div>
-
-{{--<nav class="navigation post-navigation" aria-label="Posts">--}}
-    {{--<div class="nav-links">--}}
-        {{--<div class="nav-previous">--}}
-            {{--<a href="#" rel="prev">--}}
-                {{--<div class="nav-content has-image">--}}
-                    {{--<div class="image">--}}
-                        {{--<img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg"  alt="">--}}
-                    {{--</div>--}}
-                    {{--<div class="inner-action">--}}
-                        {{--<span class="reader-text"><i class="axtronic-icon-angle-left"></i>Previous Post </span>--}}
-                        {{--<span class="title">Tuesday Tips: Being Realistic With Your Goals</span>--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</a>--}}
-        {{--</div>--}}
-        {{--<div class="nav-next">--}}
-            {{--<a href="#" rel="next">--}}
-                {{--<div class="nav-content has-image">--}}
-                    {{--<div class="inner-action">--}}
-                        {{--<span class="reader-text">Next Post <i class="axtronic-icon-angle-right"></i></span>--}}
-                        {{--<span class="title">We Invite You to These Wonderful Wine Tasting Events</span>--}}
-                    {{--</div>--}}
-                    {{--<div class="image">--}}
-                        {{--<img src="https://demothemedh.b-cdn.net/axtronic/wp-content/uploads/2020/10/unsplash_glRqyWJgUeY.jpg" alt="">--}}
-                    {{--</div>--}}
-                {{--</div>--}}
-            {{--</a>--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--</nav>--}}
