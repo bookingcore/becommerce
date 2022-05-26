@@ -24,7 +24,7 @@
                 </div>
                 @endif
             </div>
-            <div class="bc-pagination">
+            <div class="bc-pagination mb-5">
                 {{$rows->links()}}
             </div>
         </div>
