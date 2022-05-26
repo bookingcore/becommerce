@@ -84,7 +84,7 @@
 
                 CartManager::clear();
 
-                $order->updateStatus($order::COMPLETED);
+                $order->updateStatus($order::PROCESSING);
 
                 return $this->sendSuccess([
                     'url' => $order->getDetailUrl()
