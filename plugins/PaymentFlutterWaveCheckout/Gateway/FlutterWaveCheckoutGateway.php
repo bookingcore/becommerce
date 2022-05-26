@@ -72,9 +72,8 @@ class FlutterWaveCheckoutGateway extends BaseGateway
         if (!$payment->amount) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
+        $payment->updateStatus($payment::PENDING);
+
         return ['url'=>route('checkoutFlutterWaveGateway',['payment_id'=>$payment->code])];
     }
 
@@ -115,6 +114,9 @@ class FlutterWaveCheckoutGateway extends BaseGateway
 
     public function confirmPayment(Request $request){
         $pid = $request->query('pid');
+        /**
+         * @var Payment $payment
+         */
         $payment = Payment::find($pid);
         if(empty($payment)){
             if($request->ajax()){
@@ -124,19 +126,17 @@ class FlutterWaveCheckoutGateway extends BaseGateway
         }
         if (in_array($payment->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])) {
             if ($request->query('status') =='successful') {
-                    $payment->status = Order::COMPLETED;
-                    $payment->logs = \GuzzleHttp\json_encode($request->all());
-                    $payment->save();
-                    PaymentUpdated::dispatch($payment);
+                $payment->logs = $request->all();
+                $payment->updateStatus(Payment::COMPLETED);
+
                 if($request->ajax()){
                     return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$payment->getDetailUrl()]);
                 }
                 return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
             } else {
-                    $payment->status =Order::FAILED;
-                    $payment->logs = \GuzzleHttp\json_encode($request->all());
-                    $payment->save();
-                PaymentUpdated::dispatch($payment);
+                $payment->logs = $request->all();
+                $payment->updateStatus(Payment::FAILED);
+
                 if($request->ajax()){
                     return response()->json(['status'=>0,'message'=>'You payment Failed','url_redirect'=>$payment->getDetailUrl()]);
                 }
