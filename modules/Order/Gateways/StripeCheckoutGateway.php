@@ -168,7 +168,7 @@ class StripeCheckoutGateway extends BaseGateway
                     $payment->addMeta('stripe_setup_intent', $session->setup_intent);
                     $payment->addMeta('stripe_intent_id', $session->payment_intent);
                     $payment->addMeta('stripe_cs_complete', 1);
-
+                    $payment->gateway_transaction_id = $session->payment_intent;
                     $payment->logs = $session;
                     $payment->updateStatus($payment::COMPLETED);
 
@@ -286,9 +286,7 @@ class StripeCheckoutGateway extends BaseGateway
                 /**
                  * @var Payment $payment;
                  */
-                $payment = Payment::whereHas('meta', function ($query) use($paymentIntent){
-                    $query->where('stripe_intent_id',$paymentIntent->id);
-                })->first();
+                $payment = Payment::where('gateway_transaction_id',$paymentIntent->id)->first();
                 if (!$payment) {
                     return response()->json(['message' => __('Payment not found')], 400);
                 }
