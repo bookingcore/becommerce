@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/responsive.css">
     <link href="{{ theme_url('Freshen/dist/css/app.css?_v='.config('app.asset_version')) }}" rel="stylesheet">
     @include('layouts.parts.seo-meta')
+    <link rel="stylesheet" href="{{ route('core.style.customCss') }}">
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
