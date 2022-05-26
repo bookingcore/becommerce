@@ -17,8 +17,6 @@ class ProductOnHoldListener
         $items = $order->items;
         switch ($order->status) {
             case Order::ON_HOLD:
-            case Order::PROCESSING:
-//              add product on-hold in order item
                 if(!empty($items)){
                     $setting_expired_at = setting_item('product_on_hold_expired_at',1);
                     $expired_at  = Carbon::now()->addDays($setting_expired_at)->format('Y-m-d H:i:s');

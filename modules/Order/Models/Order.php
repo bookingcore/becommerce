@@ -83,26 +83,26 @@ class Order extends BaseModel
     }
 
     public function paymentUpdated(Payment $payment){
+        if($payment->status == $payment::COMPLETED){
+            $this->paid += $payment->amount;
+        }
         switch ($payment->status){
-            case self::COMPLETED:
-
+            case $payment::PENDING:
+                // On hold order
                 $this->payment_id = $payment->id;
-                $this->paid += $payment->amount;
+                $this->updateStatus(self::ON_HOLD);
 
-                $this->updateStatus($payment->status);
+                break;
+            case $payment::COMPLETED:
 
-                $this->items()->update(['status'=>$this->status]);
+                $this->updateStatus(self::PROCESSING);
+                break;
 
-            break;
-            case self::CANCELLED:
+            case $payment::FAILED:
 
-                $this->payment_id = $payment->id;
+                $this->updateStatus(self::FAILED);
+                break;
 
-                $this->updateStatus($payment->status);
-
-                $this->items()->update(['status'=>$this->status]);
-
-            break;
         }
     }
 
