@@ -127,9 +127,6 @@ class PayPalProGateway extends BaseGateway
 		    return response()->json(['errors'   => $validator->errors() ], 200)->send();
 	    }
 
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
 
         $this->getGateway();
 	    $card = new CreditCard([
@@ -139,7 +136,6 @@ class PayPalProGateway extends BaseGateway
 		    'expiryYear' => $request->bravo_paypal_pro_expiryYear,
 		    'cvv' => $request->bravo_paypal_pro_cvv,
 	    ]);
-	    $order = $payment->order;
 	    $data = $this->handlePurchaseData([
 		    'amount'        => (float)$payment->amount,
 		    'card'=>$card,
@@ -148,11 +144,11 @@ class PayPalProGateway extends BaseGateway
 	    $this->gateway->authorize($data);
 	    $response = $this->gateway->purchase($data)->send();
 	    if ($response->isSuccessful()) {
-		    $payment->status = 'completed';
-		    $payment->logs = \GuzzleHttp\json_encode($response->getData());
-		    $payment->save();
-		    PaymentUpdated::dispatch($payment);
-            return ['url' => $payment->getDetailUrl()];
+		    $payment->logs = $response->getData();
+		    $payment->updateStatus($payment::COMPLETED);
+
+            return true;
+
 	    } else {
 		    throw new Exception('Paypal Gateway: ' . $response->getMessage());
 	    }

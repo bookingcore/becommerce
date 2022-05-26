@@ -78,9 +78,8 @@ class TwoCheckoutGateway extends BaseGateway
 
         $data = $this->handlePurchaseData([], $payment, $request);
 
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
+        $payment->updateStatus($payment::PENDING);
+
         $endPointUrl = $this->getEndPointUrl() ;
         $twoco_args = http_build_query($data, '', '&');
 
@@ -119,6 +118,9 @@ class TwoCheckoutGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $pid = $request->query('pid');
+        /**
+         * @var Payment $payment
+         */
         $payment = Payment::find($pid);
         if (!empty($payment)) {
             if(in_array($payment->status, [Order::ON_HOLD])){
@@ -126,16 +128,15 @@ class TwoCheckoutGateway extends BaseGateway
                 $compare_hash1 = strtoupper(md5($compare_string));
                 $compare_hash2 = $request->input("key");
                 if ($compare_hash1 != $compare_hash2) {
-                    $payment->status = Order::FAILED;
-                    $payment->logs = \GuzzleHttp\json_encode($request->input());
-                    $payment->save();
-                    PaymentUpdated::dispatch($payment);
+                    $payment->logs = $request->input();
+
+                    $payment->updateStatus($payment::FAILED);
+
                     return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
                 } else {
-                    $payment->status = Order::COMPLETED;
-                    $payment->logs = \GuzzleHttp\json_encode($request->input());
-                    $payment->save();
-                    PaymentUpdated::dispatch($payment);
+                    $payment->logs = $request->input();
+                    $payment->updateStatus($payment::COMPLETED);
+
                     return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
                 }
             }else{
@@ -150,15 +151,17 @@ class TwoCheckoutGateway extends BaseGateway
     public function cancelPayment(Request $request)
     {
         $pid = $request->query('pid');
+        /**
+         * @var Payment $payment
+         */
         $payment = Payment::find($pid);
         if (!empty($payment) ) {
             if(in_array($payment->status, [Order::ON_HOLD])){
-                    $payment->status = Order::CANCELLED;
-                    $payment->logs = \GuzzleHttp\json_encode([
-                        'customer_cancel' => 1
-                    ]);
-                    $payment->save();
-                    PaymentUpdated::dispatch($payment);
+                $payment->logs = [
+                    'customer_cancel' => 1
+                ];
+                $payment->updateStatus($payment::FAILED);
+
                 return redirect($payment->getDetailUrl())->with("error", __("You cancelled the payment"));
             }
             return redirect($payment->getDetailUrl());

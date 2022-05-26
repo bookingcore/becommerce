@@ -103,15 +103,11 @@ class RazorPayCheckoutGateway extends BaseGateway
             return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
         }
 
-
         $data = $this->handlePurchaseData([
             'amount' => (float)$payment->amount,
             'order_id' => $payment->id,
         ],request(), $payment);
 
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
         $orderData = [
             'receipt' => $payment->id."",
             'amount' => (float)$data['amount'] * 100, // 2000 rupees in paise
@@ -128,8 +124,9 @@ class RazorPayCheckoutGateway extends BaseGateway
             {
                 throw new Exception($razorpayOrder['error']['description']);
             }else{
-                $payment->status = Order::ON_HOLD;
-                $payment->save();
+
+                $payment->updateStatus($payment::PENDING);
+
 	            if (isset($razorpayOrder['id']) && !empty($razorpayOrder['id'])) {
 		            $queryData = [];
 		            $queryData['c'] = $data['cart_order_id'];
@@ -149,6 +146,9 @@ class RazorPayCheckoutGateway extends BaseGateway
 
     public function confirmRazorPayment($request,$c,$order_id)
     {
+        /**
+         * @var Payment $payment;
+         */
         $payment = Payment::find($c);
         if (!empty($payment) ) {
             if(in_array($payment->status, [Order::ON_HOLD])){
@@ -159,17 +159,17 @@ class RazorPayCheckoutGateway extends BaseGateway
                 $payload = $orderId . '|' . $paymentId;
                 $actualSignature = hash_hmac('sha256', $payload, $keySecret);
                 if ($actualSignature != $request->razorpay_signature) {
-                        $payment->status = Order::FAILED;
-                        $payment->logs = \GuzzleHttp\json_encode($request->input());
-                        $payment->save();
-                        PaymentUpdated::dispatch($payment);
-                        redirect($payment->getDetailUrl())->with('error', __("Payment Failed"));
+
+                    $payment->logs = $request->input();
+                    $payment->updateStatus($payment::FAILED);
+
+                    return redirect($payment->getDetailUrl())->with('error', __("Payment Failed"));
+
                 } else {
-                        $payment->status = Order::COMPLETED;
-                        $payment->logs = \GuzzleHttp\json_encode($request->input());
-                        $payment->save();
-                        PaymentUpdated::dispatch($payment);
-                    redirect($payment->getDetailUrl())->with('success', __("You payment has been processed successfully"));
+                    $payment->logs = $request->input();
+                    $payment->updateStatus($payment::COMPLETED);
+
+                    return redirect($payment->getDetailUrl())->with('success', __("You payment has been processed successfully"));
                 }
             }
         } else {

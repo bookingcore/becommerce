@@ -3,20 +3,14 @@ $types = [
     'new'=>[
         'default'=>__('Thanks for shopping with us')
     ],
-    'on_hold'=>[
-        'default'=>''
-    ],
-    'processing'=>[
-        'default'=>''
-    ],
     'completed'=>[
-        'default'=>''
+        'default'=>__('Completed Order')
     ],
     'cancelled'=>[
-        'default'=>''
+        'default'=>__('Cancelled Order')
     ],
     'refunded'=>[
-        'default'=>''
+        'default'=>__('Refunded Order')
     ],
 ];
 ?>
@@ -48,7 +42,7 @@ $types = [
                                 <div class="form-group">
                                     <label class="" >{{__("Subject")}}</label>
                                     <div class="form-controls">
-                                        <input type="text" class="form-control" name="email_c_new_order_subject" value="{{ setting_item_with_lang('email_c_'.$type.'order_subject',request('lang'),$configs['default']) }}">
+                                        <input type="text" class="form-control" name="email_c_{{$type}}_order_subject" value="{{ setting_item_with_lang('email_c_'.$type.'order_subject',request('lang'),$configs['default']) }}">
                                         <span class="small font-italic">{{ __("Available placeholders") }}: [site_title],[site_url], [order_date], [order_number]</span>
                                     </div>
                                 </div>

@@ -79,10 +79,33 @@ class ProductSeeder extends Seeder
             'guest_checkout'        => 1,
             'email_c_new_order_enable'  => 1,
             'email_c_new_order_subject' => __("Thanks for shopping with us"),
+
+            'email_c_completed_order_enable'  => 1,
+            'email_c_completed_order_subject' => __("Order Completed #[order_number]"),
+
+            'email_c_cancelled_order_enable'  => 1,
+            'email_c_cancelled_order_subject' => __("Order Cancelled #[order_number]"),
+
+            'email_c_refunded_order_enable'  => 1,
+            'email_c_refunded_order_subject' => __("Order Refunded #[order_number]"),
+
             'email_v_new_order_enable'  => 1,
             'email_v_new_order_subject' => __("[site_title]: New order #[order_number]"),
+            'email_v_completed_order_enable'  => 1,
+            'email_v_completed_order_subject' => __("Order Completed #[order_number]"),
+            'email_v_cancelled_order_enable'  => 1,
+            'email_v_cancelled_order_subject' => __("Order Cancelled #[order_number]"),
+            'email_v_refunded_order_enable'  => 1,
+            'email_v_refunded_order_subject' => __("Order Refunded #[order_number]"),
+
             'email_a_new_order_enable'  => 1,
             'email_a_new_order_subject' => __("[site_title]: New order #[order_number]"),
+            'email_a_completed_order_enable'  => 1,
+            'email_a_completed_order_subject' => __("Order Completed #[order_number]"),
+            'email_a_cancelled_order_enable'  => 1,
+            'email_a_cancelled_order_subject' => __("Order Cancelled #[order_number]"),
+            'email_a_refunded_order_enable'  => 1,
+            'email_a_refunded_order_subject' => __("Order Refunded #[order_number]"),
         ];
         foreach ($settings as $setting=>$val){
             setting_update_item($setting,$val);

@@ -45,25 +45,28 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
         ];
         $subject = $this->getSubject();
         $view = 'order.emails.'.$this->email_type;
+        switch ($this->email_type){
+            case "new_order":
+                $view = 'order.emails.'.$this->email_type;
+                break;
+            default:
+                $view = 'order.emails.updated_order';
+                break;
+        }
         return $this->subject($subject)->view($view,$data);
     }
 
     public function getSubject(){
-        switch ($this->email_type){
-            case static::NEW_ORDER:
+        switch ($this->email_to){
+            case "admin":
+                return setting_item_with_lang('email_a_'.$this->email_type.'_subject');
+                break;
+            case "vendor":
+                return setting_item_with_lang('email_v_'.$this->email_type.'_subject');
+                break;
+            case "customer":
             default:
-                switch ($this->email_to){
-                    case "admin":
-                        return setting_item_with_lang('email_a_new_order_subject');
-                        break;
-                    case "vendor":
-                        return setting_item_with_lang('email_v_new_order_subject');
-                        break;
-                    case "customer":
-                    default:
-                        return setting_item_with_lang('email_c_new_order_subject');
-                        break;
-                }
+                return setting_item_with_lang('email_c_'.$this->email_type.'_subject');
                 break;
         }
     }
