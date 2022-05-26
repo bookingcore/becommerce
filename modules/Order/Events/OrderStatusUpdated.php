@@ -8,21 +8,22 @@ use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 use Modules\Order\Models\Order;
 
-class OrderUpdated
+class OrderStatusUpdated
 {
     use Dispatchable, SerializesModels;
 
-    /**
-     * @var mixed|\Modules\Order\Models\OrderItem[]
-     */
-    public $_items;
     /**
      * @var Order
      */
     public $_order;
 
-    public function __construct(Order $order){
+    public $_old_status;
+
+    public $_new_status;
+
+    public function __construct(Order $order,$old_status,$new_status){
         $this->_order = $order;
-        $this->_items = $order->items;
+        $this->_new_status = $new_status;
+        $this->_old_status = $old_status;
     }
 }

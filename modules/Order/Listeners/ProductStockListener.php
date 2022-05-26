@@ -5,16 +5,16 @@ namespace Modules\Order\Listeners;
 
 
 
-use Modules\Order\Events\OrderUpdated;
+use Modules\Order\Events\OrderStatusUpdated;
 use Modules\Order\Models\Order;
 use Modules\Product\Models\Product;
 
 class ProductStockListener
 {
-    public function handle(OrderUpdated $event)
+    public function handle(OrderStatusUpdated $event)
     {
         $order = $event->_order;
-        $items = $event->_items;
+        $items = $order->items;
         switch ($order->status) {
             case Order::PROCESSING:
             case Order::ON_HOLD:

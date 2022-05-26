@@ -10,11 +10,11 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
-use Modules\Core\Helpers\HookManager;
+use Illuminate\Support\Facades\Notification;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
-use Modules\Order\Events\OrderUpdated;
-use Modules\Order\Resources\Admin\OrderItemResource;
+use Modules\Order\Events\OrderStatusUpdated;
+use Modules\Order\Notifications\NewOrderNotification;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\TaxRate;
 
@@ -86,21 +86,25 @@ class Order extends BaseModel
     public function paymentUpdated(Payment $payment){
         switch ($payment->status){
             case self::COMPLETED:
-                $this->status = $payment->status;
+
                 $this->payment_id = $payment->id;
-                $this->paid = $payment->amount;
-                $this->save();
+                $this->paid += $payment->amount;
+
+                $this->updateStatus($payment->status);
+
                 $this->items()->update(['status'=>$this->status]);
-                OrderUpdated::dispatch($this);
+
             break;
             case self::ON_HOLD:
             case self::PROCESSING:
             case self::CANCELLED:
-                $this->status = $payment->status;
+
                 $this->payment_id = $payment->id;
-                $this->save();
+
+                $this->updateStatus($payment->status);
+
                 $this->items()->update(['status'=>$this->status]);
-                OrderUpdated::dispatch($this);
+
             break;
         }
     }
@@ -146,24 +150,6 @@ class Order extends BaseModel
     }
 
 
-    public function markAsProcessing()
-    {
-        $this->status = static::PROCESSING;
-        $this->save();
-    }
-
-    public function markAsPaid()
-    {
-        $this->status = static::PAID;
-        $this->save();
-    }
-
-    public function markAsPaymentFailed(){
-        $this->status = static::UNPAID;
-        $this->save();
-
-    }
-
     public function coupons(){
         return $this->hasMany(CouponOrder::class,'order_id');
     }
@@ -172,26 +158,58 @@ class Order extends BaseModel
         return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
     }
 
-    public function sendNewOrderEmails(){
+    public function sendNewOrderNotifications(){
 
         // Send Email
-        if(setting_item('email_c_new_order_enable') and $this->customer) {
+        if(setting_item('email_c_new_order_enable')) {
             Mail::to($this->customer)->locale($this->locale)->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
+            if($this->customer){
+                $this->customer->notify(new NewOrderNotification($this));
+            }else{
+                Notification::route('mail',$this->email)->notify(new NewOrderNotification($this));
+            }
         }
         if(setting_item('email_v_new_order_enable') and is_vendor_enable()) {
             $vendor_ids = $this->items->pluck('vendor_id')->all();
             $vendors = User::query()->whereIn('id',$vendor_ids)->get();
             if ($vendors) {
                 foreach ($vendors as $vendor) {
-                    Mail::to($vendor)->locale(main_locale())->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this, 'vendor', $vendor));
+                    $vendor->notify(new NewOrderNotification($this,'vendor'));
                 }
             }
         }
 
-        if(setting_item('email_a_new_order_enable') and setting_item('email_a_new_order_recipient')) {
-            Mail::to(setting_item('email_a_new_order_recipient'))->locale(main_locale())->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this, 'admin'));
+        if(setting_item('email_a_new_order_enable') and $address = setting_item('admin_email')) {
+            Notification::route('mail',$address)->notify(new NewOrderNotification($this));
         }
     }
+
+    public function sendCancelledOrderEmails(){
+
+        // Send Email
+        if(setting_item('email_c_new_order_enable')) {
+            Mail::to($this->customer)->locale($this->locale)->queue(new OrderEmail(OrderEmail::NEW_ORDER,$this));
+            if($this->customer){
+                $this->customer->notify(new NewOrderNotification($this));
+            }else{
+                Notification::route('mail',$this->email)->notify(new NewOrderNotification($this));
+            }
+        }
+        if(setting_item('email_v_new_order_enable') and is_vendor_enable()) {
+            $vendor_ids = $this->items->pluck('vendor_id')->all();
+            $vendors = User::query()->whereIn('id',$vendor_ids)->get();
+            if ($vendors) {
+                foreach ($vendors as $vendor) {
+                    $vendor->notify(new NewOrderNotification($this,'vendor'));
+                }
+            }
+        }
+
+        if(setting_item('email_a_new_order_enable') and $address = setting_item('admin_email')) {
+            Notification::route('mail',$address)->notify(new NewOrderNotification($this));
+        }
+    }
+
 
     public function getOrderReportData($from, $to){
         $report_data = new \stdClass();
@@ -321,5 +339,35 @@ class Order extends BaseModel
     {
         $this->items()->delete();
         return parent::delete(); // TODO: Change the autogenerated stub
+    }
+
+    public function notes(){
+        return $this->hasMany(OrderNote::class);
+    }
+
+    public function updateStatus($status){
+
+        if($status === $this->status){
+            return;
+        }
+
+        $old_status = $this->status;
+        $this->status = $status;
+
+        $this->save();
+
+        $this->addNote(OrderNote::STATUS_CHANGED,__("Order status changed from :old_status to :new_status",['old_status'=>$old_status,'new_status'=>$status]),['old_status'=>$old_status,'new_status'=>$status]);
+
+        OrderStatusUpdated::dispatch($this,$old_status,$status);
+    }
+
+    public function addNote($name,$val = '',$extra = []){
+        $note = new OrderNote([
+            'name'=>$name,
+            'value'=>$val,
+            'extra'=>$extra
+        ]);
+
+        $this->notes()->save($note);
     }
 }

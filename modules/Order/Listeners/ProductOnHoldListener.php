@@ -5,17 +5,16 @@ namespace Modules\Order\Listeners;
 
 
 use Illuminate\Support\Carbon;
-use Modules\Order\Events\OrderUpdated;
+use Modules\Order\Events\OrderStatusUpdated;
 use Modules\Order\Models\Order;
-use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductOnHold;
 
 class ProductOnHoldListener
 {
-    public function handle(OrderUpdated $event)
+    public function handle(OrderStatusUpdated $event)
     {
         $order = $event->_order;
-        $items = $event->_items;
+        $items = $order->items;
         switch ($order->status) {
             case Order::ON_HOLD:
             case Order::PROCESSING:

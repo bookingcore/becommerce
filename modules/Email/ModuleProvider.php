@@ -64,19 +64,25 @@ class ModuleProvider extends ModuleServiceProvider
                 // For Customer
                 'email_c_new_order_enable',
                 'email_c_new_order_subject',
+                'email_c_cancelled_order_enable',
+                'email_c_cancelled_order_subject',
 
 
                 // For Admin
                 'email_a_new_order_enable',
                 'email_a_new_order_recipient',
                 'email_a_new_order_subject',
+                'email_a_cancelled_order_enable',
+                'email_a_cancelled_order_subject',
+                'email_a_cancelled_order_recipient',
 
                 // For Vendor
                 'email_v_new_order_enable',
                 'email_v_new_order_subject',
+                'email_v_cancelled_order_enable',
+                'email_v_cancelled_order_subject',
 
                 'email_cancelled_order_enable',
-                'email_cancelled_order_recipient',
                 'email_cancelled_order_subject',
 
                 'email_failed_order_enable',
@@ -94,9 +100,6 @@ class ModuleProvider extends ModuleServiceProvider
 
                 'email_refunded_order_enable',
                 'email_refunded_order_subject',
-
-                'email_customer_invoice_enable',
-                'email_customer_invoice_subject',
             ],
             'translation_keys'=>[
                 'email_c_new_order_subject',
