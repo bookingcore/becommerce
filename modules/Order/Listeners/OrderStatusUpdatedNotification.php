@@ -19,11 +19,11 @@ class OrderStatusUpdatedNotification
     {
         $order = $event->_order;
 
-        if(in_array($event->_old_status,[Order::PENDING,Order::FAILED,Order::CANCELLED]) and in_array($order->status,[Order::COMPLETED,Order::PROCESSING,Order::ON_HOLD])){
+        if(in_array($event->_old_status,[Order::DRAFT,Order::FAILED,Order::CANCELLED]) and in_array($order->status,[Order::COMPLETED,Order::PROCESSING,Order::ON_HOLD])){
             return $order->sendNewOrderNotifications();
         }
 
-        if(in_array($event->_old_status,[Order::ON_HOLD,Order::PENDING]) and in_array($order->status,[Order::CANCELLED])){
+        if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT]) and in_array($order->status,[Order::CANCELLED])){
             return $order->sendCancelledOrderEmails();
         }
     }

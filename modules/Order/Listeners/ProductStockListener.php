@@ -21,7 +21,7 @@ class ProductStockListener
                 $this->reduceStock($items);
                 break;
             case Order::CANCELLED:
-            case Order::PENDING:
+            case Order::DRAFT:
             case Order::FAILED:
                 $this->returnStock($items);
                 break;

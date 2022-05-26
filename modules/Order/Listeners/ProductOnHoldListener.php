@@ -43,7 +43,7 @@ class ProductOnHoldListener
                 ProductOnHold::where('order_id',$order->id)->delete();
                 break;
             case Order::CANCELLED:
-            case Order::PENDING:
+            case Order::DRAFT:
             case Order::FAILED:
                 break;
         }

@@ -32,7 +32,6 @@ class Order extends BaseModel
     const FAILED = 'failed';
     const ON_HOLD = 'on_hold';
     const PROCESSING = 'processing';
-    const PENDING = 'pending';
     const DRAFT = 'draft';
     const CANCELLED = 'cancelled';
     const PAID = 'paid';
@@ -95,8 +94,6 @@ class Order extends BaseModel
                 $this->items()->update(['status'=>$this->status]);
 
             break;
-            case self::ON_HOLD:
-            case self::PROCESSING:
             case self::CANCELLED:
 
                 $this->payment_id = $payment->id;
@@ -249,7 +246,7 @@ class Order extends BaseModel
 
     public function statues(){
         $order_statuses = array(
-            static::PENDING    => __( 'Pending'  ),
+            static::DRAFT    => __( 'Draft'  ),
             static::PROCESSING => __( 'Processing'  ),
             static::ON_HOLD    => __( 'On hold'  ),
             static::COMPLETED  => __( 'Completed'  ),

@@ -14,17 +14,16 @@ class OfflinePaymentGateway extends BaseGateway
 {
     public $name = 'Offline Payment';
 
+    /**
+     * @var Order $order
+     *
+     * @param Payment $payment
+     * @return bool
+     */
     public function process(Payment $payment)
     {
-        $order = $payment->order;
-        if (!$payment->amount) {
-            throw new Exception(__("Order total is zero. Can not process payment gateway!"));
-        }
-        // Simple change status to processing
-        $order->markAsProcessing();
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
+        $payment->updateStatus(Payment::COMPLETED);
+
         return true;
     }
 

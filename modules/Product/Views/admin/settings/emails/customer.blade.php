@@ -3,12 +3,6 @@ $types = [
     'new'=>[
         'default'=>__('Thanks for shopping with us')
     ],
-    'cancelled'=>[
-        'default'=>''
-    ],
-    'failed'=>[
-        'default'=>''
-    ],
     'on_hold'=>[
         'default'=>''
     ],
@@ -16,6 +10,9 @@ $types = [
         'default'=>''
     ],
     'completed'=>[
+        'default'=>''
+    ],
+    'cancelled'=>[
         'default'=>''
     ],
     'refunded'=>[

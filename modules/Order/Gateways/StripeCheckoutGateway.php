@@ -107,10 +107,8 @@ class StripeCheckoutGateway extends BaseGateway
         $order = $payment->order;
         $items = $order->items;
         $billing = $order->getMetaJson('billing');
-        $order->markAsProcessing();
-        $payment->status = Order::PROCESSING;
-        $payment->save();
-        PaymentUpdated::dispatch($payment);
+
+        $payment->updateStatus($payment::PENDING);
 
         $lineItems = [];
         foreach ($items as $item) {
@@ -138,16 +136,17 @@ class StripeCheckoutGateway extends BaseGateway
             'line_items' => $lineItems
         ]);
         $payment->addMeta('stripe_session_id', $session->id);
-        $payment->status = Order::ON_HOLD;
         $payment->save();
 
-        PaymentUpdated::dispatch($payment);
         return ['url'=>$session->url ?? $order->getDetailUrl()];
     }
 
     public function confirmPayment(Request $request)
     {
         $id = $request->query('pid');
+        /**
+         * @var Payment $payment
+         */
         $payment = Payment::find($id);
         $this->setupStripe();
         if (!empty($payment)) {
@@ -169,11 +168,9 @@ class StripeCheckoutGateway extends BaseGateway
                     $payment->addMeta('stripe_setup_intent', $session->setup_intent);
                     $payment->addMeta('stripe_intent_id', $session->payment_intent);
                     $payment->addMeta('stripe_cs_complete', 1);
-                    $payment->status = Order::COMPLETED;
-                    $payment->logs = \GuzzleHttp\json_encode($session);
-                    $payment->save();
 
-                    PaymentUpdated::dispatch($payment);
+                    $payment->logs = $session;
+                    $payment->updateStatus($payment::COMPLETED);
 
                 }
             }
@@ -188,16 +185,18 @@ class StripeCheckoutGateway extends BaseGateway
     public function cancelPayment(Request $request)
     {
         $id = $request->query('pid');
+        /**
+         * @var Payment $payment
+         */
         $payment = Payment::find($id);
         if (!empty($payment) ) {
             $oder = $payment->order;
             if (in_array($payment->status, [Order::UNPAID . Order::ON_HOLD])) {
-                $payment->status = 'cancel';
-                $payment->logs = \GuzzleHttp\json_encode([
+                $payment->logs = [
                     'customer_cancel' => 1
-                ]);
-                $payment->save();
-                PaymentUpdated::dispatch($payment);
+                ];
+
+                $payment->updateStatus($payment::FAILED);
             }
             return redirect($oder->getDetailUrl())->with("error", __("You cancelled the payment"));
         } else {
@@ -284,6 +283,9 @@ class StripeCheckoutGateway extends BaseGateway
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 $paymentIntent = $event->data->object; // contains a \Stripe\PaymentIntent
+                /**
+                 * @var Payment $payment;
+                 */
                 $payment = Payment::whereHas('meta', function ($query) use($paymentIntent){
                     $query->where('stripe_intent_id',$paymentIntent->id);
                 })->first();
@@ -305,10 +307,9 @@ class StripeCheckoutGateway extends BaseGateway
                             $payment->addMeta('stripe_charge_id',$chargeArr);
                         }
                     }
-                    $payment->status = Order::COMPLETED;
-                    $payment->logs = \GuzzleHttp\json_encode($paymentIntent);
-                    $payment->save();
-                    PaymentUpdated::dispatch($payment);
+
+                    $payment->logs = $paymentIntent;
+                    $payment->updateStatus($payment::COMPLETED);
                 }
 
                 break;

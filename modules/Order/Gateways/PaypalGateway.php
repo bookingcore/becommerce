@@ -132,9 +132,8 @@ class PaypalGateway extends BaseGateway
                     $url = $link['href'];
                 }
             }
-            $payment->status = $payment::ON_HOLD;
-            $payment->save();
-            PaymentUpdated::dispatch($payment);
+            $payment->updateStatus($payment::PENDING);
+
             return ['url' => $url];
         } else {
             if (!empty($json['error_description'])) {
@@ -150,6 +149,9 @@ class PaypalGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $pid = $request->query('pid');
+        /**
+         * @var Payment $payment;
+         */
         $payment = Payment::find($pid);
         if ($payment) {
             $order = $payment->order;
@@ -158,24 +160,21 @@ class PaypalGateway extends BaseGateway
             if ($response->successful() and !empty($json['status'])) {
                 switch ($json['status']) {
                     case 'COMPLETED';
-                        $payment->status = Order::COMPLETED;
-                        $payment->logs = \GuzzleHttp\json_encode($json);
-                        $payment->save();
-                        PaymentUpdated::dispatch($payment);
+                        $payment->logs = $json;
+                        $payment->updateStatus($payment::COMPLETED);
                         return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
                         break;
                     case 'VOIDED':
-                        $payment->status = Order::FAILED;
-                        $payment->logs = \GuzzleHttp\json_encode($request->all());
-                        $payment->save();
-                        PaymentUpdated::dispatch($payment);
+                        $payment->logs = $request->all();
+                        $payment->updateStatus($payment::FAILED);
+
                         return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
                         break;
                     default:
                         return redirect($payment->getDetailUrl())->with("success", __("You payment is being processed"));
                 }
             } else {
-                $payment->logs = \GuzzleHttp\json_encode($response->getData());
+                $payment->logs = $response->getData();
                 $payment->save();
                 return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
             }
@@ -203,12 +202,14 @@ class PaypalGateway extends BaseGateway
                     if (!empty($purchase_units)) {
                         foreach ($purchase_units as $purchase) {
                             $reference_id = $purchase['reference_id'];
+                            /**
+                             * @var Payment $payment
+                             */
                             $payment = Payment::find($reference_id);
                             if (!empty($payment)) {
-                                $payment->status = Order::COMPLETED;
-                                $payment->logs = \GuzzleHttp\json_encode($request->all());
-                                $payment->save();
-                                PaymentUpdated::dispatch($payment);
+                                $payment->logs = $request->all();
+
+                                $payment->updateStatus($payment::COMPLETED);
                             }
                         }
                     }
