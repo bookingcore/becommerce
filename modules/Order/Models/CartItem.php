@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 
-class CartItem extends Model
+class CartItem extends OrderItem
 {
-    public $incrementing = false;
 
     protected $attributes = [
         "name"=>"",
@@ -86,9 +85,6 @@ class CartItem extends Model
         return $item;
     }
 
-    public function model(){
-        return $this->belongsTo($this->class_name,'object_id');
-    }
     public function variation(){
         return $this->belongsTo(ProductVariation::class,'variation_id');
     }
@@ -146,6 +142,7 @@ class CartItem extends Model
                 $this->price = min($this->model->price,$this->model->sale_price);
             }
         }
+        $this->save();
     }
 
     public static function fromArray($data){
