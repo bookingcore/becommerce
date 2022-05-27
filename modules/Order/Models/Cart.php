@@ -9,29 +9,15 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Session;
 
-class Cart extends Model
+class Cart extends Order
 {
-    public $incrementing = false;
 
     protected $attributes = [
-        'id',
-        'coupons'=>'[]',
-        'total_discount',
-        'shipping_amount',
         'shipping_method',
         'tax'
     ];
 
-    protected $casts = [
-        'coupons'=>AsCollection::class,
-        'shipping_amount'=>'float',
-        'shipping_method'=>'array',
-        'tax'=>'array',
-    ];
 
-    public function items(){
-        return $this->hasMany(CartItem::class);
-    }
     public function fromData($data){
         if(empty($data) or empty($data['items'])){
             $this->setRelation("items",collect([]));
@@ -83,5 +69,34 @@ class Cart extends Model
 
     public function shippingTotal(){
         return $this->items->sum('shipping_amount') + $this->shipping_amount;
+    }
+
+    /**
+     * Create draft cart
+     *
+     * @return Cart
+     */
+    public static function createDraft(){
+        $cart = new self();
+        $cart->customer_id = auth()->id();
+        $cart->status = Order::DRAFT;
+        $cart->locale = app()->getLocale();
+        $cart->save();
+
+        return $cart;
+    }
+
+    public function tax() : Attribute
+    {
+        return Attribute::make(
+          get:function($value){
+              $res = [];
+              $meta =  $this->getMeta('tax',true);
+              foreach ($meta as $item){
+                    $res[] = json_decode($item,true);
+              }
+              return $res;
+          }
+        );
     }
 }

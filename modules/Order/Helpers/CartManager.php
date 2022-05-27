@@ -21,7 +21,8 @@ use Modules\Product\Models\TaxRate;
 
 class CartManager
 {
-    protected static $session_key='bc_carts';
+
+    protected static $session_key='bc_cart_id';
 
     protected static $_cart;
 
@@ -32,22 +33,21 @@ class CartManager
     public static function cart(){
 
         if(!static::$_cart){
-            $cart = static::retrieveCart();
+            $cart_id = static::cart_id();
+            if($cart_id){
+                $cart = Cart::find($cart_id);
+                if(!$cart){
+                    static::clear();
+                }
+            }
+            if(empty($cart)){
+                $cart = Cart::createDraft();
+                static::save();
+            }
             static::$_cart = $cart;
         }
 
         return static::$_cart;
-    }
-
-    protected static function retrieveCart(){
-        $cart = app()->make(Cart::class);
-        $data = static::rawData();
-
-        if(empty($data)){
-            $data['id'] = static::cart_id();
-        }
-        $cart->fromData($data);
-        return $cart;
     }
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
@@ -76,11 +76,11 @@ class CartManager
      * Get Cart Item by ID
      *
      * @param int $cartItemId
-     * @return CartItem|null
+     * @return CartItem|null|mixed
      */
     public static function item($cartItemId){
 
-       return static::items()->where('id',$cartItemId)->first();
+       return static::cart()->items()->where('id',$cartItemId)->first();
     }
 
     /**
@@ -92,7 +92,7 @@ class CartManager
      */
     public static function findItem($product_id, $variation_id = false){
 
-        $currentItems  = static::items();
+        $currentItems  = static::cart()->items();
 
         if($product_id instanceof Product){
             $currentItems = $currentItems->where('product_id',$product_id->id);
@@ -122,8 +122,6 @@ class CartManager
 
             if($qty <= 0){
                 return static::remove($cart_item_id);
-            }else{
-                static::save();
             }
         }
 
@@ -138,11 +136,8 @@ class CartManager
      *
      */
     public static function remove($cart_item_id){
-        $items = static::items()->reject(function($item) use ($cart_item_id){
-            return $item->id == $cart_item_id;
-        });
-        static::cart()->setRelation("items",$items);
-        static::save();
+        static::cart()->items()->where('id',$cart_item_id)->delete();
+        static::cart()->load('items');
         return true;
     }
 
@@ -150,6 +145,9 @@ class CartManager
      * @return bool
      */
     public static function clear(){
+        if($cart = static::cart()){
+            $cart->delete();
+        }
         Session::forget(static::$session_key);
         static::$_cart = null;
         return true;
@@ -158,16 +156,11 @@ class CartManager
     /**
      * Get Cart Items
      *
-     * @return Collection
+     * @return CartItem[]
      */
     public static function items(){
 
         return static::cart()->items;
-    }
-
-    protected static function rawData(){
-        $items = session()->get(static::$session_key);
-        return $items ?? [];
     }
 
     /**
@@ -212,15 +205,17 @@ class CartManager
     }
 
     public static function getCoupon(){
-    	return static::cart()->coupons;
+    	return collect(static::cart()->getJsonMeta('coupons'));
     }
 
     public static function storeCoupon(Coupon $coupon){
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->put($coupon->id,$coupon);
+
+		    static::cart()->addMeta('coupons',$coupons);
+
 		    static::calculatorDiscountCoupon();
-		    static::save();
 	    }
     }
     public static function removeCounpon(Coupon $coupon){
@@ -228,7 +223,8 @@ class CartManager
 		    $coupons = static::getCoupon();
 		    $coupons->pull($coupon->id);
 		    static::calculatorDiscountCoupon();
-            static::save();
+
+            static::cart()->addMeta('coupons',$coupons);
 	    }
     }
 
@@ -290,9 +286,9 @@ class CartManager
 
         CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
 
-        $order = new Order();
+        $order = static::cart();
         $order->customer_id = auth()->id();
-        $order->status = Order::PROCESSING;
+        $order->status = Order::DRAFT;
         $order->locale = app()->getLocale();
         $order->shipping_amount = static::cart()->shipping_amount;
         $order->discount_amount = static::discountTotal();
@@ -300,20 +296,15 @@ class CartManager
         $order->save();
 
         $items = static::items();
-        foreach ($items as $item){
-            $order_item = new OrderItem();
-            $order_item->order_id = $order->id;
-            $order_item->object_id = $item->model->id;
-            $order_item->object_model = $item->model->type;
-            $order_item->price = $item->price;
-            $order_item->discount_amount = $item->discount_amount;
-            $order_item->qty = $item->qty;
-            $order_item->subtotal = $item->subtotal;
-            $order_item->status = $order->status;
-            $order_item->meta = $item->meta;
-            $order_item->variation_id = $item->variation_id;
-            $order_item->vendor_id = $item->author_id;
+        foreach ($items as $order_item){
+            $model = $order_item->model;
+            if(!$model){
+                $order_item->delete();
+                throw new \Exception(__("Product: :id does not exists",['id'=>$order_item->object_id]));
+            }
+            $order_item->price = $model->sale_price;
             $order_item->locale = app()->getLocale();
+            $order_item->calculateTotal();
             $order_item->calculateCommission();
             $order_item->save();
         }
@@ -333,7 +324,6 @@ class CartManager
             $order->total = $total_amount;
             $order->tax_amount = $tax_amount;
             $order->save();
-            $order->addMeta('tax',$taxItems);
             $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
         }
 
@@ -356,12 +346,11 @@ class CartManager
     }
 
     public static function pushItem(CartItem $cartItem){
-        static::items()->push($cartItem);
-        static::save();
+        static::cart()->items()->save($cartItem);
     }
 
     public static function save(){
-        \session()->put(static::$session_key,static::cart()->toArray());
+        \session()->put(static::$session_key,static::cart()->id);
     }
 
     public static function validate(){
@@ -430,6 +419,7 @@ class CartManager
                     return ['status'=>1];
                 }
             }
+            static::cart()->save();
         }
         // if method not in zone
         return ['status'=>0,'message'=>'There are no shipping options available.'];
@@ -470,12 +460,12 @@ class CartManager
         if( TaxRate::isEnable() ){
             $tax = static::getTaxRate($billing_country , $shipping_country);
             if(!empty($tax['tax'])){
-                static::cart()->setAttribute('tax',$tax['tax']);
+                static::cart()->addMeta('tax',$tax['tax']);
             }
         }
     }
 
     public static function cart_id(){
-        return '';
+        return session()->get(static::$session_key);
     }
 }

@@ -124,4 +124,8 @@ class OrderItem extends BaseModel
             }
         }
     }
+
+    public function calculateTotal(){
+        $this->setAttribute('subtotal',$this->subtotal);
+    }
 }
