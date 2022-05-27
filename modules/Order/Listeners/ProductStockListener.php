@@ -16,10 +16,10 @@ class ProductStockListener
         $order = $event->_order;
         $items = $order->items;
         switch ($order->status) {
-            case Order::ON_HOLD:
+            case Order::PROCESSING:
                 $this->reduceStock($items);
                 break;
-            case Order::PROCESSING:
+            case Order::REFUNDED:
             case Order::CANCELLED:
             case Order::DRAFT:
             case Order::FAILED:

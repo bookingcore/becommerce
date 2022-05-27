@@ -15,19 +15,15 @@ class ScanOrderOnHoldExpiredCommand extends Command
 
     public function handle()
     {
-        if(!empty(setting_item('product_enable_stock_management'))){
-            $checkOnHoldExist = ProductOnHold::where('expired_at','<',now())->groupBy('order_id')->with('order')->get();
-            if(!empty($checkOnHoldExist)){
-                foreach ($checkOnHoldExist as $value){
-                    $order = $value->order;
-                    if($order->status == Order::ON_HOLD){
-                        $order->updateStatus(Order::FAILED);
-                    }
-                    ProductOnHold::where('order_id',$order->id)->delete();
+        $checkOnHoldExist = ProductOnHold::where('expired_at','<',now())->groupBy('order_id')->with('order')->get();
+        if(!empty($checkOnHoldExist)){
+            foreach ($checkOnHoldExist as $value){
+                $order = $value->order;
+                if($order->status === Order::ON_HOLD){
+                    $order->updateStatus(Order::FAILED);
                 }
+                ProductOnHold::where('order_id',$order->id)->delete();
             }
-
         }
-
     }
 }
