@@ -90,25 +90,24 @@ class StripeCheckoutGateway extends BaseGateway
     }
 
 
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
-        if (in_array($payment->status, [
+        if (in_array($order->status, [
             Order::PAID,
             Order::COMPLETED,
+            Order::PROCESSING,
             Order::CANCELLED
         ])) {
 
             throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$payment->amount) {
+        if (!$order->total) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
         $this->setupStripe();
-        $order = $payment->order;
         $items = $order->items;
         $billing = $order->getMetaJson('billing');
-
-        $payment->updateStatus($payment::PENDING);
+        $order->updateStatus(Order::ON_HOLD);
 
         $lineItems = [];
         foreach ($items as $item) {
@@ -130,47 +129,43 @@ class StripeCheckoutGateway extends BaseGateway
         }
         $session = \Stripe\Checkout\Session::create([
             'mode' => 'payment',
-            'success_url' => $this->getReturnUrl() . '?pid=' . $payment->id . '&session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => $this->getCancelUrl() . '?pid=' . $payment->id,
+            'success_url' => $this->getReturnUrl() . '?oid=' . $order->id . '&session_id={CHECKOUT_SESSION_ID}',
+            'cancel_url' => $this->getCancelUrl() . '?oid=' . $order->id,
             'customer_email' => $billing['email'] ?? "",
             'line_items' => $lineItems
         ]);
-        $payment->addMeta('stripe_session_id', $session->id);
-        $payment->save();
+        $order->addMeta('stripe_session_id', $session->id);
+        $order->save();
 
         return ['url'=>$session->url ?? $order->getDetailUrl()];
     }
 
     public function confirmPayment(Request $request)
     {
-        $id = $request->query('pid');
-        /**
-         * @var Payment $payment
-         */
-        $payment = Payment::find($id);
+        $id = $request->query('oid');
+        $order = Order::find($id);
         $this->setupStripe();
-        if (!empty($payment)) {
-            $order = $payment->order;
+        if (!empty($order)) {
             $session_id = $request->query('session_id');
             if (empty($session_id)) {
                 return redirect($order->getDetailUrl());
             }
-            if (in_array($payment->status, [Order::UNPAID . Order::ON_HOLD])) {
+            if (in_array($order->status, [Order::UNPAID,Order::ON_HOLD])) {
                 $session = \Stripe\Checkout\Session::retrieve($session_id);
                 if (empty($session)) {
                     return redirect($order->getDetailUrl());
                 }
                 if ($session->payment_status == 'paid') {
-                    if (empty($stripe_charge_id = $payment->getMeta('stripe_charge_id'))) {
-                        $payment->addMeta('stripe_charge_id',$this->getChargeId($session->payment_intent));
+                    if (empty($stripe_charge_id = $order->getMeta('stripe_charge_id'))) {
+                        $order->addMeta('stripe_charge_id',$this->getChargeId($session->payment_intent));
                     }
 
-                    $payment->addMeta('stripe_setup_intent', $session->setup_intent);
-                    $payment->addMeta('stripe_intent_id', $session->payment_intent);
-                    $payment->addMeta('stripe_cs_complete', 1);
-                    $payment->gateway_transaction_id = $session->payment_intent;
-                    $payment->logs = $session;
-                    $payment->updateStatus($payment::COMPLETED);
+                    $order->addMeta('stripe_setup_intent', $session->setup_intent);
+                    $order->addMeta('stripe_intent_id', $session->payment_intent);
+                    $order->addMeta('stripe_cs_complete', 1);
+                    $order->gateway_transaction_id = $session->payment_intent;
+                    $order->addPaymentLog($session);
+                    $order->updateStatus(Order::PROCESSING);
 
                 }
             }
@@ -184,21 +179,14 @@ class StripeCheckoutGateway extends BaseGateway
 
     public function cancelPayment(Request $request)
     {
-        $id = $request->query('pid');
-        /**
-         * @var Payment $payment
-         */
-        $payment = Payment::find($id);
-        if (!empty($payment) ) {
-            $oder = $payment->order;
-            if (in_array($payment->status, [Order::UNPAID . Order::ON_HOLD])) {
-                $payment->logs = [
-                    'customer_cancel' => 1
-                ];
-
-                $payment->updateStatus($payment::FAILED);
+        $id = $request->query('oid');
+        $order = Order::find($id);
+        if (!empty($order) ) {
+            if (in_array($order->status, [Order::UNPAID , Order::ON_HOLD])) {
+                $order->addPaymentLog(['customer_cancel' => 1]);
+                $order->updateStatus(Order::CANCELLED);
             }
-            return redirect($oder->getDetailUrl())->with("error", __("You cancelled the payment"));
+            return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
         } else {
             return redirect(url('/'));
         }
@@ -282,46 +270,40 @@ class StripeCheckoutGateway extends BaseGateway
 
         switch ($event->type) {
             case 'payment_intent.succeeded':
-                $paymentIntent = $event->data->object; // contains a \Stripe\PaymentIntent
-                /**
-                 * @var Payment $payment;
-                 */
-                $payment = Payment::where('gateway_transaction_id',$paymentIntent->id)->first();
-                if (!$payment) {
+                $orderIntent = $event->data->object; // contains a \Stripe\PaymentIntent
+                $order = Order::where('gateway_transaction_id',$orderIntent->id)->first();
+                if (!$order) {
                     return response()->json(['message' => __('Payment not found')], 400);
                 }
-                $oder = $payment->order;
-                if ($oder) {
-                    $oder->paid += (float)$paymentIntent->amount / 100;
-                    $oder->markAsPaid();
-                    if (!empty($paymentIntent->charges->data)) {
-                        $chargeArr= [];
-                        foreach ($paymentIntent->charges->data as $charge) {
-                            if ($charge['paid'] == true) {
-                                $chargeArr[]=  $charge['id'];
-                            }
-                        }
-                        if(!empty($chargeArr)){
-                            $payment->addMeta('stripe_charge_id',$chargeArr);
+                $order->paid = (float)$orderIntent->total / 100;
+                $order->updateStatus(Order::PROCESSING);
+                if (!empty($orderIntent->charges->data)) {
+                    $chargeArr= [];
+                    foreach ($orderIntent->charges->data as $charge) {
+                        if ($charge['paid'] == true) {
+                            $chargeArr[]=  $charge['id'];
                         }
                     }
-
-                    $payment->logs = $paymentIntent;
-                    $payment->updateStatus($payment::COMPLETED);
+                    if(!empty($chargeArr)){
+                        $order->addMeta('stripe_charge_id',$chargeArr);
+                    }
                 }
 
-                break;
+                $order->addPaymentLog($orderIntent);
+                $order->updateStatus(Order::PROCESSING);
+
+            break;
             default:
                 return response()->json(['message' => __('Received unknown event type')], 400);
         }
     }
-    public function getChargeId($paymentIntentId)
+    public function getChargeId($orderIntentId)
     {
         $chargeId = '';
         $this->setupStripe();
-        $payment_intent = PaymentIntent::retrieve($paymentIntentId);
-        if (!empty($payment_intent->charges->data)) {
-            foreach ($payment_intent->charges->data as $charge) {
+        $order_intent = PaymentIntent::retrieve($orderIntentId);
+        if (!empty($order_intent->charges->data)) {
+            foreach ($order_intent->charges->data as $charge) {
                 if ($charge['paid'] == true) {
                     $chargeId = $charge['id'];
                 }

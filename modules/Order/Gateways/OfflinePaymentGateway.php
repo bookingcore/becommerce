@@ -17,7 +17,7 @@ class OfflinePaymentGateway extends BaseGateway
      */
     public function process(Order $order)
     {
-        $order->updateStatus($order::PROCESSING);
+        $order->updateStatus(Order::PROCESSING);
 
         return true;
     }

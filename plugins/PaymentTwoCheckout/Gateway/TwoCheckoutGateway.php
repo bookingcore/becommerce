@@ -61,24 +61,25 @@ class TwoCheckoutGateway extends BaseGateway
         ];
     }
 
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
         $request = request();
-        if (in_array($payment->status, [
+        if (in_array($order->status, [
             Order::PAID,
             Order::COMPLETED,
+            Order::PROCESSING,
             Order::CANCELLED
         ])) {
 
             throw new Exception(__("Order does not need to be paid"));
         }
-        if (!$payment->amount) {
+        if (!$order->total) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
 
-        $data = $this->handlePurchaseData([], $payment, $request);
+        $data = $this->handlePurchaseData([], $order, $request);
 
-        $payment->updateStatus($payment::PENDING);
+        $order->updateStatus(Order::ON_HOLD);
 
         $endPointUrl = $this->getEndPointUrl() ;
         $twoco_args = http_build_query($data, '', '&');
@@ -86,16 +87,16 @@ class TwoCheckoutGateway extends BaseGateway
         return ['url'=>$endPointUrl . "?" . $twoco_args];
     }
 
-    public function handlePurchaseData($data, $payment, $request)
+    public function handlePurchaseData($data, $order, $request)
     {
         $twocheckout_args = array();
         $twocheckout_args['sid'] = $this->getOption('twocheckout_account_number');
         $twocheckout_args['paypal_direct'] = 'Y';
-        $twocheckout_args['cart_order_id'] = $payment->id;
-        $twocheckout_args['merchant_order_id'] = $payment->id;
-        $twocheckout_args['total'] = (float)$payment->amount;
-        $twocheckout_args['return_url'] = $this->getCancelUrl() . '?pid=' . $payment->id;
-        $twocheckout_args['x_receipt_link_url'] = $this->getReturnUrl() . '?pid=' . $payment->id;
+        $twocheckout_args['cart_order_id'] = $order->id;
+        $twocheckout_args['merchant_order_id'] = $order->id;
+        $twocheckout_args['total'] = (float)$order->total;
+        $twocheckout_args['return_url'] = $this->getCancelUrl() . '?oid=' . $order->id;
+        $twocheckout_args['x_receipt_link_url'] = $this->getReturnUrl() . '?oid=' . $order->id;
         $twocheckout_args['currency_code'] = setting_item('currency_main');
         $twocheckout_args['card_holder_name'] = $request->input("first_name") . ' ' . $request->input("last_name");
         $twocheckout_args['street_address'] = $request->input("address_line_1");
@@ -117,30 +118,27 @@ class TwoCheckoutGateway extends BaseGateway
 
     public function confirmPayment(Request $request)
     {
-        $pid = $request->query('pid');
-        /**
-         * @var Payment $payment
-         */
-        $payment = Payment::find($pid);
-        if (!empty($payment)) {
-            if(in_array($payment->status, [Order::ON_HOLD])){
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if (!empty($order)) {
+            if(in_array($order->status, [Order::ON_HOLD])){
                 $compare_string = $this->getOption('twocheckout_secret_word') . $this->getOption('twocheckout_account_number') . $request->input("order_number") . $request->input("total");
                 $compare_hash1 = strtoupper(md5($compare_string));
                 $compare_hash2 = $request->input("key");
                 if ($compare_hash1 != $compare_hash2) {
-                    $payment->logs = $request->input();
+                    $order->addPaymentLog($request->all());
+                    $order->updateStatus(Order::FAILED);
 
-                    $payment->updateStatus($payment::FAILED);
-
-                    return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+                    return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
                 } else {
-                    $payment->logs = $request->input();
-                    $payment->updateStatus($payment::COMPLETED);
+                    $order->addPaymentLog($request->all());
+                    $order->paid = $order->total;
+                    $order->updateStatus(Order::PROCESSING);
 
-                    return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                    return redirect($order->getDetailUrl())->with("success", __("You payment has been processed successfully"));
                 }
             }else{
-                return redirect($payment->getDetailUrl(false));
+                return redirect($order->getDetailUrl(false));
             }
 
         } else {
@@ -150,21 +148,15 @@ class TwoCheckoutGateway extends BaseGateway
 
     public function cancelPayment(Request $request)
     {
-        $pid = $request->query('pid');
-        /**
-         * @var Payment $payment
-         */
-        $payment = Payment::find($pid);
-        if (!empty($payment) ) {
-            if(in_array($payment->status, [Order::ON_HOLD])){
-                $payment->logs = [
-                    'customer_cancel' => 1
-                ];
-                $payment->updateStatus($payment::FAILED);
-
-                return redirect($payment->getDetailUrl())->with("error", __("You cancelled the payment"));
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if (!empty($order) ) {
+            if(in_array($order->status, [Order::ON_HOLD])){
+                $order->addPaymentLog(['customer_cancel' => 1]);
+                $order->updateStatus(Order::FAILED);
+                return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
             }
-            return redirect($payment->getDetailUrl());
+            return redirect($order->getDetailUrl());
         } else {
             return redirect(url('/'));
         }

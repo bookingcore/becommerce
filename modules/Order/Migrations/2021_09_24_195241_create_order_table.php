@@ -44,6 +44,10 @@ class CreateOrderTable extends Migration
 		    $table->string('last_name',255)->nullable();
 		    $table->string('phone',255)->nullable();
 
+            $table->decimal('converted_amount',10,2)->nullable();
+            $table->string('converted_currency',10)->nullable();
+            $table->decimal('exchange_rate',10,2)->nullable();
+
             $table->string('locale',10)->nullable();
 
             $table->timestamp('order_date')->nullable();

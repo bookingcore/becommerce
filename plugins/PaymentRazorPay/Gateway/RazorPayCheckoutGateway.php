@@ -83,16 +83,17 @@ class RazorPayCheckoutGateway extends BaseGateway
         ];
     }
 
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
-        if (in_array($payment->status, [
+        if (in_array($order->status, [
             Order::PAID,
             Order::COMPLETED,
+            Order::PROCESSING,
             Order::CANCELLED
         ])) {
             throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$payment->amount) {
+        if (!$order->total) {
             throw new Exception(__("Order amount is zero. Can not process payment gateway!"));
         }
 	    $keyId = $this->getKeyId();
@@ -100,16 +101,16 @@ class RazorPayCheckoutGateway extends BaseGateway
 
         if ($keyId == '' || $keySecret == '')
         {
-            return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+            return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
         }
 
         $data = $this->handlePurchaseData([
-            'amount' => (float)$payment->amount,
-            'order_id' => $payment->id,
-        ],request(), $payment);
+            'amount' => (float)$order->total,
+            'order_id' => $order->id,
+        ],request(), $order);
 
         $orderData = [
-            'receipt' => $payment->id."",
+            'receipt' => $order->id."",
             'amount' => (float)$data['amount'] * 100, // 2000 rupees in paise
             'currency' => strtoupper($data['currency']),
             'payment_capture' => 1 // auto capture
@@ -125,7 +126,7 @@ class RazorPayCheckoutGateway extends BaseGateway
                 throw new Exception($razorpayOrder['error']['description']);
             }else{
 
-                $payment->updateStatus($payment::PENDING);
+                $order->updateStatus($order::ON_HOLD);
 
 	            if (isset($razorpayOrder['id']) && !empty($razorpayOrder['id'])) {
 		            $queryData = [];
@@ -146,12 +147,9 @@ class RazorPayCheckoutGateway extends BaseGateway
 
     public function confirmRazorPayment($request,$c,$order_id)
     {
-        /**
-         * @var Payment $payment;
-         */
-        $payment = Payment::find($c);
-        if (!empty($payment) ) {
-            if(in_array($payment->status, [Order::ON_HOLD])){
+        $order = Order::find($c);
+        if (!empty($order) ) {
+            if(in_array($order->status, [Order::ON_HOLD])){
                 $keyId = $this->getKeyId();
                 $keySecret = $this->getKeySecret();
                 $orderId = $request->razorpay_order_id;
@@ -160,16 +158,16 @@ class RazorPayCheckoutGateway extends BaseGateway
                 $actualSignature = hash_hmac('sha256', $payload, $keySecret);
                 if ($actualSignature != $request->razorpay_signature) {
 
-                    $payment->logs = $request->input();
-                    $payment->updateStatus($payment::FAILED);
-
-                    return redirect($payment->getDetailUrl())->with('error', __("Payment Failed"));
+                    $order->addPaymentLog($request->all());
+                    $order->updateStatus($order::FAILED);
+                    return redirect($order->getDetailUrl())->with('error', __("Payment Failed"));
 
                 } else {
-                    $payment->logs = $request->input();
-                    $payment->updateStatus($payment::COMPLETED);
+                    $order->addPaymentLog($request->all());
+                    $order->paid = $order->total;
+                    $order->updateStatus($order::PROCESSING);
 
-                    return redirect($payment->getDetailUrl())->with('success', __("You payment has been processed successfully"));
+                    return redirect($order->getDetailUrl())->with('success', __("You payment has been processed successfully"));
                 }
             }
         } else {
@@ -179,18 +177,14 @@ class RazorPayCheckoutGateway extends BaseGateway
 
     public function cancelPayment(Request $request)
     {
-        $c = $request->query('c');
-        $order = Booking::where('code', $c)->first();
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
 
-        if (!empty($order) and in_array($order->status, [$Order::ON_HOLD])) {
-            $payment = $order->payment;
+        if (!empty($order) and in_array($order->status, [Order::ON_HOLD])) {
 
-            if ($payment) {
-                $payment->status = 'cancel';
-                $payment->logs = \GuzzleHttp\json_encode([
-                    'customer_cancel' => 1
-                ]);
-                $payment->save();
+            if ($order) {
+                $order->addPaymentLog(['customer_cancel' => 1]);
+                $order->updateStatus(Order::CANCELLED);
             }
             return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
         }
@@ -202,22 +196,22 @@ class RazorPayCheckoutGateway extends BaseGateway
         }
     }
 
-    public function handlePurchaseData($data, $request, &$payment = null)
+    public function handlePurchaseData($data, $request, &$order = null)
     {
         $main_currency = setting_item('currency_main');
         $supported = $this->supportedCurrency();
         $convert_to = $this->getOption('convert_to');
-        if($payment)
+        if($order)
         {
-            $payment->currency = $main_currency;
-            $payment->amount = ((float)$data['amount']);
+            $order->currency = $main_currency;
+            $order->total = ((float)$data['amount']);
         }
         $data['currency'] = $main_currency;
-        $data['cart_order_id'] = $payment->id;
-        $data['amount'] = ((float)$payment->amount * 100);
-        $data['description'] = setting_item("site_title")." - #".$payment->id;
-        $data['return_url'] = $this->getReturnUrl() . '?pid=' . $payment->id;
-        $data['cancel_url'] = $this->getCancelUrl() . '?pid=' . $payment->id;
+        $data['cart_order_id'] = $order->id;
+        $data['amount'] = ((float)$order->total * 100);
+        $data['description'] = setting_item("site_title")." - #".$order->id;
+        $data['return_url'] = $this->getReturnUrl() . '?oid=' . $order->id;
+        $data['cancel_url'] = $this->getCancelUrl() . '?oid=' . $order->id;
         $data['currency_code'] = setting_item('currency_main');
         $data['card_holder_name'] = $request->input('first_name') . ' ' . $request->input('last_name');
         $data['street_address'] = $request->input('address') ;
@@ -237,13 +231,13 @@ class RazorPayCheckoutGateway extends BaseGateway
             if (!$exchange_rate = $this->getOption('exchange_rate')) {
                 throw new Exception(__("Exchange rate to :name must be specific. Please contact site owner", ['name' => $convert_to]));
             }
-            if ($payment) {
+            if ($order) {
 
-                $payment->converted_currency = $convert_to;
-                $payment->converted_amount = $payment->amount / $exchange_rate;
-                $payment->exchange_rate = $exchange_rate;
+                $order->converted_currency = $convert_to;
+                $order->converted_amount = $order->total / $exchange_rate;
+                $order->exchange_rate = $exchange_rate;
             }
-            $amount = number_format( $payment->amount / $exchange_rate , 2 );
+            $amount = number_format( $order->total / $exchange_rate , 2 );
             $data['amount'] = (float)$amount*100;
             $data['currency'] = $convert_to;
         }

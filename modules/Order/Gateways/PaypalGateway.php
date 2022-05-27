@@ -143,46 +143,46 @@ class PaypalGateway extends BaseGateway
 
     public function confirmPayment(Request $request)
     {
-        $pid = $request->query('pid');
-        /**
-         * @var Payment $payment;
-         */
-        $payment = Payment::find($pid);
-        if ($payment) {
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if ($order) {
             $response = $this->captureOrder($request->input('token'));
             $json = $response->json();
             if ($response->successful() and !empty($json['status'])) {
                 switch ($json['status']) {
                     case 'COMPLETED';
-                        $payment->logs = $json;
-                        $payment->updateStatus($payment::COMPLETED);
-                        return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                        $order->addPaymentLog($json);
+                        $order->paid = $order->total;
+                        $order->updateStatus(Order::PROCESSING);
+                        return redirect($order->getDetailUrl())->with("success", __("Yout order has been processed successfully"));
                         break;
                     case 'VOIDED':
-                        $payment->logs = $request->all();
-                        $payment->updateStatus($payment::FAILED);
-
-                        return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+                        $order->addPaymentLog($json);
+                        $order->updateStatus($order::FAILED);
+                        return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
                         break;
                     default:
-                        return redirect($payment->getDetailUrl())->with("success", __("You payment is being processed"));
+                        return redirect($order->getDetailUrl())->with("success", __("You order is being processed"));
                 }
             } else {
-                $payment->logs = $response->getData();
-                $payment->save();
-                return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+                $order->addPaymentLog($response->getData());
+                $order->updateStatus($order::FAILED);
+                return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
             }
         }
     }
 
     public function cancelPayment(Request $request)
     {
-        $c = $request->query('c');
-        $payment = \Modules\Order\Models\Payment::find($c);
-        if ($payment) {
-            $payment->addMeta('query',$request->query());
-            return redirect($payment->getDetailUrl());
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if ($order) {
+            $order->addPaymentLog($request->all());
+            $order->updateStatus(Order::CANCELLED);
+            return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
         }
+        return redirect(url('/'));
+
 
     }
 
@@ -196,14 +196,10 @@ class PaypalGateway extends BaseGateway
                     if (!empty($purchase_units)) {
                         foreach ($purchase_units as $purchase) {
                             $reference_id = $purchase['reference_id'];
-                            /**
-                             * @var Payment $payment
-                             */
-                            $payment = Payment::find($reference_id);
-                            if (!empty($payment)) {
-                                $payment->logs = $request->all();
-
-                                $payment->updateStatus($payment::COMPLETED);
+                            $order = Order::find($reference_id);
+                            if (!empty($order)) {
+                                $order->addPaymentLog($request->all());
+                                $order->updateStatus(Order::PROCESSING);
                             }
                         }
                     }
@@ -230,8 +226,8 @@ class PaypalGateway extends BaseGateway
         $supported = $this->supportedCurrency();
         $convert_to = $this->getOption('convert_to');
         $data['currency'] = $main_currency;
-        $data['return_url'] = $this->getReturnUrl() . '?pid=' . $order->id;
-        $data['cancel_url'] = $this->getCancelUrl() . '?pid=' . $order->id;
+        $data['return_url'] = $this->getReturnUrl() . '?oid=' . $order->id;
+        $data['cancel_url'] = $this->getCancelUrl() . '?oid=' . $order->id;
         if (!array_key_exists($main_currency, $supported)) {
             if (!$convert_to) {
                 throw new Exception(__("PayPal does not support currency: :name", ['name' => $main_currency]));
