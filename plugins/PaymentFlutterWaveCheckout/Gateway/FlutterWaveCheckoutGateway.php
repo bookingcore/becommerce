@@ -60,52 +60,52 @@ class FlutterWaveCheckoutGateway extends BaseGateway
         ];
     }
 
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
-        if (in_array($payment->status, [
+        if (in_array($order->status, [
             Order::PAID,
             Order::COMPLETED,
+            Order::PROCESSING,
             Order::CANCELLED
         ])) {
             throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$payment->amount) {
+        if (!$order->total) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
-        $payment->updateStatus($payment::PENDING);
+        $order->updateStatus(Order::ON_HOLD);
 
-        return ['url'=>route('checkoutFlutterWaveGateway',['payment_id'=>$payment->code])];
+        return ['url'=>route('checkoutFlutterWaveGateway',['order_id'=>$order->id])];
     }
 
-    public function handlePurchaseData($data, $payment)
+    public function handlePurchaseData($data, $order)
     {
         $data['public_key']= $this->getOption('flutter_wave_api_key');
-        $data['amount'] = ((float)$payment->amount);
+        $data['amount'] = ((float)$order->total);
         $data['currency'] = setting_item('currency_main');
-        $data['tx_ref'] = $payment->id;
-        $data['description'] = setting_item("site_title")." - #".$payment->id;
-        $data['service_title'] = setting_item("site_title")." - #".$payment->id;
+        $data['tx_ref'] = $order->id;
+        $data['description'] = setting_item("site_title")." - #".$order->id;
+        $data['service_title'] = setting_item("site_title")." - #".$order->id;
         $data['checkoutNormal'] = 0;
-        $data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id ;
-        $data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
+        $data['returnUrl'] = $this->getReturnUrl() . '?oid=' . $order->id ;
+        $data['cancelUrl'] = $this->getCancelUrl() . '?oid=' . $order->id;
         return $data;
     }
 
 
     public function cancelPayment(Request $request)
     {
-        $pid = $request->query('pid');
-        $payment = Payment::find($pid);
-        if (!empty($payment)) {
-            if(in_array($payment->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])){
-                $payment->status = Order::CANCELLED;
-                $payment->logs = \GuzzleHttp\json_encode([
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if (!empty($order)) {
+            if(in_array($order->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])){
+                $order->updateStatus(Order::CANCELLED);
+                $order->addPaymentLog([
                     'customer_cancel' => 1
                 ]);
-                $payment->save();
-                return redirect($payment->getDetailUrl())->with("error", __("You cancelled the payment"));
+                return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
             }else{
-                return redirect($payment->getDetailUrl());
+                return redirect($order->getDetailUrl());
             }
         }else {
             return redirect(url('/'));
@@ -113,41 +113,39 @@ class FlutterWaveCheckoutGateway extends BaseGateway
     }
 
     public function confirmPayment(Request $request){
-        $pid = $request->query('pid');
-        /**
-         * @var Payment $payment
-         */
-        $payment = Payment::find($pid);
-        if(empty($payment)){
+        $oid = $request->query('oid');
+        $order = Order::find($oid);
+        if(empty($order)){
             if($request->ajax()){
                 return response()->json(['status'=>0,'message'=>'','url_redirect'=>url('/')]);
             }
             return redirect(url('/'));
         }
-        if (in_array($payment->status, [Order::UNPAID,Order::ON_HOLD,Order::PROCESSING])) {
+        if (in_array($order->status, [Order::UNPAID,Order::ON_HOLD])) {
             if ($request->query('status') =='successful') {
-                $payment->logs = $request->all();
-                $payment->updateStatus(Payment::COMPLETED);
+                $order->addPaymentLog($request->all());
+                $order->paid = $order->total;
+                $order->updateStatus(Order::PROCESSING);
 
                 if($request->ajax()){
-                    return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$payment->getDetailUrl()]);
+                    return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$order->getDetailUrl()]);
                 }
-                return redirect($payment->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                return redirect($order->getDetailUrl())->with("success", __("You payment has been processed successfully"));
             } else {
-                $payment->logs = $request->all();
-                $payment->updateStatus(Payment::FAILED);
+                $order->addPaymentLog($request->all());
+                $order->updateStatus(Order::FAILED);
 
                 if($request->ajax()){
-                    return response()->json(['status'=>0,'message'=>'You payment Failed','url_redirect'=>$payment->getDetailUrl()]);
+                    return response()->json(['status'=>0,'message'=>'You payment Failed','url_redirect'=>$order->getDetailUrl()]);
                 }
-                return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+                return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
             }
         }
 
         if($request->ajax()){
-            return response()->json(['status'=>1,'message'=>'','url_redirect'=>$payment->getDetailUrl()]);
+            return response()->json(['status'=>1,'message'=>'','url_redirect'=>$order->getDetailUrl()]);
         }
-        return redirect($payment->getDetailUrl())->with("error", __("Payment Failed"));
+        return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
     }
 
 

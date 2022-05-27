@@ -18,8 +18,8 @@ class ProductOnHoldListener
         switch ($order->status) {
             case Order::ON_HOLD:
                 if(!empty($items)){
-                    $setting_expired_at = setting_item('product_on_hold_expired_at',1);
-                    $expired_at  = Carbon::now()->addDays($setting_expired_at)->format('Y-m-d H:i:s');
+                    $setting_expired_at = setting_item('product_hold_stock',60);
+                    $expired_at  = Carbon::now()->addMinutes($setting_expired_at??60)->format('Y-m-d H:i:s');
 
                     foreach ($items as $item) {
                         $checkOnHoldExist = ProductOnHold::where([
@@ -39,10 +39,10 @@ class ProductOnHoldListener
             case Order::PROCESSING:
             case Order::COMPLETED:
             case Order::FAILED:
+            case Order::CANCELLED:
 //              remove product on-hold in order item
                 ProductOnHold::where('order_id',$order->id)->delete();
                 break;
-            case Order::CANCELLED:
             case Order::DRAFT:
                 break;
         }

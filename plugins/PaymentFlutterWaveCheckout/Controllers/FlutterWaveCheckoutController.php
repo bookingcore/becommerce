@@ -6,54 +6,55 @@
     use Illuminate\Http\Request;
     use Illuminate\Support\Facades\Auth;
     use Modules\Booking\Models\Booking;
+    use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Plugins\PaymentFlutterWaveCheckout\Gateway\FlutterWaveCheckoutGateway;
 
 
     class FlutterWaveCheckoutController extends Controller
     {
-        private $payment;
 
-        public function __construct()
+        protected Order $order;
+
+        public function __construct(Order $order)
         {
-            $this->payment = Payment::class;
+            $this->order = $order;
         }
 
-        public function handleCheckout(Request $request, $payment_id)
+        public function handleCheckout(Request $request, $order_id)
         {
-            if (!empty($payment_id)) {
-                $payment = $this->payment::find($payment_id);
-                if (empty($payment)) {
+            if (!empty($order_id)) {
+                $order = $this->order::find($order_id);
+                if (empty($order)) {
                     return redirect('/');
                 }
-                $order = $payment->order;
                 if ($order->customer_id != Auth::id()) {
                     return redirect('/');
                 }
                 $billing = $order->getJsonMeta('billing');
                 $gateway = new FlutterWaveCheckoutGateway();
-                $data = $gateway->handlePurchaseData([], $payment);
-                return view("PaymentFlutterWaveCheckout::frontend.checkout", ['payment' => $payment, 'data' => $data,'billing' => $billing]);
+                $data = $gateway->handlePurchaseData([], $order);
+                return view("PaymentFlutterWaveCheckout::frontend.checkout", ['order' => $order, 'data' => $data,'billing' => $billing]);
             } else {
                 return redirect('/');
             }
         }
 
 
-        public function confirmCheckout(Request $request, $payment_id)
+        public function confirmCheckout(Request $request, $order_id)
         {
             $FlutterWaveCheckoutGateway = new FlutterWaveCheckoutGateway();
-            $request->merge(['pid'=>$payment_id]);
+            $request->merge(['oid'=>$order_id]);
             return $FlutterWaveCheckoutGateway->confirmPayment($request);
         }
 
         public function webhookCheckout(){
             $request = \request();
             $data = $request->query('data',[]);
-            $pid = $data['tx_ref']??"";
-            if(!empty($pid)){
+            $oid = $data['tx_ref']??"";
+            if(!empty($oid)){
                 $FlutterWaveCheckoutGateway = new FlutterWaveCheckoutGateway();
-                $request->merge(['pid'=>$pid]);
+                $request->merge(['oid'=>$oid]);
                 return $FlutterWaveCheckoutGateway->confirmPayment($request);
             }
         }

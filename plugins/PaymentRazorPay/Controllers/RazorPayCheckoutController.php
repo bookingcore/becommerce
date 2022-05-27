@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Eluceo\iCal\Property;
 use Illuminate\Http\Request;
 use Modules\Booking\Models\Booking;
+use Modules\Order\Models\Order;
 use Modules\Order\Models\Payment;
 use Plugins\PaymentRazorPay\Gateway\RazorPayCheckoutGateway;
 
@@ -19,11 +20,11 @@ class RazorPayCheckoutController extends Controller {
 		$keyId = $razorPayGateway->getKeyId();
 		$keySecret = $razorPayGateway->getKeySecret();
 
-        $payment = Payment::find($c);
-        if (!$payment) {
+        $order = Order::find($c);
+        if (!$order) {
             return redirect("/");
         }
-        $data = $razorPayGateway->handlePurchaseData([], $request,$payment);
+        $data = $razorPayGateway->handlePurchaseData([], $request,$order);
 		return view("PaymentRazorPay::frontend.razorpaycheckout",
 				[
 						'data'       => $data,

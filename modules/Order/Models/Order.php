@@ -327,4 +327,9 @@ class Order extends BaseModel
         }
         return false;
     }
+
+    public function addPaymentLog($val): void
+    {
+        $this->addMeta('payment_logs',$val,true);
+    }
 }

@@ -27,11 +27,11 @@
             customer: {
                 email: "{{$billing['email']??""}}",
                 phone_number: "{{$billing['phone']??""}}",
-                name: "{{__(':first_name :last_name',['first_name'=>$billing['first_name']??"",'last_name'=>$billing['last_name']??])}}",
+                name: "{{__(':first_name :last_name',['first_name'=>$billing['first_name']??"",'last_name'=>$billing['last_name']??""])}}",
             },
             callback: function (data) { // specified callback function
                 data['checkoutNormal']  = "{{$data['checkoutNormal']}}"
-                $.post("{{route('confirmFlutterWaveGateway',['payment_id'=>$payment->id])}}", data).promise().then((result) => {
+                $.post("{{route('confirmFlutterWaveGateway',['order_id'=>$order->id])}}", data).promise().then((result) => {
                     if(result.message){
                         alert(result.message);
                     }

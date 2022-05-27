@@ -103,17 +103,18 @@ class PayPalProGateway extends BaseGateway
 		];
 	}
 
-    public function process(Payment $payment)
+    public function process(Order $order)
     {
         $request = request();
-        if (in_array($payment->status, [
+        if (in_array($order->status, [
             Order::PAID,
             Order::COMPLETED,
+            Order::PROCESSING,
             Order::CANCELLED
         ])) {
             throw new Exception(__("Order status does need to be paid"));
         }
-        if (!$payment->amount) {
+        if (!$order->total) {
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
 	    $rules = [
@@ -137,15 +138,16 @@ class PayPalProGateway extends BaseGateway
 		    'cvv' => $request->bravo_paypal_pro_cvv,
 	    ]);
 	    $data = $this->handlePurchaseData([
-		    'amount'        => (float)$payment->amount,
+		    'amount'        => (float)$order->total,
 		    'card'=>$card,
-		    'transactionId' => $payment->id . '.' . time()
-	    ],  $payment);
+		    'transactionId' => $order->id . '.' . time()
+	    ],  $order);
 	    $this->gateway->authorize($data);
 	    $response = $this->gateway->purchase($data)->send();
 	    if ($response->isSuccessful()) {
-		    $payment->logs = $response->getData();
-		    $payment->updateStatus($payment::COMPLETED);
+            $order->addPaymentLog($response->getData());
+            $order->paid = $order->total;
+		    $order->updateStatus($order::COMPLETED);
 
             return true;
 
@@ -153,16 +155,16 @@ class PayPalProGateway extends BaseGateway
 		    throw new Exception('Paypal Gateway: ' . $response->getMessage());
 	    }
     }
-	public function handlePurchaseData($data, &$payment = null)
+	public function handlePurchaseData($data, &$order = null)
 	{
 		$main_currency = setting_item('currency_main');
 		$supported = $this->supportedCurrency();
 		$convert_to = $this->getOption('convert_to');
 		$data['currency'] = $main_currency;
-		$data['returnUrl'] = $this->getReturnUrl() . '?pid=' . $payment->id;
-		$data['cancelUrl'] = $this->getCancelUrl() . '?pid=' . $payment->id;
-		$data['token'] = $payment->id.'.'.uniqid();
-		$data['description'] = setting_item("site_title")." - #".$payment->id;
+		$data['returnUrl'] = $this->getReturnUrl() . '?oid=' . $order->id;
+		$data['cancelUrl'] = $this->getCancelUrl() . '?oid=' . $order->id;
+		$data['token'] = $order->id.'.'.uniqid();
+		$data['description'] = setting_item("site_title")." - #".$order->id;
 		if (!array_key_exists($main_currency, $supported)) {
 			if (!$convert_to) {
 				throw new Exception(__("PayPal does not support currency: :name", ['name' => $main_currency]));
@@ -170,12 +172,12 @@ class PayPalProGateway extends BaseGateway
 			if (!$exchange_rate = $this->getOption('exchange_rate')) {
 				throw new Exception(__("Exchange rate to :name must be specific. Please contact site owner", ['name' => $convert_to]));
 			}
-			if ($payment) {
-				$payment->converted_currency = $convert_to;
-				$payment->converted_amount = $payment->amount / $exchange_rate;
-				$payment->exchange_rate = $exchange_rate;
+			if ($order) {
+				$order->converted_currency = $convert_to;
+				$order->converted_amount = $order->total / $exchange_rate;
+				$order->exchange_rate = $exchange_rate;
 			}
-			$data['amount'] = number_format( $payment->amount / $exchange_rate , 2 );
+			$data['amount'] = number_format( $order->total / $exchange_rate , 2 );
 			$data['currency'] = $convert_to;
 
 			return $data;
