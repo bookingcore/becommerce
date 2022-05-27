@@ -88,8 +88,9 @@ Route::group(['prefix'=>config('order.cart_route_prefix')],function(){
     Route::post('/get_tax_rate','Order\CartController@getTaxRate')->name('cart.shipping.get_method');
 });
 Route::group(['prefix'=>'checkout'],function(){
-    Route::get('/','Order\CheckoutController@index')->name('checkout');
-    Route::post('/process','Order\CheckoutController@process')->name('checkout.process');
+    Route::get('/','Order\CheckoutController@toCheckout')->name('checkout');
+    Route::get('/{code}','Order\CheckoutController@index')->name('checkout.detail');
+    Route::post('/{code}/process','Order\CheckoutController@process')->name('checkout.process');
 });
 
 Route::group(['prefix'=>config('order.order_route_prefix')],function(){

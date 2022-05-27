@@ -30,7 +30,7 @@ class CartManager
     /**
      * @return Cart
      */
-    public static function cart(){
+    public static function cart($create_draft = false){
 
         if(!static::$_cart){
             $cart_id = static::cart_id();
@@ -41,8 +41,12 @@ class CartManager
                 }
             }
             if(empty($cart)){
-                $cart = Cart::createDraft();
-                static::save();
+                if($create_draft){
+                    $cart = Cart::createDraft();
+                    session(static::$session_key,$cart->id);
+                }else{
+                    return null;
+                }
             }
             static::$_cart = $cart;
         }
@@ -51,6 +55,8 @@ class CartManager
     }
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
+
+        static::cart(true);
 
         $item = static::findItem($product_id,$variation_id);
         if(!$item){
@@ -65,8 +71,6 @@ class CartManager
             $item->qty += $qty;
 
             $item->updatePrice();
-
-            static::save();
         }
 
         return $item;
@@ -160,7 +164,7 @@ class CartManager
      */
     public static function items(){
 
-        return static::cart()->items;
+        return static::cart()->items ?? [];
     }
 
     /**
@@ -254,7 +258,6 @@ class CartManager
                                 }
                                 $item->discount_amount+=$discount;
                                 $items->put($cart_item_id,$item);
-                                static::save();
                                 $totalDiscount += $discount;
                             }
                         }
@@ -349,9 +352,6 @@ class CartManager
         static::cart()->items()->save($cartItem);
     }
 
-    public static function save(){
-        \session()->put(static::$session_key,static::cart()->id);
-    }
 
     public static function validate(){
         foreach (static::items() as $item){
@@ -466,6 +466,6 @@ class CartManager
     }
 
     public static function cart_id(){
-        return session()->get(static::$session_key);
+        return session(static::$session_key);
     }
 }

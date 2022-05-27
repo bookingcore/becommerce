@@ -12,33 +12,6 @@ use Illuminate\Support\Facades\Session;
 class Cart extends Order
 {
 
-    protected $attributes = [
-        'shipping_method',
-        'tax'
-    ];
-
-
-    public function fromData($data){
-        if(empty($data) or empty($data['items'])){
-            $this->setRelation("items",collect([]));
-        }
-        foreach ($data as $k=>$value){
-            switch ($k){
-                case "items":
-                    if(is_array($value)){
-                        $items = collect();
-                        foreach ($value as $v2){
-                            $items->push(CartItem::fromArray($v2));
-                        }
-                        $this->setRelation("items",$items);
-                    }
-                    break;
-                default:
-                    $this->setAttribute($k,$value);
-                    break;
-            }
-        }
-    }
 
     public function total(): Attribute
     {
@@ -64,7 +37,7 @@ class Cart extends Order
     }
 
     public function discountTotal(){
-        return $this->total_discount;
+        return $this->discount_amount;
     }
 
     public function shippingTotal(){

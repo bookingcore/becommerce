@@ -20,7 +20,23 @@
     use Themes\Base\Controllers\FrontendController;
     class CheckoutController extends FrontendController
     {
-        public function index(){
+        public function toCheckout(){
+            $cart= CartManager::cart();
+            if(!$cart)
+            {
+                return redirect('checkout.detail',['code'=>$cart->code]);
+            }
+
+            return redirect('cart');
+        }
+
+        public function index($code){
+
+            $order = Order::whereCode($code)->first();
+            if(!$order){
+                return redirect('cart');
+            }
+
             if(!is_enable_guest_checkout() and !Auth::check()){
                 return redirect(route('login',['redirect'=>'/checkout']))->with('warning',__("Please login to continue"));
             }
@@ -31,7 +47,7 @@
 
             $user = Auth::user();
             $data = [
-                'items'=>CartManager::items(),
+                'items'=>$order->items,
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
                 'gateways'=>get_active_payment_gateways(),
@@ -43,11 +59,17 @@
                         'name'=> "Checkout",
                     ]
                 ],
+                'order'=>$order
             ];
             return view('order.checkout.index',$data);
         }
 
-        public function process(Request $request){
+        public function process(Request $request,$code){
+
+            $order = Order::whereCode($code)->first();
+            if(!$order){
+                return $this->sendError(__("Order does not exists"),['code'=>'order_not_found']);
+            }
 
             $validate = $this->checkoutValidate($request);
 
