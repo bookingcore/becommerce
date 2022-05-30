@@ -35,7 +35,7 @@ class CartManager
         if(!static::$_cart){
             $cart_id = static::cart_id();
             if($cart_id){
-                $cart = Cart::find($cart_id);
+                $cart = Cart::findByCode($cart_id);
                 if(!$cart){
                     static::clear();
                 }
@@ -43,7 +43,7 @@ class CartManager
             if(empty($cart)){
                 if($create_draft){
                     $cart = Cart::createDraft();
-                    session([static::$session_key => $cart->id]);
+                    session([static::$session_key => $cart->code]);
                 }else{
                     return new Cart();
                 }

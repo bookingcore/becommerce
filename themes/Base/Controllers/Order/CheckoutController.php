@@ -35,7 +35,7 @@
             /**
              * @var Cart $cart
              */
-            $cart = Cart::whereCode($code)->first();
+            $cart = Cart::findByCode($code);
             if(!$cart){
                 return redirect('cart');
             }
@@ -79,7 +79,7 @@
              * @var Order $order
              */
 
-            $cart = Cart::whereCode($code)->first();
+            $cart = Cart::findByCode($code)->first();
             if(!$cart){
                 return $this->sendError(__("Cart does not exists"),['code'=>'cart_not_found']);
             }

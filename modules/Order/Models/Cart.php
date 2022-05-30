@@ -15,6 +15,9 @@ use Modules\Order\Helpers\CartManager;
 class Cart extends Order
 {
 
+    public static function findByCode($code){
+        return parent::whereCode($code)->first();
+    }
 
     public function total(): Attribute
     {
