@@ -47,7 +47,6 @@ class ProductVariationTerm extends BaseModel
                 $v_name = [];
                 foreach ($variations_attr as $v_item){
                     if ($item->id == $v_item->attr_id){
-                        dump($v_item);
                         array_push($v_name, $v_item->name);
                     }
                 }
