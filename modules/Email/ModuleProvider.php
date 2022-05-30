@@ -4,8 +4,10 @@
 namespace Modules\Email;
 
 
+use Illuminate\Mail\Events\MessageSending;
 use Illuminate\Mail\MailManager;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Event;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Email\Plugins\CssInlinerPlugin;
 use Modules\ModuleServiceProvider;
@@ -16,13 +18,10 @@ class ModuleProvider extends ModuleServiceProvider
     public function boot(){
 
         $this->app->singleton(CssInlinerPlugin::class, function ($app) {
-            return new CssInlinerPlugin();
+            return new CssInlinerPlugin($app['config']->get('bc.email.css_files', []));
         });
 
-        $this->app->afterResolving('mail.manager', function (MailManager $mailManager) {
-            $mailManager->getSwiftMailer()->registerPlugin($this->app->make(CssInlinerPlugin::class));
-            return $mailManager;
-        });
+        Event::listen(MessageSending::class, CssInlinerPlugin::class);
 
         SettingManager::register("email",[$this,'getEmailSettings']);
     }

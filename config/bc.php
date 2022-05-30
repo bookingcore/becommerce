@@ -40,7 +40,6 @@ return [
     ],
     'email'=>[
         "css_files"=>[
-            '/themes/Base/module/email/css/style.css'
         ]
     ],
     'disable_require_password'=>env('DISABLE_REQUIRE_CHANGE_PW',0),

@@ -5,7 +5,6 @@
                 @php $tab_name = $tab['name'] @endphp
                 @if($tab['id'] == 'review')
                     @php
-                    dd($row->review_list_count);
                         $count = $row->review_list_count;
                         $tab_name = $tab['name']." ($count)";
                     @endphp
