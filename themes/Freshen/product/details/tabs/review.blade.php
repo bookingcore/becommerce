@@ -15,7 +15,7 @@ $review_list = $row->review_list()
                 <div class="product_single_content">
                     <div class="mbp_pagination_comments">
                         <h5 class="fz16 mb30">
-                            {{ ($review_list) ? __('Reviews from guests') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}
+                            {{ empty($review_list) ? __('Reviews from guests') : __(':num Reviews For This Product',['num'=>$review_list->total()]) }}
                         </h5>
                         @if($review_list->total())
                             <div class="bc-review-list">
@@ -94,7 +94,7 @@ $review_list = $row->review_list()
                                     </div>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label class="fz14 heading-color mb10">{{__("Title")}}</label>
+                                    <label class="fz14 heading-color mb10">{{__("Title *")}}</label>
                                     <input type="text" required class="form-control" name="review_title">
                                     <div class="invalid-feedback">{{__('Review title is required')}}</div>
                                 </div>
