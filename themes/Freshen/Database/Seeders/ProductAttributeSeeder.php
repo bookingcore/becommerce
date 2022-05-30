@@ -20,25 +20,25 @@ class ProductAttributeSeeder extends Seeder
         //create term
         $term_list = [
             [
-                'name'      =>      '10',
+                'name'      =>      'Park 10',
                 'content'   =>      '',
                 'attr_id'   =>      $attr['park'],
                 'slug'      =>      '10'
             ],
             [
-                'name'      =>      '20',
+                'name'      =>      'Park 20',
                 'content'   =>      '',
                 'attr_id'   =>      $attr['park'],
                 'slug'      =>      '20'
             ],
             [
-                'name'      =>      '30',
+                'name'      =>      'Park 30',
                 'content'   =>      '',
                 'attr_id'   =>      $attr['park'],
                 'slug'      =>      '30'
             ],
             [
-                'name'      =>      '40',
+                'name'      =>      'Park 40',
                 'content'   =>      '',
                 'attr_id'   =>      $attr['park'],
                 'slug'      =>      '40'

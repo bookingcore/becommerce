@@ -127,7 +127,7 @@ class ProductSeeder extends \Themes\Base\Database\Seeders\ProductSeeder
                 'name'=>'fs_products_sidebar',
                 'val'=>[
                     ["title"=>"PRODUCT CATEGORIES","content"=>null,"attr"=>null,"type"=>"category"],
-                    ["title"=>"FILTER BY COLOR","content"=>null,"attr"=>"1","type"=>"attr"],
+                    ["title"=>"FILTER BY PARK","content"=>null,"attr"=>"1","type"=>"attr"],
                     ["title"=>"TRENDING TAGS","content"=>null,"attr"=>null,"type"=>"tag"],
                     [
                         "title"=>null,
