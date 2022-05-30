@@ -14,6 +14,7 @@
     use Illuminate\Support\Facades\Validator;
     use Modules\Order\Gateways\BaseGateway;
     use Modules\Order\Helpers\CartManager;
+    use Modules\Order\Models\Cart;
     use Modules\Order\Models\Order;
     use Modules\Order\Models\Payment;
     use Modules\Product\Models\UserAddress;
@@ -21,20 +22,27 @@
     class CheckoutController extends FrontendController
     {
         public function toCheckout(){
-            $cart= CartManager::cart();
-            if(!$cart)
+            $cart = CartManager::cart();
+            if($cart)
             {
-                return redirect('checkout.detail',['code'=>$cart->code]);
+                return redirect(route('checkout.detail',['code'=>$cart->code]));
             }
 
             return redirect('cart');
         }
 
         public function index($code){
-
-            $order = Order::whereCode($code)->first();
-            if(!$order){
+            /**
+             * @var Cart $cart
+             */
+            $cart = Cart::whereCode($code)->first();
+            if(!$cart){
                 return redirect('cart');
+            }
+
+            if(!$cart->needCheckout()){
+                CartManager::clear();
+                return redirect($cart->getDetailUrl());
             }
 
             if(!is_enable_guest_checkout() and !Auth::check()){
@@ -47,7 +55,7 @@
 
             $user = Auth::user();
             $data = [
-                'items'=>$order->items,
+                'items'=>$cart->items,
                 'page_title'=>__("Checkout"),
                 'hide_newsletter'=>true,
                 'gateways'=>get_active_payment_gateways(),
@@ -59,19 +67,24 @@
                         'name'=> "Checkout",
                     ]
                 ],
-                'order'=>$order
+                'order'=>$cart
             ];
             return view('order.checkout.index',$data);
         }
 
         public function process(Request $request,$code){
 
-            $order = Order::whereCode($code)->first();
-            if(!$order){
-                return $this->sendError(__("Order does not exists"),['code'=>'order_not_found']);
+            /**
+             * @var Cart $cart
+             * @var Order $order
+             */
+
+            $cart = Cart::whereCode($code)->first();
+            if(!$cart){
+                return $this->sendError(__("Cart does not exists"),['code'=>'cart_not_found']);
             }
 
-            $validate = $this->checkoutValidate($request);
+            $validate = $this->checkoutValidate($request,$cart);
 
             if($validate !== true ) return $validate;
 
@@ -80,8 +93,8 @@
              */
             $payment_gateway = $request->input('payment_gateway');
 
-            $gateways = get_active_payment_gateways();
-            if (!empty($rules['payment_gateway'])) {
+            if($cart->needPayment()) {
+                $gateways = get_active_payment_gateways();
                 if (empty($gateways[$payment_gateway])) {
                     return $this->sendError(__("Payment gateway not found"));
                 }
@@ -94,7 +107,7 @@
             // Create order
             try {
 
-                $order = CartManager::order($request);
+                $order = $cart->prepareCheckout($request);
 
             }catch (\Throwable $throwable){
                 return $this->sendError($throwable->getMessage());
@@ -201,13 +214,11 @@
 
             }catch (\Throwable $throwable){
                 Log::error("Checkout: ". $throwable->getMessage());
-                return $this->sendError($throwable->getMessage(),[
-                    'url' => $order->getDetailUrl()
-                ]);
+                return $this->sendError($throwable->getMessage());
             }
         }
 
-        protected function checkoutValidate(Request $request){
+        protected function checkoutValidate(Request $request,Cart $cart){
 
             if(!is_enable_guest_checkout() and !Auth::check()){
                 return $this->sendError(__("You have to login in to do this"))->setStatusCode(401);
@@ -219,7 +230,7 @@
             /**
              * @var User $user
              */
-            $items = CartManager::items();
+            $items = $cart->items;
             if(empty($items)){
                 return $this->sendError(__("Your cart is empty"));
             }
@@ -233,7 +244,6 @@
                     return $this->sendError(__("Please verify the captcha"));
                 }
             }
-            $shipping_country = $request->input('billing_country');
             $rules = [
                 'billing_first_name' => 'required|string|max:255',
                 'billing_last_name'  => 'required|string|max:255',
@@ -253,7 +263,6 @@
                     'shipping_country'    => 'required',
                     'shipping_address'    => 'required',
                 ]);
-                $shipping_country = $request->input('shipping_country');
             }
             $rules['payment_gateway'] = 'required';
             $rules['term_conditions'] = 'required';
@@ -269,7 +278,7 @@
 
             // Validate again before checkout
             try{
-                CartManager::validate();
+                $cart->validate();
             }catch (\Exception $exception){
                 return $this->sendError($exception->getMessage());
             }

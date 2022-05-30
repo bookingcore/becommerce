@@ -66,7 +66,7 @@
     <script>
         var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( new \Modules\Order\Helpers\CartManager ) )  !!};
         BC.routes.checkout = {
-            process:'{{route('checkout.process')}}'
+            process:'{{route('checkout.process',['code'=>$order->code])}}'
         }
     </script>
     <script src="{{ theme_url('Base/order/cart.js') }}"></script>

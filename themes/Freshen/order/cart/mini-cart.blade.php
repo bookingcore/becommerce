@@ -27,7 +27,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                         <li class="list_content">
                             <a href="#">
                                 <img class="float-start" src="#" alt="50x50">
-                                <p>{{$cartItem->name}}</p>
+                                <p>{{$cartItem->title}}</p>
                                 @if(!empty($cartItem->author))
                                     <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
                                 @endif

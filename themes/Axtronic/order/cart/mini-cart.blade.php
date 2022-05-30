@@ -43,7 +43,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                                     </div>
                                     <div class="product-caption">
                                         <h2 class="product__title">
-                                            <a href="#">{{$cartItem->name}}</a>
+                                            <a href="#">{{$cartItem->title}}</a>
                                         </h2>
                                         @if(!empty($cartItem->author))
                                             <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>

@@ -58,7 +58,6 @@ class Order extends BaseModel
         if($this->total<0){
                $this->total=0;
         }
-        $this->save();
     }
 
     public function getDetailUrl(){
@@ -253,6 +252,7 @@ class Order extends BaseModel
         OrderItem::query()->whereNotIn('id',$order_item_ids)->where('order_id',$this->id)->delete();
 
         $this->syncTotal();
+        $this->save();
     }
 
     public function saveTax($tax_lists){
@@ -314,7 +314,7 @@ class Order extends BaseModel
     public function addNote($name,$val = '',$extra = []){
         $note = new OrderNote([
             'name'=>$name,
-            'value'=>$val,
+            'val'=>$val,
             'extra'=>$extra
         ]);
 
@@ -327,9 +327,28 @@ class Order extends BaseModel
         }
         return false;
     }
+    public function needCheckout(){
+        if(in_array($this->status,[$this::FAILED,$this::ON_HOLD,$this::DRAFT])){
+            return true;
+        }
+        return false;
+    }
 
     public function addPaymentLog($val): void
     {
         $this->addMeta('payment_logs',$val,true);
+    }
+
+    /**
+     * Validate stock of all order items
+     *
+     */
+    public function validate(){
+        foreach ($this->items as $item){
+            $model = $item->model;
+            if($model){
+                $model->addToCartValidate($item->qty,$item->variation_id);
+            }
+        }
     }
 }

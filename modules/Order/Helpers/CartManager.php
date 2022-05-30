@@ -43,9 +43,9 @@ class CartManager
             if(empty($cart)){
                 if($create_draft){
                     $cart = Cart::createDraft();
-                    session(static::$session_key,$cart->id);
+                    session([static::$session_key => $cart->id]);
                 }else{
-                    return null;
+                    return new Cart();
                 }
             }
             static::$_cart = $cart;
@@ -56,7 +56,7 @@ class CartManager
 
     public static function add($product_id, $name = '', $qty = 1, $price = 0,$meta = [], $variation_id = false){
 
-        static::cart(true);
+        $cart = static::cart(true);
 
         $item = static::findItem($product_id,$variation_id);
         if(!$item){
@@ -99,9 +99,9 @@ class CartManager
         $currentItems  = static::cart()->items();
 
         if($product_id instanceof Product){
-            $currentItems = $currentItems->where('product_id',$product_id->id);
+            $currentItems = $currentItems->where('object_id',$product_id->id);
         }else{
-            $currentItems = $currentItems->where('product_id',$product_id);
+            $currentItems = $currentItems->where('object_id',$product_id);
         }
         if($variation_id){
             $currentItems = $currentItems->where('variation_id',$variation_id);
@@ -149,9 +149,6 @@ class CartManager
      * @return bool
      */
     public static function clear(){
-        if($cart = static::cart()){
-            $cart->delete();
-        }
         Session::forget(static::$session_key);
         static::$_cart = null;
         return true;
@@ -226,9 +223,10 @@ class CartManager
     	if(!empty($coupon->id)){
 		    $coupons = static::getCoupon();
 		    $coupons->pull($coupon->id);
-		    static::calculatorDiscountCoupon();
 
             static::cart()->addMeta('coupons',$coupons);
+
+            static::calculatorDiscountCoupon();
 	    }
     }
 
@@ -237,7 +235,7 @@ class CartManager
 		$items = static::items();
 		$coupons  = static::getCoupon();
 		$totalDiscount = 0;
-        $resetDiscount =true ;
+        $resetDiscount = true ;
 		if(!empty($items) and $coupons->count()>0){
 		    foreach ($coupons as $c=> $coupon){
                 $coupon = Coupon::find($coupon['id']);
@@ -271,95 +269,17 @@ class CartManager
 		if($totalDiscount<0){
 		    $totalDiscount = 0;
         }
-		static::cart()->total_discount = $totalDiscount;
+		static::cart()->discount_amount = $totalDiscount;
+        static::cart()->save();
 	}
 
-    /**
-     * return Order
-     */
-    public static function order(Request $request){
-
-        $shipping_country = $request->input($request->input('shipping_same_address') ? 'billing_country' : 'shipping_country');
-        // CartManager add shipping
-        if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
-            if($res['status'] == 0){
-                throw new \Exception($res['message'] ?? __("Can not add shipping"));
-            }
-        }
-
-        CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
-
-        $order = static::cart();
-        $order->customer_id = auth()->id();
-        $order->status = Order::DRAFT;
-        $order->locale = app()->getLocale();
-        $order->shipping_amount = static::cart()->shipping_amount;
-        $order->discount_amount = static::discountTotal();
-        $order->gateway = $request->input('payment_gateway');
-        $order->save();
-
-        $items = static::items();
-        foreach ($items as $order_item){
-            $model = $order_item->model;
-            if(!$model){
-                $order_item->delete();
-                throw new \Exception(__("Product: :id does not exists",['id'=>$order_item->object_id]));
-            }
-            $order_item->price = $model->sale_price;
-            $order_item->locale = app()->getLocale();
-            $order_item->calculateTotal();
-            $order_item->calculateCommission();
-            $order_item->save();
-        }
-        $order->syncTotal();
-
-        //Tax
-        if(!empty( $taxItems = static::cart()->tax )){
-            $tax_rate = 0;
-            foreach ( $taxItems as $item ){
-                $tax_rate += $item['tax_rate'];
-            }
-            $total_amount = $order->total;
-            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
-            if(setting_item("prices_include_tax", 'yes') == "no"){
-                $total_amount += $tax_amount;
-            }
-            $order->total = $total_amount;
-            $order->tax_amount = $tax_amount;
-            $order->save();
-            $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
-        }
-
-        $coupons = static::getCoupon();
-
-        if(!empty($coupons) and count($coupons)>0){
-            foreach ($coupons as $coupon){
-                $couponOrder = new CouponOrder();
-                $couponOrder->order_id = $order->id;
-                $couponOrder->order_status = Order::DRAFT;
-                $couponOrder->coupon_code = $coupon['code'];
-                $couponOrder->coupon_amount = $coupon['amount'];
-                $couponOrder->coupon_discount_type = $coupon['discount_type'];
-                $couponOrder->coupon_data = $coupon;
-                $couponOrder->save();
-            }
-        }
-
-        return $order;
-    }
-
     public static function pushItem(CartItem $cartItem){
-        static::cart()->items()->save($cartItem);
+        static::cart()->addItem($cartItem);
     }
 
 
     public static function validate(){
-        foreach (static::items() as $item){
-            $model = $item->model;
-            if($model){
-                $model->addToCartValidate($item->qty,$item->variation_id);
-            }
-        }
+        return static::cart()->validate();
     }
     public static function validateItem(CartItem $item,$qty){
         $model = $item->model;

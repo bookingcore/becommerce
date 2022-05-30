@@ -12,7 +12,7 @@
         @foreach($items as $cartItem)
         <tr class="cart-item">
             <td class="product-name">
-                {{$cartItem->name}}
+                {{$cartItem->title}}
 
                 @if($variation = $cartItem->variation and $terms = $variation->terms())
                     &mdash;

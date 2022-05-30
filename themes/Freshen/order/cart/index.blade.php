@@ -33,7 +33,7 @@
                                                                 <li class="list-inline-item pr10"><a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'img-fluid'])!!}</a></li>
                                                             @endif
                                                             <li class="list-inline-item">
-                                                                <a class="cart_title" href="{{$cartItem->getDetailUrl()}}">{{$cartItem->name}}</a>
+                                                                <a class="cart_title" href="{{$cartItem->getDetailUrl()}}">{{$cartItem->title}}</a>
                                                                 @if($variation = $cartItem->variation and $terms = $variation->terms())
                                                                     <ul class="mb-2">
                                                                         @foreach($terms as $term)

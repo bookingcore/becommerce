@@ -32,7 +32,7 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                                 <div class="bc-product-thumbnail">
                                     <a href="#"><img src="" alt=""></a></div>
                                 <div class="bc-product-content">
-                                    <a href="#">{{$cartItem->name}}</a>
+                                    <a href="#">{{$cartItem->title}}</a>
                                     @if(!empty($cartItem->author))
                                         <div><small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small></div>
                                     @endif

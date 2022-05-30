@@ -33,7 +33,7 @@
                                                         <a href="{{$cartItem->getDetailUrl()}}"> {!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'img-fluid rounded-3 w-75px'])!!}</a>
                                                     @endif
                                                     <div class="flex-column ms-4">
-                                                        <p class="mb-2"><a href="{{$cartItem->getDetailUrl()}}"><strong>{{$cartItem->name}}</strong></a></p>
+                                                        <p class="mb-2"><a href="{{$cartItem->getDetailUrl()}}"><strong>{{$cartItem->title}}</strong></a></p>
                                                         @if($variation = $cartItem->variation and $terms = $variation->terms())
                                                             <ul class="mb-2">
                                                                 @foreach($terms as $term)
@@ -52,7 +52,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div></div>
                                                     <div class="flex-column ms-4">
-                                                        <p class="mb-2">{{$cartItem->name}}</p>
+                                                        <p class="mb-2">{{$cartItem->title}}</p>
                                                     </div>
                                                 </div>
                                             </td>
