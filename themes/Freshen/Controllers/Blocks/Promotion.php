@@ -76,10 +76,9 @@ class Promotion extends BaseBlock
         $data = [
             'title'  =>  $model['title'] ?? '',
             'list_items'  =>  $model['list_items'] ?? '',
-            'col' => $model['col'] ?? 4
+            'col' => $model['col'] ?? 4,
+            'style' => $model['style'] ?? "style_1",
         ];
-        if(empty($model['style'])) $style = 'style_1';
-
-        return view("blocks.promotion.{$style}", $data);
+        return view("blocks.promotion.".$data['style'], $data);
     }
 }
