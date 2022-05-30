@@ -10,11 +10,11 @@
         @foreach($coupons as $coupon)
             <li class="item d-flex justify-content-between">
                 <div class="label">
-                    {{ $coupon['code'] }}
-                    <i data-toggle="tooltip" data-placement="top" class="icofont-info-circle" data-original-title="{{ $coupon['name']}}"></i>
+                    {{ $coupon->code }}
+                    <i data-toggle="tooltip" data-placement="top" class="icofont-info-circle" data-original-title="{{ $coupon->name}}"></i>
                 </div>
                 <div class="val">
-                    <a href="#" data-code="{{ $coupon['code'] }}" class="text-danger text-decoration-none axtronic_remove_coupon"> {{ __("[Remove]") }}
+                    <a href="#" data-code="{{ $coupon->code }}" class="text-danger text-decoration-none bc_remove_coupon"> {{ __("[Remove]") }}
                         <i class="fa fa-spin fa-spinner d-none"></i>
                     </a>
                 </div>

@@ -2,6 +2,7 @@
 namespace Modules\Coupon\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class CouponOrder extends BaseModel
 {
@@ -28,4 +29,17 @@ class CouponOrder extends BaseModel
             $query->delete();
         }
     }
+
+    public function coupon(){
+        return $this->belongsTo(Coupon::class,'coupon_code','code');
+    }
+
+    public function name() : Attribute{
+        return Attribute::make(
+            get:function(){
+                    return $this->coupon->name ?? '';
+            }
+        );
+    }
+
 }

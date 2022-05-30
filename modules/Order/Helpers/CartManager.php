@@ -205,73 +205,21 @@ class CartManager
         ];
     }
 
+    /**
+     * @return Coupon[]|mixed
+     */
     public static function getCoupon(){
-    	return collect(static::cart()->getJsonMeta('coupons'));
+    	return static::cart()->coupons;
     }
 
     public static function storeCoupon(Coupon $coupon){
-    	if(!empty($coupon->id)){
-		    $coupons = static::getCoupon();
-		    $coupons->put($coupon->id,$coupon);
-
-		    static::cart()->addMeta('coupons',$coupons);
-
-		    static::calculatorDiscountCoupon();
-	    }
+    	return static::cart()->storeCoupon($coupon);
     }
-    public static function removeCounpon(Coupon $coupon){
-    	if(!empty($coupon->id)){
-		    $coupons = static::getCoupon();
-		    $coupons->pull($coupon->id);
+    public static function removeCoupon(Coupon $coupon){
 
-            static::cart()->addMeta('coupons',$coupons);
-
-            static::calculatorDiscountCoupon();
-	    }
+        return static::cart()->removeCoupon($coupon);
     }
 
-	public static function calculatorDiscountCoupon()
-    {
-		$items = static::items();
-		$coupons  = static::getCoupon();
-		$totalDiscount = 0;
-        $resetDiscount = true ;
-		if(!empty($items) and $coupons->count()>0){
-		    foreach ($coupons as $c=> $coupon){
-                $coupon = Coupon::find($coupon['id']);
-                if(!empty($coupon)){
-                    $services = $coupon->services()->get(['object_id','object_model'])->toArray();
-                    if(!empty($services)){
-                        foreach ($items as $cart_item_id=> $item){
-                            $check = \Arr::where($services,function ($value,$key) use ($item){
-                                if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
-                                    return $value;
-                                }
-                            });
-                            if(!empty($check)){
-                                $discount = $coupon->calculatorPrice($item->price);
-                                if($resetDiscount){
-                                    //reset discount_amount
-                                    $item->discount_amount =0;
-                                }
-                                $item->discount_amount+=$discount;
-                                $items->put($cart_item_id,$item);
-                                $totalDiscount += $discount;
-                            }
-                        }
-                    }else{
-                        $totalDiscount += $coupon->calculatorPrice(static::subtotal());
-                    }
-                }
-                $resetDiscount = false;
-            }
-		}
-		if($totalDiscount<0){
-		    $totalDiscount = 0;
-        }
-		static::cart()->discount_amount = $totalDiscount;
-        static::cart()->save();
-	}
 
     public static function pushItem(CartItem $cartItem){
         static::cart()->addItem($cartItem);
@@ -347,42 +295,11 @@ class CartManager
 
     public static function getTaxRate($billing_country , $shipping_country)
     {
-        $data = [
-            'status' => 0,
-            'tax'    => ''
-        ];
-        switch ( setting_item("tax_based_on",'billing') )
-        {
-            case"billing":
-                $country = $billing_country;
-                break;
-            case"shipping":
-                $country = $shipping_country;
-                break;
-            default:
-                $country = "";
-        }
-        // Find Tax By Country
-        $tax = TaxRate::select("id","name", "tax_rate", "city", "postcode", "country", "state")
-            ->where("country", $country)
-            ->orWhere("country", "*")->get();
-        if (!empty($tax)) {
-            $data = [
-                'status'             => 1,
-                'prices_include_tax' => setting_item("prices_include_tax", 'yes'),
-                'tax'                => $tax->toArray(),
-            ];
-        }
-        return $data;
+        return static::cart()->getTaxRate($billing_country , $shipping_country);
     }
 
     public static function addTax($billing_country , $shipping_country){
-        if( TaxRate::isEnable() ){
-            $tax = static::getTaxRate($billing_country , $shipping_country);
-            if(!empty($tax['tax'])){
-                static::cart()->addMeta('tax',$tax['tax']);
-            }
-        }
+        return static::cart()->addTax($billing_country,$shipping_country);
     }
 
     public static function cart_id(){

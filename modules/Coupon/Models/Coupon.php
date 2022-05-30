@@ -38,7 +38,7 @@ class Coupon extends BaseModel
         $res = $this->applyCouponValidate();
         if ($res !== true)
             return $res;
-        CartManager::storeCoupon($this);
+        CartManager::removeCoupon($this);
         return [
             'status' =>  1,
             'message' => __("Coupon code is applied successfully!")
@@ -183,7 +183,7 @@ class Coupon extends BaseModel
         }
         return $data;
     }
-    public function calculatorPrice($price){
+    public function calculatePrice($price){
 		//for Type Fixed
 	    $coupon_amount = $this->amount;
 	    //for Type Percent

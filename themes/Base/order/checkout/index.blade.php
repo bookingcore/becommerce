@@ -58,9 +58,9 @@
 @endsection
 @section('footer')
     <script>
-        var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $order ) )  !!};
+        var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!};
         BC.routes.checkout = {
-            process:'{{route('checkout.process',['code'=>$order->code])}}'
+            process:'{{route('checkout.process',['code'=>$cart->code])}}'
         }
     </script>
     <script src="{{ theme_url('Base/order/cart.js') }}"></script>

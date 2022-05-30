@@ -4,7 +4,6 @@
     <section class="shop-checkouts fs-14" id="bravo-checkout-page" v-cloak>
         <div class="container checkout_form ">
             <h1 class="mb-3">{{__("Checkout")}}</h1>
-            @if(\Modules\Order\Helpers\CartManager::count())
             <div class="row checkout_coupon">
                 <div class=" form2 column col-lg-8 col-md-12 col-sm-12">
                     @if(!auth()->check())
@@ -56,17 +55,14 @@
                     </div>
                 </div>
             </div>
-            @else
-                <div class="alert alert-warning">{{__("Your cart is empty!")}}</div>
-            @endif
         </div>
     </section>
 @endsection
 @section('footer')
     <script>
-        var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( new \Modules\Order\Helpers\CartManager ) )  !!};
+        var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!};
         BC.routes.checkout = {
-            process:'{{route('checkout.process',['code'=>$order->code])}}'
+            process:'{{route('checkout.process',['code'=>$cart->code])}}'
         }
     </script>
     <script src="{{ theme_url('Base/order/cart.js') }}"></script>

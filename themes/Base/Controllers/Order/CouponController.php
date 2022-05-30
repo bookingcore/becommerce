@@ -36,7 +36,7 @@ class CouponController extends FrontendController
         }
         $couponCart = CartManager::getCoupon();
         if($couponCart->where('id',$coupon->id)->first()){
-            CartManager::removeCounpon($coupon);
+            CartManager::removeCoupon($coupon);
             $res =  [
                 'reload'=>1,
                 'status'=>1,

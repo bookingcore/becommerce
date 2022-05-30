@@ -69,7 +69,7 @@ class Cart extends Order
               $res = [];
               $meta =  $this->getMeta('tax',true,true);
               foreach ($meta as $item){
-                    $res[] = json_decode($item,true);
+                    $res[] = json_decode($item->val,true);
               }
               return $res;
           }
@@ -93,8 +93,6 @@ class Cart extends Order
      */
     public function prepareCheckout(Request $request){
 
-        $order = $this;
-
         $shipping_country = $request->input($request->input('shipping_same_address') ? 'billing_country' : 'shipping_country');
         // CartManager add shipping
         if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
@@ -103,20 +101,18 @@ class Cart extends Order
             }
         }
 
-        CartManager::addTax($request->input('billing_country') , $request->input('shipping_country'));
+        $this->addTax($request->input('billing_country') , $request->input('shipping_country'));
 
-        $order->customer_id = auth()->id();
-        $order->status = Order::DRAFT;
-        $order->locale = app()->getLocale();
-        $order->shipping_amount = $this->shipping_amount;
-        $order->discount_amount = $this->discountTotal();
-        $order->gateway = $request->input('payment_gateway');
-        $order->save();
+        $this->customer_id = auth()->id();
+        $this->status = Order::DRAFT;
+        $this->locale = app()->getLocale();
+        $this->discount_amount = $this->discountTotal();
+        $this->gateway = $request->input('payment_gateway');
 
         /**
          * @var CartItem[] $items;
          */
-        $items = $order->items;
+        $items = $this->items;
         foreach ($items as $order_item){
             $model = $order_item->model;
             if(!$model){
@@ -129,41 +125,28 @@ class Cart extends Order
             $order_item->calculateCommission();
             $order_item->save();
         }
-        $order->syncTotal();
+
+        $this->syncTotal();
 
         //Tax
-        if(!empty( $taxItems = $order->tax )){
+        if(!empty( $taxItems = $this->tax )){
             $tax_rate = 0;
+            dd($taxItems);
             foreach ( $taxItems as $item ){
                 $tax_rate += $item['tax_rate'];
             }
-            $total_amount = $order->total;
+            $total_amount = $this->total;
             $tax_amount = ( $total_amount / 100 ) * $tax_rate;
             if(setting_item("prices_include_tax", 'yes') == "no"){
                 $total_amount += $tax_amount;
             }
-            $order->total = $total_amount;
-            $order->tax_amount = $tax_amount;
-            $order->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
+            $this->total = $total_amount;
+            $this->tax_amount = $tax_amount;
+            $this->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
         }
 
-        $coupons = $this->getJsonMeta('coupons');
+        $this->save();
 
-        if(!empty($coupons) and count($coupons)>0){
-            foreach ($coupons as $coupon){
-                $couponOrder = new CouponOrder();
-                $couponOrder->order_id = $order->id;
-                $couponOrder->order_status = Order::DRAFT;
-                $couponOrder->coupon_code = $coupon['code'];
-                $couponOrder->coupon_amount = $coupon['amount'];
-                $couponOrder->coupon_discount_type = $coupon['discount_type'];
-                $couponOrder->coupon_data = $coupon;
-                $couponOrder->save();
-            }
-        }
-
-        $order->save();
-
-        return $order;
+        return $this;
     }
 }

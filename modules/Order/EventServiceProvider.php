@@ -18,6 +18,7 @@ class EventServiceProvider extends ServiceProvider
         OrderStatusUpdated::class=>[
             ProductStockListener::class,
             OrderStatusUpdatedNotification::class,
+            CouponOrderStatusListener::class,
         ],
     ];
 }

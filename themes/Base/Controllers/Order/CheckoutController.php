@@ -67,7 +67,7 @@
                         'name'=> "Checkout",
                     ]
                 ],
-                'order'=>$cart
+                'cart'=>$cart
             ];
             return view('order.checkout.index',$data);
         }
@@ -114,6 +114,7 @@
             }
 
             $this->processAddress($request,$order);
+            dd($order);
 
             if(!$order->needPayment()){
 

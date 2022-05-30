@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Notification;
+use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderStatusUpdated;
@@ -52,11 +53,14 @@ class Order extends BaseModel
 
     public function syncTotal(){
         $this->subtotal = $this->items->sum('subtotal');
+
+        $this->syncDiscount();
+
         $discount = $this->discount_amount;
         $shipping  = $this->shipping_amount;
         $this->total = $this->subtotal + $shipping - $discount;
         if($this->total<0){
-               $this->total=0;
+            $this->total=0;
         }
     }
 
@@ -100,7 +104,7 @@ class Order extends BaseModel
             }
         );
     }
-    public function shippingFulLAddress(): Attribute
+    public function shippingFullAddress(): Attribute
     {
        return Attribute::make(
            get:function($value){
@@ -123,6 +127,10 @@ class Order extends BaseModel
 
 
     public function coupons(){
+        return $this->hasManyThrough(Coupon::class, CouponOrder::class,'order_id','code','id','coupon_code');
+    }
+
+    public function coupon_orders(){
         return $this->hasMany(CouponOrder::class,'order_id');
     }
 
@@ -351,4 +359,116 @@ class Order extends BaseModel
             }
         }
     }
+
+    public function getTaxRate($billing_country , $shipping_country){
+        $data = [
+            'status' => 0,
+            'tax'    => ''
+        ];
+        switch ( setting_item("tax_based_on",'billing') )
+        {
+            case"billing":
+                $country = $billing_country;
+                break;
+            case"shipping":
+                $country = $shipping_country;
+                break;
+            default:
+                $country = "";
+        }
+        // Find Tax By Country
+        $tax = TaxRate::select("id","name", "tax_rate", "city", "postcode", "country", "state")
+            ->where("country", $country)
+            ->orWhere("country", "*")->get();
+        if (!empty($tax)) {
+            $data = [
+                'status'             => 1,
+                'prices_include_tax' => setting_item("prices_include_tax", 'yes'),
+                'tax'                => $tax->toArray(),
+            ];
+        }
+        return $data;
+    }
+
+    public function addTax($billing_country , $shipping_country){
+        if( TaxRate::isEnable() ){
+            $tax = $this->getTaxRate($billing_country , $shipping_country);
+            if(!empty($tax['tax'])){
+                $this->addMeta('tax',$tax['tax']);
+            }
+        }
+    }
+
+    public function storeCoupon(Coupon $coupon){
+        $couponOrder = $this->coupon_orders()->where('coupon_code',$coupon->code)->first();
+        if(!$couponOrder){
+            $couponOrder = new CouponOrder();
+        }
+        $couponOrder->order_id = $this->id;
+        $couponOrder->order_status = $this->status;
+        $couponOrder->coupon_code = $coupon->code;
+        $couponOrder->coupon_amount = $coupon->amount;
+        $couponOrder->coupon_discount_type = $coupon->discount_type;
+        $couponOrder->save();
+
+        $this->load('coupons');
+        $this->load('coupon_orders');
+
+        $this->syncTotal();
+        $this->save();
+    }
+
+    public function removeCoupon(Coupon $coupon){
+        $this->coupon_orders()->where('coupon_code',$coupon->code)->delete();
+
+        $this->load('coupons');
+        $this->load('coupon_orders');
+        $this->syncTotal();
+        $this->save();
+    }
+
+    public function syncDiscount(){
+        $items = $this->items;
+        $coupons  = $this->coupons;
+        $totalDiscount = 0;
+        $resetDiscount = true ;
+        if(!empty($items) and $coupons->count()>0){
+            foreach ($coupons as $c=> $coupon){
+                /**
+                 * @var Coupon $coupon
+                 */
+                if(!empty($coupon)){
+                    $services = $coupon->services()->get(['object_id','object_model'])->toArray();
+                    if(!empty($services)){
+                        foreach ($items as $cart_item_id=> $item){
+                            $check = \Arr::where($services,function ($value,$key) use ($item){
+                                if($value['object_id']==$item['object_id'] and $value['object_model'] == $item['object_model']){
+                                    return $value;
+                                }
+                            });
+                            if(!empty($check)){
+                                $discount = $coupon->calculatePrice($item->price);
+                                if($resetDiscount){
+                                    //reset discount_amount
+                                    $item->discount_amount =0;
+                                }
+                                $item->discount_amount+=$discount;
+                                $item->save();
+
+                                $totalDiscount += $discount;
+                            }
+                        }
+                    }else{
+                        $totalDiscount += $coupon->calculatePrice($this->subtotal);
+                    }
+                }
+                $resetDiscount = false;
+            }
+        }
+        if($totalDiscount<0){
+            $totalDiscount = 0;
+        }
+        $this->discount_amount = $totalDiscount;
+    }
+
 }

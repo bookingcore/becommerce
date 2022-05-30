@@ -32,7 +32,8 @@ class CartController extends FrontendController
                     'name'=> "Shopping Cart",
                 ]
             ],
-            'page_title'=>__("Shopping Cart")
+            'page_title'=>__("Shopping Cart"),
+            'cart'=>$this->cart_manager::cart()
         ];
 
         return view('order.cart.index',$data);
