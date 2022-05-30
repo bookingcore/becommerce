@@ -269,28 +269,11 @@ class CartManager
     }
 
     public static function addShipping($country , $shipping_method){
-        // if no method setting
-        if( ShippingZoneMethod::countMethodAvailable() == 0){
-            return ['status'=>1];
-        }
-        // find method in zone
-        if(empty($shipping_method)){
-            return ['status'=>0,'message'=>'Please select shipping method.'];
-        }
-        $list_methods = static::getMethodShipping($country);
-        if(!empty($list_methods['shipping_methods']))
-        {
-            foreach ( $list_methods['shipping_methods'] as $method){
-                if($method['method_id'] == $shipping_method){
-                    static::cart()->shipping_amount = $method['method_cost'];
-                    static::cart()->shipping_method = $method;
-                    return ['status'=>1];
-                }
-            }
-            static::cart()->save();
-        }
-        // if method not in zone
-        return ['status'=>0,'message'=>'There are no shipping options available.'];
+        $res = static::cart()->addShipping($country,$shipping_method);
+
+        static::cart()->save();
+
+        return $res;
     }
 
     public static function getTaxRate($billing_country , $shipping_country)

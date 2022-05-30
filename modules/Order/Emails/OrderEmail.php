@@ -13,7 +13,7 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    protected $_order;
+    protected Order $_order;
     protected $email_to;
     protected $vendor;
     protected $email_type;
@@ -44,7 +44,6 @@ class OrderEmail extends \Illuminate\Mail\Mailable implements ShouldQueue
             'email_type'=>$this->email_type
         ];
         $subject = $this->getSubject();
-        $view = 'order.emails.'.$this->email_type;
         switch ($this->email_type){
             case "new_order":
                 $view = 'order.emails.'.$this->email_type;

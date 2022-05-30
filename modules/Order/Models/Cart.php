@@ -95,7 +95,7 @@ class Cart extends Order
 
         $shipping_country = $request->input($request->input('shipping_same_address') ? 'billing_country' : 'shipping_country');
         // CartManager add shipping
-        if($res = CartManager::addShipping( $shipping_country ,$request->input("shipping_method_id"))){
+        if($res = $this->addShipping( $shipping_country ,$request->input("shipping_method_id"))){
             if($res['status'] == 0){
                 throw new \Exception($res['message'] ?? __("Can not add shipping"));
             }
