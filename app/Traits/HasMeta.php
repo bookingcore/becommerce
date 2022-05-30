@@ -51,4 +51,11 @@ Trait HasMeta
         $find->val = $val;
         return $find->save();
     }
+
+    public function deleteMeta($key){
+        $this->metaClass::query()->where([
+            $this->meta_parent_key => $this->id,
+            'name'       => $key
+        ])->delete();
+    }
 }

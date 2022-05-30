@@ -9,8 +9,8 @@ class OrderResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'subtotal_amount' => $this::subtotal(),
-            'discount_amount' => $this::discountTotal(),
+            'subtotal_amount' => (float) $this->subtotal,
+            'discount_amount' => (float) $this->discount_amount,
             'shipping_available' => ShippingZoneMethod::countMethodAvailable() == 0 ? false : true,
             'tax_available' => TaxRate::isEnable(),
         ];

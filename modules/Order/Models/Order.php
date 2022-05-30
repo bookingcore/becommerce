@@ -295,7 +295,7 @@ class Order extends BaseModel
     }
 
     public function notes(){
-        return $this->hasMany(OrderNote::class);
+        return $this->hasMany(OrderNote::class,'order_id');
     }
 
     /**
@@ -393,8 +393,12 @@ class Order extends BaseModel
     public function addTax($billing_country , $shipping_country){
         if( TaxRate::isEnable() ){
             $tax = $this->getTaxRate($billing_country , $shipping_country);
+            $this->deleteMeta('tax');
             if(!empty($tax['tax'])){
-                $this->addMeta('tax',$tax['tax']);
+                foreach ($tax['tax'] as $tax_item){
+                    $this->addMeta('tax',$tax_item,true);
+                }
+
             }
         }
     }

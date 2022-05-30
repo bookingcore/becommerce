@@ -71,7 +71,7 @@ class Cart extends Order
               foreach ($meta as $item){
                     $res[] = json_decode($item->val,true);
               }
-              return $res;
+              return collect($res);
           }
         );
     }
@@ -104,7 +104,6 @@ class Cart extends Order
         $this->addTax($request->input('billing_country') , $request->input('shipping_country'));
 
         $this->customer_id = auth()->id();
-        $this->status = Order::DRAFT;
         $this->locale = app()->getLocale();
         $this->discount_amount = $this->discountTotal();
         $this->gateway = $request->input('payment_gateway');
@@ -130,11 +129,9 @@ class Cart extends Order
 
         //Tax
         if(!empty( $taxItems = $this->tax )){
-            $tax_rate = 0;
-            dd($taxItems);
-            foreach ( $taxItems as $item ){
-                $tax_rate += $item['tax_rate'];
-            }
+
+            $tax_rate = $taxItems->sum('tax_rate');
+
             $total_amount = $this->total;
             $tax_amount = ( $total_amount / 100 ) * $tax_rate;
             if(setting_item("prices_include_tax", 'yes') == "no"){

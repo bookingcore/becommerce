@@ -109,26 +109,26 @@
 
                 $order = $cart->prepareCheckout($request);
 
+                $this->processAddress($request,$order);
+
+                if(!$order->needPayment()){
+
+                    CartManager::clear();
+
+                    $order->updateStatus($order::PROCESSING);
+
+                    return $this->sendSuccess([
+                        'url' => $order->getDetailUrl()
+                    ]);
+
+                }
+
+                return $this->processOrderPayment($order,$gatewayObj);
+
             }catch (\Throwable $throwable){
+                report($throwable);
                 return $this->sendError($throwable->getMessage());
             }
-
-            $this->processAddress($request,$order);
-            dd($order);
-
-            if(!$order->needPayment()){
-
-                CartManager::clear();
-
-                $order->updateStatus($order::PROCESSING);
-
-                return $this->sendSuccess([
-                    'url' => $order->getDetailUrl()
-                ]);
-
-            }
-
-            return $this->processOrderPayment($order,$gatewayObj);
         }
 
         public function processAddress(Request $request,Order $order)
@@ -192,31 +192,24 @@
 
         public function processOrderPayment(Order $order,BaseGateway $gatewayObj){
 
-            try {
+            $res = $gatewayObj->process($order);
 
-                $res = $gatewayObj->process($order);
-
-                if ($res !== true) {
-                    return response()->json($res);
-                }
-                if(is_array($res)){
-                    if(!empty($res['url'])){
-                        return $this->sendSuccess([
-                            'url' => $res['url']
-                        ]);
-                    }
-                }
-
-                CartManager::clear();
-
-                return $this->sendSuccess([
-                    'url' => $order->getDetailUrl()
-                ]);
-
-            }catch (\Throwable $throwable){
-                Log::error("Checkout: ". $throwable->getMessage());
-                return $this->sendError($throwable->getMessage());
+            if ($res !== true) {
+                return response()->json($res);
             }
+            if(is_array($res)){
+                if(!empty($res['url'])){
+                    return $this->sendSuccess([
+                        'url' => $res['url']
+                    ]);
+                }
+            }
+
+            CartManager::clear();
+
+            return $this->sendSuccess([
+                'url' => $order->getDetailUrl()
+            ]);
         }
 
         protected function checkoutValidate(Request $request,Cart $cart){

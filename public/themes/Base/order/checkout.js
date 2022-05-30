@@ -24,7 +24,8 @@
             prices_include_tax:'no',
             tax_amount:'',
             tax:false,
-            onGetTaxRate:false
+            onGetTaxRate:false,
+            discount_amount:0
         },
         created:function(){
             for(var k in bc_order_data){

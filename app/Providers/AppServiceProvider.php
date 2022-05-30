@@ -62,7 +62,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Load Email Config from Database
         if(!empty(setting_item('email_driver'))){
-            Config::set('mail.driver',setting_item("email_driver"));
+            Config::set('mail.default',setting_item("email_driver"));
             switch (setting_item("email_driver")){
                 case 'mailgun':
                     if(!empty(setting_item('email_mailgun_domain'))){
@@ -167,6 +167,7 @@ class AppServiceProvider extends ServiceProvider
                 break;
             }
         }
+
     }
 
     protected function setLang(){
