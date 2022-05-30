@@ -146,4 +146,9 @@ class Cart extends Order
 
         return $this;
     }
+
+    public function items()
+    {
+        return $this->hasMany(CartItem::class,'order_id');
+    }
 }

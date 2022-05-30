@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductVariation;
 
 class OrderItem extends BaseModel
 {
@@ -127,5 +128,17 @@ class OrderItem extends BaseModel
 
     public function calculateTotal(){
         $this->setAttribute('subtotal',$this->subtotal);
+    }
+
+
+    public function updatePrice(){
+        if($this->model){
+            if($this->variation_id){
+                $this->price = ProductVariation::find($this->variation_id)->sale_price ?? 0;
+            }else{
+                $this->price = min($this->model->price,$this->model->sale_price);
+            }
+        }
+        $this->save();
     }
 }

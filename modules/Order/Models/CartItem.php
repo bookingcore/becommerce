@@ -121,17 +121,6 @@ class CartItem extends OrderItem
         );
     }
 
-    public function updatePrice(){
-        if($this->model){
-            if($this->variation_id){
-                $this->price = ProductVariation::find($this->variation_id)->sale_price ?? 0;
-            }else{
-                $this->price = min($this->model->price,$this->model->sale_price);
-            }
-        }
-        $this->save();
-    }
-
     public static function fromArray($data){
         $item = new self();
         foreach ($data as $k=>$v){

@@ -12,12 +12,17 @@
             </div>
             <div class="col-lg-4 col-xl-4">
                 <div class="ht_contact_widget text-center">
-                    
+
                 </div>
             </div>
             <div class="col-lg-4 col-xl-4">
-                <div class="ht_language_widget text-end">
-                    <ul class="m0">
+                <div class="ht_language_widget text-end h-100">
+                    <ul class="m0 d-flex align-items-center h-100">
+                        @if(is_vendor_enable() and !is_vendor())
+                            <li class="list-inline-item">
+                                <a href="{{route('vendor.register')}}" class="text-white mt-1 d-inline-block">{{__('Sell on Us!')}}</a>
+                            </li>
+                        @endif
                         @include('layouts.parts.header.language-switcher')
                         @include('layouts.parts.header.currency-switcher')
                     </ul>
