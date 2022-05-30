@@ -15,8 +15,10 @@ use Modules\Coupon\Models\Coupon;
 use Modules\Coupon\Models\CouponOrder;
 use Modules\Order\Emails\OrderEmail;
 use Modules\Order\Events\OrderStatusUpdated;
+use Modules\Order\Helpers\CartManager;
 use Modules\Order\Notifications\OrderNotification;
 use Modules\Product\Models\Product;
+use Modules\Product\Models\ShippingZoneMethod;
 use Modules\Product\Models\TaxRate;
 
 class Order extends BaseModel
@@ -153,7 +155,7 @@ class Order extends BaseModel
             $vendors = User::query()->whereIn('id',$vendor_ids)->get();
             if ($vendors) {
                 foreach ($vendors as $vendor) {
-                    $vendor->notify(new OrderNotification($this,$type,'vendor'));
+                    $vendor->notify(new OrderNotification($this,$type,'vendor',$vendor));
                 }
             }
         }
@@ -475,4 +477,27 @@ class Order extends BaseModel
         $this->discount_amount = $totalDiscount;
     }
 
+    public function addShipping($country , $shipping_method){
+        // if no method setting
+        if( ShippingZoneMethod::countMethodAvailable() == 0){
+            return ['status'=>1];
+        }
+        // find method in zone
+        if(empty($shipping_method)){
+            return ['status'=>0,'message'=>'Please select shipping method.'];
+        }
+        $list_methods = CartManager::getMethodShipping($country);
+        if(!empty($list_methods['shipping_methods']))
+        {
+            foreach ( $list_methods['shipping_methods'] as $method){
+                if($method['method_id'] == $shipping_method){
+                    $this->shipping_amount = $method['method_cost'];
+                    $this->shipping_method = $method;
+                    return ['status'=>1];
+                }
+            }
+        }
+        // if method not in zone
+        return ['status'=>0,'message'=>'There are no shipping options available.'];
+    }
 }

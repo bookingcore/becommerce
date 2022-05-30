@@ -4,6 +4,7 @@
 namespace Modules\Order\Notifications;
 
 
+use App\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -25,19 +26,22 @@ class OrderNotification extends Notification implements ShouldQueue
     const COMPLETED_ORDER = 'completed_order';
 
     /**
-     * @var Order
+     * @var Order $_order
      */
-    protected $_order;
+    protected Order $_order;
 
     protected $_to;
 
     protected $_type;
 
-    public function __construct(Order $order,$type = 'new_order',$to = 'customer')
+    protected User $_vendor;
+
+    public function __construct(Order $order,$type = 'new_order',$to = 'customer',User $vendor = null)
     {
         $this->_order = $order;
         $this->_to = $to;
         $this->_type = $type;
+        $this->_vendor = $vendor;
     }
 
 
@@ -64,7 +68,7 @@ class OrderNotification extends Notification implements ShouldQueue
             ? $notifiable->routeNotificationFor('mail')
             : $notifiable->email;
 
-        $mail =  (new OrderEmail($this->_type,$this->_order,$this->_to))->to($address);
+        $mail =  (new OrderEmail($this->_type,$this->_order,$this->_to,$this->_vendor))->to($address);
 
         if($this->_to == 'customer'){
             $mail->locale($this->_order->locale);
