@@ -528,7 +528,14 @@
           }
         }
         function quantityPlus() {
-          $quantityNum.val(+$quantityNum.val() + 1);
+            var max = $quantityNum.attr('max');
+            if(max !== undefined){
+                if(+$quantityNum.val() < max){
+                    $quantityNum.val(+$quantityNum.val() + 1);
+                }
+            }else{
+                $quantityNum.val(+$quantityNum.val() + 1);
+            }
         }
       })();
     });
