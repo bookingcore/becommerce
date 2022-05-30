@@ -34,7 +34,7 @@ class OrderNotification extends Notification implements ShouldQueue
 
     protected $_type;
 
-    protected User $_vendor;
+    protected $_vendor;
 
     public function __construct(Order $order,$type = 'new_order',$to = 'customer',User $vendor = null)
     {
