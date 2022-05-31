@@ -13,8 +13,8 @@
                 <div class="col-md-4">
                     <div class="card h-100">
                         <img class="card-img-top" src="{{asset($themeClass::$screenshot)}}" alt="">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between align-items-center mb-3">
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-3 flex-grow-1">
                                 <div class="d-flex  align-items-center">
                                     <h5 class="card-title mb-0">{{$themeClass::$name}} </h5>
                                     <span class="ml-3 badge badge-secondary">{{$themeClass::$version}}</span>
