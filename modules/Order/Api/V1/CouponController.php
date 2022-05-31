@@ -10,9 +10,9 @@ use Modules\Order\Helpers\CartManager;
 class CouponController extends \Themes\Base\Controllers\Order\CouponController
 {
 
-    public function __construct()
+    public function __construct(CartApiManagement $cartApiManagement)
     {
-        parent::__construct();
         app()->bind(CartManager::class,CartApiManagement::class);
+        parent::__construct($cartApiManagement);
     }
 }

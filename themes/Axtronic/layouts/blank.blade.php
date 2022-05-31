@@ -26,6 +26,20 @@
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
+        var BC = {
+            url: '{{url('/')}}',
+            routes:{
+                login:'{{route('login')}}',
+                register:'{{route('register')}}',
+            },
+            booking_decimals:'{{ (int)get_current_currency('currency_no_decimal',2) }}',
+            thousand_separator:'{{ get_current_currency('currency_thousand') }}',
+            decimal_separator:'{{ get_current_currency('currency_decimal') }}',
+            currency_position:'{{ get_current_currency('currency_format') }}',
+            currency_symbol:'{{ currency_symbol() }}',
+            currency_rate:'{{ get_current_currency('rate',1) }}',
+            is_api:{{is_api() ? 1 : 0}}
+        }
         var i18n = {
             warning:"{{__("Warning")}}",
             success:"{{__("Success")}}",

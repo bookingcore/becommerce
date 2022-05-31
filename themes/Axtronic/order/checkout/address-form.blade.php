@@ -24,6 +24,7 @@
             <label  class="">{{__('Country / Region')}}&nbsp;<span class="text-danger" title="required">*</span></label>
             <div class="">
                 <select class="form-control axtronic-select2" name="{{$prefix}}country">
+                    <option value="">{{__("Please select")}}</option>
                     @foreach(get_country_lists() as $key => $country)
                         <option value="{{$key}}" @if($key == old($prefix.'country',$address->country ?? '')) selected @endif>{{$country}}</option>
                     @endforeach

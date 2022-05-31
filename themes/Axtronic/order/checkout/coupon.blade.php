@@ -1,4 +1,5 @@
 <div class="section-coupon-form">
+    <input type="hidden" name="cart_id" value="{{$cart->code}}">
     <div class="input-group mb-3">
         <input name="coupon_code" class="form-control" type="text" placeholder="{{__("Discount")}}" value="">
         <button class="btn btn-primary axtronic_apply_coupon">{{__('Apply')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>

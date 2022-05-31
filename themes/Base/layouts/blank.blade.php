@@ -38,6 +38,7 @@
             currency_position:'{{ get_current_currency('currency_format') }}',
             currency_symbol:'{{ currency_symbol() }}',
             currency_rate:'{{ get_current_currency('rate',1) }}',
+            is_api:{{is_api() ? 1 : 0}}
         }
         var i18n = {
             warning:"{{__("Warning")}}",

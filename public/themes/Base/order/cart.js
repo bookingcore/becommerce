@@ -4,7 +4,7 @@ jQuery(function () {
         parent.find("button .fa-spin").removeClass("d-none");
         parent.find(".message").html('');
         $.ajax({
-            'url': BC.url+'/cart/apply_coupon',
+            'url': getUrl('/cart/apply_coupon'),
             'data': parent.find('input,textarea,select').serialize(),
             'cache': false,
             'method':"post",
@@ -30,7 +30,7 @@ jQuery(function () {
         var parentItem = $(this).closest('.item');
         parentItem.find(".fa-spin").removeClass("d-none");
         $.ajax({
-            'url': BC.url+'/cart/remove_coupon',
+            'url': getUrl('/cart/remove_coupon'),
             'data': {
                 coupon_code:$(this).attr('data-code')
             },
@@ -54,7 +54,7 @@ jQuery(function () {
         parent.find(".fa-spin").removeClass("d-none");
         parent.find(".message").html('');
         $.ajax({
-            'url': BC.url+'/cart/calculate_shipping',
+            'url': getUrl('/cart/calculate_shipping'),
             'data': parent.find('input,textarea,select').serialize(),
             'cache': false,
             'method':"post",
@@ -78,4 +78,13 @@ jQuery(function () {
         var parent = $(this).closest('.section-shipping-form');
         parent.find('.bc_calculate_shipping').click();
     })
+
+    function getUrl(path){
+        var url = BC.url;
+        if(BC.is_api){
+            url += '/api/v1';
+        }
+        url += path;
+        return url;
+    }
 })
