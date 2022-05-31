@@ -22,7 +22,7 @@
                             <span class="alert alert-warning d-block">{{__("No Product")}}</span>
                         @endif
                         <div class="axtronic-pagination">
-                            {{$rows->links()}}
+                            {{$rows->withQueryString()->links()}}
                         </div>
                     </div>
                 </div>

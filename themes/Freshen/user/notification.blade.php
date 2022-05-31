@@ -76,7 +76,7 @@
                             </div>
 
                             <div class="d-flex justify-content-end">
-                                {{$rows->links()}}
+                                {{$rows->withQueryString()->links()}}
                             </div>
                         </div>
                     </div>

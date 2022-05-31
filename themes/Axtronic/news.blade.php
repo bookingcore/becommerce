@@ -20,7 +20,7 @@
                         <div class="alert alert-warning">{{__("No posts found")}}</div>
                     @endif
                     <div class="axtronic-pagination">
-                        {{$rows->links()}}
+                        {{$rows->withQueryString()->links()}}
                     </div>
                 </div>
                 <div class="col-lg-4">

@@ -31,7 +31,7 @@
                         <div class="alert alert-warning">{{__("No posts found")}}</div>
                     @endif
                     <div class="bc-pagination">
-                        {{$rows->links()}}
+                        {{$rows->withQueryString()->links()}}
                     </div>
                 </div>
                 <div class="col-lg-4 col-xl-3">

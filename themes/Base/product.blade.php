@@ -26,7 +26,7 @@
                             @endif
                         </div>
                         <div class="bc-pagination">
-                            {{$rows->links()}}
+                            {{$rows->withQueryString()->links()}}
                         </div>
                     </div>
                 </div>

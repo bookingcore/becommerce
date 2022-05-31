@@ -27,7 +27,7 @@
                         @if(empty($show_review))
                             @include('store.products')
                             <div class="bc-pagination">
-                                {{$rows->links()}}
+                                {{$rows->withQueryString()->links()}}
                             </div>
                         @else
                             @include('store.reviews')
