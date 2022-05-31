@@ -19,15 +19,12 @@
         <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
         @endif
     @endif
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/nouislider/nouislider.min.css">
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
-    <link href="{{ theme_url('Axtronic/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/style.css">
+    <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/responsive.css">
+    <link href="{{ theme_url('Freshen/dist/css/app.css?_v='.config('app.asset_version')) }}" rel="stylesheet">
     @include('layouts.parts.seo-meta')
+    <link rel="stylesheet" href="{{ route('core.style.customCss') }}">
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
@@ -43,6 +40,11 @@
             currency_position:'{{ get_current_currency('currency_format') }}',
             currency_symbol:'{{ currency_symbol() }}',
             currency_rate:'{{ get_current_currency('rate',1) }}',
+            search:{
+                driver:'{{$driver = get_search_engine()}}',
+                app_id:'{{setting_item($driver.'_app_id',config('scount.algolia.id'))}}',
+                public_key:'{{setting_item($driver.'_public',config('scount.algolia.public'))}}'
+            },
             is_api:{{is_api() ? 1 : 0}}
         }
         var i18n = {
@@ -50,37 +52,37 @@
             success:"{{__("Success")}}",
             please_fill_out:'{{__("Please fill out this field.")}}',
             delete_cart_item_confirm:'{{__("Do you want to delete this cart item?")}}',
+            main_menu:'{{__("Main Menu")}}',
         };
     </script>
     @yield('head')
 </head>
-<body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
-<main class="flex-shrink-0">
+<body class="{{$body_class ?? ''}}">
+<div class="wrapper ovh">
     @yield('content')
-</main>
-<footer class="footer mt-auto py-3">
+</div>
+<script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
+<script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
+<script src="{{asset('libs/lodash.min.js')}}"></script>
+<script>
 
-    <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
-    <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
-    <script>
+    window.lazyLoadOptions = {
+        elements_selector: ".lazy",
+    };
 
-        window.lazyLoadOptions = {
-            elements_selector: ".lazy",
-        };
-
-        window.addEventListener('LazyLoad::Initialized', function (event) {
-            window.lazyLoadInstance = event.detail.instance;
-        }, false);
+    window.addEventListener('LazyLoad::Initialized', function (event) {
+        window.lazyLoadInstance = event.detail.instance;
+    }, false);
 
 
-    </script>
+</script>
+<script src="{{ theme_url('Base') }}/libs/vue/vue{{!config('app.script_debug') ? '.min' : '' }}.js"></script>
+<script src="{{ theme_url('Freshen') }}/js/jquery-3.6.0.js"></script>
+<script src="{{ theme_url('Freshen') }}/js/popper.min.js"></script>
+<script src="{{ theme_url('Freshen') }}/js/bootstrap.min.js"></script>
 
-    <script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
-    <script src="{{ asset('libs/vue/vue.js') }}"></script>
-    <script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- custom scripts-->
-    <script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
-    @yield('footer')
-</footer>
+<!-- Custom script for all pages -->
+<script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>
+@yield('footer')
 </body>
 </html>

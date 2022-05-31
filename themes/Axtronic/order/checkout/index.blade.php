@@ -58,13 +58,13 @@
 @endsection
 @section('footer')
     <script>
-        var axtronic_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!}
+        var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!}
         BC.routes.checkout = {
             process:'{{route(is_api() ? 'checkout.api.process' : 'checkout.process',['code'=>$cart->code])}}'
         }
     </script>
-    <script src="{{ theme_url('Axtronic/order/cart.js') }}"></script>
-    <script src="{{ theme_url('Axtronic/order/checkout.js') }}"></script>
+    <script src="{{ theme_url('Base/order/cart.js') }}"></script>
+    <script src="{{ theme_url('Base/order/checkout.js') }}"></script>
     <script type="text/javascript">
     </script>
 @endsection
