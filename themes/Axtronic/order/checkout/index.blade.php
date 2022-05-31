@@ -60,7 +60,7 @@
     <script>
         var axtronic_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!}
         BC.routes.checkout = {
-            process:'{{route('checkout.process',['code'=>$cart->code])}}'
+            process:'{{route(is_api() ? 'checkout.api.process' : 'checkout.process',['code'=>$cart->code])}}'
         }
     </script>
     <script src="{{ theme_url('Axtronic/order/cart.js') }}"></script>

@@ -3,6 +3,7 @@
     new Vue({
         el:'#bravo-checkout-page',
         data:{
+            id:'',
             onSubmit:false,
             errors:{},
             message:{
@@ -123,6 +124,14 @@
 
         },
         methods:{
+            getUrl(path){
+                var url = BC.url;
+                if(BC.is_api){
+                    url += '/api/v1';
+                }
+                url += path;
+                return url;
+            },
             getShippingMethod(){
                 var me = this;
                 me.shipping_message = "";
@@ -130,9 +139,10 @@
                 if(!me.shipping_available) return false;
                 me.onGetShippingMethod = true;
                 $.ajax({
-                    'url': BC.url+'/cart/get_shipping_method',
+                    'url': this.getUrl('/cart/get_shipping_method'),
                     data:{
-                        country: me.shipping_country
+                        country: me.shipping_country,
+                        cart_id:me.id
                     },
                     method:"post",
                     success:function (res) {
@@ -164,10 +174,11 @@
                 if(!me.tax_available) return false;
                 me.onGetTaxRate = true;
                 $.ajax({
-                    'url': BC.url+'/cart/get_tax_rate',
+                    'url': this.getUrl('/cart/get_tax_rate'),
                     data:{
                         billing_country: me.billing_country,
-                        shipping_country: me.shipping_country
+                        shipping_country: me.shipping_country,
+                        cart_id:me.id
                     },
                     method:"post",
                     success:function (res) {

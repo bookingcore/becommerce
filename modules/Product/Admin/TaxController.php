@@ -23,7 +23,7 @@ class TaxController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Tax Settings'),
-                    'url'  => 'admin/module/core/settings/index/tax'
+                    'url'  => 'admin/module/core/settings/tax'
                 ],
                 [
                     'name'  => __('Tax rate'),
@@ -50,7 +50,7 @@ class TaxController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Tax Settings'),
-                    'url'  => 'admin/module/core/settings/index/tax'
+                    'url'  => 'admin/module/core/settings/tax'
                 ],
                 [
                     'name'  => __('Tax rate'),

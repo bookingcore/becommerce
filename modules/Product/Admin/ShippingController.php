@@ -25,7 +25,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Zone'),
@@ -42,7 +42,7 @@ class ShippingController extends AdminController
 
         $shippingZone = ShippingZone::with('locations', 'shippingMethods')->find($id);
         if (empty($shippingZone) && $id != 'other' ) {
-            return redirect( url('/admin/module/core/settings/index/shipping'));
+            return redirect( url('/admin/module/core/settings/shipping'));
         }
 
         $other_zone_methods = ShippingZoneMethod::query()
@@ -57,7 +57,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Zones'),
@@ -131,7 +131,7 @@ class ShippingController extends AdminController
             $shippingZone->delete();
         }
 
-        return redirect( url('/admin/module/core/settings/index/shipping') );
+        return redirect( url('/admin/module/core/settings/shipping') );
     }
 
     public function methodCreate(Request $request, $zone_id){
@@ -139,7 +139,7 @@ class ShippingController extends AdminController
 
         $shippingZone = ShippingZone::with('locations')->find($zone_id);
         if (empty($shippingZone) && $zone_id != 'other' ) {
-            return redirect( url('/admin/module/core/settings/index/shipping'));
+            return redirect( url('/admin/module/core/settings/shipping'));
         }
 
         $shipping_classes = ShippingClass::all();
@@ -152,7 +152,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Zone'),
@@ -172,12 +172,12 @@ class ShippingController extends AdminController
 
         $shippingZone = ShippingZone::with('locations')->find($zone_id);
         if (empty($shippingZone) && $zone_id != 'other' ) {
-            return redirect( url('/admin/module/core/settings/index/shipping'));
+            return redirect( url('/admin/module/core/settings/shipping'));
         }
 
         $zoneMethod = ShippingZoneMethod::query()->find($id);
         if(!$zoneMethod){
-            return redirect( url('/admin/module/core/settings/index/shipping'));
+            return redirect( url('/admin/module/core/settings/shipping'));
         }
         $translation = $zoneMethod->translate($request->query('lang'));
 
@@ -196,7 +196,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Zone'),
@@ -272,7 +272,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Class'),
@@ -289,7 +289,7 @@ class ShippingController extends AdminController
 
         $shipping_class = ShippingClass::query()->find($id);
         if (empty($shipping_class)) {
-            return redirect( url('/admin/module/core/settings/index/shipping'));
+            return redirect( url('/admin/module/core/settings/shipping'));
         }
 
         $data = [
@@ -299,7 +299,7 @@ class ShippingController extends AdminController
             'breadcrumbs'        => [
                 [
                     'name' => __('Shipping Settings'),
-                    'url'  => 'admin/module/core/settings/index/shipping'
+                    'url'  => 'admin/module/core/settings/shipping'
                 ],
                 [
                     'name'  => __('Shipping Class'),
