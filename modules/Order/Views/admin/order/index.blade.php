@@ -148,7 +148,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-end">
-        {{$rows->links()}}
+        {{$rows->withQueryString()->links()}}
     </div>
 </div>
 <div class="modal" tabindex="-1" id="modal-order">
