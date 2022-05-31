@@ -21,8 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(MediaFileSeeder::class);
         $this->call(General::class);
-        $this->call(News::class);
-        $this->call(TemplateSeeder::class);
 
 
         $listModule = array_map('basename', \Illuminate\Support\Facades\File::directories(base_path('modules')));

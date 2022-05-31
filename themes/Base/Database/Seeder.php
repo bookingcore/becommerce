@@ -1,5 +1,6 @@
 <?php
 namespace Themes\Base\Database;
+use Database\Seeders\TemplateSeeder;
 use Illuminate\Support\Facades\Artisan;
 use Themes\Base\Database\Seeders\ProductAttributeSeeder;
 use Themes\Base\Database\Seeders\ProductCategorySeeder;
@@ -13,5 +14,6 @@ class Seeder extends \Illuminate\Database\Seeder
         $this->call(ProductAttributeSeeder::class);
         $this->call(ProductCategorySeeder::class);
         $this->call(ProductSeeder::class);
+        $this->call(TemplateSeeder::class);
     }
 }
