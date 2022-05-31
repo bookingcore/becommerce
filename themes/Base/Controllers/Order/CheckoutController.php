@@ -21,8 +21,13 @@
     use Themes\Base\Controllers\FrontendController;
     class CheckoutController extends FrontendController
     {
+        public function __construct(CartManager $cart_manager)
+        {
+            parent::__construct();
+            $this->cart_manager = $cart_manager;
+        }
         public function toCheckout(){
-            $cart = CartManager::cart();
+            $cart = $this->cart_manager::cart();
             if($cart)
             {
                 return redirect(route('checkout.detail',['code'=>$cart->code]));
@@ -41,7 +46,7 @@
             }
 
             if(!$cart->needCheckout()){
-                CartManager::clear();
+                $this->cart_manager::clear();
                 return redirect($cart->getDetailUrl());
             }
 
@@ -113,7 +118,7 @@
 
                 if(!$order->needPayment()){
 
-                    CartManager::clear();
+                    $this->cart_manager::clear();
 
                     $order->updateStatus($order::PROCESSING);
 
@@ -187,7 +192,7 @@
             // save billing order
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
-            $order->addMeta('shipping_method',CartManager::cart()->shipping_method);
+            $order->addMeta('shipping_method',$this->cart_manager::cart()->shipping_method);
         }
 
         public function processOrderPayment(Order $order,BaseGateway $gatewayObj){
@@ -205,7 +210,7 @@
                 }
             }
 
-            CartManager::clear();
+            $this->cart_manager::clear();
 
             return $this->sendSuccess([
                 'url' => $order->getDetailUrl()

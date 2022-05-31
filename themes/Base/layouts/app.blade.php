@@ -1,3 +1,7 @@
+@if(is_api())
+    @include('layouts.blank')
+    <?php return ?>
+@endif
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100 {{$html_class ?? ''}}">
     <head>

@@ -9,6 +9,13 @@ use Themes\Base\Controllers\FrontendController;
 
 class CouponController extends FrontendController
 {
+    protected $cart_manager;
+
+    public function __construct(CartManager $cartManager)
+    {
+        parent::__construct();
+        $this->cart_manager = $cartManager;
+    }
 
     public function applyCoupon(Request $request){
         $validator = \Validator::make($request->all(), [
@@ -30,13 +37,20 @@ class CouponController extends FrontendController
     }
 
     public function removeCoupon(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'coupon_code' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
         $coupon = Coupon::where('code',$request->input('coupon_code'))->where("status","publish")->first();
         if(empty($coupon)){
             return $this->sendError( __("Invalid coupon code!"));
         }
-        $couponCart = CartManager::getCoupon();
+        $couponCart = $this->cart_manager::getCoupon();
         if($couponCart->where('id',$coupon->id)->first()){
-            CartManager::removeCoupon($coupon);
+            $this->cart_manager::removeCoupon($coupon);
             $res =  [
                 'reload'=>1,
                 'status'=>1,

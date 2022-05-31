@@ -92,7 +92,7 @@
 </div>
 @if(is_default_lang())
     <hr>
-    <div class="row">
+    <div class="row d-none">
         <div class="col-sm-4">
             <h3 class="form-group-title">{{__("Comment Options")}}</h3>
             <p class="form-group-desc">{{__('Config comment for news')}}</p>

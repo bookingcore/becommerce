@@ -6,7 +6,7 @@
             <h2 class="mb-3">{{__("Checkout")}}</h2>
             <div class="row">
                 <div class="column col-lg-8 col-md-12 col-sm-12">
-                    @if(!auth()->check())
+                    @if(!auth()->check() and !is_api())
                         <div class="card mb-4">
                             <div class="card-header">
                                 {{__("Already have an account?")}}

@@ -16,29 +16,30 @@ class Coupon extends BaseModel
         'for_users'      => 'array',
     ];
 
-
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
     }
 
     public function applyCoupon(){
+        $cart_manager = app()->resolved(CartManager::class);
         // Validate Coupon
         $res = $this->applyCouponValidate();
         if ($res !== true)
             return $res;
-        CartManager::storeCoupon($this);
+        $cart_manager::storeCoupon($this);
         return [
             'status' =>  1,
             'message' => __("Coupon code is applied successfully!")
         ];
     }
     public function removeCoupon(){
+        $cart_manager = app()->resolved(CartManager::class);
         // Validate Coupon
         $res = $this->applyCouponValidate();
         if ($res !== true)
             return $res;
-        CartManager::removeCoupon($this);
+        $cart_manager::removeCoupon($this);
         return [
             'status' =>  1,
             'message' => __("Coupon code is applied successfully!")
@@ -46,8 +47,9 @@ class Coupon extends BaseModel
     }
 
     public function applyCouponValidate($action='add'){
-        $couponCart = CartManager::getCoupon();
-        $subTotal = CartManager::subtotal();
+        $cart_manager = app()->resolved(CartManager::class);
+        $couponCart = $cart_manager::getCoupon();
+        $subTotal = $cart_manager::subtotal();
         if($couponCart->where('id',$this->id)->first()){
 	        return [
 			        'status'=>0,
@@ -77,7 +79,7 @@ class Coupon extends BaseModel
         }
         if($this->services->count() >0){
             $check = false;
-            $items = CartManager::items();
+            $items = $cart_manager::items();
             $items = $items->toArray();
             $services  = $this->services()->get(['object_id','object_model'])->toArray();
 			foreach ($items as $item){

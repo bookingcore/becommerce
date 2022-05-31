@@ -148,11 +148,25 @@ class CartController extends FrontendController
     }
 
     public function getShippingMethod(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'country' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
+
         $res = $this->cart_manager::getMethodShipping($request->input('country'));
         return $this->sendSuccess($res,$res['message'] ?? "");
     }
 
     public function getTaxRate(Request $request){
+        $validator = \Validator::make($request->all(), [
+            'billing_country' => 'required',
+            'shipping_country' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return $this->sendError($validator->errors()->first());
+        }
         $res = $this->cart_manager::getTaxRate($request->input('billing_country'),$request->input('shipping_country'));
         return $this->sendSuccess($res,$res['message'] ?? "");
     }
