@@ -13,8 +13,8 @@
         </div>
 
         @include('global.message')
-
-        <div class="bc-section__content">
+        <div class="panel">
+            <div class="bc-section__content">
             <div class="table-responsive">
                 <table class="table bc-table">
                     <thead>
@@ -22,7 +22,6 @@
                         <th>{{__('ID')}}</th>
                         <th>{{__('Product Name')}}</th>
                         <th>{{__('Customer')}}</th>
-                        <th>{{__('SKU')}}</th>
                         <th>{{__('Revenue')}}</th>
                         <th>{{__('Fee')}}</th>
                         <th>{{__('Net')}}</th>
@@ -56,6 +55,7 @@
                 <div class="alert alert-warning">{{__("No data found")}}</div>
             @endif
             {{$rows->appends(request()->query())->links()}}
+        </div>
         </div>
     </section>
 @endsection
