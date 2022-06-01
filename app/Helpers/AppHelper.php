@@ -1402,3 +1402,6 @@ function month_translation($month){
 function get_search_engine(){
     return setting_item('search_driver',config('scount.driver'));
 }
+function is_vendor_page(){
+    return request()->segment(1) == 'vendor';
+}

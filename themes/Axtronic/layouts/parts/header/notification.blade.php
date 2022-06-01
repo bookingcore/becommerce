@@ -1,4 +1,9 @@
+@if(is_vendor_page())
+    @include('layouts.vendor.notification')
+    <?php return ?>
+@endif
 <?php
+
 $checkNotify = \Modules\Core\Models\NotificationPush::query();
 if(is_admin()){
     $checkNotify->where(function($query){

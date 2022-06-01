@@ -10,7 +10,7 @@ class ThemeManager
     protected static $_all = [];
 
     public static function current(){
-        return strtolower(JsonConfigManager::get('active_theme',config('bc.active_theme')));
+        return $_GET['_xtheme'] ?? strtolower(JsonConfigManager::get('active_theme',config('bc.active_theme')));
     }
     public static function currentProvider(){
         return static::theme(static::current());
