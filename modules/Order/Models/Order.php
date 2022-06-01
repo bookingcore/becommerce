@@ -268,12 +268,13 @@ class Order extends BaseModel
     public function saveTax($tax_lists){
 
         $tax_percent = 0;
-        foreach ($tax_lists as $k=>$tax){
-            if(!empty($tax['active']) and !empty($tax['tax_rate']))
-            {
-                $tax_percent += $tax['tax_rate'];
-            }else{
-                unset($tax_lists[$k]);
+        if(!empty($tax_lists)) {
+            foreach ($tax_lists as $k => $tax) {
+                if (!empty($tax['active']) and !empty($tax['tax_rate'])) {
+                    $tax_percent += $tax['tax_rate'];
+                } else {
+                    unset($tax_lists[$k]);
+                }
             }
         }
         $subtotal = $this->subtotal + $this->shipping_amount;
