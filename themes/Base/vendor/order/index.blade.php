@@ -14,6 +14,7 @@
 
         @include('global.message')
         <div class="panel">
+            <div class="px-3">@include('vendor.order.filter')</div>
             <div class="bc-section__content">
             <div class="table-responsive">
                 <table class="table bc-table">

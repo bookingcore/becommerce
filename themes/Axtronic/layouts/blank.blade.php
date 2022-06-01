@@ -6,19 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    @php
-        $favicon = setting_item('site_favicon');
-    @endphp
-    @if($favicon)
-        @php
-            $file = (new \Modules\Media\Models\MediaFile())->findById($favicon);
-        @endphp
-        @if(!empty($file))
-            <link rel="icon" type="{{$file['file_type']}}" href="{{asset('uploads/'.$file['file_path'])}}" />
-        @else:
-        <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
-        @endif
-    @endif
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="{{ theme_url('Axtronic') }}/libs/bootstrap/css/bootstrap.min.css">

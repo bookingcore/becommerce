@@ -78,6 +78,16 @@ class OrderItem extends BaseModel
         {
             $query->where('vendor_id',$filters['vendor_id']);
         }
+        if(!empty($filters['status']))
+        {
+            $query->where('status',$filters['status']);
+        }
+        if(!empty($filters['s']))
+        {
+            $query->where(function($query) use ($filters){
+                return $query->where('object_id',$filters['s'])->orWhere('core_order_items.id',$filters['s']);
+            });
+        }
         return $query;
     }
 
