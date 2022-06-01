@@ -69,7 +69,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("list_product",\Themes\Freshen\Controllers\Blocks\ListProduct::class);
 
 
-        if(!is_admin_dashboard()){
+        if(!is_admin_dashboard() and !is_vendor_page()){
         Paginator::defaultView('pagination');
         }
     }

@@ -42,7 +42,7 @@ class AppServiceProvider extends ServiceProvider
             $this->setLang();
             $this->initConfigFromDB();
         }
-        Paginator::useBootstrap();
+        Paginator::useBootstrapFive();
 
     }
 

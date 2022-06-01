@@ -92,7 +92,7 @@ class OrderItem extends BaseModel
     }
 
     public function product(){
-        return $this->belongsTo(Product::class,'product_id');
+        return $this->belongsTo(Product::class,'object_id');
     }
 
     public function save(array $options = [])

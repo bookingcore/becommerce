@@ -145,6 +145,16 @@ $locale = App::getLocale();
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <a class="dropdown-item" href="{{url('admin/module/user/edit/'.$user->id)}}">{{__('Edit Profile')}}</a>
                 <a class="dropdown-item" href="{{url('admin/module/user/password/'.$user->id)}}">{{__('Change Password')}}</a>
+                @if(is_vendor_enable() and is_vendor())
+                    <li><hr class="dropdown-divider"></li>
+                    <li><h6 class="dropdown-header">{{__("Store Settings")}}</h6></li>
+                    <li class=""><a class="dropdown-item" href="{{route('vendor.dashboard')}}"><i class="fa fa-desktop me-1"></i> {{__("Dashboard")}}</a></li>
+                    <li class=""><a class="dropdown-item" href="{{route('vendor.product')}}"><i class="fa fa-database me-1"></i> {{__("Products")}}</a></li>
+                    <li class=""><a class="dropdown-item" href="{{route('vendor.order')}}"><i class="fa fa-shopping-basket me-1"></i> {{__("Orders")}}</a></li>
+                    <li class=""><a class="dropdown-item" href="{{route('vendor.payout')}}"><i class="fa fa-credit-card me-1"></i> {{__("Payouts")}}</a></li>
+                    <li class=""><a class="dropdown-item" href="{{route('vendor.review')}}"><i class="fa fa-commenting me-1"></i> {{__("Reviews")}}</a></li>
+                @endif
+                <li><hr class="dropdown-divider"></li>
                 <a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fa fa-sign-out"></i> {{__('Logout')}}
                 </a>
             </div>
