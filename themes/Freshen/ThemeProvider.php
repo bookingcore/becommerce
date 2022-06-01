@@ -70,7 +70,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
 
         if(!is_admin_dashboard()){
-        Paginator::defaultView('pagination');
+        Paginator::defaultView('global.pagination');
         }
     }
     public function __show_header_style(Page $row){
