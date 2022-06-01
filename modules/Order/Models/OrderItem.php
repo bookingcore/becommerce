@@ -80,7 +80,7 @@ class OrderItem extends BaseModel
         }
         if(!empty($filters['status']))
         {
-            $query->where('status',$filters['status']);
+            $query->where('core_order_items.status',$filters['status']);
         }
         if(!empty($filters['s']))
         {
