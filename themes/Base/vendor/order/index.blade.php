@@ -55,7 +55,7 @@
             @if(!count($rows))
                 <div class="alert alert-warning">{{__("No data found")}}</div>
             @endif
-            {{$rows->appends(request()->query())->links()}}
+            <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
         </div>
         </div>
     </section>
