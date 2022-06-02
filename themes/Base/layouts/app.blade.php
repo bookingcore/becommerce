@@ -58,7 +58,6 @@
         </main>
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
-            @include('global.components.search-autocomplete')
             @include('product.compare.compare-modal')
 
             <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>

@@ -23,9 +23,9 @@ class ProductController extends Controller
      * @var Product
      */
     protected $product;
-    public function __construct()
+    public function __construct(Product $product)
     {
-        $this->product = Product::class;
+        $this->product = $product;
     }
 
     public function index(Request $request)
@@ -38,8 +38,8 @@ class ProductController extends Controller
         }
         $list = $this->product::search($request->input());
         $data = [
-            'rows'               => $list->paginate(setting_item('product_per_page',12)),
-            'product_min_max_price' => Product::getMinMaxPrice(),
+            'rows'               => $list->with(['active_campaign'])->paginate(setting_item('product_per_page',12)),
+            'product_min_max_price' => $this->product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),
             'show_breadcrumb'    => 0,
@@ -49,7 +49,7 @@ class ProductController extends Controller
                 ]
             ],
             'body_class'        => 'full_width',
-            "seo_meta"           => Product::getSeoMetaForPageList()
+            "seo_meta"           => $this->product::getSeoMetaForPageList()
         ];
 
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
@@ -72,7 +72,7 @@ class ProductController extends Controller
 
         $data = [
             'rows'               => $list->paginate(setting_item('product_per_page',12)),
-            'product_min_max_price' => Product::getMinMaxPrice(),
+            'product_min_max_price' => $this->product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => ProductCategory::getAll(),
             'show_breadcrumb'    => 0,
@@ -144,7 +144,7 @@ class ProductController extends Controller
 
     public function quick_view(Request $request){
         $id = (!empty($request->id)) ? $request->id : '';
-        $product = Product::where('id',$id)->first();
+        $product = $this->product::find('id',$id);
         $translation = $product->translateOrOrigin(app()->getLocale());
         $product_variations = $this->product_variations($product);
 

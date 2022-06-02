@@ -109,7 +109,7 @@ Route::post('register','User\RegisterController@store')->name('register.store');
 Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
 
 Route::group(['prefix'=>'pos','middleware'=>['auth','verified']],function(){
-    //Route::get('/','POSController@index')->name('pos');
+    Route::get('/','POSController@index')->name('pos');
 });
 
 

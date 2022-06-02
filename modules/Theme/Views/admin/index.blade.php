@@ -10,7 +10,7 @@
         @include('admin.message')
         <div class="row">
             @foreach($rows as $theme_id=>$themeClass)
-                <div class="col-md-4">
+                <div class="col-md-4 mb-4">
                     <div class="card h-100">
                         <img class="card-img-top" src="{{asset($themeClass::$screenshot)}}" alt="">
                         <div class="card-body d-flex flex-column">
