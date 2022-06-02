@@ -26,7 +26,7 @@ class OrderController extends FrontendController
         $orders = $this->orderItem::search($filters)->orderByDesc('id');
 
         $data = [
-            'rows'=>$orders->paginate(20),
+            'rows'=>$orders->with(['product','order'])->paginate(20),
             'page_title'=>__("Order Management")
         ];
         return view('vendor.order.index',$data);
