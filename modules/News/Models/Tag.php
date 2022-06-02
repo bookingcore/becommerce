@@ -64,6 +64,6 @@ class Tag extends BaseModel
     }
 
     public function news(){
-        return $this->hasManyThrough(News::class,NewsTag::class,'tag_id','id','id','news_id');
+        return $this->belongsToMany(News::class,NewsTag::getTableName(),'tag_id','news_id');
     }
 }

@@ -43,7 +43,7 @@ class ProductController extends FrontendController
             $query->where('product_type',$s);
         }
         $data = [
-            'rows'=>$query->orderByDesc('id')->paginate(20),
+            'rows'=>$query->with(['categories'])->orderByDesc('id')->paginate(20),
             'page_title'=>__("Manage Products"),
             'page_subtitle'=>__('Product Listings')
         ];

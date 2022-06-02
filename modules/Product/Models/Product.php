@@ -396,10 +396,10 @@ class Product extends BaseModel
         return $this->hasMany(Review::class,'object_id','id')->where('object_model',$this->type);
     }
     public function categories(){
-        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
+        return $this->belongsToMany(ProductCategory::class, ProductCategoryRelation::getTableName(),'target_id','cat_id');
     }
     public function tags(){
-        return $this->hasManyThrough(ProductTag::class, ProductTagRelation::class,'target_id', 'id','id','tag_id');
+        return $this->belongsToMany(ProductTag::class, ProductTagRelation::getTableName(),'target_id', 'tag_id');
     }
     public function brand(){
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();

@@ -129,7 +129,7 @@ class Order extends BaseModel
 
 
     public function coupons(){
-        return $this->hasManyThrough(Coupon::class, CouponOrder::class,'order_id','code','id','coupon_code');
+        return $this->belongsToMany(Coupon::class, CouponOrder::getTableName(),'order_id','coupon_code');
     }
 
     public function coupon_orders(){
@@ -137,7 +137,7 @@ class Order extends BaseModel
     }
 
     public function vendors(){
-        return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
+        return $this->belongsToMany(User::class,OrderItem::getTableName(),'order_id','vendor_id');
     }
 
     public function sendOrderNotifications($type){
