@@ -16,5 +16,9 @@ trait HasObjectModel
     public static function bootHasObjectModel()
     {
         static::addGlobalScope(new HasObjectModelScope);
+
+        static::saving(function($model){
+            if(!$model->object_model) $model->setAttribute('object_model',$model->type);
+        });
     }
 }

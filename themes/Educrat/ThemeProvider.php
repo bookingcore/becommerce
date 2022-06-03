@@ -5,7 +5,6 @@ namespace Themes\Educrat;
 
 
 use Modules\Theme\Abstracts\AbstractThemeProvider;
-use Themes\Base\Database\Seeder;
 
 class ThemeProvider extends AbstractThemeProvider
 {
@@ -15,7 +14,7 @@ class ThemeProvider extends AbstractThemeProvider
 
     public static $version = '1.0';
 
-    public static $seeder = Seeder::class;
+    public static $seeder = \Themes\Educrat\Database\Seeder::class;
 
     public function register()
     {
