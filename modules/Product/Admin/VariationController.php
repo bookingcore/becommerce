@@ -193,6 +193,7 @@ class VariationController extends AdminController
 
             $this->saveTerms($variation,$data);
         }
+        $product->updateMinMaxPrice();
         $product->save();
         return $this->sendSuccess([],__('Variations data saved'));
     }
