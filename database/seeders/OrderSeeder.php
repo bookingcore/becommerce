@@ -19,7 +19,11 @@ class OrderSeeder extends Seeder
         Order::query()->forceDelete();
         OrderItem::query()->forceDelete();
         $all_status = [
-            'completed'
+            'completed',
+            'processing',
+            'cancelled',
+            'refunded',
+            'failed'
         ];
         for($i = 1; $i < 10;$i++){
             $order = new Order();

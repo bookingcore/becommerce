@@ -50,7 +50,7 @@ class Coupon extends BaseModel
         $cart_manager = app()->make(CartManager::class);
         $couponCart = $cart_manager::getCoupon();
         $subTotal = $cart_manager::subtotal();
-        if($couponCart->where('id',$this->id)->first()){
+        if($couponCart->where('id',$this->id)->where('status','publish')->first()){
 	        return [
 			        'status'=>0,
 			        'message'=> __("Coupon code is added already!")

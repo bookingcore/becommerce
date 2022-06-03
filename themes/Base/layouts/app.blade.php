@@ -10,19 +10,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        @php
-            $favicon = setting_item('site_favicon');
-        @endphp
-        @if($favicon)
-            @php
-                $file = (new \Modules\Media\Models\MediaFile())->findById($favicon);
-            @endphp
-            @if(!empty($file))
-                <link rel="icon" type="{{$file['file_type']}}" href="{{asset('uploads/'.$file['file_path'])}}" />
-            @else:
-            <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
-            @endif
-        @endif
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.carousel.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.theme.default.min.css">
         <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/font-awesome/css/font-awesome.min.css">
@@ -48,11 +35,13 @@
                 currency_position:'{{ get_current_currency('currency_format') }}',
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
+                @if($driver = get_search_engine())
                 search:{
-                    driver:'{{$driver = get_search_engine()}}',
+                    driver:'{{$driver}}',
                     app_id:'{{setting_item($driver.'_app_id',config('scount.algolia.id'))}}',
                     public_key:'{{setting_item($driver.'_public',config('scount.algolia.public'))}}'
                 }
+                @endif
             }
             var i18n = {
                 warning:"{{__("Warning")}}",
@@ -71,7 +60,6 @@
         </main>
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
-            @include('global.components.search-autocomplete')
             @include('product.compare.compare-modal')
 
             <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>

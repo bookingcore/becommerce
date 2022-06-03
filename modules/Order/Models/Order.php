@@ -129,7 +129,7 @@ class Order extends BaseModel
 
 
     public function coupons(){
-        return $this->hasManyThrough(Coupon::class, CouponOrder::class,'order_id','code','id','coupon_code');
+        return $this->belongsToMany(Coupon::class, CouponOrder::getTableName(),'order_id','coupon_code');
     }
 
     public function coupon_orders(){
@@ -137,7 +137,7 @@ class Order extends BaseModel
     }
 
     public function vendors(){
-        return $this->hasManyThrough(User::class,OrderItem::class,'order_id','id','id','vendor_id');
+        return $this->belongsToMany(User::class,OrderItem::getTableName(),'order_id','vendor_id');
     }
 
     public function sendOrderNotifications($type){
@@ -268,12 +268,13 @@ class Order extends BaseModel
     public function saveTax($tax_lists){
 
         $tax_percent = 0;
-        foreach ($tax_lists as $k=>$tax){
-            if(!empty($tax['active']) and !empty($tax['tax_rate']))
-            {
-                $tax_percent += $tax['tax_rate'];
-            }else{
-                unset($tax_lists[$k]);
+        if(!empty($tax_lists)) {
+            foreach ($tax_lists as $k => $tax) {
+                if (!empty($tax['active']) and !empty($tax['tax_rate'])) {
+                    $tax_percent += $tax['tax_rate'];
+                } else {
+                    unset($tax_lists[$k]);
+                }
             }
         }
         $subtotal = $this->subtotal + $this->shipping_amount;

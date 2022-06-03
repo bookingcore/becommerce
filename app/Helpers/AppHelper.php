@@ -758,47 +758,7 @@ function translate_or_origin($key,$settings = [],$locale = '')
 
 function get_services(){
 
-    $all = [];
-    // Modules
-    $custom_modules = \Modules\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $services = call_user_func([$moduleClass,'getServices']);
-                $all = array_merge($all,$services);
-            }
-
-        }
-    }
-
-
-    // Plugin Menu
-    $plugins_modules = \Plugins\ServiceProvider::getModules();
-    if(!empty($plugins_modules)){
-        foreach($plugins_modules as $module){
-            $moduleClass = "\\Plugins\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $services = call_user_func([$moduleClass,'getServices']);
-                $all = array_merge($all,$services);
-            }
-        }
-    }
-
-    // Custom Menu
-    $custom_modules = \Custom\ServiceProvider::getModules();
-    if(!empty($custom_modules)){
-        foreach($custom_modules as $module){
-            $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-            if(class_exists($moduleClass))
-            {
-                $services = call_user_func([$moduleClass,'getServices']);
-                $all = array_merge($all,$services);
-            }
-        }
-    }
+    $all = config('bc.services');
 
     return $all;
 }
@@ -1401,4 +1361,7 @@ function month_translation($month){
 }
 function get_search_engine(){
     return setting_item('search_driver',config('scount.driver'));
+}
+function is_vendor_page(){
+    return request()->segment(1) == 'vendor';
 }

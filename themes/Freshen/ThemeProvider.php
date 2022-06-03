@@ -69,8 +69,8 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         BlockManager::register("list_product",\Themes\Freshen\Controllers\Blocks\ListProduct::class);
 
 
-        if(!is_admin_dashboard()){
-        Paginator::defaultView('pagination');
+        if(!is_admin_dashboard() and !is_vendor_page()){
+        Paginator::defaultView('global.pagination');
         }
     }
     public function __show_header_style(Page $row){

@@ -21,6 +21,7 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -31,6 +32,7 @@ class Product extends BaseModel
 {
     use HasFactory, HasStockValidation, SoftDeletes;
     use BCSearchable;
+    use HasObjectModel;
 
     protected $table = 'products';
     public $type = 'product';
@@ -396,10 +398,10 @@ class Product extends BaseModel
         return $this->hasMany(Review::class,'object_id','id')->where('object_model',$this->type);
     }
     public function categories(){
-        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
+        return $this->belongsToMany(ProductCategory::class, ProductCategoryRelation::getTableName(),'target_id','cat_id');
     }
     public function tags(){
-        return $this->hasManyThrough(ProductTag::class, ProductTagRelation::class,'target_id', 'id','id','tag_id');
+        return $this->belongsToMany(ProductTag::class, ProductTagRelation::getTableName(),'target_id', 'tag_id');
     }
     public function brand(){
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();

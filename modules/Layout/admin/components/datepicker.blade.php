@@ -60,6 +60,7 @@
         },
         methods: {
             setValue(val) {
+                console.log(val);
                 if(val){
                     this.display_value = moment(val).format(this.settings.locale.format);
                     this.dpk.setStartDate(moment(val))
@@ -72,7 +73,7 @@
             this.dpk = $(this.$el)
                 .find('input')
                 .daterangepicker(this.settings).on('apply.daterangepicker', function (ev, picker) {
-                    me.setValue(picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
+                    me.$emit('change',picker.startDate.format('YYYY-MM-DD HH:mm:ss'));
                 }).data('daterangepicker');
 
             this.setValue(this.value);

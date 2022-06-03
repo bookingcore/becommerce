@@ -34,6 +34,41 @@
         border-top: 1px solid #dfe4e8;
         background: #f7f7f7;
     }
+    .table{
+        color:inherit;
+        thead{
+            border-style: solid;
+            border-top-width:1px;
+            border-bottom-width:1px;
+            border-color:rgb(226 232 240);
+            th{
+                color:rgb(100 116 139);
+                font-weight: bold;
+                padding: 0.7rem;
+                &:first-child{
+                    padding-left: 1.25rem;
+                }
+            }
+        }
+        tr{
+            th{
+                background: #f8fafc;
+                border:none;
+            }
+        }
+        tbody{
+            border:none;
+            tr{
+                td{
+                    border-color:rgb(229, 231, 235);
+                    padding: 0.7rem;
+                    &:first-child{
+                        padding-left: 1.25rem;
+                    }
+                }
+            }
+        }
+    }
 }
 .panel-body-title{
     font-size: 16px;

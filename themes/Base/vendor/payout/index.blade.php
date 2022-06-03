@@ -6,6 +6,8 @@
         <div class="d-flex mb-3 align-items-center">
             <h1 class="me-3">{{__("Payouts")}}</h1>
         </div>
+        <div class="panel">
+            <div class="panel-body">
         @if($payout_account)
             <div class="row">
                 <div class="col-md-8">
@@ -55,6 +57,8 @@
             <div class="bravo-pagination">
                 {{$payouts->appends(request()->query())->links()}}
             </div>
+        </div>
+        </div>
     </section>
 @endsection
 

@@ -70,7 +70,7 @@ class ProductController extends AdminController
             $query->where('author_id', Auth::id());
         }
         $data = [
-            'rows'               => $query->with(['author'])->paginate(20),
+            'rows'               => $query->with(['author','categories'])->paginate(20),
             'product_manage_others' => $this->hasPermission('product_manage_others'),
             'breadcrumbs'        => [
                 [

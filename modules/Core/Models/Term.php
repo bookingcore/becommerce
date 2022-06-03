@@ -109,6 +109,6 @@ class Term extends BaseModel
 
 
     public function product(){
-        return $this->hasManyThrough(Product::class, ProductTerm::class,'term_id','id','id','target_id');
+        return $this->belongsToMany(Product::class, ProductTerm::getTableName(),'term_id','target_id');
     }
 }

@@ -22,7 +22,9 @@ abstract class AbstractThemeProvider extends ServiceProvider
      *
      * @return array
      */
-    abstract static function info();
+    public static function info(){
+        return [];
+    }
 
     public function register(){}
 

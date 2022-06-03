@@ -20,3 +20,17 @@
     <title>{{ $page_title ?? ''}} - {{setting_item_with_lang('site_title' ,false,'martfury')}}</title>
     <meta name="description" content="{{setting_item_with_lang("site_desc")}}"/>
 @endif
+
+@php
+    $favicon = setting_item('site_favicon');
+@endphp
+@if($favicon)
+    @php
+        $file = (new \Modules\Media\Models\MediaFile())->findById($favicon);
+    @endphp
+    @if(!empty($file))
+        <link rel="icon" type="{{$file['file_type']}}" href="{{asset('uploads/'.$file['file_path'])}}" />
+    @else:
+    <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
+    @endif
+@endif

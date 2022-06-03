@@ -66,7 +66,7 @@ class ProductTag extends BaseModel
     }
 
     public function product(){
-        return $this->hasManyThrough(Product::class,ProductTagRelation::class,'tag_id','id','id','target_id');
+        return $this->belongsToMany(Product::class,ProductTagRelation::getTableName(),'tag_id','target_id');
     }
 
 

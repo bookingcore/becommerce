@@ -20,11 +20,13 @@ class OrderController extends FrontendController
     }
 
     public function index(Request $request){
-        $orders = $this->orderItem::search([
-            'vendor_id'=>auth()->id()
-        ])->orderByDesc('id');
+        $filters = $request->query();
+        $filters['vendor_id'] = auth()->id();
+
+        $orders = $this->orderItem::search($filters)->orderByDesc('id');
+
         $data = [
-            'rows'=>$orders->paginate(20),
+            'rows'=>$orders->with(['product','order'])->paginate(20),
             'page_title'=>__("Order Management")
         ];
         return view('vendor.order.index',$data);

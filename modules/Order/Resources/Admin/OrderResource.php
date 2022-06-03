@@ -25,7 +25,7 @@ class OrderResource extends BaseJsonResource
             'billing'=>$this->getJsonMeta('billing'),
             'shipping'=>$this->getJsonMeta('shipping'),
             'status'=>$this->status ?? Order::DRAFT,
-            'created_at'=>$this->created_at ? $this->created_at->format('Y-m-d H:i:s') : '',
+            'order_date'=>$this->order_date ? $this->order_date->format('Y-m-d H:i:s') : '',
             'email'=>$this->email,
             'phone'=>$this->phone,
             'shipping_amount'=>(float)$this->shipping_amount,

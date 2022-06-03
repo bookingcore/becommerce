@@ -180,6 +180,8 @@ class BaseModel extends Model
                         return "warning";
                         break;
                     case "rejected":
+                    case "refunded":
+                    case "cancelled":
                         return "danger";
                         break;
                     case "processing":

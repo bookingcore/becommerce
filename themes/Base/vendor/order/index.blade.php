@@ -13,8 +13,9 @@
         </div>
 
         @include('global.message')
-
-        <div class="bc-section__content">
+        <div class="panel">
+            <div class="px-3">@include('vendor.order.filter')</div>
+            <div class="bc-section__content">
             <div class="table-responsive">
                 <table class="table bc-table">
                     <thead>
@@ -22,7 +23,6 @@
                         <th>{{__('ID')}}</th>
                         <th>{{__('Product Name')}}</th>
                         <th>{{__('Customer')}}</th>
-                        <th>{{__('SKU')}}</th>
                         <th>{{__('Revenue')}}</th>
                         <th>{{__('Fee')}}</th>
                         <th>{{__('Net')}}</th>
@@ -35,8 +35,9 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <strong>{{$row->model->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
-                                {{$row->model->sku ?? ''}}
+                                <?php $product = $row->model ?>
+                                <strong>{{$product->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
+                                {{$product->sku ?? ''}}
                             </td>
                             <td>
                                 @include('order.emails.parts.order-address',['order'=>$row->order])
@@ -55,7 +56,8 @@
             @if(!count($rows))
                 <div class="alert alert-warning">{{__("No data found")}}</div>
             @endif
-            {{$rows->appends(request()->query())->links()}}
+            <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
+        </div>
         </div>
     </section>
 @endsection

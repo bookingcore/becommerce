@@ -75,7 +75,7 @@
                                             <td>#{{$order->id}}</td>
                                             <td>
                                                 @if($order->product)
-                                                    <a href="{{$order->product->getDetailUrl()}}">{{$order->product->title}}</a>
+                                                    <a target="_blank" href="{{$order->product->getDetailUrl()}}">{{$order->product->title}}</a>
                                                 @endif
                                             </td>
 

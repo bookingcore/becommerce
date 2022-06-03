@@ -1,5 +1,5 @@
 <li class="bc-user-header list-inline-item dropdown {{ ($header_style ?? '') != 4 ? 'text-end' : '' }}">
-    <a href="#" data-bs-toggle="dropdown" class="login">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
+    <a href="#" data-bs-toggle="dropdown" class="login @if(is_vendor_page()) nav-link text-white @endif">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
         <i class="fa fa-angle-down"></i>
     </a>
     <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end fz14">

@@ -20,12 +20,9 @@ class DashboardController extends \Modules\FrontendController
     }
 
     protected function getRecentOrders(){
-        return OrderItem::query()
-            ->where('vendor_id',auth()->id())
-            ->orderByDesc('id')
-            ->take(10)
-            ->with(['order','product'])
-            ->get();
+        return OrderItem::search([
+            'vendor_id'=>auth()->id()
+        ])->orderByDesc('id')->with(['order','product'])->limit(10)->get();
     }
     protected function getTopCardsReport($filters = []){
         $res = [];
