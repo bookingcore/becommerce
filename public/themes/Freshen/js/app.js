@@ -18,7 +18,7 @@ var BCApp ={
             args.title = i18n.success;
         }
         args.centerVertical = true;
-        alert(args.message);
+        bootbox.alert(args.message);
     },
     showError:function (configs) {
         var args = {};
@@ -32,7 +32,7 @@ var BCApp ={
             args.title = i18n.warning;
         }
         args.centerVertical = true;
-        alert(args.message);
+        bootbox.alert(args.message);
     },
     showAjaxError:function (e) {
         var json = e.responseJSON;

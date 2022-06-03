@@ -60,6 +60,7 @@
      </section>
 @endsection
 @section('footer')
+    <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script  src="{{ theme_url('Freshen/js/product-single.js') }}"></script>
     <script>
         jQuery(function ($) {
