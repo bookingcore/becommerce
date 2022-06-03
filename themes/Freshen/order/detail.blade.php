@@ -29,6 +29,7 @@
                         <p class="fz14">
                             @switch($row->status)
                                 @case('completed')
+                                @case('processing')
                                 {{__('Thank you. Your order has been received.')}}
                                 @break
                                 @default
@@ -59,6 +60,10 @@
                                 <li class="list-inline-item">
                                     <p>{{__('Payment Method')}}</p>
                                     <h5>{{$row->gateway_obj ? $row->gateway_obj->getDisplayName() : ''}}</h5>
+                                </li>
+                                <li class="list-inline-item">
+                                    <p>{{__('Status')}}</p>
+                                    <h5>{{$row->status_text}}</h5>
                                 </li>
                             </ul>
                         </div>
@@ -108,6 +113,8 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
+                    @include('order.emails.parts.order-address',['order'=>$row])
                 </div>
             </div>
         </div>

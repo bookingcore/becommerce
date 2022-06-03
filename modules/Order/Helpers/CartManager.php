@@ -69,8 +69,10 @@ class CartManager
         }else{
 
             $item->qty += $qty;
-
             $item->updatePrice();
+
+            $cart->syncTotal();
+            $cart->save();
         }
 
         return $item;

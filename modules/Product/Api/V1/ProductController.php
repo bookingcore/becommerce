@@ -22,12 +22,13 @@ class ProductController extends ApiController
 
         $query = Product::search($request->query());
         $limit = min(100,$request->query('limit',24));
-        return ProductResource::collection($query->paginate($limit),[
+        $need = $request->query('needs',[]);
+        return ProductResource::collection($query->paginate($limit),array_merge($need,[
             'price',
             'categories',
             'review_data',
             $request->query('search_type')
-        ]);
+        ]));
     }
 
     public function detail(Request $request,$id){
