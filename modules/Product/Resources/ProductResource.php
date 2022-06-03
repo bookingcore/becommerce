@@ -17,6 +17,7 @@ class ProductResource extends BaseJsonResource
         return [
             'id'=>$this->id,
             'title'=>$title,
+            'slug'=>$this->slug,
             'price'=>$this->whenNeed('price',function(){
                 return $this->sale_price;
             }),
