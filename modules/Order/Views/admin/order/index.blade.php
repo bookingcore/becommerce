@@ -45,7 +45,7 @@
                 ] : false)
                 ?>
                 @endif
-                <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
+                <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name or ID')}}" class="form-control">
                 <button class="btn-default btn btn-icon" type="submit">{{__('Filter')}}</button>
             </form>
         </div>

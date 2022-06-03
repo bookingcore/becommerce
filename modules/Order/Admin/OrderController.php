@@ -18,10 +18,23 @@ class OrderController extends AdminController
         $this->setActiveMenu('order');
     }
 
-    public function index(){
+    public function index(Request $request){
         $this->checkPermission('order_view');
+        $query = Order::query();
+        if (!empty($request->input('s'))) {
+            if( is_numeric($request->input('s')) ){
+                $query->Where('id', '=', $request->input('s'));
+            }else{
+                $query->where(function ($query) use ($request) {
+                    $query->where('first_name', 'like', '%' . $request->input('s') . '%')
+                        ->orWhere('last_name', 'like', '%' . $request->input('s') . '%')
+                        ->orWhere('email', 'like', '%' . $request->input('s') . '%')
+                        ->orWhere('phone', 'like', '%' . $request->input('s') . '%');
+                });
+            }
+        }
         $data = [
-            'rows'=>Order::query()->with('items.model.author')->orderBy('id','desc')->paginate(20),
+            'rows'=>$query->with('items.product.author')->orderBy('id','desc')->paginate(20),
             'page_title'=>__("Manage Orders"),
         ];
         return view('Order::admin.order.index',$data);
