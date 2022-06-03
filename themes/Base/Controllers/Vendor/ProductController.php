@@ -174,9 +174,11 @@ class ProductController extends FrontendController
             $this->saveCategory($row, $request);
             $this->saveTerms($row, $request);
         }
-
-        return redirect(route('vendor.product.edit',$row->id))->with('success', $id ? __('Product updated') : __("Product created") );
-
+        if($id > 0 ){
+            return back()->with('success',  __('Product updated') );
+        }else {
+            return redirect(route('vendor.product.edit', $row->id))->with('success',__("Product created"));
+        }
     }
 
     public function delete($id)

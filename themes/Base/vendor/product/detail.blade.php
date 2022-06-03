@@ -30,7 +30,7 @@
             @if($row->id)
                 @include('Language::admin.navigation')
             @endif
-            <form action="{{route('vendor.product.store',['id'=>$row->id])}}" method="post">
+            <form action="{{route('vendor.product.store',['id'=>$row->id,'lang'=>request()->query('lang')])}}" method="post">
                 @csrf
                 <div class="@if($row->id) lang-content-box @endif">
                     <div class="row">
