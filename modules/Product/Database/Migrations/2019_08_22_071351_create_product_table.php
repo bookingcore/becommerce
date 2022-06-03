@@ -70,8 +70,11 @@ class CreateProductTable extends Migration
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
 
+            $table->string('object_model',30)->nullable()->default('product');
+
             $table->index('author_id');
-            $table->index('status');
+            $table->index(['object_model','status']);
+            $table->index(['object_model','author_id']);
             $table->softDeletes();
             $table->timestamps();
         });

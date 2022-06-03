@@ -35,11 +35,13 @@
                 currency_position:'{{ get_current_currency('currency_format') }}',
                 currency_symbol:'{{ currency_symbol() }}',
                 currency_rate:'{{ get_current_currency('rate',1) }}',
+                @if($driver = get_search_engine())
                 search:{
-                    driver:'{{$driver = get_search_engine()}}',
+                    driver:'{{$driver}}',
                     app_id:'{{setting_item($driver.'_app_id',config('scount.algolia.id'))}}',
                     public_key:'{{setting_item($driver.'_public',config('scount.algolia.public'))}}'
                 }
+                @endif
             }
             var i18n = {
                 warning:"{{__("Warning")}}",

@@ -35,8 +35,9 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <strong>{{$row->product->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
-                                {{$row->product->sku ?? ''}}
+                                <?php $product = $row->model ?>
+                                <strong>{{$product->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
+                                {{$product->sku ?? ''}}
                             </td>
                             <td>
                                 @include('order.emails.parts.order-address',['order'=>$row->order])

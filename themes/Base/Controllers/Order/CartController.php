@@ -70,7 +70,8 @@ class CartController extends FrontendController
         if (empty($allServices[$service_type])) {
             return $this->sendError(__('Service type not found'),['code'=>404]);
         }
-        $module = $allServices[$service_type];
+        $module = app()->make($allServices[$service_type]);
+
         $service = $module::find($service_id);
         try {
             $cartItem = $this->cart_manager::findItem($service,$variation_id);

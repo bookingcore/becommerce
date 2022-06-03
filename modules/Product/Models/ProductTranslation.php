@@ -4,7 +4,7 @@ namespace Modules\Product\Models;
 
 use App\BaseModel;
 
-class ProductTranslation extends Product
+class ProductTranslation extends BaseModel
 {
     protected $table = 'product_translations';
 

@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
+use Themes\Educrat\Modules\Course\Models\Course;
 
 class OrderItem extends BaseModel
 {
@@ -26,15 +27,6 @@ class OrderItem extends BaseModel
     protected $casts = [
         'meta'=>'array'
     ];
-
-    public function model(){
-        $keys = get_services();
-        if(!empty($keys[$this->object_model])){
-            return $this->belongsTo($keys[$this->object_model],'object_id');
-        }else{
-            return $this->belongsTo(Product::class,'object_id');
-        }
-    }
 
     public function order(){
         return $this->belongsTo(Order::class,'order_id');
@@ -93,6 +85,21 @@ class OrderItem extends BaseModel
 
     public function product(){
         return $this->belongsTo(Product::class,'object_id');
+    }
+
+    public function model() : Attribute{
+        return Attribute::make(
+            get:function($value){
+                $keys = get_services();
+                if(!empty($keys[$this->object_model])){
+                    $model = app()->make($keys[$this->object_model]);
+                    $model->setRawAttributes($this->product->getAttributes());
+                    return $model;
+                }else{
+                    return $this->product;
+                }
+            }
+        );
     }
 
     public function save(array $options = [])

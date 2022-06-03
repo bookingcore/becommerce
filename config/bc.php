@@ -47,5 +47,8 @@ return [
     'app_https'=>env('APP_HTTPS',0),
     'cf_enable_image_resize'=>env('CF_ENABLE_IMAGE_RESIZE'),
     'resize_simple'=>env('APP_RESIZE_SIMPLE'),
-    'preview_media_link'=>env('APP_PREVIEW_MEDIA_LINK')
+    'preview_media_link'=>env('APP_PREVIEW_MEDIA_LINK'),
+    'services'=>[
+        'product'=>\Modules\Product\Models\Product::class
+    ]
 ];
