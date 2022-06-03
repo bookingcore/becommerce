@@ -22,7 +22,7 @@ class Coupon extends BaseModel
     }
 
     public function applyCoupon(){
-        $cart_manager = app()->resolved(CartManager::class);
+        $cart_manager = app()->make(CartManager::class);
         // Validate Coupon
         $res = $this->applyCouponValidate();
         if ($res !== true)
@@ -34,7 +34,7 @@ class Coupon extends BaseModel
         ];
     }
     public function removeCoupon(){
-        $cart_manager = app()->resolved(CartManager::class);
+        $cart_manager = app()->make(CartManager::class);
         // Validate Coupon
         $res = $this->applyCouponValidate();
         if ($res !== true)
@@ -47,7 +47,7 @@ class Coupon extends BaseModel
     }
 
     public function applyCouponValidate($action='add'){
-        $cart_manager = app()->resolved(CartManager::class);
+        $cart_manager = app()->make(CartManager::class);
         $couponCart = $cart_manager::getCoupon();
         $subTotal = $cart_manager::subtotal();
         if($couponCart->where('id',$this->id)->first()){
