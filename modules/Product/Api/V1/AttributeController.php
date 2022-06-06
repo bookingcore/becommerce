@@ -19,7 +19,7 @@ class AttributeController extends ApiController
 
     public function terms(Request $request,ProductAttr $attribute){
         $query = $attribute->terms();
-        $needs = $request->query('needs');
+        $needs = $request->query('needs',[]);
         if(in_array('count',$needs))
         {
             $query->withCount('products');

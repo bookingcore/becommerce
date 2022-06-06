@@ -624,6 +624,8 @@ class Product extends BaseModel
 
 
         $orderby = $filters['order_by'] ?? "desc";
+        if(!in_array($orderby,['asc','desc'])) $orderby = 'asc';
+
         $order = $filters['order'] ?? $filters['sort'] ?? "id";
 
         switch ($order){
