@@ -558,12 +558,14 @@ class Product extends BaseModel
         }
         if (!empty($filters['review_score']) && is_array($filters['review_score'])) {
             $where_review_score = [];
-            foreach ($filters['review_score'] as $number){
-                $decrease_number = $number - 1;
-                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
+            $params = [];
+            foreach ($filters['review_score'] as $number) {
+                $where_review_score[] = " ( products.review_score >= ? AND products.review_score <= ? ) ";
+                $params[] = $number;
+                $params[] = $number.'.9';
             }
             $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
-            $query->WhereRaw($sql_where_review_score);
+            $query->WhereRaw($sql_where_review_score,$params);
         }
 
         if (!empty($filters['brand']) && is_array($filters['brand'])){
