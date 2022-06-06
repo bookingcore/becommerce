@@ -18,7 +18,7 @@ class OrderItemResource extends BaseJsonResource
             'qty'=>$this->qty,
             'price'=>$this->price,
             'title'=>!empty($model->title) ? $model->title.' - #'.$this->object_id : '',
-            'product'=> $model ? new ProductResource($model,['variations']) : null,
+            'product'=> $model ? new ProductResource($model,['variations','price']) : null,
             'variation_id'=>$this->variation_id
         ];
     }

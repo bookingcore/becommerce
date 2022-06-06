@@ -39,7 +39,7 @@
                     width:'100%',
                     allowClear  :true,
                     ajax:{
-                        'url' : BC.routes.product.getForSelect2,
+                        'url' : BC.routes.product.getForSelect2+'?needs[]=price',
                         'dataType': 'json',
                         processResults: function (data) {
                             // Transforms the top-level key of the response object from 'items' to 'results'
