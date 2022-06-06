@@ -68,7 +68,7 @@ class ThemeProvider extends AbstractThemeProvider
 
         return [
             'id'   => 'ec_product',
-            'title' => __("Product Settings"),
+            'title' => __("Course Settings"),
             'position'=>80,
             'view'      => "admin.settings.product",
             "keys"      => [

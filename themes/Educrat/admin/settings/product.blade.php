@@ -3,7 +3,7 @@ use Modules\Product\Models\ProductAttr;
 ;?>
 <div class="row mb-3">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__('Product Settings')}}</h3>
+        <h3 class="form-group-title">{{__('Course Settings')}}</h3>
         <p class="form-group-desc">{{__('Change your options')}}</p>
     </div>
     <div class="col-sm-8">
@@ -28,7 +28,7 @@ use Modules\Product\Models\ProductAttr;
 
 <div class="row mb-3">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__('Product Search Page Settings')}}</h3>
+        <h3 class="form-group-title">{{__('Course Search Page Settings')}}</h3>
         <p class="form-group-desc">{{__('Change your options')}}</p>
     </div>
 
@@ -65,7 +65,7 @@ use Modules\Product\Models\ProductAttr;
                         </div>
                     </div>
                     <div class="form-group mb-3" data-condition="ec_search_layout:is(4)">
-                        <label class="control-label mb-2">{{__("Search page Product ids")}}</label>
+                        <label class="control-label mb-2">{{__("Search page Course ids")}}</label>
                         <div class="form-controls">
                             <input type="text" name="ec_search_top_product_ids" class="form-control" value="{{setting_item("ec_search_top_product_ids")}}">
                             <p><code>{{__('Example: 1,2,3,4,5,6')}}</code></p>
