@@ -32,7 +32,11 @@ class ProductController extends ApiController
     }
 
     public function detail(Request $request,$id){
-        $row = $this->product::find($id);
+        if(is_numeric($id)){
+            $row = $this->product::find($id);
+        }else{
+            $row = $this->product::query()->whereSlug($id)->first();
+        }
         if(!$row or $row->status != 'publish'){
             abort(404);
             return;
