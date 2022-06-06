@@ -69,7 +69,7 @@ class ProductCategory extends BaseModel
         return $this->hasMany(self::class,'parent_id');
     }
 
-    public function product(){
+    public function products(){
         return $this->belongsToMany(Product::class, ProductCategoryRelation::getTableName(),'cat_id','target_id');
     }
     /**
