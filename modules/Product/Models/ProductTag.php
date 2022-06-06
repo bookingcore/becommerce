@@ -65,7 +65,7 @@ class ProductTag extends BaseModel
         return parent::query();
     }
 
-    public function product(){
+    public function products(){
         return $this->belongsToMany(Product::class,ProductTagRelation::getTableName(),'tag_id','target_id');
     }
 

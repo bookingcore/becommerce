@@ -4,9 +4,9 @@
 namespace Modules\Product\Resources;
 
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use App\Resources\BaseJsonResource;
 
-class CategoryResource extends JsonResource
+class CategoryResource extends BaseJsonResource
 {
     public function toArray($request)
     {
@@ -14,7 +14,10 @@ class CategoryResource extends JsonResource
         return [
             'id'=>$this->id,
             'name'=>$translation->name,
-            'children'=> CategoryResource::collection($this->children)
+            'children'=> CategoryResource::collection($this->children),
+            'count'=>$this->whenNeed('count',function(){
+                return $this->product_count;
+            })
         ];
     }
 

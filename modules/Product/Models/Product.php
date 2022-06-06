@@ -610,6 +610,18 @@ class Product extends BaseModel
         {
             $query->where('stock_status','in');
         }
+        if(!empty($filters['pricing_type']))
+        {
+            switch ($filters['pricing_type']){
+                case "free":
+                    $query->where('price','=','0');
+                    break;
+                case "paid":
+                    $query->where('price','>',0);
+                    break;
+            }
+        }
+
 
         $orderby = $filters['order_by'] ?? "desc";
         $order = $filters['order'] ?? $filters['sort'] ?? "id";

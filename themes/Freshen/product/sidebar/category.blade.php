@@ -2,7 +2,7 @@
 
 use Modules\Product\Models\ProductCategory;
 $categories = ProductCategory::where('status','publish')->with(['translation'])->limit(999)->
-withDepth()->having('depth', '==', 0)->withCount('product')
+withDepth()->having('depth', '==', 0)->withCount('products')
     ->get()->toTree();
 if(!$categories) return;
 ;?>
@@ -13,7 +13,7 @@ if(!$categories) return;
             <ul class="list_details">
                 @foreach($categories as $category)
                     @php($translate = $category->translate(app()->getLocale()))
-                    <li><a href="{{$category->getDetailUrl()}}">{{$translate->name}} <span class="float-end">{{$category->product_count}}</span></a></li>
+                    <li><a href="{{$category->getDetailUrl()}}">{{$translate->name}} <span class="float-end">{{$category->products_count}}</span></a></li>
                 @endforeach
             </ul>
         </div>

@@ -7,7 +7,7 @@
  */
 ?>
 <?php
-$tags = \Modules\Product\Models\ProductTag::search()->withCount(['product'])->orderByDesc('product_count')->take(9)->get();
+$tags = \Modules\Product\Models\ProductTag::search()->withCount(['products'])->orderByDesc('products_count')->take(9)->get();
 if(!count($tags)) return;
 ?>
 
