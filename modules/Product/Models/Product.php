@@ -407,7 +407,7 @@ class Product extends BaseModel
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
     }
     public function variations(){
-    	return $this->hasMany(ProductVariation::class);
+    	return $this->hasMany(ProductVariation::class,'product_id');
     }
 
     /**
@@ -624,6 +624,8 @@ class Product extends BaseModel
 
 
         $orderby = $filters['order_by'] ?? "desc";
+        if(!in_array($orderby,['asc','desc'])) $orderby = 'asc';
+
         $order = $filters['order'] ?? $filters['sort'] ?? "id";
 
         switch ($order){

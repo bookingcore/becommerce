@@ -15,6 +15,6 @@ Route::group(['prefix'=>'/v1'],function(){
 
     Route::group(['prefix'=>'attribute'],function(){
         Route::get('/','V1\AttributeController@index')->name('product.api.attribute');
-        Route::get('/{attribute}/term','V1\AttributeController@term')->name('product.api.attribute.term');
+        Route::get('/{attribute}/term','V1\AttributeController@terms')->name('product.api.attribute.term');
     });
 });

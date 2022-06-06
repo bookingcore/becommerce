@@ -94,6 +94,7 @@ class OrderItem extends BaseModel
                 if(!empty($keys[$this->object_model])){
                     $model = app()->make($keys[$this->object_model]);
                     $model->setRawAttributes($this->product->getAttributes());
+                    $model->exists = 1;
                     return $model;
                 }else{
                     return $this->product;
