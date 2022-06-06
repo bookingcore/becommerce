@@ -1,6 +1,6 @@
 <?php
 use Modules\Product\Models\ProductTag;
-$tags = ProductTag::withCount('products')->orderBy('product_count','desc')->limit(9)->with(['translation'])->get();
+$tags = ProductTag::withCount('products')->orderBy('products_count','desc')->limit(9)->with(['translation'])->get();
 if(!$tags) return;
 ;?>
 

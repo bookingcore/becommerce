@@ -101,12 +101,13 @@ class OrderController extends AdminController
 
         $data = [
             'customer_id'=>$request->input('customer_id'),
-            'status'=>$request->input('status'),
+//            'status'=>$request->input('status'),
             'order_date'=>$request->input('order_date'),
             'shipping_amount'=>$request->input('shipping_amount'),
         ];
 
         $order->fillByAttr(array_keys($data),$data);
+        $order->updateStatus($request->input('status'));
         $order->save();
 
         $metas = [

@@ -48,9 +48,6 @@ class EventServiceProvider extends ServiceProvider
         UserSubscriberSubmit::class => [
             UserSubscriberSubmitListeners::class
         ],
-        OrderStatusUpdated::class=>[
-//            UpdateUserPlanListener::class
-        ],
         VendorApproved::class => [
             SendVendorApprovedMail::class,
             SendNotifyApproved::class

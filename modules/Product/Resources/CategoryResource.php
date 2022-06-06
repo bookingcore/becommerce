@@ -16,7 +16,7 @@ class CategoryResource extends BaseJsonResource
             'name'=>$translation->name,
             'children'=> CategoryResource::collection($this->children),
             'count'=>$this->whenNeed('count',function(){
-                return $this->product_count;
+                return $this->products_count;
             })
         ];
     }
