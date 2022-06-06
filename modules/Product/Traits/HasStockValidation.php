@@ -44,7 +44,7 @@ trait HasStockValidation
             if(!empty($this->quantity)){
                 $remainStock = $this->remain_stock;
                 if($qty>$remainStock){
-                    throw new \Exception(__(':product_name remain stock: :remain remaining.',['product_name'=>$this->title,'remain'=>$remainStock]),406);
+                    throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
                 }
             }else{
                 throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
