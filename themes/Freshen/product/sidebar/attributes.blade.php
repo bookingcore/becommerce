@@ -2,7 +2,7 @@
 
 use Modules\Product\Models\ProductAttr;
 $attr = ProductAttr::where('id',$widget['attr']??0)->with(['terms'=>function($query){
-    $query->with('translation')->withCount('product');
+    $query->with('translation')->withCount('products');
 }])->first();
 if(!$attr or empty($attr->terms)) return;
 ;?>

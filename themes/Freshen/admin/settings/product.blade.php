@@ -245,7 +245,7 @@ use Modules\Product\Models\ProductAttr;
                                             <input type="text" __name__="fs_products_sidebar[__number__][title]" class="form-control" placeholder="{{__('Title: About Us')}}">
                                             <textarea __name__="fs_products_sidebar[__number__][content]" rows="3" class="form-control" placeholder="{{__("Content")}}"></textarea>
                                             <div class="form-group" data-condition="'fs_products_sidebar[__number__][type]':is(attr)">
-                                                <select name="fs_products_sidebar[__number__][attr]" class="form-control">
+                                                <select __name__="fs_products_sidebar[__number__][attr]" class="form-control">
                                                     <option value="">{{__('-- Select --')}}</option>
                                                     @foreach($attrProduct as  $attr)
                                                         <option value="{{$attr->id}}">{{$attr->name}}</option>

@@ -108,7 +108,7 @@ class Term extends BaseModel
     }
 
 
-    public function product(){
+    public function products(){
         return $this->belongsToMany(Product::class, ProductTerm::getTableName(),'term_id','target_id');
     }
 }

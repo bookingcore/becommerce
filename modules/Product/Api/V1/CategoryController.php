@@ -17,7 +17,7 @@ class CategoryController extends ApiController
 
         $query  = ProductCategory::query()->isActive();
         if(in_array('count',$needs)){
-            $query->withCount('product');
+            $query->withCount('products');
         }
         return CategoryResource::collection($query->get()->toTree(),$needs);
     }

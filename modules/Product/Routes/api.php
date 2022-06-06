@@ -11,4 +11,10 @@ Route::group(['prefix'=>'/v1'],function(){
    Route::get('/category','V1\CategoryController@index')->name('product.api.category');
    Route::get('/brand','V1\BrandController@index')->name('product.api.brand');
    Route::get('/attribute','V1\AttributeController@index')->name('product.api.attribute');
+
+
+    Route::group(['prefix'=>'attribute'],function(){
+        Route::get('/','V1\AttributeController@index')->name('product.api.attribute');
+        Route::get('/{attribute}/term','V1\AttributeController@term')->name('product.api.attribute.term');
+    });
 });

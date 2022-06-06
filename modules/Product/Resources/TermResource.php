@@ -15,7 +15,10 @@ class TermResource extends BaseJsonResource
         return [
             'id'=>$this->id,
             'name'=>$translation->name,
-            'content'=>$this->content
+            'content'=>$this->content,
+            'count'=>$this->whenNeed('count',function(){
+                return $this->products_count;
+            })
         ];
     }
 
