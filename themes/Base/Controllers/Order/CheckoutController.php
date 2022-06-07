@@ -84,7 +84,7 @@
              * @var Order $order
              */
 
-            $cart = Cart::findByCode($code)->first();
+            $cart = Cart::findByCode($code);
             if(!$cart){
                 return $this->sendError(__("Cart does not exists"),['code'=>'cart_not_found']);
             }
