@@ -17,6 +17,7 @@ class ProductStockListener
         $items = $order->items;
         switch ($order->status) {
             case Order::PROCESSING:
+            case Order::COMPLETED:
                 $this->reduceStock($items);
                 break;
             case Order::REFUNDED:
