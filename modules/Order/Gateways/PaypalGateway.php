@@ -312,7 +312,7 @@ class PaypalGateway extends BaseGateway
             if (!empty($json['message'])) {
                 $message = $json['message'];
             }
-            throw new \Exception($message);
+            throw new \Exception('Paypal Gateway: ' . $message);
         }
     }
 
