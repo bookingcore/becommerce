@@ -106,7 +106,7 @@ class StripeCheckoutGateway extends BaseGateway
         }
         $this->setupStripe();
         $items = $order->items;
-        $billing = $order->getMetaJson('billing');
+        $billing = $order->getJsonMeta('billing');
         $order->updateStatus(Order::ON_HOLD);
 
         $lineItems = [];
