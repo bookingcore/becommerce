@@ -22,6 +22,6 @@ class Seeder extends \Illuminate\Database\Seeder
         $this->call(ProductCategorySeeder::class);
         $this->call(ProductSeeder::class);
         $this->call(TemplateSeeder::class);
-        $this->call(EventSeeder::class);
+        //$this->call(EventSeeder::class);
     }
 }
