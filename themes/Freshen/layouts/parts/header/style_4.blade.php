@@ -28,7 +28,7 @@
         </div>
     </nav>
 </header>
-<div class="header_middle home2 pt15 pb15 dn-992 bgc-thm1">
+<div class="header_middle home2 pt15 pb15 dn-992 bgc-thm1 be-header-style-4">
     <div class="container">
         <div class="row">
             <div class="col-lg-3">

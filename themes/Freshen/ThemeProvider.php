@@ -122,6 +122,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
                 'freshen_footer_mobile_menu_info',
                 'freshen_footer_text_right',
                 'freshen_copyright',
+                'freshen_header_style',
             ],
             'filter_demo_mode'=>[
             ]
