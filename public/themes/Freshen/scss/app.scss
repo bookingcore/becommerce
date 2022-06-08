@@ -314,6 +314,10 @@
     }
 }
 .checkout_coupon{
+    .section-coupon-form .form-control{
+        height: 40px;
+        font-size: 13px;
+    }
     .coupon_input{
         border: 1px solid #E6E9EC;
         border-radius: 4px;
@@ -334,7 +338,6 @@
     .bc_apply_coupon{
         line-height: 1.2;
         margin-bottom: 0;
-        width: 170px;
         background-color: #86BC42;
         border: 1px solid #86BC42;
         border-radius: 4px;
@@ -350,6 +353,7 @@
         @media only screen and (max-width: 520px) {
             width: 100%;
             margin-top: 15px;
+            border-radius: 5px !important;
         }
     }
 
@@ -487,4 +491,14 @@ body .order-box{
         background: #86BC42;
         border-color: #86BC42;
     }
+}
+.dropdown_content .list_content .cart_btns,
+.dropdown_content .list_content .checkout_btns{
+    height:auto;
+}
+
+.payment_widget_btn .btn-block{
+    align-items: center;
+    display: flex;
+    justify-content: center;
 }
