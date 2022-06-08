@@ -14,6 +14,9 @@ use Modules\Template\BlockManager;
 class ModuleProvider extends ModuleServiceProvider
 {
 
+    protected static $_all_types = [];
+    protected static $_all_tabs = [];
+
     public function boot(SitemapHelper $sitemapHelper){
 
         $this->mergeConfigFrom(__DIR__.'/Configs/product.php','product');
@@ -124,6 +127,7 @@ class ModuleProvider extends ModuleServiceProvider
             'product' => Product::class,
         ];
     }
+
     public static function getProductTypes()
     {
         return [
@@ -267,5 +271,80 @@ class ModuleProvider extends ModuleServiceProvider
 
             ]
         ];
+    }
+
+    public static function getAllTypes(){
+        if(!static::$_all_types){
+
+            $all = [];
+            // Modules
+            $custom_modules = \Modules\ServiceProvider::getModules();
+            if(!empty($custom_modules)){
+                foreach($custom_modules as $module){
+                    $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+                    if(class_exists($moduleClass))
+                    {
+                        $services = call_user_func([$moduleClass,'getProductTypes']);
+                        $all = array_merge($all,$services);
+                    }
+
+                }
+            }
+            $custom_modules = \Custom\ServiceProvider::getModules();
+            if(!empty($custom_modules)){
+                foreach($custom_modules as $module){
+                    $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+                    if(class_exists($moduleClass))
+                    {
+                        $services = call_user_func([$moduleClass,'getProductTypes']);
+                        $all = array_merge($all,$services);
+                    }
+                }
+            }
+
+            static::$_all_types = $all;
+        }
+
+        return apply_filters(\Modules\Product\Hook::PRODUCT_TYPES,static::$_all_types);
+    }
+    public static function getAllTabs(){
+        if(!static::$_all_tabs){
+
+            $all = [];
+            // Modules
+            $custom_modules = \Modules\ServiceProvider::getModules();
+            if(!empty($custom_modules)){
+                foreach($custom_modules as $module){
+                    $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
+                    if(class_exists($moduleClass))
+                    {
+                        $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                        $all = array_merge($all,$services);
+                    }
+
+                }
+            }
+            $custom_modules = \Custom\ServiceProvider::getModules();
+            if(!empty($custom_modules)){
+                foreach($custom_modules as $module){
+                    $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
+                    if(class_exists($moduleClass))
+                    {
+                        $services = call_user_func([$moduleClass,'getAdminProductTabs']);
+                        $all = array_merge($all,$services);
+                    }
+                }
+            }
+
+            //@todo Sort Menu by Position
+            $all = \Illuminate\Support\Arr::sort($all, function ($value) {
+                return $value['position'] ?? 10;
+            });
+
+
+            static::$_all_tabs = $all;
+        }
+
+        return apply_filters(\Modules\Product\Hook::PRODUCT_TABS,static::$_all_tabs);
     }
 }

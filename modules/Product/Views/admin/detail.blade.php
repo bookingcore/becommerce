@@ -1,6 +1,6 @@
 <?php
-use Modules\Product\Models\ProductBrand;
 $tabs = get_admin_product_tabs();
+$product_types = get_product_types();
 ?>
 
 @extends('admin.layouts.app')
@@ -19,7 +19,7 @@ $tabs = get_admin_product_tabs();
                     @endif
                 </div>
                 <div class="">
-
+                    <?php do_action(\Modules\Product\Hook::FORM_BEFORE_PREVIEW_BUTTON,$row) ?>
                     @if($row->slug)
                         <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{__("View Product")}}</a>
                     @endif
@@ -42,9 +42,9 @@ $tabs = get_admin_product_tabs();
                             <div class="panel-title d-flex justify-content-between">
                                 <div class="d-flex justify-content-center align-items-center">
                                     <strong class="flex-shrink-0 mr-3">{{__("Product Information")}}</strong>
-                                    <select @if(!is_default_lang()) readonly="" disabled @endif class="form-control" name="product_type">
+                                    <select @if(!is_default_lang()) readonly="" disabled @endif class="form-control @if(count($product_types) <= 1) d-none  @endif" name="product_type">
                                         <optgroup label="{{__("Product Type")}}">
-                                            @foreach(get_product_types() as $type_id=>$type)
+                                            @foreach($product_types as $type_id=>$type)
                                                 <option @if($row->product_type == $type_id) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
                                             @endforeach
                                         </optgroup>

@@ -80,6 +80,8 @@ class ThemeProvider extends AbstractThemeProvider
                 'ec_search_top_category_ids',
                 'ec_search_top_carousel',
 
+                'ec_attr_level',
+
                 'ec_products_sidebar',
 
             ],

@@ -13,6 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
+        if(Schema::hasTable('products')) {
+            Schema::table('products', function (Blueprint $table) {
+
+                if(!Schema::hasColumn('products','duration')){
+                    $table->integer('duration')->nullable();
+                    $table->integer('lesson_count')->nullable();
+                    $table->text('learn')->nullable();
+                    $table->text('requirements')->nullable();
+                }
+
+            });
+        }
+
         Schema::create('course_section', function (Blueprint $table) {
             $table->bigIncrements('id');
 

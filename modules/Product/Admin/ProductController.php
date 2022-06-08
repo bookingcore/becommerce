@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attribute;
+use Modules\Product\Hook;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
@@ -39,11 +40,11 @@ class ProductController extends AdminController
      */
     protected $product_tag_relation;
 
-    public function __construct()
+    public function __construct(Product $product)
     {
         parent::__construct();
         AdminMenuManager::setActive('product');
-        $this->product = Product::class;
+        $this->product = $product;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
         $this->attributes = Attribute::class;
@@ -207,6 +208,8 @@ class ProductController extends AdminController
             $dataKeys[] = 'author_id';
         }
 
+        $dataKeys = apply_filters(Hook::SAVING_KEYS,$dataKeys);
+
         $row->fillByAttr($dataKeys,$request->input());
         if(!$row->author_id) $row->author_id = auth()->id();
         $row->updateMinMaxPrice();
@@ -221,6 +224,8 @@ class ProductController extends AdminController
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
             }
+
+            do_action(Hook::AFTER_SAVING,$row);
 
 
             if($id > 0 ){

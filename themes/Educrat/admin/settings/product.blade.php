@@ -176,6 +176,35 @@ use Modules\Product\Models\ProductAttr;
         </div>
     </div>
 </div>
+<hr>
+
+<div class="row mb-3">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__('Attribute Settings')}}</h3>
+        <p class="form-group-desc">{{__('Change your options')}}</p>
+    </div>
+
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-body">
+                @if(is_default_lang())
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            <label>{{__("Level Attribute")}}</label>
+                            <div class="form-controls">
+                                <select name="ec_attr_level" class="form-control">
+                                    @foreach(\Modules\Product\Models\ProductAttr::search()->get() as $attribute)
+                                        <option @if(setting_item('ec_attr_level')==$i) selected @endif value="{{$attribute->id}}">{{$attribute->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-sm-4">
         <h3 class="form-group-title">{{__("Sidebar Options")}}</h3>

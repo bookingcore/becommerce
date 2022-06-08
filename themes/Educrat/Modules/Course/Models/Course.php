@@ -12,4 +12,8 @@ class Course extends Product
     public function sections(){
         return $this->hasMany(Section::class,'course_id');
     }
+
+    public function calculateMeta(){
+
+    }
 }
