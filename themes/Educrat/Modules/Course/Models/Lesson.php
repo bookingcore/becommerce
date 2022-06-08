@@ -2,13 +2,19 @@
 namespace Themes\Educrat\Modules\Course\Models;
 
 use App\BaseModel;
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 class Lesson extends BaseModel
 {
     use SoftDeletes;
+
     protected $table = 'course_lessons';
+
+    public $table_translation = 'course_section_translations';
+
+    protected $translation_class = SectionTranslation::class;
 
     protected $fillable = [
         'name',
@@ -24,11 +30,6 @@ class Lesson extends BaseModel
     protected $slugField     = 'slug';
     protected $slugFromField = 'name';
 
-    public $table_translation = 'course_lessons_trans';
-    public $translatable = [
-        'name',
-        'content',
-    ];
 
     /**
      * @param $lesson_IDs array or number

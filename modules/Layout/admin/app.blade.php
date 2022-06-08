@@ -159,6 +159,8 @@
 <script src="{{url('libs/daterange/moment.min.js')}}"></script>
 <script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.version'))}}"></script>
 
+@include('Layout::admin.components.filepicker')
+
 {!! \App\Helpers\Assets::js(true) !!}
 
 @yield('script.body')

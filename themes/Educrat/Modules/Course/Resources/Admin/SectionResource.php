@@ -13,10 +13,11 @@ class SectionResource extends BaseJsonResource
     {
         return [
             'id'=>$this->id,
-            'title'=>$this->title,
+            'name'=>$this->name,
             'lessons'=>$this->whenNeed('lessons',function(){
                 return LessonResource::collection($this->lessons);
-            })
+            }),
+            'active'=>$this->active
         ];
     }
 }

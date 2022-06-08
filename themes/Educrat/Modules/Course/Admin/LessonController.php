@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Themes\Educrat\Modules\Course\Models\Course;
 use Themes\Educrat\Modules\Course\Models\Lesson;
+use Themes\Educrat\Modules\Course\Resources\Admin\LessonResource;
 
 class LessonController extends AdminController
 {
@@ -91,9 +92,9 @@ class LessonController extends AdminController
         $module->save();
 
         if($module_id){
-            return $this->sendSuccess(__("Lesson updated"));
+            return $this->sendSuccess(['lecture'=>new LessonResource($module)],__("Lesson updated"));
         }else{
-            return $this->sendSuccess(['lecture'=>$module],__("Lesson created"));
+            return $this->sendSuccess(['lecture'=>new LessonResource($module)],__("Lesson created"));
         }
     }
 
@@ -111,5 +112,27 @@ class LessonController extends AdminController
             }
         }
         return $row;
+    }
+
+    public function delete(Request $request,$id){
+        $row = $this->checkItemPermission($id);
+
+        if(empty($row)){
+            return $this->sendError(__("Course not found"));
+        }
+
+        $request->validate([
+            'lesson_id'=>'required'
+        ]);
+
+        $lesson = Lesson::query()->where('id',$request->input('lesson_id'))->where('course_id',$id)->first();
+
+        if(!$lesson){
+            return $this->sendError(__("Lesson not found"));
+        }
+
+        $lesson->delete();
+
+        return $this->sendSuccess(__("Lesson deleted"));
     }
 }

@@ -1,5 +1,5 @@
-window.courseLecturesManagement = new Vue({
-    el:'#lecture_management',
+window.courseLessonsManagement = new Vue({
+    el:'#lessons_management',
     data:{
         onEdit:false,
         options:{},
@@ -7,7 +7,7 @@ window.courseLecturesManagement = new Vue({
         lecture_form:{
             type:'',
             id:'',
-            title:'',
+            name:'',
             duration:'',
             url:'',
             preview_url:'',
@@ -40,15 +40,15 @@ window.courseLecturesManagement = new Vue({
             }
         },
         add_lecture_title:function () {
-            return this.i18n.add_lecture[this.lecture_form.type]
+            return this.i18n.add_lesson[this.lecture_form.type]
         },
     },
     methods:{
-        addLecture:function (type,section) {
+        addLesson:function (type,section) {
             this.lecture_form = {
                 type:type,
                 id:'',
-                title:'',
+                name:'',
                 duration:'',
                 url:'',
                 preview_url:'',
@@ -65,7 +65,7 @@ window.courseLecturesManagement = new Vue({
             }
 
         },
-        editLecture:function (row,section) {
+        editLesson:function (row,section) {
             this.lastSection = section;
             this.lecture_form = Object.assign({},row);
             this.lastEditObject = row;
@@ -90,7 +90,38 @@ window.courseLecturesManagement = new Vue({
             $('#add_section_modal').modal('show');
 
         },
-        saveLecture:function () {
+        deleteLesson:function(lesson,section_index,lesson_index){
+            var c = confirm(this.i18n.delete_lesson);
+            if(!c) return;
+            var me = this;
+
+            $.ajax({
+                url:this.routes.delete,
+                data:{
+                    section_id:section.id,
+                    lesson_id:lesson.id
+                },
+                dataType:'json',
+                type:'post',
+                success:function (json) {
+                    me.onSaving = false;
+                    if(json.message && !json.status){
+                        BCApp.showAjaxMessage(json);
+                    }
+
+                    if(json.status){
+                        me.sections[section_index].lessons.splice(lesson_index,1)
+                    }
+
+                },
+                error:function (e) {
+                    me.onSaving = false;
+                    BCApp.showAjaxError(e);
+                }
+            })
+
+        },
+        saveLesson:function () {
             var me = this;
             if(me.onSaving) return;
 
@@ -103,6 +134,7 @@ window.courseLecturesManagement = new Vue({
             var data = Object.assign({},this.lecture_form);
             data.section_id = me.lastSection ? me.lastSection.id : '';
             data.course_id = me.course_id;
+            if(!data.type) data.type = 'video';
             $.ajax({
                 url:this.routes.store,
                 data:data,
@@ -110,45 +142,41 @@ window.courseLecturesManagement = new Vue({
                 type:'post',
                 success:function (json) {
                     me.onSaving = false;
-                    if(json.message){
-                        BravoApp.showAjaxMessage(json);
+                    if(json.message && !json.status){
+                        BCApp.showAjaxMessage(json);
                     }
-                    if(json.lecture){
-                        me.lastSection.modules.push(json.lecture);
-                    }else{
-                        if(me.lastEditObject){
-                            me.lastEditObject = data;
-                        }
-                        me.updateLectureData(data.section_id,data.id,data);
 
-                    }
                     if(json.status){
+                        me.updateLectureData(data.section_id,json.lecture.id,json.lecture);
                         $('#add_lecture_modal').modal('hide');
                     }
 
                 },
                 error:function (e) {
                     me.onSaving = false;
-                    BravoApp.showAjaxError(e);
+                    BCApp.showAjaxError(e);
                 }
             })
         },
         updateLectureData:function(section_id,lecture_id,data){
             var sectionIndex  = _.findIndex(this.sections,{id:section_id});
             if(sectionIndex > -1){
-                var lectureIndex = _.findIndex(this.sections[sectionIndex].modules,{id:lecture_id});
+                var lectureIndex = _.findIndex(this.sections[sectionIndex].lessons,{id:lecture_id});
+                console.log(sectionIndex,lectureIndex)
                 if(lectureIndex > -1 ){
                     //this.sections[sectionIndex].modules[lectureIndex] = data;
                     for(var k in data){
-                        this.$set(this.sections[sectionIndex].modules[lectureIndex],k,data[k]);
+                        this.$set(this.sections[sectionIndex].lessons[lectureIndex],k,data[k]);
                     }
+                    return;
                 }
             }
+            this.sections[sectionIndex].lessons.push(data)
         },
         validateLecture:function () {
             this.error = [];
             var error = [];
-            if(!this.lecture_form.title){
+            if(!this.lecture_form.name){
                 error.push(this.i18n.validate.title);
             }
             // if(this.lecture_form.type == 'iframe'){
@@ -187,8 +215,8 @@ window.courseLecturesManagement = new Vue({
                 type:'post',
                 success:function (json) {
                     me.onSaving = false;
-                    if(json.message){
-                        BravoApp.showAjaxMessage(json);
+                    if(json.message && !json.status){
+                        BCApp.showAjaxMessage(json);
                     }
 
                     if(json.section){
@@ -200,24 +228,55 @@ window.courseLecturesManagement = new Vue({
                     }
 
                     if(json.status){
-                        $('#add_lecture_modal').modal('hide');
+                        $('#add_section_modal').modal('hide');
                     }
                 },
                 error:function (e) {
                     me.onSaving = false;
-                    BravoApp.showAjaxError(e);
+                    BCApp.showAjaxError(e);
                 }
             })
         },
         validateSection:function () {
             this.error = [];
             var error = [];
-            if(!this.section_form.title){
+            if(!this.section_form.name){
                 error.push(this.i18n.validate.section_title);
             }
             this.error = error;
             if(error.length) return false;
             return true;
+        },
+
+        deleteSection:function(section,index){
+            var c = confirm(this.i18n.delete_section);
+            if(!c) return;
+            var me = this;
+
+            $.ajax({
+                url:this.routes.delete_section,
+                data:{
+                    section_id:section.id,
+                },
+                dataType:'json',
+                type:'post',
+                success:function (json) {
+                    me.onSaving = false;
+                    if(json.message && !json.status){
+                        BCApp.showAjaxMessage(json);
+                    }
+
+                    if(json.status){
+                        me.sections.splice(index,1)
+                    }
+
+                },
+                error:function (e) {
+                    me.onSaving = false;
+                    BCApp.showAjaxError(e);
+                }
+            })
+
         },
     },
 });

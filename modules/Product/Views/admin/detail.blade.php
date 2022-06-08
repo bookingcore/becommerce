@@ -19,9 +19,7 @@ $tabs = get_admin_product_tabs();
                     @endif
                 </div>
                 <div class="">
-                    @if($row->id && $row->type == 'variable')
-                        <a class="btn btn-warning btn-sm" href="{{route('product.admin.variation.index',['id'=>$row->id])}}" target=""><i class="fa fa-sliders"></i> {{__("Manage Variations")}}</a>
-                    @endif
+
                     @if($row->slug)
                         <a class="btn btn-primary btn-sm" href="{{$row->getDetailUrl(request()->query('lang'))}}" target="_blank">{{__("View Product")}}</a>
                     @endif

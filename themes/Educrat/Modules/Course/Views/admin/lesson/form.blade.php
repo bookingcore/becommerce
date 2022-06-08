@@ -2,23 +2,26 @@
     <div class="col-md-2"></div>
     <div class="col-md-8">
 
-        <div id="lecture_management" v-cloak>
+        <div id="lessons_management" v-cloak>
             <div class="d-flex justify-content-end mb-4">
-                <button @click="openSectionForm" class="btn btn-warning btn-sm" type="button">
+                <a href="#" @click.prevent="openSectionForm" class="btn btn-warning btn-sm" type="button">
                     <i class="fa fa-plus"></i> {{__("Add Section")}}
-                </button>
+                </a>
             </div>
-            <div class="panel" v-for="row in sections">
+            <div class="panel" v-for="(row,section_index) in sections">
                 <div class="panel-title d-flex justify-content-between">
                     <div class="flex-left">
                         <i :class="{'text-success':row.active == 1,'text-danger':row.active == 0}" class=" fa fa-circle"></i>
-                        <strong>@{{ row.name }} </strong>
-                        <i class="fa fa-edit edit-section" @click="openSectionForm($event,row)"></i>
+                        <a href="#" @click.prevent="openSectionForm($event,row)" class="d-inline-block mr-1">
+                            <strong>@{{ row.name }} </strong>
+                            <i class="fa fa-edit edit-section" ></i>
+                        </a>
                     </div>
                     <div class="flex-right">
+                        <a href="#" @click.prevent="deleteSection(row,section_index)" class="btn btn-danger btn-sm mr-2"><i class="fa fa-trash edit-section" ></i></a>
                         <div class="btn-group">
                             <button class="btn btn-outline-primary dropdown-toggle btn-sm" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-plus"></i> {{__("Add lecture")}}
+                                <i class="fa fa-plus"></i> {{__("Add lesson")}}
                             </button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                 <a href="#" class="dropdown-item" @click.prevent="addLesson('video',row)"><i class="fa fa-play-circle-o"></i> {{__("Add video")}}</a>
@@ -33,7 +36,7 @@
                     <div class="form-group-item">
                         <div class="g-items-header">
                             <div class="row">
-                                <div class="col-md-5">{{__("Title")}}</div>
+                                <div class="col-md-5">{{__("Lesson Name")}}</div>
                                 <div class="col-md-2">{{__("Type")}}</div>
                                 <div class="col-md-2">{{__("Duration")}}</div>
                                 <div class="col-md-1">{{__("Order")}}</div>
@@ -41,7 +44,7 @@
                             </div>
                         </div>
                         <div class="g-items">
-                            <div class="item" v-for="module in row.lessons">
+                            <div class="item" v-for="(module,lesson_index) in row.lessons">
                                 <div class="row">
                                     <div class="col-md-5">
                                         <i :class="{'text-success':module.active == 1,'text-danger':module.active == 0}" class=" fa fa-circle"></i>
@@ -50,7 +53,8 @@
                                     <div class="col-md-2">@{{module.duration}}</div>
                                     <div class="col-md-1">@{{module.display_order}}</div>
                                     <div class="col-md-2">
-                                        <span class="btn btn-warning btn-sm" @click="editLesson(module,row)"><i class="fa fa-pencil"></i></span>
+                                        <button class="btn btn-warning btn-sm" @click="editLesson(module,row)"><i class="fa fa-pencil"></i></button>
+                                        <button class="btn btn-danger btn-sm" @click="deleteLesson(module,section_index,lesson_index)"><i class="fa fa-trash"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +62,7 @@
                     </div>
                 </div>
             </div>
-            <div class="d-flex justify-content-end">
+            <div class="d-flex justify-content-end" v-if="sections.length">
                 <button @click="openSectionForm" class="btn btn-warning btn-sm" type="button">
                     <i class="fa fa-plus"></i> {{__("Add Section")}}
                 </button>
@@ -83,7 +87,7 @@
                             </div>
                             <div class="form-group" v-if="['iframe'].indexOf(lecture_form.type) < 0">
                                 <label>{{__("File")}} </label>
-                                <file-picker :type="lecture_form.type" v-model="lecture_form.file_id"></file-picker>
+                                <bc-filepicker :type="lecture_form.type" v-model="lecture_form.file_id"></bc-filepicker>
                             </div>
                             <div class="form-group" >
                                 <label>{{__("File URL")}}</label>
@@ -164,24 +168,28 @@
     </div>
 </div>
 <script>
-    var course_sections_data = {!! json_encode(new \Themes\Educrat\Modules\Course\Resources\Admin\CourseResource($row,['sections'])) !!};
+    var course_sections_data = {!! json_encode(new \Themes\Educrat\Modules\Course\Resources\Admin\CourseResource($row,['sections','default_section'])) !!};
     course_sections_data.i18n = {!! json_encode([
-                'add_lecture'=>[
-                    'video'=>__("Add video lecture"),
-                    'scorm'=>__("Add scorm lecture"),
-                    'presentation'=>__("Add presentation lecture"),
-                    'iframe'=>__("Add iframe lecture"),
+                'add_lesson'=>[
+                    'video'=>__("Add video lesson"),
+                    'scorm'=>__("Add scorm lesson"),
+                    'presentation'=>__("Add presentation lesson"),
+                    'iframe'=>__("Add iframe lesson"),
                 ],
                 'validate'=>[
-                    'title'=>__("Lecture name is required"),
+                    'title'=>__("Lesson name is required"),
                     'section_title'=>__("Section name is required"),
                     'file_id'=>__("File is required"),
                     'url'=>__("Url is required"),
                     'duration'=>__("Duration is required"),
-                ]
+                ],
+                'delete_lesson'=>__('Do you want to delete this lesson?'),
+                'delete_section'=>__('Do you want to delete this section?'),
             ]) !!};
     course_sections_data.routes = {!! json_encode([
                 'store'=>route('course.admin.lesson.store',['id'=>$row->id]),
-                'store_section'=>route('course.admin.lesson.store',['id'=>$row->id]),
+                'delete'=>route('course.admin.lesson.delete',['id'=>$row->id]),
+                'store_section'=>route('course.admin.section.store',['id'=>$row->id]),
+                'delete_section'=>route('course.admin.section.delete',['id'=>$row->id]),
             ]) !!}
 </script>

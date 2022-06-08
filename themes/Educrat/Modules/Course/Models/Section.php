@@ -2,11 +2,17 @@
 namespace Themes\Educrat\Modules\Course\Models;
 
 use App\BaseModel;
+use App\Traits\HasTranslations;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Section extends BaseModel
 {
     use SoftDeletes;
+
+    public $table_translation = 'course_section_translations';
+
+    protected $translation_class = SectionTranslation::class;
+
     protected $table = 'course_section';
     protected $fillable = ['name', 'display_type', 'hide_in_single', 'course_id','active'];
     protected $slugField = 'slug';
