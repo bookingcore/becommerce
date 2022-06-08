@@ -41,6 +41,47 @@ class SectionController extends AdminController
         return true;
     }
 
+    public function store(Request $request, $id)
+    {
+        /**
+         * @var Section $row
+         */
+        $row = $this->hasCoursePermission($id);
+
+        if(empty($row)){
+            return $this->sendError(__("Course not found"));
+        }
+        $rules = [
+            'name'=>'required',
+        ];
+
+        request()->validate($rules);
+
+        if($section_id = request()->input('id')){
+            $section = Section::find($section_id);
+            if(empty($section)){
+                return $this->sendError(__("Section not found"));
+            }
+        }else{
+            $section = new Section();
+            $section->course_id = $id;
+        }
+
+        $section->fillByAttr([
+            'name',
+            'active',
+            'display_order'
+        ],request()->input());
+
+        $section->save();
+
+        if($section_id){
+            return $this->sendSuccess(__("Section updated"));
+        }else{
+            return $this->sendSuccess(['section'=>$section],__("Section created"));
+        }
+    }
+
     public function getForSelect2(Request $request)
     {
         $pre_selected = $request->query('pre_selected');
