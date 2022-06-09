@@ -317,6 +317,11 @@ class Order extends BaseModel
 
         $this->save();
 
+        // Change for Items
+        $this->items()->update([
+            'status'=>$this->status
+        ]);
+
         $this->addNote(OrderNote::STATUS_CHANGED,__("Order status changed from :old_status to :new_status",['old_status'=>$old_status,'new_status'=>$status]),['old_status'=>$old_status,'new_status'=>$status]);
 
         OrderStatusUpdated::dispatch($this,$old_status,$status);
