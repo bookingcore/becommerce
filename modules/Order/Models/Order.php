@@ -129,7 +129,7 @@ class Order extends BaseModel
 
 
     public function coupons(){
-        return $this->belongsToMany(Coupon::class, CouponOrder::getTableName(),'order_id','coupon_code');
+        return $this->belongsToMany(Coupon::class, CouponOrder::getTableName(),'order_id','coupon_code','id','code');
     }
 
     public function coupon_orders(){

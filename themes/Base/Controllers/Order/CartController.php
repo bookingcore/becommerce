@@ -138,7 +138,7 @@ class CartController extends FrontendController
                     }
                 }
             }
-            $this->cart_manager::calculatorDiscountCoupon();
+            $this->cart_manager::cart()->syncDiscount();
 
         }catch (\Exception $exception)
         {
