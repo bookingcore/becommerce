@@ -46,6 +46,15 @@ class ProductStockListener
                                         $variation->stock_status ='out';
                                     }
                                     $variation->save();
+                                }else{
+                                    // using for turn on parent - turn of child
+                                    $model->quantity -= $item->qty;
+                                    $model->sale_count += $item->qty;
+                                    if($model->quantity <=0){
+                                        $model->quantity = 0 ;
+                                        $model->stock_status ='out';
+                                    }
+                                    $model->save();
                                 }
                             }else{
                                 $model->quantity -= $item->qty;
