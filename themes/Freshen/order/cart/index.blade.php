@@ -63,7 +63,7 @@
                                                             <button class="btn btn2 btn-thm bc_apply_coupon">{{__('Apply Coupon')}} <i class="fa fa-spin  fa-spinner d-none"></i></button>
                                                         </div>
                                                         <div>
-                                                            <div class="message alert-text mt-2"></div>
+                                                            <div class="message alert-text mt-3"></div>
                                                             <div class="form-group text-end"></div>
                                                             @if(!empty($coupons = \Modules\Order\Helpers\CartManager::getCoupon()) and count($coupons) >0)
                                                                 <h6>{{__("List Coupon")}}</h6>
