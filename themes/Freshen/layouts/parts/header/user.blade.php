@@ -1,8 +1,28 @@
 <li class="bc-user-header list-inline-item dropdown {{ ($header_style ?? '') != 4 ? 'text-end' : '' }}">
-    <a href="#" data-bs-toggle="dropdown" class="login @if(is_vendor_page()) nav-link text-white @endif">{{__("Hi, :name",['name'=>Auth::user()->display_name])}}
-        <i class="fa fa-angle-down"></i>
+    <a href="#" data-bs-toggle="dropdown" class="login @if(is_vendor_page()) nav-link text-white @endif">
+        @if(!empty($is_use_mobile))
+            <div class="user-avatar">
+                <img src="{{Auth::user()->avatar_url}}" alt="{{Auth::user()->display_name}}">
+                <i class="fa fa-angle-down"></i>
+            </div>
+        @else
+            {{__("Hi, :name",['name'=>Auth::user()->display_name])}}
+            <i class="fa fa-angle-down"></i>
+        @endif
     </a>
     <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end fz14">
+        @if(!empty($is_use_mobile))
+            <li>
+                <a class="dropdown-item bc-compare-count" href="#">
+                    <i class="flaticon-filter icon me-1"></i> ({{ !empty(session('compare')) ? count(session('compare')) : "0" }}) {{__("Compare")}}
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="{{route('user.wishList.index')}}">
+                    <i class="flaticon-heart icon me-1"></i> <span class="wishlist_count">({{ countWishlist() }})</span> {{__("Wishlist")}}
+                </a>
+            </li>
+        @endif
         <li class="">
             <a class="dropdown-item" href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user me-1"></i> {{__("My profile")}}</a>
         </li>

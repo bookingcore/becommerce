@@ -4,6 +4,9 @@
 .fs-14{
     font-size: 14px;
 }
+.fs-18{
+    font-size: 18px;
+}
 .footer_one{
     &:before{
         display: none !important;
@@ -250,12 +253,19 @@
         border: none;
         transition: all 0.3s;
     }
-    &:hover{
+    @media (max-width: 1023px) {
         .dropdown-menu{
-            display: block;
-            transform: translate(-101px, 43px);
-            position: absolute;
-            inset: 0px auto auto 0px;
+            transition:none;
+        }
+    }
+    &:hover{
+        @media (min-width: 1024px) {
+            .dropdown-menu{
+                display: block;
+                transform: translate(-101px, 43px);
+                position: absolute;
+                inset: 0px auto auto 0px;
+            }
         }
     }
 }
@@ -513,5 +523,29 @@ body .order-box{
         @media (max-width: 766px) {
             min-width: 80% !important;
         }
+    }
+}
+.mobile_menu_widget_icons{
+    .dropdown-menu{
+        line-height: 22px;
+        margin-top: 25px !important;
+    }
+    .bc-user-header{
+        top: -3px;
+        .user-avatar{
+            display: flex;
+            align-content: center;
+            align-items: center;
+            img{
+                max-width: 30px;
+                border-radius: 50%;
+                margin-right: 5px;
+            }
+        }
+    }
+}
+.header{
+    @media (max-width: 1023px) {
+        z-index: 10 !important;
     }
 }

@@ -17,7 +17,14 @@
             </div>
             <div class="mobile_menu_widget_icons">
                 <ul class="cart mt15">
-                    <li class="list-inline-item">
+                    @if(!Auth::user())
+                        <li class="list-inline-item text-end">
+                            <a href="#" data-bs-toggle="modal" data-bs-target="#login"><span class="flaticon-user icon fs-18 {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}"></span></a>
+                        </li>
+                    @else
+                        @include('layouts.parts.header.user',['is_use_mobile'=>1])
+                    @endif
+                    <li class="list-inline-item ms-3">
                         @includeIf('order.cart.mini-cart')
                     </li>
                 </ul>
