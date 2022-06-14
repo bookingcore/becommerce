@@ -507,3 +507,9 @@ body .order-box{
         top:0px !important;
     }
 }
+.bootbox.bootbox-alert{
+    .modal-dialog{
+        min-width: auto !important;
+        margin: auto  !important;;
+    }
+}

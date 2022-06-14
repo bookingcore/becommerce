@@ -3,13 +3,13 @@
     @csrf
     <input type="hidden" name="object_model" value="product">
     <input type="hidden" name="object_id" value="{{$row->id}}">
-    <ul class="cart_btns ui_kit_button mb30">
+    <ul class="cart_btns ui_kit_button">
         @if($row->product_type == 'variable')
             @include('product.details.variations')
         @endif
         @if($row->product_type == 'variable' or ( $row->product_type == 'simple' and $row->stock_status == 'in' ))
             @php($max = $row->is_manage_stock > 0 ? $row->quantity : false)
-            <li class="list-inline-item">
+            <li class="list-inline-item mb30">
                 <div class="cart_btn">
                     <div class="quantity-block">
                         <button type="button" class="quantity-arrow-minus inner_page down"> -</button>
@@ -18,7 +18,7 @@
                     </div>
                 </div>
             </li>
-            <li class="list-inline-item">
+            <li class="list-inline-item mb30">
                 <button type="submit" class="btn btn-thm bc_add_to_cart btn-add-to-cart">
                     <span class="flaticon-shopping-cart mr5 fz18 vam"></span> {{ __('Add to cart') }} <i class="fa fa-spinner d-none"></i>
                 </button>
