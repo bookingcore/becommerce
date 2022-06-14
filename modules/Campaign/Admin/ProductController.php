@@ -60,8 +60,8 @@ class ProductController extends AdminController
             })
             ->whereNull('campaigns.id');
         if ($s = $request->query('q')) {
-            $query->where('title', 'like', '%' . $s . '%');
-            $query->orWhere('id', '=', $s);
+            $query->where('products.title', 'like', '%' . $s . '%');
+            $query->orWhere('products.id', '=', $s);
         }
         $res = [];
         foreach ($query->paginate(20) as $product) {
