@@ -509,7 +509,9 @@ body .order-box{
 }
 .bootbox.bootbox-alert{
     .modal-dialog{
-        min-width: auto !important;
-        margin: auto  !important;;
+        margin: auto  !important;
+        @media (max-width: 766px) {
+            min-width: 80% !important;
+        }
     }
 }
