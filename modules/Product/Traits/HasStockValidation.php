@@ -47,11 +47,11 @@ trait HasStockValidation
                     throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
                 }
             }else{
-                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
+                throw new \Exception(__('Product is out of stock'),406);
             }
         }else{
             if($this->stock_status ==='out'){
-                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
+                throw new \Exception(__('Product is out of stock'),406);
             }
         }
     }

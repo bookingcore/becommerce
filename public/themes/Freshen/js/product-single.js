@@ -46,6 +46,11 @@ jQuery(function ($) {
                 if($(".bc_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
                     $(".bc_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
                 }
+                if(variation_selected.quantity < 1){
+                    $(this).closest('form').find(".bc_add_to_cart").addClass(['btn-secondary','disabled']);
+                }else{
+                    $(this).closest('form').find(".bc_add_to_cart").removeClass(['btn-secondary','disabled']);
+                }
             }else{
                 $('.bc-product-variations .quantity').addClass("d-none");
                 $(".bc_form_add_to_cart input[name=quantity]").removeAttr('max');
