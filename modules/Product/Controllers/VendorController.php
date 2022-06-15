@@ -114,7 +114,10 @@ class VendorController extends FrontendController
         }
 
         $row->fillByAttr($dataKeys,$request->input());
-
+        $row->updateMinMaxPrice();
+        if(!empty($row->is_manage_stock) and $row->quantity > 0){
+            $row->stock_status = 'in';
+        }
         $res = $row->saveWithTranslation($request->input('lang'));
         $row->saveSEO($request,$request->input('lang'));
 

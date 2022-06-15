@@ -165,6 +165,11 @@ class ProductController extends FrontendController
         }
         $row->fillByAttr($dataKeys,$request->input());
 
+        $row->updateMinMaxPrice();
+        if(!empty($row->is_manage_stock) and $row->quantity > 0){
+            $row->stock_status = 'in';
+        }
+
         $row->saveWithTranslation($request->input('lang'));
 
         $row->saveSEO($request,$request->input('lang'));
