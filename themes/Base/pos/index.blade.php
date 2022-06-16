@@ -1,5 +1,5 @@
 @extends('layouts.blank')
-@section('head')
+@push('head')
     <style>
         .footer{
             display: none;
@@ -8,7 +8,7 @@
             margin: 0px!important;
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <div id="pos_app" v-cloak class="bg-f1f1f1 vh-100" >
         <div class="d-flex h-100 flex-column">
@@ -67,7 +67,7 @@
     </div>
 @endsection
 
-@section('footer')
+@push('footer')
     <script>
         window.i18n = Object.assign(window.i18n,{
 
@@ -80,4 +80,4 @@
     @include('pos.components.order-payment')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
     <script src="{{theme_url('Base/pos/pos.js')}}"></script>
-@endsection
+@endpush

@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('head')
-
-@endsection
 @section('content')
      @include('global.breadcrumb')
     <div class="axtronic-section-account mb-3 mt-3">
@@ -36,6 +33,4 @@
             </div>
         </div>
     </div>
-@endsection
-@section('footer')
 @endsection

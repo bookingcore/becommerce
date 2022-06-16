@@ -42,7 +42,7 @@
             main_menu:'{{__("Main Menu")}}',
         };
     </script>
-    @yield('head')
+    @stack('head')
 </head>
 <body class="{{$body_class ?? ''}}">
 <div class="wrapper ovh">
@@ -70,6 +70,6 @@
 
 <!-- Custom script for all pages -->
 <script  src="{{ theme_url('Freshen/js/app.js?_v='.config('app.asset_version')) }}"></script>
-@yield('footer')
+@stack('footer')
 </body>
 </html>

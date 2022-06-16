@@ -1,11 +1,11 @@
 @extends('layouts.vendor')
-@section('head')
+@push('head')
     <style>
         .bc-table .address-title{
             font-size: 16px;
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <section class="bc-items-listing">
         <div class="d-flex justify-content-between mb-4">
@@ -20,6 +20,11 @@
                 <table class="table bc-table">
                     <thead>
                     <tr>
+                        <th>
+                            <div class="form-check">
+                                <input class="form-check-input check-all" type="checkbox" value="" >
+                            </div>
+                        </th>
                         <th>{{__('ID')}}</th>
                         <th>{{__('Product Name')}}</th>
                         <th>{{__('Customer')}}</th>
@@ -33,6 +38,11 @@
                     <tbody>
                     @foreach($rows as $row)
                         <tr>
+                            <td>
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" name="ids[]" value="{{$row->id}}">
+                                </div>
+                            </td>
                             <td>#{{$row->id}}</td>
                             <td>
                                 <?php $product = $row->model ?>

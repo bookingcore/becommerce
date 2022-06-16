@@ -25,15 +25,6 @@ class CreatePayoutsCommand extends Command
      */
     protected $description = 'Generate prev month payouts for all vendors ';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     public function handle()
     {

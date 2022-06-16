@@ -179,7 +179,7 @@
         </div>
     </div>
 @endif
-@section('script.body')
+@push('script.body')
     <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
     <script>
         (function ($) {
@@ -196,4 +196,4 @@
             });
         })(jQuery)
     </script>
-@endsection
+@endpush

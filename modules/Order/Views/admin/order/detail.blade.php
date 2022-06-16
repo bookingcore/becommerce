@@ -38,7 +38,7 @@
         </div>
     </div>
 @endsection
-@section('script.body')
+@push('script.body')
     @include('Layout::admin.components.datepicker')
     @include('Layout::admin.components.select2')
     @include('Order::admin.order.detail.components.modal-address')
@@ -57,4 +57,4 @@
         var bc_country_list = {!! json_encode(get_country_lists()) !!}
     </script>
     <script src="{{asset('module/order/admin/detail.js')}}"></script>
-@endsection
+@endpush

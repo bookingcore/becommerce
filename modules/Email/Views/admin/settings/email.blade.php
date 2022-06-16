@@ -216,7 +216,7 @@
 @endif
 @include('Product::admin.settings.email')
 
-@section('script.body')
+@push('script.body')
     <script>
         $(document).ready(function () {
             var cant_test = 1;
@@ -229,7 +229,7 @@
                         cant_test = 0;
                         $.ajax({
                             url: '{{url('admin/module/email/testEmail')}}',
-                            type: 'get',
+                            type: 'post',
                             data: {to: to},
                             beforeSend: function () {
                                 $('#email-testing').append(' <i class="fa  fa-spinner fa-spin"></i>').addClass('disabled');
@@ -265,4 +265,4 @@
 
         })
     </script>
-@endsection
+@endpush

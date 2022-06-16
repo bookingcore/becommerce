@@ -1,7 +1,7 @@
 @extends('layouts.vendor')
-@section('head')
+@push('head')
     <link rel="stylesheet" href="{{url('libs/daterange/daterangepicker.css')}}"/>
-@endsection
+@endpush
 @section('content')
     <section class="bc-dashboard">
         <div class="d-flex mb-3 align-items-center">
@@ -105,7 +105,7 @@
     </section>
 @endsection
 
-@section('footer')
+@push('footer')
     <script src="{{url('libs/chart_js/Chart.min.js')}}"></script>
     <script src="{{url('libs/daterange/moment.min.js')}}"></script>
     <script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.version'))}}"></script>
@@ -130,4 +130,4 @@
         var earning_chart_data = {!! json_encode($earning_chart_data) !!}
     </script>
     <script src="{{theme_url('Base/vendor/js/dashboard.js?_ver='.config('app.version'))}}"></script>
-@endsection
+@endpush
