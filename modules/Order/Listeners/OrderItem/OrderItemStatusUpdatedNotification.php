@@ -1,0 +1,39 @@
+<?php
+
+
+namespace Modules\Order\Listeners\OrderItem;
+
+
+use Modules\Order\Events\OrderStatusUpdated;
+use Modules\Order\Models\Order;
+use Modules\Order\Notifications\OrderNotification;
+
+class OrderItemStatusUpdatedNotification
+{
+
+    /**
+     *
+     * @param OrderStatusUpdated $event
+     * @return mixed
+     */
+    public function handle(OrderStatusUpdated $event)
+    {
+        $order = $event->_order;
+
+        if(in_array($event->_old_status,[Order::DRAFT,Order::FAILED,Order::CANCELLED]) and in_array($order->status,[Order::COMPLETED,Order::PROCESSING,Order::ON_HOLD])){
+            return $order->sendOrderNotifications(OrderNotification::NEW_ORDER);
+        }
+
+        if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT]) and in_array($order->status,[Order::CANCELLED])){
+            return $order->sendOrderNotifications(OrderNotification::CANCELLED_ORDER);
+        }
+
+        if(in_array($event->_old_status,[Order::PROCESSING]) and in_array($order->status,[Order::COMPLETED])){
+            return $order->sendOrderNotifications(OrderNotification::COMPLETED_ORDER);
+        }
+
+        if(in_array($event->_old_status,[Order::COMPLETED]) and in_array($order->status,[Order::REFUNDED])){
+            return $order->sendOrderNotifications(OrderNotification::REFUNDED_ORDER);
+        }
+    }
+}

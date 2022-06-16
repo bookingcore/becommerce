@@ -506,4 +506,24 @@ class Order extends BaseModel
         // if method not in zone
         return ['status'=>0,'message'=>'There are no shipping options available.'];
     }
+
+
+
+    public function getEditableStatues(){
+        switch ($this->status){
+            case static::PROCESSING :
+                return [static::CANCELLED,static::COMPLETED];
+                break;
+            case static::ON_HOLD :
+                return [static::PROCESSING,static::FAILED];
+                break;
+            case static::COMPLETED :
+                return [static::REFUNDED];
+                break;
+            case static::FAILED :
+                return [self::CANCELLED];
+                break;
+        }
+    }
 }
+

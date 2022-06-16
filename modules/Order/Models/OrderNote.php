@@ -9,6 +9,7 @@ use App\BaseModel;
 class OrderNote extends BaseModel
 {
     const STATUS_CHANGED = 'status_changed';
+    const ITEM_STATUS_CHANGED = 'item_status_changed';
 
     protected $table = 'core_order_notes';
 

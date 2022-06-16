@@ -14,7 +14,14 @@
 
         @include('global.message')
         <div class="panel">
-            <div class="px-3">@include('vendor.order.filter')</div>
+            <div class="px-3">
+                <div class="row">
+                    <div class="col-md-6">
+                        @include('vendor.order.actions')
+                    </div>
+                    <div class="col-md-6">@include('vendor.order.filter')</div>
+                </div>
+            </div>
             <div class="bc-section__content">
             <div class="table-responsive">
                 <table class="table bc-table">
@@ -40,7 +47,7 @@
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="form-check-input" name="ids[]" value="{{$row->id}}">
+                                    <input type="checkbox" class="check-item form-check-input" name="ids[]" value="{{$row->id}}">
                                 </div>
                             </td>
                             <td>#{{$row->id}}</td>
@@ -71,3 +78,13 @@
         </div>
     </section>
 @endsection
+@push('footer')
+    <script>
+        document.querySelector('.check-all').addEventListener('click',function(e){
+            var items = document.querySelectorAll('tbody .check-item');
+            for(var i = 0; i < items.length; i++) {
+                items[i].checked = e.target.checked;
+            }
+        })
+    </script>
+@endpush
