@@ -35,6 +35,7 @@ class OrderController extends FrontendController
 
     public function bulkEdit(Request $request)
     {
+        dd($_POST);
         $request->validate([
             'ids'=>'required|array',
             'action'=>'required'

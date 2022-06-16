@@ -51,6 +51,7 @@ Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
    Route::get('/product/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
 
    Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
+   Route::post('/order/bulkEdit','Vendor\OrderController@bulkEdit')->name('vendor.order.bulkEdit');
 
    Route::get('/payout','Vendor\PayoutController@index')->name('vendor.payout');
    Route::post('/payout/account/store','Vendor\PayoutController@storePayoutAccount')->name('vendor.payout.account.store');

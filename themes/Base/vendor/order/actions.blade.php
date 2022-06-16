@@ -1,5 +1,6 @@
 <div class="bc-section__header py-3">
-    <form class="bc-form--filter d-flex justify-content-start" action="" method="get">
+    <form  class="bc-form-apply d-flex justify-content-start" action="{{route('vendor.order.bulkEdit')}}" method="post">
+        @csrf
         <div class="bc-form__left d-flex">
             <div class="me-3">
                 <select class="form-select" name="action">
@@ -15,7 +16,7 @@
                 </select>
             </div>
             <div>
-                <button class="btn btn-primary" type="submit"><i class="icon icon-funnel mr-2"></i>{{__('Apply')}}</button>
+                <button class="btn btn-primary btn-apply-form" type="submit"><i class="icon icon-funnel mr-2"></i>{{__('Apply')}}</button>
             </div>
         </div>
     </form>

@@ -86,5 +86,19 @@
                 items[i].checked = e.target.checked;
             }
         })
+        var form = document.querySelector('.bc-form-apply');
+        form.addEventListener('submit',function(e){
+            e.preventDefault();
+            var items = document.querySelectorAll('tbody .check-item:checked');
+            var ids = '';
+            for(var i = 0; i < items.length; i++) {
+                ids += '<input type="hidden" name="ids[]" value="'+items[i].value+'">';
+            }
+
+            form.innerHTML += ids;
+            form.submit();
+            return false;
+        })
+
     </script>
 @endpush
