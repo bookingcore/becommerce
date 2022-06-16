@@ -83,24 +83,28 @@
                             @if(!empty($items = $row->items))
                             @foreach($items as $item)
                             @php
-                            $model =$item->model;
+                            $model = $item->model;
                             @endphp
-                            <ul class="list-unstyled order-list">
-                                <li>
-                                    <div class="media">
-                                        @if($model->image_id)
-                                        <div class="media-left" style="padding-right: 10px">
-                                            <div class="thumb" style="width: 50px;">
-                                                <img src="{{get_file_url($model->image_id)}}" width="50px" alt="">
+                            @if(!empty($model->id))
+                                <ul class="list-unstyled order-list">
+                                    <li>
+                                        <div class="media">
+                                            @if($model->image_id)
+                                            <div class="media-left" style="padding-right: 10px">
+                                                <div class="thumb" style="width: 50px;">
+                                                    <img src="{{get_file_url($model->image_id)}}" width="50px" alt="">
+                                                </div>
+                                            </div>
+                                            @endif
+                                            <div class="media-body">
+                                                <a target="_blank" href="{{ route('product.detail',['slug'=>$model->slug])}}">{{ $model->title }} x {{ $item->qty }}</a>
                                             </div>
                                         </div>
-                                        @endif
-                                        <div class="media-body">
-                                            <a target="_blank" href="{{ route('product.detail',['slug'=>$model->slug])}}">{{ $model->title }} x {{ $item->qty }}</a>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
+                                    </li>
+                                </ul>
+                            @else
+                                {{ __("[Item Deleted]") }}
+                            @endif
                             @endforeach
                             @endif
                         </td>
