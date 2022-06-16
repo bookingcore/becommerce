@@ -88,7 +88,7 @@
 		var current_menu_lang = '{{request()->query('lang',app()->getLocale())}}';
     </script>
 @endsection
-@section ('script.head')
+@push ('script.head')
     <script>
         var template_i18n = {
             cancel: '{{__('Cancel')}}',
@@ -97,4 +97,4 @@
             add_new: '{{__('Add New')}}',
         };
     </script>
-@endsection
+@endpush
