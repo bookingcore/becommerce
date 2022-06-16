@@ -10,6 +10,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Order\Events\OrderItemStatusUpdated;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Themes\Educrat\Modules\Course\Models\Course;
@@ -160,5 +161,46 @@ class OrderItem extends BaseModel
             }
         }
         $this->save();
+    }
+
+
+
+    public function getEditableStatues(){
+        switch ($this->status){
+            case Order::PROCESSING :
+                return [Order::CANCELLED,Order::COMPLETED];
+                break;
+            case Order::ON_HOLD :
+                return [Order::PROCESSING,Order::FAILED];
+                break;
+            case Order::COMPLETED :
+                return [Order::REFUNDED];
+                break;
+            case Order::FAILED :
+                return [Order::CANCELLED];
+                break;
+        }
+    }
+
+    /**
+     * Change Order item Status, Add note, Dispatch event
+     *
+     * @param $status
+     */
+    public function updateStatus($status){
+
+        if($status === $this->status){
+            return;
+        }
+
+        $old_status = $this->status;
+        $this->status = $status;
+
+        $this->save();
+
+
+        $this->order->addNote(OrderNote::ITEM_STATUS_CHANGED,__("Order Item :id status changed from :old_status to :new_status",['id'=>$this->id,'old_status'=>$old_status,'new_status'=>$status]),['old_status'=>$old_status,'new_status'=>$status]);
+
+        OrderItemStatusUpdated::dispatch($this,$old_status,$status);
     }
 }

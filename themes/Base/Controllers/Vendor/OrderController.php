@@ -3,6 +3,7 @@
 namespace Themes\Base\Controllers\Vendor;
 
 use Illuminate\Http\Request;
+use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Vendor\VendorMenuManager;
 use Themes\Base\Controllers\FrontendController;
@@ -30,5 +31,32 @@ class OrderController extends FrontendController
             'page_title'=>__("Order Management")
         ];
         return view('vendor.order.index',$data);
+    }
+
+    public function bulkEdit(Request $request)
+    {
+        dd($_POST);
+        $request->validate([
+            'ids'=>'required|array',
+            'action'=>'required'
+        ]);
+
+        $ids = $request->input('ids',[]);
+        $action  = $request->input('action');
+
+        foreach ($ids as $id){
+            /**
+             * @var OrderItem $order
+             */
+            $order = OrderItem::query()->where('vendor_id',auth()->id())->whereId($id)->first();
+            if($order){
+                if(!in_array($action,$order->getEditableStatues())){
+                    return back()->with('message',__("Editable status for order: #:id are :list",['id'=>$order->id,'list'=>implode(', ',$order->getEditableStatues())]));
+                }
+                $order->updateStatus($action);
+            }
+        }
+
+        return back()->with('message',__("Data saved"));
     }
 }
