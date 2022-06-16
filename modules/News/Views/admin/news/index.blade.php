@@ -27,17 +27,14 @@
             </div>
             <div class="col-left">
                 <form method="get" action="{{url('/admin/module/news/')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}"
-                           class="form-control">
+                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
                     <select name="cate_id" class="form-control">
                         <option value="">{{ __('--All Category --')}} </option>
-                        <?php
-                        if (!empty($categories)) {
-                            foreach ($categories as $category) {
-                                printf("<option value='%s' >%s</option>", $category->id, $category->name);
-                            }
-                        }
-                        ?>
+                        @if (!empty($categories))
+                            @foreach ($categories as $category) {
+                                <option value='{{ $category->id }}' @if(Request()->input('cate_id') == $category->id) selected @endif>{{ $category->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     <button class="btn-info btn btn-icon btn_search" type="submit">{{__('Search News')}}</button>
                 </form>
