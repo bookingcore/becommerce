@@ -52,7 +52,7 @@ class CreateProductTable extends Migration
             $table->tinyInteger('sold')->nullable();
             $table->tinyInteger('quantity')->nullable();
             $table->tinyInteger('is_manage_stock')->nullable();
-            $table->string('stock_status',20)->nullable();
+            $table->string('stock_status',20)->nullable()->default('in');
 
 
             $table->string('product_type',30)->nullable();

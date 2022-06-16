@@ -63,7 +63,7 @@
         </div>
     </div>
 @endsection
-@section('footer')
+@push('footer')
     <script>
         jQuery(function ($) {
             $(window).on("load", function () {
@@ -78,4 +78,4 @@
             });
         })
     </script>
-@endsection
+@endpush

@@ -49,7 +49,7 @@
                 delete_cart_item_confirm:'{{__("Do you want to delete this cart item?")}}',
             };
         </script>
-        @yield('head')
+        @stack('head')
     </head>
     <body class="{{$body_class ?? ''}}">
 
@@ -92,7 +92,7 @@
                 @break
             @endswitch
 
-            @yield('footer')
+            @stack('footer')
         </footer>
     </body>
 </html>

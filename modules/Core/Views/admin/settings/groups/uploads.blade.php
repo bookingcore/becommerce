@@ -338,5 +338,3 @@
         </div>
     </div>
 </div>
-@section('script.body')
-@endsection

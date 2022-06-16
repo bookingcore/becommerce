@@ -30,8 +30,8 @@
         </div>
     </div>
 @endsection
-@section("footer")
+@push("footer")
     <script>
         $('.bc-select2').select2()
     </script>
-@endsection
+@endpush

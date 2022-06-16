@@ -22,7 +22,7 @@
         </div>
     </div>
 @endsection
-@section('script.body')
+@push('script.body')
     <script>
         $('#customFile').on('change',function(){
             //get the file name
@@ -31,4 +31,4 @@
             $(this).next('.custom-file-label').html(fileName);
         })
     </script>
-    @endsection
+@endpush

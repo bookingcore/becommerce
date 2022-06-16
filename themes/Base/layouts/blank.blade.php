@@ -34,7 +34,7 @@
             delete_cart_item_confirm:'{{__("Do you want to delete this cart item?")}}',
         };
     </script>
-    @yield('head')
+    @stack('head')
 </head>
 <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
 <main class="flex-shrink-0">
@@ -62,7 +62,7 @@
     <script src="{{ asset('libs/vue/vue.js') }}"></script>
     <!-- custom scripts-->
     <script  src="{{ theme_url('Base/js/app.js') }}"></script>
-    @yield('footer')
+    @stack('footer')
 </footer>
 </body>
 </html>

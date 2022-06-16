@@ -170,7 +170,7 @@
     </div>
 </div>
 @endsection
-@section('script.body')
+@push('script.body')
 <script>
 
     $('#modal-order').on('show.bs.modal',function (e){
@@ -185,4 +185,4 @@
         )
     })
 </script>
-@endsection
+@endpush

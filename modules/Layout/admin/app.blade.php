@@ -107,7 +107,7 @@
 
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
-    @yield('script.head')
+    @stack('script.head')
 
 </head>
 <body class="{{($enable_multi_lang ?? '') ? 'enable_multi_lang' : '' }} @if(setting_item('site_enable_multi_lang')) site_enable_multi_lang @endif">
@@ -163,7 +163,7 @@
 
 {!! \App\Helpers\Assets::js(true) !!}
 
-@yield('script.body')
+@stack('script.body')
 
 </body>
 </html>
