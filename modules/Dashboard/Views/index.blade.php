@@ -91,7 +91,7 @@
     </div>
 @endsection
 
-@section('script.body')
+@push('script.body')
     <script src="{{url('libs/chart_js/Chart.min.js')}}"></script>
     <script src="{{url('libs/daterange/moment.min.js')}}"></script>
     <script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.version'))}}"></script>
@@ -185,4 +185,4 @@
         });
         cb(start, end);
     </script>
-@endsection
+@endpush

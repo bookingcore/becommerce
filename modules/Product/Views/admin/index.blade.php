@@ -93,10 +93,10 @@
                                     </td>
                                     <td>{{$row->sku}}</td>
                                     <td>
-                                        @if($row->is_manage_stock and $row->quantity)
+                                        @if($row->check_manage_stock() and $row->quantity)
                                             <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
 
-                                        @elseif(!$row->is_manage_stock and $row->stock_status == 'in')
+                                        @elseif(!$row->check_manage_stock() and $row->stock_status == 'in')
                                             <strong class="text-success">{{__("In stock")}}</strong>
                                         @else
                                             <strong class="text-danger">{{__("Of of stock")}}</strong>

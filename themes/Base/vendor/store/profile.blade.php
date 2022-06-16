@@ -47,6 +47,6 @@
     </section>
 @endsection
 
-@section('footer')
+@push('footer')
     <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>
-@endsection
+@endpush

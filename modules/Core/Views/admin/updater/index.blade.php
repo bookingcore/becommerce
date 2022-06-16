@@ -87,7 +87,7 @@
     </div>
 @endsection
 
-@section('script.body')
+@push('script.body')
     <script>
         (function ($) {
             $('.btn-do-update-now').on('click',function (e) {
@@ -143,4 +143,4 @@
             })
         })(jQuery)
     </script>
-@endsection
+@endpush

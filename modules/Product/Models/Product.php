@@ -66,6 +66,10 @@ class Product extends BaseModel
         'content','short_desc'
     ];
 
+    protected $attributes = [
+        'stock_status'=>'in'
+    ];
+
     /**
      * @var Review
      */

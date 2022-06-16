@@ -1,6 +1,4 @@
 @extends('layouts.vendor')
-@section('head')
-@endsection
 @section('content')
     <section class="bc-dashboard">
         <div class="d-flex mb-3 align-items-center">
@@ -62,6 +60,6 @@
     </section>
 @endsection
 
-@section('footer')
+@push('footer')
     <script src="{{asset('module/vendor/js/payout.js')}}"></script>
-@endsection
+@endpush

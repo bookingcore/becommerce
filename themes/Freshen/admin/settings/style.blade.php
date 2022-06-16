@@ -66,7 +66,7 @@
         </div>
     </div>
 </div>
-@section('script.body')
+@push('script.body')
     <script src="{{asset('libs/ace/src-min-noconflict/ace.js')}}" type="text/javascript" charset="utf-8"></script>
     <script src="{{asset('libs/spectrum/spectrum.js')}}" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="{{asset('libs/spectrum/spectrum.css')}}">
@@ -105,4 +105,4 @@
             });
         })(jQuery)
     </script>
-@endsection
+@endpush

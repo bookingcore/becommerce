@@ -36,5 +36,5 @@
         </div>
     </form>
 @endsection
-@section ('script.body')
-@endsection
+@push ('script.body')
+@endpush

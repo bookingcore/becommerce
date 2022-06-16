@@ -87,7 +87,7 @@
     </div>
 @endsection
 
-@section('script.body')
+@push('script.body')
     <script>
         $(document).ready(function () {
             $('.approve-user').on('click',function (e) {
@@ -102,4 +102,4 @@
             })
         })
     </script>
-@endsection
+@endpush

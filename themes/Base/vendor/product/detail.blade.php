@@ -1,5 +1,5 @@
 @extends('layouts.vendor')
-@section('head')
+@push('head')
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     <link rel="stylesheet" href="{{ asset('libs/select2/css/select2.min.css') }}" />
     <style>
@@ -7,7 +7,7 @@
             background: #f8f9fa;
         }
     </style>
-@endsection
+@endpush
 @section('content')
     <section class="bc-items-listing">
         <div class="bc-section__content">
@@ -148,9 +148,9 @@
         </div>
     </section>
 @endsection
-@section('footer')
+@push('footer')
     <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
     <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>
     <script src="{{asset('module/product/admin/js/product.js')}}"></script>
-@endsection
+@endpush

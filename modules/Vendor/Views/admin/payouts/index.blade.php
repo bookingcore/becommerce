@@ -138,7 +138,7 @@
         </div>
     </div>
 @endsection
-@section('script.body')
+@push('script.body')
     <link rel="stylesheet" href="{{asset('libs/daterange/daterangepicker.css')}}">
     <script src="{{asset('libs/daterange/moment.min.js')}}"></script>
     <script src="{{asset('libs/daterange/daterangepicker.min.js')}}"></script>
@@ -273,4 +273,4 @@
 
         })
     </script>
-@endsection
+@endpush

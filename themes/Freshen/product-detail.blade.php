@@ -59,7 +59,7 @@
          </div>
      </section>
 @endsection
-@section('footer')
+@push('footer')
     <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script  src="{{ theme_url('Freshen/js/product-single.js') }}"></script>
     <script>
@@ -76,4 +76,4 @@
             });
         })
     </script>
-@endsection
+@endpush

@@ -35,7 +35,7 @@
                 cancel:"{{__("Cancel")}}",
             };
         </script>
-        @yield('head')
+        @stack('head')
     </head>
     <body class=" {{$body_class ?? ''}}">
         @include('layouts.vendor.header')
@@ -72,6 +72,6 @@
         <script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
         <!-- custom scripts-->
         <script  src="{{ theme_url('Base/js/app.js') }}"></script>
-        @yield('footer')
+        @stack('footer')
     </body>
 </html>

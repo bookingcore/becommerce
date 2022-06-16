@@ -58,7 +58,7 @@
         </div>
     </section>
 @endsection
-@section('footer')
+@push('footer')
     <script>
         var bc_order_data = {!!  json_encode( new \Modules\Order\Resources\Frontend\OrderResource( $cart ) )  !!};
         BC.routes.checkout = {
@@ -69,4 +69,4 @@
     <script src="{{ theme_url('Base/order/checkout.js') }}"></script>
     <script type="text/javascript">
     </script>
-@endsection
+@endpush

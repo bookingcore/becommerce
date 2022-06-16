@@ -216,7 +216,7 @@
 @endif
 @include('Product::admin.settings.email')
 
-@section('script.body')
+@push('script.body')
     <script>
         $(document).ready(function () {
             var cant_test = 1;
@@ -265,4 +265,4 @@
 
         })
     </script>
-@endsection
+@endpush

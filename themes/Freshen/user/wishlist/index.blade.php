@@ -1,7 +1,4 @@
 @extends('layouts.app')
-@section('head')
-
-@endsection
 @section('content')
      @include('global.breadcrumb')
     <section class="bc-section-account mb-3 mt-3 fz14">
@@ -36,6 +33,4 @@
             </div>
         </div>
     </section>
-@endsection
-@section('footer')
 @endsection

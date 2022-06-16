@@ -8,6 +8,6 @@
         @include('Course::admin.lesson.form')
     </div>
 @endsection
-@section('script.body')
+@push('script.body')
     <script src="{{theme_url('/educrat/module/course/admin/js/lesson.js')}}"></script>
-@endsection
+@endpush

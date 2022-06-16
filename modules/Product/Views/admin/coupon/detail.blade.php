@@ -1,7 +1,7 @@
 @extends('admin.layouts.app')
-@section('script.head')
+@push('script.head')
     <link href="{{asset('libs/daterange/daterangepicker.css')}}" rel="stylesheet">
-@endsection
+@endpush
 
 @section('content')
     <form action="{{route('product.coupon.store',['id'=>($row->id) ? $row->id : '-1','lang'=>request()->query('lang')])}}" method="post" class="dungdt-form">

@@ -187,6 +187,6 @@
         @endif
     </div>
 @endsection
-@section('footer')
+@push('footer')
     <script src="{{theme_url('Base/order/cart.js?_v='.config('app.asset_version'))}}"></script>
-@endsection
+@endpush
