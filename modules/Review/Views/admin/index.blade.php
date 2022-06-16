@@ -23,8 +23,7 @@
                 @endif
             </div>
             <div class="col-left">
-                <form method="post" action="{{url('/admin/module/review/')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    @csrf
+                <form method="get" action="{{url('/admin/module/review/')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
                     @if(!empty($rows))
                         <?php
                         $user = !empty(Request()->vendor_id) ? App\User::find(Request()->vendor_id) : false;

@@ -24,6 +24,9 @@ class ReviewController extends AdminController
         if (!empty($author = $request->input('customer_id'))) {
             $model->where('create_user', $author);
         }
+        if (!empty($author = $request->input('vendor_id'))) {
+            $model->where('vendor_id', $author);
+        }
         $allServices = get_services();
 
         $news = (new News());
