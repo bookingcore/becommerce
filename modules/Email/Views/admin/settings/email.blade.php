@@ -229,7 +229,7 @@
                         cant_test = 0;
                         $.ajax({
                             url: '{{url('admin/module/email/testEmail')}}',
-                            type: 'get',
+                            type: 'post',
                             data: {to: to},
                             beforeSend: function () {
                                 $('#email-testing').append(' <i class="fa  fa-spinner fa-spin"></i>').addClass('disabled');
