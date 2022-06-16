@@ -34,6 +34,7 @@ Route::group(['prefix'=>'tag'],function (){
     Route::get('/','TagController@index')->name('product.admin.tag.index');
     Route::get('edit/{id}','TagController@edit')->name('product.admin.tag.edit');
     Route::post('store/{id}','TagController@store')->name('product.admin.tag.store');
+    Route::post('bulkEdit','TagController@bulkEdit')->name('product.admin.tag.bulkEdit');
 });
 
 Route::group(['prefix'=>'attribute'],function (){
