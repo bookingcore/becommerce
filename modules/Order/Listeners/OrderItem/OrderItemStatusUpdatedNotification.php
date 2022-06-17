@@ -4,7 +4,7 @@
 namespace Modules\Order\Listeners\OrderItem;
 
 
-use Modules\Order\Events\OrderStatusUpdated;
+use Modules\Order\Events\OrderItemStatusUpdated;
 use Modules\Order\Models\Order;
 use Modules\Order\Notifications\OrderNotification;
 
@@ -13,16 +13,12 @@ class OrderItemStatusUpdatedNotification
 
     /**
      *
-     * @param OrderStatusUpdated $event
+     * @param OrderItemStatusUpdated $event
      * @return mixed
      */
-    public function handle(OrderStatusUpdated $event)
+    public function handle(OrderItemStatusUpdated $event)
     {
-        $order = $event->_order;
-
-        if(in_array($event->_old_status,[Order::DRAFT,Order::FAILED,Order::CANCELLED]) and in_array($order->status,[Order::COMPLETED,Order::PROCESSING,Order::ON_HOLD])){
-            return $order->sendOrderNotifications(OrderNotification::NEW_ORDER);
-        }
+        $order = $event->_order_item;
 
         if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT]) and in_array($order->status,[Order::CANCELLED])){
             return $order->sendOrderNotifications(OrderNotification::CANCELLED_ORDER);

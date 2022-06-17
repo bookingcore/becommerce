@@ -10,7 +10,10 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Notification;
 use Modules\Order\Events\OrderItemStatusUpdated;
+use Modules\Order\Notifications\OrderItemNotification;
+use Modules\Order\Notifications\OrderNotification;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Themes\Educrat\Modules\Course\Models\Course;
@@ -263,5 +266,27 @@ class OrderItem extends BaseModel
             $this->reduced_stock = null;
             $this->save();
         }
+    }
+
+    public function sendOrderNotifications($type){
+
+        // Send Email
+        if(setting_item('email_c_'.$type.'_enable')) {
+            if($this->customer){
+                $this->customer->notify(new OrderItemNotification($this,$type));
+            }else{
+                Notification::route('mail',$this->email)->notify(new OrderNotification($this,$type));
+            }
+        }
+        if(setting_item('email_v_'.$type.'_enable') and is_vendor_enable()) {
+            if($vendor = $this->vendor){
+                $vendor->notify(new OrderItemNotification($this,$type,'vendor',$vendor));
+            }
+        }
+
+        if(setting_item('email_a_'.$type.'_enable') and $address = setting_item('admin_email')) {
+            Notification::route('mail',$address)->notify(new OrderItemNotification($this,$type,'admin'));
+        }
+        return true;
     }
 }
