@@ -272,7 +272,7 @@ class OrderItem extends BaseModel
             if($this->customer){
                 $this->customer->notify(new OrderItemNotification($this,$type));
             }else{
-                Notification::route('mail',$this->email)->notify(new OrderNotification($this,$type));
+                Notification::route('mail',$this->email)->notify(new OrderItemNotification($this,$type));
             }
         }
         if(setting_item('email_v_'.$type.'_enable') and is_vendor_enable()) {
