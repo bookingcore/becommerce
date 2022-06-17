@@ -171,16 +171,11 @@ class OrderItem extends BaseModel
     public function getEditableStatues(){
         switch ($this->status){
             case Order::PROCESSING :
-                return [Order::CANCELLED,Order::COMPLETED];
-                break;
-            case Order::ON_HOLD :
-                return [Order::PROCESSING,Order::FAILED];
-                break;
-            case Order::COMPLETED :
-                return [Order::REFUNDED];
-                break;
             case Order::FAILED :
                 return [Order::CANCELLED];
+                break;
+            case Order::ON_HOLD :
+                return [Order::PROCESSING,Order::CANCELLED];
                 break;
             default:
                 return [];

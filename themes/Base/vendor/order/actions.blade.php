@@ -8,10 +8,7 @@
                     <optgroup label="{{__("Change order status to:")}}">
                         <option value="on_hold">{{__("On-Hold")}}</option>
                         <option value="processing">{{__('Processing')}}</option>
-                        <option value="completed">{{__('Completed')}}</option>
-                        <option value="failed">{{__('Failed')}}</option>
                         <option value="cancelled">{{__('Cancelled')}}</option>
-                        <option value="refunded">{{__('Refunded')}}</option>
                     </optgroup>
                 </select>
             </div>
