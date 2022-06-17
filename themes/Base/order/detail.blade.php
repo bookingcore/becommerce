@@ -57,7 +57,7 @@
                         </li>
                         <li>
                             <span>{{__('Status')}}</span>
-                            <strong>{{$row->status_name}}</strong>
+                            <strong>{{$row->status_text}}</strong>
                         </li>
                     </ul>
                     <div class="order-box border-top pt-3">

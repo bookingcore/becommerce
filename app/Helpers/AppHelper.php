@@ -819,6 +819,8 @@ function status_to_text($status)
     switch ($status){
         case "draft":
             return __('Draft');
+        case "on_hold":
+            return __('On-hold');
             break;
         case "unpaid":
             return __('Unpaid');
@@ -848,10 +850,14 @@ function status_to_text($status)
             return __('Partial Payment');
             break;
         case "fail":
+        case "failed":
             return __('Failed');
             break;
         case "rejected":
             return __('Rejected');
+            break;
+        case "refunded":
+            return __('Refunded');
             break;
         default:
             return ucfirst($status ?? '');

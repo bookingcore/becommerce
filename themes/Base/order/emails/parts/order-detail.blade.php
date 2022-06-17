@@ -1,7 +1,7 @@
 <p><strong>{{__("Order ID:")}}</strong> #{{$order->id}}</p>
 <p><strong>{{__("Order Date:")}}</strong> {{display_datetime($order->created_at)}}</p>
 <p><strong>{{__("Gateway:")}}</strong> {{$order->gateway_name}}</p>
-<p><strong>{{__("Status:")}}</strong> {{$order->status_name}}</p>
+<p><strong>{{__("Status:")}}</strong> {{$order->status_text}}</p>
 <br>
 <table class="b-table" border="1px" cellpadding="0" cellspacing="0">
     <thead>

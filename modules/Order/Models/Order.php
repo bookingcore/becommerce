@@ -163,6 +163,7 @@ class Order extends BaseModel
         if(setting_item('email_a_'.$type.'_enable') and $address = setting_item('admin_email')) {
             Notification::route('mail',$address)->notify(new OrderNotification($this,$type,'admin'));
         }
+        return true;
     }
 
     public function getOrderReportData($from, $to){

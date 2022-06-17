@@ -20,7 +20,7 @@ class OrderItemStatusUpdatedNotification
     {
         $order = $event->_order_item;
 
-        if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT]) and in_array($order->status,[Order::CANCELLED])){
+        if(in_array($event->_old_status,[Order::ON_HOLD,Order::DRAFT,Order::PROCESSING]) and in_array($order->status,[Order::CANCELLED])){
             return $order->sendOrderNotifications(OrderNotification::CANCELLED_ORDER);
         }
 
