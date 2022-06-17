@@ -6,6 +6,7 @@ use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Gateways\BaseGateway;
 use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
 use Validator;
 use Illuminate\Support\Facades\Log;
@@ -133,9 +134,15 @@ class TwoCheckoutGateway extends BaseGateway
                 } else {
                     $order->addPaymentLog($request->all());
                     $order->paid = $order->total;
-                    $order->updateStatus(Order::PROCESSING);
-
-                    return redirect($order->getDetailUrl())->with("success", __("You payment has been processed successfully"));
+                    
+                    if($order->isExpired()){
+                        $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                        $order->updateStatus(Order::FAILED);
+                        return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+                    }else{
+                        $order->updateStatus(Order::PROCESSING);
+                        return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                    }
                 }
             }else{
                 return redirect($order->getDetailUrl(false));

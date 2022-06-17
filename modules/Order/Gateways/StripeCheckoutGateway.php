@@ -6,6 +6,7 @@ namespace Modules\Order\Gateways;
 
 use Illuminate\Http\Request;
 use Mockery\Exception;
+use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Models\Order;
@@ -165,7 +166,15 @@ class StripeCheckoutGateway extends BaseGateway
                     $order->addMeta('stripe_cs_complete', 1);
                     $order->gateway_transaction_id = $session->payment_intent;
                     $order->addPaymentLog($session);
-                    $order->updateStatus(Order::PROCESSING);
+
+                    if($order->isExpired()){
+                        $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                        $order->updateStatus(Order::FAILED);
+                        return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+                    }else{
+                        $order->updateStatus(Order::PROCESSING);
+                        return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                    }
 
                 }
             }
