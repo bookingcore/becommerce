@@ -145,6 +145,11 @@ class Cart extends Order
             $this->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
         }
 
+        $setting_expired_at = setting_item('product_hold_stock',60);
+        if($setting_expired_at){
+            $this->expired_at = date('Y-m-d H:i:s',time() + $setting_expired_at * MINUTE_IN_SECONDS);
+        }
+
         $this->save();
 
         return $this;
