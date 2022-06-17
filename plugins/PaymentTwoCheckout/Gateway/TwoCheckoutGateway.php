@@ -78,37 +78,42 @@ class TwoCheckoutGateway extends BaseGateway
             throw new Exception(__("Order total is zero. Can not process payment gateway!"));
         }
 
+
         $data = $this->handlePurchaseData([], $order, $request);
 
         $order->updateStatus(Order::ON_HOLD);
 
         $endPointUrl = $this->getEndPointUrl() ;
         $twoco_args = http_build_query($data, '', '&');
-
+        dd($endPointUrl . "?" . $twoco_args);
         return ['url'=>$endPointUrl . "?" . $twoco_args];
     }
 
     public function handlePurchaseData($data, $order, $request)
     {
+        $billing = $order->getJsonMeta('billing');
         $twocheckout_args = array();
         $twocheckout_args['sid'] = $this->getOption('twocheckout_account_number');
         $twocheckout_args['paypal_direct'] = 'Y';
         $twocheckout_args['cart_order_id'] = $order->id;
         $twocheckout_args['merchant_order_id'] = $order->id;
-        $twocheckout_args['total'] = (float)$order->total;
+        $twocheckout_args['li_0_price'] = (float)$order->total;
         $twocheckout_args['return_url'] = $this->getCancelUrl() . '?oid=' . $order->id;
         $twocheckout_args['x_receipt_link_url'] = $this->getReturnUrl() . '?oid=' . $order->id;
         $twocheckout_args['currency_code'] = setting_item('currency_main');
-        $twocheckout_args['card_holder_name'] = $request->input("first_name") . ' ' . $request->input("last_name");
-        $twocheckout_args['street_address'] = $request->input("address_line_1");
-        $twocheckout_args['street_address2'] = $request->input("address_line_1");
-        $twocheckout_args['city'] = $request->input("city");
-        $twocheckout_args['state'] = $request->input("state");
-        $twocheckout_args['country'] = $request->input("country");
-        $twocheckout_args['zip'] = $request->input("zip_code");
-        $twocheckout_args['phone'] = "";
-        $twocheckout_args['email'] = $request->input("email");
+        $twocheckout_args['card_holder_name'] = $billing['first_name']??'' . ' ' . $billing['last_name']??"";
+        $twocheckout_args['street_address'] = $billing['address']??"";
+        $twocheckout_args['city'] = $billing['city']??"";
+        $twocheckout_args['state'] = $billing['state']??"";
+        $twocheckout_args['country'] = $billing['country']??"";
+        $twocheckout_args['zip'] = $billing['zip']??"" ;
+        $twocheckout_args['phone'] = $billing['phone']??"";
+        $twocheckout_args['email'] = $billing['email']??"";
         $twocheckout_args['lang'] = app_get_locale();
+        $twocheckout_args['mode'] = '2CO';
+        if($this->getOption('twocheckout_enable_sandbox')){
+            $twocheckout_args['demo']='Y';
+        }
         return $twocheckout_args;
     }
 
@@ -134,7 +139,7 @@ class TwoCheckoutGateway extends BaseGateway
                 } else {
                     $order->addPaymentLog($request->all());
                     $order->paid = $order->total;
-                    
+
                     if($order->isExpired()){
                         $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
                         $order->updateStatus(Order::FAILED);
@@ -171,7 +176,7 @@ class TwoCheckoutGateway extends BaseGateway
 
     public function getEndPointUrl(){
         if ($this->getOption('twocheckout_enable_sandbox')) {
-            $checkout_url_sandbox = 'https://sandbox.2checkout.com/checkout/purchase';
+            $checkout_url_sandbox = 'https://www.2checkout.com/checkout/purchase';
         } else {
             $checkout_url_sandbox = 'https://www.2checkout.com/checkout/purchase';
         }
