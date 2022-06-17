@@ -99,19 +99,19 @@ class AppServiceProvider extends ServiceProvider
             }
         }
         if(!empty(setting_item('email_host'))){
-            Config::set('mail.host',setting_item("email_host"));
+            Config::set('mail.mailers.smtp.host',setting_item("email_host"));
         }
         if(!empty(setting_item('email_port'))){
-            Config::set('mail.port',setting_item("email_port"));
+            Config::set('mail.mailers.smtp.port',setting_item("email_port"));
         }
         if(!empty(setting_item('email_encryption'))){
-            Config::set('mail.encryption',setting_item("email_encryption"));
+            Config::set('mail.mailers.smtp.encryption',setting_item("email_encryption"));
         }
         if(!empty(setting_item('email_username'))){
-            Config::set('mail.username',setting_item("email_username"));
+            Config::set('mail.mailers.smtp.username',setting_item("email_username"));
         }
         if(!empty(setting_item('email_password'))){
-            Config::set('mail.password',setting_item("email_password"));
+            Config::set('mail.mailers.smtp.password',setting_item("email_password"));
         }
 
         // Pusher
@@ -167,7 +167,6 @@ class AppServiceProvider extends ServiceProvider
                 break;
             }
         }
-
     }
 
     protected function setLang(){
