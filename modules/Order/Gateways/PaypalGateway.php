@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
+use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
 use Modules\Order\Models\Order;
 use Omnipay\Omnipay;
@@ -144,6 +145,9 @@ class PaypalGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $oid = $request->query('oid');
+        /**
+         * @var Order $order
+         */
         $order = Order::find($oid);
         if ($order) {
             $response = $this->captureOrder($request->input('token'));
@@ -153,8 +157,16 @@ class PaypalGateway extends BaseGateway
                     case 'COMPLETED';
                         $order->addPaymentLog($json);
                         $order->paid = $order->total;
-                        $order->updateStatus(Order::PROCESSING);
-                        return redirect($order->getDetailUrl())->with("success", __("Yout order has been processed successfully"));
+
+                        if($order->isExpired()){
+                            $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                            $order->updateStatus(Order::FAILED);
+                            return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+                        }else{
+                            $order->updateStatus(Order::PROCESSING);
+                            return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                        }
+
                         break;
                     case 'VOIDED':
                         $order->addPaymentLog($json);

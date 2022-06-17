@@ -350,6 +350,14 @@ class Order extends BaseModel
         return false;
     }
 
+    /**
+     * Check if order is expired
+     * @return bool
+     */
+    public function isExpired(){
+        return $this->expired_at and strtotime($this->expired_at) <= time();
+    }
+
     public function addPaymentLog($val): void
     {
         $this->addMeta('payment_logs',$val,true);
