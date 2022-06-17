@@ -14,86 +14,18 @@ class OrderItemProductStockListener
 {
     public function handle(OrderItemStatusUpdated $event)
     {
-        $order = $event->_order;
-        $items = $order->items;
-        switch ($order->status) {
+        $item = $event->_order_item;
+        switch ($item->status) {
             case Order::PROCESSING:
             case Order::COMPLETED:
-                $this->reduceStock($items);
+                $item->reduceStock();
                 break;
             case Order::REFUNDED:
             case Order::CANCELLED:
             case Order::DRAFT:
             case Order::FAILED:
-                $this->returnStock($items);
+                $item->returnStock();
                 break;
-        }
-    }
-
-    public function reduceStock($items){
-        if(!empty($items)){
-            foreach ($items as $item) {
-                if(empty($item->reduced_stock)){
-                    $model = $item->model;
-                    if(!empty($model) and $model instanceof  Product){
-                        if($model->check_manage_stock()){
-                            $model->quantity -= $item->qty;
-                            $model->sale_count += $item->qty;
-                            if($model->quantity <=0){
-                                $model->quantity = 0 ;
-                                $model->stock_status ='out';
-                            }
-                            $model->save();
-                        } elseif (!empty($item->variation_id)){
-                            $variation = $model->variations()->where('id',$item->variation_id)->first();
-                            if(!empty($variation) and $variation->check_manage_stock()){
-                                $variation->quantity -= $item->qty;
-                                $variation->sale_count += $item->qty;
-                                if($variation->quantity <=0){
-                                    $variation->quantity = 0 ;
-                                    $variation->stock_status ='out';
-                                }
-                                $variation->save();
-                            }
-                        }
-                    }
-                    $item->reduced_stock = $item->qty;
-                    $item->save();
-                }
-            }
-        }
-    }
-    public function returnStock($items){
-        if(!empty($items)){
-            foreach ($items as $item) {
-                if(!empty($item->reduced_stock)){
-                    $model = $item->model;
-                    if(!empty($model) and $model instanceof  Product){
-                        if($model->check_manage_stock()){
-                            $model->quantity += $item->reduced_stock;
-                            $model->sale_count -= $item->qty;
-                            $model->sale_count = max(0,$model->sale_count);
-                            if($model->quantity<=0){
-                                $model->stock_status ='out';
-                            }
-                            $model->save();
-                        } elseif (!empty($item->variation_id)) {
-                            $variation = $model->variations()->where('id',$item->variation_id)->first();
-                            if(!empty($variation) and $variation->check_manage_stock()){
-                                $variation->quantity += $item->reduced_stock;
-                                $variation->sale_count -= $item->qty;
-                                $variation->sale_count = max(0,$variation->sale_count);
-                                if($variation->quantity<=0){
-                                    $variation->stock_status ='out';
-                                }
-                                $variation->save();
-                            }
-                        }
-                    }
-                    $item->reduced_stock = null;
-                    $item->save();
-                }
-            }
         }
     }
 }

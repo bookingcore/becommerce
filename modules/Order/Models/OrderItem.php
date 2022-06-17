@@ -221,7 +221,7 @@ class OrderItem extends BaseModel
                     $variation = $model->variations()->where('id',$this->variation_id)->first();
                     if(!empty($variation) and $variation->check_manage_stock()){
                         $variation->quantity -= $this->qty;
-                        $variation->sale_count += $item->qty;
+                        $variation->sale_count += $this->qty;
                         if($variation->quantity <=0){
                             $variation->quantity = 0 ;
                             $variation->stock_status ='out';
