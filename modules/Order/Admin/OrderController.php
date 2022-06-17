@@ -55,7 +55,7 @@ class OrderController extends AdminController
         $data = [
             'order'=>$order,
             'page_title'=>__("Edit Order"),
-            'statues'=>app()->make(Order::class)->statues()
+            'statues'=>$order->statues()
         ];
         return view('Order::admin.order.detail',$data);
     }

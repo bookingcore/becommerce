@@ -204,11 +204,12 @@ class Order extends BaseModel
     public function statues(){
         $order_statuses = array(
             static::DRAFT    => __( 'Draft'  ),
+            static::ON_HOLD    => __( 'On-hold'  ),
             static::PROCESSING => __( 'Processing'  ),
-            static::ON_HOLD    => __( 'On hold'  ),
             static::COMPLETED  => __( 'Completed'  ),
             static::CANCELLED  => __( 'Cancelled'  ),
             static::FAILED     => __( 'Failed'  ),
+            static::REFUNDED     => __( 'Refunded'  ),
         );
         return apply_filters('order_statues',$order_statuses);
     }
