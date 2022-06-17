@@ -182,6 +182,8 @@ class OrderItem extends BaseModel
             case Order::FAILED :
                 return [Order::CANCELLED];
                 break;
+            default:
+                return [];
         }
     }
 

@@ -86,19 +86,15 @@
                 items[i].checked = e.target.checked;
             }
         })
-        var form = document.querySelector('.bc-form-apply');
-        form.addEventListener('submit',function(e){
-            e.preventDefault();
-            var items = document.querySelectorAll('tbody .check-item:checked');
-            var ids = '';
-            for(var i = 0; i < items.length; i++) {
-                ids += '<input type="hidden" name="ids[]" value="'+items[i].value+'">';
-            }
-
-            form.innerHTML += ids;
-            form.submit();
-            return false;
-        })
-
+        $('.btn-apply-form').click(function (e) {
+            var $this = $(this);
+            let ids = '';
+            $(".check-item").each(function () {
+                if($(this).is(":checked")){
+                    ids += '<input type="hidden" name="ids[]" value="'+$(this).val()+'">';
+                }
+            });
+            $this.closest('form').append(ids).submit();
+        });
     </script>
 @endpush

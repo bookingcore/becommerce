@@ -35,7 +35,6 @@ class OrderController extends FrontendController
 
     public function bulkEdit(Request $request)
     {
-        dd($_POST);
         $request->validate([
             'ids'=>'required|array',
             'action'=>'required'
@@ -51,12 +50,12 @@ class OrderController extends FrontendController
             $order = OrderItem::query()->where('vendor_id',auth()->id())->whereId($id)->first();
             if($order){
                 if(!in_array($action,$order->getEditableStatues())){
-                    return back()->with('message',__("Editable status for order: #:id are :list",['id'=>$order->id,'list'=>implode(', ',$order->getEditableStatues())]));
+                    return back()->with('warning',__("Editable status for order: #:id are :list",['id'=>$order->id,'list'=>implode(', ',$order->getEditableStatues())]));
                 }
                 $order->updateStatus($action);
             }
         }
 
-        return back()->with('message',__("Data saved"));
+        return back()->with('success',__("Data saved"));
     }
 }
