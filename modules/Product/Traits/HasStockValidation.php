@@ -17,7 +17,7 @@ trait HasStockValidation
     protected function onHold():Attribute{
         return Attribute::make(
             get:function(){
-                return 0;// disable on-hold for the moment
+                return $this->productOnHold()->sum('qty');
             }
         );
     }
