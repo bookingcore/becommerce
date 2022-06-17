@@ -37,6 +37,7 @@ class CartItem extends OrderItem
         $item->price = $variation_id ? ProductVariation::find($variation_id)->sale_price ?? 0 : min($model->price,$model->sale_price) ;
         $item->vendor_id = $model->author_id;
         $item->variation_id = (int) $variation_id;
+        $item->status = 'draft';
         return $item;
     }
 
@@ -68,6 +69,7 @@ class CartItem extends OrderItem
         $item->meta = $meta;
         $item->price = $price;
         $item->variation_id = $variation_id;
+        $item->status = 'draft';
 
         return $item;
     }
