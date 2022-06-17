@@ -7,6 +7,7 @@ use Modules\Booking\Events\BookingCreatedEvent;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Gateways\BaseGateway;
 use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
 use Omnipay\Common\CreditCard;
 use Omnipay\Omnipay;
@@ -147,9 +148,15 @@ class PayPalProGateway extends BaseGateway
 	    if ($response->isSuccessful()) {
             $order->addPaymentLog($response->getData());
             $order->paid = $order->total;
-		    $order->updateStatus($order::COMPLETED);
 
-            return true;
+            if($order->isExpired()){
+                $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                $order->updateStatus(Order::FAILED);
+                return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+            }else{
+                $order->updateStatus(Order::PROCESSING);
+                return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+            }
 
 	    } else {
 		    throw new Exception('Paypal Gateway: ' . $response->getMessage());

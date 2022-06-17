@@ -7,6 +7,7 @@ use Modules\Booking\Models\Booking;
 use Modules\Order\Events\PaymentUpdated;
 use Modules\Order\Gateways\BaseGateway;
 use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
 use Illuminate\Support\Facades\Log;
 use SebastianBergmann\Comparator\Book;
@@ -125,7 +126,15 @@ class FlutterWaveCheckoutGateway extends BaseGateway
             if ($request->query('status') =='successful') {
                 $order->addPaymentLog($request->all());
                 $order->paid = $order->total;
-                $order->updateStatus(Order::PROCESSING);
+
+                if($order->isExpired()){
+                    $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                    $order->updateStatus(Order::FAILED);
+                    return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+                }else{
+                    $order->updateStatus(Order::PROCESSING);
+                    return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                }
 
                 if($request->ajax()){
                     return response()->json(['status'=>1,'message'=>'You payment has been processed successfully','url_redirect'=>$order->getDetailUrl()]);
