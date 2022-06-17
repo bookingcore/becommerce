@@ -203,4 +203,65 @@ class OrderItem extends BaseModel
 
         OrderItemStatusUpdated::dispatch($this,$old_status,$status);
     }
+
+    public function reduceStock()
+    {
+        if(empty($this->reduced_stock)){
+            $model = $this->model;
+            if(!empty($model) and $model instanceof  Product){
+                if($model->check_manage_stock()){
+                    $model->quantity -= $this->qty;
+                    $model->sale_count += $this->qty;
+                    if($model->quantity <=0){
+                        $model->quantity = 0 ;
+                        $model->stock_status ='out';
+                    }
+                    $model->save();
+                } elseif (!empty($this->variation_id)){
+                    $variation = $model->variations()->where('id',$this->variation_id)->first();
+                    if(!empty($variation) and $variation->check_manage_stock()){
+                        $variation->quantity -= $this->qty;
+                        $variation->sale_count += $item->qty;
+                        if($variation->quantity <=0){
+                            $variation->quantity = 0 ;
+                            $variation->stock_status ='out';
+                        }
+                        $variation->save();
+                    }
+                }
+            }
+            $this->reduced_stock = $this->qty;
+            $this->save();
+        }
+
+    }
+    public function returnStock(){
+        if(!empty($this->reduced_stock)){
+            $model = $this->model;
+            if(!empty($model) and $model instanceof  Product){
+                if($model->check_manage_stock()){
+                    $model->quantity += $this->reduced_stock;
+                    $model->sale_count -= $this->qty;
+                    $model->sale_count = max(0,$model->sale_count);
+                    if($model->quantity<=0){
+                        $model->stock_status ='out';
+                    }
+                    $model->save();
+                } elseif (!empty($this->variation_id)) {
+                    $variation = $model->variations()->where('id',$this->variation_id)->first();
+                    if(!empty($variation) and $variation->check_manage_stock()){
+                        $variation->quantity += $this->reduced_stock;
+                        $variation->sale_count -= $this->qty;
+                        $variation->sale_count = max(0,$variation->sale_count);
+                        if($variation->quantity<=0){
+                            $variation->stock_status ='out';
+                        }
+                        $variation->save();
+                    }
+                }
+            }
+            $this->reduced_stock = null;
+            $this->save();
+        }
+    }
 }
