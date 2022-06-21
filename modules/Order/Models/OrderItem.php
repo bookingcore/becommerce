@@ -269,10 +269,9 @@ class OrderItem extends BaseModel
 
         // Send Email
         if(setting_item('email_c_'.$type.'_enable')) {
-            if($this->customer){
-                $this->customer->notify(new OrderItemNotification($this,$type));
-            }else{
-                Notification::route('mail',$this->email)->notify(new OrderItemNotification($this,$type));
+            $customer = $this->order->customer ?? null;
+            if($customer){
+                $customer->notify(new OrderItemNotification($this,$type));
             }
         }
         if(setting_item('email_v_'.$type.'_enable') and is_vendor_enable()) {
