@@ -55,6 +55,6 @@ class ScanSaleStartCommand extends Command
                 $campaign_product->deducted  = 1;
                 $campaign_product->save();
             }
-        });
+        },'campaign_products.id');
     }
 }
