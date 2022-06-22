@@ -17,7 +17,6 @@ use Illuminate\Support\Facades\Log;
 
 class PayPalProGateway extends BaseGateway
 {
-    protected $id   = 'paypal_pro';
     public    $name = 'PayPal Pro Checkout';
     protected $gateway;
 
