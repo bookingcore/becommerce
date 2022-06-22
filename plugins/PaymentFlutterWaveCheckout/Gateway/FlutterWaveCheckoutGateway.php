@@ -2,6 +2,7 @@
 namespace Plugins\PaymentFlutterWaveCheckout\Gateway;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Mockery\Exception;
 use Modules\Booking\Models\Booking;
 use Modules\Order\Events\PaymentUpdated;
@@ -115,6 +116,9 @@ class FlutterWaveCheckoutGateway extends BaseGateway
 
     public function confirmPayment(Request $request){
         $oid = $request->query('oid');
+        /**
+         * @var Order $order
+         */
         $order = Order::find($oid);
         if(empty($order)){
             if($request->ajax()){
@@ -132,6 +136,7 @@ class FlutterWaveCheckoutGateway extends BaseGateway
                     $order->updateStatus(Order::FAILED);
                     return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
                 }else{
+                    $order->pay_date = Carbon::now();
                     $order->updateStatus(Order::PROCESSING);
                     return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
                 }

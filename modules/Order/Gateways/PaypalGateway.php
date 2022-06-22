@@ -2,6 +2,7 @@
 namespace Modules\Order\Gateways;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Mockery\Exception;
@@ -163,6 +164,7 @@ class PaypalGateway extends BaseGateway
                             $order->updateStatus(Order::FAILED);
                             return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
                         }else{
+                            $order->pay_date = Carbon::now();
                             $order->updateStatus(Order::PROCESSING);
                             return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
                         }

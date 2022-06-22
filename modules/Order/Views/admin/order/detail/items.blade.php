@@ -9,7 +9,7 @@
         </div>
     </div>
     <div class="g-items">
-        <bc-order-item v-for="(item,index) in items" :key="index" :index="index" :item="item" @del="delItem" @change="changeItem"></bc-order-item>
+        <bc-order-item v-for="(item,index) in items" :key="index" :index="index" :item="item" @del="delItem" @change="changeItem" :is_editable="is_editable"></bc-order-item>
         <div class="item" style="background: #f7f7f7;">
             <div class="row">
                 <div class="col-md-6">
@@ -24,16 +24,20 @@
                         <div class="col-8 text-right ">
                             <div class="form-inline justify-content-end">
                                 <label class="mr-2">{{__("Shipping")}}</label>
-                                <select class="form-control" v-model="shipping_method">
+                                <select v-if="is_editable" class="form-control" v-model="shipping_method">
                                     <optgroup label="{{__("Shipping Method")}}">
                                         <option value="">{{__("N/A")}}</option>
                                         <option v-for="(m,key) in shipping_methods" :value="key">@{{m.name}}</option>
                                         <option value="other">{{__("Other")}}</option>
                                     </optgroup>
                                 </select>
+                                <span v-else="">@{{ shipping_method }}</span>
                             </div>
                         </div>
-                        <div class="col-4 text-right font-weight-bold"><input type="number" class="form-control text-right" v-model.number="shipping_amount"></div>
+                        <div class="col-4 text-right font-weight-bold">
+                            <input v-if="is_editable" type="number" class="form-control text-right" v-model.number="shipping_amount">
+                            <span v-else="">@{{ shipping_amount }}</span>
+                        </div>
                     </div>
                     @if(\Modules\Product\Models\TaxRate::isEnable())
                     <div class="d-flex mb-2 align-items-center">
@@ -67,7 +71,8 @@
         <div class="item" style="background: #f7f7f7;">
             <div class="row">
                 <div class="col-md-12 text-right">
-                    <span class="btn btn-info btn-sm " @click="addItem"><i class="icon ion-ios-add-circle-outline"></i> {{__("Add item")}}</span>
+                    <span v-if="is_editable" class="btn btn-info btn-sm " @click="addItem"><i class="icon ion-ios-add-circle-outline"></i> {{__("Add item")}}</span>
+                    <span v-else class="alert text-danger">{{__("You need to change orders status to On-Hold to edit order items")}}</span>
                 </div>
             </div>
         </div>

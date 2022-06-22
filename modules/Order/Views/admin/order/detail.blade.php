@@ -14,6 +14,13 @@
                 <div class="panel">
                     <div class="panel-title"><strong>{{__("Publish")}}</strong></div>
                     <div class="panel-body">
+                        @if($order->gateway)
+                            <h6>{{__("Payment via: :name",['name'=>$order->gateway_name])}}</h6>
+                            @if($order->pay_date)
+                                <h6>{{__("Paid on: :time",['time'=>display_datetime($order->pay_date)])}}</h6>
+                            @endif
+                            <hr>
+                        @endif
                         <div class="form-group">
                             <label >{{__("Status")}}</label>
                             <select v-model="status" class="form-select form-control">

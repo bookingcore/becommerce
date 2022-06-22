@@ -42,7 +42,8 @@ class Order extends BaseModel
     const REFUNDED = 'refunded';
 
     protected $casts = [
-        'order_date'=>'datetime'
+        'order_date'=>'datetime',
+        'pay_date'=>'datetime'
     ];
 
 
@@ -534,6 +535,10 @@ class Order extends BaseModel
                 return [self::CANCELLED];
                 break;
         }
+    }
+
+    public function isEditable(){
+        return in_array($this->status,[self::DRAFT,self::ON_HOLD]);
     }
 }
 

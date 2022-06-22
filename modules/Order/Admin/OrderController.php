@@ -7,6 +7,7 @@ namespace Modules\Order\Admin;
 use Illuminate\Http\Request;
 use Modules\AdminController;
 use Modules\Order\Models\Order;
+use Modules\Order\Resources\Admin\OrderResource;
 use Modules\Order\Rules\ValidOrderItems;
 
 class OrderController extends AdminController
@@ -88,12 +89,21 @@ class OrderController extends AdminController
 
     public function store(Request $request,Order $order = null){
 
-        $request->validate([
+        if(!$this->hasPermission('order_manage_others'))
+        {
+            return $this->sendError(__("You are not allowed to do that"));
+        }
+        $rules = [
             'status'=>'required',
-            'items.*.product_id'=>'required',
-            'items.*.qty'=>'required|integer|gte:1',
-            'items'=>['required',new ValidOrderItems()]
-        ]);
+        ];
+        if($order->isEditable()){
+            $rules = array_merge($rules,[
+                'items.*.product_id'=>'required',
+                'items.*.qty'=>'required|integer|gte:1',
+                'items'=>['required',new ValidOrderItems()]
+            ]);
+        }
+        $request->validate($rules);
 
         if(!$order){
             $order = new Order();
@@ -105,6 +115,9 @@ class OrderController extends AdminController
             'order_date'=>$request->input('order_date'),
             'shipping_amount'=>$request->input('shipping_amount'),
         ];
+        if(!$order->isEditable()){
+            unset($data['shipping_amount']);
+        }
 
         $order->fillByAttr(array_keys($data),$data);
         $order->updateStatus($request->input('status'));
@@ -115,13 +128,18 @@ class OrderController extends AdminController
             'shipping'=>$request->input('shipping'),
             'shipping_method'=>$request->input('shipping_method'),
         ];
+        if(!$order->isEditable()){
+            unset($data['shipping_method']);
+        }
         foreach ($metas as $k=>$meta){
             $order->addMeta($k,$meta);
         }
 
-        $order->saveItems($request->input('items'));
-        $order->saveTax($request->input('tax_lists'));
+        if($order->isEditable()){
+            $order->saveItems($request->input('items'));
+            $order->saveTax($request->input('tax_lists'));
+        }
 
-        return $this->sendSuccess(__("Order saved"));
+        return $this->sendSuccess(['data'=>new OrderResource($order)],__("Order saved"));
     }
 }

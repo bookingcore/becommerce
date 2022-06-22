@@ -2,7 +2,8 @@
     <div class="item" data-number="1">
         <div class="row">
             <div class="col-md-4">
-                <bc-select2 placeholder="{{__('-- Select Product --')}}" :settings="product_settings" :options="product_options" v-model="item.product_id" @select="productChangeEvent"/>
+                <bc-select2 v-if="is_editable" placeholder="{{__('-- Select Product --')}}" :settings="product_settings" :options="product_options" v-model="item.product_id" @select="productChangeEvent"/>
+                <span v-else="">@{{product.title}}</span>
             </div>
             <div class="col-md-2">
                 <select class="form-control" v-show="product.product_type == 'variable'" v-model="item.variation_id" @change="variationChange">
@@ -11,7 +12,8 @@
                 </select>
             </div>
             <div class="col-md-1">
-                <input type="number" min="1" :max="remain_stock" step="1" class="form-control" v-model="item.qty">
+                <input v-if="is_editable" type="number" min="1" :max="remain_stock" step="1" class="form-control" v-model="item.qty">
+                <span v-else="">@{{ item.qty }}</span>
             </div>
             <div class="col-md-2 text-right">
                 @{{ formatMoney(item.price) }}
@@ -20,7 +22,7 @@
                 @{{ formatMoney(subtotal) }}
             </div>
             <div class="col-md-1">
-                <span class="btn btn-danger btn-sm" @click="del"><i class="fa fa-trash"></i></span>
+                <span v-if="is_editable" class="btn btn-danger btn-sm" @click="del"><i class="fa fa-trash"></i></span>
             </div>
         </div>
     </div>
@@ -73,6 +75,7 @@
                     product_id:0
                 }
             },
+            is_editable:true
         },
         watch: {
         },

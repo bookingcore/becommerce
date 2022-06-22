@@ -2,6 +2,7 @@
 namespace Plugins\PaymentRazorPay\Gateway;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Session;
 use Mockery\Exception;
 use Modules\Order\Events\PaymentUpdated;
@@ -148,6 +149,9 @@ class RazorPayCheckoutGateway extends BaseGateway
 
     public function confirmRazorPayment($request,$c,$order_id)
     {
+        /**
+         * @var Order $order
+         */
         $order = Order::find($c);
         if (!empty($order) ) {
             if(in_array($order->status, [Order::ON_HOLD])){
@@ -171,6 +175,7 @@ class RazorPayCheckoutGateway extends BaseGateway
                         $order->updateStatus(Order::FAILED);
                         return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
                     }else{
+                        $order->pay_date = Carbon::now();
                         $order->updateStatus(Order::PROCESSING);
                         return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
                     }

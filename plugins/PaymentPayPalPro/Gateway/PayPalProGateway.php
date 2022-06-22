@@ -2,6 +2,7 @@
 namespace Plugins\PaymentPayPalPro\Gateway;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Mockery\Exception;
 use Modules\Booking\Events\BookingCreatedEvent;
 use Modules\Order\Events\PaymentUpdated;
@@ -124,7 +125,7 @@ class PayPalProGateway extends BaseGateway
 	    $messages = [
 		    'bravo_paypal_pro_card_name.required'    => __('Card Name is required field'),
 	    ];
-	    $validator = Validator::make($request->all(), $rules, $messages);
+	    $validator = \Illuminate\Support\Facades\Validator::make($request->all(), $rules, $messages);
 	    if ($validator->fails()) {
 		    return response()->json(['errors'   => $validator->errors() ], 200)->send();
 	    }
@@ -154,6 +155,7 @@ class PayPalProGateway extends BaseGateway
                 $order->updateStatus(Order::FAILED);
                 return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
             }else{
+                $order->pay_date = Carbon::now();
                 $order->updateStatus(Order::PROCESSING);
                 return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
             }

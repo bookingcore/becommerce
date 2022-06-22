@@ -42,7 +42,8 @@ class OrderResource extends BaseJsonResource
                     if($meta->where('id',$item->id)->first()) $item->active = 1;
                 });
                 return $rows->toArray();
-            })
+            }),
+            'is_editable'=>$this->isEditable()
         ];
     }
 }

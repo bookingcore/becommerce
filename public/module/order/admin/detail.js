@@ -58,7 +58,8 @@ new Vue({
         shipping_methods:{},
         shipping_method:'',
         prices_include_tax:'yes',
-        tax_lists:[]
+        tax_lists:[],
+        is_editable:true
     },
     created:function (){
         for(var k in bc_order){
@@ -106,6 +107,9 @@ new Vue({
                     }
                     if(json.url){
                         window.location.url = json.url;
+                    }
+                    if(json.status){
+                        me.is_editable = json.data.is_editable
                     }
                 },
                 error:function(e){

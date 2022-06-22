@@ -52,6 +52,7 @@ class CreateOrderTable extends Migration
             $table->string('locale',10)->nullable();
 
             $table->timestamp('order_date')->nullable();
+            $table->timestamp('pay_date')->nullable();
             $table->timestamp('expired_at')->nullable();
 
             $table->integer('create_user')->nullable();

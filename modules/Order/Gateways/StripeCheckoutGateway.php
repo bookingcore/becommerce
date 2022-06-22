@@ -5,6 +5,7 @@ namespace Modules\Order\Gateways;
 
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Mockery\Exception;
 use Modules\Order\Models\OrderNote;
 use Modules\Order\Models\Payment;
@@ -144,6 +145,9 @@ class StripeCheckoutGateway extends BaseGateway
     public function confirmPayment(Request $request)
     {
         $id = $request->query('oid');
+        /**
+         * @var Order $order
+         */
         $order = Order::find($id);
         $this->setupStripe();
         if (!empty($order)) {
@@ -172,6 +176,7 @@ class StripeCheckoutGateway extends BaseGateway
                         $order->updateStatus(Order::FAILED);
                         return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
                     }else{
+                        $order->pay_date = Carbon::now();
                         $order->updateStatus(Order::PROCESSING);
                         return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
                     }
@@ -280,6 +285,9 @@ class StripeCheckoutGateway extends BaseGateway
         switch ($event->type) {
             case 'payment_intent.succeeded':
                 $orderIntent = $event->data->object; // contains a \Stripe\PaymentIntent
+                /**
+                 * @var Order $order
+                 */
                 $order = Order::where('gateway_transaction_id',$orderIntent->id)->first();
                 if (!$order) {
                     return response()->json(['message' => __('Payment not found')], 400);
@@ -299,6 +307,7 @@ class StripeCheckoutGateway extends BaseGateway
                 }
 
                 $order->addPaymentLog($orderIntent);
+                $order->pay_date = Carbon::now();
                 $order->updateStatus(Order::PROCESSING);
 
             break;
