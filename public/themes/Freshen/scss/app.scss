@@ -549,3 +549,9 @@ body .order-box{
         z-index: 10 !important;
     }
 }
+@media (max-width: 1023px) {
+    .main-banner-wrapper .carousel-btn-block {
+        bottom: 12%;
+        top: auto;
+    }
+}
