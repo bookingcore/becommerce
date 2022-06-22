@@ -180,7 +180,6 @@ class MediaController extends Controller
             'bmp',
             'png',
             'gif',
-            'svg'
         ];
 
         $uploadConfigs = config('bc.media.groups');
