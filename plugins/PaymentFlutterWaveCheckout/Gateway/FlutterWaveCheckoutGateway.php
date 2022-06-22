@@ -115,7 +115,7 @@ class FlutterWaveCheckoutGateway extends BaseGateway
     }
 
     public function confirmPayment(Request $request){
-        $oid = $request->query('oid');
+        $oid = $request->input('oid');
         /**
          * @var Order $order
          */
