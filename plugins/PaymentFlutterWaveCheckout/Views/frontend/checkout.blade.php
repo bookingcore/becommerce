@@ -15,6 +15,7 @@
     <script src="https://checkout.flutterwave.com/v3.js"></script>
     <button type="button" class="checkout-button" onClick="makePayment()">{{__("Pay Now")}}</button>
 </form>
+<script src="{{asset('libs/jquery-3.6.0.min.js')}}"></script>
 <script>
     function makePayment() {
         FlutterwaveCheckout({
