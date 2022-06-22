@@ -572,18 +572,22 @@
           fade: false,
           autoplay: true,
           autoplaySpeed: 2000,
-          asNavFor: '.tes-nav'
+          // asNavFor: '.tes-nav'
         });
+
+    }
+    if($('.tes-nav').length){
         $('.tes-nav').slick({
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          asNavFor: '.tes-for',
-          dots: false,
-          arrows: false,
-          centerPadding: '1px',
-          centerMode: true,
-          focusOnSelect: true
+            slidesToShow: 3,
+            slidesToScroll: 1,
+            // asNavFor: '.tes-for',
+            dots: false,
+            arrows: false,
+            centerPadding: '1px',
+            centerMode: true,
+            focusOnSelect: true
         });
+
     }
 
     /*  Popular-Listing-Slider  */
