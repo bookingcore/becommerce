@@ -65,7 +65,13 @@ class ThemeManager
         }
         return Storage::disk('local')->put('bc.php', $str);
     }
-    public static function validateTheme($theme,$dd = 0){
+    public static function validateTheme($theme){
+        $class_file = base_path('themes/'.ucfirst($theme).'/ThemeProvider.php');
+
+        if(!file_exists($class_file)){
+            return false;
+        }
+
         $class = static::getProviderClass($theme);
 
         if(!class_exists($class) or !is_subclass_of($class,AbstractThemeProvider::class)){
