@@ -1,15 +1,15 @@
 <div class="row">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Filesystem Configs")}}</h3>
+        <h3 class="form-group-title">{{__("Cloud Storage Configs")}}</h3>
     </div>
     <div class="col-sm-8">
         <div class="panel">
             <div class="panel-body">
                 <div class="form-group">
-                    <label>{{__('Filesystem Driver')}}</label>
+                    <label>{{__('Select Cloud Driver')}}</label>
                     <div class="form-controls">
                         <select name="filesystem_default" class="form-control">
-                            <option value="uploads" {{setting_item('filesystem_default') == 'uploads' ? 'selected' : ''  }}>{{__('Default')}}</option>
+                            <option value="uploads" {{setting_item('filesystem_default') == 'uploads' ? 'selected' : ''  }}>{{__('-- Local Storage --')}}</option>
                             <option value="s3" {{setting_item('filesystem_default') == 's3' ? 'selected' : ''  }}>{{__('AWS S3')}}</option>
                             <option value="gcs" {{setting_item('filesystem_default') == 'gcs' ? 'selected' : ''  }}>{{__('Google Cloud Storage')}}</option>
                         </select>

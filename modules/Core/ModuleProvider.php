@@ -67,7 +67,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'title'      => __('System Settings'),
                 'icon'       => 'icon ion-ios-cog',
                 'permission' => 'setting_update',
-                "group"=>"system"
+                "group"=>"system",
+                'children'   => \Modules\Core\Helpers\SettingManager::menus()
             ],
             'tools'=>[
                 "position"=>90,

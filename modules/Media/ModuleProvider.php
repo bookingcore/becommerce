@@ -45,7 +45,7 @@ class ModuleProvider extends ModuleServiceProvider
     }
     public function registerFileSystemSetting(){
         return [
-            'title' => __("FileSystem Settings"),
+            'title' => __("Media Settings"),
             'view'      => "Media::admin.settings.file-system",
             'position'=>85,
             "keys"=>[
