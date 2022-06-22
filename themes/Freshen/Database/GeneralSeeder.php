@@ -198,8 +198,8 @@ class GeneralSeeder extends Seeder
 
         setting_update_item('menu_locations','{"primary":'.$menu_id.',"department":'.$department_id.'}');
 
-        $logo_light = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-light', 'file_path' => 'freshen/general/logo-light.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-light']);
-        $logo_dark = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-dark', 'file_path' => 'freshen/general/logo-dark.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-logo-dark']);
+        $logo_light = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-light', 'file_path' => 'freshen/general/logo-light.svg', 'file_type' => 'image/svg', 'file_extension' => 'svg'],['file_name' => 'freshen-logo-light']);
+        $logo_dark = MediaFile::updateOrCreate(['file_name' => 'freshen-logo-dark', 'file_path' => 'freshen/general/logo-dark.svg', 'file_type' => 'image/svg', 'file_extension' => 'svg'],['file_name' => 'freshen-logo-dark']);
         $bg_footer_1 = MediaFile::updateOrCreate(['file_name' => 'freshen-bg-footer-1', 'file_path' => 'freshen/general/bg-footer-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'freshen-bg-footer-1']);
         setting_update_items(
             [
