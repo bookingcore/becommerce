@@ -2,9 +2,13 @@
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Http\Request;
 
-if (!version_compare(phpversion(), '7.3', '>'))
+if (!version_compare(phpversion(), '8.0', '>'))
 {
-    die("Current PHP version: ".phpversion()."<br>You must upgrade PHP version 7.3 and later");
+    die("Current PHP version: ".phpversion()."<br>You must upgrade PHP version 8.0 and later");
+}
+
+if (file_exists(__DIR__.'/../storage/app/bc.php')) {
+    require __DIR__.'/../storage/app/bc.php';
 }
 
 /**

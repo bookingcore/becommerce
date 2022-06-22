@@ -2,9 +2,7 @@
 namespace Modules\Theme;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\View;
-use League\Flysystem\Config;
 use Modules\Core\Helpers\AdminMenuManager;
-use Modules\Core\JsonConfigManager;
 use Themes\Base\ThemeProvider;
 
 class ModuleProvider extends \Modules\ModuleServiceProvider

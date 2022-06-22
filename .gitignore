@@ -31,3 +31,4 @@ themes/Axtronic/node_modules
 composer.phar
 resources/lang
 !resources/lang/default.json
+storage/app/bc.php

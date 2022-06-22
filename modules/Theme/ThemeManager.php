@@ -2,15 +2,26 @@
 namespace Modules\Theme;
 
 use Illuminate\Support\Facades\File;
-use Modules\Core\JsonConfigManager;
+use Illuminate\Support\Facades\Storage;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 
 class ThemeManager
 {
     protected static $_all = [];
+    protected static $_current = false;
 
     public static function current(){
-        return $_GET['_xtheme'] ?? strtolower(JsonConfigManager::get('active_theme',config('bc.active_theme')));
+        if(!static::$_current) {
+
+            static::$_current = 'base';
+
+            $theme = strtolower(config('bc.active_theme'));
+
+            if(static::validateTheme($theme)){
+                static::$_current = $theme;
+            }
+        }
+        return static::$_current;
     }
     public static function currentProvider(){
         return static::theme(static::current());
@@ -45,5 +56,21 @@ class ThemeManager
                 self::$_all[$theme] = $class;
             }
         }
+    }
+
+    public static function saveConfigFile($data){
+        $str = '<?php'.PHP_EOL;
+        foreach ($data as $k=>$v){
+            $str .= 'define("'.$k.'","'.$v.'");'.PHP_EOL;
+        }
+        return Storage::disk('local')->put('bc.php', $str);
+    }
+    public static function validateTheme($theme,$dd = 0){
+        $class = static::getProviderClass($theme);
+
+        if(!class_exists($class) or !is_subclass_of($class,AbstractThemeProvider::class)){
+            return false;
+        }
+        return true;
     }
 }

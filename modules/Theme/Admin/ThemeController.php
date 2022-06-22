@@ -3,9 +3,8 @@
 namespace Modules\Theme\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Storage;
 use Modules\AdminController;
-use Modules\Core\JsonConfigManager;
 use Modules\Theme\ThemeManager;
 
 class ThemeController extends AdminController
@@ -71,14 +70,29 @@ class ThemeController extends AdminController
         return redirect(route('theme.admin.index'))->with('success','Theme uploaded');
     }
 
-    public function activate($theme){
+    public function activate(Request $request,$theme){
         if(is_demo_mode()){
             return back()->with('danger',__("DEMO MODE: You are not allowed to do that"));
         }
         $this->checkPermission("theme_manage");
 
+        $request->merge(['theme' => $theme]);
+
+        $request->validate([
+            'theme'=>'required|regex:/^[A-Za-z0-9_]+$/'
+        ]);
+
+
+        $theme = strip_tags(trim($theme));
+
+        if(!ThemeManager::validateTheme($theme)){
+            return back()->with('danger',__("Selected theme is not available"));
+        }
+
         try{
-            JsonConfigManager::set("active_theme",trim($theme));
+            if(!ThemeManager::saveConfigFile(["BC_ACTIVE_THEME"=>trim($theme)])){
+                return back()->with('danger',__("Can not write file config at").' '.storage_path('bc.php'));
+            }
         }catch (\Throwable $throwable)
         {
             return back()->with('danger',$throwable->getMessage());
@@ -86,6 +100,7 @@ class ThemeController extends AdminController
 
         return back()->with('success',__("Theme activated"));
     }
+
 
     public function seeding($theme){
         if(is_demo_mode()){
