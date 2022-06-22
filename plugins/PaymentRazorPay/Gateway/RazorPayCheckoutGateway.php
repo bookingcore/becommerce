@@ -14,6 +14,7 @@ use Razorpay\Api\Api;
 use Illuminate\Support\Facades\Log;
 class RazorPayCheckoutGateway extends BaseGateway
 {
+    protected $id   = 'razorpay_gateway';
     public    $name = 'Razorpay Checkout';
     protected $gateway;
 

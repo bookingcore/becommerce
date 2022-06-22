@@ -15,6 +15,7 @@ use SebastianBergmann\Comparator\Book;
 
 class FlutterWaveCheckoutGateway extends BaseGateway
 {
+    protected $id = 'flutter_wave';
     public    $name            = 'FlutterWave Checkout';
     protected $gateway;
 
