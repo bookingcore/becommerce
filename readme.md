@@ -22,13 +22,11 @@ FREE and Open-source Ecommerce platform to build and run your business.
 
 2. Stripe Checkout
 
-3. Two Checkout
+3. Paypal Pro
 
-4. Paypal Pro
+4. Flutterwave Payment
 
-5. Flutterwave Payment
-
-6. Razorpay
+5. Razorpay
 
 ### Homepage: [https://be-commerce.org](https://be-commerce.org)
 
