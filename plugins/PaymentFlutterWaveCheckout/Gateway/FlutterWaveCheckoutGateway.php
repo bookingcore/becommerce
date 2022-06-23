@@ -127,10 +127,9 @@ class FlutterWaveCheckoutGateway extends BaseGateway
             return redirect(url('/'));
         }
         if (in_array($order->status, [Order::UNPAID,Order::ON_HOLD])) {
-            if ($request->query('status') =='successful') {
+            if ($request->input('status') =='successful') {
                 $order->addPaymentLog($request->all());
                 $order->paid = $order->total;
-
                 if($order->isExpired()){
                     $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
                     $order->updateStatus(Order::FAILED);
