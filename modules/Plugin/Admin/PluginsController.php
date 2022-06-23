@@ -3,7 +3,6 @@ namespace Modules\Plugin\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
-use Modules\Core\Models\Plugins;
 use Modules\Plugin\Facades\PluginManager;
 
 class PluginsController extends AdminController
