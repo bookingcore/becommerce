@@ -1,7 +1,7 @@
 <?php
 return [
     'active_theme'=>defined('BC_ACTIVE_THEME') ? BC_ACTIVE_THEME : env('BC_DEFAULT_THEME','base'),
-    'active_plugins'=>defined('BC_ACTIVE_PLUGINS') ? BC_ACTIVE_PLUGINS : [],
+    'active_plugins'=>(defined('BC_ACTIVE_PLUGINS') and is_array(BC_ACTIVE_PLUGINS)) ? BC_ACTIVE_PLUGINS : [],
     "media"=>[
         "groups"=>[
             "default"=>[

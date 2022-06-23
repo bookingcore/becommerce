@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Facade;
  * @method static \Modules\Plugin\PluginManager all()
  * @method static \Modules\Plugin\PluginManager activePlugins()
  * @method static \Modules\Plugin\PluginManager provider($plugin_name)
+ * @method static \Modules\Plugin\PluginManager active($plugin_name)
+ * @method static \Modules\Plugin\PluginManager deactive($plugin_name)
  * @package Modules\Plugin\Facades
  */
 class PluginManager extends Facade
