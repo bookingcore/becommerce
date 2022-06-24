@@ -10,7 +10,8 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Core\Models\Attribute;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
@@ -18,8 +19,7 @@ use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
-use Modules\Product\Models\VariableProduct;
-use Modules\Product\Models\Coupon;
+use Modules\Product\Models\ProductVariation;
 
 class CouponController extends AdminController
 {
@@ -32,24 +32,19 @@ class CouponController extends AdminController
      * @var ProductCategoryRelation
      */
     protected $product_cat_relation;
-    /**
-     * @var ProductTag
-     */
-    protected $product_tag;
+
     protected $coupon;
 
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('coupon');
         $this->product = Product::class;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
-        $this->attributes = Attributes::class;
+        $this->attributes = Attribute::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
-        $this->product_tag = ProductTag::class;
-        $this->variable_product = VariableProduct::class;
-        $this->coupon = Coupon::class;
+        $this->variable_product = ProductVariation::class;
     }
 
     public function index(Request $request)
@@ -101,7 +96,7 @@ class CouponController extends AdminController
         if (empty($row)) {
             return redirect(route('product.coupon.index'));
         }
-        /*$translation = $row->translateOrOrigin($request->query('lang'));
+        /*$translation = $row->translate($request->query('lang'));
         if (!$this->hasPermission('product_manage_others')) {
             if ($row->create_user != Auth::id()) {
                 return redirect(route('product.admin.index'));
@@ -179,15 +174,9 @@ class CouponController extends AdminController
 
         $row->fillByAttr($dataKeys,$newCoupon);
 
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
-            if(!$request->input('lang') or is_default_lang($request->input('lang'))) {
-                $this->saveTags($row, $request->input('tag_name'), $request->input('tag_ids'));
-                $this->saveCategory($row, $request);
-                $this->saveTerms($row, $request);
-            }
-
             if($id > 0 ){
                 return back()->with('success',  __('Product updated') );
             }else{
@@ -196,49 +185,6 @@ class CouponController extends AdminController
         }
     }
 
-    public function saveTags($row, $tags_name, $tag_ids)
-    {
-        if (empty($tag_ids))
-            $tag_ids = [];
-        $tag_ids = array_merge(Tag::saveTagByName($tags_name), $tag_ids);
-        $tag_ids = array_filter(array_unique($tag_ids));
-        // Delete unused
-        $this->product_tag::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
-        //Add
-        $this->product_tag::addTag($tag_ids, $row->id);
-
-    }
-
-    public function saveTerms($row, $request)
-    {
-        if (empty($request->input('terms'))) {
-            $this->product_term::where('target_id', $row->id)->delete();
-        } else {
-            $term_ids = $request->input('terms');
-            foreach ($term_ids as $term_id) {
-                $this->product_term::firstOrCreate([
-                    'term_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
-        }
-    }
-
-    public function saveCategory($row, $request){
-        if (empty($request->input('category_ids'))) {
-            $this->product_cat_relation::query()->where('target_id',$row->id)->delete();
-        } else {
-            $term_ids = $request->input('category_ids');
-            foreach ($term_ids as $term_id) {
-                $this->product_cat_relation::firstOrCreate([
-                    'cat_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_cat_relation::where('target_id', $row->id)->whereNotIn('cat_id', $term_ids)->delete();
-        }
-    }
 
     public function bulkEdit(Request $request)
     {

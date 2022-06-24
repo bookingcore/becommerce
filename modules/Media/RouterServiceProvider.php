@@ -81,12 +81,10 @@ class RouterServiceProvider extends ServiceProvider
      */
     protected function mapLanguageRoutes()
     {
-        if(is_installed() and app()->getLocale() != setting_item('site_locale')) {
-            Route::middleware('web')
-                ->namespace($this->moduleNamespace)
-                ->prefix(app()->getLocale())
-                ->group(__DIR__ . '/Routes/language.php');
-        }
+        Route::middleware('web')
+            ->namespace($this->moduleNamespace)
+            ->prefix(app()->getLocale())
+            ->group(__DIR__ . '/Routes/language.php');
     }
 
     /**

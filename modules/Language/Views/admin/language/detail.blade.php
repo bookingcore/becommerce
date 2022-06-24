@@ -20,7 +20,7 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    @include('Layout::admin.message')
+                    @include('admin.message')
                     <div class="panel">
                         <div class="panel-title">{{__("Language Content")}}</div>
                         <div class="panel-body">

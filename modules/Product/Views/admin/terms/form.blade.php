@@ -17,7 +17,9 @@
         @case('color')
         <div class="form-group">
             <label>{{__("Display value")}}</label>
-            <input type="color" value="{{$translation->name}}" placeholder="{{__("Color")}}" name="content" class="form-control">
+            <div>
+                <input type="color" value="{{$translation->name}}" placeholder="{{__("Color")}}" name="content" class="">
+            </div>
         </div>
         @break
 

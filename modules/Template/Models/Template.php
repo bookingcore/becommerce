@@ -2,6 +2,8 @@
 namespace Modules\Template\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Modules\Template\BlockManager;
 use PhpParser\Node\Expr\Cast\Object_;
 
 class Template extends BaseModel
@@ -12,6 +14,7 @@ class Template extends BaseModel
         'content',
         'type_id',
     ];
+
 
     public static function getModelName()
     {
@@ -33,16 +36,24 @@ class Template extends BaseModel
         return $a;
     }
 
-    public function getEditUrlAttribute()
+    public function editUrl(): Attribute
     {
-        return url('admin/module/template/edit/' . $this->id);
+        return Attribute::make(
+            get:function($value){
+                return url('admin/module/template/edit/' . $this->id);
+            }
+        );
     }
 
-    public function getContentJsonAttribute()
+    public function contentJson(): Attribute
     {
-        $json = json_decode($this->content, true);
-        $this->filterContentJson($json);
-        return $json;
+        return Attribute::make(
+            get:function($value){
+                $json = json_decode($this->content, true);
+                $this->filterContentJson($json);
+                return $json;
+            }
+        );
     }
 
     protected function filterContentJson(&$json)
@@ -81,51 +92,7 @@ class Template extends BaseModel
 
     public function getBlocks()
     {
-        $blocks = config('template.blocks');
-        // Modules
-        $custom_modules = \Modules\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
-                    if(!empty($blockConfig)){
-                        $blocks = array_merge($blocks,$blockConfig);
-                    }
-                }
-            }
-        }
-        //Custom
-        $custom_modules = \Custom\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
-                    if(!empty($blockConfig)){
-                        $blocks = array_merge($blocks,$blockConfig);
-                    }
-                }
-            }
-        }
-
-        $res = [];
-        foreach ($blocks as $block => $class) {
-
-            if (!class_exists($class))
-                continue;
-            $obj = new $class();
-            //if(!is_subclass_of($obj,"\\Module\\Template\\Block\\BaseBlock")) continue;
-            $options = $obj->options;
-            $options['name'] = $obj->getName();
-            $options['id'] = $block;
-            $options['component'] = $obj->options['component'] ?? 'RegularBlock';
-            $this->parseBlockOptions($options);
-            $res[] = $options;
-        }
-        return $res;
+        return BlockManager::blocks();
     }
 
     public function getBlockByType($type)
@@ -140,80 +107,16 @@ class Template extends BaseModel
         return false;
     }
 
-    protected function parseBlockOptions(&$options)
-    {
-
-        $options['model'] = [];
-        if (!empty($options['settings'])) {
-            foreach ($options['settings'] as &$setting) {
-
-                $setting['model'] = $setting['id'];
-                $val = $setting['std'] ?? '';
-                switch ($setting['type']) {
-                    case "listItem":
-                        $val = [];
-                        break;
-                    default:
-                        break;
-                }
-                if (!empty($setting['multiple'])) {
-                    $val = (array)$val;
-                }
-                $options['model'][$setting['id']] = $val;
-            }
-        }
+    public function getAllBlocks(){
+        return BlockManager::all();
     }
 
     public function getProcessedContent()
     {
-        $blocks = config('template.blocks');
-        // Modules
-        $custom_modules = \Modules\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
-                    if(!empty($blockConfig)){
-                        $blocks = array_merge($blocks,$blockConfig);
-                    }
-                }
-            }
-        }
-        //Custom
-        $custom_modules = \Custom\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $blockConfig = call_user_func([$moduleClass,'getTemplateBlocks']);
-                    if(!empty($blockConfig)){
-                        $blocks = array_merge($blocks,$blockConfig);
-                    }
-                }
-            }
-        }
+        return BlockManager::content($this);
+    }
 
-        $items = json_decode($this->content, true);
-        if (empty($items))
-            return '';
-        $html = '';
-        foreach ($items as $item) {
-            if (empty($item['type']))
-                continue;
-            if (!array_key_exists($item['type'], $blocks) or !class_exists($blocks[$item['type']]))
-                continue;
-            $item['model'] = isset($item['model']) ? $item['model'] : [];
-            $blockModel = new $blocks[$item['type']]();
-            if (method_exists($blockModel, 'content')) {
-                $html .= call_user_func([
-                    $blockModel,
-                    'content'
-                ], $item['model']);
-            }
-        }
-        return $html;
+    public function getProcessedContentAPI(){
+        return BlockManager::contentAPI($this);
     }
 }

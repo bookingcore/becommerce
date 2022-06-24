@@ -1,5 +1,5 @@
 <template>
-    <div class="dungdt-upload-box dungdt-upload-box-vue " :class="{'active':value}" style="width:200px" >
+    <div class="bc-upload-box bc-upload-box-vue " :class="{'active':value}" style="width:200px" >
         <div class="upload-box" v-show="!value" >
             <div class="text-center">
                 <svg id="next-dropzone" width="100%" height="100%">
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="attach-demo" title="Change file" @click="openUploader">
-            <img v-show="value" :src="bookingCore.url+'/media/preview/'+value" class="image-responsive">
+            <img v-show="value" :src="BC.url+'/media/preview/'+value" class="image-responsive">
         </div>
         <div class="upload-actions justify-content-between" v-show="value">
             <a href="#" @click="value = ''">Remove</a>
@@ -73,7 +73,7 @@
         data(){
             return {
                 options:[],
-                bookingCore:bookingCore
+                BC:BC
             }
         },
         methods:{

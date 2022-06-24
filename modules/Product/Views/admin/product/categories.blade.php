@@ -1,6 +1,6 @@
 @if(is_default_lang())
-    <div class="form-group">
-        <label class="control-label">{{__("Categories")}}</label>
+    <div class="form-group mb-3">
+        <label class="control-label mb-2">{{__("Categories")}}</label>
         <div class="controls">
             <div class="terms-scrollable">
                 @php
@@ -12,8 +12,8 @@
                             $selected = '';
                             if (in_array($category->id,$categoriesArray))
                                 $selected = 'checked';
-                            printf("<label class='term-item'><input type='checkbox' name='category_ids[]' value='%s' %s><span class='term-name'>%s</span></label>", $category->id, $selected, $prefix . ' ' . $category->name);
-                            $traverse($category->children, $prefix . '-');
+                            printf("<label class='term-item'><input type='checkbox' name='category_ids[]' value='%s' %s><span class='term-name'> %s</span></label>", $category->id, $selected, $prefix . ' ' . $category->name);
+                            $traverse($category->children, $prefix . '&#8211;');
                         }
                     };
                     $traverse($categories);
@@ -21,8 +21,8 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label">{{__("Tags")}}</label>
+    <div class="form-group mb-3">
+        <label class="control-label mb-2">{{__("Tags")}}</label>
         <div class="controls">
             <div class="">
                 <input type="text" data-role="tagsinput" autocomplete="off" value="" placeholder="{{ __('Input tag name and press enter')}}" name="tag" class="form-control tag-input">
@@ -39,8 +39,8 @@
             </div>
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label">{{__("Brand")}}</label>
+    <div class="form-group mb-3">
+        <label class="control-label mb-2">{{__("Brand")}}</label>
         <div class="controls">
             @php
                 $brand = !empty($row->brand_id) ? \Modules\Product\Models\ProductBrand::find($row->brand_id) : false;

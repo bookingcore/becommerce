@@ -15,7 +15,7 @@ class CreateCoreSettingTable extends Migration
     {
         Schema::create('core_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name',255)->nullable();
+            $table->string('name')->nullable();
             $table->string('group',50)->nullable();
             $table->text('val')->nullable();
             $table->tinyInteger('autoload')->nullable();
@@ -25,6 +25,7 @@ class CreateCoreSettingTable extends Migration
 
             $table->string('lang',10)->nullable();
 
+            $table->unique('name');
             $table->timestamps();
         });
     }

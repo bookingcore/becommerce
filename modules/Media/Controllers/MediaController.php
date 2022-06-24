@@ -21,7 +21,7 @@ class MediaController extends Controller
     public function privateFileStore(Request $request)
     {
         if(!$user_id = Auth::id()){
-            return $this->sendError(__("Please logged in"));
+            return $this->sendError(__("Please log in"));
         }
 
         $fileName = 'file';
@@ -29,15 +29,15 @@ class MediaController extends Controller
         $file = $request->file($fileName);
 
         try {
-            $this->validatePrivateFile($file);
+            $this->validatePrivateFile($file,$request->input('type','default'));
         } catch (\Exception $exception) {
             return $this->sendError($exception->getMessage());
         }
+
         $folder = 'private/'.$user_id.'/';
         $folder = $folder . date('Y/m/d');
 
-        $newFileName = Str::slug(substr($file->getClientOriginalName(), 0, strrpos($file->getClientOriginalName(), '.')));
-        if(empty($newFileName)) $newFileName = md5($file->getClientOriginalName());
+        $newFileName = md5(microtime(true).rand(0,999));
 
         $i = 0;
         do {
@@ -53,11 +53,11 @@ class MediaController extends Controller
                 $path = str_replace('private/','',$check);
                 return $this->sendSuccess(['data' => [
                     'path'=>$path,
-                    'name'=>$newFileName2,
+                    'name'=>$file->getClientOriginalName(),
                     'size'=>$file->getSize(),
                     'file_type'=>$file->getMimeType(),
                     'file_extension'=> $file->getClientOriginalExtension(),
-                    'download'=>route('media.private.view',['path'=>$path])
+                    'download'=>route('media.private.view',['path'=>$path]),
                 ]]);
 
             } catch (\Exception $exception) {
@@ -67,7 +67,7 @@ class MediaController extends Controller
                 return $this->sendError($exception->getMessage());
             }
         }
-        return  $this->sendError(__("Can not upload the file"));
+        return $this->sendError(__("Can not upload the file"));
     }
 
     /**
@@ -114,14 +114,20 @@ class MediaController extends Controller
             'gif',
             'svg'
         ];
+        $allowedMimeTypes  = [];
         $uploadConfigs = [
             'default' => [
                 'types'    => $allowedExts,
                 "max_size" => 20000000,
                 "max_width"=>2500,
-                "max_height"=>2500
-                // 20MB
+                "max_height"=>2500,
             ],
+            'image'=>[
+                'types'    => $allowedExtsImage,
+                "max_size" => 20000000,
+                "max_width"=>2500,
+                "max_height"=>2500
+            ]
         ];
         $config = isset($uploadConfigs[$group]) ? $uploadConfigs[$group] : $uploadConfigs['default'];
 
@@ -134,7 +140,7 @@ class MediaController extends Controller
 
         if(in_array($file_extension = strtolower($file->getClientOriginalExtension()), $allowedExtsImage)) {
             if( $file_extension == "svg"){
-                return true;
+                return \Modules\Media\Admin\MediaController::validateSVG($file);
             }
             if (!empty($config['max_width']) or !empty($config['max_width'])) {
                 $imagedata = getimagesize($file->getPathname());

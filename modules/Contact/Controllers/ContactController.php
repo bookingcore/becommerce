@@ -43,21 +43,29 @@ class ContactController extends Controller
         if(ReCaptchaEngine::isEnable()){
             $codeCapcha = $request->input('g-recaptcha-response');
             if(!$codeCapcha or !ReCaptchaEngine::verify($codeCapcha)){
-                return redirect()->back()->with('error',__('Please verify the captcha'));
+                $data = [
+                    'status'    => 0,
+                    'message'    => __('Please verify the captcha'),
+                ];
+                return response()->json($data, 200);
             }
         }
         $row = new Contact($request->input());
-        $row->status = 'sent';
+        $row->status = 'new';
         if ($row->save()) {
             $this->sendEmail($row);
-            return redirect()->back()->with('success', __('Thank you for contacting us! We will get back to you soon'));
+            $data = [
+                'status'    => 1,
+                'message'    => __('Thank you for contacting us! We will get back to you soon'),
+            ];
+            return response()->json($data, 200);
         }
     }
 
     protected function sendEmail($contact){
         if($admin_email = setting_item('admin_email')){
             try {
-                Mail::to($admin_email)->send(new NotificationToAdmin($contact));
+                Mail::to($admin_email)->queue(new NotificationToAdmin($contact));
             }catch (Exception $exception){
                 Log::warning("Contact Send Mail: ".$exception->getMessage());
             }

@@ -7,7 +7,7 @@
                 <div class="">
                     <h1 class="title-bar">{{$row->id ? __('Edit post: ').$row->title : __('Add new Post')}}</h1>
                     @if($row->slug)
-                        <p class="item-url-demo">{{__("Permalink")}}: {{ url( (request()->query('lang') ? request()->query('lang').'/' : '').config('news.news_route_prefix'))  }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
+                        <p class="item-url-demo">{{__("Permalink")}}: {{ url(config('news.news_route_prefix'))  }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
                         </p>
                     @endif
                 </div>
@@ -17,7 +17,7 @@
                     @endif
                 </div>
             </div>
-            @include('Layout::admin.message')
+            @include('admin.message')
             @include('Language::admin.navigation')
             <div class="lang-content-box">
                 <div class="row">
@@ -48,7 +48,31 @@
                                 </div>
                             </div>
                         </div>
-
+                        @if(is_default_lang())
+                            <div class="panel">
+                                <div class="panel-title"><strong>{{__("Author")}}</strong></div>
+                                <div class="panel-body">
+                                    <div class="form-group">
+                                        <?php
+                                        $user = !empty($row->author_id) ? App\User::find($row->author_id) : false;
+                                        \App\Helpers\AdminForm::select2('author_id', [
+                                            'configs' => [
+                                                'ajax'        => [
+                                                    'url' => url('/admin/module/user/getForSelect2'),
+                                                    'dataType' => 'json'
+                                                ],
+                                                'allowClear'  => true,
+                                                'placeholder' => __('-- Select User --')
+                                            ]
+                                        ], !empty($user->id) ? [
+                                            $user->id,
+                                            $user->display_name . ' (#' . $user->id . ')'
+                                        ] : false)
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                         @if(is_default_lang())
                             <div class="panel">
                                 <div class="panel-body">
@@ -73,7 +97,7 @@
                                     <div class="form-group">
                                         <label class="control-label"> {{ __('Tag')}}</label>
                                         <div class="">
-                                            <input type="text" data-role="tagsinput" value="{{$row->tag}}" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
+                                            <input type="text" data-role="tagsinput" value="" placeholder="{{ __('Enter tag')}}" name="tag" class="form-control tag-input">
                                             <br>
                                             <div class="show_tags">
                                                 @if(!empty($tags))

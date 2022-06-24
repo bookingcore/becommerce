@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Socialite;
 use App\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -43,7 +45,7 @@ class LoginController extends Controller
 
     public function redirectTo()
     {
-        if(Auth::user()->hasPermissionTo('dashboard_access')){
+        if(Auth::user()->hasPermission('setting_update')){
             return '/admin';
         }else{
             return $this->redirectTo;
@@ -53,7 +55,7 @@ class LoginController extends Controller
     public function socialLogin($provider)
     {
         $this->initConfigs($provider);
-        return Socialite::driver($provider)->redirect();
+        return \Laravel\Socialite\Facades\Socialite::driver($provider)->redirect();
     }
 
     protected function initConfigs($provider)
@@ -75,7 +77,7 @@ class LoginController extends Controller
     {
         $this->initConfigs($provider);
 
-        $user = Socialite::driver($provider)->user();
+        $user = \Laravel\Socialite\Facades\Socialite::driver($provider)->user();
 
         if(empty($user)){
             return redirect()->route('/login')->with('error',__('Can not authorize'));
@@ -95,7 +97,7 @@ class LoginController extends Controller
                 Auth::login($userByEmail);
                 return redirect('/');
             }
-            
+
 
             // Create New User
             $realUser = new User();
@@ -104,6 +106,7 @@ class LoginController extends Controller
             $realUser->name = $user->getName();
             $realUser->first_name = $user->getName();
             $realUser->status = 'publish';
+            $realUser->email_verified_at = Carbon::now();
 
             $realUser->save();
 
@@ -124,7 +127,7 @@ class LoginController extends Controller
             if($existUser->deleted == 1){
                 return redirect()->route('/login')->with('error',__('User blocked'));
             }
-            
+
             Auth::login($existUser);
 
             return redirect('/');
@@ -132,4 +135,23 @@ class LoginController extends Controller
     }
 
 
+    public function showLoginForm()
+    {
+        return view('auth.login',[
+            'page_title'=>__("Login")
+        ]);
+    }
+    /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        return $request->wantsJson()
+            ? new JsonResponse(['redirect'=>(string) $request->input('redirect','/')], 200)
+            : redirect()->intended($this->redirectPath());
+    }
 }

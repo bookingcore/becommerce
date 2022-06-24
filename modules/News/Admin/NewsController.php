@@ -3,6 +3,7 @@ namespace Modules\News\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Language\Models\Language;
 use Modules\News\Models\NewsCategory;
 use Modules\News\Models\News;
@@ -12,13 +13,13 @@ class NewsController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/news');
         parent::__construct();
+        AdminMenuManager::setActive('news');
     }
 
     public function index(Request $request)
     {
-        $this->checkPermission('news_view');
+        $this->checkPermission('news_manage');
         $dataNews = News::query()->orderBy('id', 'desc');
         $post_name = $request->query('s');
         $cate = $request->query('cate_id');
@@ -30,11 +31,8 @@ class NewsController extends AdminController
             $dataNews->orderBy('title', 'asc');
         }
 
-
-        $this->filterLang($dataNews);
-
         $data = [
-            'rows'        => $dataNews->with("getAuthor")->with("getCategory")->paginate(20),
+            'rows'        => $dataNews->with("author")->with("category")->paginate(20),
             'categories'  => NewsCategory::get(),
             'breadcrumbs' => [
                 [
@@ -55,7 +53,7 @@ class NewsController extends AdminController
 
     public function create(Request $request)
     {
-        $this->checkPermission('news_create');
+        $this->checkPermission('news_manage');
         $row = new News();
         $row->fill([
             'status' => 'publish',
@@ -73,18 +71,19 @@ class NewsController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'translation'=>new NewsTranslation()
+            'translation'=>new NewsTranslation(),
+            'page_title'=>__("Add new post")
         ];
         return view('News::admin.news.detail', $data);
     }
 
     public function edit(Request $request, $id)
     {
-        $this->checkPermission('news_update');
+        $this->checkPermission('news_manage');
 
         $row = News::find($id);
 
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         if (empty($row)) {
             return redirect('admin/module/news');
@@ -94,27 +93,39 @@ class NewsController extends AdminController
             'row'  => $row,
             'translation'  => $translation,
             'categories' => NewsCategory::get()->toTree(),
-            'tags' => $row->getTags(),
+            'tags' => $row->tags,
             'enable_multi_lang'=>true
         ];
         return view('News::admin.news.detail', $data);
     }
 
     public function store(Request $request, $id){
+        $request->validate([
+            'title'=>'required'
+        ]);
+
         if($id>0){
-            $this->checkPermission('news_update');
+            $this->checkPermission('news_manage');
             $row = News::find($id);
             if (empty($row)) {
                 return redirect(route('news.admin.index'));
             }
         }else{
-            $this->checkPermission('news_create');
+            $this->checkPermission('news_manage');
             $row = new News();
             $row->status = "publish";
         }
 
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->query('lang'),true);
+        if($request->input('slug')){
+            $row->slug = $request->input('slug');
+        }
+        if(empty($request->input('author_id')))
+        {
+            $row->author_id = auth()->id();
+        }
+        $res = $row->saveWithTranslation();
+        $row->saveSEO();
 
         if ($res) {
             if(is_default_lang($request->query('lang'))){
@@ -130,7 +141,7 @@ class NewsController extends AdminController
 
     public function bulkEdit(Request $request)
     {
-        $this->checkPermission('news_update');
+        $this->checkPermission('news_manage');
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids) or !is_array($ids)) {
@@ -144,7 +155,7 @@ class NewsController extends AdminController
                 $query = News::where("id", $id);
                 if (!$this->hasPermission('news_manage_others')) {
                     $query->where("create_user", Auth::id());
-                    $this->checkPermission('news_delete');
+                    $this->checkPermission('news_manage');
                 }
                 $query->first();
                 if(!empty($query)){
@@ -156,7 +167,7 @@ class NewsController extends AdminController
                 $query = News::where("id", $id);
                 if (!$this->hasPermission('news_manage_others')) {
                     $query->where("create_user", Auth::id());
-                    $this->checkPermission('news_update');
+                    $this->checkPermission('news_manage');
                 }
                 $query->update(['status' => $action]);
             }

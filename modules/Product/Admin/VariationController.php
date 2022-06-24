@@ -27,7 +27,6 @@ class VariationController extends AdminController
         parent::__construct();
         $this->product_variation = ProductVariation::class;
         $this->product_class = Product::class;
-        $this->variable_product = VariableProduct::class;
         $this->product_variation_term = ProductVariationTerm::class;
     }
 
@@ -92,14 +91,14 @@ class VariationController extends AdminController
     public function ajaxVariationList($id){
         $this->checkPermission('product_update');
 
-        $query = $this->variable_product::where("id", $id);
+        $query = $this->product_class::where("id", $id);
         if (!$this->hasPermission('product_manage_others')) {
             $query->where("create_user", Auth::id());
         }
 
         $product = $query->first();
 
-        if(empty($product)) return;
+        if(!$product) return;
 
         return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
     }
@@ -174,13 +173,12 @@ class VariationController extends AdminController
         {
             return $this->sendError(__("Product not found"));
         }
-
+        $product->product_type = 'variable';
         $variations = request()->input('variations');
         if(empty($variations) or !\is_array($variations))
         {
             return $this->sendError(__("Variations data is required"));
         }
-
         foreach($variations as $id=>$data)
         {
             if(empty($data)) continue;
@@ -195,7 +193,8 @@ class VariationController extends AdminController
 
             $this->saveTerms($variation,$data);
         }
-
+        $product->updateMinMaxPrice();
+        $product->save();
         return $this->sendSuccess([],__('Variations data saved'));
     }
 

@@ -20,6 +20,9 @@
                     }
                 }
             }
+            textarea.full-h{
+                height: 100%;
+            }
         }
     }
     .g-more{
@@ -145,6 +148,23 @@
             display: inline-block;
         }
     }
+    .bravo_searchbox{
+        width: 250px;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        border-radius: 0;
+        height: 45px;
+    }
+    @media(max-width: 640px){
+        #map_content{
+            width: 100%;
+        }
+        .g-control{
+            width: 100%;
+            position: relative;
+        }
+    }
 }
 .panel-index{
     .form-index-hide{
@@ -265,9 +285,8 @@ th.slug{ width: 20%}
 .badge{
     font-size: 12px;
     text-transform: capitalize;
-    min-width: 50px;
     display: inline-block;
-    &.badge-publish{
+    &.badge-publish,&.badge-active{
         color: #fff;
         background-color: #28a745;
     }
@@ -290,6 +309,10 @@ th.slug{ width: 20%}
     &.badge-draft{
         color: #fff;
         background-color: #6c757d;
+    }
+    &.badge-deactivate{
+        color: #212529;
+        background-color: #ffc107;
     }
 }
 .item-url-demo{
@@ -371,45 +394,71 @@ th.slug{ width: 20%}
                 color: white;
             }
         }
+        &.full-book-event{
+            .fc-title{
+                background: #e67e22;
+                color: white;
+            }
+        }
     }
 }
 
-.bravo-form-item{
+.bc-form-item{
     .table{
         .btn-sm{
             padding: 2px 10px;
         }
     }
 }
-.variation_form_modal{
-    .form-group{
-        display: flex;
-        align-items: center;
-        >label{
-            width: 200px;
-            flex-shrink: 0;
-            font-weight: 600;
-            text-align: right;
-            margin-right: 15px;
-            margin-bottom: 0px;
-        }
-        .field-wrap{
-            flex-grow: 1;
-        }
+.bravo-form .fa-spinner {
+     display: none;
+ }
+.bravo-form.loading .fa-spinner {
+    display: inline-block;
+}
+.form-control {
+    height: auto;
+}
+.input-group-text{
+    padding:  5px 10px;
+}
+.form-group-multi-lang{
+    padding: 10px;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    .title-lang{
+        margin: 10px 0 5px;
     }
 }
-.bravo-form{
-    .fa-spinner{
-        display: none;
+.email-settings-header{
+    cursor: pointer;
+    position: relative;
+    .icon-check{
+        font-size: 20px;
+        color: #999;
     }
-    &.loading{
-        .fa-spinner{
-            display: inline-block;
+    h6:before{
+        content: "\f3d8";
+        display: inline-block;
+        font-family: "Ionicons";
+        font-size: 20px;
+        position: absolute;
+        right: 15px;
+        top: 17px;
+        color: #007bff;
+    }
+    .collapsed{
+        &:before{
+            content: "\f3d0";
         }
     }
 }
 
 .product-information-tabs.panel{
+    .col-nav{
+
+        border-right: 1px solid #dee2e6;
+    }
     .panel-title{
         justify-content: flex-start;
         align-items: center;
@@ -443,7 +492,7 @@ th.slug{ width: 20%}
                     margin-top: 6px;
                 }
                 .controls{
-                    width:40%;
+                    flex-grow: 1;
                 }
                 .controls-lg{
                     flex-grow: 1;
@@ -451,18 +500,17 @@ th.slug{ width: 20%}
             }
         }
     }
-    .col-nav{
-        
-        border-right: 1px solid #dee2e6;
-        .nav-link{
-            i{
-                margin-right:10px;
-            }
-            font-size: 15px;
-            font-weight: 600;
-            color: #53565a;
-            &.active{
-                color: #2891ff;
+    @media (min-width: 1367px) {
+        .col-content{
+            >.tab-content{
+                .form-group{
+                    .controls{
+                        width:40%;
+                    }
+                    .controls-lg{
+                        flex-grow: 1;
+                    }
+                }
             }
         }
     }
@@ -479,6 +527,23 @@ th.slug{ width: 20%}
             opacity: 0.6;
             cursor: wait;
             position: absolute;
+        }
+    }
+    @media (max-width: 1366px){
+        .col-content{
+            >.tab-content{
+                .variation-item{
+                    .form-group{
+                        display: block;
+                        >label,.control-label{
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+        .nav-link i{
+            display: none;
         }
     }
 }
@@ -506,7 +571,7 @@ th.slug{ width: 20%}
                 span{
                     flex-shrink: 0;
                     display: block;
-                    margin-right: 7px;        
+                    margin-right: 7px;
                 }
                 select{
                     height: 30px;
@@ -523,5 +588,11 @@ th.slug{ width: 20%}
                 height: 32px;;
             }
         }
+    }
+}
+.image-item{
+    img{
+        max-width: 100%;
+        height: auto;
     }
 }

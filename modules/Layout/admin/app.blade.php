@@ -7,75 +7,107 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'Martfury'}}</title>
-    <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
+    <title>{{ $page_title ?? 'Dashboard'}} - {{setting_item('site_title') ?? 'BeCommerce'}}</title>
+
+    @php
+        $favicon = setting_item('site_favicon');
+    @endphp
+    @if($favicon)
+        @php
+            $file = (new \Modules\Media\Models\MediaFile())->findById($favicon);
+        @endphp
+        @if(!empty($file))
+            <link rel="icon" type="{{$file['file_type']}}" href="{{asset('uploads/'.$file['file_path'])}}" />
+        @else:
+        <link rel="icon" type="image/png" href="{{url('images/favicon.png')}}" />
+        @endif
+    @endif
 
     <meta name="robots" content="noindex, nofollow" />
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
     <!-- Styles -->
+    <link href="{{ asset('libs/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('libs/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{url('libs/daterange/daterangepicker.css')}}"/>
     <link href="{{ asset('dist/admin/css/vendors.css') }}" rel="stylesheet">
     <link href="{{ asset('dist/admin/css/app.css') }}" rel="stylesheet">
     {!! \App\Helpers\Assets::css() !!}
     {!! \App\Helpers\Assets::js() !!}
     <script>
-        var bookingCore  = {
+        var BC  = {
             url:'{{url('/')}}',
-            map_provider:'{{setting_item('map_provider')}}',
-            map_gmap_key:'{{setting_item('map_gmap_key')}}',
             csrf:'{{csrf_token()}}',
+            date_format:'{{get_moment_date_format()}}',
+            markAsRead:'{{route('core.admin.notification.markAsRead')}}',
+            markAllAsRead:'{{route('core.admin.notification.markAllAsRead')}}',
+            loadNotify : '{{route('core.admin.notification.loadNotify')}}',
+            pusher_api_key : '{{setting_item("pusher_api_key")}}',
+            pusher_cluster : '{{setting_item("pusher_cluster")}}',
+            isAdmin : {{is_admin() ? 1 : 0}},
+            currentUser: {{(int)Auth::id()}},
+            booking_decimals:{{(int)get_current_currency('currency_no_decimal',2)}},
+            thousand_separator:'{{get_current_currency('currency_thousand')}}',
+            decimal_separator:'{{get_current_currency('currency_decimal')}}',
+            currency_position:'{{get_current_currency('currency_format')}}',
+            currency_symbol:'{{currency_symbol()}}',
+			currency_rate:'{{get_current_currency('rate',1)}}',
             media:{
+                groups:{!! json_encode(config('bc.media.groups')) !!},
                 get_file:'{{route('media.get_file')}}'
-            }
+            },
+            routes:{},
         };
         var i18n = {
-                success:'{{__("Success")}}',
-                delete_confirm:'{{__('Do you want to delete?')}}',
-                confirm:'{{__("Confirm")}}',
-                cancel:'{{__("Cancel")}}',
-                browse:'{{__("Browse")}}',
-                clear:'{{__("Clear")}}',
-                choose_file:"{{__("Choose file...")}}",
-            };
+            warning:"{{__("Warning")}}",
+            success:"{{__("Success")}}",
+            confirm_delete:"{{__("Do you want to delete?")}}",
+            confirm_recovery:"{{__("Do you want to restore?")}}",
+            confirm:"{{__("Confirm")}}",
+            cancel:"{{__("Cancel")}}",
+            browse:'{{__("Browse")}}',
+            clear:'{{__("Clear")}}',
+            choose_file:"{{__("Choose file...")}}",
+        };
         var daterangepickerLocale = {
-            "applyLabel": "Apply",
-            "cancelLabel": "Cancel",
-            "fromLabel": "From",
-            "toLabel": "To",
-            "customRangeLabel": "Custom",
-            "weekLabel": "W",
-            "first_day_of_week": 1,
+            "applyLabel": "{{__('Apply')}}",
+            "cancelLabel": "{{__('Cancel')}}",
+            "fromLabel": "{{__('From')}}",
+            "toLabel": "{{__('To')}}",
+            "customRangeLabel": "{{__('Custom')}}",
+            "weekLabel": "{{__('W')}}",
+            "first_day_of_week": {{ setting_item("site_first_day_of_the_weekin_calendar","1") }},
             "daysOfWeek": [
-                "Su",
-                "Mo",
-                "Tu",
-                "We",
-                "Th",
-                "Fr",
-                "Sa"
+                "{{__('Su')}}",
+                "{{__('Mo')}}",
+                "{{__('Tu')}}",
+                "{{__('We')}}",
+                "{{__('Th')}}",
+                "{{__('Fr')}}",
+                "{{__('Sa')}}"
             ],
             "monthNames": [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December"
+                "{{__('January')}}",
+                "{{__('February')}}",
+                "{{__('March')}}",
+                "{{__('April')}}",
+                "{{__('May')}}",
+                "{{__('June')}}",
+                "{{__('July')}}",
+                "{{__('August')}}",
+                "{{__('September')}}",
+                "{{__('October')}}",
+                "{{__('November')}}",
+                "{{__('December')}}"
             ],
         };
+
     </script>
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
-    @yield('script.head')
+    @stack('script.head')
 
 </head>
 <body class="{{($enable_multi_lang ?? '') ? 'enable_multi_lang' : '' }} @if(setting_item('site_enable_multi_lang')) site_enable_multi_lang @endif">
@@ -93,12 +125,12 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 copy-right" >
-                        {{date('Y')}} &copy; {{__('Martfury')}} <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('BookingCore Team')}}</a>
+                        {{__('Power by BeCommerce ver: ')}} {{config('app.version')}}
                     </div>
                     <div class="col-md-6">
                         <div class="text-md-right footer-links d-none d-sm-block">
-                            <a href="{{__('https://www.bookingcore.org')}}" target="_blank">{{__('About Us')}}</a>
-                            <a href="{{__('https://m.me/bookingcore')}}" target="_blank">{{__('Contact Us')}}</a>
+                            <a href="{{__('https://be-commerce.org')}}" target="_blank">{{__('About Us')}}</a>
+                            <a href="{{__('https://be-commerce.org/contact')}}" target="_blank">{{__('Contact Us')}}</a>
                         </div>
                     </div>
                 </div>
@@ -113,18 +145,25 @@
 
 <!-- Scripts -->
 {!! \App\Helpers\Assets::css(true) !!}
-<script src="{{ asset('libs/jquery-3.3.1.min.js?_ver='.config('app.version')) }}" ></script>
+<script src="{{ asset('libs/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('libs/pusher.min.js') }}"></script>
 <script src="{{ asset('dist/admin/js/manifest.js?_ver='.config('app.version')) }}" ></script>
 <script src="{{ asset('dist/admin/js/vendor.js?_ver='.config('app.version')) }}" ></script>
-
+<script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.version')) }}"></script>
 <script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.version')) }}" ></script>
-
+<script src="{{ asset('libs/vue/vue'.(!config('app.debug') ? '.min':'').'.js') }}"></script>
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
+<script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
 
+<script src="{{url('libs/daterange/moment.min.js')}}"></script>
+<script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.version'))}}"></script>
+
+@include('Layout::admin.components.filepicker')
 
 {!! \App\Helpers\Assets::js(true) !!}
 
-@yield('script.body')
+@stack('script.body')
 
 </body>
 </html>

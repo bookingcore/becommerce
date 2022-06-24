@@ -1,0 +1,532 @@
+.axtronic-promotions{
+    .promotions-item{
+        border-radius: 8px;
+        position: relative;
+        overflow: hidden;
+        margin-bottom: var(--bs-gutter-x);
+        &:hover{
+            .item-bg{
+                -ms-transform: scale(1.2);
+                -o-transform: scale(1.2);
+                -moz-transform: scale(1.2);
+                -webkit-transform: scale(1.2);
+                transform: scale(1.2);
+            }
+        }
+        .item-bg{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            transition: transform calc(700ms * 1.5) cubic-bezier(.19,1,.22,1);
+            -webkit-background-size: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            z-index: 1;
+            transition-duration: 300ms;
+        }
+        .item-content{
+            min-height: 334px;
+            padding: 25px;
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+            .sub-title{
+                padding: 4px 8px;
+                background-color: #ffffff33;
+                border-radius: 100px 100px 100px 100px;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 1.25em;
+                color: #fff;
+                margin-bottom: 5px;
+            }
+            h3{
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 1.5em;
+                color: #fff;
+            }
+            p{
+                color: #FFFFFF;
+                font-size: 24px;
+                font-weight: 700;
+                line-height: 24px;
+                span{
+                    font-weight: bold;
+                    font-size: 10px;
+                    text-transform: uppercase;
+                    opacity: 1;
+                    color: #94989E;
+                }
+            }
+            a.item-button{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                color: #ffffff;
+                text-decoration-line: underline;
+                &:hover{
+                    color: var( --primary );
+                }
+            }
+        }
+        &.dark{
+            .item-content{
+                color: var(--accent);
+                .sub-title, h3{
+                    color: var(--accent);
+                }
+                .sub-title{
+                    background-color: #fff;
+                }
+                p{
+                    color: var(--primary);
+                   span{
+                       color: var(--light);
+                   }
+                }
+                a.item-button{
+                    color: var(--accent);
+                    &:hover{
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+    }
+    &.style-2{
+        .promotions-item {
+            .item-content {
+                min-height: 268px;
+                .sub-title{
+                    background-color: transparent;
+                    position: relative;
+                    padding: 5px 6px;
+                    color: var(--accent);
+                    &:before{
+                        position: absolute;
+                        height: 16px;
+                        width: 2px;
+                        background-color: var(--primary);
+                        content: "";
+                        left: 0;
+                        top: 4px;
+                    }
+                }
+                h3{
+                    color: var(--accent);
+                }
+                p{
+                    color: var(--primary);
+                    font-size: 16px;
+                    font-weight: 600;
+                }
+                a.item-button{
+                    color: var(--accent);
+                    margin-top: 90px;
+                }
+            }
+        }
+    }
+}
+
+
+.axtronic-banner{
+    &.style-1{
+        &.banner_fluid{
+            .banner-wrap {
+                padding: 100px 50px;
+                .item-content{
+                    .sub-title{
+                        font-size: 28px;
+                    }
+                }
+
+            }
+        }
+        .banner-wrap {
+            padding: 50px;
+            .item-content{
+                .sub-title{
+                    font-size: 16px;
+                }
+                h2{
+                    font-size: 28px;
+                    font-weight: 600;
+                }
+            }
+
+        }
+    }
+    &.banner_fluid{
+        .banner-wrap{
+            border-radius: 0;
+        }
+    }
+    .banner-wrap{
+        background-color: transparent;
+        background-image: linear-gradient(100deg,var( --primary ) 50%,var( --primary_hover ) 100%);
+        background-size: cover;
+        background-repeat: no-repeat;
+        transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+        padding: 30px 60px;
+        border-radius: 12px;
+        .item-content{
+            padding: 24px;
+            position: relative;
+            z-index: 1;
+            color: #ffffff;
+            .sub-title{
+                font-size: 13px;
+                font-weight: 700;
+                text-transform: uppercase;
+                line-height: 1.5em;
+                span{
+                    padding: 4px 8px;
+                    background-color: #ffffff33;
+                    border-radius: 100px 100px 100px 100px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    line-height: 1.5em;
+                    margin-right: 10px;
+                }
+            }
+            h1{
+                color: #FFF735;
+                font-size: 80px;
+                margin: 0;
+            }
+            h2{
+                color: #fff;
+                font-size: 60px;
+                font-weight: 700;
+                line-height: 53px;
+                margin: 15px 0;
+            }
+            h3{
+                margin: 15px 0;
+                color: #fff;
+                font-size: 40px;
+                font-weight: 600;
+                line-height: 1;
+            }
+            p{
+                color: #FFFFFF;
+                font-size: 16px;
+                line-height: 24px;
+            }
+            .price{
+                color: #ffd771;
+                font-size: 40px;
+                font-weight: 600;
+                display: flex;
+                align-items: center;
+                span{
+                    font-size: 19px;
+                    font-weight: 300;
+                    text-decoration: line-through;
+                    line-height: 1.5em;
+                    color: #ffffff;
+                    margin-left: 15px;
+                }
+            }
+            a{
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 24px;
+                &.item-button{
+                    fill: var( --accent );
+                    color: var( --accent );
+                    background: var( --background );
+                    text-transform: capitalize;
+                    border-radius: 8px 8px 8px 8px;
+                    padding: 12px 30px;
+                    text-decoration: none;
+                    &:hover{
+                        color: #fff;
+                        background: var( --accent );
+                    }
+                }
+                &.item-link{
+                    text-decoration: underline;
+                    background-color: #02010100;
+                    padding: 0 0 0 0;
+                    color: #fff;
+                    &:hover{
+                        color: var( --primary );
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Axtronic Testimonial
+
+.axtronic-testimonial{
+    transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+    margin-top: 0;
+    padding: 60px 0;
+    background-color: #f0f0f0;
+    .swiper-slider-testimonial{
+        padding-bottom: 40px;
+        margin-top: 40px;
+        .inner{
+            margin-left: auto;
+            margin-right: auto;
+            padding: 0 30px 30px;
+            margin-top: 35px;
+            border-radius: 12px;
+            background: #fff;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .testimonial-image{
+            margin-bottom: 20px;
+            margin-top: -35px;
+            order: 0;
+            width: 100%;
+            img{
+                width: 90px;
+                height: 90px;
+                border: 3px solid var(--primary);
+                border-radius: 100%;
+            }
+        }
+        p{
+            color: var(--text);
+            width: 100%;
+            justify-content: center;
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+        .details{
+            h2.name{
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 26px;
+                color: var(--accent);
+                margin-bottom: 0;
+            }
+            h3.job{
+                color: var(--light);
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+        }
+        .caption{
+            width: 100%;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .stars{
+                color: #ffb627;
+                font-size: 18px;
+            }
+        }
+    }
+
+    .swiper-pagination {
+        position: absolute;
+        text-align: center;
+        -webkit-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        z-index: 10;
+        bottom: 0;
+        &.swiper-pagination-hidden {
+            opacity: 0;
+        }
+    }
+
+    .swiper-pagination-bullet {
+        width: 30px;
+        height: 20px;
+        border-radius: 0;
+        background-color: transparent;
+        border-bottom: 2px solid var(--accent);
+        position: relative;
+        margin: 0 6px;
+    }
+    .swiper-pagination-bullet-active{
+        border-bottom: 5px solid var(--primary);
+        background-color: transparent;
+    }
+    .swiper-pagination-fraction {
+        color: #000;
+    }
+
+    button.swiper-pagination-bullet {
+        border: none;
+        margin: 0;
+        padding: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+    .swiper-button-prev, .swiper-button-next{
+        display: none;
+    }
+    &.style_2{
+        margin-bottom: 0;
+        .swiper-slider-testimonial{
+            overflow: initial;
+        }
+        .swiper-button-prev, .swiper-button-next{
+            display: block;
+            left: 30px;
+            transform: translateX(calc(-100% - 5px));
+            top: 50%;
+            bottom: auto;
+            box-shadow: none;
+            background: 0 0;
+            font-size: 30px;
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            color: var(--accent);
+            &:after{
+                @include themecustom-icon;
+                content: themecustom-char(arrow-left);
+                color: var(--accent);
+                font-size: 30px;
+            }
+            &:hover{
+                &:after{
+
+                    color: var(--primary);
+                }
+            }
+        }
+        .swiper-button-next{
+            transform: translateX(30px);
+            left: auto;
+            &:after{
+                content: themecustom-char(arrow-right);
+            }
+        }
+        .swiper-pagination{
+            display: none;
+        }
+        .swiper-slider-testimonial .caption .details h3.job{
+            display: none;
+        }
+    }
+    &.style_3{
+        .swiper-slider-testimonial {
+            .inner{
+                padding: 30px;
+                margin-top: 0;
+            }
+            .testimonial-image{
+                margin-top: 0;
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                img{
+                    width: 60px;
+                    height: 60px;
+                    border: 0;
+                }
+            }
+            .details h2.name{
+                margin-left: 20px;
+                font-size: 14px;
+            }
+        }
+    }
+}
+
+.swiper-container{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+
+
+
+//Axtronic Brands
+
+.axtronic-brands{
+    background-color: var( --background2 );
+    transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
+    padding: 30px 0;
+    .swiper-slide{
+        text-align: center;
+        .item-brand{
+            text-align: center;
+        }
+        img{
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+            margin: 0 auto;
+        }
+        &:hover{
+            img{
+                -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+                filter: grayscale(0%);
+            }
+        }
+    }
+    &.style-2{
+        background-color: transparent;
+        margin: 60px 0;
+        .swiper-slider-brands-2{
+            border-style: solid;
+            border-width: 1px 1px 1px 1px;
+            border-color: #D4D9E4;
+            transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
+            padding: 40px;
+            border-radius: 12px;
+            .swiper-slide {
+                img{
+                    -webkit-filter: grayscale(0);
+                    filter: grayscale(0);
+                }
+                &:hover{
+                    transform: scale(1.1);
+                }
+            }
+            .swiper-button-next, .swiper-button-prev{
+                &:after{
+                    @include themecustom-icon;
+                    content: themecustom-char(arrow-right);
+                    color: var(--accent);
+
+                }
+                &:hover{
+                    &:after{
+
+                        color: var(--primary);
+                    }
+                }
+            }
+            .swiper-button-prev:after{
+                content: themecustom-char(arrow-left);
+            }
+        }
+    }
+    &.style-3{
+        .swiper-slide {
+            img{
+                -webkit-filter: grayscale(0);
+                filter: grayscale(0);
+            }
+            &:hover{
+                transform: scale(1.1);
+            }
+        }
+    }
+}

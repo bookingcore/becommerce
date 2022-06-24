@@ -1,15 +1,15 @@
 @if(is_default_lang())
-    <div class="form-group">
-        <label class="control-label">{{__("Price")}}</label>
+    <div class="form-group mb-3">
+        <label class="control-label mb-2">{{__("Price")}}</label>
         <div class="controls">
             <input type="number" step="any" min="0" name="price" class="form-control" value="{{$row->price}}" placeholder="{{__("Price")}}">
         </div>
     </div>
-    <div class="form-group">
-        <label class="control-label">{{__("Sale Price")}}</label>
+    <div class="form-group mb-3">
+        <label class="control-label mb-2">{{__("Origin Price (Optional)")}}</label>
         <div class="controls">
-            <input type="number" step="any" name="sale_price" class="form-control" value="{{$row->sale_price}}" placeholder="{{__("Sale Price")}}">
-            <span><i>{{__("If the regular price is less than the discount , it will show the regular price")}}</i></span>
+            <input type="number" step="any" name="origin_price" class="form-control" value="{{$row->origin_price}}" placeholder="{{__("Origin Price")}}">
+            <span><i>{{__("Must be great than price")}}</i></span>
         </div>
     </div>
 @endif

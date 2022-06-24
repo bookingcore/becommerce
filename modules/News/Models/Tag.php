@@ -4,6 +4,8 @@ namespace Modules\News\Models;
 use App\BaseModel;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Modules\Core\Models\SEO;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductTag;
 
 class Tag extends BaseModel
 {
@@ -54,8 +56,14 @@ class Tag extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        $locale = $locale ? $locale : app()->getLocale();
+        return route('news.tag',['slug'=>$this->slug]);
+    }
 
-        return url(( $locale ? $locale.'/' : ''). config('news.news_route_prefix') . "/" . config('news.news_tag_route_prefix') . "/".$this->slug);
+    public static function search($filters = []){
+        return parent::query();
+    }
+
+    public function news(){
+        return $this->belongsToMany(News::class,NewsTag::getTableName(),'tag_id','news_id');
     }
 }

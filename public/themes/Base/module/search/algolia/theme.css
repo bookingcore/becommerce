@@ -1,0 +1,26 @@
+:root{
+    --aa-primary-color-rgb:0,0,0
+}
+.aa-Form{
+
+    border: 1px solid #ebebeb;
+}
+.aa-Form:focus-within{
+    box-shadow: none;
+    border: 1px solid #ebebeb;
+}
+.aa-Panel{
+    z-index: 99;
+}
+.aa-ItemContent strong,
+.aa-ItemContent b,
+.aa-ItemContent mark{
+    margin: 0px;
+    padding: 0px;
+}
+.aa-Input[type=search]{
+    border:none
+}
+.aa-SubmitButton{
+    padding: 0px;
+}

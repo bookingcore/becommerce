@@ -1,0 +1,186 @@
+.axtronic-site-features{
+    i{
+        font-size: 48px;
+        fill: var( --primary );
+        color: var( --primary );
+        border-color: var( --primary );
+    }
+    h4{
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.5em;
+        margin-bottom: 5px;
+        color: var( --accent );
+    }
+    p{
+        color: var( --text );
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.5em;
+    }
+    .features-grid{
+        display: grid;
+        .feature-item{
+            align-items: center;
+            display: flex;
+            &:first-child{
+                grid-column: 2;
+                grid-row: 1 / 3;
+                justify-content: center;
+            }
+            &:nth-child(2n){
+                grid-column: 1;
+                justify-content: end;
+                text-align: right;
+                .item-content{
+                    margin-right: 15px;
+                }
+                .box{
+                    flex-direction: row-reverse;
+                }
+            }
+            &:nth-child(2n+1):not(:first-child){
+                grid-column: 3;
+                justify-content: start;
+                text-align: left;
+
+                .item-content{
+                    margin-left: 15px;
+                }
+            }
+            .item-image{
+                border-radius: 12px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                }
+            }
+            .item-icon{
+                background-color: #FFF6F4;
+                fill: var(--primary);
+                color: var(--primary);
+                font-size: 32px;
+                padding: 12px;
+                display: flex;
+                border-radius: 50%;
+                i{
+                    font-size: 32px;
+                }
+            }
+        }
+    }
+}
+
+.axtronic-category{
+    .swiper-slider-icon{
+        margin-bottom: 30px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 1;
+        .swiper-slide{
+            background: #f0f0f0;
+            padding: 30px 10px 20px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            &:hover{
+                background-color: var(--primary);
+                .item-icons a, h3.item-title a{
+                    color: #ffffff;
+                }
+            }
+            .item-icons{
+                font-size: 46px;
+                fill: var( --accent );
+                color: var( --accent );
+                border-color: var( --accent );
+                a{
+                    color: var(--accent);
+                }
+            }
+            h3.item-title{
+                font-size: 16px;
+                font-weight: 400;
+                line-height: 1.5em;
+                text-align: center;
+                a{
+                    color: var(--text);
+                }
+            }
+        }
+        .swiper-button-prev,.swiper-button-next{
+            width: 33px;
+            height: 33px;
+            font-size: 16px;
+            background-color: #f0f0f0;
+            top: -25px;
+            left: auto;
+            right: 5px;
+            color: var(--accent);
+            border-radius: 50%;
+            font-weight: bold;
+            &:after{
+                font-size: 14px;
+            }
+            &:hover{
+                background-color: var(--primary);
+                color: #ffffff;
+            }
+        }
+        .swiper-button-prev{
+            right: 50px;
+        }
+    }
+    &.style-2{
+        background-color: var(--background2);
+        padding: 60px 24px;
+        .heading-title{
+            margin-bottom: 60px;
+        }
+        .swiper-slider-icon {
+            .swiper-slide{
+                background: transparent;
+                padding: 0;
+                border-radius: 0;
+                .item-icons{
+                    border-radius: 12px;
+                    overflow: hidden;
+                }
+                .item-title{
+                    margin-top: 24px;
+                    background-color: #fff;
+                    padding: 8px 16px;
+                    border-radius: 6px;
+                    display: inline-block;
+                    &:hover{
+                        background-color: var(--primary);
+                    }
+                }
+                &:hover{
+                    .item-title {
+                        background-color: var(--primary);
+                    }
+                    .item-icons i{
+                        color: var(--primary);
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+.heading-title{
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 1.5em;;
+    color: var(--accent);
+    &.light{
+        color: #ffffff;
+    }
+    &.dark{
+        color: var(--accent) !important;
+    }
+}

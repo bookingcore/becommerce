@@ -4,7 +4,7 @@ namespace Modules\Product\Controllers;
 use Modules\FrontendController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Order;
 use Modules\Product\Models\OrderItem;
@@ -34,7 +34,7 @@ class VendorController extends FrontendController
         $this->product_term = ProductTerm::class;
         $this->product_tag = ProductTag::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
-        $this->attributes = Attributes::class;
+        $this->attributes = Attribute::class;
         $this->setActiveMenu(route('product.vendor.index'));
     }
 
@@ -97,7 +97,6 @@ class VendorController extends FrontendController
             'image_id',
             'gallery',
             'price',
-            'sale_price',
             'is_featured',
             'brand_id',
             'product_type',
@@ -115,8 +114,12 @@ class VendorController extends FrontendController
         }
 
         $row->fillByAttr($dataKeys,$request->input());
-
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $row->updateMinMaxPrice();
+        if(!empty($row->is_manage_stock) and $row->quantity > 0){
+            $row->stock_status = 'in';
+        }
+        $res = $row->saveWithTranslation($request->input('lang'));
+        $row->saveSEO($request,$request->input('lang'));
 
         if ($res) {
             if(!$request->input('lang') or is_default_lang($request->input('lang'))) {
@@ -184,7 +187,7 @@ class VendorController extends FrontendController
         if (empty($row)) {
             return redirect(route('product.vendor.index'))->with('warning', __('Product not found!'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $data = [
             'translation'    => $translation,
             'row'           => $row,

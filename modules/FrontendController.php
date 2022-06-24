@@ -14,7 +14,7 @@ class FrontendController extends Controller
     public function checkPermission($permission = false)
     {
         if ($permission) {
-            if (!Auth::user()->hasPermissionTo($permission)) {
+            if (!Auth::user()->hasPermission($permission)) {
                 abort(403);
             }
         }
@@ -23,6 +23,6 @@ class FrontendController extends Controller
     public function hasPermission($permission)
     {
         if(!Auth::id()) return false;
-        return Auth::user()->hasPermissionTo($permission);
+        return Auth::user()->hasPermission($permission);
     }
 }

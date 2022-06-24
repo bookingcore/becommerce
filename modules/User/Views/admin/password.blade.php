@@ -6,10 +6,10 @@
         <div class="container">
             <div class="d-flex justify-content-between mb20">
                 <div class="">
-                    <h1 class="title-bar">{{$row->id ? 'Change Password: '.$row->getDisplayName() : 'Add new user'}}</h1>
+                    <h1 class="title-bar">{{$row->id ? 'Change Password: '.$row->display_name : 'Add new user'}}</h1>
                 </div>
             </div>
-            @include('Layout::admin.message')
+            @include('admin.message')
 
             <div class="row">
                 <div class="col-md-3"></div>
@@ -24,19 +24,19 @@
                         </div>
                         <div class="panel-body">
 
-                            @if($row->id and $row->id != $currentUser->id and !$currentUser->hasPermissionTo('user_update') )
+                            @if($row->id and $row->id != $currentUser->id and !$currentUser->hasPermission('user_manage') )
                                 <div class="form-group">
-                                    <label>{{ __('Old Password')}}</label>
-                                    <input type="password" value="" placeholder="{{ __('Old Password')}}" name="old_password" class="form-control" >
+                                    <label>{{ __('Old Password')}} <span class="text-danger">*</span></label>
+                                    <input type="password" required value="" placeholder="{{ __('Old Password')}}" name="old_password" class="form-control" >
                                 </div>
                             @endif
                             <div class="form-group">
-                                <label>{{ __('New password')}}</label>
-                                <input type="password" value="" placeholder="{{ __('Password')}}" name="password" class="form-control">
+                                <label>{{ __('New password')}} <span class="text-danger">*</span></label>
+                                <input type="password" value="" required minlength="6" placeholder="{{ __('Password')}}" name="password" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label>{{ __('Re-Password')}}</label>
-                                <input type="password" value="" placeholder="{{ __('Re-Password')}}" name="password_confirmation" class="form-control">
+                                <label>{{ __('Re-Password')}} <span class="text-danger">*</span></label>
+                                <input type="password" value="" required minlength="6" placeholder="{{ __('Re-Password')}}" name="password_confirmation" class="form-control">
                             </div>
                             <button type="submit" class="btn btn-primary"> {{ __('Change Password')}} </button>
                         </div>

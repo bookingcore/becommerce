@@ -2,28 +2,36 @@
 namespace Modules\User\Admin;
 
 use App\User;
+use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Modules\AdminController;
-use Modules\Vendor\Models\VendorRequest;
-use Spatie\Permission\Models\Role;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\User\Events\VendorApproved;
+use Modules\User\Exports\UserExport;
+use Modules\User\Models\Role;
+use Modules\User\Resources\UserResource;
 
 class UserController extends AdminController
 {
+    use ResetsPasswords;
+
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/user');
+        AdminMenuManager::setActive('user');
         parent::__construct();
     }
 
     public function index(Request $request)
     {
-        $this->checkPermission('user_view');
+        $this->checkPermission('user_manage');
         $username = $request->query('s');
-        $listUser = User::query();
+        $listUser = User::query()->orderBy('id','desc');
         if (!empty($username)) {
              $listUser->where(function($query) use($username){
                  $query->where('first_name', 'LIKE', '%' . $username . '%');
@@ -33,12 +41,11 @@ class UserController extends AdminController
                  $query->orWhere('last_name', 'LIKE', '%' . $username . '%');
              });
         }
-
         if($request->query('role')){
             $listUser->role($request->query('role'));
         }
         $data = [
-            'rows' => $listUser->paginate(20),
+            'rows' => $listUser->with(['role'])->paginate(20),
             'roles' => Role::all()
         ];
         return view('User::admin.index', $data);
@@ -48,7 +55,6 @@ class UserController extends AdminController
     {
 
         $row = new \Modules\User\Models\User();
-
         $data = [
             'row' => $row,
             'roles' => Role::all(),
@@ -56,7 +62,10 @@ class UserController extends AdminController
                 [
                     'name'=>__("Users"),
                     'url'=>'admin/module/user'
-                ]
+                ],
+                [
+                    'name'=>__("Create new User"),
+                ],
             ]
         ];
         return view('User::admin.detail', $data);
@@ -64,12 +73,11 @@ class UserController extends AdminController
 
     public function edit(Request $request, $id)
     {
-
         $row = User::find($id);
         if (empty($row)) {
             return redirect('admin/module/user');
         }
-        if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
         $data = [
@@ -92,7 +100,6 @@ class UserController extends AdminController
     public function password(Request $request,$id){
 
         $row = User::find($id);
-
         $data  = [
             'row'=>$row,
             'currentUser'=>Auth::user()
@@ -100,38 +107,32 @@ class UserController extends AdminController
         if (empty($row)) {
             return redirect('admin/module/user');
         }
-        if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
-
         return view('User::admin.password',$data);
     }
 
     public function changepass(Request $request, $id)
     {
         if(is_demo_mode()){
-            return redirect()->back()->with("error","DEMO MODE: You can not change password");
+            return redirect()->back()->with("error", __("DEMO MODE: You can not change password!"));
         }
         $rules = [];
         $urow = User::find($id);
-        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             abort(403);
         }
         $request->validate([
-            'password'              => 'required|min:6|max:255',
-            'password_confirmation' => 'required',
+            'password'              => 'required|min:6|max:255|confirmed',
         ]);
-        $password_confirmation = $request->input('password_confirmation');
         $password = $request->input('password');
-        if ($password != $password_confirmation) {
-            return redirect()->back()->with("error", __("Your New password does not matches. Please type again!"));
-        }
-        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+
+        if ($urow->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
             if ($password) {
                 if ($urow->id != Auth::user()->id) {
                     $rules['old_password'] = 'required';
                 }
-                $rules['password'] = 'required|string|min:6|confirmed';
             }
             $this->validate($request, $rules);
             if ($password) {
@@ -141,12 +142,10 @@ class UserController extends AdminController
                 }
             }
         }
-        $urow->password = bcrypt($password);
-        if ($urow->save()) {
+        $this->setUserPassword($urow,$password);
+        $urow->setRememberToken(Str::random(60));
 
-            if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {
-                $urow->assignRole($role);
-            }
+        if ($urow->save()) {
             return redirect()->back()->with('success', __('Password updated!'));
         }
     }
@@ -154,77 +153,76 @@ class UserController extends AdminController
     public function store(Request $request, $id)
     {
 
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+
         if($id and $id>0){
-            $this->checkPermission('user_update');
             $row = User::find($id);
             if(empty($row)){
                 abort(404);
             }
-            if ($row->id != Auth::user()->id and !Auth::user()->hasPermissionTo('user_update')) {
+            if ($row->id != Auth::user()->id and !Auth::user()->hasPermission('user_manage')) {
                 abort(403);
             }
-
-            $request->validate([
-                'first_name'              => 'required|max:255',
-                'last_name'              => 'required|max:255',
-                'status'              => 'required|max:50',
-                'role_id'              => 'required|max:11',
-                'email'              =>[
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore($row->id)
-                ],
-            ]);
-
         }else{
-            $this->checkPermission('user_create');
-
-            $check = Validator::make($request->input(),[
-                'first_name'              => 'required|max:255',
-                'last_name'              => 'required|max:255',
-                'status'              => 'required|max:50',
-                'role_id'              => 'required|max:11',
-                'email'              =>[
-                    'required',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')
-                ],
-            ]);
-
-            if(!$check->validated()){
-                return back()->withInput($request->input());
-            }
-
+            $this->checkPermission('user_manage');
             $row = new User();
-            $row->email = $request->input('email');
         }
 
-        $row->name = $request->input('name');
+        $request->validate([
+            'first_name'              => 'required|max:255',
+            'last_name'              => 'required|max:255',
+            'business_name'              => 'required|max:255',
+            'status'              => 'required|max:50',
+            'role_id'              => 'required|max:11',
+            'email'              =>[
+                'required',
+                'email',
+                'max:255',
+                $id > 0 ? Rule::unique('users')->ignore($row->id) : Rule::unique('users')
+            ],
+        ],[
+            'business_name.required'=>__("Display name is a required field")
+        ]);
+
+
         $row->first_name = $request->input('first_name');
         $row->last_name = $request->input('last_name');
         $row->phone = $request->input('phone');
-        $row->birthday = $request->input('birthday');
-        $row->address = $request->input('address');
-        $row->address2 = $request->input('address2');
+        $row->birthday = date("Y-m-d", strtotime($request->input('birthday')));
         $row->bio = clean($request->input('bio'));
         $row->status = $request->input('status');
         $row->avatar_id = $request->input('avatar_id');
         $row->email = $request->input('email');
-        $row->vendor_commission_type = $request->input('vendor_commission_type');
-        $row->vendor_commission_amount = $request->input('vendor_commission_amount');
-        if ($row->save()) {
+        $row->business_name = $request->input('business_name');
+        $row->commission_type = $request->input('commission_type');
+        $row->commission = $request->input('commission');
 
-            if ($request->input('role_id') and $role = Role::findById($request->input('role_id'))) {
-                if(!$id and is_demo_mode()){
-                    $role = Role::findById(3);// Customer
-                }
-                if(!is_demo_mode() or !$id){
-                    $row->syncRoles($role);
+        if($this->hasPermission('user_manage')) {
+            $row->role_id = $request->input('role_id');
+            if($request->input('is_email_verified')){
+                if(!$row->email_verified_at) $row->email_verified_at = date('Y-m-d H:i:s');
+            }else{
+                $row->email_verified_at = null;
+            }
+        }
+
+        if ($row->save()) {
+            if($id > 0){
+                return back()->with('success', __('User updated'));
+            }else{
+                switch ($request->input('user_type')){
+                    case"customer":
+                        return redirect()->route('customer.admin.edit',['id'=>$row->id])->with('success',__("Customer created"));
+                        break;
+                    case"vendor":
+                        return redirect()->route('vendor.admin.edit',['id'=>$row->id])->with('success',__("Vendor created"));
+                        break;
+                    default:
+                        return redirect()->route('user.admin.edit',['id'=>$row->id])->with('success',__("User created"));
                 }
             }
-            return redirect('admin/module/user')->with('success', ($id and $id>0) ? __('User updated'):__("User created"));
         }
     }
 
@@ -237,35 +235,36 @@ class UserController extends AdminController
                 $query->where('first_name', 'like', '%' . $q . '%')->orWhere('last_name', 'like', '%' . $q . '%')->orWhere('email', 'like', '%' . $q . '%')->orWhere('id', $q)->orWhere('phone', 'like', '%' . $q . '%');
             });
         }
-        $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
-        $data = [];
-        if (!empty($res)) {
-            foreach ($res as $item) {
-                $data[] = [
-                    'id'   => $item->id,
-                    'text' => $item->getDisplayName() ? $item->getDisplayName() . ' (#' . $item->id . ')' : $item->email . ' (#' . $item->id . ')',
-                ];
-            }
+        if($request->query("user_type") == "vendor"){
+            $query->where('role_id',3);
         }
-        return response()->json([
-            'results' => $data
-        ]);
+        $res = $query->orderBy('id', 'desc')->orderBy('first_name', 'asc')->limit(20)->get();
+
+        return [
+            'results'=>UserResource::collection($res,['address'])
+        ];
     }
 
     public function bulkEdit(Request $request)
     {
         if(is_demo_mode()){
-            return redirect()->back()->with("error","DEMO MODE: You can not update user");
+            return redirect()->back()->with("error","DEMO MODE: You are not allowed to do it");
         }
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids))
-            return redirect()->back()->with('error', __('Select at leas 1 item!'));
+            return redirect()->back()->with('error', __('Select at least 1 item!'));
         if (empty($action))
             return redirect()->back()->with('error', __('Select an Action!'));
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                User::where("id", $id)->first()->delete();
+                if($id == Auth::id()) continue;
+                $query = User::where("id", $id)->first();
+                if(!empty($query)){
+                    $query->email.='_d_'.uniqid().rand(0,99999);
+                    $query->save();
+                    $query->delete();
+                }
             }
         } else {
             foreach ($ids as $id) {
@@ -274,53 +273,22 @@ class UserController extends AdminController
         }
         return redirect()->back()->with('success', __('Updated successfully!'));
     }
-    public function userUpgradeRequest(Request $request)
-    {
-        $this->checkPermission('user_view');
-        $listUser = VendorRequest::query();
-        $data = [
-            'rows' => $listUser->with(['user','role','approvedBy'])->paginate(20),
-            'roles' => Role::all(),
 
-        ];
-        return view('User::admin.upgrade-user', $data);
+    public function export(Request $request)
+    {
+        $role_id = $request->input('role_id','');
+        return (new UserExport($role_id))->download('user-' . date('M-d-Y') . '.xlsx');
     }
-    public function userUpgradeRequestApproved(Request $request)
+    public function verifyEmail(Request $request,$id)
     {
-        $ids = $request->input('ids');
-        $action = $request->input('action');
-        if (empty($ids))
-            return redirect()->back()->with('error', __('Select at leas 1 item!'));
-        if (empty($action))
-            return redirect()->back()->with('error', __('Select an Action!'));
-
-        foreach ($ids as $id) {
-            $vendorRequest = VendorRequest::find( $id);
-            if(!empty($vendorRequest)){
-                $vendorRequest->update(['status' => $action,'approved_time'=>now(),'approved_by'=>Auth::id()]);
-                $user = User::find($vendorRequest->user_id);
-                if(!empty($user)){
-                    $user->assignRole($vendorRequest->role_request);
-                }
-            }
-
+        $user = User::find($id);
+        if(!empty($user)){
+            $user->email_verified_at = now();
+            $user->save();
+            return redirect()->back()->with('success', __('Verify email successfully!'));
+        }else{
+            return redirect()->back()->with('error', __('Verify email cancel!'));
         }
-        return redirect()->back()->with('success', __('Updated successfully!'));
-    }
-    public function userUpgradeRequestApprovedId(Request $request,$id)
-    {
-        $ids = $request->input('$id');
-        if (empty($id))
-            return redirect()->back()->with('error', __('Select at leas 1 item!'));
-            $vendorRequest = VendorRequest::find( $id);
-            if(!empty($vendorRequest)){
-                $vendorRequest->update(['status' => 'approved','approved_time'=>now(),'approved_by'=>Auth::id()]);
-                $user = User::find($vendorRequest->user_id);
-                if(!empty($user)){
-                    $user->assignRole($vendorRequest->role_request);
-                }
-            }
-        return redirect()->back()->with('success', __('Updated successfully!'));
     }
 
 }

@@ -1,12 +1,12 @@
 <div id="cdn-browser-modal" class="modal fade">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak>
+            <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak :class="{is_loading:isLoading}">
                 <div class="files-nav flex-shrink-0">
                     <div class="d-flex justify-content-between">
                         <div class="col-left d-flex align-items-center">
                             <div class="filter-item">
-                                <input type="text" placeholder="Search file name...." class="form-control" v-model="filter.s" @keyup.enter="filter.page = 1;reloadLists()">
+                                <input type="text" placeholder="{{__("Search file name....")}}" class="form-control" v-model="filter.s" @keyup.enter="filter.page = 1;reloadLists()">
                             </div>
                             <div class="filter-item">
                                 <button class="btn btn-default" @click="filter.page = 1;reloadLists()">
@@ -17,10 +17,10 @@
                             </div>
                         </div>
                         <div class="col-right">
-                            <i class="fa-spin fa fa-spinner icon-loading"></i>
+                            <i class="fa-spin fa fa-spinner icon-loading active" v-show="isLoading"></i>
                             <button class="btn btn-success btn-pick-files">
                                 <span><i class="fa fa-upload"></i> {{__("Upload")}}</span>
-                                <input multiple type="file" name="files[]" ref="files">
+                                <input :accept="accept_type" multiple type="file" name="files[]" ref="files">
                             </button>
                         </div>
                     </div>
@@ -52,7 +52,10 @@
                 </div>
                 <div class="browser-actions d-flex justify-content-between flex-shrink-0" v-if="selected.length">
                     <div class="col-left" v-show="selected.length">
-                        <div v-if="selected && selected.length">
+                        <div class="control-remove" v-if="selected && selected.length">
+                            <button class="btn btn-danger" @click="removeFiles">{{__("Delete file")}}</button>
+                        </div>
+                        <div class="control-info" v-if="selected && selected.length">
                             <div class="count-selected">@{{selected.length}} {{__("file selected")}}</div>
                             <div class="clear-selected" @click="selected=[]"><i>{{__("unselect")}}</i></div>
                         </div>

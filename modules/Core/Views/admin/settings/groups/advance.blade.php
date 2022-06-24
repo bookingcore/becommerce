@@ -129,16 +129,24 @@
     </div>
 </div>
 
+
 <hr>
 <div class="row">
     <div class="col-sm-4">
-        <h3 class="form-group-title">{{__("Custom Scripts")}}</h3>
+        <h3 class="form-group-title">{{__("Custom Scripts for all languages")}}</h3>
         <p class="form-group-desc">{{__('Add custom HTML script before and after the content, like tracking code')}}</p>
     </div>
     <div class="col-sm-8">
         <div class="panel">
             <div class="panel-title"><strong>{{__("Custom Scripts")}}</strong></div>
             <div class="panel-body">
+                <div class="form-group" >
+                    <label>{{__("Head Script")}}</label>
+                    <div class="form-controls">
+                        <textarea name="head_scripts"  cols="30" rows="10" class="form-control">{{$settings['head_scripts'] ?? ''}}</textarea>
+                        <p><i>{{__('scripts before closing head tag')}}</i></p>
+                    </div>
+                </div>
                 <div class="form-group" >
                     <label>{{__("Body Script")}}</label>
                     <div class="form-controls">
@@ -156,4 +164,84 @@
         </div>
     </div>
 </div>
+@else
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Custom Scripts for :name",['name'=>request()->query('lang')])}}</h3>
+        <p class="form-group-desc">{{__('Add custom HTML script before and after the content, like tracking code')}}</p>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-title"><strong>{{__("Custom Scripts")}}</strong></div>
+            <div class="panel-body">
+                <div class="form-group" >
+                    <label>{{__("Head Script")}}</label>
+                    <div class="form-controls">
+                        <textarea name="head_scripts"  cols="30" rows="10" class="form-control">{{setting_item_with_lang_raw('head_scripts',request()->get('lang'))}}</textarea>
+                        <p><i>{{__('scripts before closing head tag')}}</i></p>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label>{{__("Body Script")}}</label>
+                    <div class="form-controls">
+                        <textarea name="body_scripts"  cols="30" rows="10" class="form-control">{{setting_item_with_lang_raw('body_scripts',request()->get('lang'))}}</textarea>
+                        <p><i>{{__('scripts after open of body tag')}}</i></p>
+                    </div>
+                </div>
+                <div class="form-group" >
+                    <label>{{__("Footer Script")}}</label>
+                    <div class="form-controls">
+                        <textarea name="footer_scripts"  cols="30" rows="10" class="form-control">{{setting_item_with_lang_raw('footer_scripts',request()->get('lang'))}}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 @endif
+<hr>
+<div class="row">
+    <div class="col-sm-4">
+        <h3 class="form-group-title">{{__("Cookie agreement")}}</h3>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel">
+            <div class="panel-title"><strong>{{__("Cookie agreement config")}}</strong></div>
+            <div class="panel-body">
+                @if(is_default_lang())
+                    <div class="form-group">
+                        <div class="form-controls">
+                            <label ><input type="checkbox" @if(setting_item('cookie_agreement_enable') ?? '' == 1) checked @endif name="cookie_agreement_enable" value="1"> {{__("Enable Cookie agreement")}}</label>
+                        </div>
+                    </div>
+                @else
+                    <div class="form-group">
+                        <div class="form-controls">
+                            <label ><input type="checkbox" @if(setting_item('cookie_agreement_enable') ?? '' == 1) checked @endif name="cookie_agreement_enable" disabled value="1"> {{__("Enable Cookie agreement")}}</label>
+                        </div>
+                    </div>
+                    @if(setting_item('cookie_agreement_enable') != 1)
+                        <p>{{__('You must enable on main lang.')}}</p>
+                    @endif
+                @endif
+
+
+                <div class="form-group" data-condition="cookie_agreement_enable:is(1)">
+                    <label>{{__("Agree Text Button")}}</label>
+                    <div class="form-controls">
+                        <input type="text" name="cookie_agreement_button_text" value="{{setting_item_with_lang('cookie_agreement_button_text',request()->query('lang')) ?? ''}}" class="form-control">
+
+                    </div>
+                </div>
+                <div class="form-group" data-condition="cookie_agreement_enable:is(1)">
+                    <label>{{__("Content")}}</label>
+                    <div class="form-controls">
+                        <textarea name="cookie_agreement_content" rows="8" class="form-control d-none has-tinymce">{{setting_item_with_lang('cookie_agreement_content',request()->query('lang')) ?? '' }}</textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@include('Core::admin.settings.groups.parts.pusher')

@@ -1,2 +1,2 @@
 <?php
-include 'web.php';
+use Illuminate\Support\Facades\Route;

@@ -10,15 +10,19 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Core\Models\Attribute;
+use Modules\Product\Hook;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductTagRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
-use Modules\Product\Models\VariableProduct;
+use Modules\Product\Models\ProductVariation;
+use Modules\Product\Resources\ProductResource;
 
 class ProductController extends AdminController
 {
@@ -32,21 +36,21 @@ class ProductController extends AdminController
      */
     protected $product_cat_relation;
     /**
-     * @var ProductTag
+     * @var ProductTagRelation
      */
-    protected $product_tag;
+    protected $product_tag_relation;
 
-    public function __construct()
+    public function __construct(Product $product)
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
-        $this->product = Product::class;
+        AdminMenuManager::setActive('product');
+        $this->product = $product;
         $this->product_translation = ProductTranslation::class;
         $this->product_term = ProductTerm::class;
-        $this->attributes = Attributes::class;
+        $this->attributes = Attribute::class;
         $this->product_cat_relation = ProductCategoryRelation::class;
-        $this->product_tag = ProductTag::class;
-        $this->variable_product = VariableProduct::class;
+        $this->product_tag_relation = ProductTagRelation::class;
+        $this->variable_product = ProductVariation::class;
     }
 
     public function index(Request $request)
@@ -61,13 +65,13 @@ class ProductController extends AdminController
 
         if ($this->hasPermission('product_manage_others')) {
             if (!empty($author = $request->input('vendor_id'))) {
-                $query->where('create_user', $author);
+                $query->where('author_id', $author);
             }
         } else {
-            $query->where('create_user', Auth::id());
+            $query->where('author_id', Auth::id());
         }
         $data = [
-            'rows'               => $query->with(['author'])->paginate(20),
+            'rows'               => $query->with(['author','categories'])->paginate(20),
             'product_manage_others' => $this->hasPermission('product_manage_others'),
             'breadcrumbs'        => [
                 [
@@ -87,12 +91,30 @@ class ProductController extends AdminController
     public function create(Request $request)
     {
         $this->checkPermission('product_create');
+        $row = new Product();
+        $translation = new ProductTranslation();
+        $data = [
+            'row'            => $row,
+            'translation'    => $translation,
+            "selected_terms" => [],
+            'attributes'     => $this->attributes::where('service', 'product')->get(),
+            'enable_multi_lang'=>true,
+            'breadcrumbs'    => [
+                [
+                    'name' => __('Products'),
+                    'url'  => route('product.admin.index')
+                ],
+                [
+                    'name'  => __('Create Product'),
+                    'class' => 'active'
+                ],
+            ],
+            'categories'  => ProductCategory::get()->toTree(),
+            'page_title'=>__('Create Product'),
+            'product'=>$row
+        ];
 
-        $row = new $this->product();
-        $row->status = 'draft';
-        $row->save();
-        $row->create_user = Auth::id();
-        return \redirect()->to(route('product.admin.edit',['id'=>$row->id]));
+        return view('Product::admin.detail', $data);
 
     }
 
@@ -103,9 +125,9 @@ class ProductController extends AdminController
         if (empty($row)) {
             return redirect(route('product.admin.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         if (!$this->hasPermission('product_manage_others')) {
-            if ($row->create_user != Auth::id()) {
+            if ($row->author_id != Auth::id()) {
                 return redirect(route('product.admin.index'));
             }
         }
@@ -136,6 +158,15 @@ class ProductController extends AdminController
 
     public function store( Request $request, $id ){
 
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+        $request->validate([
+            'title'=>'required'
+        ],[
+            'title.required'=>__("Product name is required")
+        ]);
+
         if($id>0){
             $this->checkPermission('product_update');
             $row = $this->product::find($id);
@@ -143,14 +174,13 @@ class ProductController extends AdminController
                 return redirect(route('product.admin.index'));
             }
 
-            if($row->create_user != Auth::id() and !$this->hasPermission('product_manage_others'))
+            if($row->author_id != Auth::id() and !$this->hasPermission('product_manage_others'))
             {
                 return redirect(route('product.admin.index'));
             }
         }else{
             $this->checkPermission('product_create');
             $row = new $this->product();
-            $row->status = "publish";
         }
         $dataKeys = [
             'title',
@@ -161,7 +191,7 @@ class ProductController extends AdminController
             'image_id',
             'gallery',
             'price',
-            'sale_price',
+            'origin_price',
             'is_featured',
             'brand_id',
             'product_type',
@@ -170,14 +200,26 @@ class ProductController extends AdminController
             'is_manage_stock',
             'stock_status',
             'quantity',
+            'button_text',
+            'external_url',
+            'is_approved'
         ];
         if($this->hasPermission('product_manage_others')){
-            $dataKeys[] = 'create_user';
+            $dataKeys[] = 'author_id';
         }
 
-        $row->fillByAttr($dataKeys,$request->input());
+        $dataKeys = apply_filters(Hook::SAVING_KEYS,$dataKeys);
 
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $row->fillByAttr($dataKeys,$request->input());
+        if(!$row->author_id) $row->author_id = auth()->id();
+        $row->updateMinMaxPrice();
+        if(!empty($row->is_manage_stock) and $row->quantity > 0){
+             $row->stock_status = 'in';
+        }
+
+        $res = $row->saveWithTranslation($request->input('lang'));
+
+        $row->saveSEO($request,$request->input('lang'));
 
         if ($res) {
             if(!$request->input('lang') or is_default_lang($request->input('lang'))) {
@@ -185,6 +227,9 @@ class ProductController extends AdminController
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
             }
+
+            do_action(Hook::AFTER_SAVING,$row);
+
 
             if($id > 0 ){
                 return back()->with('success',  __('Product updated') );
@@ -198,12 +243,12 @@ class ProductController extends AdminController
     {
         if (empty($tag_ids))
             $tag_ids = [];
-        $tag_ids = array_merge(Tag::saveTagByName($tags_name), $tag_ids);
+        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
         $tag_ids = array_filter(array_unique($tag_ids));
         // Delete unused
-        $this->product_tag::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
+        $this->product_tag_relation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
         //Add
-        $this->product_tag::addTag($tag_ids, $row->id);
+        $this->product_tag_relation::addTag($tag_ids, $row->id);
 
     }
 
@@ -221,6 +266,32 @@ class ProductController extends AdminController
             }
             $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
         }
+    }
+
+    public function ajaxSaveTerms(Request $request){
+
+        $product_id = request()->input('product_id');
+        if(empty($product_id))
+        {
+            return $this->sendError(__("Product id is required"));
+        }
+        $query = Product::where('id',$product_id);
+        if(!$this->hasPermission('product_manage_others')){
+            $query->where('create_user',Auth::id());
+        }
+        $product = $query->first();
+
+        if(empty($product))
+        {
+            return $this->sendError(__("Product not found"));
+        }
+
+        $product->attributes_for_variation = $request->input('attributes_for_variation');
+        $product->save();
+
+        $this->saveTerms($product,$request);
+
+        return $this->sendSuccess([],__('Attribute data saved'));
     }
 
     public function saveCategory($row, $request){
@@ -255,7 +326,7 @@ class ProductController extends AdminController
                 foreach ($ids as $id) {
                     $query = $this->product::where("id", $id);
                     if (!$this->hasPermission('product_manage_others')) {
-                        $query->where("create_user", Auth::id());
+                        $query->where("author_id", Auth::id());
                         $this->checkPermission('product_delete');
                     }
                     $query->first()->delete();
@@ -274,15 +345,33 @@ class ProductController extends AdminController
                 foreach ($ids as $id) {
                     $query = $this->product::where("id", $id);
                     if (!$this->hasPermission('product_manage_others')) {
-                        $query->where("create_user", Auth::id());
+                        $query->where("author_id", Auth::id());
                         $this->checkPermission('product_update');
                     }
-                    $query->update(['status' => $action]);
+                    $data =['status' => $action];
+
+                    if(in_array($action,['rejected','pending'])){
+                        $data['is_approved'] = 0;
+                    }
+                    if(in_array($action,['publish'])){
+                        $data['is_approved'] = 1;
+                    }
+                    $query->update($data);
                 }
                 return redirect()->back()->with('success', __('Update success!'));
                 break;
         }
 
 
+    }
+
+    public function getForSelect2(Request $request){
+        $query = Product::query()->orderBy('title')->where('status','publish');
+
+        if($s = $request->query('s')){
+            $query->where('title','like','%'.$s.'%s');
+        }
+
+        return ProductResource::collection($query->paginate(10),['variations']);
     }
 }

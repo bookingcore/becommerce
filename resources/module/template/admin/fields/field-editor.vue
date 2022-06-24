@@ -14,10 +14,10 @@
 			return {
 				id:'',
 				init:{
-					plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount imagetools textpattern help code',
+					plugins: 'searchreplace autolink fullscreen image link media codesample table charmap hr toc advlist lists wordcount textpattern help code',
                     toolbar: 'formatselect | bold italic strikethrough forecolor backcolor permanentpen formatpainter | link image media | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent  | pagebreak codesample code | removeformat',
-					image_advtab: true,
-					image_caption: true,
+					image_advtab: false,
+					image_caption: false,
 					height:400,
 					file_picker_callback: function (callback, value, meta) {
 						/* Provide file and text for the link dialog */
@@ -27,7 +27,7 @@
 								file_type:'video',
 								onSelect:function (files) {
 									if(files.length)
-										callback(bookingCore.url+'/media/preview/'+files[0].id);
+										callback(BC.url+'/media/preview/'+files[0].id);
 								},
 							});
 						}
@@ -51,7 +51,7 @@
 								file_type:'video',
 								onSelect:function (files) {
 									if(files.length)
-										callback(bookingCore.url+'/media/preview/'+files[0].id);
+										callback(BC.url+'/media/preview/'+files[0].id);
 								},
 							});
 						}

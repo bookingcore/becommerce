@@ -235,29 +235,30 @@ jQuery(function ($) {
     });
 
     //Login
-    $('.bravo-form-login [type=submit]').on('click',function (e) {
+    //Login
+    $('.bravo-form-login [type=submit]').click(function (e) {
         e.preventDefault();
         let form = $(this).closest('.bravo-form-login');
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': form.find('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
         $.ajax({
-            'url': Bravo.routes.login,
-            'data': {
+            url: BC.url + '/login',
+            data: {
                 'email': form.find('input[name=email]').val(),
                 'password': form.find('input[name=password]').val(),
                 'remember': form.find('input[name=remember]').is(":checked") ? 1 : '',
                 'g-recaptcha-response': form.find('[name=g-recaptcha-response]').val(),
-                'redirect': form.find('input[name=redirect]').val(),
+                'redirect':form.find('input[name=redirect]').val()
             },
-            'type': 'POST',
+            method: 'POST',
             beforeSend: function () {
                 form.find('.error').hide();
                 form.find('.icon-loading').css("display", 'inline-block');
             },
+            dataType:'json',
             success: function (data) {
+                if(data.two_factor){
+                    return window.location.href = BC.url + '/two-factor-challenge';
+                }
                 form.find('.icon-loading').hide();
                 if (data.error === true) {
                     if (data.messages !== undefined) {
@@ -270,8 +271,16 @@ jQuery(function ($) {
                         form.find('.message-error').show().html('<div class="alert alert-danger">' + data.messages.message_error[0] + '</div>');
                     }
                 }
-                if (data.redirect !== undefined && data.redirect) {
-                    window.location.href = data.redirect
+                if(data.message){
+                    form.find('.message-error').show().html('<div class="alert alert-danger">' + data.message + '</div>');
+                }
+
+                window.location.href = BC.url + form.find('input[name=redirect]').val();
+            },
+            error:function (e){
+                form.find('.icon-loading').hide();
+                if(e.responseJSON && typeof e.responseJSON.message != 'undefined'){
+                    form.find('.message-error').show().html('<div class="alert alert-danger">' + e.responseJSON.message + '</div>');
                 }
             }
         });
@@ -498,6 +507,7 @@ jQuery(function ($) {
     });
 
     $(document).on("click",".service-wishlist",function(e){
+        e.preventDefault();
         var $this = $(this);
         if (!$this.hasClass('active')){
             e.preventDefault();
@@ -759,7 +769,7 @@ jQuery(function ($) {
         let product = $(this).data('product');
         let quickView = $('.mf-quick-view-modal');
         $.ajax({
-            url: bookingCore.url + '/product/quick_view/' + product.id,
+            url: BC.url + '/product/quick_view/' + product.id,
             method:'POST',
             beforeSend: function () {
                 $this.tooltip('hide');
@@ -881,7 +891,7 @@ jQuery(function ($) {
             compare_box.addClass('active');
         } else {
             $.ajax({
-                url: bookingCore.url + '/product/compare',
+                url: BC.url + '/product/compare',
                 method: 'POST',
                 data: {id: id},
                 beforeSend: function () {
@@ -903,7 +913,7 @@ jQuery(function ($) {
         let $this = $(this);
         let id = $this.attr('data-id');
         $.ajax({
-            url: bookingCore.url + '/product/remove_compare',
+            url: BC.url + '/product/remove_compare',
             method:'POST',
             data: {id: id},
             beforeSend: function () {

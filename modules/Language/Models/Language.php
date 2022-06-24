@@ -2,6 +2,7 @@
 namespace Modules\Language\Models;
 
 use App\BaseModel;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Cache;
 
@@ -17,10 +18,14 @@ class Language extends BaseModel
         'status',
     ];
 
-    public function getTranslatedNumberAttribute()
+    public function translatedNumber() : Attribute
     {
-        $count = Translation::where('locale', $this->locale)->whereRaw(" IFNULL(string,'') != '' ")->count();
-        return $count;
+        return Attribute::make(
+            get:function($value){
+                $count = Translation::where('locale', $this->locale)->whereRaw(" IFNULL(string,'') != '' ")->count();
+                return $count;
+            }
+        );
     }
 
     public static function getActive($withCurrent = true)
@@ -33,7 +38,6 @@ class Language extends BaseModel
             return $q->where('status', 'publish')->orderByRaw('CASE WHEN (locale = \''.e(setting_item('site_locale')).'\') THEN 0 ELSE 1 END')->get();
         });
         return $value;
-
     }
 
     public static function findByLocale($locale){

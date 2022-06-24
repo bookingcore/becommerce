@@ -8,11 +8,12 @@
                 <a href="{{url('admin/module/news/create')}}" class="btn btn-primary">{{__("Add new Post")}}</a>
             </div>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="filter-div d-flex justify-content-between ">
             <div class="col-left">
                 @if(!empty($rows))
-                    <form method="post" action="{{route('news.admin.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                    <form method="post" action="{{url('admin/module/news/bulkEdit')}}"
+                          class="filter-form filter-form-left d-flex justify-content-start">
                         {{csrf_field()}}
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
@@ -20,23 +21,20 @@
                             <option value="draft">{{__(" Move to Draft ")}}</option>
                             <option value="delete">{{__(" Delete ")}}</option>
                         </select>
-                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                     </form>
                 @endif
             </div>
             <div class="col-left">
                 <form method="get" action="{{url('/admin/module/news/')}} " class="filter-form filter-form-right d-flex justify-content-end flex-column flex-sm-row" role="search">
-                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}"
-                           class="form-control">
+                    <input type="text" name="s" value="{{ Request()->s }}" placeholder="{{__('Search by name')}}" class="form-control">
                     <select name="cate_id" class="form-control">
                         <option value="">{{ __('--All Category --')}} </option>
-                        <?php
-                        if (!empty($categories)) {
-                            foreach ($categories as $category) {
-                                printf("<option value='%s' >%s</option>", $category->id, $category->name);
-                            }
-                        }
-                        ?>
+                        @if (!empty($categories))
+                            @foreach ($categories as $category) {
+                                <option value='{{ $category->id }}' @if(Request()->input('cate_id') == $category->id) selected @endif>{{ $category->name }}</option>
+                            @endforeach
+                        @endif
                     </select>
                     <button class="btn-info btn btn-icon btn_search" type="submit">{{__('Search News')}}</button>
                 </form>
@@ -49,7 +47,7 @@
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-body">
-                        <form action="" class="bravo-form-item">
+                        <form action="" class="bc-form-item">
                             <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
@@ -73,10 +71,10 @@
                                             <td class="title">
                                                 <a href="{{$row->getEditUrl()}}">{{$row->title}}</a>
                                             </td>
-                                            <td>{{$row->getCategory->name ?? '' }}</td>
+                                            <td>{{$row->category->name ?? '' }}</td>
                                             <td>
-                                                @if(!empty($row->getAuthor))
-                                                    {{$row->getAuthor->getDisplayName()}}
+                                                @if(!empty($row->author))
+                                                    {{$row->author->display_name}}
                                                 @else
                                                     {{__("[Author Deleted]")}}
                                                 @endif

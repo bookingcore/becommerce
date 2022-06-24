@@ -4,19 +4,20 @@ namespace Modules\Core\Models;
 use App\BaseModel;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Concerns\HasEvents;
+use Modules\Language\Models\Language;
 
 class Settings extends BaseModel
 {
     use HasEvents;
 
     protected $table = 'core_settings';
+    protected static $_cached = [];
 
-    public static function getSettings($group = '',$locale = '')
+    public static function getSettings($keys)
     {
-        if ($group) {
-            static::where('group', $group);
-        }
-        $all = static::all();
+        $query = parent::query()->whereIn('name', $keys);
+        $all = $query->get();
+
         $res = [];
         foreach ($all as $row) {
             $res[$row->name] = $row->val;
@@ -26,10 +27,30 @@ class Settings extends BaseModel
 
     public static function item($item, $default = false)
     {
+        if(isset(static::$_cached[$item])){
+            return static::$_cached[$item];
+        }
+
         $value = Cache::rememberForever('setting_' . $item, function () use ($item ,$default) {
             $val = Settings::where('name', $item)->first();
             return ($val and $val['val'] != null) ? $val['val'] : $default;
         });
+
+        static::$_cached[$item] = $value;
+
+        return $value;
+    }
+
+    public static function cachedItem($item, $default = false)
+    {
+        if(isset(static::$_cached[$item])){
+            return static::$_cached[$item];
+        }
+
+        $value = Cache::pull('setting_' . $item,$default);
+
+        static::$_cached[$item] = $value;
+
         return $value;
     }
 
@@ -46,83 +67,18 @@ class Settings extends BaseModel
             $check->save();
         }
 
+        if(isset(static::$_cached[$key])) unset(static::$_cached[$key]);
+
         Cache::forget('setting_' . $key);
     }
 
-    public static function getSettingPages(){
-        $all = [
-            [
-                'id'=>'general',
-                'title' => __("General Settings"),
-                'position'=>10
-            ],
-            [
-                'id'   => 'style',
-                'title' => __("Style Settings"),
-                'position'=>70
-            ],
-            [
-                'id'   => 'advance',
-                'title' => __("Advance Settings"),
-                'position'=>80
-            ],
-        ];
-        $all = array_merge($all,\Modules\User\SettingClass::getSettingPages());
-        $all = array_merge($all,\Modules\News\SettingClass::getSettingPages());
-        $all = array_merge($all,\Modules\Booking\SettingClass::getSettingPages());
-        $all = array_merge($all,\Modules\Email\SettingClass::getSettingPages());
-        $all = array_merge($all,\Modules\Vendor\SettingClass::getSettingPages());
-        $all = array_merge($all,\Modules\Product\SettingClass::getSettingPages());
-
-        // Modules
-        $custom_modules = \Modules\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Modules\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $menuConfig = call_user_func([$moduleClass,'getSettingPages']);
-
-                    if(!empty($menuConfig)){
-                        $all = array_merge($all,$menuConfig);
-                    }
-
-                }
-
-            }
-        }
-
-        $custom_modules = \Custom\ServiceProvider::getModules();
-        if(!empty($custom_modules)){
-            foreach($custom_modules as $module){
-                $moduleClass = "\\Custom\\".ucfirst($module)."\\ModuleProvider";
-                if(class_exists($moduleClass))
-                {
-                    $menuConfig = call_user_func([$moduleClass,'getSettingPages']);
-
-                    if(!empty($menuConfig)){
-                        $all = array_merge($all,$menuConfig);
-                    }
-
-                }
-
-            }
-        }
-
-
-        //@todo Sort items by Position
-        $all = array_values(\Illuminate\Support\Arr::sort($all, function ($value) {
-            return $value['position'] ?? 0;
-        }));
-
-        if(!empty($all)){
-            foreach ($all as &$item)
+    public static function clearCustomCssCache(){
+        $langs = Language::getActive();
+        if(!empty($langs)){
+            foreach ($langs as $lang)
             {
-                $item['url'] = 'admin/module/core/settings/index/'.$item['id'];
-                $item['name'] = $item['title'] ?? $item['id'];
-                $item['icon'] = $item['icon'] ?? '';
+                Cache::forget("custom_css_". config('bc.active_theme').'_' .$lang->locale);
             }
         }
-        return $all;
     }
 }

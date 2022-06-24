@@ -1,10 +1,10 @@
 <div class="form-group">
-    <label> {{ __('Name')}}</label>
-    <input type="text" value="{{$translation->name}}" placeholder="Category name" name="name" class="form-control">
+    <label> {{ __('Name')}}  <span class="text-danger">*</span></label>
+    <input type="text" required value="{{$translation->name}}" placeholder="Category name" name="name" class="form-control">
 </div>
 @if(is_default_lang())
 <div class="form-group">
-    <label> {{ __('Parent')}}</label>
+    <label> {{ __('Parent (Optional)')}}</label>
     <select name="parent_id" class="form-control">
         <option value=""> {{ __('-- Please Select --')}}</option>
         <?php
@@ -25,7 +25,7 @@
     </select>
 </div>
 <div class="form-group">
-    <label> {{ __('Slug')}}</label>
+    <label> {{ __('Slug (Optional)')}}</label>
     <input type="text" value="{{$row->slug}}" placeholder="Category slug" name="slug" class="form-control">
 </div>
 @endif

@@ -22,15 +22,15 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 @include ('Media::browser')
 <script>
-    var bookingCore  = {
+    var superio  = {
         url:'{{url('/')}}',
         map_provider:'{{setting_item('map_provider')}}',
         map_gmap_key:'{{setting_item('map_gmap_key')}}'
     };
 
 </script>
-<script src="{{asset('libs/jquery-3.3.1.min.js')}}"></script>
-<script src="{{asset('libs/vue/vue.min.js')}}"></script>
+<script src="{{asset('libs/jquery-3.6.0.min.js')}}"></script>
+<script src="{{asset('libs/vue/vue'.(!config('app.debug') ? '.min':'').'.js')}}"></script>
 <script src="{{asset('libs/bootstrap4.0/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('module/media/js/browser.js?_ver='.config('app.version'))}}"></script>
 <script>

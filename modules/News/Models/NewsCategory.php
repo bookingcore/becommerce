@@ -26,12 +26,6 @@ class NewsCategory extends BaseModel
         return __("News Category");
     }
 
-    public function filterbyCat($id)
-    {
-        $posts = News::where('news_id', $this->id)->get();
-        return $posts;
-    }
-
     public static function searchForMenu($q = false)
     {
         $query = static::select('id', 'name');
@@ -45,9 +39,15 @@ class NewsCategory extends BaseModel
 
     public function getDetailUrl($locale = false)
     {
-        $locale = $locale ? $locale : app()->getLocale();
-
-        return url(( $locale ? $locale.'/' : '').config('news.news_route_prefix')."/".config('news.news_category_route_prefix')."/".$this->slug);
+        return route('news.category',['slug'=>$this->slug]);
     }
 
+
+    public static function search($filters = []){
+        return parent::query()->isActive();
+    }
+
+    public function news(){
+        return $this->hasMany(News::class,'cat_id');
+    }
 }

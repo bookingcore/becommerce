@@ -1,0 +1,15 @@
+{
+  "name": "freshen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+    "scripts": {
+        "frontend-watch": "mix watch",
+        "frontend-prod": "mix --production"
+    },
+  "author": "BC",
+  "license": "ISC",
+  "dependencies": {
+    "laravel-mix": "^6.0.43"
+  }
+}

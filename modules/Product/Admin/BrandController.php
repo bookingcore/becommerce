@@ -3,6 +3,7 @@ namespace Modules\Product\Admin;
 
 use Illuminate\Http\Request;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductBrandTranslation;
 
@@ -11,7 +12,7 @@ class BrandController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
     }
 
     public function index(Request $request)
@@ -48,7 +49,7 @@ class BrandController extends AdminController
         if (empty($row)) {
             return redirect(route('product.admin.brand.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
@@ -87,7 +88,8 @@ class BrandController extends AdminController
         $row->fillByAttr([
             'name','content','image_id'
         ],$request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $res = $row->saveWithTranslation($request->input('lang'));
+        $row->saveSEO($request,$request->input('lang'));
 
         if ($res) {
             return back()->with('success',  __('Brand saved') );

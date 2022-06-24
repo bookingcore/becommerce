@@ -2,14 +2,11 @@
 
 namespace App\Providers;
 
+use Illuminate\Auth\Events\Verified;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Modules\Booking\Events\VendorLogPayment;
-use Modules\Booking\Listeners\VendorLogPaymentListen;
-use Modules\User\Events\SendMailUserRegistered;
-use Modules\User\Listeners\SendMailUserRegisteredListen;
+use Modules\User\Listeners\UserEventSubscriber;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,15 +16,10 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
-        ],
-        SendMailUserRegistered::class => [
-            SendMailUserRegisteredListen::class
-        ],
-//        VendorLogPayment::class =>[
-//            VendorLogPaymentListen::class
-//        ]
+    ];
+
+    protected $subscribe =[
+        UserEventSubscriber::class
     ];
 
     /**
@@ -40,5 +32,10 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+    }
+
+    public function shouldDiscoverEvents()
+    {
+        return false;
     }
 }

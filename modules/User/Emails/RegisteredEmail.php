@@ -24,7 +24,7 @@
 
         public function build()
         {
-            $subject = $this->user->getDisplayName().' has registered.';
+            $subject = $this->user->display_name.' has registered.';
             return $this->subject($subject)->view('User::emails.registered')->with([
                 'user'    => $this->user,
                 'content' => $this->content,

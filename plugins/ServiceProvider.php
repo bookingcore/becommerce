@@ -1,7 +1,8 @@
 <?php
 namespace Plugins;
 
-use File;
+
+use Illuminate\Support\Facades\File;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -9,10 +10,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $listModule = array_map('basename', File::directories(__DIR__));
         foreach ($listModule as $module) {
-            if (file_exists(__DIR__ . '/' . $module . '/Config/config.php')) {
-                $this->publishes([
-                    __DIR__ . '/' . $module . '/Config/config.php' => config_path(strtolower($module) . '.php'),
-                ]);
+            if (is_dir(__DIR__ . '/' . $module . '/Views')) {
+                $this->loadViewsFrom(__DIR__ . '/' . $module . '/Views', $module);
             }
         }
     }
@@ -21,19 +20,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $listModule = array_map('basename', File::directories(__DIR__));
         foreach ($listModule as $module) {
-            if (file_exists(__DIR__ . '/' . $module . '/Config/config.php')) {
-                $this->mergeConfigFrom(__DIR__ . '/' . $module . '/Config/config.php', strtolower($module));
-            }
-            if (is_dir(__DIR__ . '/' . $module . '/Views')) {
-                $this->loadViewsFrom(__DIR__ . '/' . $module . '/Views', $module);
-            }
-            $class = "\Plugins\\" . ucfirst($module) . "\\ModuleProvider";
-            if (class_exists($class)) {
+            $class = "\Plugins\\".ucfirst($module)."\\ModuleProvider";
+            if(class_exists($class)) {
                 $this->app->register($class);
             }
-        }
-        if (is_dir(__DIR__ . '/Layout')) {
-            $this->loadViewsFrom(__DIR__ . '/Layout', 'Layout');
+
         }
     }
 

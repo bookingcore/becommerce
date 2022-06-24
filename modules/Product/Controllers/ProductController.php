@@ -3,21 +3,15 @@ namespace Modules\Product\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Modules\News\Models\Tag;
-use Modules\Product\Models\BravoTerms;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
-use Modules\Product\Models\ProductCategoryRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\ProductVariationTerm;
-use Modules\Product\Models\Space;
 use Illuminate\Http\Request;
-use Modules\Location\Models\Location;
 use Modules\Review\Models\Review;
-use Modules\Core\Models\Attributes;
-use DB;
+use Modules\Core\Models\Attribute;
 use Modules\User\Models\User;
 
 class ProductController extends Controller
@@ -33,78 +27,12 @@ class ProductController extends Controller
 
     public function index(Request $request)
     {
-        $data = $this->_querySearch($request);
-        return view('Product::frontend.search', $data);
-    }
-
-    public function categoryIndex( $slug , Request $request){
-        $getCats = ProductCategory::where('slug',$slug)->first();
-        $categories = $getCats->id;
-        $data = $this->_querySearch($request , [$categories]);
-        return view('Product::frontend.categories', (isset($data)) ? $data : []);
-    }
-
-    private function _querySearch($request , $cats = false){
-        $query = $this->product::query()->select("products.*");
-        $query->where("products.status", "publish");
-
-        if (!empty($min_price = $request->query('min_price')) and !empty($max_price = $request->query('max_price'))) {
-            $pri_from = $min_price;
-            $pri_to = $max_price;
-            $raw_sql_min_max = "( (IFNULL(products.sale_price,0) > 0 and products.sale_price >= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price >= ?) )
-								AND ( (IFNULL(products.sale_price,0) > 0 and products.sale_price <= ? ) OR (IFNULL(products.sale_price,0) <= 0 and products.price <= ?) )";
-            $query->whereRaw($raw_sql_min_max,[$pri_from,$pri_from,$pri_to,$pri_to]);
-        }
-
-        $terms = $request->query('terms');
-        if (is_array($terms) && !empty($terms)) {
-            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $terms);
-        }
-
-        $review_scores = $request->query('review_score');
-        if (is_array($review_scores) && !empty($review_scores)) {
-            $where_review_score = [];
-            foreach ($review_scores as $number){
-                $decrease_number = $number - 1;
-                $where_review_score[] = " ( products.review_score >= {$decrease_number}.5 AND products.review_score <= {$number}.9 ) ";
-            }
-            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
-            $query->WhereRaw($sql_where_review_score);
-        }
-
-        $brand = $request->query('brand');
-        if (is_array($brand) && !empty($brand)){
-            $query->whereIn('products.brand_id', $brand);
-        }
-
-        $tag = $request->query('tag');
-        if (!empty($tag)){
-            $tag_id = Tag::select('id')->where('slug',$tag)->first()->getAttribute('id');
-            $query->join('product_tag','products.id','=','product_tag.target_id')->where('tag_id',$tag_id);
-        }
-
-        if(!empty($cats)){
-            $query->join('product_category_relations as ctr', 'ctr.target_id', "products.id")->whereIn('ctr.cat_id', $cats);
-        }
-
-        $cat_id = $request->query('category_id');
-        $search = $request->query('s');
-        if (!empty($cat_id)){
-            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $cat_id);
-        }
-        if (!empty($search)){
-            $query->where('products.title','LIKE',"%$search%");
-        }
-
-        $query->orderBy("id", "desc");
-        $query->groupBy("products.id");
-
-        $list = $query->with(['hasWishList','brand'])->paginate(12);
+        $list = $this->product::search($request->input());
 
         $categories = ProductCategory::where('status', 'publish')->with(['translations'])->limit(999)->get()->toTree();
 
         $data = [
-            'rows'               => $list,
+            'rows'               => $list->paginate(setting_item('product_per_page',12)),
             'product_min_max_price' => Product::getMinMaxPrice(),
             "blank"              => 1,
             'categories'         => $categories,
@@ -116,26 +44,34 @@ class ProductController extends Controller
                     'name'=> (!empty($search)) ? 'Search Result For: "'.$search.'"' : 'Shop',
                 ]
             ],
-            'wishlist'      =>  wishlist(),
             'body_class'        => 'full_width',
             "seo_meta"           => Product::getSeoMetaForPageList()
         ];
 
-        $data['attributes'] = Attributes::where('service', 'product')->with('terms.translations')->get();
+        $data['attributes'] = Attribute::where('service', 'product')->with('terms.translations')->get();
         $data['brands']  = ProductBrand::with(['products','translations'])->get()->map(function ($item){
             $item->count_product  = count($item->products);
             return $item;
         });
-        return $data;
+
+        return view('Product::frontend.search', $data);
+    }
+
+    public function categoryIndex( $slug , Request $request){
+        $getCats = ProductCategory::where('slug',$slug)->first();
+        $param = $request->input();
+        $param['cat_id'] = $getCats->id;
+        $data = $this->product::search($param)->paginate(setting_item('product_per_page',12));
+        return view('Product::frontend.categories', (isset($data)) ? $data : []);
     }
 
     public function attrs($row){
-        return Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
+        return Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get();
     }
 
     public function product_variations($row){
-        $attrs = (!empty($row->attributes_for_variation)) ? Attributes::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
-        $terms = ProductTerm::select('*','bravo_terms.attr_id as attr_id')->join('bravo_terms','product_term.term_id','=','bravo_terms.id')->where('target_id',$row->id)->get();
+        $attrs = (!empty($row->attributes_for_variation)) ? Attribute::select('id','name','display_type')->whereIn('id',$row->attributes_for_variation)->get() : null;
+        $terms = ProductTerm::select('*','core_terms.attr_id as attr_id')->join('core_terms','product_term.term_id','=','core_terms.id')->where('target_id',$row->id)->get();
         $product_variations = ProductVariation::where('product_id',$row->id)->get();
         $get_variation = [];
         if (!empty($product_variations)){
@@ -197,8 +133,8 @@ class ProductController extends Controller
         }
         $this->recently_viewed($row->id);
         $product_variations = $this->product_variations($row);
-        $translation = $row->translateOrOrigin(app()->getLocale());
-        $review_list = Review::where('object_id', $row->id)->where('object_model', 'product')->where("status", "approved")->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
+        $translation = $row->translate(app()->getLocale());
+        $review_list = $row->review_list()->orderBy("id", "desc")->with('author')->paginate(setting_item('product_review_number_per_page', 5));
         $cats = $row->categories;
         $bc = [
             'url'=>'',
@@ -244,7 +180,7 @@ class ProductController extends Controller
     public function quick_view(Request $request){
         $id = (!empty($request->id)) ? $request->id : '';
         $product = Product::where('id',$id)->first();
-        $translation = $product->translateOrOrigin(app()->getLocale());
+        $translation = $product->translate(app()->getLocale());
         $product_variations = $this->product_variations($product);
 
         $data = [
@@ -265,7 +201,7 @@ class ProductController extends Controller
         if (!empty($product) && $product->product_type == 'variable'){
             foreach ($product->attributes_for_variation as $attr){
                 $term_id = [];
-                $product_variable = ProductVariationTerm::select('product_variation_term.*','bravo_terms.name','bravo_terms.attr_id')->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')->where('product_id',$product->id)->get();
+                $product_variable = ProductVariationTerm::select('product_variation_term.*','core_terms.name','core_terms.attr_id')->join('core_terms','product_variation_term.term_id','=','core_terms.id')->where('product_id',$product->id)->get();
                 if (!empty($product_variable)){
                     foreach ($product_variable as $item){
                         if ($attr == $item->attr_id){
@@ -311,7 +247,7 @@ class ProductController extends Controller
     public function remove_compare(Request $request){
         $compare = session('compare');
         $n_compare = [];
-        $listAttr = Attributes::all();
+        $listAttr = Attribute::all();
         if (!empty($compare)){
             foreach ($compare as $row){
                 if ($row['id'] == $request->post('id')){

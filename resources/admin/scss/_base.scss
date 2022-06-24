@@ -40,18 +40,26 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
         list-style: none;
         padding: 0px;
         margin: 0px;
+        padding-top: 16px;
 
         li{
             position: relative;
             a{
                 display: block;
                 text-decoration: none;
-                color: #cad6e2;
+                color: #7b85a2;
                 padding: 5px 18px;
+                transition: all 0.2s;
+                .badge{
+                    width: auto;
+                    font-size: 75%;
+                    margin-left: 10px;
+                    min-width: 0px;
+                }
             }
             &:hover{
                 >a{
-                    color: #08f;
+                    color: white;
                 }
                 //>ul{
                 //    display: block;
@@ -62,7 +70,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 cursor: pointer;
                 transition: all 0.2s;
                 position: absolute;
-                padding: 13px 18px;
+                padding: 8px 14px;
                 color: #cad6e2;
                 top: 0px;
                 right: 0px;
@@ -75,13 +83,21 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                     }
                 }
             }
+            &.group{
+                text-transform: uppercase;
+                padding: 8px 13px;
+                color:#6a7187;
+                font-weight: 600;
+                font-size: 13px;
+            }
+
         }
         ul{
             display: none;
             //position: absolute;
             //top: 0px;
             //left: 100%;
-            background-color: #263a53;
+            //background-color: #263a53;
             padding: 5px 0px ;
             list-style: none;
             min-width: 200px;
@@ -95,29 +111,29 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
         >li{
             >a{
-                padding: 10px 17px;
-                font-weight: 300;
+                padding: 5px 17px;
+                font-weight: 500;
                 display: flex;
                 align-items: center;
                 line-height: 24px;
                 span.icon{
-                    width: 24px;
+                    width: 20px;
                     display: flex;
                     vertical-align: middle;
                     position: relative;
-                    margin-right: 10px;
+                    margin-right: 15px;
                     i{
-                        font-size: 21px;
+                        font-size: 20px;
                         &.icon{
-                            font-size: 24px;
+                            font-size: 23px;
                         }
                     }
                 }
             }
             &.active,&.active:hover{
                 >a{
-                    background: linear-gradient(to right,#08f 0%,#4698fe 100%);
-                    background:  -webkit-gradient(to right,#08f 0%,#4698fe 100%);
+                    //background: linear-gradient(to right,#08f 0%,#4698fe 100%);
+                    //background:  -webkit-gradient(to right,#08f 0%,#4698fe 100%);
                     color: white;
                 }
                 ul{
@@ -126,9 +142,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 }
             }
             &:hover{
-                background-color: #2d4563;
+                //background-color: #2d4563;
                 >a{
-                    background: #2d4563;
+                    //background: #2d4563;
                     color: white;
                 }
             }
@@ -173,8 +189,8 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     z-index: 5;
     .header-logo{
         width: $sidebarWidth;
-        background: $sidebarColor;
-        border-bottom: 1px solid #1e2f44;
+        //background: $sidebarColor;
+        border-bottom: 1px solid #dddee0;
         a{
             text-decoration: none;
         }
@@ -184,7 +200,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
             margin-top: 10px;
             font-size: 24px;
             a{
-                color:white;
+                color:#1c2742;
             }
         }
     }
@@ -215,8 +231,17 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                 cursor: pointer;
                 line-height: initial;
                 .user-avatar{
-                    width: 32px;
                     margin-right: 10px;
+                    .avatar-cover{
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                        overflow: hidden;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        background-size: cover;
+                    }
                     .avatar-text{
                         border-radius: 50%;
                         text-align: center;
@@ -226,6 +251,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
                         display: block;
                         height: 32px;
                         line-height: 32px;
+                    }
+                    img{
+                        max-width: 30px;
                     }
                 }
                 .user-role{
@@ -327,6 +355,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     .panel-title{
         padding: 14px 20px;
         border-bottom: 1px solid #dfe4e8;
+        position: relative;
+        .panel-toggle{
+            position: absolute;
+            right: 11px;
+            top: 10px;
+            cursor: pointer;
+        }
     }
     .panel-body{
         padding: 20px;
@@ -515,7 +550,7 @@ tbody td.title{
     border-top-left-radius: 3px;
     border-top-right-radius: 3px;
     //border-bottom: 7px solid #3293fe;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
     border-bottom: 1px solid #e9ecef;
     background: white;
     display: none;
@@ -533,10 +568,10 @@ tbody td.title{
 }
 .enable_multi_lang.site_enable_multi_lang{
     .lang-content-box{
-        //padding: 14px;
-        //background: #e9ecef;
+        padding: 14px;
+        background: #e9ecef;
         /* border: 1px solid #d6d6d6; */
-        //box-shadow: 0px 0px 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 #3f3f4426;
+        box-shadow: 0px 0px 0 1px rgba(63, 63, 68, 0.05), 0 1px 3px 0 #3f3f4426;
     }
     .language-navigation{
         display: block;
@@ -545,3 +580,25 @@ tbody td.title{
 
 @import '_menu';
 @import "template";
+
+
+.bootbox.modal{
+    z-index: 3000;
+    &.show{
+        display: flex !important;
+        align-items: center;
+    }
+    &:before{
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        background: #000;
+        opacity: 0.5;
+    }
+    .modal-dialog{
+        min-width: 500px;
+    }
+}
+
+@import "_notification";

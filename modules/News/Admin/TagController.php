@@ -4,6 +4,7 @@ namespace Modules\News\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\News\Models\Tag;
 use Illuminate\Support\Str;
 use Modules\News\Models\TagTranslation;
@@ -13,8 +14,8 @@ class TagController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/news');
         parent::__construct();
+        AdminMenuManager::setActive('news');
     }
 
     public function index(Request $request)
@@ -26,7 +27,7 @@ class TagController extends AdminController
         if ($tagname) {
             $taglist->where('name', 'LIKE', '%' . $tagname . '%');
         }
-        $taglist->orderby('name', 'asc');
+        $taglist->orderby('id', 'desc');
         $data = [
             'rows'        => $taglist->paginate(20),
             'row'    => new Tag(),
@@ -40,7 +41,8 @@ class TagController extends AdminController
                     'class' => 'active'
                 ],
             ],
-            'translation'=>new TagTranslation()
+            'translation'=>new TagTranslation(),
+            'page_title'=>__("Tag Management")
         ];
         return view('News::admin.tag.index', $data);
     }
@@ -55,7 +57,7 @@ class TagController extends AdminController
 
         $data = [
             'row'     => $row,
-            'translation'=>$row->translateOrOrigin($request->query('lang')),
+            'translation'=>$row->translate($request->query('lang')),
             'parents' => Tag::get(),
             'enable_multi_lang'=>true
         ];
@@ -63,6 +65,10 @@ class TagController extends AdminController
     }
 
     public function store(Request $request, $id){
+
+        $request->validate([
+            'name'=>'required'
+        ]);
 
         $this->checkPermission('news_manage_others');
 
@@ -76,7 +82,8 @@ class TagController extends AdminController
         }
 
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
+
 
         if ($res) {
             if($id > 0 ){

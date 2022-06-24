@@ -10,10 +10,20 @@ class Promotion extends BaseBlock
     {
         $this->setOptions([
             'settings' => [
+                [      'id'        => 'title',
+                       'type'      => 'input',
+                       'inputType' => 'text',
+                       'label'     => __('Title')
+                ],
+                [      'id'        => 'sub_title',
+                       'type'      => 'input',
+                       'inputType' => 'text',
+                       'label'     => __('Sub Title')
+                ],
                 [
-                    'id'            => 'colItem',
+                    'id'            => 'col',
                     'type'          => 'radios',
-                    'label'         => __('Item Per Rows'),
+                    'label'         => __('Item Per Rows ( default 3 item in row)'),
                     'values'        => [
                         [
                             'value'   => '6',
@@ -28,70 +38,47 @@ class Promotion extends BaseBlock
                             'name' => __("4 Item")
                         ],
                         [
-                            'value'   => 'big_and_small',
-                            'name' => __("Big & Small (Only use for default template)")
+                            'value'   => 'grid',
+                            'name' => __("Gird")
                         ]
                     ]
                 ],
                 [
-                    'id'            => 'styleItem',
+                    'id'            => 'style',
                     'type'          => 'radios',
-                    'label'         => __('Style Item'),
+                    'label'         => __('Style'),
                     'values'        => [
                         [
-                            'value'   => '0',
-                            'name' => __("Default")
+                            'value'   => '',
+                            'name' => __("Style 1")
                         ],
                         [
-                            'value'   => '1',
-                            'name' => __("Style 1")
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
                         ],
                     ]
                 ],
                 [
-                    'id'          => 'item',
+                    'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('List Items'),
                     'title_field' => 'List Item',
                     'settings'    => [
-                        [
-                            'id'        => 'title',
-                            'type'      => 'input',
-                            'inputType' => 'textArea',
-                            'label'     => __('Title')
-                        ],
-                        [
-                            'id'        => 'price',
+                        [      'id'        => 'sub_title',
                             'type'      => 'input',
                             'inputType' => 'text',
-                            'label'     => __('Price')
+                            'label'     => __('Sub Title')
+                        ],
+                        [      'id'        => 'title',
+                               'type'      => 'input',
+                               'inputType' => 'text',
+                               'label'     => __('Title')
                         ],
                         [
-                            'id'        => 'sale_price',
+                            'id'        => 'content',
                             'type'      => 'input',
                             'inputType' => 'text',
-                            'label'     => __('Sale Price')
-                        ],
-                        [
-                            'id'        => 'discount',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Discount Percent')
-                        ],
-                        [
-                            'id'            => 'discount_position',
-                            'type'          => 'radios',
-                            'label'         => __('Discount position (Not used for default template)'),
-                            'values'        => [
-                                [
-                                    'value'   => 'top',
-                                    'name' => __("Top")
-                                ],
-                                [
-                                    'value'   => 'bottom',
-                                    'name' => __("Bottom")
-                                ],
-                            ]
+                            'label'     => __('Content')
                         ],
                         [
                             'id'        => 'link',
@@ -100,15 +87,61 @@ class Promotion extends BaseBlock
                             'label'     => __('Link Product')
                         ],
                         [
-                            'id'        => 'desc',
-                            'type'      => 'input',
-                            'inputType' => 'textArea',
-                            'label'     => __('Description Promotion')
-                        ],
-                        [
                             'id'    => 'image',
                             'type'  => 'uploader',
                             'label' => __('Image Uploader')
+                        ],
+                        [
+                            'id'            => 'position',
+                            'type'          => 'select',
+                            'label'         => __('Position'),
+                            'values'        => [
+                                [
+                                    'id'   => 'top_left',
+                                    'name' => __("Top Left")
+                                ],
+                                [
+                                    'id'   => 'top_right',
+                                    'name' => __("Top Right")
+                                ],
+                                [
+                                    'id'   => 'bottom_left',
+                                    'name' => __("Bottom Left")
+                                ],
+                                [
+                                    'id'   => 'bottom_right',
+                                    'name' => __("Right Left")
+                                ],
+                                [
+                                    'id'   => 'center_right',
+                                    'name' => __("Right Center")
+                                ],
+                                [
+                                    'id'   => 'center_left',
+                                    'name' => __("Left center")
+                                ]
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
+                        ],
+                        [
+                            'id'            => 'style_color',
+                            'type'          => 'select',
+                            'label'         => __('Color Text'),
+                            'values'        => [
+                                [
+                                    'id'   => 'dark',
+                                    'name' => __("Dark")
+                                ],
+                                [
+                                    'id'   => 'light',
+                                    'name' => __("Light")
+                                ],
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
                         ],
                     ]
                 ],
@@ -123,11 +156,19 @@ class Promotion extends BaseBlock
 
     public function content($model = [])
     {
-        $model = [
-            'style' =>  $model['styleItem'] ?? 0,
-            'item'  =>  $model['item'],
-            'colItem' =>$model['colItem']
+        if (empty($model['style'])) {
+            $model['style'] = 'index';
+        }
+        if (empty($model['position'])) {
+            $model['position'] = 'top_left';
+        }
+        $data = [
+            'title'  =>  $model['title'] ?? '',
+            'sub_title'  =>  $model['sub_title'] ?? '',
+            'list_items'  =>  $model['list_items'] ?? '',
+            'col' => $model['col'] ?? 3,
+            'style_color' => $model['style_color'] ?? 'light',
         ];
-        return view('Template::frontend.blocks.Promotion.index', $model);
+        return view('blocks.promotion.'.$model['style'], $data);
     }
 }

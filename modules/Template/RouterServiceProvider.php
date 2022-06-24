@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules\Template;
 
 use Illuminate\Support\Facades\Route;
@@ -56,6 +57,7 @@ class RouterServiceProvider extends ServiceProvider
             ->namespace($this->moduleNamespace)
             ->group(__DIR__ . '/Routes/web.php');
     }
+
     /**
      * Define the "web" routes for the application.
      *

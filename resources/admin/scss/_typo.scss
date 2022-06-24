@@ -7,6 +7,7 @@ a{
     margin-bottom: 0px;
 }
 .form-control{
+    color:#212b35;
     font-size: 14px;
     border-radius: 3px;
     padding: 5px 10px;
@@ -36,6 +37,13 @@ a{
 .btn{
     border-radius: 3px;
     font-size: 14px;
+}
+.btn-default {
+    border: 1px solid #c4cdd5;
+    border-bottom-color: #babfc4;
+    border-top-color: #c9cccf;
+    background: white;
+    box-shadow: rgb(0 0 0 / 5%) 0px 1px 0px 0px;
 }
 .table{
     &.table-hover{

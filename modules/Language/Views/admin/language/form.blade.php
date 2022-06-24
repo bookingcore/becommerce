@@ -1,7 +1,7 @@
 <div class="form-group">
     <label>{{__("Locale")}}</label>
     <div>
-        <select name="locale" class="form-control dungdt-select2-field dungdt_input_locale" data-options='{"allowClear":true}' data-id="{{$row->id}}">
+        <select name="locale" class="form-control bc-select2 dungdt_input_locale" data-options='{"allowClear":true}' data-id="{{$row->id}}">
             <option value="">{{__("-- Please select --")}}</option>
             @foreach($locales as $locale => $name)
                 <option data-name="{{$name}}" @if($row->locale == $locale) selected @endif value="{{$locale}}">{{$name}} - ({{$locale}})</option>

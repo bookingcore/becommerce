@@ -3,7 +3,8 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Modules\Core\Models\Attributes;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\Term;
 
 class ProductVariationTerm extends BaseModel
 {
@@ -12,6 +13,10 @@ class ProductVariationTerm extends BaseModel
     protected $fillable = [
         'variation_id','term_id','product_id'
     ];
+
+    public function term(){
+        return $this->hasOne(Term::class, "id",'term_id');
+    }
 
     public function get_term($product_id){
         $variations_id = [];
@@ -28,21 +33,20 @@ class ProductVariationTerm extends BaseModel
                 array_push($term_id, $item->term_id);
             }
         }
-        $variations_attr = BravoTerms::select('id','name','attr_id')->whereIn('id',$term_id)->get();
+        $variations_attr = Term::select('id','name','attr_id')->whereIn('id',$term_id)->get();
 
         return $variations_attr;
     }
 
     public function get_attrs($product_id){
         $variations_attr = $this->get_term($product_id);
-        $attrs = Attributes::select('id','name')->get();
+        $attrs = Attribute::select('id','name')->get();
         $newAttrs = [];
         if (!empty($attrs)){
             foreach ($attrs as $item){
                 $v_name = [];
                 foreach ($variations_attr as $v_item){
                     if ($item->id == $v_item->attr_id){
-                        dump($v_item);
                         array_push($v_name, $v_item->name);
                     }
                 }

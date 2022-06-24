@@ -1,11 +1,1 @@
-{
-    "/css/app.css": "/css/app.css",
-    "/css/contact.css": "/css/contact.css",
-    "/module/user/css/user.css": "/module/user/css/user.css",
-    "/module/media/css/browser.css": "/module/media/css/browser.css",
-    "/mix.js.map": "/mix.js.map",
-    "/css/app.css.map": "/css/app.css.map",
-    "/css/contact.css.map": "/css/contact.css.map",
-    "/module/user/css/user.css.map": "/module/user/css/user.css.map",
-    "/module/media/css/browser.css.map": "/module/media/css/browser.css.map"
-}
+{}

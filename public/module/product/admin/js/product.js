@@ -1,6 +1,36 @@
 (function ($) {
     'use strict';
+    $('.ajax-add-term input').on('keypress',function (e) {
+        var code = e.keyCode || e.which;
+        if (code == 13) {
+            e.preventDefault();
+            ajaxAddTerm($(this).closest('.ajax-add-term'));
+            return false;
+        }
+    });
+    $('.ajax-add-term .btn').on('click',function (e) {
+        ajaxAddTerm($(this).closest('.ajax-add-term'));
+    });
 
+    function ajaxAddTerm(p) {
+        if(p.find('input').val().trim() && p.data('attr-id')){
+            $.ajax({
+                url:BC.url+'/admin/module/product/ajaxAddTerm',
+                data:{
+                    name:p.find('input').val().trim(),
+                    attr_id:p.data('attr-id')
+                },
+                type:'post',
+                success:function (json) {
+                    if(json.status){
+                        var newOption = new Option(json.name, json.id, true, true);
+                        p.closest('.controls').find('.bc-select2').append(newOption).trigger('change');
+                        p.find('input').val('');
+                    }
+                }
+            })
+        }
+    }
 	// Product Variations
 	$("[href='#variations']").on('shown.bs.tab', function (e) {
 		reloadVariations();
@@ -10,7 +40,7 @@
 		var p = $('#variations');
 		var gr = p.closest('.product-information-tabs');
 		gr.addClass('loading');
-		p.find('.variation-list').load(bookingCore.url+'/admin/module/product/ajaxVariationList/'+p.data('product-id'),function(){
+		p.find('.variation-list').load(BC.url+'/admin/module/product/ajaxVariationList/'+p.data('product-id'),function(){
 			gr.removeClass('loading');
 			init_condition_engine();
 		});
@@ -25,7 +55,7 @@
 		var data = $('.variation-list').find('input,textarea,select').serialize();
 		data+='&product_id=' + p.data('product-id');
 		$.ajax({
-			url:bookingCore.url+'/admin/module/product/ajaxSaveVariations',
+			url:BC.url+'/admin/module/product/ajaxSaveVariations',
 			data:data,
 			type:'post',
 			success:function (json) {
@@ -34,12 +64,39 @@
 					// reloadVariations();
 				}
 				if(json.message){
-					bookingCoreApp.showSuccess(json);
+					//BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
 				gr.removeClass('loading');
-				bookingCoreApp.showAjaxError(e);
+				BCApp.showAjaxError(e);
+			}
+		});
+	});
+
+	$('.btn-save-attributes').on('click',function(e){
+		e.preventDefault();
+		var p = $(this).closest('.tab-pane');
+		var gr = p.closest('.product-information-tabs');
+		gr.addClass('loading');
+		var data = p.find('input,textarea,select').serialize();
+		data+='&product_id=' + p.data('product-id');
+		$.ajax({
+			url:BC.url+'/admin/module/product/ajaxSaveTerms',
+			data:data,
+			type:'post',
+			success:function (json) {
+				gr.removeClass('loading');
+				if(json.status){
+					// reloadVariations();
+				}
+				if(json.message){
+					//BCApp.showSuccess(json);
+				}
+			},
+			error:function (e) {
+				gr.removeClass('loading');
+				BCApp.showAjaxError(e);
 			}
 		});
 	});
@@ -53,13 +110,13 @@
 		var me = $(this);
 		var p = $(this).closest('.tab-pane');
 		var gr = p.closest('.product-information-tabs');
-		bookingCoreApp.showConfirm({
-			message:i18n.delete_confirm,
+		BCApp.showConfirm({
+			message:i18n.confirm_delete,
 			callback:function(result){
 				if(!result) return;
 				gr.addClass('loading');
 				$.ajax({
-					url:bookingCore.url+'/admin/module/product/ajaxDeleteVariation',
+					url:BC.url+'/admin/module/product/ajaxDeleteVariation',
 					data:{
 						id:me.data('id')
 					},
@@ -69,11 +126,11 @@
 							reloadVariations();
 						}
 						if(json.message){
-							bookingCoreApp.showSuccess(json);
+							BCApp.showSuccess(json);
 						}
 					},
 					error:function (e) {
-						bookingCoreApp.showAjaxError(e);
+						BCApp.showAjaxError(e);
 					}
 				});
 			}
@@ -97,7 +154,7 @@
 		var gr = p.closest('.product-information-tabs');
 		gr.addClass('loading');
 		$.ajax({
-			url:bookingCore.url+'/admin/module/product/ajaxAddVariation',
+			url:BC.url+'/admin/module/product/ajaxAddVariation',
 			data:{
 				id:p.data('product-id')
 			},
@@ -108,18 +165,18 @@
 					reloadVariations();
 				}
 				if(json.message){
-					bookingCoreApp.showSuccess(json);
+					BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
 				gr.removeClass('loading');
-				bookingCoreApp.showAjaxError(e);
+				BCApp.showAjaxError(e);
 			}
 		});
 	}
 	window.variation_bulk_action_add_all = function (action,p) {
 		$.ajax({
-			url:bookingCore.url+'/admin/module/product/ajaxAddVariation',
+			url:BC.url+'/admin/module/product/ajaxAddVariation',
 			data:{
 				id:p.data('id')
 			},
@@ -129,11 +186,11 @@
 					reloadVariations();
 				}
 				if(json.message){
-					bookingCoreApp.showSuccess(json);
+					BCApp.showSuccess(json);
 				}
 			},
 			error:function (e) {
-				bookingCoreApp.showAjaxError(e);
+				BCApp.showAjaxError(e);
 			}
 		});
 	}

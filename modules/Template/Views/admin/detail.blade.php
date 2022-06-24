@@ -18,22 +18,27 @@
         <br>
         <br>
         <div class="row">
-            <div class="col-md-4 col-xl-3 block-types-menu">
-                <div class="panel">
-                    <div class="panel-title">{{__('All Blocks')}}</div>
-                    <div class="panel-body">
-                        <div class="block-panel" v-for="block in blocks">
-                            <div class="block-title">
-                                @{{block.name}}
-                                <div class="title-right">
-                                    <span class="menu-add"><i @click="addBlock(block)" class="icon ion-ios-add-circle-outline"></i></span>
+            <div class="col-md-4 col-xl-4 block-types-menu">
+                <div v-for="(block,index) in blocks" class="panel panel-toggle-able">
+                    <div class="panel-title" @click="block.open = block.open ? false : true">@{{block.name}}
+                        <i class="icon ion-md-arrow-dropdown"></i>
+                    </div>
+                    <div class="panel-body" v-show="block.open">
+                        <div class="list-scrollable" v-show="block.items.length">
+                            <div class="block-panel" v-for="item in block.items">
+                                <div class="block-title">
+                                    @{{item.name}}
+                                    <div class="title-right">
+                                        <span class="menu-add"><i @click="addBlock(item)" class="icon ion-ios-add-circle-outline"></i></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
-            <div class="col-md-8 col-xl-9">
+            <div class="col-md-8 col-xl-8">
                 @include('Language::admin.navigation')
                 <div class="lang-content-box">
                     <div class="panel">
@@ -83,7 +88,7 @@
 		var current_menu_lang = '{{request()->query('lang',app()->getLocale())}}';
     </script>
 @endsection
-@section ('script.head')
+@push ('script.head')
     <script>
         var template_i18n = {
             cancel: '{{__('Cancel')}}',
@@ -92,4 +97,4 @@
             add_new: '{{__('Add New')}}',
         };
     </script>
-@endsection
+@endpush

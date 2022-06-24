@@ -4,14 +4,16 @@ namespace Modules\Review\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\News\Models\News;
 use Modules\Review\Models\Review;
 
 class ReviewController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/review');
         parent::__construct();
+        AdminMenuManager::setActive('review');
     }
 
     public function index(Request $request)
@@ -22,7 +24,14 @@ class ReviewController extends AdminController
         if (!empty($author = $request->input('customer_id'))) {
             $model->where('create_user', $author);
         }
-        $allServices = get_bookable_services();
+        if (!empty($author = $request->input('vendor_id'))) {
+            $model->where('vendor_id', $author);
+        }
+        $allServices = get_services();
+
+        $news = (new News());
+        $allServices[$news->type]=get_class($news);
+
         $allServicesKeys = array_keys($allServices);
 
         if (!empty($search_name = $request->input('s'))) {
@@ -65,7 +74,7 @@ class ReviewController extends AdminController
         if (empty($action)) {
             return redirect()->back()->with('error', __('Please select an action!'));
         }
-        $allServices = get_bookable_services();
+        $allServices = get_services();
         if ($action == "delete") {
             foreach ($ids as $id) {
                 $review = Review::where('id', $id)->first();
@@ -77,7 +86,7 @@ class ReviewController extends AdminController
                         $model_serivce = $module_class::find($review->object_id);
                         if(!empty($model_serivce)){
                             Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
-                            $model_serivce->update_service_rate();
+                            $model_serivce->updateServiceRate();
                         }
                     }
                 }
@@ -92,7 +101,7 @@ class ReviewController extends AdminController
                     $model_serivce = $module_class::find($review->object_id);
                     if(!empty($model_serivce)){
                         Cache::forget('review_' . $model_serivce->type . '_' . $review->object_id);
-                        $model_serivce->update_service_rate();
+                        $model_serivce->updateServiceRate();
                     }
                 }
             }

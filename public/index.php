@@ -1,12 +1,16 @@
 <?php
-if(!empty($_SERVER['REQUEST_URI'])){
-	
-	if(strpos($_SERVER['REQUEST_URI'],'/install') !== false){
-		if(!file_exists(__DIR__.'/../.env')){
-			copy(__DIR__.'/../.env.example',__DIR__.'/../.env');
-		}
-	}
+use Illuminate\Contracts\Http\Kernel;
+use Illuminate\Http\Request;
+
+if (!version_compare(phpversion(), '8.0', '>'))
+{
+    die("Current PHP version: ".phpversion()."<br>You must upgrade PHP version 8.0 and later");
 }
+
+if (file_exists(__DIR__.'/../storage/app/bc.php')) {
+    require __DIR__.'/../storage/app/bc.php';
+}
+
 /**
  * Laravel - A PHP Framework For Web Artisans
  *
@@ -18,31 +22,31 @@ define('LARAVEL_START', microtime(true));
 
 /*
 |--------------------------------------------------------------------------
+| Check If The Application Is Under Maintenance
+|--------------------------------------------------------------------------
+|
+| If the application is in maintenance / demo mode via the "down" command
+| we will load this file so that any pre-rendered content can be shown
+| instead of starting the framework, which could cause an exception.
+|
+*/
+
+if (file_exists(__DIR__.'/../storage/framework/maintenance.php')) {
+    require __DIR__.'/../storage/framework/maintenance.php';
+}
+
+/*
+|--------------------------------------------------------------------------
 | Register The Auto Loader
 |--------------------------------------------------------------------------
 |
 | Composer provides a convenient, automatically generated class loader for
-| our application. We just need to utilize it! We'll simply require it
-| into the script here so that we don't have to worry about manual
-| loading any of our classes later on. It feels great to relax.
+| this application. We just need to utilize it! We'll simply require it
+| into the script here so we don't need to manually load our classes.
 |
 */
 
 require __DIR__.'/../vendor/autoload.php';
-
-/*
-|--------------------------------------------------------------------------
-| Turn On The Lights
-|--------------------------------------------------------------------------
-|
-| We need to illuminate PHP development, so let us turn on the lights.
-| This bootstraps the framework and gets it ready for use, then it
-| will load up this application so that we can run it and send
-| the responses back to the browser and delight our users.
-|
-*/
-
-$app = require_once __DIR__.'/../bootstrap/app.php';
 
 /*
 |--------------------------------------------------------------------------
@@ -56,12 +60,12 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
-$kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
+$app = require_once __DIR__.'/../bootstrap/app.php';
+
+$kernel = $app->make(Kernel::class);
 
 $response = $kernel->handle(
-    $request = Illuminate\Http\Request::capture()
-);
-
-$response->send();
+    $request = Request::capture()
+)->send();
 
 $kernel->terminate($request, $response);

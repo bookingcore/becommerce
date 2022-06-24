@@ -4,6 +4,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryTranslation;
 
@@ -12,7 +13,7 @@ class CategoryController extends AdminController
     public function __construct()
     {
         parent::__construct();
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('category');
     }
 
     public function index(Request $request)
@@ -49,7 +50,7 @@ class CategoryController extends AdminController
         if (empty($row)) {
             return redirect(route('product.admin.category.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
@@ -72,6 +73,9 @@ class CategoryController extends AdminController
 
     public function store(Request $request , $id)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_others');
         $this->validate($request, [
             'name' => 'required'
@@ -89,7 +93,9 @@ class CategoryController extends AdminController
         $row->fillByAttr([
             'name','content','image_id','parent_id'
         ],$request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'),true);
+        $res = $row->saveWithTranslation($request->input('lang'));
+        $row->saveSEO($request,$request->input('lang'));
+
 
         if ($res) {
             return back()->with('success',  __('Category saved') );
@@ -125,7 +131,6 @@ class CategoryController extends AdminController
     {
         $pre_selected = $request->query('pre_selected');
         $selected = $request->query('selected');
-
         if($pre_selected && $selected){
             if(is_array($selected))
             {
@@ -135,7 +140,16 @@ class CategoryController extends AdminController
                     'items'=>$items
                 ]);
             }
-
+            $item = ProductCategory::find($selected);
+            if(empty($item)){
+                return response()->json([
+                    'text'=>''
+                ]);
+            }else{
+                return response()->json([
+                    'text'=>$item->name
+                ]);
+            }
         }
         $q = $request->query('q');
         $query = ProductCategory::select('id', 'name as text')->where("status","publish");

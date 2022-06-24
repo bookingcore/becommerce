@@ -2,26 +2,40 @@
 
 namespace Modules\Product\Models;
 
-use Illuminate\Support\Arr;
+use App\BaseModel;
+use App\User;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\Terms;
+use Illuminate\Support\Facades\DB;
+use Modules\Campaign\Models\CampaignProduct;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\Term;
+use Modules\Core\Traits\BCSearchable;
 use Modules\Media\Helpers\FileHelper;
-use Modules\News\Models\Tag;
+use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderItem;
+use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Resources\BrandResource;
+use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Traits\HasObjectModel;
+use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Modules\User\Models\UserWishList;
+use Themes\Base\Database\Factories\ProductFactory;
+use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 
-class Product extends BaseProduct
+class Product extends BaseModel
 {
+    use HasFactory, HasStockValidation, SoftDeletes;
+    use BCSearchable;
+    use HasObjectModel;
+
     protected $table = 'products';
     public $type = 'product';
-    public $checkout_booking_detail_file       = 'Product::frontend/booking/detail';
-    public $checkout_booking_detail_modal_file = 'Product::frontend/booking/detail-modal';
-    public $email_new_booking_file             = 'Product::emails.new_booking_detail';
 
     protected $fillable = [
         'title',
@@ -37,18 +51,23 @@ class Product extends BaseProduct
         'gallery',
         'video',
         'price',
-        'sale_price',
-        'status'
+        'origin_price',
+        'status',
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $seo_type = 'product';
     protected $casts = [
-        'attributes_for_variation'=>'array'
+        'attributes_for_variation'=>'array',
+        'price'=>'float'
     ];
 
     protected $cleanFields = [
         'content','short_desc'
+    ];
+
+    protected $attributes = [
+        'stock_status'=>'in'
     ];
 
     /**
@@ -56,11 +75,17 @@ class Product extends BaseProduct
      */
     protected $reviewClass;
 
+    protected $translation_class = ProductTranslation::class;
 
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->reviewClass = Review::class;
+    }
+
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
     }
 
     public static function getModelName()
@@ -75,6 +100,25 @@ class Product extends BaseProduct
 
     public static function getTypeName(){
         return __('Simple Product');
+    }
+
+    protected function typeName(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                switch ($this->product_type){
+                    case "simple":
+                        return __('Simple Product');
+                    break;
+                    case "variable":
+                        return __('Variable Product');
+                    break;
+                    case "external":
+                        return __('External Product');
+                    break;
+                }
+            }
+        );
     }
 
     /**
@@ -98,7 +142,7 @@ class Product extends BaseProduct
         }
         $meta['seo_desc'] = setting_item_with_lang("product_page_list_seo_desc");
         $meta['seo_share'] = setting_item_with_lang("product_page_list_seo_share");
-        $meta['full_url'] = route('product.index');
+        $meta['full_url'] = url()->current();
         return $meta;
     }
 
@@ -109,12 +153,7 @@ class Product extends BaseProduct
 
     public function getDetailUrl($locale = false)
     {
-        return route('product.detail',['slug'=>$this->slug]);
-    }
-
-    public static function getLinkForPageSearch( $locale = false , $param = [] ){
-
-        return url(app_get_locale(false , false , '/'). 'product'."?".http_build_query($param));
+        return route('product.detail',['slug'=>$this->slug ?  $this->slug : $this->id]);
     }
 
     public function getGallery($featuredIncluded = false)
@@ -131,53 +170,20 @@ class Product extends BaseProduct
         $items = explode(",", $this->gallery);
         foreach ($items as $k => $item) {
             $large = FileHelper::url($item, 'full');
-            $thumb = FileHelper::url($item, 'thumb');
-            $list_item[] = [
-                'large' => $large,
-                'thumb' => $thumb
-            ];
+            if (!empty($large)){
+                $thumb = FileHelper::url($item, 'thumb');
+                $list_item[] = [
+                    'large' => $large,
+                    'thumb' => $thumb
+                ];
+            }
         }
         return $list_item;
     }
 
     public function getEditUrl()
     {
-        return url(route('space.admin.edit',['id'=>$this->id]));
-    }
-
-    public function getDiscountPercentAttribute()
-    {
-        if (    !empty($this->price) and $this->price > 0
-            and !empty($this->sale_price) and $this->sale_price > 0
-            and $this->price > $this->sale_price
-        ) {
-            $percent = 100 - ceil($this->sale_price / ($this->price / 100));
-            return $percent . "%";
-        }
-    }
-
-    public function fill(array $attributes)
-    {
-        if(!empty($attributes)){
-            foreach ( $this->fillable as $item ){
-                $attributes[$item] = $attributes[$item] ?? null;
-            }
-        }
-        return parent::fill($attributes); // TODO: Change the autogenerated stub
-    }
-
-    public function getBookingData()
-    {
-        $booking_data = [
-            'id'           => $this->id,
-            'person_types' => [],
-            'max'          => 0,
-            'open_hours'   => [],
-            'extra_price'  => [],
-            'minDate'      => date('m/d/Y'),
-            'max_guests' =>$this->max_guests  ?? 1
-        ];
-        return $booking_data;
+        return url(route('product.admin.edit',['id'=>$this->id]));
     }
 
     public static function searchForMenu($q = false)
@@ -193,8 +199,8 @@ class Product extends BaseProduct
 
     public static function getMinMaxPrice()
     {
-        $model = parent::selectRaw('MIN( CASE WHEN sale_price > 0 THEN sale_price ELSE ( price ) END ) AS min_price ,
-                                    MAX( CASE WHEN sale_price > 0 THEN sale_price ELSE ( price ) END ) AS max_price ')->where("status", "publish")->first();
+        $model = parent::selectRaw('MIN( min_price ) AS min_price ,
+                                    MAX( max_price ) AS max_price ')->where("status", "publish")->first();
         if (empty($model->min_price) and empty($model->max_price)) {
             return [
                 0,
@@ -216,62 +222,71 @@ class Product extends BaseProduct
     {
         return setting_item("product_review_approved", 1);
     }
-
-    public function check_enable_review_after_booking()
+    public function getReviewNumberPerPage()
     {
-        $option = setting_item("product_enable_review_after_booking", 0);
-        if ($option) {
-            $number_review = $this->reviewClass::countReviewByServiceID($this->id, Auth::id()) ?? 0;
-            $number_booking = $this->bookingClass::countBookingByServiceID($this->id, Auth::id()) ?? 0;
-            if ($number_review >= $number_booking) {
-                return false;
-            }
-        }
-        return true;
+        return setting_item("product_review_number_per_page", 5);
     }
-
     public static function getReviewStats()
     {
-        $reviewStats = [];
-        if (!empty($list = setting_item("product_review_stats", []))) {
-            $list = json_decode($list, true);
-            foreach ($list as $item) {
-                $reviewStats[] = $item['title'];
-            }
-        }
-        return $reviewStats;
+        return [];
     }
 
-    public function getReviewDataAttribute()
+    public function isReviewRequirePurchase(){
+        return (bool) setting_item('product_review_verification_required');
+    }
+
+
+    public function review_list(){
+        return $this->hasMany(Review::class,'object_id')
+            ->where('object_model', $this->type)
+            ->where("status", "approved");
+    }
+
+    public function isBought(){
+        $orderItem  =  OrderItem::where('object_id',$this->id)
+            ->where('object_model',$this->type)
+            ->whereIn('status',[Order::COMPLETED,Order::PAID])
+            ->whereHas('order',function (Builder $builder){
+                $builder->where('customer_id',Auth::id());
+            })->count();
+        return !empty($orderItem)?true:false;
+    }
+
+    protected function reviewData() : AttributeCasts
     {
-        $list_score = [
-            'score_total'  => 0,
-            'score_text'   => __("Not Rate"),
-            'total_review' => 0,
-            'rate_score'   => [],
-        ];
-        $dataTotalReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->first();
-        if (!empty($dataTotalReview->score_total)) {
-            $list_score['score_total'] = number_format($dataTotalReview->score_total, 1);
-            $list_score['score_text'] = Review::getDisplayTextScoreByLever(round($list_score['score_total']));
-        }
-        if (!empty($dataTotalReview->total_review)) {
-            $list_score['total_review'] = $dataTotalReview->total_review;
-        }
-        for ($rate = 5; $rate >= 1; $rate--) {
-            $number = $this->reviewClass::where('rate_number', $rate)->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->count();
-            if (!empty($list_score['total_review'])) {
-                $percent = ($number / $list_score['total_review']) * 100;
-            } else {
-                $percent = 0;
+        return AttributeCasts::make(
+            get:function(){
+                $list_score = [
+                    'score_total'  => 0,
+                    'score_text'   => __("Not Rate"),
+                    'total_review' => 0,
+                    'rate_score'   => [],
+                ];
+                $dataTotalReview = $this->reviewClass::selectRaw(" AVG(rate_number) as score_total , COUNT(id) as total_review ")->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->first();
+                if (!empty($dataTotalReview->score_total)) {
+                    $list_score['score_total'] = number_format($dataTotalReview->score_total, 1);
+                    $list_score['score_text'] = Review::getDisplayTextScoreByLever(round($list_score['score_total']));
+                }
+                if (!empty($dataTotalReview->total_review)) {
+                    $list_score['total_review'] = $dataTotalReview->total_review;
+                }
+                for ($rate = 5; $rate >= 1; $rate--) {
+                    $number = $this->reviewClass::where('rate_number', $rate)->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->count();
+                    if (!empty($list_score['total_review'])) {
+                        $percent = ($number / $list_score['total_review']) * 100;
+                    } else {
+                        $percent = 0;
+                    }
+                    $list_score['rate_score'][$rate] = [
+                        'title'   => $this->reviewClass::getDisplayTextScoreByLever($rate),
+                        'total'   => $number,
+                        'percent' => round($percent),
+                    ];
+                }
+                return $list_score;
             }
-            $list_score['rate_score'][$rate] = [
-                'title'   => $this->reviewClass::getDisplayTextScoreByLever($rate),
-                'total'   => $number,
-                'percent' => round($percent),
-            ];
-        }
-        return $list_score;
+        );
+
     }
 
     /**
@@ -304,8 +319,8 @@ class Product extends BaseProduct
     {
         $number = 0;
         if(!empty($location)) {
-            $number = parent::join('bravo_locations', function ($join) use ($location) {
-                $join->on('bravo_locations.id', '=', $this->table.'.location_id')->where('bravo_locations._lft', '>=', $location->_lft)->where('bravo_locations._rgt', '<=', $location->_rgt);
+            $number = parent::join('core_locations', function ($join) use ($location) {
+                $join->on('core_locations.id', '=', $this->table.'.location_id')->where('core_locations._lft', '>=', $location->_lft)->where('core_locations._rgt', '<=', $location->_rgt);
             })->where($this->table.".status", "publish")->count($this->table.".id");
         }
         if ($number > 1) {
@@ -314,221 +329,492 @@ class Product extends BaseProduct
         return __(":number Space", ['number' => $number]);
     }
 
-    /**
-     * @param $from
-     * @param $to
-     * @return \Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection
-     */
-    public function getBookingsInRange($from,$to){
-
-        $query = $this->bookingClass::query();
-        $query->whereNotIn('status',['draft']);
-        $query->where('start_date','<=',$to)->where('end_date','>=',$from)->take(50);
-
-        $query->where('object_id',$this->id);
-        $query->where('object_model',$this->type);
-
-        return $query->orderBy('id','asc')->get();
-
-    }
-
     public function getStockStatus(){
         $stock = ''; $in_stock = true;
-        if ($this->is_manage_stock > 0){
-            if ($this->stock_status == 'in'){
-                $stock = __(':count in stock',['count'=>$this->quantity - $this->sold]);
-            }
-        } else {
-            $stock = ($this->stock_status == 'in') ? __('In Stock') : '';
-        }
-        if ($this->stock_status == 'out'){
+        if ($this->check_manage_stock() and $this->quantity){
+            $stock = __('In Stock');
+        } elseif(!$this->check_manage_stock() and $this->stock_status == 'in') {
+            $stock = __('In Stock');
+        }else{
             $stock = __('Out Of Stock');
             $in_stock = false;
         }
+
         return [
             'stock'     =>  $stock,
             'in_stock'  =>  $in_stock
         ];
     }
 
-    public function getStockStatusCodeAttribute(){
-        if(!$this->is_manage_stock){
-            return 'in_stock';
-        }
-        switch ($this->stock_status){
-            case 'in':
-                return 'in_stock';
-                break;
-            case 'out':
-                return 'out_stock';
-                break;
-
-        }
-    }
-    public function getStockStatusTextAttribute(){
-        if(!$this->manage_stock){
-            return __('In Stock');
-        }
-        switch ($this->stock_status){
-            case 1:
-                return __('In Stock');
-                break;
-            case 0:
-                return __("Out Stock");
-                break;
-
-        }
-    }
 
     /**
      * Single Tabs
      */
-    public function getTabsAttribute(){
-        $getTabs = [
-            [
-                'id' => 'content',
-                'name' => __('description'),
-                'position' => 10
-            ],
-            [
-                'id' => 'specification',
-                'name' => __('Specification'),
-                'position' => 20
-            ],
-            [
-                'id' => 'vendor',
-                'name' => __('Vendor'),
-                'position' => 30
-            ],
-            [
-                'id' => 'review',
-                'name' => __('Review'),
-                'position' => 40
-            ],
-            [
-                'id' => 'policies',
-                'name' => __('Policies'),
-                'position' => 50
-            ]
-        ];
-        if (empty(setting_item('product_enable_review'))){
-            unset($getTabs[3]);
-        }
-        $tabs = $getTabs;
+    public function tabs(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                $tabs = [
+                    [
+                        'id' => 'content',
+                        'name' => __('Description'),
+                        'position' => 10
+                    ],
+                    [
+                        'id' => 'policies',
+                        'name' => __('Policies'),
+                        'position' => 40
+                    ]
+                ];
+                if(is_vendor_enable()){
+                    $tabs[] = [
+                        'id' => 'vendor',
+                        'name' => __('Vendor'),
+                        'position' => 20
+                    ];
+                }
+                if (setting_item('product_enable_review')){
+                    $tabs[] =[
+                        'id' => 'review',
+                        'name' => __('Review'),
+                        'position' => 30
+                    ];
+                }
 
-        return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
-            return $value['position'] ?? 10;
-        }));
+                return array_values(\Illuminate\Support\Arr::sort($tabs, function ($value) {
+                    return $value['position'] ?? 10;
+                }));
+            }
+        );
+
     }
 
+    public function categorySeeder(){
+        return $this->belongsToMany(ProductCategory::class,ProductCategoryRelation::getTableName(),'target_id','cat_id');
+    }
+    public function termSeeder(){
+        return $this->belongsToMany(Term::class,ProductTerm::getTableName(),'target_id','term_id');
+    }
+    public function tagsSeeder(){
+        return $this->belongsToMany(ProductTag::class,ProductTagRelation::getTableName(),'target_id','tag_id');
+    }
+    public function review(){
+        return $this->hasMany(Review::class,'object_id','id')->where('object_model',$this->type);
+    }
     public function categories(){
-        return $this->hasManyThrough(ProductCategory::class, ProductCategoryRelation::class,'target_id','id','id','cat_id');
+        return $this->belongsToMany(ProductCategory::class, ProductCategoryRelation::getTableName(),'target_id','cat_id');
     }
     public function tags(){
-        return $this->hasManyThrough(Tag::class, ProductTag::class,'target_id', 'id','id','tag_id');
+        return $this->belongsToMany(ProductTag::class, ProductTagRelation::getTableName(),'target_id', 'tag_id');
     }
     public function brand(){
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
     }
     public function variations(){
-    	return $this->hasMany(ProductVariation::class);
+    	return $this->hasMany(ProductVariation::class,'product_id');
     }
-	public function getMinMaxPriceProductVariations(){
-    	if($this->product_type=='variable'){
-		    $array = $this->variations()->pluck('price')->toArray();
-		    $array= array_values(Arr::sort($array));
-		    return ['min'=>head($array),'max'=>last($array)];
-	    }
-	}
-	public function getSameBrandAttribute(){
-		return Product::where('id','!=',$this->id)->where("status", "publish")->where("brand_id", $this->brand_id)->take(3)->inRandomOrder()->get();
-	}
 
-	public function getProductJsAdminDataAttribute(){
-        return [
-            'attributes'=>Attributes::query()->ofType($this->type)->get(),
-            'attributes_for_variation'=>$this->attributes_for_variation
-        ];
+    /**
+     * In case of search_type = join_variation
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function variation(){
+    	return $this->belongsTo(ProductVariation::class,'variant_id');
+    }
+
+	public function productJsAdminData(): AttributeCasts
+    {
+        return AttributeCasts::make(
+            get:function($value){
+                return [
+                    'attributes'=>Attribute::query()->ofType($this->type)->get(),
+                    'attributes_for_variation'=>$this->attributes_for_variation
+                ];
+            }
+        );
+
     }
 
     public function getTermsOfAttr($attr_id)
     {
-         return Terms::query()->select('bravo_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','bravo_terms.id')->where('target_id',$this->id)->get();
+         return Term::query()->select('core_terms.*')->where('attr_id',$attr_id)->join('product_term as pt','pt.term_id','=','core_terms.id')->where('target_id',$this->id)->get();
     }
 
-    public function getAttributesForVariationDataAttribute(){
-	    $res = [];
-	    if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
-        {
-            foreach ($this->attributes_for_variation as $attr_id) {
-                $attr = Attributes::find($attr_id);
-                if(empty($attr)) continue;
+    public function attributesForVariationData(): AttributeCasts
+    {
+        return AttributeCasts::make(
+          get:function($value){
+                $res = [];
+                if(!empty($this->attributes_for_variation) and is_array($this->attributes_for_variation))
+                {
+                    foreach ($this->attributes_for_variation as $attr_id) {
+                        $attr = Attribute::find($attr_id);
+                        if(empty($attr)) continue;
 
-                $res[$attr_id] = [
-                    'attr'=>$attr,
-                    'terms'=>$this->getTermsOfAttr($attr_id)
-                ];
+                        $res[$attr_id] = [
+                            'attr'=>$attr,
+                            'terms'=>$this->getTermsOfAttr($attr_id)
+                        ];
+                    }
+                }
+                return $res;
             }
-        }
-	    return $res;
+        );
+
     }
     protected function get_stock($st, $pr){
         $sold = (!empty($pr->sold)) ? $pr->sold : 0;
-        if ($pr->stock_status == 'in' && $pr->is_manage_stock == 1){
+        if ($pr->stock_status == 'in' && $pr->check_manage_stock()){
             $st = $pr->quantity - $sold;
         }
         return $st;
     }
-    public function addToCart(Request $request)
+
+    public function addToCartValidate($qty=1, $variant_id=null)
     {
-        $quantity = (!empty($request->input('qty'))) ? $request->input('qty') : 1;
-        $stock = $add = 0;
+        if($this->status != 'publish'){
 
-        if (Cart::count() > 0){
-            foreach (Cart::content() as $row){
-                if ($row->id == $request->input('id')){
-                    $stock = $this->get_stock($stock,$this);
-                    if ($row->qty + $request->input('qty') > $stock){
-                        $add = 1;
-                    }
-                }
-            }
-            if ($stock <= 0){$add = 0;}
-        } else {
-            $add = 0;
+            throw  new \Exception(__("Product is not published yet"),403);
         }
-        if ($add == 0) {Cart::add($this,$quantity);}
 
-        $buy_now = $request->input('buy_now');
-        $message = ($add == 0) ? __('":title" has been added to your cart.',['title'=>$this->title]) : __('Product ":title" has been out of stock.',['title'=>$this->title]);
+        if(!empty($variant_id)){
+            $variation = $this->variations()->where('id',$variant_id)->first();
+            if(!$variation){
+                throw  new \Exception('Variation not found..',405);
+            }
+        }
+        switch ($this->product_type){
+            case 'variable':
+                    $variant = $this->variations()->where('id',$variant_id)->first();
+                    if(!empty($variant)){
+                        if(!empty($this->check_manage_stock())){
+                            if(!empty($this->quantity)){
+                                $remainStock = $this->remain_stock;
+                                if($qty>$remainStock){
+                                    throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
+                                }
+                            }else{
+                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
+                            }
+                        }else{
 
-        return $this->sendSuccess(
-            [
-                'status'   => ($add == 0) ? 1 : 0,
-                'fragments'=>get_cart_fragments(),
-                'url'=>$buy_now ? route('booking.checkout') : ''
-            ], $message
-        );
+                            $variant->stockValidation($qty);
+                        }
+                    }else{
+                        throw new \Exception(__('Please select a variation'),407);
+                    }
+                break;
+            case 'external':
+                throw  new \Exception('Product type external. You cannot add to cart!',408);
+                break;
+            default:
+                $this->stockValidation($qty);
+                break;
+        }
+
     }
-
     public function list_attrs(){
-        return Attributes::select('id','name','slug')->get();
+        return Attribute::select('id','name','slug')->get();
     }
 
     public function get_variable($id){
-        return ProductVariationTerm::select('product_variation_term.*','bravo_terms.id as id_term','bravo_attrs.id as id_attrs')
-                    ->join('bravo_terms','product_variation_term.term_id','=','bravo_terms.id')
-                    ->join('bravo_attrs','bravo_terms.attr_id','=','bravo_attrs.id')
+        return ProductVariationTerm::select('product_variation_term.*','core_terms.id as id_term','core_attrs.id as id_attrs')
+                    ->join('core_terms','product_variation_term.term_id','=','core_terms.id')
+                    ->join('core_attrs','core_terms.attr_id','=','core_attrs.id')
                     ->where('product_variation_term.product_id',$id)->get();
     }
 
-    public function update_service_rate(){
-        $rateData = $this->reviewClass::selectRaw("AVG(rate_number) as rate_total")->where('object_id', $this->id)->where('object_model',$this->type)->where("status", "approved")->first();
-        $rate_number = number_format( $rateData->rate_total ?? 0 , 1);
+    public function updateServiceRate(){
+        $rateData = $this->reviewClass::selectRaw("AVG(rate_number) as rate_total")->where('object_id', $this->id)->where('object_model', $this->type)->where("status", "approved")->first();
+        $rate_number = number_format($rateData->rate_total ?? 0, 1);
         $this->review_score = $rate_number;
         $this->save();
     }
+    public function scopeOfVendor($query,User $user){
+        return $query->where('author_id',$user->id);
+    }
     public function hasWishList(){
         return $this->hasOne(UserWishList::class, 'object_id','id')->where('object_model' , $this->type)->where('user_id' , Auth::id() ?? 0);
+    }
+    public function isWishList()
+    {
+        if (Auth::id()) {
+            if (!empty($this->hasWishList) and !empty($this->hasWishList->id)) {
+                return 'active';
+            }
+        }
+        return '';
+    }
+
+    public static function search($filters)
+    {
+        $query = parent::query()->select("products.*");
+
+        $query->where("products.status", "publish");
+
+        if (!empty($filters['min_price']) and !empty($filters['max_price'])) {
+            $raw_sql_min_max = "( ( products.min_price >= ? and products.min_price <= ? ) OR ( products.max_price >= ? and products.max_price <= ? ) )";
+            $query->whereRaw($raw_sql_min_max,[$filters['min_price'],$filters['max_price'],$filters['min_price'],$filters['max_price']]);
+        }
+
+        if (!empty($filters['terms']) and is_array($filters['terms'])) {
+            $query->join('product_term as tt', 'tt.target_id', "products.id")->whereIn('tt.term_id', $filters['terms']);
+        }
+        if (!empty($filters['review_score']) && is_array($filters['review_score'])) {
+            $where_review_score = [];
+            $params = [];
+            foreach ($filters['review_score'] as $number) {
+                $where_review_score[] = " ( products.review_score >= ? AND products.review_score <= ? ) ";
+                $params[] = $number;
+                $params[] = $number.'.9';
+            }
+            $sql_where_review_score = " ( " . implode("OR", $where_review_score) . " )  ";
+            $query->WhereRaw($sql_where_review_score,$params);
+        }
+
+        if (!empty($filters['brand']) && is_array($filters['brand'])){
+            $query->whereIn('products.brand_id', $filters['brand']);
+        }
+
+        if (!empty($filters['tag'])){
+            $tag = ProductTag::select('id')->where('slug',$filters['tag'])->first();
+            if($tag) {
+                $query->join('product_tag_relation', 'products.id', '=', 'product_tag_relation.target_id')->where('tag_id', $tag->id);
+            }
+        }
+
+        if (!empty($filters['cat_ids'])) {
+            $category_ids = $filters['cat_ids'];
+            $query->join('product_category_relations', function ($join) use ($category_ids) {
+                $join->on('products.id', '=', 'product_category_relations.target_id')
+                    ->whereIn('product_category_relations.cat_id', $category_ids);
+            });
+        }
+
+        if (!empty($filters['category_id'])){
+            $query->join('product_category_relations as ctr', 'products.id','=','ctr.target_id')->where('ctr.cat_id', $filters['category_id']);
+        }
+
+        if (!empty($filters['s'])){
+            $search = $filters['s'];
+            $query->where('products.title','LIKE',"%$search%");
+        }
+
+        if(!empty($filters['is_featured']))
+        {
+            $query->where('products.is_featured',1);
+        }
+
+        if(!empty($filters['vendor_id']))
+        {
+            $query->where('products.author_id',$filters['vendor_id']);
+        }
+
+        if(setting_item('product_hide_products_out_of_stock'))
+        {
+            $query->where('stock_status','in');
+        }
+        if(!empty($filters['pricing_type']))
+        {
+            switch ($filters['pricing_type']){
+                case "free":
+                    $query->where('price','=','0');
+                    break;
+                case "paid":
+                    $query->where('price','>',0);
+                    break;
+            }
+        }
+
+
+        $orderby = $filters['order_by'] ?? "desc";
+        if(!in_array($orderby,['asc','desc'])) $orderby = 'asc';
+
+        $order = $filters['order'] ?? $filters['sort'] ?? "id";
+
+        switch ($order){
+            case "price_asc":
+                $query->orderBy("products.min_price", "asc");
+                break;
+            case "price_desc":
+                $query->orderBy("products.min_price", "desc");
+                break;
+            case "rate":
+                $query->orderBy("review_score", $orderby);
+                break;
+            case"id":
+            case"title":
+                $query->orderBy("products.".$order, $orderby);
+            break;
+            default:
+                $query->orderBy("is_featured", "desc");
+                $query->orderBy("id", "desc");
+        }
+
+        if(!empty($filters['search_type'])) {
+            switch ($filters['search_type']) {
+                case "join_variation":
+                    $variation_table = ProductVariation::getTableName();
+                    $query->leftJoin($variation_table, $variation_table . '.product_id', 'products.id');
+                    $query->addSelect(DB::raw($variation_table . '.id as `variant_id`'));
+                    $query->with('variation');
+                    $query->groupBy(['products.id', 'variant_id']);
+                    break;
+            }
+        }
+        $query->groupBy("products.id");
+        return $query->with(['hasWishList','brand','translation']);
+    }
+
+    public function variationMappingResource(){
+        if(empty($data_variations = $this->variations))
+            return false;
+        $list_variations = $list_attributes=  [];
+        foreach($data_variations as  $variation){
+            if(empty($variation->isActive($this->check_manage_stock()))) continue;
+
+            $variation->setRelation('parent',$this);
+
+            $term_ids = $variation->term_ids;
+            $list_variations[$variation->id] = ['variation_id'=>$variation->id,'variation'=>$variation->getAttributesForDetail($this)];
+            foreach($this->attributes_for_variation_data as $item){
+                foreach($item['terms'] as $term){
+                    if(in_array($term->id,$term_ids)){
+                        $list_variations[$variation->id]['terms'][] = ["id"=>$term->id,"title"=> $term->name];
+                        $list_attributes[ $item['attr']->name ][$term->id] = [
+                            'name'=>$term->name,
+                            'color'=>$term->content,
+                            'image'=>"",
+                            'type'=>$item['attr']->display_type,
+                        ];
+                    }
+                }
+            }
+        }
+        return [
+            'variations'=>$list_variations,
+            'attributes'=>$list_attributes,
+        ];
+    }
+
+    public function active_campaign(){
+        return $this->hasOne(CampaignProduct::class,'product_id')->where('start_date','<=',date('Y-m-d'))->where('end_date','>=',date('Y-m-d'))->where('status','active');
+    }
+
+    public function updateMinMaxPrice(){
+        $this->min_price = $this->price;
+        $this->max_price = $this->price;
+        if ($this->product_type == 'variable') {
+            if (!empty($variations  = $this->variations)) {
+                $this->min_price = $variations->min('price')??$this->price;
+                $this->max_price = $variations->max('price')??$this->price;
+            }
+        }
+        $active_campaign = $this->active_campaign;
+        if($active_campaign and $active_campaign->isActiveNow()){
+            $this->min_price -= $active_campaign->discount_amount * $this->min_price;
+        }
+    }
+
+
+    public function cartExtraParams(Request $request){
+        return [];
+    }
+    /**
+     * Is Tax included in Pricing
+     */
+    public function isTaxIncluded()
+    {
+        return true;
+    }
+
+
+    public function getImageUrl($size = "medium")
+    {
+
+        $url = FileHelper::url($this->image_id, $size);
+        return $url ? $url : '';
+    }
+
+    protected function discountPercent(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return \Illuminate\Database\Eloquent\Casts\Attribute::make(
+            get:function(){
+                $price = $this->sale_price;
+                if (  $price < $this->origin_price) {
+                    $percent = 100 - ceil($price / ($this->origin_price / 100));
+                    return $percent;
+                }
+                return null;
+            }
+        );
+    }
+    protected function salePrice(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return AttributeCasts::make(
+            get:function(){
+                $price = $this->price;
+                $active_campaign  = $this->active_campaign;
+                if($active_campaign and $active_campaign->isActiveNow()){
+                    $price -= $price * $active_campaign->discount_amount/100;
+                }
+
+                return $price;
+            }
+        );
+    }
+    protected function displayPrice(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return AttributeCasts::make(
+            get:function(){
+                return format_money($this->sale_price);
+            }
+        );
+    }
+    protected function displaySalePrice(): \Illuminate\Database\Eloquent\Casts\Attribute
+    {
+        return AttributeCasts::make(
+            get:function(){
+                $price = $this->sale_price;
+                if ($this->origin_price > $price) {
+                    return format_money($this->origin_price);
+                }
+                return false;
+            }
+        );
+    }
+
+    public function delete()
+    {
+        ProductDeleteEvent::dispatch($this);
+        return parent::delete(); // TODO: Change the autogenerated stub
+    }
+
+    public function related(){
+
+        $query = parent::query()->select('products.*')->where('products.status','publish')
+            ->where('products.id','!=',$this->id);
+
+        if($cats = $this->categories){
+            $cats->join(ProductCategoryRelation::getTableName().' as cats_relations','cats_relations.target_id','=','products.id');
+            $cats->whereIn('cats_relations.cat_id',$cats->pluck('id'));
+
+        }elseif($brand = $this->brand){
+            $cats->where('brand_id',$brand);
+        }
+
+        return $query;
+    }
+
+    public function toSearchableArray()
+    {
+        return [
+            'id'=>$this->id,
+            'title'=>$this->title,
+            'image'=>get_file_url($this->image_id),
+            'categories'=>CategoryResource::collection($this->categories),
+            'brand'=>new BrandResource($this->brand),
+            'url'=>$this->getDetailUrl()
+        ];
     }
 }

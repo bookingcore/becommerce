@@ -40,7 +40,7 @@ class PageController extends Controller
         if (empty($page) || !$page->is_published) {
             abort(404);
         }
-        $translation = $page->translateOrOrigin(app()->getLocale());
+        $translation = $page->translate(app()->getLocale());
         $data = [
             'row' => $page,
             'p_style'   => $page->page_style,

@@ -2,14 +2,16 @@
 namespace Modules\Review\Models;
 
 use App\BaseModel;
-use Modules\Review\Models\ReviewMeta;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Modules\News\Models\News;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Review extends BaseModel
 {
     use SoftDeletes;
-    protected $table    = 'bravo_review';
+    protected $table    = 'core_review';
     protected $fillable = [
         'object_id',
         'object_model',
@@ -18,7 +20,8 @@ class Review extends BaseModel
         'rate_number',
         'author_ip',
         'status',
-        'vendor_id'
+        'vendor_id',
+        'author_id',
     ];
 
     /**
@@ -58,7 +61,10 @@ class Review extends BaseModel
 
     public function getService()
     {
-        $allServices = get_bookable_services();
+        $allServices = get_services();
+        $news = (new News());
+        $allServices[$news->type]=get_class($news);
+
         $module = $allServices[$this->object_model];
         return $this->hasOne($module, "id", 'object_id');
     }
@@ -102,5 +108,61 @@ class Review extends BaseModel
             Cache::forget("review_" . $this->object_model . "_" . $this->object_id);
         }
         return $check;
+    }
+
+    public function vendor()
+    {
+        return $this->belongsTo("App\User", "vendor_id");
+    }
+
+    public static function addReview(Request $request,$module,$service_type,$service_id){
+        $all_stats = setting_item($service_type."_review_stats");
+        $review_stats = $request->input('review_stats');
+        $metaReview = [];
+        if (!empty($all_stats)) {
+            $all_stats = json_decode($all_stats, true);
+            $total_point = 0;
+            foreach ($all_stats as $key => $value) {
+                if (isset($review_stats[$value['title']])) {
+                    $total_point += $review_stats[$value['title']];
+                }
+                $metaReview[] = [
+                    "object_id"    => $service_id,
+                    "object_model" => $service_type,
+                    "name"         => $value['title'],
+                    "val"          => $review_stats[$value['title']] ?? 0,
+                ];
+            }
+            $rate = round($total_point / count($all_stats), 1);
+            if ($rate > 5) {
+                $rate = 5;
+            }
+        } else {
+            $rate = min(5,$request->input('review_rate'));
+            $rate = max(0,$rate);
+        }
+        $review = new self([
+            "object_id"    => $service_id,
+            "object_model" => $service_type,
+            "title"        => $request->input('review_title'),
+            "content"      => $request->input('review_content'),
+            "rate_number"  => $rate ?? 0,
+            "author_ip"    => $request->ip(),
+            "status"       => !$module->getReviewApproved() ? "approved" : "pending",
+            'vendor_id'    => $module->author_id,
+            'author_id'    => Auth::id(),
+        ]);
+        if ($review->save()) {
+            if (!empty($metaReview)) {
+                foreach ($metaReview as $meta) {
+                    $meta['review_id'] = $review->id;
+                    $reviewMeta = new ReviewMeta($meta);
+                    $reviewMeta->save();
+                }
+            }
+            $module->updateServiceRate();
+            return $review;
+        }
+        return false;
     }
 }

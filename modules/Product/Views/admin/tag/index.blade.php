@@ -2,7 +2,7 @@
 @section('content')
     <div class="container-fluid">
         <div class="d-flex justify-content-between mb20">
-            <h1 class="title-bar">{{ __('News Tags')}} </h1>
+            <h1 class="title-bar">{{ __('Product Tags')}} </h1>
         </div>
         @include('Layout::admin.message')
         <div class="row">
@@ -24,7 +24,7 @@
                 <div class="filter-div d-flex justify-content-between ">
                     <div class="col-left">
                         @if(!empty($rows))
-                            <form method="post" action="{{url('admin/module/news/tag/bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                            <form method="post" action="{{route('product.admin.tag.bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
                                 {{csrf_field()}}
                                 <select name="action" class="form-control">
                                     <option value="">{{__(" Bulk Action ")}}</option>
@@ -35,7 +35,7 @@
                         @endif
                     </div>
                     <div class="col-left">
-                        <form method="get" action="{{url('/admin/module/news/tag/')}} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
+                        <form method="get" action="{{ route('product.admin.tag.index') }} " class="filter-form filter-form-right d-flex justify-content-end" role="search">
                             @csrf
                             <input placeholder="{{__("Search keyword ...")}}" type="text" name="s" value="{{ Request()->s }}" class="form-control">
                             <button class="btn-info btn btn-icon btn_search" id="search-submit" type="submit">{{__('Search Tag')}}</button>
@@ -46,7 +46,7 @@
                     <p><i>{{__('Found :total items',['total'=>$rows->total()])}}</i></p>
                 </div>
                 <div class="panel">
-                    <form action="" class="bravo-form-item">
+                    <form action="" class="bc-form-item">
                         <div class="panel-body">
                             <table class="table table-hover">
                                 <thead>

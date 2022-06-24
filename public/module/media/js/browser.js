@@ -1,5 +1,4 @@
 (function ($) {
-    'use strict';
     window.uploaderModal = new Vue({
         el: '#cdn-browser',
         data:{
@@ -14,22 +13,22 @@
             apiFinished:false,
             modalEl:false,
             multiple:false,
+            isLoading:false,
             filter:{
                 page:1
             },
-            onSelect:function () {
-
-            },
-            uploadConfigs:{
-
-            }
+            onSelect:function () {},
+            uploadConfigs:{},
+            accept_type:BC.media.groups.default.mime.join(',')
         },
         mounted(){
             let me = this;
-
-            this.modalEl = $('#cdn-browser-modal').modal({
+            var el = document.getElementById('cdn-browser-modal');
+            this.modalEl = new bootstrap.Modal(el,{
                 show:false
-            }).on('show.bs.modal',function () {
+            })
+
+            el.addEventListener('show.bs.modal',function () {
                 me.reloadLists();
             });
 
@@ -47,13 +46,15 @@
             }
         },
         methods:{
-
             show(configs){
+                this.files = [];
+                this.resetSelected();
                 this.uploadConfigs = configs;
-                this.modalEl.modal('show');
+                this.modalEl.show();
+                this.accept_type = BC.media.groups[configs.file_type].mime.join(',');
             },
             hide(){
-                this.modalEl.modal('hide');
+                this.modalEl.hide();
             },
             changePage(p,e){
                 e.preventDefault();
@@ -74,32 +75,46 @@
                     this.selectedLists.push(file);
                 }
             },
-            getUrlParam( paramName ) {
-                var reParam = new RegExp( '(?:[\?&]|&)' + paramName + '=([^&]+)', 'i' );
-                var match = window.location.search.match( reParam );
-
-                return ( match && match.length > 1 ) ? match[1] : null;
+            removeFiles() {
+                var me = this;
+                BCApp.showConfirm({
+                    message: i18n.confirm_delete,
+                    callback: function(result){
+                        if(result){
+                            me.isLoading = true;
+                            $.ajax({
+                                url:BC.media.routes.removeFiles,
+                                type:'POST',
+                                data:{
+                                    file_ids : me.selected
+                                },
+                                dataType:'json',
+                                success:function (data) {
+                                    if(data.status === 1){
+                                        //BCApp.showSuccess(data);
+                                    }
+                                    if(data.status === 0){
+                                        BCApp.showError(data);
+                                    }
+                                    me.isLoading = false;
+                                    me.reloadLists();
+                                },
+                                error:function (e) {
+                                    me.isLoading = false;
+                                    BCApp.showAjaxError(e);
+                                    me.resetSelected();
+                                }
+                            });
+                        }
+                    }
+                })
             },
             sendFiles(){
-
                 if(typeof this.onSelect == 'function'){
                     let f = this.onSelect;
                     f(this.selectedLists)
                 }
-
-                if(this.selectedLists.length) {
-                    var funcNum = this.getUrlParam('CKEditorFuncNum');
-                    if (funcNum) {
-                        window.opener.CKEDITOR.tools.callFunction(funcNum, bookingCore.url + '/media/preview/' + this.selectedLists[0].id + '/full');
-                        window.close();
-                    }
-                }
-
                 this.hide();
-                this.selectedLists = [];
-                this.selected = [];
-
-
             },
             init(){
                 var me = this;
@@ -107,10 +122,10 @@
             },
             reloadLists(){
                 var me = this;
-                this.selected = [];
                 $("#cdn-browser .icon-loading").addClass("active");
+                me.isLoading = true;
                 $.ajax({
-                    url:bookingCore.url+'/admin/module/media/getLists',
+                    url:BC.media.routes.getLists,
                     type:'POST',
                     data:{
                         file_type:this.uploadConfigs.file_type,
@@ -119,55 +134,59 @@
                     },
                     dataType:'json',
                     success:function (json) {
+                        me.resetSelected();
                         me.files = json.data;
                         me.total = json.total;
                         me.totalPage = json.totalPage;
+                        me.isLoading = false;
                         me.apiFinished = true;
-                        $("#cdn-browser .icon-loading").removeClass("active");
                     }
                 });
             },
             upload(files){
                 var me = this;
-
                 if(!files.length) return ;
-
                 for(var i = 0; i < files.length ; i++){
                     var d = new FormData();
-
                     d.append('file',files[i]);
                     d.append('type',this.uploadConfigs.file_type);
-                    $("#cdn-browser .icon-loading").addClass("active");
+                    me.isLoading = true;
                     $.ajax({
-                        url:bookingCore.url+'/admin/module/media/store',
+                        url:BC.media.routes.store,
                         data:d,
                         dataType:'json',
                         type:'post',
                         contentType: false,
                         processData: false,
                         success:function (res) {
+                            me.isLoading = false;
                             if(res.status)
                             {
                                 me.reloadLists();
                             }
-                            if(res.message){
-                                alert(res.message);
+                            if(res.status === 0){
+                                BCApp.showError(res);
                             }
-                            $("#cdn-browser .icon-loading").removeClass("active");
+                            $(me.$refs.files).val('');
                         },
                         error:function(e){
-                            console.log(e);
-                            alert('Can not upload file');
-                            $("#cdn-browser .icon-loading").removeClass("active");
+                            BCApp.showAjaxError(e);
+                            me.isLoading = false;
+                            $(me.$refs.files).val('');
                         }
                     })
                 }
-
             },
             initUploader(){
 
+            },
+            resetSelected(){
+                this.selectedLists = [];
+                this.selected = [];
+                this.total = 0;
+                this.totalPage = 0;
+                this.apiFinished = false;
             }
-
         }
     });
 

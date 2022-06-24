@@ -3,6 +3,7 @@ namespace Modules;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Modules\Core\Helpers\AdminMenuManager;
 
 class AdminController extends Controller
 {
@@ -14,7 +15,7 @@ class AdminController extends Controller
     public function checkPermission($permission = false)
     {
         if ($permission) {
-            if (!Auth::user()->hasPermissionTo($permission)) {
+            if (!Auth::user()->hasPermission($permission)) {
                 abort(403);
             }
         }
@@ -22,6 +23,11 @@ class AdminController extends Controller
 
     public function hasPermission($permission)
     {
-        return Auth::user()->hasPermissionTo($permission);
+        return Auth::user()->hasPermission($permission);
+    }
+
+    public function setActiveMenu($item)
+    {
+        AdminMenuManager::setActive($item);
     }
 }

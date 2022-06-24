@@ -2,15 +2,25 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Modules\News\Models\News;
+use Modules\News\Models\NewsTag;
+use Modules\Theme\ThemeManager;
+use Themes\Base\Database\Factories\ProductTagFactory;
 
 class ProductTag extends BaseModel
 {
-    protected $table = 'product_tag';
-    protected $fillable = [
-        'target_id',
-        'tag_id'
+    use HasFactory;
+
+    protected $table = 'product_tags';
+    protected $fillable      = [
+        'name',
+        'content',
+        'slug'
     ];
+    protected $slugField     = 'slug';
+    protected $slugFromField = 'name';
+    protected $seo_type = 'product_tags';
 
     public static function getModelName()
     {
@@ -19,45 +29,49 @@ class ProductTag extends BaseModel
 
     public static function searchForMenu($q = false)
     {
-
+        $query = static::select('id', 'name');
+        if ($q) {
+            $query->where('name', 'like', "%" . $q . "%");
+        }
+        $a = $query->limit(10)->get();
+        return $a;
     }
 
-    public function tag()
+    public static function saveTagByName($tag_name)
     {
-        return $this->belongsTo('Modules\Product\Models\ProductTag');
-    }
-
-    public static function getAll()
-    {
-        return self::with('tag')->get();
-    }
-
-    public static function addTag($tags_ids, $news_id)
-    {
-        if (!empty($tags_ids)) {
-            foreach ($tags_ids as $tag_id) {
-                $find = parent::where('target_id', $news_id)->where('tag_id', $tag_id)->first();
+        $ids = [];
+        if (!empty($tag_name)) {
+            foreach ($tag_name as $name) {
+                $find = parent::where('name', trim($name))->first();
                 if (empty($find)) {
-
-                    $a = new self();
-                    $a->target_id = $news_id;
-                    $a->tag_id = $tag_id;
-                    $a->save();
+                    $tag = new self();
+                    $tag->name = $name;
+                    $tag->save();
+                    $ids[] = $tag->id;
+                } else {
+                    $ids[] = $find->id;
                 }
             }
         }
+        return $ids;
     }
 
-    public static function getTags(){
+    public function getDetailUrl($locale = false)
+    {
+        return route('product.tag',['slug'=>$this->slug]);
+    }
 
-        $query = Tag::query()->with('translations');
+    public static function search($filters = []){
+        return parent::query();
+    }
 
-        $query->select(['core_tags.*']);
+    public function products(){
+        return $this->belongsToMany(Product::class,ProductTagRelation::getTableName(),'tag_id','target_id');
+    }
 
-        return $query
-            ->join('product_tag as nt','nt.tag_id','=','core_tags.id')->orderByRaw('RAND()')
-            ->groupBy('core_tags.id')
-            ->get(10);
 
+    protected static function newFactory()
+    {
+        return ProductTagFactory::new();
     }
 }

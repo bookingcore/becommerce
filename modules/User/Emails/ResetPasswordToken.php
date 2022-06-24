@@ -11,20 +11,26 @@
         use Queueable, SerializesModels;
 
         public $token;
+        public $user;
         const CODE = [
+            'first_name'    => '[first_name]',
+            'last_name'     => '[last_name]',
+            'name'          => '[name]',
+            'email'         => '[email]',
             'buttonReset' => '[button_reset_password]',
         ];
 
-        public function __construct($token)
+        public function __construct($token,$user)
         {
             $this->token = $token;
+            $this->user= $user;
         }
 
         public function build()
         {
             $subject = __('Reset Password');
             if (!empty(setting_item('user_content_email_forget_password'))) {
-                $body = $this->replaceContentEmail(setting_item_with_lang('user_content_email_forget_password',app_get_locale()));
+                $body = $this->replaceContentEmail(setting_item_with_lang('user_content_email_forget_password',app()->getLocale()));
             } else {
                 $body = $this->defaultBody();
             }
@@ -34,12 +40,12 @@
         {
             if (!empty($content)) {
                 foreach (self::CODE as $item => $value) {
-                    if (method_exists($this, $item)) {
-                        $replace = $this->$item();
-                    } else {
-                        $replace = '';
+
+                    if($item == "buttonReset") {
+                        $content = str_replace($value, $this->buttonReset(), $content);
                     }
-                    $content = str_replace($value, $replace, $content);
+
+                    $content = str_replace($value, @$this->user->$item, $content);
                 }
             }
             return $content;

@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Contact extends BaseModel
 {
     use SoftDeletes;
-    protected $table = 'bravo_contact';
+    protected $table = 'core_contact';
     protected $fillable = [
         'name',
         'email',

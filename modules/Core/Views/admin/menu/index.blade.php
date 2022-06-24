@@ -7,39 +7,59 @@
                 <a href="{{url('admin/module/core/menu/create')}}" class="btn btn-primary">{{__("Add new")}}</a>
             </div>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
+        <div class="filter-div d-flex justify-content-between ">
+            <div class="col-left">
+                @if(!empty($rows))
+                    <form method="post" action="{{url('admin/module/core/menu/bulkEdit')}}" class="filter-form filter-form-left d-flex justify-content-start">
+                        {{csrf_field()}}
+                        <select name="action" class="form-control">
+                            <option value="">{{__(" Bulk Actions ")}}</option>
+                            <option value="delete">{{__(" Delete ")}}</option>
+                        </select>
+                        <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
+                    </form>
+                @endif
+            </div>
+            <div class="col-left">
+
+            </div>
+        </div>
         <div class="panel">
             <div class="panel-title">{{__('All Menus')}}</div>
             <div class="panel-body">
-                <table class="table table-hover">
-                    <thead>
-                    <tr>
-                        <th width="60px"><input type="checkbox" class="check-all"></th>
-                        <th>{{__('Title')}}</th>
-                        <th>{{__("Use for")}}</th>
-                        <th>{{__('Date')}}</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($rows as $row)
+                <form action="" class="bc-form-item">
+                    <table class="table table-hover">
+                        <thead>
                         <tr>
-                            <td><input type="checkbox" name="ids[]" value="{{$row->id}}"></td>
-                            <td>
-                                <a href="{{url('admin/module/core/menu/edit/'.$row->id)}}">{{$row->name}}</a>
-                            </td>
-                            <td>
-                                @foreach($menu_locations as $l=>$menu_id)
-                                    @if($menu_id == $row->id and isset($locations[$l]))
-                                        {{$locations[$l]}}<br>
-                                    @endif
-                                @endforeach
-                            </td>
-                            <td>{{$row->updated_at}}</td>
+                            <th width="60px"><input type="checkbox" class="check-all"></th>
+                            <th>{{__('Title')}}</th>
+                            <th>{{__("Use for")}}</th>
+                            <th>{{__('Date')}}</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                {{$rows->links()}}
+                        </thead>
+                        <tbody>
+                        @foreach($rows as $row)
+                            <tr>
+                                <td><input type="checkbox" name="ids[]" class="check-item" value="{{$row->id}}">
+                                </td>
+                                <td>
+                                    <a href="{{url('admin/module/core/menu/edit/'.$row->id)}}">{{$row->name}}</a>
+                                </td>
+                                <td>
+                                    @foreach($menu_locations as $l=>$menu_id)
+                                        @if($menu_id == $row->id and isset($locations[$l]))
+                                            {{$locations[$l]}}<br>
+                                        @endif
+                                    @endforeach
+                                </td>
+                                <td>{{$row->updated_at}}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                    {{$rows->withQueryString()->links()}}
+                </form>
             </div>
         </div>
     </div>

@@ -4,32 +4,33 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Modules\AdminController;
-use Modules\Core\Models\Attributes;
-use Modules\Core\Models\AttributesTranslation;
-use Modules\Core\Models\Terms;
-use Modules\Core\Models\TermsTranslation;
+use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Core\Models\Attribute;
+use Modules\Core\Models\AttributeTranslation;
+use Modules\Core\Models\Term;
+use Modules\Core\Models\TermTranslation;
 use Illuminate\Support\Facades\DB;
 
 class AttributeController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
         parent::__construct();
     }
 
     public function index(Request $request)
     {
         $this->checkPermission('product_manage_attributes');
-        $listAttr = Attributes::where("service", 'product');
+        $listAttr = Attribute::where("service", 'product');
         if (!empty($search = $request->query('s'))) {
             $listAttr->where('name', 'LIKE', '%' . $search . '%');
         }
         $listAttr->orderBy('created_at', 'desc');
         $data = [
             'rows'        => $listAttr->get(),
-            'row'         => new Attributes(),
-            'translation'    => new AttributesTranslation(),
+            'row'         => new Attribute(),
+            'translation'    => new AttributeTranslation(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -39,23 +40,24 @@ class AttributeController extends AdminController
                     'name'  => __('Attributes'),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attributes')
         ];
         return view('Product::admin.attribute.index', $data);
     }
 
     public function edit(Request $request, $id)
     {
-        $row = Attributes::find($id);
+        $row = Attribute::find($id);
         if (empty($row)) {
             abort(404);
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
         $this->checkPermission('product_manage_attributes');
         $data = [
             'translation'    => $translation,
             'enable_multi_lang'=>true,
-            'rows'        => Attributes::where("service", 'product')->get(),
+            'rows'        => Attribute::where("service", 'product')->get(),
             'row'         => $row,
             'breadcrumbs' => [
                 [
@@ -70,7 +72,8 @@ class AttributeController extends AdminController
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attribute: :name', ['name' => $row->name])
         ];
         return view('Product::admin.attribute.detail', $data);
     }
@@ -84,16 +87,20 @@ class AttributeController extends AdminController
         ]);
         $id = $request->input('id');
         if ($id) {
-            $row = Attributes::find($id);
+            $row = Attribute::find($id);
             if (empty($row)) {
                 abort(404);
             }
         } else {
-            $row = new Attributes($request->input());
+            $row = new Attribute($request->input());
             $row->service = 'product';
         }
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $row->display_type = $request->input('display_type');
+        if(is_default_lang($request->input('lang'))){
+            $row->save();
+        }
+        $res = $row->saveTranslation($request->input('lang'));
         if ($res) {
             return redirect()->back()->with('success', __('Attribute saved'));
         }
@@ -112,7 +119,7 @@ class AttributeController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = Attributes::where("id", $id);
+                $query = Attribute::where("id", $id);
                 $query->first()->delete();
             }
         }
@@ -122,11 +129,11 @@ class AttributeController extends AdminController
     public function terms(Request $request, $attr_id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Attributes::find($attr_id);
+        $row = Attribute::find($attr_id);
         if (empty($row)) {
             abort(404);
         }
-        $listTerms = Terms::where("attr_id", $attr_id);
+        $listTerms = Term::where("attr_id", $attr_id);
         if (!empty($search = $request->query('s'))) {
             $listTerms->where('name', 'LIKE', '%' . $search . '%');
         }
@@ -134,8 +141,8 @@ class AttributeController extends AdminController
         $data = [
             'rows'        => $listTerms->paginate(20),
             'attr'        => $row,
-            "row"         => new Terms(),
-            'translation'    => new TermsTranslation(),
+            "row"         => new Term(),
+            'translation'    => new TermTranslation(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -149,7 +156,8 @@ class AttributeController extends AdminController
                     'name'  => __('Attribute: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Attribute: :name', ['name' => $row->name])
         ];
         return view('Product::admin.terms.index', $data);
     }
@@ -157,11 +165,11 @@ class AttributeController extends AdminController
     public function term_edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_attributes');
-        $row = Attributes::select('bravo_terms.*','bravo_attrs.name as attr_name','bravo_attrs.display_type')->from('bravo_attrs')->join('bravo_terms','bravo_terms.attr_id','=','bravo_attrs.id')->where('bravo_terms.id',$id)->first();
+        $row = Attribute::select('core_terms.*','core_attrs.name as attr_name','core_attrs.display_type')->from('core_attrs')->join('core_terms','core_terms.attr_id','=','core_attrs.id')->where('core_terms.id',$id)->first();
         if (empty($row)) {
             return redirect()->back()->with('error', __('Term not found'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         $data = [
             'row'         => $row,
@@ -184,7 +192,8 @@ class AttributeController extends AdminController
                     'name'  => __('Term: :name', ['name' => $row->name]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'page_title'=>__('Term: :name', ['name' => $row->name])
         ];
         return view('Product::admin.terms.detail', $data);
     }
@@ -197,17 +206,17 @@ class AttributeController extends AdminController
         ]);
         $id = $request->input('id');
         if ($id) {
-            $row = Terms::find($id);
+            $row = Term::find($id);
             if (empty($row)) {
                 abort(404);
             }
         } else {
-            $row = new Terms($request->input());
+            $row = new Term($request->input());
             $row->attr_id = $request->input('attr_id');
         }
         $row->fill($request->input());
         $row->image_id = $request->input('image_id');
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
         if ($res) {
             return redirect()->back()->with('success', __('Term saved'));
         }
@@ -219,10 +228,10 @@ class AttributeController extends AdminController
             'name' => 'required',
             'attr_id'=>'required'
         ]);
-        $row = new Terms($request->input());
+        $row = new Term($request->input());
         $row->attr_id = $request->input('attr_id');
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
         if ($res) {
             return $this->sendSuccess([
                 'id'=>$row->id,
@@ -245,7 +254,7 @@ class AttributeController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = Terms::where("id", $id);
+                $query = Term::where("id", $id);
                 $query->first()->delete();
             }
         }
@@ -260,8 +269,8 @@ class AttributeController extends AdminController
         if($pre_selected && $selected){
             if(is_array($selected))
             {
-                $query = Terms::getForSelect2Query('product');
-                $items = $query->whereIn('bravo_terms.id',$selected)->take(50)->get();
+                $query = Term::getForSelect2Query('product');
+                $items = $query->whereIn('core_terms.id',$selected)->take(50)->get();
                 return response()->json([
                     'items'=>$items
                 ]);
@@ -278,8 +287,8 @@ class AttributeController extends AdminController
             }
         }
         $q = $request->query('q');
-        $query = Terms::getForSelect2Query('product',$q);
-        $res = $query->orderBy('bravo_terms.id', 'desc')->limit(20)->get();
+        $query = Term::getForSelect2Query('product',$q);
+        $res = $query->orderBy('core_terms.id', 'desc')->limit(20)->get();
         return response()->json([
             'results' => $res
         ]);

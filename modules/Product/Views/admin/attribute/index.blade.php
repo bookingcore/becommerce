@@ -44,12 +44,15 @@
                 <div class="panel">
                     <div class="panel-title">{{__("All Attributes")}}</div>
                     <div class="panel-body">
-                        <form class="bravo-form-item">
+                        <form class="bc-form-item">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
                                     <th width="60px"><input type="checkbox" class="check-all"></th>
                                     <th>{{__("Name")}}</th>
+                                    <th>{{__("Type")}}</th>
+                                    <th>{{__("Order")}}</th>
+                                    <th>{{__("Status")}}</th>
                                     <th class="">{{__("Actions")}}</th>
                                 </tr>
                                 </thead>
@@ -61,6 +64,13 @@
                                             </td>
                                             <td class="title">
                                                 <a href="{{route('product.admin.attribute.edit',['id'=>$row->id])}}">{{$row->name}}</a>
+                                            </td>
+                                            <td>
+                                                {{$row->display_type}}
+                                            </td>
+                                            <td>{{$row->position}}</td>
+                                            <td>
+                                                <span class="badge badge-{{$row->status_badge}}">{{$row->status_text}}</span>
                                             </td>
                                             <td>
                                                 <a href="{{route('product.admin.attribute.edit',['id'=>$row->id])}}" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i> {{__('Edit')}}

@@ -11,8 +11,8 @@
     margin-top: 10px;
 }
 [v-cloak] {display: none}
-.dungdt-upload-box{
-    max-width: 250px;
+.bc-upload-box{
+    max-width: 180px;
     /*margin: 0px auto;*/
     position: relative;
     .upload-box{
@@ -24,6 +24,10 @@
         svg{
             width: 120px;
             height: 100px;
+            margin-bottom: 15px;
+        }
+        img{
+            max-width: 100px;
             margin-bottom: 15px;
         }
         &:hover{
@@ -59,6 +63,17 @@
             display: block;
         }
     }
+    .edit-img{
+        position: absolute;
+        color: white;
+        top: 15px;
+        right: 48px;
+        display: none;
+        cursor: pointer;
+        &:active{
+            background: #1a2b47;
+        }
+    }
     .delete{
         color: white;
         position: absolute;
@@ -71,12 +86,31 @@
         }
     }
     &:hover{
-        .delete{
+        .delete, .edit-img{
             display: block;
         }
     }
 }
-.dungdt-upload-multiple{
+.form-group-item{
+    .bc-upload-box{
+        max-width: none;
+        .upload-box {
+            padding: 10px 5px;
+            svg{
+                height: 50px;
+            }
+            .btn-field-upload{
+                font-size: 12px;
+                border: 0px;
+                padding: 5px;
+            }
+        }
+        &.active .attach-demo {
+            max-height: 115px;
+        }
+    }
+}
+.bc-upload-multiple{
     .attach-demo{
         margin: 0px -7px;
         flex-wrap: wrap;
@@ -95,17 +129,28 @@
                 right: 15px;
                 cursor: pointer;
             }
+            .edit-img{
+                position: absolute;
+                color: white;
+                top: 15px;
+                right: 48px;
+                display: none;
+                cursor: pointer;
+                &:active{
+                    background: #1a2b47;
+                }
+            }
+            .edit-img, .delete{
+                z-index: 9;
+            }
             &:hover{
-                .delete{
+                .edit-img, .delete{
                     display: block;
                 }
             }
             .inner{
                 border: 1px solid rgba(195, 207, 216, 0.3);
                 background: #fafbfc;
-                img{
-                    max-width: 100%;
-                }
             }
         }
     }
@@ -245,18 +290,21 @@
         text-align: center;
     }
 }
-
-.he-tree--hidden{
-    display: none;
+.btn{
+    &.has-loading{
+        .fa-spinner{
+            display: none;
+        }
+    }
+    &.loading{
+        .fa-spinner{
+            display: inline-block;
+        }
+    }
 }
-.he-tree .tree-placeholder{
+.fw-600{
+    font-weight: 600;
 }
-.he-tree .tree-placeholder-node{
-    background: #ddf2f9;
-    border: 1px dashed #00d9ff;
-    height: 40px;
-    margin-top: 10px;
-}
-.he-tree .dragging .tree-node-back:hover{
-    background-color: inherit;
+.hl{
+    color:var(--main-color)
 }

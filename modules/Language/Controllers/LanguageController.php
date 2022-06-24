@@ -8,6 +8,7 @@
 namespace Modules\Language\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Modules\FrontendController;
 use Modules\Language\Models\Language;
 
@@ -31,6 +32,15 @@ class LanguageController extends FrontendController
         return redirect($locale.'/'.$path);
     }
 
+    public function setAdminLang(\Illuminate\Http\Request $request,$locale){
+
+        Cookie::queue('core_admin_locale', $locale, 60*24*365);// one year
+
+        return redirect()->back();
+
+    }
+
+
     private function setLocale($locale, $request)
     {
         $lang = Language::where('locale',$locale)->first();
@@ -38,13 +48,7 @@ class LanguageController extends FrontendController
         if(empty($lang)){
             $locale = setting_item('site_locale');
         }
-
         $request->session()->put('website_locale', $locale);
-//
-//        return redirect(add_query_arg([
-//            'set_lang'=>
-//        ]))
-
     }
 
 }

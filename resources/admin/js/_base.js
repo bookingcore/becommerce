@@ -1,6 +1,6 @@
 (function ($) {
-    $('.main-menu .has-children .btn-toggle').on('click',function () {
-        var p = $(this).closest('.has-children');
+    $('.main-menu .btn-toggle').click(function () {
+        var p = $(this).closest('li');
         if(p.hasClass('active')){
             p.removeClass('active');
         }else{
@@ -9,7 +9,7 @@
         }
     });
 
-    $('.btn-toggle-admin-menu,.backdrop-sidebar-mobile').on('click',function () {
+    $('.btn-toggle-admin-menu,.backdrop-sidebar-mobile').click(function () {
        $('body').toggleClass('sidebar-toggled');
     });
 

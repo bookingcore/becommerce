@@ -1,7 +1,7 @@
 (function ($) {
     'use strict';
     window.BravoMapEngine = function (id,configs) {
-        switch (bookingCore.map_provider) {
+        switch (BC.map_provider) {
             case "osm":
                 return new OsmMapEngine(id,configs);
                 break;
@@ -59,12 +59,12 @@
         var head= document.getElementsByTagName('head')[0];
         var script= document.createElement('script');
         script.type= 'text/javascript';
-        script.src= bookingCore.url+'/libs/leaflet1.4.0/leaflet.js';
+        script.src= BC.url+'/libs/leaflet1.4.0/leaflet.js';
         head.appendChild(script);
 
         var link = document.createElement('link');
         link.rel = 'stylesheet';
-        link.href = bookingCore.url+'/libs/leaflet1.4.0/leaflet.css';
+        link.href = BC.url+'/libs/leaflet1.4.0/leaflet.css';
         head.appendChild(link);
 
         window.bc_osm_script_inited = true;
@@ -104,7 +104,7 @@
     OsmMapEngine.prototype.addMarker = function (latLng,options) {
 
         // if(typeof options.icon_options.iconUrl == 'undefined'){
-        //     options.icon_options.iconUrl = bookingCore.url+'/images/favicon.png';
+        //     options.icon_options.iconUrl = BC.url+'/images/favicon.png';
         // }
         // if(options.icon_options){
         //     options.icon = L.icon(options.icon_options);
@@ -241,12 +241,12 @@
         var head= document.getElementsByTagName('head')[0];
         var script= document.createElement('script');
         script.type= 'text/javascript';
-        script.src= 'https://maps.googleapis.com/maps/api/js?key='+bookingCore.map_gmap_key;
+        script.src= 'https://maps.googleapis.com/maps/api/js?key='+BC.map_gmap_key;
         head.appendChild(script);
 
 		var script2 = document.createElement('script');
 		script2.type= 'text/javascript';
-		script2.src= bookingCore.url+'/libs/infobox.js';
+		script2.src= BC.url+'/libs/infobox.js';
 		head.appendChild(script2);
 
         window.bc_gmap_script_inited = true;

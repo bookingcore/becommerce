@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    {{ __('martfury :version Installer',['version'=>config('app.version')]) }}
+    {{ __('Becommerce :version Installer',['version'=>config('app.version')]) }}
 @endsection
 
 @section('container')

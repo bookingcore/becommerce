@@ -1,6 +1,7 @@
 <?php
 namespace Modules\User\Models;
 use App\BaseModel;
+use Modules\Product\Models\Product;
 
 class UserWishList extends BaseModel
 {
@@ -11,10 +12,8 @@ class UserWishList extends BaseModel
         'user_id'
     ];
 
-    public function getService()
+    public function service()
     {
-        $allServices = get_bookable_services();
-        $module = $allServices[$this->object_model];
-        return $this->hasOne($module, "id", 'object_id');
+        return $this->belongsTo(Product::class, "object_id");
     }
 }

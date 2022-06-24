@@ -1,6 +1,7 @@
 <?php
 namespace Modules\Page\Admin;
 
+use Modules\Page\Hook;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,25 +14,26 @@ class PageController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/page');
+        $this->setActiveMenu('page');
         parent::__construct();
     }
 
     public function index(Request $request)
     {
-        $page_name = $request->query('page');
+        $this->checkPermission("page_manage");
+        $page_name = $request->query('s');
         $datapage = new Page();
         if ($page_name) {
             $datapage = Page::where('title', 'LIKE', '%' . $page_name . '%');
         }
         $datapage = $datapage->orderBy('title', 'asc');
         $data = [
-            'rows'        => $datapage->paginate(20),
+            'rows'        => $datapage->with(['author'])->paginate(20),
             'page_title'=>__("Page Management"),
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('All'),
@@ -44,6 +46,7 @@ class PageController extends AdminController
 
     public function create(Request $request)
     {
+        $this->checkPermission("page_manage");
         $row = new Page();
         $row->fill([
             'status' => 'publish',
@@ -52,11 +55,11 @@ class PageController extends AdminController
         $data = [
             'row'         => $row,
             'translation'=>new PageTranslation(),
-            'templates'   => Template::orderBy('id', 'desc')->limit(100)->get(),
+            'page_title'=>__("Create Page"),
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('Add Page'),
@@ -69,49 +72,81 @@ class PageController extends AdminController
 
     public function edit(Request $request, $id)
     {
+        $this->checkPermission("page_manage");
+
         $row = Page::find($id);
 
         if (empty($row)) {
-            return redirect('admin/module/page');
+            return redirect(route('page.admin.index'));
         }
-        $translation = $row->translateOrOrigin($request->query('lang'));
+        $translation = $row->translate($request->query('lang'));
 
         $data = [
             'translation'  => $translation,
             'row'            =>$row,
-            'templates'   => Template::orderBy('id', 'desc')->limit(100)->get(),
             'breadcrumbs' => [
                 [
                     'name' => __('Pages'),
-                    'url'  => 'admin/module/page'
+                    'url'  => route('page.admin.index')
                 ],
                 [
                     'name'  => __('Edit Page'),
                     'class' => 'active'
                 ],
             ],
-            'enable_multi_lang'=>true
+            'enable_multi_lang'=>true,
+            'page_title'=>__("Edit page: :name",['name'=>$row->title])
         ];
         return view('Page::admin.detail', $data);
     }
 
+    public function toBuilder($id){
+        $row = Page::find($id);
+
+        if (empty($row)) {
+            return redirect(route('page.admin.index'));
+        }
+        if(!$row->template_id){
+            $temp = new Template(
+                [
+                    'title'=>$row->title
+                ]
+            );
+            $temp->save();
+            $row->template_id = $temp->id;
+        }
+        $row->show_template = 1;
+        $row->save();
+
+        return redirect(route('template.admin.edit',['id'=>$row->template_id,'ref'=>'page']));
+    }
+
     public function store(Request $request, $id){
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
+        $request->validate([
+            'title'=>'required'
+        ]);
         if($id>0){
-            $this->checkPermission('page_update');
+            $this->checkPermission('page_manage');
             $row = Page::find($id);
             if (empty($row)) {
                 return redirect(route('page.admin.index'));
             }
         }else{
-            $this->checkPermission('page_create');
+            $this->checkPermission('page_manage');
             $row = new Page();
         }
         $n_request = $request->input();
-        $n_request['page_style'] = json_encode($n_request['page_style']);
-        $n_request['c_background'] = json_encode($n_request['c_background']);
         $row->fill($n_request);
+        $row->show_template = $request->input('show_template');
+        $row->author_id = $request->input('author_id',\auth()->id());
 
-        $row->saveOriginOrTranslation($request->query('lang'),true);
+        $row->saveWithTranslation($request->query('lang'));
+        $row->saveSEO($request,$request->query('lang'));
+
+        do_action(Hook::AFTER_SAVING,$row,$request);
 
         if($id > 0 ){
             return back()->with('success',  __('Page updated') );

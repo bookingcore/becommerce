@@ -28,12 +28,28 @@ class CreateTableCorePages extends Migration
             $table->tinyInteger('show_breadcrumb')->nullable();
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->bigInteger('author_id')->nullable();
+            $table->tinyInteger('show_template')->nullable()->default(0);
+
             $table->softDeletes();
 
             $table->timestamps();
         });
 
-        Schema::create('bravo_attrs', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('core_page_meta', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->integer('parent_id')->nullable();
+            $table->string('name',255)->nullable();
+            $table->text('val')->nullable();
+            $table->integer('create_user')->nullable();
+            $table->integer('update_user')->nullable();
+
+            $table->index(['parent_id','name']);
+            $table->timestamps();
+        });
+
+        Schema::create('core_attrs', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('name',255)->nullable();
@@ -41,14 +57,20 @@ class CreateTableCorePages extends Migration
             $table->string('slug',255)->nullable();
             $table->string('service',50)->nullable();
 
+            $table->tinyInteger('hide_in_filter_search')->nullable()->default(0);
+            $table->tinyInteger('hide_in_single')->nullable()->default(0);
+            $table->tinyInteger('position')->nullable()->default(0);
+
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
+
+            $table->string('status',30)->nullable();
 
             $table->softDeletes();
             $table->timestamps();
         });
 
-        Schema::create('bravo_terms', function (\Illuminate\Database\Schema\Blueprint $table) {
+        Schema::create('core_terms', function (\Illuminate\Database\Schema\Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->string('name',255)->nullable();
@@ -152,7 +174,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_attrs_translations', function (Blueprint $table) {
+        Schema::create('core_attrs_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
@@ -165,7 +187,7 @@ class CreateTableCorePages extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_terms_translations', function (Blueprint $table) {
+        Schema::create('core_terms_translations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('origin_id')->nullable();
             $table->string('locale',10)->nullable();
@@ -190,8 +212,8 @@ class CreateTableCorePages extends Migration
     public function down()
     {
         Schema::dropIfExists('core_pages');
-        Schema::dropIfExists('bravo_attrs');
-        Schema::dropIfExists('bravo_terms');
+        Schema::dropIfExists('core_attrs');
+        Schema::dropIfExists('core_terms');
 
         Schema::dropIfExists('core_page_translations');
         Schema::dropIfExists('core_news_translations');
@@ -199,7 +221,7 @@ class CreateTableCorePages extends Migration
         Schema::dropIfExists('core_tag_translations');
         Schema::dropIfExists('core_menu_translations');
         Schema::dropIfExists('core_template_translations');
-        Schema::dropIfExists('bravo_attrs_translations');
-        Schema::dropIfExists('bravo_terms_translations');
+        Schema::dropIfExists('core_attrs_translations');
+        Schema::dropIfExists('core_terms_translations');
     }
 }

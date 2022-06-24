@@ -4,15 +4,16 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
-use Modules\News\Models\Tag;
+use Modules\Core\Helpers\AdminMenuManager;
 use Illuminate\Support\Str;
 use Modules\News\Models\TagTranslation;
+use Modules\Product\Models\ProductTag;
 
 class TagController extends AdminController
 {
     public function __construct()
     {
-        $this->setActiveMenu('admin/module/product');
+        AdminMenuManager::setActive('product');
         parent::__construct();
     }
 
@@ -21,14 +22,14 @@ class TagController extends AdminController
         $this->checkPermission('product_manage_others');
 
         $tagname = $request->query('s');
-        $taglist = Tag::query() ;
+        $taglist = ProductTag::query() ;
         if ($tagname) {
             $taglist->where('name', 'LIKE', '%' . $tagname . '%');
         }
         $taglist->orderby('name', 'asc');
         $data = [
             'rows'        => $taglist->paginate(20),
-            'row'    => new Tag(),
+            'row'    => new ProductTag(),
             'breadcrumbs' => [
                 [
                     'name' => __('Product'),
@@ -47,15 +48,15 @@ class TagController extends AdminController
     public function edit(Request $request, $id)
     {
         $this->checkPermission('product_manage_others');
-        $row = Tag::find($id);
+        $row = ProductTag::find($id);
         if (empty($row)) {
             return redirect('admin/module/product/tag');
         }
 
         $data = [
             'row'     => $row,
-            'translation'=>$row->translateOrOrigin($request->query('lang')),
-            'parents' => Tag::get(),
+            'translation'=>$row->translate($request->query('lang')),
+            'parents' => ProductTag::get(),
             'enable_multi_lang'=>true
         ];
         return view('Product::admin.tag.detail', $data);
@@ -66,17 +67,17 @@ class TagController extends AdminController
         $this->checkPermission('product_manage_others');
 
         if($id>0){
-            $row = Tag::find($id);
+            $row = ProductTag::find($id);
             if (empty($row)) {
                 return redirect(route('product.admin.tag.index'));
             }
         }else{
-            $row = new Tag();
+            $row = new ProductTag();
 //            $row->status = "publish";
         }
 
         $row->fill($request->input());
-        $res = $row->saveOriginOrTranslation($request->input('lang'));
+        $res = $row->saveWithTranslation($request->input('lang'));
 
         if ($res) {
             if($id > 0 ){
@@ -100,7 +101,7 @@ class TagController extends AdminController
         }
         if ($action == 'delete') {
             foreach ($ids as $id) {
-                Tag::where("id", $id)->first()->delete();
+                ProductTag::where("id", $id)->first()->delete();
             }
         }
         return redirect()->back()->with('success', __('Update success!'));

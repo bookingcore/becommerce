@@ -13,7 +13,7 @@ class CreateBravoReview extends Migration
      */
     public function up()
     {
-        Schema::create('bravo_review', function (Blueprint $table) {
+        Schema::create('core_review', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('object_id')->nullable();
@@ -28,6 +28,7 @@ class CreateBravoReview extends Migration
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();
             $table->bigInteger('vendor_id')->nullable();
+            $table->bigInteger('author_id')->nullable();
             $table->softDeletes();
 
             //Languages
@@ -36,7 +37,7 @@ class CreateBravoReview extends Migration
             $table->timestamps();
         });
 
-        Schema::create('bravo_review_meta', function (Blueprint $table) {
+        Schema::create('core_review_meta', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->integer('review_id')->nullable();
@@ -58,7 +59,7 @@ class CreateBravoReview extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bravo_review');
-        Schema::dropIfExists('bravo_review_meta');
+        Schema::dropIfExists('core_review');
+        Schema::dropIfExists('core_review_meta');
     }
 }

@@ -1,0 +1,339 @@
+
+//Axtronic BannerText
+.slider-fluid{
+    .banner-slider{
+        border-radius: 0;
+        margin-top: 0;
+        .axtronic-modern-slider {
+            .axtronic-box{
+                height: 750px;
+            }
+            .slide-layers{
+                padding-left: 0;
+            }
+        }
+    }
+}
+
+.banner-slider {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border-radius: 12px;
+    &:hover{
+        .swiper-button-prev{
+            left: 10px;
+        }
+        .swiper-button-next{
+            right: 10px;
+        }
+    }
+    .swiper-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-transition-property: -webkit-transform;
+        transition-property: -webkit-transform;
+        -o-transition-property: transform;
+        transition-property: transform, -webkit-transform;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+    }
+
+    .swiper-slide {
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .swiper-button-next, .swiper-button-prev {
+        position: absolute;
+        top: 50%;
+        width: 27px;
+        height: 44px;
+        margin-top: -22px;
+        z-index: 10;
+        cursor: pointer;
+        -webkit-background-size: 27px 44px;
+        background-size: 27px 44px;
+        background: no-repeat 50%;
+        transition: all 0.2s ease-in-out;
+    }
+
+    .swiper-button-next.swiper-button-disabled {
+        opacity: .35;
+        cursor: auto;
+        pointer-events: none;
+    }
+    .swiper-button-next{
+        right: -30px;
+    }
+    .swiper-button-prev {
+        background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 27 44'%3E%3Cpath d='M0 22L22 0l2.1 2.1L4.2 22l19.9 19.9L22 44 0 22z' fill='%23007aff'/%3E%3C/svg%3E");
+        left: -30px;
+        right: auto;
+        &.swiper-button-disabled {
+            opacity: .35;
+            cursor: auto;
+            pointer-events: none;
+        }
+
+
+    }
+
+    .swiper-pagination {
+        position: absolute;
+        text-align: center;
+        -webkit-transition: .3s;
+        -o-transition: .3s;
+        transition: .3s;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        z-index: 10;
+
+        &.swiper-pagination-hidden {
+            opacity: 0;
+        }
+    }
+
+    .swiper-pagination-bullet {
+        width: 30px;
+        height: 20px;
+        border-radius: 0;
+        background-color: transparent;
+        border-bottom: 2px solid var(--accent);
+        position: relative;
+        margin: 0 6px;
+    }
+    .swiper-pagination-bullet-active{
+        border-bottom: 5px solid var(--primary);
+        background-color: transparent;
+    }
+    .swiper-pagination-fraction {
+        color: #000;
+    }
+
+    button.swiper-pagination-bullet {
+        border: none;
+        margin: 0;
+        padding: 0;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+    }
+
+    .axtronic-modern-slider {
+        .axtronic-box {
+            height: 600px;
+            overflow: hidden;
+            display: block;
+        }
+
+        .axtronic-box-inner {
+            max-width: var(--container);
+            margin: 0 auto;
+            height: 100%;
+            padding: 0 calc(var(--grid-gutter) / 2);
+        }
+
+        .skeleton-body, .skeleton-item {
+            height: 100%;
+        }
+
+        .slide-bg-wrap {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+            backface-visibility: hidden;
+            .slide-bg{
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+        }
+        .swiper-slide-active .slide-bg-wrap {
+            transform: scale(1);
+            transition: transform 5s cubic-bezier(.1,.2,.7,1);
+        }
+
+        .slide-bg {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #111;
+        }
+
+        .container, .row {
+            height: 100%;
+        }
+
+        .slide-content {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: start;
+            height: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+
+        .sub-title, .title, .description {
+            color: var(--accent);
+        }
+
+        .slide-layers {
+            max-width: 550px;
+            padding: 30px;
+            padding-left: 80px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(30px);
+            transition: all .1s;
+            transition-delay: .2s;
+        }
+        .swiper-slide-active .slide-layers{
+            transform: translateY(0);
+            opacity: 1;
+            visibility: visible;
+            transition: all .6s cubic-bezier(.1,.2,.7,1);
+        }
+        .sub-title-wrap {
+            margin: 0 0 21px;
+        }
+
+        .sub-title {
+            display: inline-block;
+            font-size: 16px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0;
+            background-color: #13172b63;
+            border-radius: 30px 30px 30px 30px;
+            padding: 6px 16px;
+            color: #ffffff;
+            font-family: var(----base-font);
+        }
+
+        .title {
+            font-size: 60px;
+            font-weight: 700;
+            line-height: 55px;
+            margin: 0;
+        }
+
+        .description-wrap {
+            margin-top: 13px;
+        }
+
+        .description {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 40px;
+            color: var(--primary);
+            span{
+                font-weight: 600;
+                color: var(--text);
+                font-size: 14px;
+                text-transform: uppercase;
+            }
+        }
+
+        .button-wrap {
+            margin: 30px 0 0;
+            .elementor-button{
+                font-size: 16px;
+                font-weight: 600;
+                text-transform: capitalize;
+                line-height: 24px;
+                color: #fff;
+                background-color: var( --primary );
+                border-radius: 8px 8px 8px 8px;
+                padding: 12px 30px;
+            }
+        }
+    }
+}
+
+.axtronic-banner-slider{
+    .axtronic-promotions{
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: var(--grid-gutter);
+        .promotions-item{
+            margin-bottom: 0;
+            .item-content{
+                min-height: 290px;
+            }
+        }
+        &.item_style_1{
+            height: 100%;
+        }
+        &.item_style_2{
+            .promotions-item{
+                grid-column-start: 1;
+                grid-column-end: 3;
+
+            }
+        }
+        &.item_style_3{
+            .promotions-item{
+                &:first-child{
+                    grid-column-start: 1;
+                    grid-column-end: 3;
+                }
+            }
+        }
+    }
+    .vertical-navigation{
+        position: relative;
+
+        .vertical-navigation-header{
+            display: none;
+        }
+        .vertical-menu-category{
+            z-index: 9;
+            position: static;
+            transform: none;
+        }
+    }
+}
+
+@media (min-width: 1024px) {
+    .axtronic-modern-slider .slide-layers {
+        padding: 80px;
+    }
+}
+
+@media (max-width: 768px) {
+    .swiper-container {
+        .elementor-swiper-button {
+            width: 60px;
+            height: 60px;
+            bottom: -30px;
+            font-size: 15px;
+        }
+
+        .elementor-swiper-button-next {
+            left: 60px;
+        }
+
+        .elementor-swiper-button:before {
+            line-height: 62px;
+        }
+    }
+}

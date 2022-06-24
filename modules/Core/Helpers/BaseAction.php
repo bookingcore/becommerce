@@ -67,6 +67,7 @@ abstract class BaseAction
                 });
             }
         } else {
+            // no hook was specified, so clear entire collection
             $this->listeners = collect([]);
         }
     }

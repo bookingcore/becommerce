@@ -4,7 +4,7 @@
         <div class="d-flex justify-content-between mb20">
             <h1 class="title-bar">{{__("Subscribers")}}</h1>
         </div>
-        @include('Layout::admin.message')
+        @include('admin.message')
         <div class="row">
             <div class="col-md-4">
                 <div class="panel">
@@ -30,7 +30,7 @@
                                     <option value="">{{__(" Bulk Action ")}}</option>
                                     <option value="delete">{{__(" Delete ")}}</option>
                                 </select>
-                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="submit">{{__('Apply')}}</button>
+                                <button data-confirm="{{__("Do you want to delete?")}}" class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                             </form>
                         @endif
                     </div>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="panel">
                     <div class="panel-body">
-                        <form class="bravo-form-item">
+                        <form class="bc-form-item">
                             <table class="table table-hover">
                                 <thead>
                                 <tr>
@@ -74,7 +74,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="d-flex justify-content-center">{{$rows->links()}}</div>
+                <div class="d-flex justify-content-center">
+                    {{$rows->withQueryString()->links()}}
+                </div>
             </div>
         </div>
     </div>

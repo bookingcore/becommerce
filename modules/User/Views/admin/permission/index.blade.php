@@ -33,7 +33,7 @@
                     </tbody>
                 </table>
                 </div>
-                {{$rows->links()}}
+                {{$rows->withQueryString()->links()}}
             </div>
         </div>
     </div>

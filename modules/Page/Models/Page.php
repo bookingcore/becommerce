@@ -2,17 +2,16 @@
 namespace Modules\Page\Models;
 
 use App\BaseModel;
-use Astrotomic\Translatable\Contracts\Translatable as TranslatableContract;
-use Astrotomic\Translatable\Translatable;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\DB;
+use App\Traits\HasMeta;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Modules\Core\Models\SEO;
-use function Clue\StreamFilter\fun;
 
 class Page extends BaseModel
 {
-    use SoftDeletes;
+    use SoftDeletes, HasMeta;
+
+    protected $meta_parent_key = 'parent_id';
+    protected $metaClass = PageMeta::class;
 
     protected $table = 'core_pages';
     protected $fillable = [
@@ -23,15 +22,15 @@ class Page extends BaseModel
         'image_id',
         'slug',
         'template_id',
-        'page_style',
-        'show_breadcrumb',
-        'page_style',
-        'c_background'
     ];
     protected $slugField     = 'slug';
     protected $slugFromField = 'title';
     protected $cleanFields = [
         'content',
+    ];
+
+    protected $casts = [
+        'c_background'=>'array'
     ];
 
     public $translatedAttributes = [
@@ -70,9 +69,12 @@ class Page extends BaseModel
         return $a;
     }
 
-    public function getEditUrlAttribute()
-    {
-        return url('admin/module/page/edit/' . $this->id);
+    protected function editUrl():Attribute {
+        return Attribute::make(
+            get:function($val,$attrs){
+                return url('admin/module/page/edit/' . $attrs['id']);
+            }
+        );
     }
 
     public function template()
@@ -84,7 +86,7 @@ class Page extends BaseModel
     {
         $template = $this->template;
         if(!empty($template)){
-            $translation = $template->translateOrOrigin(app()->getLocale());
+            $translation = $template->translate(app()->getLocale());
             return $translation->getProcessedContent();
         }
     }
