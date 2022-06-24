@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "mix watch",
-    "hot": "mix watch --hot",
-    "prod": "mix"
+    "prod": "mix --production"
   },
   "author": "BecommerceTeam",
   "license": "ISC",

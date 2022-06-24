@@ -79,11 +79,7 @@
             </script>
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
             @switch(setting_item('search_driver'))
                 @case ('algolia')
                 <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
