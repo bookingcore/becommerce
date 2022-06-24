@@ -7,13 +7,13 @@
     <div class="bc-page--shop" id="shop-sidebar">
         <div class="m-auto max-w-7xl">
             <form action="" class="bc_form_filter">
-                <div class="gap-4 flex">
-                    <div class="w-1/4">
+                <div class="gap-4 lg:flex">
+                    <div class="w-full lg:w-1/4">
                         @include("product.sidebar")
                     </div>
-                    <div class="w-3/4">
+                    <div class="w-full lg:w-3/4">
                         @include("product.search.header")
-                        <div class="mt-6 grid grid-cols-4 border border-slate-200 border-r-0 border-b-0">
+                        <div class="mt-6 grid lg:grid-cols-4 border border-slate-200 border-r-0 border-b-0">
                             @if($rows->total())
                                 @foreach($rows as $row)
                                     <div class="p-5 border-slate-200 border-r border-b border-solid">
