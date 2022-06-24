@@ -3,8 +3,8 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="bc-loop-product card shadow-sm">
-    <div class="bd-placeholder-img card-img-top position-relative">
+<div class="bc-loop-product">
+    <div class="mb-5">
         <a href="{{$row->getDetailUrl()}}" class="d-block mih-200 bg-f1f1f1">
             {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
         </a>
@@ -25,7 +25,7 @@ $score_total = $reviewData['score_total'];
         </div>
     </div>
     <div class="card-body">
-        <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
+        <a class="card-title text-base font-medium" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         @if(!empty($reviewData['total_review']))
             <div class="card-rating mb-2 d-flex mt-1 align-items-center">
                 @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])

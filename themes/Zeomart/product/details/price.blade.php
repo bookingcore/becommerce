@@ -1,6 +1,6 @@
 <div class="bc-product-price">
     @if($row->product_type=='variable')
-            <p class="price variable-price m-0">
+            <div class="text-lg font-medium">
                 @if($row->min_price == $row->max_price)
                     <span class="amount">{{format_money($row->min_price)}}</span>
                 @else
@@ -8,24 +8,24 @@
                     -
                     <span class="amount">{{format_money($row->max_price)}}</span>
                 @endif
-            </p>
+            </div>
     @else
         @if(!empty($row->display_sale_price))
             <p class="price has-sale m-0 c-f30 fs-16">
-                <ins class="fs-18 fw-700 text-decoration-none pe-1">
+                <span class="text-lg font-medium">
                     <span class="amount">{{$row->display_price}}</span>
-                </ins>
-                <del class="c-000000 pe-1">
+                </span>
+                <span class="c-000000 pe-1 text-gray-500">
                     <span class="amount">{{$row->display_sale_price}}</span>
-                </del>
+                </span>
                 @if(!empty($row->discount_percent) && !empty($show_discount_percent))
                     <span class="sale sale-1">(-{{$row->discount_percent}})</span>
                 @endif
             </p>
         @else
-            <p class="price single-price m-0">
+            <div class="text-lg font-medium">
                 <ins><span class="amount">{{format_money($row->price)}}</span></ins>
-            </p>
+            </div>
         @endif
     @endif
 </div>

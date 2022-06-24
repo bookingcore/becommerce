@@ -13,10 +13,10 @@
                     </div>
                     <div class="w-3/4">
                         @include("product.search.header")
-                        <div class="grid gap-4 grid-cols-4">
+                        <div class="mt-6 grid grid-cols-4 border border-slate-200 border-r-0 border-b-0">
                             @if($rows->total())
                                 @foreach($rows as $row)
-                                    <div class="">
+                                    <div class="p-5 border-slate-200 border-r border-b border-solid">
                                         @include("product.search.loop")
                                     </div>
                                 @endforeach
