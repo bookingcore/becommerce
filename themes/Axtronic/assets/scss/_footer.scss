@@ -168,7 +168,7 @@
                         flex-wrap: nowrap;
                         input {
                             width: calc(100% - 138px);
-                            border-radius: 12px;
+                            border-radius: 8px !important;
                         }
                         button.btn {
                             position: static;

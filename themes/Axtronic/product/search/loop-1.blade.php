@@ -11,15 +11,15 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="axtronic-loop-product product-item product-item-grid">
-    <div class="product-labels">
-        <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist " data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
-    </div>
+<div class="product-item product-item-grid">
+
     <div class="product-transition">
+        <div class="product-labels">
+            <button class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist " data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></button>
+        </div>
         <div class="product-img-wrap">
             <a href="{{$row->getDetailUrl()}}" >
-                {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100']) !!}
-               {{--<img src="{{ theme_url('Axtronic/images/iPhone201320.jpg') }}" alt="Axtronic WooCommerce" >--}}
+                {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'img-fluid w-100 object-cover img-whp']) !!}
             </a>
         </div>
     </div>

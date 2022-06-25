@@ -69,16 +69,16 @@ class ProductFeature extends BaseBlock
                     'label'         => __('Title style'),
                     'values'        => [
                         [
-                            'value'   => '',
-                            'name' => __("Style 1"),
+                            'value'   => 'justify-content-start',
+                            'name' => __("Left"),
                         ],
                         [
-                            'value'   => 'style_2',
-                            'name' => __("Style 2")
+                            'value'   => 'justify-content-center',
+                            'name' => __("Center")
                         ],
                         [
-                            'value'   => 'style_3',
-                            'name' => __("Style 3")
+                            'value'   => 'justify-content-end',
+                            'name' => __("Right")
                         ],
                     ]
                 ],

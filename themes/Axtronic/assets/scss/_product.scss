@@ -11,6 +11,7 @@ ul.list-product-items{
         display: flex;
         flex-wrap: wrap;
         overflow: hidden;
+
         .product-list-wrap{
             display: flex;
             .product-transition{
@@ -96,13 +97,18 @@ ul.list-product-items{
         }
     }
 }
-
-
+.axtronic-loop-product{
+    margin-bottom: var(--grid-gutter);
+}
 .product-item {
     position: relative;
     transition: all .4s ease-in-out;
     height: 100%;
     background: var(--background);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
     &:hover{
         .product-transition {
             border-color: #DD2955;
@@ -252,13 +258,10 @@ ul.list-product-items{
         }
     }
     &.product-item-grid{
-        display: flex;
-        transition: all ease .4s;
         border-radius: 8px;
-        overflow: hidden;
         padding: 16px;
-        align-items: flex-start;
-
+        flex-direction: row;
+        border: 1px solid var(--border)!important;
         &:hover{
             box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
         }
@@ -282,34 +285,42 @@ ul.list-product-items{
             }
         }
     }
+
+}
+.axtronic-list-products{
+    margin-bottom: 70px;
+    &.style-grid{
+        .product-box{
+            box-shadow: 0 4px 32px 0 rgb(0 0 0 / 4%);
+            transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
+            padding: 32px 24px 32px 24px;
+        }
+    }
 }
 
+
 .product-box-title {
-    border-bottom: 1px solid var(--border);
     transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
     margin-top: 0;
     margin-bottom: 20px;
-    padding: 0 0 10px 0;
+    padding: 0 0 15px 0;
     display: flex;
     justify-content: space-between;
     h2.heading-title{
         margin: 0;
     }
-    &.style_2{
-        border: 0;
-    }
-    &.style_3{
+    &.center{
         border: 0;
         justify-content: center;
+        flex-direction: column;
+        align-items: center;
         .heading-title{
-            color: #ffffff;
-            font-size: 34px;
-            font-weight: 600;
-            line-height: 1.5em;
-            span{
-                color: var(--primary);
-            }
+            margin-bottom: 0.5em;
         }
+    }
+    &.show-category.left{
+
+        border-bottom: 1px solid var(--border);
     }
     .list-category-name{
         margin: 0;
@@ -337,102 +348,63 @@ ul.list-product-items{
     }
 
 }
-.axtronic-list-products{
-    padding: 50px 24px;
-    &.style_2{
-        .product-box{
-            box-shadow: 0px 4px 32px 0px rgb(0 0 0 / 4%);
-            transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
-            padding: 32px 24px 32px 24px;
-            border-radius: 12px 12px 12px 12px;
+.axtronic-normal{
+    .product-box{
+        box-shadow: 0 4px 32px 0 rgb(0 0 0 / 4%);
+        transition: background 0.3s,border 0.3s,border-radius 0.3s,box-shadow 0.3s;
+        padding: 32px 24px 0 24px;
+        border-radius: 12px;
+    }
+    .product-box-title {
+        &.show-category.left{
+            border-bottom: 0;
         }
-        .product-box-title{
-
-            .list-category-name {
-                li {
-                    padding-left: 8px;
-                    a{
-                        background: none;
-                        border: 0;
-                        color: var(--accent);
-                        font-size: 16px;
-                        &:hover{
-                            color: var(--primary);
-                        }
-                        &.light{
-                            color: #ffffff;
-                            &:hover{
-                                color: var(--primary);
-                            }
-                        }
-                    }
-                    &:not(:first-child):not(:last-child){
-                        a{
-                            position: relative;
-                            &:before{
-                                position: absolute;
-                                left: 0;
-                                top: 50%;
-                                transform: translate(0, -50%);
-                                content: "";
-                                width: 3px;
-                                height: 3px;
-                                background-color: var(--accent);
-                            }
-                        }
-                    }
-                    &:last-child{
-                        margin-left: 50px;
-                    }
+        .list-category-name li{
+            padding-left: 8px;
+            &:not(:first-child):not(:last-child){
+                a:before{
+                    position: absolute;
+                    left: 0;
+                    top: 50%;
+                    transform: translate(0, -50%);
+                    content: "";
+                    width: 3px;
+                    height: 3px;
+                    background-color: var(--accent);
+                }
+            }
+            &:last-child{
+                margin-left: 50px;
+                text-align: right;
+                margin-right: 0;
+                a{
+                    font-size: 16px;
+                    font-weight: 500;
+                    line-height: 1.5em;
+                    fill: var(--accent);
+                    color: var(--accent);
+                    background-color: #02010100;
+                    padding: 0;
+                }
+            }
+            a{
+                background: none;
+                border: 0;
+                color: var(--accent);
+                font-size: 16px;
+                &:hover{
+                    color: var(--primary);
                 }
             }
         }
     }
-    &.list-products-bg{
-        background-size: cover;
-        .heading-title{
-            color: #ffffff;
-        }
-        &.style_2{
-            .product-box-title .list-category-name li a{
-                color: #ffffff;
-            }
-        }
-    }
-    &.style_3{
-        text-align: center;
-        .heading-title{
-            color: #ffffff;
-            font-size: 34px;
-            font-weight: 600;
-            line-height: 1.5em;
-            span{
-                color: var(--primary);
-            }
-        }
-        &.style-grid{
-            .heading-title{
-                color: var(--accent);
-            }
-            .product-box-title {
-                border-bottom: 0;
-            }
-        }
-        .product-box-title {
-            display: block;
-            border-bottom: 0;
-            .list-category-name{
-                justify-content: center;
-                margin: 15px 0;
-            }
-        }
-    }
-
 }
-
 .product-slider{
     .swiper-wrapper{
-        padding-bottom: 50px;
+        padding-bottom: 40px;
+    }
+    .axtronic-product-price{
+        margin-bottom: 0;
     }
     .swiper-pagination{
         bottom: 0;
@@ -450,26 +422,26 @@ ul.list-product-items{
     }
 }
 
-.axtronic-slider-best{
+.list-products-bg{
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     margin-bottom: 70px;
-    padding: 80px 24px;
+    padding: 80px 24px 70px;
     text-align: center;
-    .product-box-title{
-        border-bottom: 0;
+    h2.heading-title{
+        color: #FFF;
+        font-size: 34px;
+        font-weight: 600;
+        line-height: 1.5em;
     }
-
+    .swiper-slide{
+        height: auto ;
+    }
     .product-item{
-        overflow: hidden;
-        position: relative;
         border-radius: 8px;
         border: 1px solid var(--border);
-        transition: all .4s ease-in-out;
-        height: 100%;
         padding: 12px;
-        background: var(--background);
         .product-transition{
             border-radius: 0;
             border: 0;
@@ -531,14 +503,13 @@ ul.axtronic-products-special{
                 height: 100%;
                 width: 100%;
                 background: var(--background);
-                .axtronic-loop-product{
-                    background: transparent;
-                    flex-flow: column;
-                }
                 &:hover{
                     background: var(--background2);
                     .product-transition{
                         border-color: var(--border);
+                    }
+                    .product-item{
+                        background-color: transparent;
                     }
                 }
                 .hot-title{
@@ -611,17 +582,15 @@ ul.axtronic-products-special{
         }
         .product-item-grid{
             position: relative;
-            display: flex;
-            flex-wrap: wrap;
-            overflow: hidden;
             transition: all ease .4s;
-            box-shadow: 0 4px 32px rgb(0 0 0 / 8%);
+            box-shadow: 0 4px 32px rgba(0 ,0, 0, 8%);
             border-radius: 8px;
             padding: 16px;
             align-items: center;
             margin-bottom: 0;
+            flex-direction: row;
             &:hover{
-                box-shadow: 0 4px 32px rgb(0 0 0 / 20%);
+                box-shadow: 0 4px 32px rgb(0 ,0, 0,20%);
             }
             .product-transition{
                 flex: 0 0 160px;
@@ -689,6 +658,7 @@ ul.axtronic-products-special{
         }
     }
 }
+
 
 .widget{
         font-size: 14px;
@@ -1009,6 +979,7 @@ ul.axtronic-products-special{
                     }
                 }
             }
+
         }
     }
 }
@@ -1019,7 +990,6 @@ ul.axtronic-products-special{
     background-position: center;
     &.axtronic-features-slider{
         transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
-        padding: 60px 30px 30px;
         border-radius: 12px;
     }
     .product-item{
@@ -1030,6 +1000,22 @@ ul.axtronic-products-special{
             }
             .price{
                 color: #ffffff;
+            }
+        }
+    }
+    &.axtronic-features-gird{
+        li.list-item .product-item-grid{
+            background-color: #ffffff;
+        }
+        .product-item .product-caption {
+            h2 a{
+                color: var(--accent);
+                &:hover{
+                    color: var(--primary);
+                }
+            }
+            .price{
+                color: var(--primary);
             }
         }
     }

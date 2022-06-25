@@ -6,15 +6,19 @@
  * Time: 8:32 AM
  */
 $image = "";
+$padding = 0;
 if (!empty($bg_content)){
     $image = get_file_url( $bg_content ?? false,'full');
+}
+if (!empty($bg_content) || !empty($bg_color)){
+    $padding = "60px 60px 30px";
 }
 ?>
 
 @if(!empty($rows->count()))
 <div class="{{$width_style}}">
-    <div class="axtronic-list-products pt-5 {{ $style_header }} " style="background-image: url('{{ $image}}'); background-color: {{ $bg_color }}">
-        <div class="product-box-title ">
+    <div class="axtronic-list-products axtronic-features axtronic-features-gird" style="background-image: url('{{ $image}}'); background-color: {{ $bg_color }}; padding: {{$padding}}">
+        <div class="product-box-title {{ $style_header }} ">
             <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
         </div>
         <ul class="nav list-items list-product-items axtronic-products-special">

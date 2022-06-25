@@ -1,5 +1,5 @@
 @if(!empty($list_items))
-<div class="axtronic-site-features pt-5 pb-5">
+<div class="axtronic-site-features">
     <div class="container">
         <div class="row">
             @foreach($list_items as $item)

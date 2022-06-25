@@ -7,7 +7,7 @@
  */
 ?>
 @if(!empty($brands))
-    <div class="axtronic-brands style-2">
+    <div class="axtronic-brands style-2" >
         <div class="container">
             <div class="swiper-slider-brands-2 swiper-container">
                 <div class="swiper-wrapper">

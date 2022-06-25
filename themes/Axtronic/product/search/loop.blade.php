@@ -3,9 +3,9 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="axtronic-loop-product product-item">
+<div class=" product-item">
     <div class="product-labels">
-         @if($row->stock_status == "in")
+        @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
                 <span class="onsale product-label">-{{$row->discount_percent}} %</span>
             @else
@@ -53,20 +53,22 @@ $score_total = $reviewData['score_total'];
         <h2 class="product__title">
             <a class="card-title" href="{{$row->getDetailUrl()}}">{{$translation->title}}</a>
         </h2>
-        <div class="axtronic-list-dot mb-2">
-            {!! clean($row->short_desc) !!}
-        </div>
-        @if(!empty($reviewData['total_review']))
-            @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
-        @endif
-        <div class="price">
-            @include('product.details.price')
-        </div>
-        <div class="shop-action shop-action-list">
-            <button class="btn-tooltips btn-addtocart "><i class="axtronic-icon-shopping-cart"></i> {{ __('Add to card')  }}</button>
-            <a href="javascript:void(0)" class="btn-tooltips btn-wishlist service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></a>
-            <button class="btn-tooltips btn-quickview " ><i class="axtronic-icon-eye"></i></button>
-            <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+        <div class="product-caption-action">
+            <div class="axtronic-list-dot mb-2">
+                {!! clean($row->short_desc) !!}
+            </div>
+            @if(!empty($reviewData['total_review']))
+                @include('global.rating',['percent'=>$score_total * 2 * 10 ?? 0])
+            @endif
+            <div class="price">
+                @include('product.details.price')
+            </div>
+            <div class="shop-action shop-action-list">
+                <button class="btn-tooltips btn-addtocart "><i class="axtronic-icon-shopping-cart"></i> {{ __('Add to card')  }}</button>
+                <a href="javascript:void(0)" class="btn-tooltips btn-wishlist service-wishlist {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></a>
+                <button class="btn-tooltips btn-quickview " ><i class="axtronic-icon-eye"></i></button>
+                <button class="btn-tooltips btn-compare"  data-id="{{$row->id}}"><i class="axtronic-icon-sync"></i></button>
+            </div>
         </div>
     </div>
 </div>

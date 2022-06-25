@@ -136,6 +136,7 @@
 
 
 .axtronic-banner{
+    margin-bottom: 80px;
     &.style-1{
         &.banner_fluid{
             .banner-wrap {
@@ -149,7 +150,6 @@
             }
         }
         .banner-wrap {
-            padding: 50px;
             .item-content{
                 .sub-title{
                     font-size: 16px;
@@ -159,7 +159,6 @@
                     font-weight: 600;
                 }
             }
-
         }
     }
     &.banner_fluid{
@@ -175,6 +174,7 @@
         transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
         padding: 30px 60px;
         border-radius: 12px;
+        position: relative;
         .item-content{
             padding: 24px;
             position: relative;
@@ -261,6 +261,9 @@
                     }
                 }
             }
+        }
+        .item-image{
+            width: 33%;
         }
     }
 }
@@ -455,6 +458,10 @@
     overflow: hidden;
 }
 
+.banner-text{
+    padding: 80px 0;
+    text-align: center;
+}
 
 
 //Axtronic Brands
@@ -462,7 +469,8 @@
 .axtronic-brands{
     background-color: var( --background2 );
     transition: background .3s,border .3s,border-radius .3s,box-shadow .3s;
-    padding: 30px 0;
+    padding: 80px 0;
+
     .swiper-slide{
         text-align: center;
         .item-brand{
@@ -480,9 +488,27 @@
             }
         }
     }
+    .swiper-button-next, .swiper-button-prev{
+        &:after{
+            @include themecustom-icon;
+            content: themecustom-char(arrow-right);
+            color: var(--accent);
+
+        }
+        &:hover{
+            &:after{
+
+                color: var(--primary);
+            }
+        }
+    }
+    .swiper-button-prev:after{
+        content: themecustom-char(arrow-left);
+    }
     &.style-2{
         background-color: transparent;
-        margin: 60px 0;
+        padding: 0;
+        margin-bottom: 80px;
         .swiper-slider-brands-2{
             border-style: solid;
             border-width: 1px 1px 1px 1px;
@@ -499,23 +525,7 @@
                     transform: scale(1.1);
                 }
             }
-            .swiper-button-next, .swiper-button-prev{
-                &:after{
-                    @include themecustom-icon;
-                    content: themecustom-char(arrow-right);
-                    color: var(--accent);
 
-                }
-                &:hover{
-                    &:after{
-
-                        color: var(--primary);
-                    }
-                }
-            }
-            .swiper-button-prev:after{
-                content: themecustom-char(arrow-left);
-            }
         }
     }
     &.style-3{

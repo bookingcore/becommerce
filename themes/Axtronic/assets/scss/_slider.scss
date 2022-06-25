@@ -141,7 +141,6 @@
             max-width: var(--container);
             margin: 0 auto;
             height: 100%;
-            padding: 0 calc(var(--grid-gutter) / 2);
         }
 
         .skeleton-body, .skeleton-item {
@@ -270,6 +269,7 @@
 }
 
 .axtronic-banner-slider{
+    padding-top: 40px;
     .axtronic-promotions{
         display: grid;
         grid-template-columns: auto auto;
@@ -292,6 +292,9 @@
         }
         &.item_style_3{
             .promotions-item{
+                .item-content{
+                    min-height: 350px;
+                }
                 &:first-child{
                     grid-column-start: 1;
                     grid-column-end: 3;
@@ -309,6 +312,12 @@
             z-index: 9;
             position: static;
             transform: none;
+            margin-top: 0;
+        }
+    }
+    &.style-2{
+        .banner-slider .axtronic-modern-slider .axtronic-box{
+            height: 724px;
         }
     }
 }

@@ -7,17 +7,17 @@
  */
 ?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products my-5 style-grid {{ $style_header }}">
+    <div class="axtronic-list-products style-grid">
         <div class="container">
             <div class="product-box">
-                <div class="product-box-title mb-4">
-                    <h2 class="heading-title">{!! clean($title) !!}</h2>
-                    @if($categories)
+                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }}">
+                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
+                    @if($is_category)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)
                                 <li><a href="/category/{{$category['slug']}}" class="button">{{$category['name']}}</a></li>
                             @endforeach
-                            <li><a href="/product" class="button">{{ $style_header == 'style_2' ? "View all" : "See all" }}</a></li>
+                            <li><a href="/product" class="button">{{__("View all ")}}<i aria-hidden="true" class="axtronic-icon- axtronic-icon-angle-right"></i></a></li>
                         </ul>
                     @endif
                 </div>
@@ -25,7 +25,7 @@
                     <div class="row">
                         @if(!empty($rows))
                             @foreach($rows as $row)
-                                <div class="col-lg-4 col-sm-6 mb-3">
+                                <div class="col-lg-4 col-sm-6  axtronic-loop-product">
                                     @include('product.search.loop-1')
                                 </div>
                             @endforeach

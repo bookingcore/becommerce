@@ -12,12 +12,12 @@ if (!empty($bg_content)){
 }
 ?>
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products axtronic-slider-best list-products-bg mb-5 py-5 {{ $style_header }}"  style="background-image: url('{{ $bg_image }}')">
+    <div class="axtronic-list-products axtronic-normal list-products-bg"  style="background-image: url('{{ $bg_image }}')">
         <div class="container">
             <div class="product-box">
-                <div class="product-box-title ">
+                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }}">
                     <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
-                    @if($categories)
+                    @if($is_category)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)
                                 <li><a href="/category/{{$category['slug']}}" class="button">{{$category['name']}}</a></li>
@@ -30,7 +30,7 @@ if (!empty($bg_content)){
                     <div class="row">
                         @if(!empty($rows))
                             @foreach($rows as $row)
-                                <div class="col-lg-3 col-sm-6 mb-3">
+                                <div class="col-lg-3 col-sm-6 axtronic-loop-product">
                                     @include('product.search.loop')
                                 </div>
                             @endforeach
