@@ -11,7 +11,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/style.css">
+    <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/style.css?_v={{config('app.asset_version')}}">
     <link rel="stylesheet" href="{{ theme_url('Freshen') }}/css/responsive.css">
     <link href="{{ theme_url('Freshen/dist/css/app.css?_v='.config('app.asset_version')) }}" rel="stylesheet">
     @include('layouts.parts.seo-meta')

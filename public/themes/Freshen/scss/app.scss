@@ -555,3 +555,15 @@ body .order-box{
         top: auto;
     }
 }
+.bc-promotions{
+    .banner_one{
+        .details.style2{
+            .shop_btn{
+                color: #3b3c3b;
+            }
+            .shop_btn:before {
+                background-color: #3b3c3b;
+            }
+        }
+    }
+}

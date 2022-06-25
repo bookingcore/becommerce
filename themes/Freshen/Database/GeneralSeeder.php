@@ -233,7 +233,7 @@ class GeneralSeeder extends Seeder
                 ],
                 [
                     'name'  => 'freshen_list_widget_footer',
-                    'val'   => '[{"title":"NEED HELP","size":"3","content":"<ul class=\"list-unstyled\">\r\n  <li class=\"text-white\"><a class=\"phone\" href=\"#\">Phone: 00 0392 96 32<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Monday - Friday : 9:00 - 20:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Saturday: 11:00 - 14:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Email: oder@freshen.com<\/a><\/li>\r\n<\/ul>"},{"title":"INFORMATION","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">Delivery Information<\/a><\/li>\r\n  <li><a href=\"#\">Privacy Policy<\/a><\/li>\r\n  <li><a href=\"#\">Terms &amp; Conditions<\/a><\/li>\r\n  <li><a href=\"#\">Contact<\/a><\/li>\r\n  <li><a href=\"#\">Returns<\/a><\/li>\r\n  <li><a href=\"#\">Affilate<\/a><\/li>\r\n<\/ul>"},{"title":"ACCOUNT","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">My account<\/a><\/li>\r\n  <li><a href=\"#\">Order History<\/a><\/li>\r\n  <li><a href=\"#\">Wishlist<\/a><\/li>\r\n  <li><a href=\"#\">Shipping<\/a><\/li>\r\n  <li><a href=\"#\">Privacy Policy<\/a><\/li>\r\n  <li><a href=\"#\">Help<\/a><\/li>\r\n<\/ul>"},{"title":"OUR STORES","size":"2","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"#\">New York<\/a><\/li>\r\n  <li><a href=\"#\">London SF<\/a><\/li>\r\n  <li><a href=\"#\">Cockfosters BP<\/a><\/li>\r\n  <li><a href=\"#\">Los Angeles<\/a><\/li>\r\n  <li><a href=\"#\">Chicago<\/a><\/li>\r\n  <li><a href=\"#\">Las Vegas<\/a><\/li>\r\n<\/ul>"}]',
+                    'val'   => '{"0":{"title":"NEED HELP","size":"4","content":"<ul class=\"list-unstyled\">\r\n  <li class=\"text-white\"><a class=\"phone\" href=\"#\">Phone: 00 0392 96 32<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Monday - Friday : 9:00 - 20:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Saturday: 11:00 - 14:00<\/a><\/li>\r\n  <li class=\"text-white\"><a href=\"#\">Email: oder@freshen.com<\/a><\/li>\r\n<\/ul>"},"2":{"title":"ACCOUNT","size":"4","content":"<ul class=\"list-unstyled\">\r\n  <li><a href=\"\/user\/profile\">My account<\/a><\/li>\r\n  <li><a href=\"\/user\/order\">Order History<\/a><\/li>\r\n  <li><a href=\"\/user\/wishlist\">Wishlist<\/a><\/li>\r\n  <li><a href=\"\/user\/address\">Shipping<\/a><\/li>\r\n  <li><a href=\"\/page\/freshen-contact\">Help<\/a><\/li>\r\n<\/ul>"}}',
                 ],
                 [
                     'name'  => 'freshen_footer_info_text',
@@ -517,7 +517,7 @@ class GeneralSeeder extends Seeder
         return  array(
             array(
                 'name'       => 'Hot Offers',
-                'url'        => '/',
+                'url'        => '/product',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -527,7 +527,7 @@ class GeneralSeeder extends Seeder
             ),
             array(
                 'name'       => 'New Arrivals',
-                'url'        => '/',
+                'url'        => '/product',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -537,7 +537,7 @@ class GeneralSeeder extends Seeder
             ),
             array(
                 'name'       => 'Deals of The Day',
-                'url'        => '/',
+                'url'        => '/product',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -550,7 +550,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Fruits',
-                'url'        => '/',
+                'url'        => '/category/fruits',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => 'multi_row',
@@ -559,42 +559,42 @@ class GeneralSeeder extends Seeder
                 'children'   => array(
                     array(
                         'name'       => 'Fruits',
-                        'url'        => '/',
+                        'url'        => '/category/fruits',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Apples & Bananas',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Berries',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Grapes',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Mangoes',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Melons',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Pears',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -602,24 +602,24 @@ class GeneralSeeder extends Seeder
                     ),
                     array(
                         'name'       => 'Apricots',
-                        'url'        => '/',
+                        'url'        => '/category/fruits',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Mixed Dried Fruits',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                            array(
                                 'name'       => 'Prunes',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                            array(
                                 'name'       => 'Raisins',
-                                'url'        => '/',
+                                'url'        => '/category/fruits',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -630,7 +630,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Vegetables',
-                'url'        => '/',
+                'url'        => '/category/vegetables',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => 'multi_row',
@@ -639,42 +639,42 @@ class GeneralSeeder extends Seeder
                 'children'   => array(
                     array(
                         'name'       => 'Vegetables',
-                        'url'        => '/',
+                        'url'        => '/category/vegetables',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Apples & Bananas',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Berries',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Grapes',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Mangoes',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Melons',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Pears',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -682,24 +682,24 @@ class GeneralSeeder extends Seeder
                     ),
                     array(
                         'name'       => 'Apricots',
-                        'url'        => '/',
+                        'url'        => '/category/vegetables',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Mixed Dried Fruits',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Prunes',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Raisins',
-                                'url'        => '/',
+                                'url'        => '/category/vegetables',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -710,7 +710,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Drinks',
-                'url'        => '/',
+                'url'        => '/category/drinks',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -720,7 +720,7 @@ class GeneralSeeder extends Seeder
             ),
             array(
                 'name'       => 'Bakery',
-                'url'        => '/',
+                'url'        => '/category/bakery',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => 'multi_row',
@@ -729,42 +729,42 @@ class GeneralSeeder extends Seeder
                 'children'   => array(
                     array(
                         'name'       => 'Vegetables',
-                        'url'        => '/',
+                        'url'        => '/category/bakery',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Apples & Bananas',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Berries',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Grapes',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Mangoes',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Melons',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Pears',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -772,24 +772,24 @@ class GeneralSeeder extends Seeder
                     ),
                     array(
                         'name'       => 'Apricots',
-                        'url'        => '/',
+                        'url'        => '/category/bakery',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Mixed Dried Fruits',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Prunes',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Raisins',
-                                'url'        => '/',
+                                'url'        => '/category/bakery',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -800,7 +800,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Butter & Egges',
-                'url'        => '/',
+                'url'        => '/category/butter-egges',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -811,7 +811,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Milks & Creams',
-                'url'        => '/',
+                'url'        => '/category/milks-creams',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => 'multi_row',
@@ -820,42 +820,42 @@ class GeneralSeeder extends Seeder
                 'children'   => array(
                     array(
                         'name'       => 'Vegetables',
-                        'url'        => '/',
+                        'url'        => '/category/milks-creams',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Apples & Bananas',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Berries',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Grapes',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Mangoes',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Melons',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Pears',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -863,24 +863,24 @@ class GeneralSeeder extends Seeder
                     ),
                     array(
                         'name'       => 'Apricots',
-                        'url'        => '/',
+                        'url'        => '/category/milks-creams',
                         'item_model' => 'custom',
                         'children'   => array(
                             array(
                                 'name'       => 'Mixed Dried Fruits',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Prunes',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
                             array(
                                 'name'       => 'Raisins',
-                                'url'        => '/',
+                                'url'        => '/category/milks-creams',
                                 'item_model' => 'custom',
                                 'children'   => array(),
                             ),
@@ -891,7 +891,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Meats',
-                'url'        => '/',
+                'url'        => '/category/meats',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
@@ -902,7 +902,7 @@ class GeneralSeeder extends Seeder
 
             array(
                 'name'       => 'Fish',
-                'url'        => '/',
+                'url'        => '/category/fish',
                 'item_model' => 'custom',
                 'model_name' => 'Custom',
                 'layout'     => '',
