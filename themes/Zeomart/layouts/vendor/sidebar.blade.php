@@ -3,12 +3,12 @@ $user = auth()->user();
 $menus = \Modules\Vendor\VendorMenuManager::menus();
 
 ?>
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-    <div class="position-sticky p-3">
-        <ul class="nav flex-column">
-            <li class="nav-item"><a class="fs-14 nav-link d-flex align-items-center @if(in_array(request()->route()->getName(),['vendor.dashboard'])) active @endif" href="{{route('vendor.dashboard')}}"><i class="fa fa-desktop"></i> {{__('Dashboard')}}</a></li>
+<nav id="sidebarMenu" class="pt-14 ">
+    <div class="">
+        <ul class="font-medium">
+            <li class="nav-item mb-2"><a class="transition duration-200 px-5 py-4 block  text-base rounded-[16px] hover:bg-amber-400 @if(in_array(request()->route()->getName(),['vendor.dashboard'])) active bg-amber-400 @endif" href="{{route('vendor.dashboard')}}"><i class="pr-4 fa fa-desktop"></i> {{__('Dashboard')}}</a></li>
             @foreach ($menus as $id=>$menu)
-                <li class="nav-item"><a class="fs-14 nav-link d-flex align-items-center @if(\Modules\Vendor\VendorMenuManager::isActive($id,$menus)) active @endif" href="{{$menu['url'] ?? ''}}"><i class="{{$menu['icon'] ?? ''}}"></i> {{$menu['title'] ?? ''}}</a></li>
+                <li class="nav-item  mb-2"><a class="transition duration-200 px-5 py-4 block  text-base rounded-[16px] hover:bg-amber-400 @if(\Modules\Vendor\VendorMenuManager::isActive($id,$menus)) active bg-amber-400 @endif" href="{{$menu['url'] ?? ''}}"><i class="pr-4 {{$menu['icon'] ?? ''}}"></i> {{$menu['title'] ?? ''}}</a></li>
             @endforeach
         </ul>
     </div>
