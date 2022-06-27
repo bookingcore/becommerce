@@ -14,8 +14,8 @@ if (!empty($bg_content)){
     <div class="axtronic-list-products list-products-bg" style="background-image: url('{{ $bg_image }}')">
         <div class="container">
             <div class="product-box">
-                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }}">
-                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
+                <div class="product-box-title {{ $is_dark ? "dark" : 'light' }} {{ $style_header }} {{ $is_category ? "show-category" : '' }}">
+                    <h2 class="heading-title ">{!! clean($title) !!}</h2>
                     @if($is_category)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)

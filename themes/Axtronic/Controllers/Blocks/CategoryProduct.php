@@ -61,10 +61,10 @@ class CategoryProduct extends BaseBlock
                             'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1])
                         ],
                         [
-                            'id'    => 'icon',
-                            'type'  => 'input',
+                            'id'        => 'icon',
+                            'type'      => 'input',
                             'inputType' => 'text',
-                            'label' => __('Icon ')
+                            'label'     => __('Icon ')
                         ],
                     ]
                 ]

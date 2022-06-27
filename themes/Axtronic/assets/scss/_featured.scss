@@ -180,7 +180,7 @@
     line-height: 1.5em;;
     color: var(--accent);
     &.light{
-        color: #ffffff;
+        color: #ffffff !important;
     }
     &.dark{
         color: var(--accent) !important;

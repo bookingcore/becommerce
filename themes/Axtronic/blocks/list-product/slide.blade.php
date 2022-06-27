@@ -2,8 +2,8 @@
     <div class="axtronic-list-products {{ $style_header }}">
         <div class="container">
             <div class="product-box">
-                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }}">
-                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
+                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }} {{ $is_dark ? "dark" : 'light' }}">
+                    <h2 class="heading-title ">{!! clean($title) !!}</h2>
                     @if($is_category)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)

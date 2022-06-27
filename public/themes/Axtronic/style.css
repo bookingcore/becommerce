@@ -3508,7 +3508,7 @@ header .list-group-item.active {
   color: var(--accent);
 }
 .heading-title.light {
-  color: #ffffff;
+  color: #ffffff !important;
 }
 .heading-title.dark {
   color: var(--accent) !important;
@@ -4904,6 +4904,24 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .product-box-title h2.heading-title {
   margin: 0;
 }
+.product-box-title.light h2.heading-title {
+  color: #ffffff !important;
+}
+.product-box-title.light .list-category-name li a {
+  color: #ffffff !important;
+}
+.product-box-title.light .list-category-name li a:hover {
+  color: var(--accent) !important;
+}
+.product-box-title.dark h2.heading-title {
+  color: var(--accent) !important;
+}
+.product-box-title.dark .list-category-name li a {
+  color: var(--accent) !important;
+}
+.product-box-title.dark .list-category-name li a:hover {
+  color: #ffffff !important;
+}
 .product-box-title.center {
   border: 0;
   justify-content: center;
@@ -4986,6 +5004,11 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .axtronic-normal .product-box-title .list-category-name li a:hover {
   color: var(--primary);
 }
+.axtronic-normal.list-products-bg .product-box {
+  padding: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
 
 .product-slider .swiper-wrapper {
   padding-bottom: 40px;
@@ -4993,17 +5016,18 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .product-slider .axtronic-product-price {
   margin-bottom: 0;
 }
-.product-slider .swiper-pagination {
+.product-slider .swiper-pagination, .product-slider .swiper-pagination-slider {
   bottom: 0;
+  text-align: center;
 }
-.product-slider .swiper-pagination .swiper-pagination-bullet {
+.product-slider .swiper-pagination .swiper-pagination-bullet, .product-slider .swiper-pagination-slider .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
   border: 0;
   background: var(--accent);
   border-radius: 50%;
 }
-.product-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+.product-slider .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active, .product-slider .swiper-pagination-slider .swiper-pagination-bullet.swiper-pagination-bullet-active {
   border: 0;
   background: var(--primary);
 }

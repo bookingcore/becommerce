@@ -46,27 +46,9 @@ class ProductFeature extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
-                    'type'=> "checkbox",
-                    'label'=>__("Color title dark?"),
-                    'id'=> "is_dark",
-                    'default'=>false
-                ],
-                [
-                    'id'        => 'title_content',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Title Content')
-                ],
-                [
-                    'id'        => 'content',
-                    'type'      => 'textArea',
-                    'inputType' => 'textArea',
-                    'label'     => __('Content')
-                ],
-                [
                     'id'            => 'style_header',
                     'type'          => 'radios',
-                    'label'         => __('Title style'),
+                    'label'         => __('Position Title'),
                     'values'        => [
                         [
                             'value'   => 'justify-content-start',
@@ -81,6 +63,26 @@ class ProductFeature extends BaseBlock
                             'name' => __("Right")
                         ],
                     ]
+                ],
+                [
+                    'type'=> "checkbox",
+                    'label'=>__("Color title dark?"),
+                    'id'=> "is_dark",
+                    'default'=>false
+                ],
+                [
+                    'id'        => 'title_content',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Title Content'),
+                    'conditions' => ['style' => '']
+                ],
+                [
+                    'id'        => 'content',
+                    'type'      => 'textArea',
+                    'inputType' => 'textArea',
+                    'label'     => __('Content'),
+                    'conditions' => ['style' => '']
                 ],
                 [
                     'id'            => 'order',
@@ -123,6 +125,12 @@ class ProductFeature extends BaseBlock
                     ]
                 ],
                 [
+                    'id'        => 'number',
+                    'type'      => 'input',
+                    'inputType' => 'number',
+                    'label'     => __('Number Item')
+                ],
+                [
                     'type'=> "checkbox",
                     'label'=>__("Only featured items?"),
                     'id'=> "is_featured",
@@ -155,7 +163,8 @@ class ProductFeature extends BaseBlock
         $model['order'] = $model['order'] ?? "id";
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['is_featured'] = true;
-        $list = Product::search($model)->paginate(7);
+        $model['limit'] = $model['number'] ?? 7;
+        $list = Product::search($model)->paginate($model['limit']);
         $data = [
             'rows'          => $list,
             'title'         => $model['title'] ?? "",

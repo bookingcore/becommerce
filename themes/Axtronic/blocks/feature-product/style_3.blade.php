@@ -34,7 +34,7 @@ $padding = 0;
                                 @endforeach
                             @endif
                         </div>
-                        <div class="swiper-pagination"></div>
+                        <div class="swiper-pagination-slider"></div>
                     </div>
                 </div>
             </div>
