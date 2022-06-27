@@ -2,8 +2,8 @@
     <div class="flex justify-between">
         <div class="left flex justify-start">
             <div class="item pr-5 pt-2.5 pb-2.5">
-                <a href="#">
-                    <img class="inline" src="/themes/zeomart/images/free_delivery.svg" alt="Free Delivery"> Free Delivery
+                <a class="flex" href="#">
+                    <img class="mr-2" src="/themes/zeomart/images/free_delivery.svg" alt="Free Delivery"> Free Delivery
                 </a>
             </div>
             <div class="item pr-5 pt-2.5 pb-2.5">
@@ -38,13 +38,23 @@
                 Follow Us
                 <ul class="social list-none flex">
                     <li class="ml-2 flex items-center">
-                        <a href="#">
+                        <a href="#" class="">
                             <img src="/themes/zeomart/images/icon-facebook.svg" alt="Facebook">
                         </a>
                     </li>
                     <li class="ml-2 flex items-center">
+                        <a href="#" class="">
+                            <img src="/themes/zeomart/images/icon-twitter.svg" alt="Twitter">
+                        </a>
+                    </li>
+                    <li class="ml-2 flex items-center">
                         <a href="#">
-                            <img src="/themes/zeomart/images/icon-twitter.svg" alt="Facebook">
+                            <img src="/themes/zeomart/images/icon-ins.svg" alt="Ins">
+                        </a>
+                    </li>
+                    <li class="ml-2 flex items-center">
+                        <a href="#">
+                            <img src="/themes/zeomart/images/icon-in.svg" alt="In">
                         </a>
                     </li>
                 </ul>
