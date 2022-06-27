@@ -5,6 +5,8 @@ jQuery(function (){
             $this.find('.zm-dropdown-menu').toggleClass('hidden');
         })
         window.onclick = function(e) {
+            console.log(e.target.matches('.zm-dropdown a'));
+            console.log(e.target);
             if (!e.target.matches('.zm-dropdown')) {
                 //$this.find('.zm-dropdown-menu').removeClass('active');
             }

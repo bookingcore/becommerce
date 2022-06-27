@@ -52,7 +52,7 @@
         </script>
         @stack('head')
     </head>
-    <body class="m-auto max-w-7xl {{$body_class ?? ''}}">
+    <body class="{{$body_class ?? ''}}">
         <main class="shrink-0">
             @include('layouts.parts.header')
             @yield('content')
