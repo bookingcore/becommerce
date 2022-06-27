@@ -11,9 +11,9 @@
 @section('content')
     <section class="bc-items-listing">
         <div class="bc-section__content">
-            <div class="d-flex justify-content-between mb-4">
+            <div class="flex justify-between mb-16">
                 <div class="">
-                    <h2>{{$page_title ?? ''}}</h2>
+                    <h2 class="text-3xl font-medium">{{$page_title ?? ''}}</h2>
                     @if($row->slug)
                         <p class="item-url-demo mt-2">{{__("Permalink")}}: {{ url('product' ) }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
                             <input type="hidden" name="slug" value="{{$row->slug}}">
@@ -22,19 +22,26 @@
                 </div>
                 <div class="bc-section__actions">
                     @if(!empty($row->id))
-                    <a class="btn btn-primary" href="{{$row->getDetailUrl()}}" target="_blank"><i class="fa fa-eye"></i> {{__('View Product')}}</a>
+                    <a class="inline-flex items-center btn transition duration-200 bg-amber-400 hover:bg-amber-300" href="{{$row->getDetailUrl()}}" target="_blank">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                            <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
+                        </svg>
+                        {{__('View Product')}}</a>
                     @endif
                 </div>
             </div>
             @include('global.message')
-            @if($row->id)
-                @include('Language::admin.navigation')
-            @endif
+            <div class="mb-5">
+                @if($row->id)
+                    @include('Language::admin.navigation')
+                @endif
+            </div>
             <form action="{{route('vendor.product.store',['id'=>$row->id,'lang'=>request()->query('lang')])}}" method="post">
                 @csrf
-                <div class="@if($row->id) lang-content-box @endif">
-                    <div class="row">
-                        <div class="col-md-9">
+                <div class="@if($row->id) lang-content-box text-base @endif">
+                    <div class="flex gap-4">
+                        <div class="w-3/4">
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__("General Information")}}</strong></div>
                                 <div class="panel-body">
@@ -92,7 +99,7 @@
                                     @if(is_default_lang())
                                         <div class="form-group mb-3">
                                             <label class="control-label mb-2">{{__("Gallery")}}</label>
-                                            {!! \Modules\Media\Helpers\FileHelper::fieldGalleryUpload('gallery',$row->gallery) !!}
+                                            {!! \Modules\Media\Helpers\FileHelper::fieldGalleryUpload('gallery',$row->gallery,['tailwind'=>true]) !!}
                                         </div>
                                     @endif
                                     <div class="form-group mb-3">
@@ -103,7 +110,7 @@
                             </div>
                             @include("Core::admin.seo-meta.seo-meta")
                         </div>
-                        <div class="col-md-3">
+                        <div class="w-1/4">
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__('Publish')}}</strong></div>
                                 <div class="panel-body">
@@ -117,8 +124,12 @@
                                         </div>
                                     @endif
                                 </div>
-                                <div class="panel-footer">
-                                    <button class="btn btn-success" type="submit"><i class="fa fa-save"></i> {{__('Save Changes')}}</button>
+                                <div class="panel-footer rounded-b-16">
+                                    <button class="btn bg-amber-300 hover:bg-amber-400 inline-flex items-center" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                            <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                        </svg>
+                                        {{__('Save Changes')}}</button>
                                 </div>
                             </div>
                             @if(is_default_lang())

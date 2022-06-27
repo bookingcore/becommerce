@@ -15,7 +15,7 @@
                 <table class="table bc-table text-base" cellspacing="0" cellpadding="0">
                     <thead class="bg-[#F3F5F6]">
                     <tr>
-                        <th class="p-3 rounded-l-md font-medium">{{__('ID')}}</th>
+                        <th class="p-3 py-4 rounded-l-md font-medium">{{__('ID')}}</th>
                         <th>{{__('Name')}}</th>
                         <th>{{__('SKU')}}</th>
                         <th>{{__('Stock')}}</th>
@@ -35,13 +35,11 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <a class="text-slate-800" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
-                                <span class="d-flex">
-                                    <div class="me-3">
+                                <a class="flex items-center text-slate-800" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
+                                    <div class="mr-3">
                                         <img src="{{get_file_url($row->image_id)}}" width="60">
                                     </div>
                                     <span class="fw-500">{{$row->title}}</span>
-                                </span>
                                 </a>
                             </td>
                             <td>

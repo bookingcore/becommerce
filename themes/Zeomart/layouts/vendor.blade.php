@@ -68,11 +68,11 @@
 </script>
 
 <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-<script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="{{ theme_url('Base') }}/js/condition.js"></script>
 <script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
 <!-- custom scripts-->
 <script  src="{{ theme_url('Base/js/app.js') }}"></script>
+<script  src="{{ theme_url('Zeomart/js/dev.js?_v='.config('app.asset_version')) }}"></script>
 @stack('footer')
 </body>
 </html>
