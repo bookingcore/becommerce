@@ -17,15 +17,16 @@
                     @endif
                 @endforeach
             </select>
-
-
         </div>
-        <div class="zm-dropdown">
+        <div class="zm-dropdown relative">
             <button class="zm-dropdown-toggle" type="button">Dropdown</button>
-            <div class="zm-dropdown-menu">
-                <a href="#">Đường Dẫn 1</a>
-                <a href="#">Đường Dẫn 2</a>
-                <a href="#">Đường Dẫn 3</a>
+            <div class="zm-dropdown-menu hidden absolute top-full left-0">
+                <div class="item">
+                    <a href="#">Menu 1</a>
+                </div>
+                <div class="item">
+                    <a href="#">Menu 2</a>
+                </div>
             </div>
         </div>
     </li>
