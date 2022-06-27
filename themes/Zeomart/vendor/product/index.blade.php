@@ -2,7 +2,7 @@
 @section('content')
 <section class="bc-items-listing">
     <div class="d-flex justify-content-between mb-4">
-        <h1>{{$page_title ?? ''}}</h1>
+        <h1 class="text-3xl font-medium">{{$page_title ?? ''}}</h1>
         <div class="bc-section__actions"><a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
     </div>
 

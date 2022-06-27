@@ -22,9 +22,9 @@
                 @foreach($top_cards as $card)
                     <div class=" shadow rounded-[16px] px-7 py-8 bg-white {{$card['class']}}">
                         <div class="card-content">
-                            <span class="card-title">{{$card['title']}}</span>
-                            <span class="card-amount">{{$card['amount']}}</span>
-                            <span class="card-desc">{{$card['desc']}}</span>
+                            <div class="card-title mb-3 text-base font-medium">{{$card['title']}}</div>
+                            <div class="card-amount mb-3 text-3xl font-medium ">{{$card['amount']}}</div>
+                            <div class="card-desc text-base font-medium">{{$card['desc']}}</div>
                         </div>
                         <div class="card-media">
                             <i class="{{$card['icon']}}"></i>
@@ -34,9 +34,10 @@
             @endif
         </div>
 
-        <div class="row">
+
+        <div class="grid gap-4 grid-cols-2">
             <div class="col-md-12 col-lg-6 mb-3">
-                <div class="panel">
+                <div class="panel rounded-[16px] ">
                     <div class="panel-title d-flex justify-content-between align-items-center">
                         <strong>{{__('Earning statistics')}}</strong>
                     </div>
@@ -46,16 +47,16 @@
                 </div>
             </div>
             <div class="col-md-12 col-lg-6 ">
-                <div class="panel">
-                    <div class="panel-title d-flex justify-content-between">
-                        <strong>{{__('Recent Orders')}}</strong>
+                <div class="panel rounded-[16px]">
+                    <div class="panel-title flex justify-between mb-3">
+                        <strong class="text-lg">{{__('Recent Orders')}}</strong>
                         <a href="{{route('vendor.order')}}" class="btn-link">{{__("More")}}
                             <i class="icon ion-ios-arrow-forward"></i></a>
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-hover">
-                                <thead>
+                            <table class="table table-hover table-fixed">
+                                <thead class="bg-[#F3F5F6] rounded">
                                 <tr>
                                     <th width="60px">#</th>
                                     <th>{{__("Product")}}</th>
