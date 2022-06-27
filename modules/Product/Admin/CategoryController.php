@@ -104,6 +104,9 @@ class CategoryController extends AdminController
 
     public function editBulk(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_others');
         $ids = $request->input('ids');
         $action = $request->input('action');
