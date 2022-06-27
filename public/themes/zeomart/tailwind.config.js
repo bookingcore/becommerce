@@ -6,6 +6,9 @@ module.exports = {
     ],
     theme: {
         extend: {},
+        borderRadius: {
+            '16':'16px'
+        }
     },
     plugins: [
         require('@tailwindcss/typography'),

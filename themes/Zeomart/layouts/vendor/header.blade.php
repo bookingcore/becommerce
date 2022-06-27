@@ -23,7 +23,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
     <div class="w-5/6 flex justify-between	">
         <div class="grow">
             <div class="w-1/3">
-                <form action="" method="get" class="relative ml-14">
+                <form action="{{route('vendor.product')}}" method="get" class="relative ml-14">
                     <input type="text" class="border border-gray-200 w-full rounded-md px-5 py-3 text-base" placeholder="{{__('Search something')}}" name="s" value="{{request('s')}}">
                     <button class="absolute top-0 right-0 p-3">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
