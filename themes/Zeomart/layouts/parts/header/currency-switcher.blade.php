@@ -4,6 +4,7 @@
 
 @endphp
 @if(!empty($actives) and count($actives) > 1)
+
     <li class="list-inline-item">
         <div class="htcw_form_select">
             <span class="stts">{{ __("Currency") }}</span>
@@ -17,5 +18,4 @@
                 @endforeach
             </select>
         </div>
-    </li>
 @endif
