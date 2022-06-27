@@ -34,7 +34,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
             </div>
         </div>
         <ul class="shrink-0 flex content-between gap-2.5 px-7 items-center">
-            <a href="{{$user->getStoreUrl()}}" title="{{__("View store")}}" class="dropdown-item rounded-[16px] w-[50px] h-[50px] hover:bg-[#F3F5F6] transition duration-200" >
+            <a href="{{$user->getStoreUrl()}}" title="{{__("View store")}}" class="dropdown-item rounded-[16px] w-[50px] px-3 py-3 hover:bg-[#F3F5F6] transition duration-200" >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
             </a>
             @include('layouts.vendor.parts.header.notification')
