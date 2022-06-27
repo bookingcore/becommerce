@@ -4,7 +4,7 @@
 @endpush
 @section('content')
     <section class="bc-dashboard">
-        <div class="d-flex mb-3 align-items-center">
+        <div class="flex justify-between mb-14">
             <h1 class="font-medium text-3xl">{{__("Overview")}}</h1>
             <div class="mt-18">
                 <form action="" method="get" >
@@ -55,19 +55,19 @@
                     </div>
                     <div class="panel-body">
                         <div class="table-responsive">
-                            <table class="table table-hover table-fixed">
-                                <thead class="bg-[#F3F5F6] rounded">
-                                <tr>
-                                    <th width="60px">#</th>
-                                    <th>{{__("Product")}}</th>
-                                    <th width="100px">{{__("Price")}}</th>
-                                    <th width="100px">{{__("Qty")}}</th>
-                                    <th width="100px">{{__("Subtotal")}}</th>
-                                    <th width="100px">{{__("Commission")}}</th>
-                                    <th width="100px">{{__("Earned")}}</th>
-                                    <th width="100px">{{__("Status")}}</th>
-                                    <th width="100px">{{__("Created At")}}</th>
-                                </tr>
+                            <table class="table table-hover text-base">
+                                <thead class="bg-[#F3F5F6]">
+                                    <tr class="font-medium">
+                                        <th width="60px" class="p-3 rounded-l-md font-medium">#</th>
+                                        <th>{{__("Product")}}</th>
+                                        <th width="100px">{{__("Price")}}</th>
+                                        <th width="100px">{{__("Qty")}}</th>
+                                        <th width="100px">{{__("Subtotal")}}</th>
+                                        <th width="100px">{{__("Commission")}}</th>
+                                        <th width="100px">{{__("Earned")}}</th>
+                                        <th width="100px">{{__("Status")}}</th>
+                                        <th width="100px rounded-r-md">{{__("Created At")}}</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
                                 @if(count($recent_orders) > 0)

@@ -16,5 +16,16 @@ body{
     @apply transition duration-200 opacity-0 hidden group-hover:visible group-hover:opacity-100
 }
 .panel {
-    @apply px-7 py-8 bg-white shadow
+    @apply px-7 py-8 bg-white shadow rounded-16
+}
+.table thead th{
+    @apply font-medium
+}
+
+.table th,
+.table td{
+    @apply px-3 py-2
+}
+.table td{
+    @apply border-b border-[#F3F5F6]
 }

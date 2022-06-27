@@ -14,6 +14,7 @@ mix.browserSync({
 mix.options({
     postCss: [
         require('postcss-import'),
-        require('tailwindcss')
+        require('tailwindcss'),
+        require('postcss-nested'),
     ]
 });
