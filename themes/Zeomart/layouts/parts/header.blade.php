@@ -1,5 +1,56 @@
 <div class="zm-topbar">
-
+    <div class="flex justify-between">
+        <div class="left flex justify-start">
+            <div class="item pr-5 pt-2.5 pb-2.5">
+                <a href="#">
+                    <img class="inline" src="/themes/zeomart/images/free_delivery.svg" alt="Free Delivery"> Free Delivery
+                </a>
+            </div>
+            <div class="item pr-5 pt-2.5 pb-2.5">
+                <a href="#">
+                    Returns Policy
+                </a>
+            </div>
+            <div class="item pr-5 pt-2.5 pb-2.5">
+                <a href="#">
+                    Free Express Shipping on orders $200!
+                </a>
+            </div>
+        </div>
+        <div class="right flex justify-start">
+            @if(is_vendor_enable() and !is_vendor())
+                <div class="item pl-5 pt-2.5 pb-2.5">
+                    <a href="{{route('vendor.register')}}" class="text-white mt-1 d-inline-block">{{__('Sell on Us!')}}</a>
+                </div>
+            @endif
+            <ul class="item pl-5 pt-2.5 pb-2.5 list-none">
+                @include('layouts.parts.header.language-switcher')
+            </ul>
+            <ul class="item pl-5 pt-2.5 pb-2.5 list-none">
+                @include('layouts.parts.header.currency-switcher')
+            </ul>
+            <div class="item pl-5 pt-2.5 pb-2.5">
+                <a href="#">
+                    Find a Store
+                </a>
+            </div>
+            <div class="item pl-5 pt-2.5 pb-2.5 flex">
+                Follow Us
+                <ul class="social list-none flex">
+                    <li class="ml-2 flex items-center">
+                        <a href="#">
+                            <img src="/themes/zeomart/images/icon-facebook.svg" alt="Facebook">
+                        </a>
+                    </li>
+                    <li class="ml-2 flex items-center">
+                        <a href="#">
+                            <img src="/themes/zeomart/images/icon-twitter.svg" alt="Facebook">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="zm-header">
 
@@ -7,7 +58,7 @@
 
 
 <!-- Main Header Nav For Mobile -->
-<div id="page" class="stylehome1 h0 bc-main-header-mobile">
+<div id="page" class="stylehome1 h0 bc-main-header-mobile " style="display:none">
     <div class="mobile-menu">
         <div class="header stylehome1">
             <div class="mobile_menu_bar">

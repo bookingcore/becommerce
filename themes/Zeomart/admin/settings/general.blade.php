@@ -36,6 +36,13 @@
                             <textarea class="d-none" name="zeomart_topbar_text_left" > {{ setting_item_with_lang('zeomart_topbar_text_left',request()->query('lang')) }} </textarea>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>{{__("Topbar Text Right")}}</label>
+                        <div class="form-controls">
+                            <div id="zeomart_topbar_text_right" class="ace-editor" style="height: 200px" data-theme="textmate" data-mod="html">{{setting_item_with_lang('zeomart_topbar_text_right',request()->query('lang'))}}</div>
+                            <textarea class="d-none" name="zeomart_topbar_text_right" > {{ setting_item_with_lang('zeomart_topbar_text_right',request()->query('lang')) }} </textarea>
+                        </div>
+                    </div>
             </div>
         </div>
     </div>

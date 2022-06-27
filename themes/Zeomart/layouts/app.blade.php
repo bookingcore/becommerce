@@ -52,11 +52,10 @@
         </script>
         @stack('head')
     </head>
-    <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
-        <main class="flex-shrink-0">
+    <body class="m-auto max-w-7xl {{$body_class ?? ''}}">
+        <main class="shrink-0">
             @include('layouts.parts.header')
             @yield('content')
-
         </main>
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
