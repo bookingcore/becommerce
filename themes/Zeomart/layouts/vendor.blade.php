@@ -41,8 +41,8 @@
 <body class=" {{$body_class ?? ''}}">
 @include('layouts.vendor.header')
 
-<div class="flex">
-    <div class="w-1/6 px-7">
+<div class="flex gap-7  px-7">
+    <div class="w-1/6">
         @include('layouts.vendor.sidebar')
     </div>
     <main class="w-5/6 p-14 rounded-[16px] bg-[#F3F5F6]">

@@ -9,3 +9,9 @@ body{
     font-size: 14px;
     color:#041E42
 }
+.dropdown{
+    @apply relative
+}
+.dropdown-menu{
+    @apply transition duration-200 opacity-0 hidden group-hover:visible group-hover:opacity-100
+}
