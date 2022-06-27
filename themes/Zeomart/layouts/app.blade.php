@@ -86,6 +86,7 @@
             @endswitch
             <!-- custom scripts-->
             <script  src="{{ theme_url('Base/js/app.js?_v='.config('app.asset_version')) }}"></script>
+            <script  src="{{ theme_url('Zeomart/js/dev.js?_v='.config('app.asset_version')) }}"></script>
             @stack('footer')
         </footer>
     </body>
