@@ -226,6 +226,9 @@ class MenuController extends AdminController
 
     public function store(Request $request)
     {
+        if(is_demo_mode()){
+            return $this->sendError(__('DEMO Mode: You are not allowed to change'));
+        }
         $this->checkPermission('menu_manage');
         $request->validate([
             'items' => 'required',
