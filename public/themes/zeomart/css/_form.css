@@ -1,0 +1,41 @@
+.form-control{
+    @apply block w-full
+    rounded-md
+    border-gray-300
+    shadow-sm
+    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+}
+.form-select{
+    @apply
+    block
+    w-full
+    rounded-md
+    border-gray-300
+    shadow-sm
+    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+}
+.panel-title
+{
+    @apply border-b border-solid border-gray-200 mb-4 py-3 -mt-8 text-base font-medium -mx-7 px-7
+}
+.panel-footer{
+    @apply bg-gray-50 mt-4 py-3 -mb-8 text-base font-medium -mx-7 px-7
+}
+.control-label{
+    @apply text-sm font-medium mb-1 block
+}
+
+.terms-scrollable {
+    overflow-y: auto;
+    background: #f4f6f8;
+    padding: 10px;
+    border: 1px solid #e1e2e5;
+    max-height: 250px;
+}
+.terms-scrollable label {
+    display: block;
+    margin-bottom: 10px;
+}
+.terms-scrollable label:last-child {
+    margin-bottom: 0px;
+}

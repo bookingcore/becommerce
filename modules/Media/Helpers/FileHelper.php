@@ -221,7 +221,7 @@ class FileHelper
                     <img src="/module/media/img.svg" alt="">
                 </div>
                 <div class="text-center">
-                    <span class="btn btn-default btn-field-upload" @click="openUploader"><?php echo __("Upload image") ?></span>
+                    <span class="btn btn-default bg-white btn-field-upload border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="openUploader"><?php echo __("Upload image") ?></span>
                 </div>
             </div>
             <div class="attach-demo" title="Change file">
@@ -238,15 +238,16 @@ class FileHelper
         return ob_get_clean();
     }
 
-    public static function fieldGalleryUpload($inputId = '', $oldValue = '')
+    public static function fieldGalleryUpload($inputId = '', $oldValue = '',$options = [])
     {
+        $is_tailwind = $options['tailwind'] ?? 0;
 
         $oldIds = $oldValue ? explode(',', $oldValue) : [];
         ob_start();
         ?>
         <div class="bc-upload-multiple <?php if (!empty($file))
             echo 'active' ?>" data-val="<?php echo $oldValue ?>">
-            <div class="attach-demo d-flex">
+            <div class="attach-demo d-flex <?php if($is_tailwind) echo 'grid grid-cols-4 gap-4 ' ?>">
                 <?php
                 foreach ($oldIds as $id) {
                     $file = (new MediaFile())->findById($id);

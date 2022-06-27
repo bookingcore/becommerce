@@ -93,6 +93,9 @@ class SettingsController extends AdminController
 
     public function store(Request $request, $group)
     {
+        if(is_demo_mode()){
+            return back()->with('error',__('DEMO Mode: You are not allowed to change'));
+        }
 
         $this->checkPermission('setting_manage');
         $zone_id = $request->input('zone_id');

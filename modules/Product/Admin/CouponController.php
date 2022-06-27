@@ -96,18 +96,8 @@ class CouponController extends AdminController
         if (empty($row)) {
             return redirect(route('product.coupon.index'));
         }
-        /*$translation = $row->translate($request->query('lang'));
-        if (!$this->hasPermission('product_manage_others')) {
-            if ($row->create_user != Auth::id()) {
-                return redirect(route('product.admin.index'));
-            }
-        }*/
         $data = [
             'row'            => $row,
-//            'translation'    => $translation,
-//            "selected_terms" => $row->terms->pluck('term_id'),
-//            'attributes'     => $this->attributes::where('service', 'product')->get(),
-//            'enable_multi_lang'=>true,
             'breadcrumbs'    => [
                 [
                     'name' => __('Products'),
@@ -118,15 +108,16 @@ class CouponController extends AdminController
                     'class' => 'active'
                 ],
             ],
-//            'categories'  => ProductCategory::get()->toTree(),
             'page_title'=>__("Edit: :name",['name'=>$row->name]),
-//            'product'=>$row
         ];
 
         return view('Product::admin.coupon.detail', $data);
     }
 
     public function store( Request $request, $id ){
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         if($id>0){
             $this->checkPermission('product_update');
             $row = $this->coupon::find($id);
@@ -188,6 +179,9 @@ class CouponController extends AdminController
 
     public function bulkEdit(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $ids = $request->input('ids');
         $action = $request->input('action');
         if (empty($ids) or !is_array($ids)) {

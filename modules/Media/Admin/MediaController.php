@@ -85,6 +85,11 @@ class MediaController extends Controller
 
     public function store(Request $request)
     {
+
+        if(is_demo_mode()){
+            return $this->sendError(__("DEMO Mode: You can not do this"));
+        }
+
         if(!$user_id = Auth::id()){
             return $this->sendError(__("Please log in"));
         }
