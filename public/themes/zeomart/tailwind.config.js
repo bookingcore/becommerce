@@ -5,10 +5,11 @@ module.exports = {
         "./js/**/*.vue",
     ],
     theme: {
-        extend: {},
-        borderRadius: {
-            '16':'16px'
-        }
+        extend: {
+            borderRadius: {
+                '16':'16px'
+            }
+        },
     },
     plugins: [
         require('@tailwindcss/typography'),

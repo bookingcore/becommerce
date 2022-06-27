@@ -1,10 +1,10 @@
-<li class=" group dropdown">
-    <a href="#" data-bs-toggle="dropdown" class="login nav-link text-white">
+<li class=" group zm-dropdown relative">
+    <a href="#" data-bs-toggle="dropdown" class="zm-dropdown-toggle login nav-link text-white">
         <div class="w-[50px] h-[50px] overflow-hidden rounded-[16px]">
             <img src="{{$user->avatar_url}}" alt="{{$user->display_name}}" class="">
         </div>
     </a>
-    <ul class="dropdown-menu dropdown-menu-user text-left dropdown-menu-end miw-250">
+    <ul class="zm-dropdown-menu hidden absolute top-full left-0">
         <li class="">
             <a class="dropdown-item" href="{{url(app_get_locale().'/user/profile')}}"><i class="fa fa-user"></i> {{__("My profile")}}</a>
         </li>

@@ -1,21 +1,21 @@
 @extends('layouts.vendor')
 @section('content')
 <section class="bc-items-listing">
-    <div class="d-flex justify-content-between mb-4">
+    <div class="flex justify-between mb-16">
         <h1 class="text-3xl font-medium">{{$page_title ?? ''}}</h1>
-        <div class="bc-section__actions"><a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
+        <div class="bc-section__actions"><a class="btn transition duration-200 bg-amber-400 hover:bg-amber-300" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
     </div>
 
     @include('global.message')
 
     <div class="panel">
-        <div class="px-3">@include('vendor.product.filter')</div>
+        <div class="mb-5">@include('vendor.product.filter')</div>
         <div class="bc-section__content">
             <div class="table-responsive mih-300">
-                <table class="table bc-table" cellspacing="0" cellpadding="0">
-                    <thead>
+                <table class="table bc-table text-base" cellspacing="0" cellpadding="0">
+                    <thead class="bg-[#F3F5F6]">
                     <tr>
-                        <th>{{__('ID')}}</th>
+                        <th class="p-3 rounded-l-md font-medium">{{__('ID')}}</th>
                         <th>{{__('Name')}}</th>
                         <th>{{__('SKU')}}</th>
                         <th>{{__('Stock')}}</th>
@@ -27,7 +27,7 @@
                             <th > {{ __('Approved?')}}</th>
                         @endif
                         <th>{{__('Date')}}</th>
-                        <th></th>
+                        <th class="p-3 rounded-r-md font-medium"></th>
                     </tr>
                     </thead>
                     <tbody>
