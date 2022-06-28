@@ -5,7 +5,7 @@
     <label>{{__("Grouped Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price']])}}" data-template="product-item-template">
+            <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price']])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
@@ -25,14 +25,17 @@
                 @if(!empty($row->children))
                     @php $stt = 0; @endphp
                     @foreach($row->children as $stt=>$product)
-                        <div class="item" data-number="{{$stt}}" style="padding: 0; border: none">
+                        <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="children[{{$stt}}]" value="{{$product->id}}">
                             <div class="row">
                                 <div class="col-md-1">#{{$product->id}}</div>
-                                <div class="col-md-2">
-                                    {!! get_image_tag($product->image_id) !!}
+                                <div class="col-md-1">
+                                    @if($product->image_id)
+                                        <img src="{{get_file_url($product->image_id)}}" width="30" alt="">
+                                    @endif
                                 </div>
-                                <div class="col-md-8">{{$product->title}}</div>
+                                <div class="col-md-7">{{$product->title}}</div>
+                                <div class="col-md-2">{{format_money($product->sale_price)}}</div>
                                 <div class="col-md-1">
                                     <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
                                 </div>
@@ -42,26 +45,11 @@
                     @endforeach
                 @endif
             </div>
-            <div class="g-more hide">
-                <div class="item" data-number="__number__" style="padding: 0; border: none">
-                    <input type="hidden" __name__="children[__number__]" >
-                    <div class="row">
-                        <div class="col-md-1"></div>
-                        <div class="col-md-2">
-
-                        </div>
-                        <div class="col-md-8"></div>
-                        <div class="col-md-1">
-                            <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </div>
 <script id="product-item-template" type="text/x-handlebars-template">
-    <div class="dropdown-item">
+    <div class="dropdown-item grouped-product-item" style="cursor: pointer" role="button">
         <div class="row">
             <div class="col-md-1">
                 @{{#if image_url}}
@@ -70,6 +58,31 @@
             </div>
             <div class="col-md-8">@{{ title }}</div>
             <div class="col-md-3 text-right">@{{ price_html }}</div>
+        </div>
+    </div>
+</script>
+
+<script id="grouped-item-template" type="text/x-handlebars-template">
+    <div class="item" data-number="__number__" >
+        <input type="hidden" name="children[]" value="@{{id}}" >
+        <div class="row">
+            <div class="col-md-1">
+                #@{{id}}
+            </div>
+            <div class="col-md-1">
+                @{{#if image_url}}
+                <img width="30px" src="@{{ image_url }}">
+                @{{/if}}
+            </div>
+            <div class="col-md-7">
+                @{{ title }}
+            </div>
+            <div class="col-md-2">
+                @{{ price_html }}
+            </div>
+            <div class="col-md-1">
+                <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
+            </div>
         </div>
     </div>
 </script>

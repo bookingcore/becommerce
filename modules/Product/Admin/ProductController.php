@@ -13,6 +13,7 @@ use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attribute;
 use Modules\Product\Hook;
+use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
@@ -31,6 +32,7 @@ class ProductController extends AdminController
     protected $product_term;
     protected $attributes;
     protected $variable_product;
+    protected $product_grouped;
     /**
      * @var ProductCategoryRelation
      */
@@ -40,7 +42,7 @@ class ProductController extends AdminController
      */
     protected $product_tag_relation;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product,ProductGrouped $product_grouped)
     {
         parent::__construct();
         AdminMenuManager::setActive('product');
@@ -51,6 +53,7 @@ class ProductController extends AdminController
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag_relation = ProductTagRelation::class;
         $this->variable_product = ProductVariation::class;
+        $this->product_grouped = $product_grouped;
     }
 
     public function index(Request $request)
@@ -226,6 +229,7 @@ class ProductController extends AdminController
                 $this->saveTags($row, $request->input('tag_name'), $request->input('tag_ids'));
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
+                $this->saveGroupedProducts($row, $request);
             }
 
             do_action(Hook::AFTER_SAVING,$row);
@@ -267,6 +271,25 @@ class ProductController extends AdminController
             $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
         }
     }
+
+    public function saveGroupedProducts($row, $request)
+    {
+        $children = $request->input('children',[]);
+        $children = array_unique(array_values($children));
+
+        if (empty($children)) {
+            $this->product_grouped::where('parent_id', $row->id)->delete();
+        } else {
+            foreach ($children as $product_id) {
+                $this->product_grouped::firstOrCreate([
+                    'children_id' => $product_id,
+                    'parent_id' => $row->id
+                ]);
+            }
+            $this->product_grouped::where('parent_id', $row->id)->whereNotIn('children_id', $children)->delete();
+        }
+    }
+
 
     public function ajaxSaveTerms(Request $request){
 
@@ -369,7 +392,7 @@ class ProductController extends AdminController
         $query = Product::query()->orderBy('title')->where('status','publish');
 
         if($s = $request->query('s')){
-            $query->where('title','like','%'.$s.'%s');
+            $query->where('title','like','%'.$s.'%');
         }
 
         return ProductResource::collection($query->paginate(10),array_merge(['variations'],$request->query('need',[])));

@@ -1162,7 +1162,9 @@ function get_status_text($status){
     }
 }
 
-
+/**
+ * @return array
+ */
 function get_product_types(){
     return \Modules\Product\ModuleProvider::getAllTypes();
 }

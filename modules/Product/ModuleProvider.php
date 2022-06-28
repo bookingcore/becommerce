@@ -283,6 +283,9 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function getAllTypes(){
         if(!static::$_all_types){
 

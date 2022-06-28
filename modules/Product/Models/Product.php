@@ -106,16 +106,10 @@ class Product extends BaseModel
     {
         return AttributeCasts::make(
             get:function($value){
-                switch ($this->product_type){
-                    case "simple":
-                        return __('Simple Product');
-                    break;
-                    case "variable":
-                        return __('Variable Product');
-                    break;
-                    case "external":
-                        return __('External Product');
-                    break;
+                $all = get_product_types();
+                if(array_key_exists($this->product_type,$all) and class_exists($all[$this->product_type]) and method_exists($all[$this->product_type],'getTypeName'))
+                {
+                    return call_user_func([$all[$this->product_type],'getTypeName']);
                 }
             }
         );

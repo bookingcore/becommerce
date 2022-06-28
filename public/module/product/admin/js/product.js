@@ -313,8 +313,11 @@
            var html = '';
            var timeout = null;
            var template = Handlebars.compile(document.getElementById(me.data('template')).innerHTML);
-           var first_load = false;
+           var first_load = true;
            var autocomplete = function(data){
+               if(timeout) window.clearTimeout(timeout);
+               timeout = window.setTimeout(function(){
+                   me.dropdown('show');
                 $.ajax({
                     url:url,
                     data:data,
@@ -323,35 +326,42 @@
                     success:function(json){
                         if(json.data && json.data.length){
                             html = '';
+                            dropdown.empty();
                             json.data.map(function(item){
-                                html+= template(item);
+                                var html_item = $(template(item))
+                                html_item.data('item',item);
+                                html_item.on('click',function(e){
+                                    me.trigger('bc.dropdown.click',item)
+                                })
+                                dropdown.prepend(html_item);
                             });
-                            dropdown.html(html);
                         }else{
-                            dropdown.html(me.find('.template .no-data'));
+                            dropdown.html(me.find('.template .no-data').html());
                         }
                     }
                 })
+               },300);
             }
 
            input.on('keyup',function(){
-               if(timeout) window.clearTimeout(timeout);
-               timeout = window.setTimeout(function(){
-                   autocomplete({
-                       s:input.val()
-                   })
-               },300);
+               autocomplete({
+                   s:input.val()
+               })
            });
+           input.on('click',function(){
+               if(!first_load) return;
+               first_load = false;
 
-           input.click(function(){
-               if(first_load) return;
-               first_load = true;
-               timeout = window.setTimeout(function(){
-                   autocomplete({
-                       s:''
-                   })
-               },50);
+               autocomplete({
+                   s:input.val()
+               })
            })
 
         });
+        var grouped_item_template = Handlebars.compile(document.getElementById('grouped-item-template').innerHTML);
+
+        $('.bc-grouped-product').on('bc.dropdown.click',function(e,data){
+            var p = $(this).closest('.form-group-item');
+            p.find('.g-items').append(grouped_item_template(data))
+        })
 })(jQuery);
