@@ -1,7 +1,8 @@
-<div class="row">
+
+<div id="listProduct" class="grid grid-cols-2 xl:grid-cols-5 gap-0">
     @if($rows->total())
         @foreach($rows as $row)
-            <div class="col-sm-4 mb-3">
+            <div class="border p-3">
                 @include("product.search.loop")
             </div>
         @endforeach

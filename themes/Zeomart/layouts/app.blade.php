@@ -3,7 +3,7 @@
     <?php return ?>
 @endif
 <!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100 {{$html_class ?? ''}}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-100 scroll-smooth {{$html_class ?? ''}}">
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -13,7 +13,8 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.carousel.min.css">
+        <link rel="stylesheet" href="{{ theme_url('Base') }}/libs/owl-carousel/assets/owl.theme.default.min.css">
         <link href="{{ mix('/dist/css/general.css','themes/zeomart') }}" rel="stylesheet">
         <link href="{{ mix('/dist/css/home.css','themes/zeomart') }}" rel="stylesheet">
 
@@ -78,6 +79,7 @@
             </script>
 
             <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
+            <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
             <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
             @switch(setting_item('search_driver'))
                 @case ('algolia')
