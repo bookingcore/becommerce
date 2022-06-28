@@ -45,10 +45,10 @@ class ProductSeeder extends \Themes\Base\Database\Seeders\ProductSeeder
             'image-14'  =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-24', 'file_path' => 'axtronic/shop/image-24.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         $productGallery = [
-            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'demo/shop/product-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-2', 'file_path' => 'demo/shop/product-image-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-3', 'file_path' => 'demo/shop/product-image-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-4', 'file_path' => 'demo/shop/product-image-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'axtronic/shop/product-image-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-2', 'file_path' => 'axtronic/shop/product-image-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-3', 'file_path' => 'axtronic/shop/product-image-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-4', 'file_path' => 'axtronic/shop/product-image-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
         ];
         $brandName = [
             "Galaxy",

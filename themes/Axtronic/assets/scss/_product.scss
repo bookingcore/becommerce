@@ -1316,6 +1316,11 @@ ul.axtronic-products{
         }
     }
 }
+.axtronic-form-grouped{
+    ul{
+        margin-left: 0;
+    }
+}
 .cart-item-qty{
     position: relative;
     margin-right: 10px;
@@ -1737,6 +1742,27 @@ ul.axtronic-products{
                 li, p{
                     font-weight: 400;
                 }
+            }
+        }
+    }
+}
+
+.axtronic-swiper-relate{
+    .swiper-wrapper{
+        margin-bottom: 25px;
+    }
+    .swiper-pagination{
+        bottom: -5px;
+        text-align: center;
+        .swiper-pagination-bullet{
+            width: 10px;
+            height: 10px;
+            border: 0;
+            background: var(--accent);
+            border-radius: 50%;
+            &.swiper-pagination-bullet-active{
+                border: 0;
+                background: var(--primary);
             }
         }
     }
