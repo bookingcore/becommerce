@@ -372,6 +372,6 @@ class ProductController extends AdminController
             $query->where('title','like','%'.$s.'%s');
         }
 
-        return ProductResource::collection($query->paginate(10),['variations']);
+        return ProductResource::collection($query->paginate(10),array_merge(['variations'],$request->query('need',[])));
     }
 }

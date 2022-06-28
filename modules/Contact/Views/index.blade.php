@@ -11,7 +11,3 @@
 	@include("Contact::frontend.blocks.contact.index")
 </div>
 @endsection
-
-@section('footer')
-
-@endsection

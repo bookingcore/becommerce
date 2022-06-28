@@ -178,6 +178,7 @@ $product_types = get_product_types();
     </form>
 @endsection
 
-@section ('script.body')
+@push ('script.body')
+    <script src="{{asset('libs/handlebars/handlebars.min.js')}}"></script>
     <script src="{{asset('module/product/admin/js/product.js')}}"></script>
-@endsection
+@endpush
