@@ -25,6 +25,7 @@ use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
+use mysql_xdevapi\Exception;
 use Themes\Base\Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 
@@ -479,24 +480,46 @@ class Product extends BaseModel
         }
         switch ($this->product_type){
             case 'variable':
-                    $variant = $this->variations()->where('id',$variant_id)->first();
-                    if(!empty($variant)){
-                        if(!empty($this->check_manage_stock())){
-                            if(!empty($this->quantity)){
-                                $remainStock = $this->remain_stock;
-                                if($qty>$remainStock){
-                                    throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
-                                }
-                            }else{
-                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
+                $variant = $this->variations()->where('id',$variant_id)->first();
+                if(!empty($variant)){
+                    if(!empty($this->check_manage_stock())){
+                        if(!empty($this->quantity)){
+                            $remainStock = $this->remain_stock;
+                            if($qty>$remainStock){
+                                throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
                             }
                         }else{
-
-                            $variant->stockValidation($qty);
+                            throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
                         }
                     }else{
-                        throw new \Exception(__('Please select a variation'),407);
+
+                        $variant->stockValidation($qty);
                     }
+                }else{
+                    throw new \Exception(__('Please select a variation'),407);
+                }
+                break;
+            case "grouped":
+                $children = $this->children;
+                if(empty($children)){
+                    throw new \Exception(__("This product does not contain any children products"));
+                }
+                $children_input = \request()->input('children',[]);
+                if(empty($children_input)){
+                    throw new \Exception(__("Please select quantity"));
+                }
+                $check_quantity = false;
+                foreach ($children as $child){
+                    if($child->product_type == 'simple'){
+                        if(!empty($children_input[$child->id])){
+                            $check_quantity = true;
+                            $child->addToCartValidate($children_input[$child->id]);
+                        }
+                    }
+                }
+                if(!$check_quantity){
+                    throw new \Exception(__("Please select quantity"));
+                }
                 break;
             case 'external':
                 throw  new \Exception('Product type external. You cannot add to cart!',408);

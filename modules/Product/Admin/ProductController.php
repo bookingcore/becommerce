@@ -281,6 +281,7 @@ class ProductController extends AdminController
             $this->product_grouped::where('parent_id', $row->id)->delete();
         } else {
             foreach ($children as $product_id) {
+                if($product_id == $row->id) continue;
                 $this->product_grouped::firstOrCreate([
                     'children_id' => $product_id,
                     'parent_id' => $row->id
@@ -394,6 +395,11 @@ class ProductController extends AdminController
         if($s = $request->query('s')){
             $query->where('title','like','%'.$s.'%');
         }
+
+        if($s = $request->query('not_in_ids',[])){
+            $query->whereNotIn('id',$s);
+        }
+
 
         return ProductResource::collection($query->paginate(10),array_merge(['variations'],$request->query('need',[])));
     }

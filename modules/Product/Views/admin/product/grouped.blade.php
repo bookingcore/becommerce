@@ -1,11 +1,8 @@
-<?php
-
-?>
 <div class="form-group mb-3">
     <label>{{__("Grouped Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price']])}}" data-template="product-item-template">
+            <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
@@ -34,7 +31,8 @@
                                         <img src="{{get_file_url($product->image_id)}}" width="30" alt="">
                                     @endif
                                 </div>
-                                <div class="col-md-7">{{$product->title}}</div>
+                                <div class="col-md-5">{{$product->title}}</div>
+                                <div class="col-md-2">{{$product->type_name}}</div>
                                 <div class="col-md-2">{{format_money($product->sale_price)}}</div>
                                 <div class="col-md-1">
                                     <span class="btn btn-danger btn-sm btn-remove-item" style="display: inline-block"><i class="fa fa-trash"></i></span>
@@ -56,7 +54,8 @@
                     <img width="30px" src="@{{ image_url }}">
                 @{{/if}}
             </div>
-            <div class="col-md-8">@{{ title }}</div>
+            <div class="col-md-6">@{{ title }}</div>
+            <div class="col-md-2">@{{ product_type }}</div>
             <div class="col-md-3 text-right">@{{ price_html }}</div>
         </div>
     </div>
@@ -74,8 +73,11 @@
                 <img width="30px" src="@{{ image_url }}">
                 @{{/if}}
             </div>
-            <div class="col-md-7">
+            <div class="col-md-5">
                 @{{ title }}
+            </div>
+            <div class="col-md-2">
+                @{{ product_type }}
             </div>
             <div class="col-md-2">
                 @{{ price_html }}
