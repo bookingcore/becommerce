@@ -5,12 +5,12 @@
     <label>{{__("Grouped Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2')}}" data-template="product-item-template">
-                <input type="text" class="form-control search-input" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <div class="bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price']])}}" data-template="product-item-template">
+                <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
+                <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
                 <div class="d-none template">
-                    <div class="no-data"><div class="alert alert-warning">{{__("No result found")}}</div></div>
+                    <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
                 </div>
             </div>
 
@@ -61,13 +61,15 @@
     </div>
 </div>
 <script id="product-item-template" type="text/x-handlebars-template">
-    <div class="row">
-        <div class="col-md-2">
-            @{{#if image_url}}
-                <img src="@{{ image_url }}">
-            @{{/if}}
+    <div class="dropdown-item">
+        <div class="row">
+            <div class="col-md-1">
+                @{{#if image_url}}
+                    <img width="30px" src="@{{ image_url }}">
+                @{{/if}}
+            </div>
+            <div class="col-md-8">@{{ title }}</div>
+            <div class="col-md-3 text-right">@{{ price_html }}</div>
         </div>
-        <div class="col-md-7">@{{ title }}</div>
-        <div class="col-md-3">@{{ price_html }}</div>
     </div>
 </script>

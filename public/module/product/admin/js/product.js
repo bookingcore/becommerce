@@ -313,17 +313,18 @@
            var html = '';
            var timeout = null;
            var template = Handlebars.compile(document.getElementById(me.data('template')).innerHTML);
-            var autocomplete = function(data){
+           var first_load = false;
+           var autocomplete = function(data){
                 $.ajax({
                     url:url,
                     data:data,
                     method:'get',
                     type:'json',
                     success:function(json){
-                        if(json.data){
+                        if(json.data && json.data.length){
                             html = '';
                             json.data.map(function(item){
-                                html+= template.context(item);
+                                html+= template(item);
                             });
                             dropdown.html(html);
                         }else{
@@ -334,7 +335,6 @@
             }
 
            input.on('keyup',function(){
-               console.log(111)
                if(timeout) window.clearTimeout(timeout);
                timeout = window.setTimeout(function(){
                    autocomplete({
@@ -342,6 +342,16 @@
                    })
                },300);
            });
+
+           input.click(function(){
+               if(first_load) return;
+               first_load = true;
+               timeout = window.setTimeout(function(){
+                   autocomplete({
+                       s:''
+                   })
+               },50);
+           })
 
         });
 })(jQuery);
