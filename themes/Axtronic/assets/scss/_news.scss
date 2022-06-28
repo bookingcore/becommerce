@@ -31,6 +31,13 @@
         display: none;
     }
 }
+.axtronic-news{
+    .axtronic-post.post{
+        .post-thumbnail img{
+            height: 316px;
+        }
+    }
+}
 .axtronic-post{
     &:hover{
         .post-thumbnail img{
@@ -73,7 +80,6 @@
         img{
             transition: transform 1s cubic-bezier(.19,1,.22,1);
             width: 100%;
-            height: 316px;
         }
     }
     .entry-content{

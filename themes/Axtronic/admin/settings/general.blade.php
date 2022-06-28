@@ -27,6 +27,15 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label>{{__("Header Style")}}</label>
+                        <div class="form-controls">
+                            <select name="axtronic_header_style" class="form-control">
+                                <option @if("1" == (setting_item('axtronic_header_style') ?? '') ) selected @endif value="1">{{__("Style 1")}}</option>
+                                <option @if("2" == (setting_item('axtronic_header_style') ?? '') ) selected @endif value="2">{{__("Style 2")}}</option>
+                            </select>
+                        </div>
+                    </div>
                 @endif
             </div>
         </div>

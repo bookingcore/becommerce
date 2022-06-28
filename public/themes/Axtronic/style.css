@@ -1943,134 +1943,134 @@ header {
 header a:not(.button) {
   color: #fff;
 }
-header.header-style_1 {
+header.header-1 {
   background-color: transparent;
 }
-header.header-style_1 a:not(.button) {
+header.header-1 a:not(.button) {
   color: var(--accent);
 }
-header.header-style_1 .topbar-left ul li {
+header.header-1 .topbar-left ul li {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
-header.header-style_1 .topbar-left ul li a {
+header.header-1 .topbar-left ul li a {
   color: #ffffff;
 }
-header.header-style_1 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-style_1 .site-member ul.topbar-items .group-icon-content .sub-title {
+header.header-1 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-1 .site-member ul.topbar-items .group-icon-content .sub-title {
   color: var(--accent);
 }
-header.header-style_1 .site-navigation {
+header.header-1 .site-navigation {
   margin: 0 60px;
 }
-header.header-style_1 .header__content-bottom {
+header.header-1 .header__content-bottom {
   background-color: transparent;
   padding-top: 0;
 }
-header.header-style_1 .header__content-bottom .vertical-navigation {
+header.header-1 .header__content-bottom .vertical-navigation {
   background-color: var(--background2);
 }
-header.header-style_1 .header__content-bottom .vertical-navigation .vertical-navigation-header {
+header.header-1 .header__content-bottom .vertical-navigation .vertical-navigation-header {
   color: var(--accent);
   font-weight: 400;
 }
-header.header-style_1 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-style_1 .axtronic-form-quick-search input, header.header-style_1 .axtronic-form-quick-search button.btn {
+header.header-1 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-1 .axtronic-form-quick-search input, header.header-1 .axtronic-form-quick-search button.btn {
   border-color: var(--primary);
 }
-header.header-style_1 .axtronic-form-quick-search input {
+header.header-1 .axtronic-form-quick-search input {
   border-width: 1px;
   border-left-color: var(--border);
   border-right-width: 0;
 }
-header.header-style_1 .axtronic-form-quick-search button.btn {
+header.header-1 .axtronic-form-quick-search button.btn {
   color: var(--accent);
   background-color: transparent;
 }
-header.header-style_1 .axtronic-form-quick-search button.btn:hover {
+header.header-1 .axtronic-form-quick-search button.btn:hover {
   border-color: var(--primary);
   color: #ffffff;
   background-color: var(--primary);
 }
-header.header-style_1 .axtronic-form-quick-search button.btn span {
+header.header-1 .axtronic-form-quick-search button.btn span {
   display: none;
 }
-header.header-style_1 .axtronic-form-quick-search button.btn i {
+header.header-1 .axtronic-form-quick-search button.btn i {
   display: block;
 }
-header.header-style_1 .site-member .group-icon-action i {
+header.header-1 .site-member .group-icon-action i {
   color: var(--accent);
 }
-header.header-style_1 .site-member .group-icon-action a:hover i {
+header.header-1 .site-member .group-icon-action a:hover i {
   color: var(--primary);
 }
-header.header-style_2 {
+header.header-2 {
   background-color: transparent;
 }
-header.header-style_2 a:not(.button) {
+header.header-2 a:not(.button) {
   color: var(--accent);
 }
-header.header-style_2 .topbar-left ul li {
+header.header-2 .topbar-left ul li {
   margin-left: 0 !important;
   margin-right: 0 !important;
 }
-header.header-style_2 .topbar-left ul li a {
+header.header-2 .topbar-left ul li a {
   color: #ffffff;
 }
-header.header-style_2 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-style_2 .site-member ul.topbar-items .group-icon-content .sub-title {
+header.header-2 .site-member ul.topbar-items .group-icon-content .sub-text, header.header-2 .site-member ul.topbar-items .group-icon-content .sub-title {
   color: var(--accent);
 }
-header.header-style_2 .site-navigation {
+header.header-2 .site-navigation {
   margin: 0 60px;
 }
-header.header-style_2 .header__content-bottom {
+header.header-2 .header__content-bottom {
   padding: 0;
 }
-header.header-style_2 .header__content-bottom .site-main-menu ul {
+header.header-2 .header__content-bottom .site-main-menu ul {
   justify-content: start;
 }
-header.header-style_2 .header__content-bottom .site-main-menu ul li a {
+header.header-2 .header__content-bottom .site-main-menu ul li a {
   color: #ffffff;
 }
-header.header-style_2 .header__content-bottom .vertical-navigation {
+header.header-2 .header__content-bottom .vertical-navigation {
   background-color: #FFFFFF12;
   border-radius: 1px 1px 1px 1px;
 }
-header.header-style_2 .header__content-bottom .vertical-navigation .vertical-navigation-header {
+header.header-2 .header__content-bottom .vertical-navigation .vertical-navigation-header {
   color: #ffffff;
   font-weight: 400;
 }
-header.header-style_2 .icon-box-header .icon-box-icon span {
+header.header-2 .icon-box-header .icon-box-icon span {
   background-color: var(--secondary);
 }
-header.header-style_2 .icon-box-header .icon-box-content p.icon-box-description, header.header-style_2 .icon-box-header .icon-box-content .icon-box-title {
+header.header-2 .icon-box-header .icon-box-content p.icon-box-description, header.header-2 .icon-box-header .icon-box-content .icon-box-title {
   color: #ffffff;
 }
-header.header-style_2 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-style_2 .axtronic-form-quick-search input, header.header-style_2 .axtronic-form-quick-search button.btn {
+header.header-2 .axtronic-form-quick-search .product-cat .product-cat-label .box, header.header-2 .axtronic-form-quick-search input, header.header-2 .axtronic-form-quick-search button.btn {
   border-color: var(--primary);
 }
-header.header-style_2 .axtronic-form-quick-search input {
+header.header-2 .axtronic-form-quick-search input {
   border-width: 1px;
   border-left-color: var(--border);
   border-right-width: 0;
 }
-header.header-style_2 .axtronic-form-quick-search button.btn {
+header.header-2 .axtronic-form-quick-search button.btn {
   color: var(--accent);
   background-color: transparent;
 }
-header.header-style_2 .axtronic-form-quick-search button.btn:hover {
+header.header-2 .axtronic-form-quick-search button.btn:hover {
   border-color: var(--primary);
   color: #ffffff;
   background-color: var(--primary);
 }
-header.header-style_2 .axtronic-form-quick-search button.btn span {
+header.header-2 .axtronic-form-quick-search button.btn span {
   display: none;
 }
-header.header-style_2 .axtronic-form-quick-search button.btn i {
+header.header-2 .axtronic-form-quick-search button.btn i {
   display: block;
 }
-header.header-style_2 .site-member .group-icon-action i {
+header.header-2 .site-member .group-icon-action i {
   color: var(--accent);
 }
-header.header-style_2 .site-member .group-icon-action a:hover i {
+header.header-2 .site-member .group-icon-action a:hover i {
   color: var(--primary);
 }
 header .axtronic_topbar {
@@ -6301,6 +6301,10 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
   display: none;
 }
 
+.axtronic-news .axtronic-post.post .post-thumbnail img {
+  height: 316px;
+}
+
 .axtronic-post:hover .post-thumbnail img {
   transform: scale(1.15);
 }
@@ -6340,7 +6344,6 @@ ul.axtronic-products.product-lists .axtronic-list-dot {
 .axtronic-post .post-thumbnail img {
   transition: transform 1s cubic-bezier(0.19, 1, 0.22, 1);
   width: 100%;
-  height: 316px;
 }
 .axtronic-post .entry-content .entry-meta {
   display: flex;

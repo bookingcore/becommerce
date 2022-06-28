@@ -1005,7 +1005,7 @@ const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
 
 const swiperProductSlider = new Swiper('.product-slider', {
     // Optional parameters
-    loop: false,
+    loop: true,
     cssMode: true,
     spaceBetween: 30,
     breakpoints: {

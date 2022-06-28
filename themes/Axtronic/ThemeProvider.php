@@ -107,6 +107,7 @@ class ThemeProvider extends AbstractThemeProvider
                 'axtronic_logo_light',
                 'axtronic_logo_dark',
                 'axtronic_header_contact',
+                'axtronic_header_style',
                 'axtronic_footer_style',
                 'axtronic_footer_bg_image',
                 'axtronic_hotline_contact',
@@ -122,17 +123,17 @@ class ThemeProvider extends AbstractThemeProvider
             ]
         ];
     }
-    public function registerProductSetting(){
-        return [
-            'id'   => 'axtronic_product',
-            'title' => __("Product Settings"),
-            'position'=>80,
-            'view'      => "admin.settings.product",
-            "keys"      => [
-                'axtronic_product_category'
-            ],
-            'filter_demo_mode'=>[
-            ]
-        ];
-    }
+//    public function registerProductSetting(){
+//        return [
+//            'id'   => 'axtronic_product',
+//            'title' => __("Product Settings"),
+//            'position'=>80,
+//            'view'      => "admin.settings.product",
+//            "keys"      => [
+//                'axtronic_product_category'
+//            ],
+//            'filter_demo_mode'=>[
+//            ]
+//        ];
+//    }
 }
