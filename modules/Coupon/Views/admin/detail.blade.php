@@ -49,7 +49,7 @@
         </div>
     </form>
 @endsection
-@section ('script.body')
+@push ('script.body')
     <script>
         $(document).ready(function () {
             $('.has-datetimepicker').daterangepicker({
@@ -74,4 +74,4 @@
             });
         })
     </script>
-@endsection
+@endpush

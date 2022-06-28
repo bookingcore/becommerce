@@ -817,4 +817,7 @@ class Product extends BaseModel
             'url'=>$this->getDetailUrl()
         ];
     }
+    public function children(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id');
+    }
 }

@@ -38,6 +38,3 @@
             </div>
         </div>
 @endsection
-
-@section ('script.body')
-@endsection

@@ -304,4 +304,44 @@
 
             return conditions;
         }
+
+        $('.bc-search-box').each(function(){
+           var me = $(this);
+           var url = me.data('url');
+           var dropdown = me.find('.dropdown-menu');
+           var input  = me.find('.search-input');
+           var html = '';
+           var timeout = null;
+           var template = Handlebars.compile(document.getElementById(me.data('template')).innerHTML);
+            var autocomplete = function(data){
+                $.ajax({
+                    url:url,
+                    data:data,
+                    method:'get',
+                    type:'json',
+                    success:function(json){
+                        if(json.data){
+                            html = '';
+                            json.data.map(function(item){
+                                html+= template.context(item);
+                            });
+                            dropdown.html(html);
+                        }else{
+                            dropdown.html(me.find('.template .no-data'));
+                        }
+                    }
+                })
+            }
+
+           input.on('keyup',function(){
+               console.log(111)
+               if(timeout) window.clearTimeout(timeout);
+               timeout = window.setTimeout(function(){
+                   autocomplete({
+                       s:input.val()
+                   })
+               },300);
+           });
+
+        });
 })(jQuery);
