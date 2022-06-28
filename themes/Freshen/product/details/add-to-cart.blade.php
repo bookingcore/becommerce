@@ -31,7 +31,7 @@
                 <ul class="list-group list-group-flush">
                     @foreach($row->children as $child_product)
                         @php($max = $child_product->is_manage_stock > 0 ? $child_product->quantity : false)
-                        <li class="list-group-item d-flex justify-content-between">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
                             {{$child_product->title}}
                             @switch($child_product->product_type)
                                 @case('simple')
@@ -44,7 +44,9 @@
                                     </div>
                                     @break
                                 @case('variable')
-                                    <a href="{{$child_product->getDetailUrl()}}" class="btn btn-primary">{{__("Select variation")}}</a>
+                                    <div>
+                                        <a href="{{$child_product->getDetailUrl()}}" class="btn btn-primary d-flex align-items-center justify-content-center">{{__("Select variation")}}</a>
+                                    </div>
                                     @break
                                 @case('external')
                                     <a href="{{ $child_product->external_url }}" rel="nofollow" class="btn btn-outline-primary">
