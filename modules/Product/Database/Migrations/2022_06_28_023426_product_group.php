@@ -17,7 +17,9 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('parent_id');
             $table->bigInteger('children_id');
+            $table->tinyInteger('group_type')->default(1)->comment('1: Grouped, 2: Up-sell, 3: Cros-sell');
             $table->index(['parent_id']);
+
 
             $table->bigInteger('create_user')->nullable();
             $table->bigInteger('update_user')->nullable();

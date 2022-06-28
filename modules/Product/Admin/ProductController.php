@@ -274,21 +274,35 @@ class ProductController extends AdminController
 
     public function saveGroupedProducts($row, $request)
     {
-        $children = $request->input('children',[]);
-        $children = array_unique(array_values($children));
-
-        if (empty($children)) {
-            $this->product_grouped::where('parent_id', $row->id)->delete();
-        } else {
-            foreach ($children as $product_id) {
-                if($product_id == $row->id) continue;
-                $this->product_grouped::firstOrCreate([
-                    'children_id' => $product_id,
-                    'parent_id' => $row->id
-                ]);
+        foreach ([$this->product_grouped::TYPE_GROUPED,$this->product_grouped::TYPE_UP_SELL,$this->product_grouped::TYPE_CROSS_SELL] as $group_type){
+            switch ($group_type){
+                case $this->product_grouped::TYPE_GROUPED:
+                    $children = $request->input('children',[]);
+                    break;
+                case $this->product_grouped::TYPE_UP_SELL:
+                    $children = $request->input('up_sell',[]);
+                    break;
+                case $this->product_grouped::TYPE_CROSS_SELL:
+                    $children = $request->input('cross_sale',[]);
+                    break;
             }
-            $this->product_grouped::where('parent_id', $row->id)->whereNotIn('children_id', $children)->delete();
+            $children = array_unique(array_values($children));
+
+            if (empty($children)) {
+                $this->product_grouped::where('parent_id', $row->id)->where('group_type', $group_type)->delete();
+            } else {
+                foreach ($children as $product_id) {
+                    if($product_id == $row->id) continue;
+                    $this->product_grouped::firstOrCreate([
+                        'children_id' => $product_id,
+                        'parent_id' => $row->id,
+                        'group_type'=>$group_type
+                    ]);
+                }
+                $this->product_grouped::where('parent_id', $row->id)->where('group_type', $group_type)->whereNotIn('children_id', $children)->delete();
+            }
         }
+
     }
 
 

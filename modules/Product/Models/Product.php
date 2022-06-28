@@ -834,7 +834,15 @@ class Product extends BaseModel
             'url'=>$this->getDetailUrl()
         ];
     }
+
     public function children(){
-        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id');
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_GROUPED);
+    }
+
+    public function up_sell_items(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_UP_SELL);
+    }
+    public function cross_sell_items(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_CROSS_SELL);
     }
 }
