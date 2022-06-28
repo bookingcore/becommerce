@@ -224,22 +224,37 @@
 
     /* ----- Employee List v1 page range slider widget ----- */
     $(document).on('ready', function() {
-        $(".slider-range").slider({
-            range: true,
-            min: 11200,
-            max: 30000,
-            values: [ 11200, 15200 ],
-            slide: function( event, ui ) {
-                $( ".amount" ).val( ui.values[ 0 ] );
-                $( ".amount2" ).val( ui.values[ 1 ] );
-            }
-        });
-        $(".amount").change(function() {
-            $(".slider-range").slider('values',0,$(this).val());
-        });
-        $(".amount2").change(function() {
-            $(".slider-range").slider('values',1,$(this).val());
-        });
+        if($(".slider-range").length){
+            $(".slider-range").each(function(index){
+                let me = $(this)
+                let parent = me.parent();
+                let amount = parent.find('.amount')
+                let amount2 = parent.find('.amount2')
+                let input_min = parent.find('input[name=min_price]')
+                let input_max = parent.find('input[name=max_price]')
+                let value_min = parseInt(input_min.val());
+                let value_max = parseInt(input_max.val());
+                me.slider({
+                    range: true,
+                    min: parseInt(amount.attr('min')),
+                    max: parseInt(amount2.attr('max')),
+                    values: [ value_min, value_max ],
+                    slide: function( event, ui ) {
+                        input_min.val( ui.values[ 0 ])
+                        input_max.val( ui.values[ 1 ])
+                        amount.val(bc_format_money(ui.values[ 0 ]));
+                        amount2.val(bc_format_money(ui.values[ 1 ]));
+                    }
+                });
+                amount.change(function() {
+                    me.slider('values',0,$(this).val());
+                });
+                amount2.change(function() {
+                    me.slider('values',1,$(this).val());
+                });
+            });
+        }
+
     });
 
     /* ----- Pricing Range Slider ----- */
