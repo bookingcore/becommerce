@@ -8,6 +8,7 @@ use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductExternal;
+use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductVariation;
 use Modules\Template\BlockManager;
 
@@ -134,6 +135,7 @@ class ModuleProvider extends ModuleServiceProvider
             'simple'=>Product::class,
             'variable'=>ProductVariation::class,
             'external'=>ProductExternal::class,
+            'grouped'=>ProductGrouped::class,
         ];
     }
 
@@ -145,6 +147,14 @@ class ModuleProvider extends ModuleServiceProvider
                 "title"=>__("Pricing"),
                 "view"=>"Product::admin.product.pricing",
                 "hide_in_sub_language"=>1
+            ],
+            "grouped"=>[
+                'position'=>20,
+                "icon"=>"fa fa-link",
+                "title"=>__("Grouped Products"),
+                "view"=>"Product::admin.product.grouped",
+                "hide_in_sub_language"=>1,
+                "condition"=>"product_type:is(grouped)",
             ],
             "external"=>[
                 'position'=>20,
@@ -273,6 +283,9 @@ class ModuleProvider extends ModuleServiceProvider
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function getAllTypes(){
         if(!static::$_all_types){
 

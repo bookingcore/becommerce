@@ -40,7 +40,7 @@
     </form>
 @endsection
 
-@section ('script.body')
+@push ('script.body')
     <script src="{{asset('/libs')}}/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="{{asset('/libs')}}/daterange/moment.min.js"></script>
     <script type="text/javascript" src="{{asset('/libs')}}/daterange/daterangepicker.min.js"></script>
@@ -84,4 +84,4 @@
             });
         })
     </script>
-@endsection
+@endpush

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\MigrationTools;
 use App\Http\Middleware\RequireChangePassword;
 use App\Http\Middleware\SetCurrentCurrency;
 use App\Http\Middleware\SetLanguageForAdmin;
@@ -46,6 +47,7 @@ class Kernel extends HttpKernel
             SetLanguageForAdmin::class,
             SetCurrentCurrency::class,
             RequireChangePassword::class,
+            MigrationTools::class,
         ],
         'api' => [
             \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,

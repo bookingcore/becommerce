@@ -47,5 +47,3 @@
         </div>
     </form>
 @endsection
-@section ('script.body')
-@endsection

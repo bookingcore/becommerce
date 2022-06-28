@@ -60,7 +60,7 @@ class ThemeManager
     }
 
     public static function saveConfigFile($data){
-        StorageConfig::save($data);
+        return StorageConfig::save($data);
     }
 
     public static function validateTheme($theme){

@@ -83,6 +83,7 @@ class Cart extends Order
         $this->items()->save($item);
         $this->syncTotal();
         $this->save();
+        $this->load('items');
         return true;
     }
 
