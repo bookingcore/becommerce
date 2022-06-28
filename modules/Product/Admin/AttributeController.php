@@ -80,6 +80,9 @@ class AttributeController extends AdminController
 
     public function store(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_attributes');
         $this->validate($request, [
             'name' => 'required',
@@ -108,6 +111,9 @@ class AttributeController extends AdminController
 
     public function editAttrBulk(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_attributes');
         $ids = $request->input('ids');
         $action = $request->input('action');
@@ -200,6 +206,9 @@ class AttributeController extends AdminController
 
     public function term_store(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_attributes');
         $this->validate($request, [
             'name' => 'required'
@@ -243,6 +252,9 @@ class AttributeController extends AdminController
 
     public function editTermBulk(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',  __('DEMO Mode: You can not do this') );
+        }
         $this->checkPermission('product_manage_attributes');
         $ids = $request->input('ids');
         $action = $request->input('action');
