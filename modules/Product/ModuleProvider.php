@@ -151,10 +151,9 @@ class ModuleProvider extends ModuleServiceProvider
             "grouped"=>[
                 'position'=>20,
                 "icon"=>"fa fa-link",
-                "title"=>__("Grouped Products"),
+                "title"=>__("Linked Products"),
                 "view"=>"Product::admin.product.grouped",
                 "hide_in_sub_language"=>1,
-                "condition"=>"product_type:is(grouped)",
             ],
             "external"=>[
                 'position'=>20,
