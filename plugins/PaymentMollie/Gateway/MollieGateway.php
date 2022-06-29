@@ -106,7 +106,7 @@ class MollieGateway extends BaseGateway
     }
 
 
-    public function confirmPayment($request)
+    public function confirmPayment(Request $request)
     {
         /**
          * @var Order $order
@@ -116,31 +116,55 @@ class MollieGateway extends BaseGateway
 
         $order = Order::find($c);
         if (!empty($order) ) {
+
+            if($order->isExpired()){
+                $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                $order->updateStatus(Order::FAILED);
+                return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+            }
+
             if(in_array($order->status, [Order::ON_HOLD])){
-
-                $orderId = $request->order_id;
-                $paymentId = $request->payment_id;
-                $payload = $orderId . '|' . $paymentId;
-                $actualSignature = hash_hmac('sha256', $payload, $keySecret);
-                if ($actualSignature != $request->signature) {
-
-                    $order->addPaymentLog($request->all());
-                    $order->updateStatus($order::FAILED);
-                    return redirect($order->getDetailUrl())->with('error', __("Payment Failed"));
-
-                } else {
-                    $order->addPaymentLog($request->all());
-                    $order->paid = $order->total;
-                    if($order->isExpired()){
-                        $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
-                        $order->updateStatus(Order::FAILED);
-                        return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
-                    }else{
-                        $order->pay_date = Carbon::now();
-                        $order->updateStatus(Order::PROCESSING);
-                        return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                $getPayment = $this->getPayment($order);
+                if($getPayment->successful()){
+                    $response = $getPayment->json();
+                    $status = $response['status'];
+                    switch ($status){
+                        case 'paid':
+                            return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                        break;
+                        case 'authorized':
+                            $this->capturePayment($order,$response);
+                        break;
+                        case 'canceled':
+                        case 'expired':
+                        case 'failed':
+                            $request->merge(['oid'=>$order->id]);
+                            $this->cancelPayment($request);
+                        break;
                     }
+
                 }
+//
+//                $actualSignature = hash_hmac('sha256', $payload, $keySecret);
+//                if ($actualSignature != $request->signature) {
+//
+//                    $order->addPaymentLog($request->all());
+//                    $order->updateStatus($order::FAILED);
+//                    return redirect($order->getDetailUrl())->with('error', __("Payment Failed"));
+//
+//                } else {
+//                    $order->addPaymentLog($request->all());
+//                    $order->paid = $order->total;
+//                    if($order->isExpired()){
+//                        $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+//                        $order->updateStatus(Order::FAILED);
+//                        return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
+//                    }else{
+//                        $order->pay_date = Carbon::now();
+//                        $order->updateStatus(Order::PROCESSING);
+//                        return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+//                    }
+//                }
             }
         } else {
             return redirect(url('/'));
@@ -206,6 +230,15 @@ class MollieGateway extends BaseGateway
     }
 
     public function getPayment($order): \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
+    {
+        /**
+         * @var Order $order
+         */
+        $url = $this->end_point.'/payments/'.$order->gateway_transaction_id;
+        return Http::withToken($this->getOption('api_key'))->get($url);
+    }
+
+    public function capturePayment($order,$payment)
     {
         /**
          * @var Order $order
