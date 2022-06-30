@@ -10,7 +10,7 @@ class StorageConfig
 {
 
     protected static $_data = [
-        'BC_ACTIVE_THEME'=>BC_ACTIVE_THEME ?? 'base'
+        'BC_ACTIVE_THEME'=>'base'
     ];
 
     public static function save($k,$v = null){
