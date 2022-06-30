@@ -540,5 +540,19 @@ class Order extends BaseModel
     public function isEditable(){
         return in_array($this->status,[self::DRAFT,self::ON_HOLD]);
     }
+
+    public function getCrossSells(){
+        $all = [];
+        foreach($this->items as $item){
+            $model = $item->model;
+            if($model and $model->cross_sell){
+                foreach ($model->cross_sell as $product){
+                    $all[$product->id] = $product;
+                }
+            }
+        }
+
+        return collect($all);
+    }
 }
 

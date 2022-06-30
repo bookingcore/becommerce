@@ -67,9 +67,9 @@
                 </div>
             </div>
             <div class="g-items">
-                @if(!empty($row->up_sell_items))
+                @if(!empty($row->up_sell))
                     @php $stt = 0; @endphp
-                    @foreach($row->children as $stt=>$product)
+                    @foreach($row->up_sell as $stt=>$product)
                         <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="up_sell[{{$stt}}]" value="{{$product->id}}">
                             <div class="row">
@@ -98,7 +98,7 @@
     <label>{{__("Cross-sell Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-croll-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
+            <div class="bc-cross-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
@@ -115,9 +115,9 @@
                 </div>
             </div>
             <div class="g-items">
-                @if(!empty($row->up_sell_items))
+                @if(!empty($row->cross_sell))
                     @php $stt = 0; @endphp
-                    @foreach($row->children as $stt=>$product)
+                    @foreach($row->cross_sell as $stt=>$product)
                         <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="cross_sell[{{$stt}}]" value="{{$product->id}}">
                             <div class="row">
@@ -214,7 +214,7 @@
 </script>
 <script id="cross-sell-item-template" type="text/x-handlebars-template">
     <div class="item" data-number="__number__" >
-        <input type="hidden" name="croll_sell[]" value="@{{id}}" >
+        <input type="hidden" name="cross_sell[]" value="@{{id}}" >
         <div class="row">
             <div class="col-md-1">
                 #@{{id}}

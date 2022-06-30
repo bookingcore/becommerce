@@ -283,7 +283,7 @@ class ProductController extends AdminController
                     $children = $request->input('up_sell',[]);
                     break;
                 case $this->product_grouped::TYPE_CROSS_SELL:
-                    $children = $request->input('cross_sale',[]);
+                    $children = $request->input('cross_sell',[]);
                     break;
             }
             $children = array_unique(array_values($children));
