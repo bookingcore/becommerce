@@ -22,6 +22,7 @@ return new class extends Migration
         Schema::table('products',function (Blueprint $table){
             if(!Schema::hasColumn('products','downloadable')){
                 $table->tinyInteger('downloadable')->nullable()->default(0);
+                $table->tinyInteger('download_expiry_days')->nullable()->default(0);
             }
         });
     }

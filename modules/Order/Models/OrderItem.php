@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Notification;
 use Modules\Order\Events\OrderItemStatusUpdated;
 use Modules\Order\Notifications\OrderItemNotification;
 use Modules\Order\Notifications\OrderNotification;
+use Modules\Order\Traits\HasDownloadable;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Themes\Educrat\Modules\Course\Models\Course;
@@ -23,6 +24,8 @@ class OrderItem extends BaseModel
 
     use SoftDeletes;
     use HasMeta;
+    use HasDownloadable;
+
     protected $table = 'core_order_items';
 
     protected $meta_parent_key = 'order_item_id';

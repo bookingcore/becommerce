@@ -211,7 +211,8 @@ class ProductController extends AdminController
             'button_text',
             'external_url',
             'is_approved',
-            'downloadable'
+            'downloadable',
+            'download_expiry_days'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
