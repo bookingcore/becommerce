@@ -643,6 +643,11 @@ class Product extends BaseModel
             }
         }
 
+        if(!empty($filters['type_not_in']) and is_array($filters['type_not_in']))
+        {
+            $query->whereNotIn('product_type',$filters['type_not_in']);
+        }
+
 
         $orderby = $filters['order_by'] ?? "desc";
         if(!in_array($orderby,['asc','desc'])) $orderby = 'asc';

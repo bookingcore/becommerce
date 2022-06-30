@@ -7,19 +7,6 @@
                     <label >{{__("Subtotal")}}</label>
                     <div>@{{formatMoney(_subtotal)}}</div>
                 </div>
-                <div class="d-flex justify-content-between mb-2">
-                    <div>
-                        <label >{{__("Shipping")}}</label>
-                        <select class="form-select" v-model="order.shipping_method">
-                            <optgroup label="{{__("Shipping Method")}}">
-                                <option value="">{{__("N/A")}}</option>
-                                <option v-for="(m,key) in shipping_methods" :value="key">@{{m.name}}</option>
-                                <option value="other">{{__("Other")}}</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <div><input type="number" class="form-control" step="any" min="0" v-model.number="order.shipping_amount"></div>
-                </div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <label >{{__("Discount")}}</label>
                     <div><input type="number" class="form-control" step="any" min="0" v-model.number="_discount_amount"></div>
