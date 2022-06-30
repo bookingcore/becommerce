@@ -3,8 +3,8 @@
     <div class="controls">
         <div class="form-group-item">
             <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
-                <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
-                <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
+                <input type="text" class="form-control search-input" data-display="static" data-{{isset($bs5) ? 'bs-' : ''}}toggle="dropdown" placeholder="{{__("Search product name...")}}">
+                <div class="dropdown-menu w-100" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
                 <div class="d-none template">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
@@ -52,7 +52,7 @@
         <div class="form-group-item">
             <div class="bc-up-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
-                <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-menu w-100" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
                 <div class="d-none template">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
@@ -100,7 +100,7 @@
         <div class="form-group-item">
             <div class="bc-cross-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-toggle="dropdown" placeholder="{{__("Search product name...")}}">
-                <div class="dropdown-menu" style="right:0px" aria-labelledby="dropdownMenuLink">
+                <div class="dropdown-menu w-100" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
                 <div class="d-none template">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
@@ -152,7 +152,7 @@
             </div>
             <div class="col-md-6">@{{ title }}</div>
             <div class="col-md-2">@{{ product_type }}</div>
-            <div class="col-md-3 text-right">@{{ price_html }}</div>
+            <div class="col-md-3 text-right text-end">@{{ price_html }}</div>
         </div>
     </div>
 </script>

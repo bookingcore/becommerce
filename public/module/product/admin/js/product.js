@@ -317,7 +317,7 @@
            var autocomplete = function(data){
                if(timeout) window.clearTimeout(timeout);
                timeout = window.setTimeout(function(){
-                   me.dropdown('show');
+                   dropdown.show();
                 $.ajax({
                     url:url,
                     data:data,
