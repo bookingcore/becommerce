@@ -6,24 +6,54 @@ namespace Themes\Base\Controllers\Vendor;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attribute;
 use Modules\News\Models\Tag;
+use Modules\Product\Hook;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductCategoryRelation;
+use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductTag;
 use Modules\Product\Models\ProductTagRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
+use Modules\Product\Models\ProductVariation;
+use Modules\Product\Traits\Store\ProductStore;
 use Modules\Vendor\VendorMenuManager;
 use Themes\Base\Controllers\FrontendController;
 
 class ProductController extends FrontendController
 {
-    public function __construct()
+    use ProductStore;
+
+    protected $product;
+    protected $product_translation;
+    protected $product_term;
+    protected $attributes;
+    protected $variable_product;
+    protected $product_grouped;
+    /**
+     * @var ProductCategoryRelation
+     */
+    protected $product_cat_relation;
+    /**
+     * @var ProductTagRelation
+     */
+    protected $product_tag_relation;
+
+    public function __construct(Product $product,ProductGrouped $product_grouped)
     {
         parent::__construct();
         VendorMenuManager::setActive('product');
+        $this->product = $product;
+        $this->product_translation = ProductTranslation::class;
+        $this->product_term = ProductTerm::class;
+        $this->attributes = Attribute::class;
+        $this->product_cat_relation = ProductCategoryRelation::class;
+        $this->product_tag_relation = ProductTagRelation::class;
+        $this->variable_product = ProductVariation::class;
+        $this->product_grouped = $product_grouped;
     }
 
     public function index(Request $request){
@@ -158,11 +188,15 @@ class ProductController extends FrontendController
             'stock_status',
             'quantity',
             'button_text',
-            'external_url'
+            'external_url',
+            'downloadable'
         ];
         if($row->is_approved){
             $dataKeys[] = 'status';
         }
+
+        $dataKeys = apply_filters(Hook::SAVING_KEYS,$dataKeys);
+
         $row->fillByAttr($dataKeys,$request->input());
 
         $row->updateMinMaxPrice();
@@ -178,7 +212,12 @@ class ProductController extends FrontendController
             $this->saveTags($row, $request->input('tag_name'), $request->input('tag_ids'));
             $this->saveCategory($row, $request);
             $this->saveTerms($row, $request);
+            $this->saveGroupedProducts($row, $request);
+            $this->saveDownloadable($row, $request);
         }
+
+        do_action(Hook::AFTER_SAVING,$row);
+
         if($id > 0 ){
             return back()->with('success',  __('Product updated') );
         }else {
@@ -194,49 +233,5 @@ class ProductController extends FrontendController
             $query->delete();
         }
         return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
-    }
-
-    public function saveTags($row, $tags_name, $tag_ids)
-    {
-        if (empty($tag_ids))
-            $tag_ids = [];
-        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
-        $tag_ids = array_filter(array_unique($tag_ids));
-        // Delete unused
-        ProductTagRelation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
-        //Add
-        ProductTagRelation::addTag($tag_ids, $row->id);
-
-    }
-
-    public function saveTerms($row, $request)
-    {
-        if (empty($request->input('terms'))) {
-            ProductTerm::where('target_id', $row->id)->delete();
-        } else {
-            $term_ids = $request->input('terms');
-            foreach ($term_ids as $term_id) {
-                ProductTerm::firstOrCreate([
-                    'term_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            ProductTerm::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
-        }
-    }
-
-    public function saveCategory($row, $request){
-        if (empty($request->input('category_ids'))) {
-            ProductCategoryRelation::query()->where('target_id',$row->id)->delete();
-        } else {
-            $term_ids = $request->input('category_ids');
-            foreach ($term_ids as $term_id) {
-                ProductCategoryRelation::firstOrCreate([
-                    'cat_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            ProductCategoryRelation::where('target_id', $row->id)->whereNotIn('cat_id', $term_ids)->delete();
-        }
     }
 }

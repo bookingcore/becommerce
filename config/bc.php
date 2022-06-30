@@ -34,6 +34,13 @@ return [
                 "max_size"=>200000000,
                 "max_width"=>env('ALLOW_IMAGE_MAX_WIDTH',2500),
                 "max_height"=>env('ALLOW_IMAGE_MAX_HEIGHT',2500)
+            ],
+            'product_download'=>[
+                "ext"=>["jpg",'jpeg','png','gif','bmp','zip','rar', 'gzip'],
+                "mime"=>["image/png","image/jpeg","image/gif","image/bmp",'application/x-gzip', 'application/zip', 'application/x-rar-compressed'],
+                "max_size"=>200000000,// In Bytes, default is 200MB,
+                "max_width"=>env('ALLOW_IMAGE_MAX_WIDTH',2500),
+                "max_height"=>env('ALLOW_IMAGE_MAX_HEIGHT',2500)
             ]
         ],
         "optimize_image"=>env('BC_MEDIA_OPTIMIZE_IMAGE',true),

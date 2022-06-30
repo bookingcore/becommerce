@@ -10,4 +10,9 @@ class DownloadFile extends BaseModel
 {
 
     protected $table = 'product_downloadable';
+
+    protected $fillable = [
+        'product_id',
+        'file_id'
+    ];
 }

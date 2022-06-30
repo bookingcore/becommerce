@@ -7,7 +7,7 @@ if(setting_item('product_disable_downloadable') or !is_default_lang()) return;
         <div class="form-group mb-3">
             <label class="font-weight-bold"><input type="checkbox" name="downloadable" value="1" @if(old('downloadable',$row->downloadable ?? '')) checked @endif> {{__('Enable downloadable')}}</label>
         </div>
-        <div class="form-group-item">
+        <div class="form-group-item" data-condition="downloadable:is(1)">
             <div class="g-items-header">
                 <div class="row">
                     <div class="col-md-11 text-left">{{__("File")}}</div>
@@ -22,7 +22,7 @@ if(setting_item('product_disable_downloadable') or !is_default_lang()) return;
                                 <input type="text" name="download_files[{{$key}}][file_name]" class="form-control" placeholder="{{__('File Name')}}" value="{{$download_file->file_name}}">
                             </div>
                             <div class="col-md-6">
-                                {!! \Modules\Media\Helpers\FileHelper::fieldFileUpload('download_files['.$key.'][file_name]',$download_file->file_id) !!}
+                                {!! \Modules\Media\Helpers\FileHelper::fieldFileUpload('download_files['.$key.'][file_id]',$download_file->file_id,'product_download') !!}
                             </div>
                             <div class="col-md-1">
                                 <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
@@ -41,7 +41,7 @@ if(setting_item('product_disable_downloadable') or !is_default_lang()) return;
                             <input type="text" __name__="download_files[__number__][file_name]" class="form-control" placeholder="{{__('File Name')}}">
                         </div>
                         <div class="col-md-6">
-                            {!! \Modules\Media\Helpers\FileHelper::fieldFileUpload('download_files[__number__][file_name]') !!}
+                            {!! \Modules\Media\Helpers\FileHelper::fieldFileUpload('download_files[__number__][file_id]','','product_download','__name__') !!}
                         </div>
                         <div class="col-md-1">
                             <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
