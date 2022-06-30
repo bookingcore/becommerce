@@ -18,6 +18,12 @@ return new class extends Migration
                 $table->string('channel',30)->nullable();
             }
         });
+
+        Schema::table('products',function (Blueprint $table){
+            if(!Schema::hasColumn('products','downloadable')){
+                $table->tinyInteger('downloadable')->nullable()->default(0);
+            }
+        });
     }
 
     /**
@@ -30,6 +36,11 @@ return new class extends Migration
         Schema::table('core_orders', function (Blueprint $table) {
             if(Schema::hasColumn('core_orders','channel')){
                 $table->dropColumn('channel');
+            }
+        });
+        Schema::table('products', function (Blueprint $table) {
+            if(Schema::hasColumn('products','downloadable')){
+                $table->dropColumn('downloadable');
             }
         });
     }

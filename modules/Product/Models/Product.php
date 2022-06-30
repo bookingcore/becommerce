@@ -21,6 +21,7 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Traits\HasDownloadable;
 use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
@@ -34,6 +35,7 @@ class Product extends BaseModel
     use HasFactory, HasStockValidation, SoftDeletes;
     use BCSearchable;
     use HasObjectModel;
+    use HasDownloadable;
 
     protected $table = 'products';
     public $type = 'product';

@@ -234,6 +234,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'product_policies',
                 'product_sidebar',
                 'product_image',
+
+                'product_disable_downloadable'
             ],
             'html_keys'=>[
 
