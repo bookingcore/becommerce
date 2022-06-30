@@ -1,6 +1,6 @@
 <script type="text/x-template" id="POS_header_search">
     <div class="bc-form--quick-search relative dropdown" v-click-outside="hideDropdown">
-        <input class="form-control" v-model="s" type="text" @click="openDropdown" @keyup="startSearch" placeholder="{{__("Search products (F3)")}}">
+        <input class="form-control" ref="input" v-model="s" type="text" @click="openDropdown" @keyup="startSearch" placeholder="{{__("Search products (F3)")}}">
         <i class="fa fa-spinner fa-spin fa-fw margin-bottom absolute" v-show="loading" style="top:7px;font-size: 24px;right: 5px"></i>
         <div class="dropdown-menu w-100" :class="show ? 'show' : ''" >
             <div class="dropdown-item" @click="addProduct(item)" v-for="(item,index) in items" style="cursor: pointer" v-if="items && items.length">
@@ -38,6 +38,16 @@
                 loading:false,
                 loaded:false
             }
+        },
+        created:function (){
+            var me  = this;
+            document.addEventListener('keydown', function(e){
+                if(e.code === 'F3'){
+                    e.preventDefault();
+                    me.$refs.input.focus();
+                    me.openDropdown();
+                }
+            });
         },
         methods: {
             formatMoney:function(f){

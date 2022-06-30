@@ -71,7 +71,8 @@
         created:function (){
             var me = this;
             document.addEventListener("keydown", function(e){
-                if(e.key === 'F9'){
+                if(e.code === 'F9'){
+                    e.preventDefault();
                     me.submitOrder();
                 }
             }, false);

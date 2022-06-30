@@ -95,7 +95,11 @@ var POS_App = new Vue({
             this.isSubmit  = true;
             $.ajax({
                 url:'/api/v1/order',
-                type:'POST'
+                type:'POST',
+                data:{
+                    items:this.currentOrder.items,
+                    channel:'pos'
+                }
             })
         },
         validateOrder:function (){
