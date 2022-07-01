@@ -12,26 +12,26 @@
             <h2 class="heading-title text-center">{{ $title_name }}</h2>
             <div class="swiper-slider-icon swiper-container ">
                 <div class="swiper-wrapper">
-                    @foreach($list_items as $k=>$item)
-                        @if( !empty( $item_cat =  $categories->firstWhere('id',$item['category_id']) ))
-                            @php
-                                $translate = $item_cat->translate(app()->getLocale());
-                                $page_search = $item_cat->getDetailUrl();
-                                $image_cat = get_file_url($item_cat['image_id'] ?? "", 'full');
-                            @endphp
-                            <div class="swiper-slide">
-                                <div class="item-icons">
-                                    <a href="{{ $page_search }}">
-                                        @if($item['icon'])
-                                            <i class="{{ $item['icon'] }}"></i>
-                                        @else
-                                            <img src="{{$image_cat}}" alt="{{ $translate->name }}">
-                                        @endif
-                                    </a>
-                                </div>
-                                <h3 class="item-title"><a href="{{ $page_search }}">{{ $translate->name }}</a></h3>
+                    @foreach($list_items_2 as $k=>$item)
+                        @php $image_url = get_file_url($item['image_id'] ?? "", 'full'); @endphp
+                        @foreach($item['categories'] as $cate)
+                        @php
+                            $translate = $cate->translate(app()->getLocale());
+                            $page_search = $cate->getDetailUrl();
+                        @endphp
+                        <div class="swiper-slide">
+                            <div class="item-icons">
+                                <a href="{{ $page_search }}">
+                                    @if($item['icon'])
+                                        <i class="{{ $item['icon'] }}"></i>
+                                    @else
+                                        <img src="{{$image_url}}" alt="{{ $translate->name }}">
+                                    @endif
+                                </a>
                             </div>
-                        @endif
+                            <h3 class="item-title"><a href="{{ $page_search }}">{{ $translate->name }}</a></h3>
+                        </div>
+                        @endforeach
                     @endforeach
                 </div>
                 <!-- If we need navigation buttons -->

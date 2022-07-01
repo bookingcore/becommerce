@@ -19,30 +19,25 @@ class CategoryProduct extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'        => 'title_name',
-                    'type'      => 'input',
-                    'inputType' => 'text',
-                    'label'     => __('Title')
-                ],
-                [
-                    'id'            => 'style',
-                    'type'          => 'radios',
-                    'label'         => __('Style'),
-                    'values'        => [
+                    'id'    => 'style',
+                    'type'  => 'radios',
+                    'label' => __('Style'),
+                    'std' => 'style_1',
+                    'values' => [
                         [
-                            'value'   => '',
-                            'name' => __("Style with Image Category")
+                            'value'   => 'style_1',
+                            'name' => __("Style 1")
                         ],
                         [
                             'value'   => 'style_2',
-                            'name' => __("Style with Icon")
-                        ],
-                    ]
+                            'name' => __("Style 2")
+                        ]
+                    ],
                 ],
                 [
                     'id'          => 'list_items',
                     'type'        => 'listItem',
-                    'label'       => __('Slider Items'),
+                    'label'       => __('List Items'),
                     'title_field' => 'title',
                     'settings'    => [
                         [
@@ -61,12 +56,44 @@ class CategoryProduct extends BaseBlock
                             'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1])
                         ],
                         [
+                            'id'    => 'image_id',
+                            'type'  => 'uploader',
+                            'label' => __('Icon Image')
+                        ]
+                    ],
+                    'conditions' => ['style' => 'style_1']
+                ],
+                [
+                    'id'          => 'list_items_2',
+                    'type'        => 'listItem',
+                    'label'       => __('List Items 2'),
+                    'title_field' => 'title',
+                    'settings'    => [
+                        [
                             'id'        => 'icon',
                             'type'      => 'input',
                             'inputType' => 'text',
                             'label'     => __('Icon ')
                         ],
-                    ]
+                        [
+                            'id'      => 'category_ids',
+                            'type'    => 'select2',
+                            'label'   => __('Select Category'),
+                            'select2' => [
+                                'ajax'  => [
+                                    'url'      => route('product.admin.category.getForSelect2'),
+                                    'dataType' => 'json'
+                                ],
+                                'width' => '100%',
+                                'allowClear' => 'true',
+                                'multiple' => "true",
+                                'placeholder' => __('-- Select --')
+                            ],
+                            'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1]),
+
+                        ]
+                    ],
+                    'conditions' => ['style' => 'style_2']
                 ]
             ],
             'category'=>__("Product")
@@ -80,12 +107,23 @@ class CategoryProduct extends BaseBlock
 
     public function content($model = [])
     {
+
         if(!empty($model['list_items'])){
             $ids = collect($model['list_items'])->pluck('category_id');
             $categories = ProductCategory::query()->whereIn("id",$ids)->get();
             $model['categories'] = $categories;
         }
-        $style = $model['style'] ? $model['style'] : 'index';
+        if(!empty($model['list_items_2']))
+        {
+            $list_items_2 = [];
+            foreach ($model['list_items_2'] as $item)
+            {
+                $item['categories'] = ProductCategory::query()->whereIn("id",$item['category_ids'])->get();
+                $list_items_2[] = $item;
+            }
+            $model['list_items_2'] = $list_items_2;
+        }
+        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.category.{$style}", $model);
     }
 }
