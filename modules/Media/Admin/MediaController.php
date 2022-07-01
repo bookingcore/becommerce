@@ -256,24 +256,10 @@ class MediaController extends Controller
         if (!Auth::user()->hasPermission("media_manage_others")) {
              $model->where('create_user', Auth::id());
         }
-        switch ($file_type) {
-            case "image":
-                $model->whereIn('file_extension', [
-                    'png',
-                    'jpg',
-                    'jpeg',
-                    'gif',
-                    'bmp',
-                    'svg'
-                ]);
-                break;
-            case "cvs":
-                $ext = [
-                    'ppt','pptx','pdf','docx','doc'
-                ];
-                $model->whereIn('file_extension', $ext);
-                break;
-        }
+        $uploadConfigs = config('bc.media.groups');
+        $config = isset($uploadConfigs[$file_type]) ? $uploadConfigs[$file_type] : $uploadConfigs['default'];
+        $model->whereIn('file_extension',$config['ext']);
+
         if ($s) {
             $model->where('file_name', 'like', '%' . ($s) . '%');
         }
