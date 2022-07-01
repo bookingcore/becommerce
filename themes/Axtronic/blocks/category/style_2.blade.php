@@ -7,9 +7,9 @@
  */
 ?>
 @if($list_items)
-    <div class="axtronic-category style-2">
+    <div class="axtronic-category">
         <div class="container">
-            <h2 class="heading-title text-center">{{ $title_name }}</h2>
+            <h2 class="heading-title">{{ $title_name }}</h2>
             <div class="swiper-slider-icon swiper-container ">
                 <div class="swiper-wrapper">
                     @foreach($list_items_2 as $k=>$item)

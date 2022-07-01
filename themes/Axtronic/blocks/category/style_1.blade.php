@@ -7,7 +7,7 @@
  */
 ?>
 @if(!empty($list_items))
-    <div class="axtronic-category">
+    <div class="axtronic-category style-2">
         <div class="container">
             <h2 class="heading-title">{{ $title_name }}</h2>
             <div class="swiper-slider-icon swiper-container ">

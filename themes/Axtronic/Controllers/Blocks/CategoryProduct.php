@@ -66,14 +66,14 @@ class CategoryProduct extends BaseBlock
                 [
                     'id'          => 'list_items_2',
                     'type'        => 'listItem',
-                    'label'       => __('List Items 2'),
+                    'label'       => __('List Items'),
                     'title_field' => 'title',
                     'settings'    => [
                         [
                             'id'        => 'icon',
                             'type'      => 'input',
                             'inputType' => 'text',
-                            'label'     => __('Icon ')
+                            'label'     => __('Title')
                         ],
                         [
                             'id'      => 'category_ids',
@@ -91,7 +91,7 @@ class CategoryProduct extends BaseBlock
                             ],
                             'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1]),
 
-                        ]
+                        ],
                     ],
                     'conditions' => ['style' => 'style_2']
                 ]
