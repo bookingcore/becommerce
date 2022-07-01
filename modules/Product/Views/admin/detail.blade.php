@@ -83,6 +83,7 @@ $product_types = get_product_types();
                                 </div>
                             </div>
                         </div>
+                        @include('Product::admin.product.downloadable')
                         <div class="panel">
                             <div class="panel-title"><strong>{{__("Short Desc & Gallery")}}</strong></div>
                             <div class="panel-body">

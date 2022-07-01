@@ -317,7 +317,7 @@
            var autocomplete = function(data){
                if(timeout) window.clearTimeout(timeout);
                timeout = window.setTimeout(function(){
-                   me.dropdown('show');
+                   dropdown.show();
                 $.ajax({
                     url:url,
                     data:data,
@@ -363,5 +363,17 @@
         $('.bc-grouped-product').on('bc.dropdown.click',function(e,data){
             var p = $(this).closest('.form-group-item');
             p.find('.g-items').append(grouped_item_template(data))
+        })
+        var upsell_item_template = Handlebars.compile(document.getElementById('up-sell-item-template').innerHTML);
+
+        $('.bc-up-sell-product').on('bc.dropdown.click',function(e,data){
+            var p = $(this).closest('.form-group-item');
+            p.find('.g-items').append(upsell_item_template(data))
+        })
+        var cross_sell_template = Handlebars.compile(document.getElementById('cross-sell-item-template').innerHTML);
+
+        $('.bc-cross-sell-product').on('bc.dropdown.click',function(e,data){
+            var p = $(this).closest('.form-group-item');
+            p.find('.g-items').append(cross_sell_template(data))
         })
 })(jQuery);

@@ -4,12 +4,15 @@ use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Core\Helpers\SitemapHelper;
 use Modules\ModuleServiceProvider;
+use Modules\Product\Models\Channels\PosChannel;
+use Modules\Product\Models\Channels\WebsiteChannel;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductBrand;
 use Modules\Product\Models\ProductCategory;
 use Modules\Product\Models\ProductExternal;
 use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductVariation;
+use Modules\Product\Supports\ChannelManager;
 use Modules\Template\BlockManager;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -36,6 +39,9 @@ class ModuleProvider extends ModuleServiceProvider
 
         BlockManager::register("list_product",\Modules\Product\Blocks\ListProduct::class);
 
+        \Modules\Product\Facades\ChannelManager::add("pos",PosChannel::class);
+        \Modules\Product\Facades\ChannelManager::add("website",WebsiteChannel::class);
+
     }
     /**
      * Register bindings in the container.
@@ -46,6 +52,10 @@ class ModuleProvider extends ModuleServiceProvider
     {
         $this->app->register(RouterServiceProvider::class);
         $this->app->register(RepositoryServiceProvider::class);
+
+        $this->app->singleton('be.channel_manager',function(){
+            return new ChannelManager();
+        });
     }
 
     public static function getAdminMenu()
@@ -151,10 +161,9 @@ class ModuleProvider extends ModuleServiceProvider
             "grouped"=>[
                 'position'=>20,
                 "icon"=>"fa fa-link",
-                "title"=>__("Grouped Products"),
+                "title"=>__("Linked Products"),
                 "view"=>"Product::admin.product.grouped",
                 "hide_in_sub_language"=>1,
-                "condition"=>"product_type:is(grouped)",
             ],
             "external"=>[
                 'position'=>20,
@@ -225,6 +234,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'product_policies',
                 'product_sidebar',
                 'product_image',
+
+                'product_disable_downloadable'
             ],
             'html_keys'=>[
 

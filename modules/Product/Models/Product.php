@@ -21,6 +21,7 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Traits\HasDownloadable;
 use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
@@ -34,6 +35,7 @@ class Product extends BaseModel
     use HasFactory, HasStockValidation, SoftDeletes;
     use BCSearchable;
     use HasObjectModel;
+    use HasDownloadable;
 
     protected $table = 'products';
     public $type = 'product';
@@ -643,6 +645,11 @@ class Product extends BaseModel
             }
         }
 
+        if(!empty($filters['type_not_in']) and is_array($filters['type_not_in']))
+        {
+            $query->whereNotIn('product_type',$filters['type_not_in']);
+        }
+
 
         $orderby = $filters['order_by'] ?? "desc";
         if(!in_array($orderby,['asc','desc'])) $orderby = 'asc';
@@ -839,10 +846,10 @@ class Product extends BaseModel
         return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_GROUPED);
     }
 
-    public function up_sell_items(){
+    public function up_sell(){
         return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_UP_SELL);
     }
-    public function cross_sell_items(){
+    public function cross_sell(){
         return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_CROSS_SELL);
     }
 }

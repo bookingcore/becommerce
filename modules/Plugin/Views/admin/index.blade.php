@@ -13,7 +13,7 @@
                         <select name="action" class="form-control">
                             <option value="">{{__(" Bulk Actions ")}}</option>
                             <option value="active">{{__("Active")}}</option>
-                            <option value="deactive">{{__("Deactive")}}</option>
+                            <option value="deactivate">{{__("Deactivate")}}</option>
                         </select>
                         <button class="btn-info btn btn-icon dungdt-apply-form-btn" type="button">{{__('Apply')}}</button>
                     </form>
@@ -22,7 +22,9 @@
         </div>
         <div class="panel">
             <div class="panel-body">
-                    <div class="table-responsive">
+                <div class="bc-form-item">
+
+                <div class="table-responsive">
                     <table class="table table-hover">
                         <thead>
                         <tr>
@@ -73,6 +75,8 @@
                         </tbody>
                     </table>
                     </div>
+                </div>
+
             </div>
         </div>
     </div>

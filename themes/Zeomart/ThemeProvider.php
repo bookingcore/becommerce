@@ -6,6 +6,7 @@ namespace Themes\Zeomart;
 
 use Illuminate\Pagination\Paginator;
 use Modules\Core\Helpers\SettingManager;
+use Modules\Template\BlockManager;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 
 class ThemeProvider extends AbstractThemeProvider
@@ -34,6 +35,8 @@ class ThemeProvider extends AbstractThemeProvider
         if(!is_admin_dashboard() and !is_vendor_page()){
             Paginator::defaultView('global.pagination');
         }
+
+        BlockManager::register('about_gallery', \Themes\Zeomart\Controllers\Blocks\AboutGallery::class);
     }
 
     public function registerZone(){

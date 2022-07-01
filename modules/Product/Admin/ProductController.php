@@ -12,7 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attribute;
+use Modules\Media\Models\MediaFile;
 use Modules\Product\Hook;
+use Modules\Product\Models\Downloadable\DownloadFile;
 use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
@@ -24,9 +26,12 @@ use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Resources\ProductResource;
+use Modules\Product\Traits\Store\ProductStore;
 
 class ProductController extends AdminController
 {
+    use ProductStore;
+
     protected $product;
     protected $product_translation;
     protected $product_term;
@@ -205,7 +210,9 @@ class ProductController extends AdminController
             'quantity',
             'button_text',
             'external_url',
-            'is_approved'
+            'is_approved',
+            'downloadable',
+            'download_expiry_days'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
@@ -230,6 +237,7 @@ class ProductController extends AdminController
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
                 $this->saveGroupedProducts($row, $request);
+                $this->saveDownloadable($row, $request);
             }
 
             do_action(Hook::AFTER_SAVING,$row);
@@ -242,69 +250,6 @@ class ProductController extends AdminController
             }
         }
     }
-
-    public function saveTags($row, $tags_name, $tag_ids)
-    {
-        if (empty($tag_ids))
-            $tag_ids = [];
-        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
-        $tag_ids = array_filter(array_unique($tag_ids));
-        // Delete unused
-        $this->product_tag_relation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
-        //Add
-        $this->product_tag_relation::addTag($tag_ids, $row->id);
-
-    }
-
-    public function saveTerms($row, $request)
-    {
-        if (empty($request->input('terms'))) {
-            $this->product_term::where('target_id', $row->id)->delete();
-        } else {
-            $term_ids = $request->input('terms');
-            foreach ($term_ids as $term_id) {
-                $this->product_term::firstOrCreate([
-                    'term_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
-        }
-    }
-
-    public function saveGroupedProducts($row, $request)
-    {
-        foreach ([$this->product_grouped::TYPE_GROUPED,$this->product_grouped::TYPE_UP_SELL,$this->product_grouped::TYPE_CROSS_SELL] as $group_type){
-            switch ($group_type){
-                case $this->product_grouped::TYPE_GROUPED:
-                    $children = $request->input('children',[]);
-                    break;
-                case $this->product_grouped::TYPE_UP_SELL:
-                    $children = $request->input('up_sell',[]);
-                    break;
-                case $this->product_grouped::TYPE_CROSS_SELL:
-                    $children = $request->input('cross_sale',[]);
-                    break;
-            }
-            $children = array_unique(array_values($children));
-
-            if (empty($children)) {
-                $this->product_grouped::where('parent_id', $row->id)->where('group_type', $group_type)->delete();
-            } else {
-                foreach ($children as $product_id) {
-                    if($product_id == $row->id) continue;
-                    $this->product_grouped::firstOrCreate([
-                        'children_id' => $product_id,
-                        'parent_id' => $row->id,
-                        'group_type'=>$group_type
-                    ]);
-                }
-                $this->product_grouped::where('parent_id', $row->id)->where('group_type', $group_type)->whereNotIn('children_id', $children)->delete();
-            }
-        }
-
-    }
-
 
     public function ajaxSaveTerms(Request $request){
 
@@ -330,21 +275,6 @@ class ProductController extends AdminController
         $this->saveTerms($product,$request);
 
         return $this->sendSuccess([],__('Attribute data saved'));
-    }
-
-    public function saveCategory($row, $request){
-        if (empty($request->input('category_ids'))) {
-            $this->product_cat_relation::query()->where('target_id',$row->id)->delete();
-        } else {
-            $term_ids = $request->input('category_ids');
-            foreach ($term_ids as $term_id) {
-                $this->product_cat_relation::firstOrCreate([
-                    'cat_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_cat_relation::where('target_id', $row->id)->whereNotIn('cat_id', $term_ids)->delete();
-        }
     }
 
     public function bulkEdit(Request $request)

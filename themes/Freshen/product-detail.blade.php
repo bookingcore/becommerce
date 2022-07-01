@@ -53,6 +53,7 @@
                      @include('product.details.tabs')
                  </div>
                  <div class="col-lg-12">
+                     @include('product.details.up-sells')
                      @include('product.details.products-related')
                  </div>
              </div>

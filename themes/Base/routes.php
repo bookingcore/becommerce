@@ -35,6 +35,11 @@ Route::group(['prefix'=>'user','middleware'=>['auth','verified']],function(){
     Route::post('/wishlist','User\UserWishListController@handleWishList')->name("user.wishList.handle");
     Route::get('/wishlist/remove','User\UserWishListController@remove')->name("user.wishList.remove");
 
+    Route::group(['prefix'=>'download'],function(){
+        Route::get('/','User\DownloadController@index')->name("user.download.index");
+        Route::get('/start-download/{id}/{file_id}','User\DownloadController@download')->name("user.download.start")->middleware('signed');
+    });
+
 });
 
 Route::group(['prefix'=>'vendor'],function(){
@@ -110,7 +115,7 @@ Route::post('register','User\RegisterController@store')->name('register.store');
 Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
 
 Route::group(['prefix'=>'pos','middleware'=>['auth','verified']],function(){
-    //Route::get('/','POSController@index')->name('pos');
+    Route::get('/','POSController@index')->name('pos');
 });
 
 
