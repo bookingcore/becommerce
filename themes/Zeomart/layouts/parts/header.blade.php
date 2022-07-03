@@ -75,7 +75,7 @@
                         </span>
                     </a>
                 @endif
-            </li>
+            </div>
         </div>
     </div>
 </div>

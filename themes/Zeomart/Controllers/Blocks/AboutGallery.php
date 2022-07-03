@@ -35,7 +35,7 @@ class AboutGallery extends BaseBlock
     public function content($model = [])
     {
         $data = [
-            'gallery'  =>  $model['gallery'] ?? ''
+            'list_items'  =>  $model['list_items'] ?? ''
         ];
 
         return view("blocks.about-gallery.index", $data);
