@@ -1,5 +1,5 @@
 <?php
-namespace Plugins\PaymentMollie;
+namespace Plugins\PaymentTwoCheckout;
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -11,8 +11,8 @@ class RouterServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    protected $moduleNamespace      = 'Plugins\PaymentMollie\Controllers';
-    protected $adminModuleNamespace = 'Plugins\PaymentMollie\Admin';
+    protected $moduleNamespace      = 'Plugins\PaymentTwoCheckout\Controllers';
+    protected $adminModuleNamespace = 'Plugins\PaymentTwoCheckout\Admin';
 
     /**
      * Called before routes are registered.
