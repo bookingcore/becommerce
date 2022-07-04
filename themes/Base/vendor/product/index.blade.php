@@ -1,7 +1,7 @@
 @extends('layouts.vendor')
 @section('content')
 <section class="bc-items-listing">
-    <div class="flex justify-between mb-4">
+    <div class="d-flex justify-content-between mb-4">
         <h1>{{$page_title ?? ''}}</h1>
         <div class="bc-section__actions"><a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a></div>
     </div>
@@ -89,7 +89,7 @@
                 </table>
             </div>
             @if(!count($rows))
-                <div class="alert alert-warning">{{__("No data found")}}</div>
+                <div class="m-3 alert alert-warning">{{__("No data found")}}</div>
             @endif
             <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
         </div>
