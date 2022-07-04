@@ -22,7 +22,7 @@
                             <div class="swiper-slide">
                                 <div class="item-icons">
                                     <a href="{{ $page_search }}">
-                                        @if($item['image_id'])
+                                        @if(!empty($item['image_id']))
                                             <img src="{{ get_file_url($item['image_id']?? false,'full') }}" alt="{{ $translate->name }}">
                                         @else
                                             <img src="{{$image_cat}}" alt="{{ $translate->name }}">
