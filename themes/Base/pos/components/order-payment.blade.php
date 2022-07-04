@@ -1,7 +1,9 @@
 <script type="text/x-template" id="POS_payment">
     <div class="pos-payment flex-shrink-0 py-2" v-show="_total">
         <div class="row">
-            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <pos-order-customer/>
+            </div>
             <div class="col-md-6">
                 <div class="d-flex justify-content-between mb-2">
                     <label >{{__("Subtotal")}}</label>

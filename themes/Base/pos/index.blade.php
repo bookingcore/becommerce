@@ -74,10 +74,12 @@
         });
     </script>
     @include('global.components.pagination')
+    @include('global.components.customer-dropdown')
     @include('pos.components.header.search')
     @include('pos.components.products')
     @include('pos.components.order-items')
     @include('pos.components.order-payment')
+    @include('pos.components.order-customer')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
     <script src="{{theme_url('Base/pos/pos.js')}}"></script>
 @endpush
