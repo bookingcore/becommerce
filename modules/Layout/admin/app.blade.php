@@ -147,17 +147,17 @@
 {!! \App\Helpers\Assets::css(true) !!}
 <script src="{{ asset('libs/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('libs/pusher.min.js') }}"></script>
-<script src="{{ asset('dist/admin/js/manifest.js?_ver='.config('app.version')) }}" ></script>
-<script src="{{ asset('dist/admin/js/vendor.js?_ver='.config('app.version')) }}" ></script>
+<script src="{{ asset('dist/admin/js/manifest.js?_ver='.config('app.asset_version')) }}" ></script>
+<script src="{{ asset('dist/admin/js/vendor.js?_ver='.config('app.asset_version')) }}" ></script>
 <script src="{{ asset('libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-<script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.version')) }}"></script>
-<script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.version')) }}" ></script>
+<script src="{{ asset('libs/filerobot-image-editor/filerobot-image-editor.min.js?_ver='.config('app.asset_version')) }}"></script>
+<script src="{{ asset('dist/admin/js/app.js?_ver='.config('app.asset_version')) }}" ></script>
 <script src="{{ asset('libs/vue/vue'.(!config('app.debug') ? '.min':'').'.js') }}"></script>
 <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
 <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
 
 <script src="{{url('libs/daterange/moment.min.js')}}"></script>
-<script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.version'))}}"></script>
+<script src="{{url('libs/daterange/daterangepicker.min.js?_ver='.config('app.asset_version'))}}"></script>
 
 @include('Layout::admin.components.filepicker')
 

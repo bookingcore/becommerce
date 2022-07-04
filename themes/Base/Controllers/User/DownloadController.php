@@ -25,7 +25,8 @@ class DownloadController extends FrontendController
 
         $data = [
             'rows'=>$downloadItems->with(['product'])->paginate(20),
-            'page_title'=>__("My downloads")
+            'page_title'=>__("My downloads"),
+            'user'=>auth()->user()
         ];
 
         return view('user.download',$data);
