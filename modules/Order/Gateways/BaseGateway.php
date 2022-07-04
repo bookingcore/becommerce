@@ -37,6 +37,11 @@ abstract class BaseGateway
 
     }
 
+    public function callbackPayment(Request $request)
+    {
+
+    }
+
     public function getOptionsConfigs()
     {
         return [];
@@ -111,6 +116,10 @@ abstract class BaseGateway
         }
         $is_api = request()->segment(1) == 'api';
         return url(($is_api ? 'api/' : '').app_get_locale(false,false,"/").config('order.order_route_prefix') . '/cancel/' . $this->id);
+    }
+
+    public function getWebhookUrl(){
+        return route('order.gateway.webhook',['gateway'=>$this->id]);
     }
 
     public function getDisplayLogo()

@@ -105,6 +105,7 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
     Route::get('/{code}','Order\OrderController@detail')->name('order.detail');
     Route::get('/modal/{code}','Order\OrderController@modal')->name('order.modal')->middleware('auth');
+    Route::match(['get','post'],'/gateway_callback/{gateway}','Order\OrderController@callbackPayment')->name('order.gateway.webhook');
 });
 
 
