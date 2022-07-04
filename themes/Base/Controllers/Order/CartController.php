@@ -75,10 +75,28 @@ class CartController extends FrontendController
         $service = $module::find($service_id);
         try {
             $cartItem = $this->cart_manager::findItem($service,$variation_id);
+            $is_group_product = false;
 
             $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
 
-            $this->cart_manager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
+            switch($service->product_type){
+                case 'grouped':
+                    $quantity = 0;
+                    $is_group_product = true;
+                    $children_input = $request->input('children',[]);
+                    foreach ($service->children as $child){
+                        if($child->product_type == 'simple' and !empty($children_input[$child->id]))
+                        {
+                            $this->cart_manager::add($child,$child->name,$children_input[$child->id],min($child->price,$child->sale_price));
+                            $quantity += $children_input[$child->id];
+                        }
+                    }
+                    break;
+                default:
+                    $this->cart_manager::add($service,$service->name,$quantity,min($service->price,$service->sale_price),[],$variation_id);
+                    break;
+            }
+
 
             $buy_now = $request->input('buy_now');
 
@@ -87,11 +105,16 @@ class CartController extends FrontendController
                     'data'=>new CartResource(CartManager::cart())
                 ]);
             }
+
+            $message = __('":title" has been added to your cart.',['title'=>$service->title]);
+            if($is_group_product){
+                $message = __(':count product(s) added to your cart',['count'=>$quantity]);
+            }
             return $this->sendSuccess([
                 'fragments'=>!is_api() ? $this->cart_manager::fragments() : [],
                 'url'=>$buy_now ? route('checkout') : '',
             ],
-                !$buy_now ? __('":title" has been added to your cart.',['title'=>$service->title]) :''
+                !$buy_now ? $message :''
             );
 
         }catch (\Exception $exception){

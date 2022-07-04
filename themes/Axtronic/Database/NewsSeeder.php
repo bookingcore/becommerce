@@ -4,6 +4,8 @@ use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Modules\Media\Models\MediaFile;
+use Modules\News\Models\NewsCategory;
+use Modules\News\Models\Tag;
 
 class NewsSeeder extends Seeder
 {
@@ -14,7 +16,37 @@ class NewsSeeder extends Seeder
      */
     public function run()
     {
-
+        $list_categories = [
+            ['name' => 'Company News', 'slug' => 'company-news',  'status' => 'publish' ]
+            , ['name' => 'Design', 'slug' => 'design',  'status' => 'publish' ]
+            , ['name' => 'Life Style ', 'slug' => 'life-style',  'status' => 'publish' ]
+            , ['name' => 'Social Media', 'slug' => 'social-media',  'status' => 'publish' ]
+            , ['name' => 'Lifestyle', 'slug' => 'lifestyle',  'status' => 'publish' ]
+            , ['name' => 'Fashion', 'slug' => 'fashion',  'status' => 'publish' ]
+        ];
+        foreach ($list_categories as $category){
+            $row = new NewsCategory( $category );
+            $row->save();
+        }
+        $list_tags = [
+            ['name' => 'Company News', 'slug' => 'company-news' ],
+            ['name' => 'Design', 'slug' => 'design' ],
+            ['name' => 'Electronic', 'slug' => 'electronic' ],
+            ['name' => 'Lifestyle', 'slug' => 'lifestyle'],
+            ['name' => 'Social Media', 'slug' => 'social-media'],
+            ['name' => 'Tips & Tricks', 'slug' => 'tips-tricks'],
+            ['name' => 'Marketing', 'slug' => 'marketing'],
+            ['name' => 'Music', 'slug' => 'music'],
+            ['name' => 'New Style', 'slug' => 'new-style'],
+            ['name' => 'Print', 'slug' => 'print'],
+            ['name' => 'Spring', 'slug' => 'spring'],
+            ['name' => 'Summer', 'slug' => 'summer'],
+            ['name' => 'Technology', 'slug' => 'technology']
+        ];
+        foreach ($list_tags as $tag) {
+            $row = new Tag($tag);
+            $row->save();
+        }
         $media_files = [
             '1'=> MediaFile::updateOrCreate(['file_name' => 'axtronic-news-1', 'file_path' => 'axtronic/news/news-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'axtronic-news-1'])->id,
             '2'=> MediaFile::updateOrCreate(['file_name' => 'axtronic-news-2', 'file_path' => 'axtronic/news/news-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],['file_name' => 'axtronic-news-2'])->id,
@@ -124,6 +156,12 @@ class NewsSeeder extends Seeder
             'create_user' => '1',
             'author_id' => '1',
             'created_at' =>  date("Y-m-d H:i:s")
+        ]);
+        setting_update_item('news_sidebar',[
+            ['type'=>'search_form'],
+            ['type'=>'category'],
+            ['type'=>'recent_news'],
+            ['type'=>'tag'],
         ]);
     }
 }

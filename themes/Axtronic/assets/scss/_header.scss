@@ -5,7 +5,7 @@ header{
     a:not(.button) {
         color: #fff;
     }
-    &.header-style_1{
+    &.header-1{
         background-color: transparent;
         a:not(.button) {
             color: var(--accent);
@@ -82,7 +82,7 @@ header{
 
         }
     }
-    &.header-style_2{
+    &.header-2{
         background-color: transparent;
         a:not(.button) {
             color: var(--accent);

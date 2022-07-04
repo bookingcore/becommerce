@@ -77,7 +77,7 @@
                                                 @php $i = 0 @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
                                                     <div data-product-id="{{$row->id}}" class="tab-pane fade @if($active_tab == $tab_id) show active @endif" id="{{$tab_id}}">
-                                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
+                                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>0,'bs5'=>1])
                                                     </div>
                                                     @php $i++ @endphp
                                                 @endforeach
@@ -86,6 +86,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('Product::admin.product.downloadable')
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__("Short Desc & Gallery")}}</strong></div>
                                 <div class="panel-body">
@@ -149,6 +150,7 @@
     </section>
 @endsection
 @push('footer')
+    <script src="{{asset('libs/handlebars/handlebars.min.js')}}"></script>
     <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
     <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>

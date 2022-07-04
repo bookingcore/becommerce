@@ -92,8 +92,11 @@
 
             </div>
             <div class="row">
+                <div class="col-12 col-lg-8">
+                    @include('order.cart.cross-sells')
+                </div>
                 <div class="col-12 col-lg-4">
-                    <div class="card section-coupon-form">
+                    <div class="card section-coupon-form mb-3">
                         <div class="card-header font-weight-bold">{{__('Coupon Discount')}}</div>
                         <div class="card-body">
                             <div class="form-group">
@@ -124,11 +127,6 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="col-12 col-lg-4">
-
-                </div>
-                <div class="col-12 col-lg-4">
                     <div class="card">
                         <div class="card-header font-weight-bold">{{__('Order')}}</div>
                         <div class="card-body">

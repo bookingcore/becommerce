@@ -21,10 +21,12 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
+use Modules\Product\Traits\HasDownloadable;
 use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
+use mysql_xdevapi\Exception;
 use Themes\Base\Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
 
@@ -33,6 +35,7 @@ class Product extends BaseModel
     use HasFactory, HasStockValidation, SoftDeletes;
     use BCSearchable;
     use HasObjectModel;
+    use HasDownloadable;
 
     protected $table = 'products';
     public $type = 'product';
@@ -106,16 +109,10 @@ class Product extends BaseModel
     {
         return AttributeCasts::make(
             get:function($value){
-                switch ($this->product_type){
-                    case "simple":
-                        return __('Simple Product');
-                    break;
-                    case "variable":
-                        return __('Variable Product');
-                    break;
-                    case "external":
-                        return __('External Product');
-                    break;
+                $all = get_product_types();
+                if(array_key_exists($this->product_type,$all) and class_exists($all[$this->product_type]) and method_exists($all[$this->product_type],'getTypeName'))
+                {
+                    return call_user_func([$all[$this->product_type],'getTypeName']);
                 }
             }
         );
@@ -485,24 +482,46 @@ class Product extends BaseModel
         }
         switch ($this->product_type){
             case 'variable':
-                    $variant = $this->variations()->where('id',$variant_id)->first();
-                    if(!empty($variant)){
-                        if(!empty($this->check_manage_stock())){
-                            if(!empty($this->quantity)){
-                                $remainStock = $this->remain_stock;
-                                if($qty>$remainStock){
-                                    throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
-                                }
-                            }else{
-                                throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
+                $variant = $this->variations()->where('id',$variant_id)->first();
+                if(!empty($variant)){
+                    if(!empty($this->check_manage_stock())){
+                        if(!empty($this->quantity)){
+                            $remainStock = $this->remain_stock;
+                            if($qty>$remainStock){
+                                throw new \Exception(__('Only :remain remaining. Please select again.',['remain'=>$remainStock]),406);
                             }
                         }else{
-
-                            $variant->stockValidation($qty);
+                            throw new \Exception(__(':product_name is out of stock',['product_name'=>$this->title]),406);
                         }
                     }else{
-                        throw new \Exception(__('Please select a variation'),407);
+
+                        $variant->stockValidation($qty);
                     }
+                }else{
+                    throw new \Exception(__('Please select a variation'),407);
+                }
+                break;
+            case "grouped":
+                $children = $this->children;
+                if(empty($children)){
+                    throw new \Exception(__("This product does not contain any children products"));
+                }
+                $children_input = \request()->input('children',[]);
+                if(empty($children_input)){
+                    throw new \Exception(__("Please select quantity"));
+                }
+                $check_quantity = false;
+                foreach ($children as $child){
+                    if($child->product_type == 'simple'){
+                        if(!empty($children_input[$child->id])){
+                            $check_quantity = true;
+                            $child->addToCartValidate($children_input[$child->id]);
+                        }
+                    }
+                }
+                if(!$check_quantity){
+                    throw new \Exception(__("Please select quantity"));
+                }
                 break;
             case 'external':
                 throw  new \Exception('Product type external. You cannot add to cart!',408);
@@ -624,6 +643,11 @@ class Product extends BaseModel
                     $query->where('price','>',0);
                     break;
             }
+        }
+
+        if(!empty($filters['type_not_in']) and is_array($filters['type_not_in']))
+        {
+            $query->whereNotIn('product_type',$filters['type_not_in']);
         }
 
 
@@ -816,5 +840,16 @@ class Product extends BaseModel
             'brand'=>new BrandResource($this->brand),
             'url'=>$this->getDetailUrl()
         ];
+    }
+
+    public function children(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_GROUPED);
+    }
+
+    public function up_sell(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_UP_SELL);
+    }
+    public function cross_sell(){
+        return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_CROSS_SELL);
     }
 }

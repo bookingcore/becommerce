@@ -15,6 +15,7 @@ class ListProduct extends BaseBlock
                     'id'            => 'style_list',
                     'type'          => 'radios',
                     'label'         => __('Style Item'),
+                    'value'         => '',
                     'values'        => [
                         [
                             'value'   => '',
@@ -44,15 +45,11 @@ class ListProduct extends BaseBlock
                     'label'         => __('Title style'),
                     'values'        => [
                         [
-                            'value'   => '',
-                            'name' => __("Style 1"),
+                            'value'     => 'left',
+                            'name'      => __("Text Left"),
                         ],
                         [
-                            'value'   => 'style_2',
-                            'name' => __("Style 2")
-                        ],
-                        [
-                            'value'   => 'style_3',
+                            'value'   => 'center',
                             'name' => __("Text Center")
                         ],
                     ]
@@ -84,6 +81,12 @@ class ListProduct extends BaseBlock
                         'placeholder' => __('-- Select --')
                     ],
                     'pre_selected'=>route("product.admin.category.getForSelect2",['pre_selected'=>"1"])
+                ],
+                [
+                    'type'=> "checkbox",
+                    'label'=>__("Show category name?"),
+                    'id'=> "is_category",
+                    'default'=>false
                 ],
                 [
                     'id'        => 'number',
@@ -141,7 +144,7 @@ class ListProduct extends BaseBlock
                     'id'    => 'bg_content',
                     'type'  => 'uploader',
                     'label' => __('Background image')
-                ],
+                ]
             ],
             'category'=>__("Product")
         ]);
@@ -162,13 +165,14 @@ class ListProduct extends BaseBlock
         $model['limit'] = $model['number'] ?? 5;
         $list = Product::search($model)->paginate($model['limit']);
         $data = [
-            'rows'       => $list,
-            'title'      => $model['title'] ?? "",
-            'is_dark'      => $model['is_dark'] ?? true,
-            'categories' => $categories ?? [],
-            'style_list' => !empty($model['style_list']) ? $model['style_list'] : "normal",
-            'bg_content' => $model['bg_content'] ?? "",
-            'style_header' => !empty($model['style_header']) ? $model['style_header'] : "",
+            'rows'              => $list,
+            'title'             => $model['title'] ?? "",
+            'is_dark'           => $model['is_dark'] ?? true,
+            'categories'        => $categories ?? [],
+            'is_category'       => $model['is_category'] ?? false,
+            'style_list'        => !empty($model['style_list']) ? $model['style_list'] : "normal",
+            'bg_content'        => $model['bg_content'] ?? "",
+            'style_header'      => !empty($model['style_header']) ? $model['style_header'] : "",
         ];
         return view('blocks.list-product.'.$data['style_list'], $data);
     }

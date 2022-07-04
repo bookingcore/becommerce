@@ -3,6 +3,7 @@ namespace Modules\Theme;
 
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Modules\Core\Helpers\StorageConfig;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 
 class ThemeManager
@@ -59,12 +60,9 @@ class ThemeManager
     }
 
     public static function saveConfigFile($data){
-        $str = '<?php'.PHP_EOL;
-        foreach ($data as $k=>$v){
-            $str .= 'define("'.$k.'","'.$v.'");'.PHP_EOL;
-        }
-        return Storage::disk('local')->put('bc.php', $str);
+        return StorageConfig::save($data);
     }
+
     public static function validateTheme($theme){
         $class_file = base_path('themes/'.ucfirst($theme).'/ThemeProvider.php');
 

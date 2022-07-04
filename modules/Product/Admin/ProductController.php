@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Core\Models\Attribute;
+use Modules\Media\Models\MediaFile;
 use Modules\Product\Hook;
+use Modules\Product\Models\Downloadable\DownloadFile;
+use Modules\Product\Models\ProductGrouped;
 use Modules\Product\Models\ProductTag;
 use Modules\News\Models\Tag;
 use Modules\Product\Models\Product;
@@ -23,14 +26,18 @@ use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Resources\ProductResource;
+use Modules\Product\Traits\Store\ProductStore;
 
 class ProductController extends AdminController
 {
+    use ProductStore;
+
     protected $product;
     protected $product_translation;
     protected $product_term;
     protected $attributes;
     protected $variable_product;
+    protected $product_grouped;
     /**
      * @var ProductCategoryRelation
      */
@@ -40,7 +47,7 @@ class ProductController extends AdminController
      */
     protected $product_tag_relation;
 
-    public function __construct(Product $product)
+    public function __construct(Product $product,ProductGrouped $product_grouped)
     {
         parent::__construct();
         AdminMenuManager::setActive('product');
@@ -51,6 +58,7 @@ class ProductController extends AdminController
         $this->product_cat_relation = ProductCategoryRelation::class;
         $this->product_tag_relation = ProductTagRelation::class;
         $this->variable_product = ProductVariation::class;
+        $this->product_grouped = $product_grouped;
     }
 
     public function index(Request $request)
@@ -202,7 +210,9 @@ class ProductController extends AdminController
             'quantity',
             'button_text',
             'external_url',
-            'is_approved'
+            'is_approved',
+            'downloadable',
+            'download_expiry_days'
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
@@ -226,6 +236,8 @@ class ProductController extends AdminController
                 $this->saveTags($row, $request->input('tag_name'), $request->input('tag_ids'));
                 $this->saveCategory($row, $request);
                 $this->saveTerms($row, $request);
+                $this->saveGroupedProducts($row, $request);
+                $this->saveDownloadable($row, $request);
             }
 
             do_action(Hook::AFTER_SAVING,$row);
@@ -236,35 +248,6 @@ class ProductController extends AdminController
             }else{
                 return redirect(route('product.admin.edit',$row->id))->with('success', __('Product created') );
             }
-        }
-    }
-
-    public function saveTags($row, $tags_name, $tag_ids)
-    {
-        if (empty($tag_ids))
-            $tag_ids = [];
-        $tag_ids = array_merge(ProductTag::saveTagByName($tags_name), $tag_ids);
-        $tag_ids = array_filter(array_unique($tag_ids));
-        // Delete unused
-        $this->product_tag_relation::whereNotIn('tag_id', $tag_ids)->where('target_id', $row->id)->delete();
-        //Add
-        $this->product_tag_relation::addTag($tag_ids, $row->id);
-
-    }
-
-    public function saveTerms($row, $request)
-    {
-        if (empty($request->input('terms'))) {
-            $this->product_term::where('target_id', $row->id)->delete();
-        } else {
-            $term_ids = $request->input('terms');
-            foreach ($term_ids as $term_id) {
-                $this->product_term::firstOrCreate([
-                    'term_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_term::where('target_id', $row->id)->whereNotIn('term_id', $term_ids)->delete();
         }
     }
 
@@ -292,21 +275,6 @@ class ProductController extends AdminController
         $this->saveTerms($product,$request);
 
         return $this->sendSuccess([],__('Attribute data saved'));
-    }
-
-    public function saveCategory($row, $request){
-        if (empty($request->input('category_ids'))) {
-            $this->product_cat_relation::query()->where('target_id',$row->id)->delete();
-        } else {
-            $term_ids = $request->input('category_ids');
-            foreach ($term_ids as $term_id) {
-                $this->product_cat_relation::firstOrCreate([
-                    'cat_id' => $term_id,
-                    'target_id' => $row->id
-                ]);
-            }
-            $this->product_cat_relation::where('target_id', $row->id)->whereNotIn('cat_id', $term_ids)->delete();
-        }
     }
 
     public function bulkEdit(Request $request)
@@ -369,9 +337,14 @@ class ProductController extends AdminController
         $query = Product::query()->orderBy('title')->where('status','publish');
 
         if($s = $request->query('s')){
-            $query->where('title','like','%'.$s.'%s');
+            $query->where('title','like','%'.$s.'%');
         }
 
-        return ProductResource::collection($query->paginate(10),['variations']);
+        if($s = $request->query('not_in_ids',[])){
+            $query->whereNotIn('id',$s);
+        }
+
+
+        return ProductResource::collection($query->paginate(10),array_merge(['variations'],$request->query('need',[])));
     }
 }

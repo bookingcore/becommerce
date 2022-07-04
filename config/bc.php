@@ -1,6 +1,7 @@
 <?php
 return [
     'active_theme'=>defined('BC_ACTIVE_THEME') ? BC_ACTIVE_THEME : env('BC_DEFAULT_THEME','base'),
+    'active_plugins'=>(defined('BC_ACTIVE_PLUGINS') and is_array(BC_ACTIVE_PLUGINS)) ? BC_ACTIVE_PLUGINS : [],
     "media"=>[
         "groups"=>[
             "default"=>[
@@ -31,6 +32,13 @@ return [
                 "ext"=>["jpg",'jpeg','png','gif','bmp','zip','rar', 'gzip'],
                 "mime"=>["image/png","image/jpeg","image/gif","image/bmp",'application/x-gzip', 'application/zip', 'application/x-rar-compressed'],
                 "max_size"=>200000000,
+                "max_width"=>env('ALLOW_IMAGE_MAX_WIDTH',2500),
+                "max_height"=>env('ALLOW_IMAGE_MAX_HEIGHT',2500)
+            ],
+            'product_download'=>[
+                "ext"=>["jpg",'jpeg','png','gif','bmp','zip','rar', 'gzip'],
+                "mime"=>["image/png","image/jpeg","image/gif","image/bmp",'application/x-gzip', 'application/zip', 'application/x-rar-compressed'],
+                "max_size"=>200000000,// In Bytes, default is 200MB,
                 "max_width"=>env('ALLOW_IMAGE_MAX_WIDTH',2500),
                 "max_height"=>env('ALLOW_IMAGE_MAX_HEIGHT',2500)
             ]

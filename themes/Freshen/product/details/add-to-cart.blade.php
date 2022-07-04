@@ -24,6 +24,47 @@
                 </button>
             </li>
         @endif
+        @if($row->product_type == 'grouped')
+            <li class="d-block mb30">
+            <div class="card w-100">
+                <input type="hidden" name="quantity" value="1">
+                <ul class="list-group list-group-flush">
+                    @foreach($row->children as $child_product)
+                        @php($max = $child_product->is_manage_stock > 0 ? $child_product->quantity : false)
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {{$child_product->title}}
+                            @switch($child_product->product_type)
+                                @case('simple')
+                                    <div class="cart_btn">
+                                        <div class="quantity-block">
+                                            <button type="button" class="quantity-arrow-minus inner_page down"> -</button>
+                                            <input class="quantity-num inner_page" type="number" name="children[{{$child_product->id}}]" min="1" @if($max ) max="{{ $max }}" @endif value="1"/>
+                                            <button type="button" class="quantity-arrow-plus inner_page up"> +</button>
+                                        </div>
+                                    </div>
+                                    @break
+                                @case('variable')
+                                    <div>
+                                        <a href="{{$child_product->getDetailUrl()}}" class="btn btn-primary d-flex align-items-center justify-content-center">{{__("Select variation")}}</a>
+                                    </div>
+                                    @break
+                                @case('external')
+                                    <a href="{{ $child_product->external_url }}" rel="nofollow" class="btn btn-outline-primary">
+                                        {{ $child_product->button_text }}
+                                    </a>
+                                    @break
+                            @endswitch
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+            </li>
+            <li class="d-block mb30">
+                <button type="submit" class="btn btn-thm bc_add_to_cart btn-add-to-cart">
+                    <span class="flaticon-shopping-cart mr5 fz18 vam"></span> {{ __('Add to cart') }} <i class="fa fa-spinner d-none"></i>
+                </button>
+            </li>
+        @endif
         @if($row->product_type == 'external')
             <li class="list-inline-item">
                 <button type="button" class="btn btn-thm" onclick="window.location='{{ $row->external_url }}'">

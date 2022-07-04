@@ -89,7 +89,7 @@
                 </table>
             </div>
             @if(!count($rows))
-                <div class="alert alert-warning">{{__("No data found")}}</div>
+                <div class="m-3 alert alert-warning">{{__("No data found")}}</div>
             @endif
             <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
         </div>

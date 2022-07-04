@@ -1,10 +1,10 @@
 @if(!empty($rows->count()))
-    <div class="axtronic-list-products mb-5 {{ $style_header }}">
+    <div class="axtronic-list-products {{ $style_header }}">
         <div class="container">
             <div class="product-box">
-                <div class="product-box-title ">
-                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
-                    @if($categories)
+                <div class="product-box-title {{ $style_header }} {{ $is_category ? "show-category" : '' }} {{ $is_dark ? "dark" : 'light' }}">
+                    <h2 class="heading-title ">{!! clean($title) !!}</h2>
+                    @if($is_category)
                         <ul class="list-unstyled list-category-name">
                             @foreach($categories as $category)
                                 <li><a href="/category/{{$category['slug']}}" class="button">{{$category['name']}}</a></li>
@@ -24,7 +24,7 @@
                                 @endforeach
                             @endif
                         </div>
-                        <div class="swiper-pagination"></div>
+                        <div class="swiper-pagination-slider swiper-pagination"></div>
                     </div>
                 </div>
             </div>

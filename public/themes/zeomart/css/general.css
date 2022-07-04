@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root{
+    --font-family:'Jost', sans-serif;
+}
+body{
+    font-family: var(--font-family);
+    font-size: 14px;
+    color:#041E42
+}
+.dropdown{
+    @apply relative
+}
+.dropdown-menu{
+    @apply transition duration-200 opacity-0 hidden group-hover:visible group-hover:opacity-100
+}
+.panel {
+    @apply px-7 py-8 bg-white shadow rounded-16 mb-6
+}
+.table thead th{
+    @apply font-medium
+}
+
+.table td{
+    @apply border-b border-[#F3F5F6]
+}

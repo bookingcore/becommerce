@@ -25,25 +25,6 @@ class Testimonial extends BaseBlock
                     'label'     => __('Title')
                 ],
                 [
-                    'id'            => 'style_header',
-                    'type'          => 'radios',
-                    'label'         => __('Title style'),
-                    'values'        => [
-                        [
-                            'value'   => '',
-                            'name' => __("Left"),
-                        ],
-                        [
-                            'value'   => 'style_2',
-                            'name' => __("Left border bottom")
-                        ],
-                        [
-                            'value'   => 'style_3',
-                            'name' => __("Center")
-                        ],
-                    ]
-                ],
-                [
                     'type'      => "checkbox",
                     'label'     =>__("Color title dark?"),
                     'id'        => "is_dark",
@@ -123,9 +104,6 @@ class Testimonial extends BaseBlock
 
     public function content($model = [])
     {
-        if (empty($model['style'])) {
-            $model['style'] = 'index';
-        }
-        return view('blocks.testimonial.'.$model['style'], $model);
+        return view('blocks.testimonial.index', $model);
     }
 }

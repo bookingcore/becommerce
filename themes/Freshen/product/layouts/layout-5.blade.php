@@ -1,5 +1,4 @@
-<form action="" class="bc_form_filter">
-    <div class="row">
+<div class="row">
         <div class="col-md-3">
             @include("product.sidebar")
         </div>
@@ -32,4 +31,3 @@
             </div>
         </div>
     </div>
-</form>

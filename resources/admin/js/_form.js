@@ -181,6 +181,22 @@
             },
         });
     });
+    $(document).on('click','.bc-upload-file .btn-field-upload',function () {
+        let p = $(this).closest('.bc-upload-file');
+        uploaderModal.show({
+            multiple: false,
+            file_type: $(this).data('type'),
+            onSelect: function (files) {
+                if (typeof files != 'undefined' && files.length) {
+
+                    p.addClass('active');
+                    p.find('.input_hidden').val(files[0].id);
+                    p.find('.input_file_name').val(files[0].file_path);
+                }
+
+            },
+        });
+    });
 
     $('.bc-upload-multiple').on('click','.image-item .delete',function () {
         var i = $(this).closest('.image-item').index();

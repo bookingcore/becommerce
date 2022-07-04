@@ -58,14 +58,14 @@ window.bc_number_format = function (number, decimals, dec_point, thousands_sep) 
             .join('0');
     }
     return s.join(dec);
-}
+};
 // dropdown
 $('.bc-dropdown .bc-dropdown-btn').on('click',function(){
     $(this).parent().closest('.bc-dropdown').toggleClass('show');
-})
+});
 $('.bc-dropdown .bc-close').on('click',function(){
     $(this).parent().closest('.bc-dropdown').removeClass('show');
-})
+});
 function ajax_error_to_string(e){
     if(typeof e.responseJSON !== 'undefined'){
         if(e.responseJSON.errors){
@@ -847,6 +847,8 @@ jQuery(function ($) {
         $('.mobile-menu-tab').removeClass('active');
         $('.mobile-' + menuName + '-menu').addClass('active');
     });
+
+
 });
 
 /// Home page Slider Swiper
@@ -968,6 +970,11 @@ const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
         delay: 5000,
         disableOnInteraction: false,
     },
+    // Navigation arrows
+    navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+    },
 });
 const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
     // Optional parameters
@@ -998,7 +1005,7 @@ const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
 
 const swiperProductSlider = new Swiper('.product-slider', {
     // Optional parameters
-    loop: false,
+    loop: true,
     cssMode: true,
     spaceBetween: 30,
     breakpoints: {
@@ -1014,7 +1021,7 @@ const swiperProductSlider = new Swiper('.product-slider', {
     },
     // If we need pagination
     pagination: {
-        el: '.swiper-pagination',
+        el: '.swiper-pagination-slider',
         clickable: true,
     },
 });

@@ -83,6 +83,7 @@ class Cart extends Order
         $this->items()->save($item);
         $this->syncTotal();
         $this->save();
+        $this->load('items');
         return true;
     }
 
@@ -125,6 +126,12 @@ class Cart extends Order
             $order_item->locale = app()->getLocale();
             $order_item->calculateTotal();
             $order_item->calculateCommission();
+
+            // Downloadable
+            if($model->download && $model->download_expiry_days){
+                $order_item->addMeta('download_expired_at',time() + $model->download_expiry_days * DAY_IN_SECONDS);
+            }
+
             $order_item->save();
         }
 

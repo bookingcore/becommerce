@@ -1,0 +1,130 @@
+
+.bc-upload-box {
+    max-width: 250px;
+    /*margin: 0px auto;*/
+    position: relative;
+}
+.bc-upload-box .upload-box {
+    background: #fafbfc;
+    text-align: center;
+    border: 1px solid rgba(195, 207, 216, 0.3);
+    padding: 30px 20px;
+    transition: all 0.2s;
+}
+.bc-upload-box .upload-box svg {
+    width: 120px;
+    height: 100px;
+    margin-bottom: 15px;
+}
+.bc-upload-box .upload-box:hover {
+    border: 1px solid #c3cfd8;
+}
+.bc-upload-box .attach-demo {
+    background: #fafbfc;
+    text-align: center;
+    border: 1px solid rgba(195, 207, 216, 0.3);
+    transition: all 0.2s;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+}
+.bc-upload-box .attach-demo img {
+    max-width: 100%;
+}
+.bc-upload-box .upload-actions, .bc-upload-box .attach-demo {
+    display: none;
+}
+.bc-upload-box.active .upload-actions {
+    display: flex;
+}
+.bc-upload-box.active .upload-box {
+    display: none;
+}
+.bc-upload-box.active .attach-demo {
+    display: block;
+}
+.bc-upload-box .edit-img {
+    position: absolute;
+    color: white;
+    top: 15px;
+    right: 48px;
+    display: none;
+    cursor: pointer;
+}
+.bc-upload-box .edit-img:active {
+    background: #1a2b47;
+}
+.bc-upload-box .delete {
+    color: white;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    display: none;
+}
+.bc-upload-box .delete i {
+    color: white;
+}
+.bc-upload-box:hover .delete, .bc-upload-box:hover .edit-img {
+    display: block;
+}
+
+.form-group-item .bc-upload-box {
+    max-width: none;
+}
+.form-group-item .bc-upload-box .upload-box {
+    padding: 10px 5px;
+}
+.form-group-item .bc-upload-box .upload-box svg {
+    height: 50px;
+}
+.form-group-item .bc-upload-box .upload-box .btn-field-upload {
+    font-size: 12px;
+    border: 0px;
+    padding: 5px;
+}
+.form-group-item .bc-upload-box.active .attach-demo {
+    max-height: 115px;
+}
+
+.bc-upload-multiple .attach-demo {
+    margin: 0px -7px;
+    flex-wrap: wrap;
+}
+.bc-upload-multiple .attach-demo .image-item {
+    flex: 0 0 20%;
+    margin-bottom: 10px;
+    padding: 0px 7px;
+    border-radius: 3px;
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}
+.bc-upload-multiple .attach-demo .image-item .delete {
+    display: none;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+.bc-upload-multiple .attach-demo .image-item .edit-img {
+    position: absolute;
+    color: white;
+    top: 15px;
+    right: 48px;
+    display: none;
+    cursor: pointer;
+}
+.bc-upload-multiple .attach-demo .image-item .edit-img:active {
+    background: #1a2b47;
+}
+.bc-upload-multiple .attach-demo .image-item .edit-img, .bc-upload-multiple .attach-demo .image-item .delete {
+    z-index: 9;
+}
+.bc-upload-multiple .attach-demo .image-item:hover .edit-img, .bc-upload-multiple .attach-demo .image-item:hover .delete {
+    display: block;
+}
+.bc-upload-multiple .attach-demo .image-item .inner {
+    border: 1px solid rgba(195, 207, 216, 0.3);
+    background: #fafbfc;
+}

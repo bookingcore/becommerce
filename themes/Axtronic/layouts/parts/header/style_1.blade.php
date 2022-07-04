@@ -13,7 +13,7 @@
             <div class="header__content-left">
                 @if(!empty($logo_header = setting_item('axtronic_logo_dark')))
                     <a class="axtronic-logo text-decoration-none" href="{{url('/')}}">
-                        <img src="{{ get_file_url($logo_header,'full') }}" alt="">
+                        <img src="{{ get_file_url(setting_item('axtronic_logo_dark'),'full') }}" alt="">
                     </a>
                 @endif
             </div>

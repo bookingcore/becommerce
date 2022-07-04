@@ -1,4 +1,3 @@
-<form action="" class="bc_form_filter">
     <div class="row">
         <div class="col-md-12">
             @include("product.search.header",['show_filter'=>true])
@@ -29,4 +28,3 @@
             </div>
         </div>
     </div>
-</form>

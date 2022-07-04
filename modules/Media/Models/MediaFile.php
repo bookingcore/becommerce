@@ -111,4 +111,8 @@ class MediaFile extends BaseModel
             $file_path, now()->addMinutes($mins)
         );
     }
+
+    public function download($name = '',$headers = []){
+        return Storage::disk($this->driver)->download($this->file_path,$name,$headers);
+    }
 }

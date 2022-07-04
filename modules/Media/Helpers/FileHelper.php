@@ -214,14 +214,14 @@ class FileHelper
         $file = (new MediaFile())->findById($oldValue);
         ob_start();
         ?>
-        <div class="bc-upload-box bc-upload-box-normal <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo $oldValue ?>">
+        <div class="bc-upload-box bc-upload-box-normal <?php if (!empty($file)) echo 'active' ?>" data-val="<?php echo e($oldValue) ?>">
             <div class="upload-box" v-show="!value">
-                <input type="hidden" <?php echo $nameAttr;?>="<?php echo $inputId ?>" v-model="value" value="<?php echo $oldValue ?>">
+                <input type="hidden" <?php echo e($nameAttr);?>="<?php echo e($inputId) ?>" v-model="value" value="<?php echo e($oldValue) ?>">
                 <div class="text-center">
                     <img src="/module/media/img.svg" alt="">
                 </div>
                 <div class="text-center">
-                    <span class="btn btn-default btn-field-upload" @click="openUploader"><?php echo __("Upload image") ?></span>
+                    <span class="btn btn-default bg-white btn-field-upload border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="openUploader"><?php echo __("Upload image") ?></span>
                 </div>
             </div>
             <div class="attach-demo" title="Change file">
@@ -238,15 +238,16 @@ class FileHelper
         return ob_get_clean();
     }
 
-    public static function fieldGalleryUpload($inputId = '', $oldValue = '')
+    public static function fieldGalleryUpload($inputId = '', $oldValue = '',$options = [])
     {
+        $is_tailwind = $options['tailwind'] ?? 0;
 
         $oldIds = $oldValue ? explode(',', $oldValue) : [];
         ob_start();
         ?>
         <div class="bc-upload-multiple <?php if (!empty($file))
             echo 'active' ?>" data-val="<?php echo $oldValue ?>">
-            <div class="attach-demo d-flex">
+            <div class="attach-demo d-flex <?php if($is_tailwind) echo 'grid grid-cols-4 gap-4 ' ?>">
                 <?php
                 foreach ($oldIds as $id) {
                     $file = (new MediaFile())->findById($id);
@@ -267,37 +268,18 @@ class FileHelper
         return ob_get_clean();
     }
 
-    public static function fieldFileUpload($inputId = '', $oldValue = '', $type = '')
+    public static function fieldFileUpload($inputId = '', $oldValue = '', $type = '',$nameAttr='name')
     {
+        if(!empty($oldValue))
+            $file = (new MediaFile())->findById($oldValue);
         ob_start();
         ?>
-
-        <div class="g-items lists_<?php echo e($type) ?>">
-            <?php if(!empty($oldValue)): ?>
-            <?php foreach($oldValue as $item): ?>
-                <div class="item">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <input type="radio" <?php echo e($item->is_default == 1 ? 'checked' : '') ?> class="form-control" name="csv_default"  value="<?php echo e($item->file_id) ?>" />
-                        </div>
-                        <div class="col-md-8">
-                            <input type="hidden" name="<?php echo e($inputId) ?>[]" value="<?php echo e($item->file_id) ?>" >
-                            <i class="fa <?php echo e($item->media->file_extension == 'doc' || $item->media->file_extension == 'docx' ? 'fa-file-word-o' : 'fa-file-pdf-o') ?>"></i>
-                            <?php echo e($item->media->file_name) ?>.<?php echo e($item->media->file_extension) ?>
-                        </div>
-                        <div class="col-md-2">
-                            <span class="btn btn-danger btn-sm btn-remove-item"><i class="fa fa-trash"></i></span>
-                        </div>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-            <?php endif; ?>
-        </div>
-
-        <div class="bc-upload-multiple">
-            <div class="upload-box" v-show="!value">
-                <div class="text-left">
-                    <span class="btn btn-info btn-sm btn-field-upload" data-type="<?php echo e($type) ?>" @click="openUploader(<?php echo e($type) ?>)"><i class="fa fa-plus-circle"></i> <?php echo __("Select files") ?></span>
+        <div class="bc-upload-file">
+            <div class="input-group mb-3 lists_<?php echo e($type) ?>">
+                <input type="hidden" class="input_hidden" <?php echo e($nameAttr);?>="<?php echo e($inputId) ?>" value="<?php echo e($oldValue) ?>">
+                <input type="text" class="form-control input_file_name mb-0" placeholder="<?php echo e(__("File url...")) ?>" value="<?php if(isset($file)) echo e($file->file_path) ?>" readonly >
+                <div class="input-group-append">
+                    <button class="btn btn-default btn-field-upload" data-type="<?php echo e($type) ?>" type="button" ><i class="fa fa-plus-circle"></i> <?php echo e(__("Select File")) ?></button>
                 </div>
             </div>
         </div>

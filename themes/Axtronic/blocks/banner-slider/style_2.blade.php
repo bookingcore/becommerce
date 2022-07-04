@@ -9,7 +9,7 @@
 
 <!-- Slider main container -->
 
-<div class="axtronic-banner-slider mt-4 mb-5">
+<div class="axtronic-banner-slider {{ $is_category ? 'style-1' : "style-2" }}">
     <div class=" {{!empty($width_slider) ? $width_slider : ""}} ">
         <div class="row">
             @if($is_category)

@@ -69,6 +69,8 @@
     </div>
 @endif
 
+@include('Product::admin.settings.product.downloadable')
+<hr>
 <div class="row">
     <div class="col-sm-4">
         <h3 class="form-group-title">{{__("Policies Options")}}</h3>
@@ -255,5 +257,4 @@
         </div>
     </div>
 </div>
-
 

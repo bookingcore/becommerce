@@ -13,7 +13,37 @@ class Language extends Seeder
      */
     public function run()
     {
-
-
+        DB::table('core_settings')->insert([
+            [
+                'name' => 'site_locale',
+                'val' => 'en',
+                'group' => "general",
+            ],
+            [
+                'name' => 'site_enable_multi_lang',
+                'val' => 1,
+                'group' => "general",
+            ]
+        ]);
+        DB::table('core_languages')->insert([
+            [
+                'locale' => 'en',
+                'name' => 'English',
+                'flag' => "gb",
+                'status' => "publish",
+                'create_user' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+            [
+                'locale' => 'ja',
+                'name' => 'Japanese',
+                'flag' => "jp",
+                'status' => "publish",
+                'create_user' => 1,
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
+            ],
+        ]);
     }
 }

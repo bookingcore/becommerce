@@ -53,6 +53,25 @@ class ProductCategorySeeder extends Seeder
                     ['name' => 'Oneplus', 'content' => '', 'status' => 'publish'],
                 ]
             ],
+            ['name' => 'Laptops', 'image_id' =>  $catImage["image-3"], 'content' => '', 'status' => 'publish',
+                'child' => [
+                    ['name' => 'Macbook', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Samsung', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Microsoft Surface', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Dell', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Acer', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'HP', 'content' => '', 'status' => 'publish']
+                ]
+            ],
+            ['name' => 'Sound Devices', 'image_id' =>  $catImage["image-3"], 'content' => '', 'status' => 'publish',
+                'child' => [
+                    ['name' => 'Soundbar', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Bluetooth', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Headphone', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Earphone', 'content' => '', 'status' => 'publish'],
+                    ['name' => 'Wireless', 'content' => '', 'status' => 'publish']
+                ]
+            ],
             ['name' => 'Camera & Photo', 'image_id' =>  $catImage["image-4"], 'content' => '', 'status' => 'publish'],
             ['name' => 'Game Consoles & Accessories', 'image_id' =>  $catImage["image-5"], 'content' => '', 'status' => 'publish'],
             ['name' => 'GPS & Navigation', 'image_id' =>  $catImage["image-6"], 'content' => '', 'status' => 'publish'],

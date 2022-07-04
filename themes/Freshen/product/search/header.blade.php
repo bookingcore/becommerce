@@ -1,6 +1,8 @@
 <?php
     $listing_list_style = request()->query('list_style');
 ;?>
+<form action="" class="bc_form_filter">
+
 @includeIf('product.sidebar-filter')
 <div class="row">
     <div class="listing_filter_row dif db-767">
@@ -32,4 +34,5 @@
         </div>
     </div>
 </div>
+</form>
 

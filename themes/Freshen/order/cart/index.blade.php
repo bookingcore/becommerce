@@ -94,6 +94,8 @@
 
                                         </div>
                                     </form>
+
+                                    @include('order.cart.cross-sells')
                                 </div>
                             </div>
                             <div class="col-lg-4 col-xl-3">

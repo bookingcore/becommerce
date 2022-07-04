@@ -8,14 +8,13 @@
 ?>
 
 @if($list_testimonial)
-    <div class="axtronic-testimonial  " style="background-color: {{ $bg_color }}">
+    <div class="axtronic-testimonial  {{ $style }}" style="background-color: {{ $bg_color }}">
         <div class="container">
             @if($title)
-                <div class="product-box-title {{ $style_header }}">
-                    <h2 class="heading-title text-center {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
+                <div class="product-box-title justify-content-center ">
+                    <h2 class="heading-title {{ $is_dark ? "dark" : 'light' }}">{!! clean($title) !!}</h2>
                 </div>
             @endif
-
             <div class="swiper-slider-testimonial swiper-container">
                 <div class="swiper-wrapper">
                     @foreach($list_testimonial as $item)
@@ -23,12 +22,20 @@
                         <div class="inner">
                             <div class="testimonial-image">
                                 <img src="{{ get_file_url($item['image']?? false,'full') }}" class="attachment-full size-full" alt="{{ $item['title_item'] }}" >
+                                @if($style == 'style_3')
+                                    <div class="details">
+                                        <h2 class="name">{{ $item['title_item']  }}</h2>
+                                    </div>
+                                @endif
                             </div>
                             <div class="caption">
-                                <div class="details">
-                                    <h2 class="name">{{ $item['title_item']  }}</h2>
-                                    <h3 class="job">{{ $item['job'] }}</h3>
-                                </div>
+                                @if($style != 'style_3')
+                                    <div class="details">
+                                        <h2 class="name">{{ $item['title_item']  }}</h2>
+                                        <h3 class="job">{{ $item['job'] }}</h3>
+                                    </div>
+                                @endif
+
                                 <div class="stars">
                                     @for($i = 1; $i <= $item['number_star']; $i++)
                                         <i class="axtronic-icon-star-sharp"></i>

@@ -1,4 +1,3 @@
-
 <div class="sidebar_content_details style3">
     <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
     <div class="sidebar_listing_list style2 mobile_sytle_sidebar mb0">
