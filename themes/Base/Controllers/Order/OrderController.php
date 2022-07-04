@@ -56,6 +56,19 @@ class OrderController extends FrontendController
         return $gatewayObj->cancelPayment($request);
     }
 
+    public function callbackPayment(Request $request, $gateway)
+    {
+        $gateways = get_active_payment_gateways();
+        if (empty($gateways[$gateway])) {
+            $this->sendError(__("Payment gateway not found"));
+        }
+        $gatewayObj = new $gateways[$gateway]($gateway);
+        if (!$gatewayObj->isAvailable()) {
+            $this->sendError(__("Payment gateway is not available"));
+        }
+        return $gatewayObj->callbackPayment($request);
+    }
+
     public function modal($code){
         $order = Order::whereCode($code)->first();
         if(!$order){

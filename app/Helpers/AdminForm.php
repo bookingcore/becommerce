@@ -45,6 +45,9 @@ class AdminForm{
                             <label class="" >
                                 <input type="checkbox" class="form-control" name="<?php echo  e($option['id']) ?>" value="1" <?php if($option['value'] == 1) echo 'checked'; ?>>
                                 <?php echo e($option['label']) ?></label>
+                            <?php if(!empty($option['desc'])){
+                                printf('<small class="form-text text-muted">%s</small>',$option['desc']);
+                            } ?>
                         </div>
                         <?php
                         break;
