@@ -45,15 +45,18 @@
                     </div>
                     <div class="col-md-5 border-1 border-e1e1e1 bg-white ">
                         <div class="h-100 d-flex flex-column">
-                            <div class="ps-2 pe-2 pt-2">
-                                <ul class="nav nav-tabs">
-                                    <li class="nav-item" v-for="(order,index) in orders">
-                                        <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(order,index)">@{{ order.title}}</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>
-                                    </li>
-                                </ul>
+                            <div class="">
+                                <div class="d-flex justify-content-between ps-2 pe-2 pt-2">
+                                    <ul class="nav nav-tabs">
+                                        <li class="nav-item" v-for="(order,index) in orders">
+                                            <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(order,index)">@{{ order.title}}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>
+                                        </li>
+                                    </ul>
+                                    <pos-order-customer :wrap-class="'col-6'" :order="currentOrder"/>
+                                </div>
                             </div>
                             <pos-order-items :order="currentOrder" @update="updateItem" @delete="deleteProduct"></pos-order-items>
                             <hr>

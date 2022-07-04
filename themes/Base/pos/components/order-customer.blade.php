@@ -1,7 +1,16 @@
 <script type="text/x-template" id="POS_order_customer">
-    <div>
-        <label >{{__("Customer")}}</label>
-        <bc-customer-dropdown/>
+    <div :class="wrapClass">
+        <div class="d-flex" v-if="!customer.id">
+            <label class="me-2" >{{__("Customer")}}</label>
+            <bc-customer-dropdown @change="change"/>
+        </div>
+        <div class="d-flex py-1 align-items-center" v-if="customer.id">
+            <img class="me-2 rounded-circle" v-if="customer.avatar_url" width="30px" :src="customer.avatar_url">
+            <div>
+                <div>@{{customer.display_name}} - #@{{customer.id}}</div>
+                <a href="#">@{{customer.email}}</a>
+            </div>
+        </div>
     </div>
 </script>
 <script>
@@ -10,15 +19,18 @@
         data() {
             return {
                 i18n:i18n,
-                customer:{}
+                customer:{},
             }
         },
         props:{
             order:{
                 type:Object,
                 default:{
-                    items:[]
                 }
+            },
+            wrapClass:{
+                type:String,
+                default:''
             }
         },
         created:function(){
@@ -35,6 +47,9 @@
                 if(!c) return;
 
                 this.$emit('delete',index)
+            },
+            change:function (customer){
+                this.customer = customer;
             }
         }
     });

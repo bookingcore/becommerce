@@ -1,7 +1,27 @@
 <?php
 namespace Modules\Customer\Controllers;
 
-class CustomerController
+use Illuminate\Http\Request;
+use Modules\Customer\Resources\CustomerResource;
+use Modules\FrontendController;
+use Modules\User\Models\User;
+
+class CustomerController extends FrontendController
 {
 
+    public function getForSelect2(Request $request){
+        $q = User::query();
+
+        if($s = $request->query('s'))
+        {
+            $q->where(function($query) use ($s){
+               $query->where('first_name','like','%'.$s.'%');
+               $query->orEmail('email','like','%'.$s.'%');
+               $query->orWhere('id',$s);
+            });
+        }
+
+        $q->orderByDesc('id');
+        return CustomerResource::collection($q->paginate(20));
+    }
 }
