@@ -96,7 +96,7 @@ class OrderController extends AdminController
         $rules = [
             'status'=>'required',
         ];
-        if($order->isEditable()){
+        if(!empty($order) and $order->isEditable()){
             $rules = array_merge($rules,[
                 'items.*.product_id'=>'required',
                 'items.*.qty'=>'required|integer|gte:1',
@@ -135,11 +135,15 @@ class OrderController extends AdminController
             $order->addMeta($k,$meta);
         }
 
-        if($order->isEditable()){
+        if($order->isEditable() and !empty($request->input('items'))){
             $order->saveItems($request->input('items'));
             $order->saveTax($request->input('tax_lists'));
         }
 
-        return $this->sendSuccess(['data'=>new OrderResource($order)],__("Order saved"));
+        return $this->sendSuccess(
+            [
+                'data'=>new OrderResource($order),
+                'url' => route("order.admin.edit",['order'=>$order->id])
+            ],__("Order saved"));
     }
 }

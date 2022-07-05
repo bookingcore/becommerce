@@ -21,7 +21,7 @@ class OrderResource extends BaseJsonResource
             'items'=> $this->whenNeed('items',function(){
                 return OrderItemResource::collection($this->items);
             }),
-            'customer'=> $this->customer ? new UserResource($this->customer,['address']) : [],
+            'customer'=> $this->customer ? new UserResource($this->customer,['address']) : ['id'=>'','display_name'=>''],
             'billing'=>$this->getJsonMeta('billing'),
             'shipping'=>$this->getJsonMeta('shipping'),
             'status'=>$this->status ?? Order::DRAFT,

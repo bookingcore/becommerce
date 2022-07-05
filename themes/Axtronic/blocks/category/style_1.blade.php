@@ -7,10 +7,10 @@
  */
 ?>
 @if(!empty($list_items))
-    <div class="axtronic-category style-2">
+    <div class="axtronic-category style-1">
         <div class="container">
             <h2 class="heading-title">{{ $title_name }}</h2>
-            <div class="swiper-slider-icon swiper-container ">
+            <div class="swiper-slider-icon swiper-slider-icon-1 swiper-container ">
                 <div class="swiper-wrapper">
                     @foreach($list_items as $k=>$item)
                         @if( !empty( $item_cat =  $categories->firstWhere('id',$item['category_id']) ))
@@ -20,23 +20,24 @@
                                 $image_cat = get_file_url($item_cat['image_id'] ?? "", 'full');
                             @endphp
                             <div class="swiper-slide">
-                                <div class="item-icons">
-                                    <a href="{{ $page_search }}">
+                                <a href="{{ $page_search }}">
+                                    <div class="item-icons">
                                         @if(!empty($item['image_id']))
                                             <img src="{{ get_file_url($item['image_id']?? false,'full') }}" alt="{{ $translate->name }}">
                                         @else
                                             <img src="{{$image_cat}}" alt="{{ $translate->name }}">
                                         @endif
-                                    </a>
-                                </div>
-                                <h3 class="item-title"><a href="{{ $page_search }}">{{ $translate->name }}</a></h3>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3>{{ $translate->name }}</h3>
+                                    </div>
+                                </a>
                             </div>
                         @endif
                     @endforeach
                 </div>
-                <!-- If we need navigation buttons -->
-                <div class="swiper-button-prev"></div>
-                <div class="swiper-button-next"></div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
             </div>
 
         </div>

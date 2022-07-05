@@ -872,13 +872,36 @@ const swiperBannerSlider = new Swiper('.banner-slider', {
         prevEl: '.swiper-button-prev',
     },
 });
-const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
+const swiperSliderIcon = new Swiper('.swiper-slider-icon-1', {
     // Optional parameters
     loop: true,
     cssMode: true,
-    spaceBetween: 15,
+    spaceBetween: 16,
+    autoplay: false,
+    breakpoints: {
+        640: {
+            slidesPerView: 2,
+        },
+        768: {
+            slidesPerView: 2,
+        },
+        1024: {
+            slidesPerView: 6
+        },
+    },
+    // If we need pagination
+    pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+    },
+});
+const swiperSliderIcon2 = new Swiper('.swiper-slider-icon-2', {
+    // Optional parameters
+    loop: true,
+    cssMode: true,
+    spaceBetween: 16,
     autoplay: {
-        delay: 5000,
+        delay: 4000,
         disableOnInteraction: false,
     },
     breakpoints: {
@@ -889,7 +912,7 @@ const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
             slidesPerView: 2,
         },
         1024: {
-            slidesPerView: 7
+            slidesPerView: 6
         },
     },
     // Navigation arrows
@@ -897,6 +920,7 @@ const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
         nextEl: '.swiper-button-next',
         prevEl: '.swiper-button-prev',
     },
+
 });
 const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
     // Optional parameters

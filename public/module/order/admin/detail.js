@@ -98,6 +98,7 @@ new Vue({
                 dataType:'json',
                 type:'POST',
                 success:function(json){
+                    console.log(json.url);
                     me.saving = false;
                     if(json.message){
                         me.message = {
@@ -106,7 +107,7 @@ new Vue({
                         }
                     }
                     if(json.url){
-                        window.location.url = json.url;
+                        window.location.href = json.url;
                     }
                     if(json.status){
                         me.is_editable = json.data.is_editable

@@ -474,14 +474,14 @@ class Product extends BaseModel
             throw  new \Exception(__("Product is not published yet"),403);
         }
 
-        if(!empty($variant_id)){
-            $variation = $this->variations()->where('id',$variant_id)->first();
-            if(!$variation){
-                throw  new \Exception('Variation not found..',405);
-            }
-        }
         switch ($this->product_type){
             case 'variable':
+                if(!empty($variant_id)){
+                    $variation = $this->variations()->where('id',$variant_id)->first();
+                    if(!$variation){
+                        throw  new \Exception('Variation not found..',405);
+                    }
+                }
                 $variant = $this->variations()->where('id',$variant_id)->first();
                 if(!empty($variant)){
                     if(!empty($this->check_manage_stock())){
