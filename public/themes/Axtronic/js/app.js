@@ -876,7 +876,7 @@ const swiperSliderIcon = new Swiper('.swiper-slider-icon', {
     // Optional parameters
     loop: true,
     cssMode: true,
-    spaceBetween: 15,
+    spaceBetween: 16,
     autoplay: {
         delay: 5000,
         disableOnInteraction: false,

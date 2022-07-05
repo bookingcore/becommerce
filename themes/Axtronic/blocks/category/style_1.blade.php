@@ -20,16 +20,18 @@
                                 $image_cat = get_file_url($item_cat['image_id'] ?? "", 'full');
                             @endphp
                             <div class="swiper-slide">
-                                <div class="item-icons">
-                                    <a href="{{ $page_search }}">
+                                <a href="{{ $page_search }}">
+                                    <div class="item-icons">
                                         @if(!empty($item['image_id']))
                                             <img src="{{ get_file_url($item['image_id']?? false,'full') }}" alt="{{ $translate->name }}">
                                         @else
                                             <img src="{{$image_cat}}" alt="{{ $translate->name }}">
                                         @endif
-                                    </a>
-                                </div>
-                                <h3 class="item-title"><a href="{{ $page_search }}">{{ $translate->name }}</a></h3>
+                                    </div>
+                                    <div class="item-title">
+                                        <h3 class="item-title">{{ $translate->name }}</h3>
+                                    </div>
+                                </a>
                             </div>
                         @endif
                     @endforeach

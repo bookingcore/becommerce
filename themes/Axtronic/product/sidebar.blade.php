@@ -8,8 +8,14 @@
                     $translate = $category->translate(app()->getLocale());
                     $has_children = count($category->children);
                     if(empty($prefix)){
-                        echo '<li class="cat-item '.($has_children ? 'menu-item-has-children' : '').'" >';
-                        echo '<a data-bs-toggle="collapse" data-bs-target="#cat-'.$category->id.'" aria-expanded="true" href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        if(!empty($has_children)){
+                            echo '<li class="cat-item menu-item-has-children" >';
+                            echo '<a data-bs-toggle="collapse" data-bs-target="#cat-'.$category->id.'" aria-expanded="true" href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        }
+                        else{
+                            echo '<li class="cat-item ">';
+                            echo '<a href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        }
                     }else{
                         echo '<li class="cat-item ">';
                         echo '<a href="'.$category->getDetailUrl().'">'.$translate->name.'</a>';

@@ -20,16 +20,18 @@
                             $page_search = $cate->getDetailUrl();
                         @endphp
                         <div class="swiper-slide">
+                            <a href="{{ $page_search }}">
                             <div class="item-icons">
-                                <a href="{{ $page_search }}">
-                                    @if($item['icon'])
-                                        <i class="{{ $item['icon'] }}"></i>
-                                    @else
-                                        <img src="{{$image_url}}" alt="{{ $translate->name }}">
-                                    @endif
-                                </a>
+                                @if($item['icon'])
+                                    <i class="{{ $item['icon'] }}"></i>
+                                @else
+                                    <img src="{{$image_url}}" alt="{{ $translate->name }}">
+                                @endif
                             </div>
-                            <h3 class="item-title"><a href="{{ $page_search }}">{{ $translate->name }}</a></h3>
+                            <div class="item-title">
+                                <h3 class="item-title">{{ $translate->name }}</h3>
+                            </div>
+                            </a>
                         </div>
                         @endforeach
                     @endforeach
