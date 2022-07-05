@@ -1,10 +1,14 @@
 <?php
 namespace Modules\Report\Admin;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Modules\AdminController;
 use Modules\Core\Helpers\AdminMenuManager;
 use Modules\Order\Models\Order;
+use Modules\Order\Models\OrderItem;
+use Modules\Product\Models\Product;
+use Modules\Product\Models\ProductCategory;
 
 class ReportController extends AdminController
 {
@@ -68,19 +72,22 @@ class ReportController extends AdminController
             ]
         ];
         $range = $request->get('range', 'last7days');
-
+        $topProductQuery = OrderItem::select("*",\DB::raw('sum(qty) as number'),\DB::raw('sum(subtotal) as net_sales'))->where('status',Order::COMPLETED);
         switch ($range){
             case 'year';
                 $year = date("Y");
+                $topProductQuery->whereYear('order_date',$year);
                 for ($month = 1; $month <= 12; $month++){
                     $m = date('F', strtotime($year . "-" . $month . "-01"));
                     $chart_data['labels'][] = $m;
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', strtotime($year . "-" . $month . "-01 ")), date('Y-m-d 23:59:59', strtotime('last day of '.$m, time())));
                     report_set_data_chart($chart_data, $report_data);
+
                 }
                 break;
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
+                $topProductQuery->whereMonth('order_date',$last_month);
                 $m = Date("F", strtotime("first day of previous month"));
                 for ($i = strtotime(date('Y-'.$last_month.'-01 00:00:00')); $i <= strtotime('last day of '.$m, time()); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
@@ -89,6 +96,7 @@ class ReportController extends AdminController
                 }
             break;
             case 'this-month';
+                $topProductQuery->whereMonth('order_date',date('m'));
                 for ($i = strtotime(date('Y-m-01')); $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -98,6 +106,8 @@ class ReportController extends AdminController
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
+                $topProductQuery->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59']);
+
                 for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -105,6 +115,7 @@ class ReportController extends AdminController
                 }
                 break;
             default;
+                $topProductQuery->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()]);
                 for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -112,6 +123,7 @@ class ReportController extends AdminController
                 }
             break;
         }
+
 
         $data_total = [
             'gloss_sales' => array_sum($chart_data['datasets'][0]['data']),
@@ -121,10 +133,12 @@ class ReportController extends AdminController
             'total_shipping' => array_sum($chart_data['datasets'][4]['data']),
             'coupons_used' => array_sum($chart_data['datasets'][5]['data'])
         ];
+        $topSold = $topProductQuery->groupBy('object_id')->latest('qty')->with('product')->get();
 
         $data = [
             'report_chart_data' => $chart_data,
             'data_total' => $data_total,
+            'topSold' => $topSold,
             'breadcrumbs'        => [
                 [
                     'name'  => __('Overview'),

@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <h3 class="mt-2 mt-md-4 mb-4">{{ __("Overview") }}</h3>
         <hr>
-        <div class="row mb-4 mt-4">
+        <div class="row my-4">
             <div class="col-md-12">
                 <div class="panel report-panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
@@ -79,6 +79,54 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="row my-4">
+            <div class="col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-title">
+                        <h6>{{__('Top products - Items sold')}}</h6>
+                    </div>
+                    <div class="panel-body">
+                        <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>{{__("Product")}}</th>
+                                <th>{{__('Items sold')}}</th>
+                                <th>{{__("Net sales")}}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($topSold as $item=>$value)
+                                @php
+                                    $model = $value->model;
+                                @endphp
+                                <tr>
+                                    <td scope="row">
+                                        <div class="media">
+                                            @if($model->image_id)
+                                                <div class="media-left" style="padding-right: 10px">
+                                                    <div class="thumb" style="width: 50px;">
+                                                        <img src="{{get_file_url($model->image_id)}}" width="50px" alt="">
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            <div class="media-body">
+                                                <a target="_blank" href="{{ route('product.detail',['slug'=>$model->slug])}}">{{ $model->title }}</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>{{$value->number}}</td>
+                                    <td>{{format_money($value->net_sales)}}</td>
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6"></div>
         </div>
 
     </div>
