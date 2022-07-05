@@ -336,10 +336,10 @@ class ProductController extends AdminController
     public function getForSelect2(Request $request){
         $query = Product::query()->orderBy('title')->where('status','publish');
 
-        if($s = $request->query('s')){
+        if($s = $request->query('s') or $s = $request->query('q')){
             $query->where('title','like','%'.$s.'%');
         }
-
+        
         if($s = $request->query('not_in_ids',[])){
             $query->whereNotIn('id',$s);
         }
