@@ -74,7 +74,7 @@
 
 .axtronic-category{
     margin: 80px 0;
-    .swiper-slider-icon{
+    .swiper-slider-icon-2{
         margin-bottom: 30px;
         margin-left: auto;
         margin-right: auto;
@@ -93,8 +93,8 @@
                 width: 100%;
                 color: var(--accent);
                 &:hover{
-                    background-color: var(--primary);
-                    .item-icons, h3.item-title{
+                    background-image: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
+                    .item-icons,.item-title  h3{
                         color: #ffffff;
                     }
                 }
@@ -104,7 +104,7 @@
                     color: var( --accent );
                     border-color: var( --accent );
                 }
-                h3.item-title{
+                .item-title h3{
                     font-size: 16px;
                     font-weight: 400;
                     line-height: 1.5em;
@@ -137,40 +137,74 @@
             right: 50px;
         }
     }
-    &.style-2{
+
+    .swiper-slider-icon-1{
+        padding-bottom: 30px;
+        a{
+            &:hover{
+                .item-title h3{
+                    background-color: var(--primary);
+                    color: #ffffff;
+                }
+                .item-icons{
+                    filter: brightness(100%) contrast(100%) saturate(100%) blur(0) hue-rotate(50deg);
+                }
+            }
+        }
+        .item-icons{
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        .item-title {
+            text-align: center;
+            h3{
+                margin-top: 24px;
+                background-color: #fff;
+                padding: 8px 16px;
+                border-radius: 6px;
+                display: inline-block;
+                text-align: center;
+                color: var(--e-global-color-accent);
+                font-size: var(--e-global-typography-text-font-size);
+                font-weight: var(--e-global-typography-text-font-weight);
+                line-height: var(--e-global-typography-text-line-height);
+            }
+        }
+        .swiper-pagination {
+            bottom: 0;
+            text-align: center;
+            -webkit-transition: .3s;
+            -o-transition: .3s;
+            transition: .3s;
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+            z-index: 10;
+
+            &.swiper-pagination-hidden {
+                opacity: 0;
+            }
+        }
+        .swiper-pagination-bullet {
+            width: 30px;
+            height: 20px;
+            border-radius: 0;
+            background-color: transparent;
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            margin: 0 6px;
+        }
+        .swiper-pagination-bullet-active{
+            border-bottom: 5px solid var(--primary);
+            background-color: transparent;
+        }
+    }
+    &.style-1{
         background-color: var(--background2);
         padding: 60px 24px;
         .heading-title{
             margin-bottom: 60px;
-        }
-        .swiper-slider-icon {
-            .swiper-slide{
-                background: transparent;
-                padding: 0;
-                border-radius: 0;
-                .item-icons{
-                    border-radius: 12px;
-                    overflow: hidden;
-                }
-                .item-title{
-                    margin-top: 24px;
-                    background-color: #fff;
-                    padding: 8px 16px;
-                    border-radius: 6px;
-                    display: inline-block;
-                    &:hover{
-                        background-color: var(--primary);
-                    }
-                }
-                &:hover{
-                    .item-title {
-                        background-color: var(--primary);
-                    }
-                    .item-icons i{
-                        color: var(--primary);
-                    }
-                }
-            }
+            text-align: center;
         }
     }
 }

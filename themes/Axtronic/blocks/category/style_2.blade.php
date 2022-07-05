@@ -10,7 +10,7 @@
     <div class="axtronic-category">
         <div class="container">
             <h2 class="heading-title">{{ $title_name }}</h2>
-            <div class="swiper-slider-icon swiper-container ">
+            <div class="swiper-slider-icon swiper-slider-icon-2 swiper-container ">
                 <div class="swiper-wrapper">
                     @foreach($list_items_2 as $k=>$item)
                         @php $image_url = get_file_url($item['image_id'] ?? "", 'full'); @endphp
@@ -29,7 +29,7 @@
                                 @endif
                             </div>
                             <div class="item-title">
-                                <h3 class="item-title">{{ $translate->name }}</h3>
+                                <h3>{{ $translate->name }}</h3>
                             </div>
                             </a>
                         </div>
