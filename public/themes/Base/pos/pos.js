@@ -88,22 +88,36 @@ var POS_App = new Vue({
 
         },
         submitOrder:function (){
+            BCToast.info("xxx xin chao")
             if(this.isSubmit) return;
             if(!this.validateOrder()){
                 return;
             }
             this.isSubmit  = true;
+            var tmp = Object.assign({},this.currentOrder);
+            tmp.channel = 'pos'
             $.ajax({
-                url:'/api/v1/order',
+                url:'/pos/order/store',
                 type:'POST',
-                data:{
-                    items:this.currentOrder.items,
-                    channel:'pos'
-                }
+                data:tmp
             })
         },
         validateOrder:function (){
-
+            if(!this.currentOrder.customer || !this.currentOrder.customer.id){
+                this.addError('customer_id',i18n.validation.customer.required);
+                return false;
+            }
+            return true;
+        },
+        addError(key,msg){
+            alert(msg);
+        },
+        changeCustomer:function(customer){
+            this.currentOrder.customer = customer;
+            this.currentOrder.customer_id = customer.id
+        },
+        changeOrder:function (key,val){
+            this.$set(this.currentOrder,key,val);
         }
     },
     created:function (){

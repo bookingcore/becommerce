@@ -16,7 +16,7 @@ class CustomerController extends FrontendController
         {
             $q->where(function($query) use ($s){
                $query->where('first_name','like','%'.$s.'%');
-               $query->orEmail('email','like','%'.$s.'%');
+               $query->orWhere('email','like','%'.$s.'%');
                $query->orWhere('id',$s);
             });
         }

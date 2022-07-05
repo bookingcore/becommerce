@@ -1,5 +1,5 @@
 <script type="text/x-template" id="POS_payment">
-    <div class="pos-payment flex-shrink-0 py-2" v-show="_total">
+    <div class="pos-payment flex-shrink-0 py-2" v-show="_subtotal">
         <div class="row">
             <div class="col-md-6">
             </div>
@@ -10,7 +10,7 @@
                 </div>
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <label >{{__("Discount")}}</label>
-                    <div><input type="number" class="form-control" step="any" min="0" v-model.number="_discount_amount"></div>
+                    <div><input type="number" class="form-control" step="any" min="0" :max="_subtotal" v-model.number="_discount_amount"></div>
                 </div>
                 @if(\Modules\Product\Models\TaxRate::isEnable())
                     <div class="d-flex justify-content-between">
@@ -89,10 +89,11 @@
             },
             _discount_amount:{
                 get:function(){
+                    console.log(this.order)
                     return this.order.discount_amount ?? 0;
                 },
                 set:function (val){
-                    this.order.discount_amount = val;
+                    this.$emit('change','discount_amount',val)
                 }
             },
             _shipping_amount:{

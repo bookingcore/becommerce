@@ -1,14 +1,20 @@
 <script type="text/x-template" id="POS_order_customer">
     <div :class="wrapClass">
-        <div class="d-flex" v-if="!customer.id">
-            <label class="me-2" >{{__("Customer")}}</label>
-            <bc-customer-dropdown @change="change"/>
+        <div class="d-flex relative" v-if="!customer.id">
+            <bc-customer-dropdown :class="'w-100'" @change="change"/>
         </div>
-        <div class="d-flex py-1 align-items-center" v-if="customer.id">
-            <img class="me-2 rounded-circle" v-if="customer.avatar_url" width="30px" :src="customer.avatar_url">
-            <div>
-                <div>@{{customer.display_name}} - #@{{customer.id}}</div>
-                <a href="#">@{{customer.email}}</a>
+        <div class="d-flex justify-content-between border rounded align-items-center " v-if="customer.id">
+            <div class="flex-grow  d-flex align-items-center p-1"  >
+                <img class="me-2 rounded-circle" v-if="customer.avatar_url" width="30px" :src="customer.avatar_url">
+                <div>
+                    <div>@{{customer.display_name}} - #@{{customer.id}}</div>
+                    <a href="#">@{{customer.email}}</a>
+                </div>
+            </div>
+            <div class="flex-shrink-0 border-start h-100">
+                <a href="#" class="d-block p-2 h-100" @click.prevent="customer.id = null">
+                    <i class="fa fa-edit" style="font-size: 26px"  ></i>
+                </a>
             </div>
         </div>
     </div>
@@ -50,6 +56,7 @@
             },
             change:function (customer){
                 this.customer = customer;
+                this.$emit('change-customer',customer);
             }
         }
     });

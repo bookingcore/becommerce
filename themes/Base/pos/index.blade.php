@@ -55,12 +55,12 @@
                                             <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>
                                         </li>
                                     </ul>
-                                    <pos-order-customer :wrap-class="'col-6'" :order="currentOrder"/>
+                                    <pos-order-customer @change-customer="changeCustomer"  :wrap-class="'col-6'" :order="currentOrder"/>
                                 </div>
                             </div>
                             <pos-order-items :order="currentOrder" @update="updateItem" @delete="deleteProduct"></pos-order-items>
                             <hr>
-                            <pos-payment @submit="submitOrder" :shipping_methods="shipping_methods" :order="currentOrder"></pos-payment>
+                            <pos-payment @change="changeOrder" @submit="submitOrder" :shipping_methods="shipping_methods" :order="currentOrder"></pos-payment>
                         </div>
                     </div>
                 </div>
@@ -71,9 +71,14 @@
 @endsection
 
 @push('footer')
+    <div id="bc-toast-container" class="toast-container top-0 end-0 p-3 position-fixed"></div>
     <script>
         window.i18n = Object.assign(window.i18n,{
-
+            validation:{
+                customer:{
+                    required:'{{__("Please select customer")}}'
+                }
+            }
         });
     </script>
     @include('global.components.pagination')
@@ -84,5 +89,6 @@
     @include('pos.components.order-payment')
     @include('pos.components.order-customer')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
+    <script src="{{ asset('themes/Base/js/toast.js') }}"></script>
     <script src="{{theme_url('Base/pos/pos.js')}}"></script>
 @endpush
