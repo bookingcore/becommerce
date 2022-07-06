@@ -1,5 +1,6 @@
 @extends('layouts.blank')
 @push('head')
+    <link rel="stylesheet" href="{{theme_url('Base/dist/pos/pos.css?_v='.config('app.asset_version'))}}">
     <style>
         .footer{
             display: none;
@@ -89,6 +90,6 @@
     @include('pos.components.order-payment')
     @include('pos.components.order-customer')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
-    <script src="{{ asset('themes/Base/js/toast.js') }}"></script>
+    <script src="{{ asset('themes/Base/libs/toast/toast.js') }}"></script>
     <script src="{{theme_url('Base/pos/pos.js')}}"></script>
 @endpush

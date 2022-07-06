@@ -1,0 +1,28 @@
+:root {
+    --bc-toast-color-info: #3498db;
+    --bc-toast-color-success: #07bc0c;
+    --bc-toast-color-warning: #f1c40f;
+    --bc-toast-color-error: #e74c3c;
+}
+.bc-toast{
+    background: white;
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 10%), 0 2px 15px 0 rgb(0 0 0 / 5%);
+}
+.bc_spinner{
+    width: 20px;
+    height: 20px;
+    box-sizing: border-box;
+    border: 2px solid;
+    border-radius: 100%;
+    border-color: #e0e0e0;
+    border-right-color: #616161;
+    animation: bc_toast_spin 0.65s linear infinite;
+}
+@keyframes bc_toast_spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
