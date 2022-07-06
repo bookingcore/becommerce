@@ -35,6 +35,7 @@ var POS_App = new Vue({
         prices_include_tax:'yes',
         tax_lists:[],
         isSubmit:false,
+        errors:{}
     },
     methods:{
         addProduct:function (product){
@@ -88,29 +89,50 @@ var POS_App = new Vue({
 
         },
         submitOrder:function (){
-            BCToast.info("xxx xin chao")
             if(this.isSubmit) return;
             if(!this.validateOrder()){
                 return;
             }
             this.isSubmit  = true;
             var tmp = Object.assign({},this.currentOrder);
-            tmp.channel = 'pos'
+            tmp.channel = 'pos';
+            var me = this;
+
+            var loading = BCToast.loading(__("Saving order"));
             $.ajax({
                 url:'/pos/order/store',
                 type:'POST',
-                data:tmp
+                data:tmp,
+                success:function(json){
+                    loading.hide();
+                    me.isSubmit = false;
+                    if(json.data){
+                        BCToast.success(__("Order Saved"));
+                    }
+                },
+                error:function(e){
+                    console.log(e)
+                    loading.hide();
+                    me.isSubmit = false;
+                }
             })
         },
         validateOrder:function (){
+            var me = this;
             if(!this.currentOrder.customer || !this.currentOrder.customer.id){
                 this.addError('customer_id',i18n.validation.customer.required);
+            }
+            if(Object.keys(this.errors).length){
+                var html = Object.keys(this.errors).map(function(item){
+                    return me.errors[item]
+                })
+                BCToast.error(html.join('<br>'));
                 return false;
             }
             return true;
         },
         addError(key,msg){
-            alert(msg);
+            this.errors[key] = msg;
         },
         changeCustomer:function(customer){
             this.currentOrder.customer = customer;
