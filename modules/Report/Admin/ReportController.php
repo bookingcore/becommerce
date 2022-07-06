@@ -456,11 +456,17 @@ class ReportController extends AdminController
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
-                $tableQuery->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59']);
+                $tableQueryResult =$tableQuery->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59'])
+                    ->groupBy('order_date_format')
+                    ->orderBy('order_date_format','desc')
+                    ->get();
                 for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
-                    $chart_data['labels'][] = date('d M', $i);
-                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
-                    report_set_data_chart($chart_data, $report_data);
+                    $row = $tableQueryResult->where('order_date_format',date('Y-m-d',$i))->first();
+                    if(!$row){
+                        $row = new \stdClass();
+                        $row->order_date_format = date('Y-m-d', $i);
+                    }
+                    $rows->prepend($row);
                 }
             break;
             default;
