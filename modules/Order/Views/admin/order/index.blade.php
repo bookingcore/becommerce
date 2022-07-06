@@ -80,7 +80,7 @@
                             <input type="checkbox" class="check-item" name="ids[]" value="{{$row->id}}">#{{$row->id}}
                         </td>
                         <td width="25%">
-                            @if(!empty($items = $row->items))
+                            @if(!empty($items = $row->items) and count($items) > 0)
                                 @php
                                     $firstItem = $items->first()->model;
                                 @endphp
