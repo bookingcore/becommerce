@@ -2,6 +2,7 @@
 
 namespace Modules\POS\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Modules\FrontendController;
@@ -17,7 +18,7 @@ class OrderController extends FrontendController
             return $this->sendError(__("You are not allowed to access this function"));
         }
         $rules = [
-            'customer_id'=>'required',
+            'customer_id'=>'required|exists:users,id',
             'channel'=>'required'
         ];
 
@@ -34,22 +35,39 @@ class OrderController extends FrontendController
 
         $request->validate($rules);
 
+        /**
+         * @var User $customer
+         */
+        $customer = User::find($request->input('customer_id'));
 
         $data = [
             'customer_id'=>$request->input('customer_id'),
             'discount_amount'=>$request->input('discount_amount'),
+            'email'=>$customer->email,
+            'phone'=>$customer->phone,
+            'first_name'=>$customer->first_name,
+            'last_name'=>$customer->last_name,
         ];
-        if(!$order->isEditable()){
-            unset($data['shipping_amount']);
-        }
 
         $order->fillByAttr(array_keys($data),$data);
-        $order->updateStatus($request->input('status'));
         $order->save();
+        $order->saveItems($request->input('items'));
 
-        if($order->isEditable()){
-            $order->saveItems($request->input('items'));
+        $billing_address = $customer->billing_addresse;
+        if(!$billing_address){
+            $billing_address = $customer->getDefaultAddress();
         }
+        $metas = [
+            'billing'=>$billing_address,
+        ];
+        foreach ($metas as $k=>$meta){
+            $order->addMeta($k,$meta);
+        }
+
+        // Tax
+        $order->addTax($billing_address['country'] ?? '',$billing_address['country'] ?? '');
+        $order->syncTaxChange();
+        $order->save();
 
         return $this->sendSuccess(['data'=>new OrderResource($order)],__("Order saved"));
     }

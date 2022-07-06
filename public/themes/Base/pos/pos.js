@@ -39,9 +39,9 @@ var POS_App = new Vue({
     },
     methods:{
         addProduct:function (product){
-            let q = {id:product.id};
+            let q = {product_id:product.id};
             if(product.product_type === 'variable'){
-                q.variant_id = product.variation.id;
+                q.variation_id = product.variation.id;
             }
 
             let find = _.find(this.currentOrder.items,q)
@@ -49,11 +49,11 @@ var POS_App = new Vue({
                 find.qty += 1;
             }else{
                 let tmp = {};
-                tmp.id = product.id;
+                tmp.product_id = product.id;
                 switch (product.product_type){
                     case "variable":
                         tmp.variation = product.variation;
-                        tmp.variant_id = product.variation.id;
+                        tmp.variation_id = product.variation.id;
                         tmp.price = tmp.variation.price;
                         break;
                     default:

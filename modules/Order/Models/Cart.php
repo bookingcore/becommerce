@@ -65,19 +65,7 @@ class Cart extends Order
         return $cart;
     }
 
-    public function tax() : Attribute
-    {
-        return Attribute::make(
-          get:function($value){
-              $res = [];
-              $meta =  $this->getMeta('tax',true,true);
-              foreach ($meta as $item){
-                    $res[] = json_decode($item->val,true);
-              }
-              return collect($res);
-          }
-        );
-    }
+
 
     public function addItem(CartItem $item){
         $this->items()->save($item);
@@ -138,19 +126,7 @@ class Cart extends Order
         $this->syncTotal();
 
         //Tax
-        if(!empty( $taxItems = $this->tax )){
-
-            $tax_rate = $taxItems->sum('tax_rate');
-
-            $total_amount = $this->total;
-            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
-            if(setting_item("prices_include_tax", 'yes') == "no"){
-                $total_amount += $tax_amount;
-            }
-            $this->total = $total_amount;
-            $this->tax_amount = $tax_amount;
-            $this->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
-        }
+        $this->syncTaxChange();
 
         $setting_expired_at = setting_item('product_hold_stock',60);
         if($setting_expired_at){

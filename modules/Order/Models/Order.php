@@ -257,6 +257,7 @@ class Order extends BaseModel
             $order_item->vendor_id = $product->author_id;
             $order_item->locale = app()->getLocale();
             $order_item->order_date = $this->order_date;
+            $order_item->title = $product->title;
             $order_item->calculateCommission();
             $order_item->save();
 
@@ -390,6 +391,7 @@ class Order extends BaseModel
                 $country = $billing_country;
                 break;
             case"shipping":
+                if($shipping_country)
                 $country = $shipping_country;
                 break;
             default:
@@ -407,6 +409,23 @@ class Order extends BaseModel
             ];
         }
         return $data;
+    }
+
+    public function syncTaxChange(){
+        //Tax
+        if(!empty( $taxItems = $this->tax )){
+
+            $tax_rate = $taxItems->sum('tax_rate');
+
+            $total_amount = $this->total;
+            $tax_amount = ( $total_amount / 100 ) * $tax_rate;
+            if(setting_item("prices_include_tax", 'yes') == "no"){
+                $total_amount += $tax_amount;
+            }
+            $this->total = $total_amount;
+            $this->tax_amount = $tax_amount;
+            $this->addMeta('prices_include_tax',setting_item("prices_include_tax", 'yes'));
+        }
     }
 
     public function addTax($billing_country , $shipping_country){
@@ -553,6 +572,20 @@ class Order extends BaseModel
         }
 
         return collect($all);
+    }
+
+    public function tax() : Attribute
+    {
+        return Attribute::make(
+            get:function($value){
+                $res = [];
+                $meta =  $this->getMeta('tax',true,true);
+                foreach ($meta as $item){
+                    $res[] = json_decode($item->val,true);
+                }
+                return collect($res);
+            }
+        );
     }
 }
 

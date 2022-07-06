@@ -17,7 +17,7 @@ class StorageConfig
     public static function save($k,$v = null){
         $data = [];
         foreach (static::$_keys as $key){
-            $data[$key] = constant($key);
+            $data[$key] = defined($key) ? constant($key) : '';
         }
 
         if(is_array($k)){
