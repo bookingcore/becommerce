@@ -8,6 +8,7 @@ use Illuminate\Pagination\Paginator;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Template\BlockManager;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
+use Themes\Base\Database\Seeder;
 
 class ThemeProvider extends AbstractThemeProvider
 {
@@ -16,6 +17,8 @@ class ThemeProvider extends AbstractThemeProvider
     public static $name = "ZeoMart";
 
     public static $version = '1.0';
+
+    public static $seeder = Seeder::class;
 
     public function register()
     {
