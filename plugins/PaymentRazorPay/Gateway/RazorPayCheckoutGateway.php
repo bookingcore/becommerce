@@ -212,11 +212,6 @@ class RazorPayCheckoutGateway extends BaseGateway
         $main_currency = setting_item('currency_main');
         $supported = $this->supportedCurrency();
         $convert_to = $this->getOption('convert_to');
-        if($order)
-        {
-            $order->currency = $main_currency;
-            $order->total = ((float)$data['amount']);
-        }
         $data['currency'] = $main_currency;
         $data['cart_order_id'] = $order->id;
         $data['amount'] = ((float)$order->total * 100);

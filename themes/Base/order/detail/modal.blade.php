@@ -17,7 +17,7 @@
                         <ul>
                             <li>
                                 <div class="label">{{__('Order Status')}}</div>
-                                <div class="val">{{$order->statusName}}</div>
+                                <div class="val">{{$order->status_text}}</div>
                             </li>
                             <li>
                                 <div class="label">{{__('Order Date')}}</div>
