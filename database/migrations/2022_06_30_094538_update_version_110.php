@@ -24,6 +24,9 @@ return new class extends Migration
                 $table->tinyInteger('downloadable')->nullable()->default(0);
                 $table->tinyInteger('download_expiry_days')->nullable()->default(0);
             }
+            if(!Schema::hasColumn('products','is_virtual')){
+                $table->tinyInteger('is_virtual')->nullable()->default(0);
+            }
         });
     }
 
