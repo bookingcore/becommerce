@@ -50,7 +50,7 @@
                                 <div class="d-flex justify-content-between ps-2 pe-2 pt-2">
                                     <ul class="nav nav-tabs">
                                         <li class="nav-item" v-for="(order,index) in orders">
-                                            <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(order,index)">@{{ order.title}}</a>
+                                            <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(index)">{{__('Order: #')}}@{{ index + 1 }}</a>
                                         </li>
                                         <li class="nav-item">
                                             <a class="nav-link" href="#" @click.prevent="addOrder"><i class="fa fa-plus-circle"></i></a>

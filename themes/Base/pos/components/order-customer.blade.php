@@ -58,6 +58,11 @@
                 this.customer = customer;
                 this.$emit('change-customer',customer);
             }
+        },
+        watch:{
+            order:function (val){
+                this.customer = typeof val.customer == 'undefined' ? {} : Object.assign({},val.customer)
+            }
         }
     });
 </script>

@@ -70,13 +70,16 @@ var POS_App = new Vue({
             this.currentOrder.items.splice(index,1);
         },
         addOrder:function (){
-            let tmp  = Object.assign({},this.defaultOrder);
-            tmp.title = 'Order #'+(this.orders.length + 1);
+            let tmp  = this.deepClone(this.defaultOrder);
             this.orders.push(tmp)
-            this.switchOrder(tmp,this.orders.length - 1)
+            this.switchOrder(this.orders.length - 1)
         },
-        switchOrder:function(order,index){
-            this.currentOrder = order;
+        switchOrder:function(index,saveCurrent){
+            if(typeof saveCurrent == 'undefined') saveCurrent = true;
+            if(saveCurrent) {
+                this.orders[this.currentOrderIndex] = this.deepClone(this.currentOrder);
+            }
+            this.currentOrder = this.deepClone(this.orders[index]);
             this.currentOrderIndex = index;
         },
         updateItem:function (field,val,product_id){
@@ -94,7 +97,7 @@ var POS_App = new Vue({
                 return;
             }
             this.isSubmit  = true;
-            var tmp = Object.assign({},this.currentOrder);
+            var tmp = this.deepClone(this.currentOrder);
             tmp.channel = 'pos';
             var me = this;
 
@@ -111,6 +114,19 @@ var POS_App = new Vue({
                     }
                     if(!json.status){
                         BCToast.error(json.message);
+                    }else{
+                        me.orders.splice(me.currentOrderIndex,1);
+                        if(typeof me.orders[me.currentOrderIndex] !== 'undefined'){
+                            // next order
+                            me.switchOrder(me.currentOrderIndex,false)
+                        }else{
+                            if(typeof me.orders[me.currentOrderIndex - 1] !== 'undefined'){
+                                // prev order
+                                me.switchOrder(me.currentOrderIndex - 1,false)
+                            }else{
+                                me.addOrder();
+                            }
+                        }
                     }
                 },
                 error:function(e){
@@ -147,6 +163,9 @@ var POS_App = new Vue({
         },
         changeOrder:function (key,val){
             this.$set(this.currentOrder,key,val);
+        },
+        deepClone:function (obj){
+            return JSON.parse(JSON.stringify(obj));
         }
     },
     created:function (){
