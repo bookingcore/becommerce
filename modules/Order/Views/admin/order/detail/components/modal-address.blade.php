@@ -35,6 +35,7 @@
                                     <div class="">
                                         <bc-select2 :options="countries" :settings="country_settings" v-model="fields.country"></bc-select2>
                                     </div>
+                                    <div v-if="message_errors.country" class="error text-danger mt-1"> @{{ message_errors.country }}</div>
                                 </div>
                             </div>
                             <div class="col-sm-12">
@@ -111,6 +112,9 @@
                 country_settings:{
                     width:'100%',
                     allowClear  :true,
+                },
+                message_errors:{
+                    country: ''
                 }
             };
         },
@@ -121,6 +125,10 @@
         methods: {
             save:function(e){
                 e.preventDefault();
+                if(this.fields.country == null){
+                    this.message_errors.country = "{{ __("Please select a country!") }}";
+                    return false;
+                }
                 this.$emit('save',this.type,Object.assign({},this.fields));
                 this.hide();
             },
