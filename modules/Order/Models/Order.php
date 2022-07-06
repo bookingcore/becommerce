@@ -554,5 +554,19 @@ class Order extends BaseModel
 
         return collect($all);
     }
+
+    /**
+     * Check if order needs shipping or not
+     *
+     * @return bool
+     */
+    public function needShipping(){
+        foreach ($this->items as $item)
+        {
+            $model = $item->model;
+            if($model and $model->needShipping()) return true;
+        }
+        return false;
+    }
 }
 

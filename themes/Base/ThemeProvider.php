@@ -11,7 +11,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
 
     public static $name = "Default Theme";
 
-    public static $version = '1.0';
+    public static $version = '1.1';
 
     public static $seeder = Seeder::class;
 

@@ -852,4 +852,8 @@ class Product extends BaseModel
     public function cross_sell(){
         return $this->belongsToMany(Product::class, ProductGrouped::getTableName(),'parent_id','children_id')->where('group_type',ProductGrouped::TYPE_CROSS_SELL);
     }
+
+    public function needShipping(){
+        return !$this->is_virtual;
+    }
 }

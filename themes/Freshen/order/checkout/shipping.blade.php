@@ -1,3 +1,6 @@
+<?php
+if(!$cart->needShipping()) return;
+?>
 <hr class="my-4">
 <div class="form-check mb-3">
     <input type="checkbox" class="form-check-input" id="shipping_same_address" name="shipping_same_address"  value="1" @if(empty($shipping->country))checked @endif>

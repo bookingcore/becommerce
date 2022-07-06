@@ -212,7 +212,8 @@ class ProductController extends AdminController
             'external_url',
             'is_approved',
             'downloadable',
-            'download_expiry_days'
+            'download_expiry_days',
+            'is_virtual',
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
