@@ -24,7 +24,21 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                 'title'      =>  __('Reports'),
                 'icon'       => 'icon ion-ios-stats',
                 'permission' => 'report_view',
-                "group"=>"sale"
+                "group"=>"sale",
+                'children'   => [
+                    'overview'=>[
+                        'url'   => route('report.admin.overview'),
+                        'title' => __('Overview'),
+                    ],
+                    'product'=>[
+                        'url'   => route('report.admin.products'),
+                        'title' => __('Products'),
+                    ],
+//                    'revenue'=>[
+//                        'url'   => route('report.admin.revenue'),
+//                        'title' => __('Revenue'),
+//                    ],
+                ]
             ],
         ];
     }
