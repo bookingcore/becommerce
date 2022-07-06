@@ -79,7 +79,9 @@
                 customer:{
                     required:'{{__("Please select customer")}}'
                 }
-            }
+            },
+            saving_order:'{{__("Saving Order")}}',
+            order_saved:'{{__("Order saved")}}',
         });
     </script>
     @include('global.components.pagination')
@@ -90,6 +92,6 @@
     @include('pos.components.order-payment')
     @include('pos.components.order-customer')
     <script src="{{ asset('libs/lodash.min.js') }}"></script>
-    <script src="{{ asset('themes/Base/libs/toast/toast.js') }}"></script>
-    <script src="{{theme_url('Base/pos/pos.js')}}"></script>
+    <script src="{{ asset('themes/Base/libs/toast/toast.js?_v='.config('app.asset_version')) }}"></script>
+    <script src="{{theme_url('Base/pos/pos.js?_v='.config('app.asset_version'))}}"></script>
 @endpush

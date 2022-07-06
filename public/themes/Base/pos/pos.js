@@ -98,7 +98,7 @@ var POS_App = new Vue({
             tmp.channel = 'pos';
             var me = this;
 
-            var loading = BCToast.loading(__("Saving order"));
+            var loading = BCToast.loading(i18n.saving_order);
             $.ajax({
                 url:'/pos/order/store',
                 type:'POST',
@@ -107,17 +107,24 @@ var POS_App = new Vue({
                     loading.hide();
                     me.isSubmit = false;
                     if(json.data){
-                        BCToast.success(__("Order Saved"));
+                        BCToast.success(i18n.order_saved);
+                    }
+                    if(!json.status){
+                        BCToast.error(json.message);
                     }
                 },
                 error:function(e){
                     console.log(e)
                     loading.hide();
                     me.isSubmit = false;
+                    if(e.responseJSON){
+                        BCToast.error(e.responseJSON.message);
+                    }
                 }
             })
         },
         validateOrder:function (){
+            this.errors = {};
             var me = this;
             if(!this.currentOrder.customer || !this.currentOrder.customer.id){
                 this.addError('customer_id',i18n.validation.customer.required);

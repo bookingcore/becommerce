@@ -13,8 +13,8 @@ class OrderController extends FrontendController
 {
 
     public function store(Request $request){
-        if($this->hasPermission('pos_access')){
-            return redirect('/');
+        if(!$this->hasPermission('pos_access')){
+            return $this->sendError(__("You are not allowed to access this function"));
         }
         $rules = [
             'customer_id'=>'required',
