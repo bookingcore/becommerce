@@ -281,6 +281,12 @@ class ReportController extends AdminController
         $listProduct = $this->_productReport($request)->get();
         return (new ProductExport($listProduct))->download('report-product-export-' . date('M-d-Y') . '.xlsx');
     }
+    public function revenueExport(Request $request)
+    {
+        $this->checkPermission('report_view');
+        $listProduct = $this->_productReport($request)->get();
+        return (new ProductExport($listProduct))->download('report-product-export-' . date('M-d-Y') . '.xlsx');
+    }
 
     public function revenue(Request $request){
 
@@ -360,7 +366,6 @@ class ReportController extends AdminController
             break;
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
-                $tableQuery->whereMonth('order_date',$last_month);
                 $m = Date("F", strtotime("first day of previous month"));
                 for ($i = strtotime(date('Y-'.$last_month.'-01 00:00:00')); $i <= strtotime('last day of '.$m, time()); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
@@ -369,7 +374,6 @@ class ReportController extends AdminController
                 }
             break;
             case 'this-month';
-                $tableQuery->whereMonth('order_date',date('m'));
                 for ($i = strtotime(date('Y-m-01')); $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -379,8 +383,6 @@ class ReportController extends AdminController
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
-                $tableQuery->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59']);
-
                 for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -388,7 +390,6 @@ class ReportController extends AdminController
                 }
             break;
             default;
-                $tableQuery->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()]);
                 for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -405,36 +406,57 @@ class ReportController extends AdminController
             'total_shipping' => array_sum($chart_data['datasets'][4]['data']),
             'coupons_used' => array_sum($chart_data['datasets'][5]['data'])
         ];
+        $rows = collect();
+
         switch ($range){
             case 'year';
                 $year = date("Y");
-                $rows =  $tableQuery->groupBy('order_month_format')->orderBy('order_month_format','desc')->get();
+                $currentMonth = date("m");
+                $tableQueryResult =  $tableQuery->groupBy('order_month_format')->orderBy('order_month_format','desc')->get();
+                for ($month = 1; $month <= $currentMonth; $month++){
+                    $m = date('Y-m', strtotime($year . "-" . $month));
+                    $row = $tableQueryResult->where('order_month_format',$m)->first();
+                    if(!$row){
+                        $row = new \stdClass();
+                        $row->order_month_format = $m;
+                    }
+                    $rows->prepend($row);
+                }
             break;
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
-                $tableQuery->whereMonth('order_date',$last_month);
+                $tableQueryResult  = $tableQuery->whereMonth('order_date',$last_month)
+                    ->groupBy('order_date_format')
+                    ->orderBy('order_date_format','desc')
+                    ->get();
                 $m = Date("F", strtotime("first day of previous month"));
-                $rows = collect();
                 for ($i = strtotime(date('Y-'.$last_month.'-01 00:00:00')); $i <= strtotime('last day of '.$m, time()); $i += DAY_IN_SECONDS ){
-                    $row = new \stdClass();
-                    $row->date = date('Y-m-d 00:00:00', $i);
+                    $row = $tableQueryResult->where('order_date_format',date('Y-m-d',$i))->first();
+                    if(!$row){
+                        $row = new \stdClass();
+                        $row->order_date_format = date('Y-m-d', $i);
+                    }
                     $rows->prepend($row);
-                    $chart_data['labels'][] = date('d M', $i);
                 }
             break;
             case 'this-month';
-                $tableQuery->whereMonth('order_date',date('m'));
+                $tableQueryResult = $tableQuery->whereMonth('order_date',date('m'))
+                    ->groupBy('order_date_format')
+                    ->orderBy('order_date_format','desc')
+                    ->get();
                 for ($i = strtotime(date('Y-m-01')); $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
-                    $chart_data['labels'][] = date('d M', $i);
-                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
-                    report_set_data_chart($chart_data, $report_data);
+                    $row = $tableQueryResult->where('order_date_format',date('Y-m-d',$i))->first();
+                    if(!$row){
+                        $row = new \stdClass();
+                        $row->order_date_format = date('Y-m-d', $i);
+                    }
+                    $rows->prepend($row);
                 }
             break;
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
                 $tableQuery->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59']);
-
                 for ($i = strtotime($from); $i <= strtotime($to); $i += DAY_IN_SECONDS ){
                     $chart_data['labels'][] = date('d M', $i);
                     $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
@@ -442,18 +464,24 @@ class ReportController extends AdminController
                 }
             break;
             default;
-                $tableQuery->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()]);
+               $tableQueryResult = $tableQuery->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()])
+                    ->groupBy('order_date_format')
+                    ->orderBy('order_date_format','desc')
+                    ->get();
                 for ($i = strtotime('-7 days') + DAY_IN_SECONDS; $i <= strtotime(date('Y-m-d 23:59:59')); $i += DAY_IN_SECONDS ){
-                    $chart_data['labels'][] = date('d M', $i);
-                    $report_data = $order->getOrderReportData(date('Y-m-d 00:00:00', $i), date('Y-m-d 23:59:59', $i));
-                    report_set_data_chart($chart_data, $report_data);
+                    $row = $tableQueryResult->where('order_date_format',date('Y-m-d',$i))->first();
+                    if(!$row){
+                        $row = new \stdClass();
+                        $row->order_date_format = date('Y-m-d', $i);
+                    }
+                    $rows->prepend($row);
                 }
             break;
         }
         $data = [
             'report_chart_data' => $chart_data,
             'data_total' => $data_total,
-            'row' => $rows,
+            'rows' => $rows->all(),
             'breadcrumbs'        => [
                 [
                     'name'  => __('Revenue'),
@@ -478,6 +506,17 @@ class ReportController extends AdminController
         ];
         return view('Report::admin.orders', $data);
     }
+
+
+
+
+
+
+
+
+
+
+
 
     private function _productReport(Request $request){
         $productTable= Product::getTableName();

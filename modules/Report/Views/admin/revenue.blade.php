@@ -84,13 +84,59 @@
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
-                        <strong>{{__('Revenue')}}</strong>
-                        <a href="#" class="btn btn-warning btn-icon"><i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}</a>
+                        <a href="{{route('report.admin.revenue.export',request()->all())}}" class="btn btn-warning btn-icon"><i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}</a>
                     </div>
                     <div class="panel-body">
-                        <div class="mt-5 mb-5 text-center">
-                            {{ __("No data recorded for this time period.") }}
-                        </div>
+                        @if(!empty($rows)  )
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>
+                                            @if(request()->get('range')=='year')
+                                                {{__("Month")}}
+                                            @else
+                                                {{__("Date")}}
+                                            @endif
+                                            {{__("Date")}}
+                                        </th>
+                                        <th>{{__('Orders')}}</th>
+                                        <th>{{__('Items sold')}}</th>
+                                        <th>{{__("Gross sales")}}</th>
+                                        <th>{{__("Net sales")}}</th>
+                                        <th>{{__("Taxes")}}</th>
+                                        <th>{{__("Shipping")}}</th>
+                                        <th>{{__("Coupons")}}</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    @foreach($rows as $item=>$value)
+                                        <tr>
+                                           <td>
+                                               @if(request()->get('range')=='year')
+                                                   {{$value->order_month_format??""}}
+                                               @else
+                                                {{$value->order_date_format??""}}
+                                               @endif
+                                           </td>
+                                           <td>{{$value->orders??0}}</td>
+                                           <td>{{$value->items_sold??0}}</td>
+                                           <td>{{format_money($value->gross_sales??0)}}</td>
+                                           <td>{{format_money($value->net_sales??0)}}</td>
+                                           <td>{{format_money($value->tax_amount??0)}}</td>
+                                           <td>{{format_money($value->shipping_amount??0)}}</td>
+                                           <td>{{format_money($value->discount_amount??0)}}</td>
+                                        </tr>
+                                    @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        @else
+                            <div class="mt-5 mb-5 text-center">
+                                {{ __("No data recorded for this time period.") }}
+                            </div
+                        @endif
                     </div>
                 </div>
             </div>

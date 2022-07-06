@@ -81,7 +81,6 @@
         </div>
         <div class="row mb-4 mt-4">
             <div class="col-md-12">
-
                 <div class="panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
                         <p><i>{{__('Found :total items',['total'=>$listProduct->total()])}}</i></p>
