@@ -346,6 +346,7 @@ class ReportController extends AdminController
         $tableQuery = Order::
         leftJoin('core_order_items','core_orders.id','=','core_order_items.order_id')
         ->addSelect([
+            'core_order_items.qty','core_order_items.order_id',
             \DB::raw('count(core_orders.id) as orders'),
             \DB::raw('sum(core_order_items.qty) as items_sold'),
             \DB::raw('sum(core_orders.subtotal) as gross_sales'),
