@@ -68,7 +68,7 @@
 
                                             <td>{{format_money($order->total)}}</td>
                                             <td>
-                                                <span class="badge badge-{{$order->status_class}}">{{$order->status_name}}</span>
+                                                <span class="badge badge-{{$order->status_class}}">{{$order->status_text}}</span>
                                             </td>
                                             <td>{{display_datetime($order->created_at)}}</td>
                                         </tr>
