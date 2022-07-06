@@ -190,7 +190,8 @@ class ProductController extends FrontendController
             'button_text',
             'external_url',
             'downloadable',
-            'download_expiry_days'
+            'download_expiry_days',
+            'is_virtual',
         ];
         if($row->is_approved){
             $dataKeys[] = 'status';

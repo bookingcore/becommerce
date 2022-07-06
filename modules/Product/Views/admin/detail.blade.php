@@ -147,6 +147,14 @@ $product_types = get_product_types();
                                     ] : false)
                                     ?>
                                 </div>
+                                <hr>
+                                <div class="form-group">
+                                    <div class="controls">
+                                        <label class="mb-0" aata-toggle="tooltip" data-placement="top" title="{{__("Virtual product does not need shipping")}}">
+                                            <input type="checkbox" name="is_virtual" @if($row->is_virtual) checked @endif value="1"> {{__("This is a virtual product")}}
+                                        </label>
+                                    </div>
+                                </div>
                                 @endif
                             </div>
                             <div class="panel-footer">

@@ -41,9 +41,8 @@
                         <span class="flaticon-user icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}"></span>
                     </a>
                 </div>
-                @include('layouts.parts.header.user')
             @else
-
+                @include('layouts.parts.header.user')
             @endif
             <div class="bc-compare-count mr-2">
                 <a  class="relative">
