@@ -124,7 +124,7 @@
                                                 @php
                                                     $stock_status = $value->getStockStatus();
                                                 @endphp
-                                                <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}">{{__('Status:')}} <span><strong>{{$stock_status['stock']}}</strong></span></span>
+                                                <span class="product-stock-status {{ $stock_status['in_stock'] ? 'in_stock' : 'out-of-stock'}}"><span><strong>{{$stock_status['stock']}}</strong></span></span>
                                             </td>
                                             <td>{{$value->remain_stock}}</td>
                                         </tr>
