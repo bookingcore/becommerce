@@ -45,29 +45,28 @@
 <main class="flex-shrink-0">
     @yield('content')
 </main>
-<footer class="footer mt-auto py-3">
-
-    <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
-    <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
-    <script>
-
-        window.lazyLoadOptions = {
-            elements_selector: ".lazy",
-        };
-
-        window.addEventListener('LazyLoad::Initialized', function (event) {
-            window.lazyLoadInstance = event.detail.instance;
-        }, false);
 
 
-    </script>
+<script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
+<script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
+<script>
 
-    <script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
-    <script src="{{ asset('libs/vue/vue.js') }}"></script>
-    <script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <!-- custom scripts-->
-    <script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
-    @stack('footer')
-</footer>
+    window.lazyLoadOptions = {
+        elements_selector: ".lazy",
+    };
+
+    window.addEventListener('LazyLoad::Initialized', function (event) {
+        window.lazyLoadInstance = event.detail.instance;
+    }, false);
+
+
+</script>
+
+<script src="{{ theme_url('Axtronic') }}/js/jquery.min.js"></script>
+<script src="{{ asset('libs/vue/vue.js') }}"></script>
+<script src="{{ theme_url('Axtronic') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- custom scripts-->
+<script  src="{{ theme_url('Axtronic/js/app.js') }}"></script>
+@stack('footer')
 </body>
 </html>

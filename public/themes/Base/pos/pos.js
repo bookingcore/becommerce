@@ -88,12 +88,10 @@ var POS_App = new Vue({
                 find[field] = val;
             }
         },
-        bindHotKeys:function (){
-
-        },
         submitOrder:function (){
             if(this.isSubmit) return;
             if(!this.validateOrder()){
+                console.log('no pass')
                 return;
             }
             this.isSubmit  = true;
@@ -171,7 +169,6 @@ var POS_App = new Vue({
         }
     },
     created:function (){
-        this.bindHotKeys();
     },
     computed:{
         _subtotal:function(){
