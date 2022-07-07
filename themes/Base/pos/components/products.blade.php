@@ -11,15 +11,15 @@
         </div>
         <div class="row">
             <div class="col-md-3 mb-3" v-for="(item,index) in items" >
-                <div class="border-1 border-e1e1e1 bg-white h-100  c-pointer " @click="add(item)">
-                    <figure class="relative mb-0">
+                <div class="border-1 border-e1e1e1 bg-white h-100  c-pointer d-flex flex-column  " @click="add(item)">
+                    <figure class="relative mb-0 d-flex align-items-center flex-grow-1">
                         <img :src="item.image_url" class="img-fluid">
                         <span class="absolute bottom-0 left-0 right-0 p-2 text-center c-white bg-dark-75">
                             <span v-if="item.product_type == 'simple'">@{{ formatMoney(item.price) }}</span>
                             <span v-else-if="item.product_type == 'variable' && item.variation">@{{ formatMoney(item.variation.price) }}</span>
                         </span>
                     </figure>
-                    <div class="fs-16 p-2">@{{item.title}}
+                    <div class="fs-16 p-2 flex-shrink-0">@{{item.title}}
                         <span v-if="item.variation" class="badge bg-primary">@{{ item.variation.term_name.join(', ') }}</span>
                     </div>
                 </div>

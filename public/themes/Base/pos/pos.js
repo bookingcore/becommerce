@@ -88,12 +88,10 @@ var POS_App = new Vue({
                 find[field] = val;
             }
         },
-        bindHotKeys:function (){
-
-        },
         submitOrder:function (){
             if(this.isSubmit) return;
             if(!this.validateOrder()){
+                console.log('no pass')
                 return;
             }
             this.isSubmit  = true;
@@ -116,6 +114,9 @@ var POS_App = new Vue({
                         BCToast.error(json.message);
                     }else{
                         me.orders.splice(me.currentOrderIndex,1);
+                        me.currentOrder = {
+                            items:[]
+                        };
                         if(typeof me.orders[me.currentOrderIndex] !== 'undefined'){
                             // next order
                             me.switchOrder(me.currentOrderIndex,false)
@@ -130,7 +131,6 @@ var POS_App = new Vue({
                     }
                 },
                 error:function(e){
-                    console.log(e)
                     loading.hide();
                     me.isSubmit = false;
                     if(e.responseJSON){
@@ -169,7 +169,6 @@ var POS_App = new Vue({
         }
     },
     created:function (){
-        this.bindHotKeys();
     },
     computed:{
         _subtotal:function(){

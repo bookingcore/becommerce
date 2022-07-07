@@ -852,274 +852,276 @@ jQuery(function ($) {
 });
 
 /// Home page Slider Swiper
-const swiperBannerSlider = new Swiper('.banner-slider', {
-    // Optional parameters
-    loop: true,
-    effect: "fade",
-    autoplay: {
-        delay: 4000,
-        disableOnInteraction: true,
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
+if(typeof Swiper !== 'undefined') {
+    const swiperBannerSlider = new Swiper('.banner-slider', {
+        // Optional parameters
+        loop: true,
+        effect: "fade",
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: true,
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
 
-    // Navigation arrowsss
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-const swiperSliderIcon = new Swiper('.swiper-slider-icon-1', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 16,
-    autoplay: false,
-    breakpoints: {
-        640: {
-            slidesPerView: 2,
+        // Navigation arrowsss
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-        768: {
-            slidesPerView: 2,
+    });
+    const swiperSliderIcon = new Swiper('.swiper-slider-icon-1', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 16,
+        autoplay: false,
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 6
+            },
         },
-        1024: {
-            slidesPerView: 6
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-});
-const swiperSliderIcon2 = new Swiper('.swiper-slider-icon-2', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 16,
-    autoplay: {
-        delay: 4000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 2,
+    });
+    const swiperSliderIcon2 = new Swiper('.swiper-slider-icon-2', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 16,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
         },
-        768: {
-            slidesPerView: 2,
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 6
+            },
         },
-        1024: {
-            slidesPerView: 6
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-    },
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
 
-});
-const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 1,
+    });
+    const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
         },
-        1024: {
-            slidesPerView: 3
+        breakpoints: {
+            768: {
+                slidesPerView: 1,
+            },
+            1024: {
+                slidesPerView: 3
+            },
         },
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-const swiperSliderNews = new Swiper('.swiper-slider-news', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        768: {
-            slidesPerView: 1,
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-        1024: {
-            slidesPerView: 3
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-    },
-    // If we need pagination
-    pagination: {
-        clickable: true,
-        el: '.swiper-pagination',
+    });
+    const swiperSliderNews = new Swiper('.swiper-slider-news', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 1,
+            },
+            1024: {
+                slidesPerView: 3
+            },
+        },
+        // If we need pagination
+        pagination: {
+            clickable: true,
+            el: '.swiper-pagination',
 
-    },
-});
-const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    breakpoints: {
-        640: {
-            slidesPerView: 1,
         },
-        768: {
-            slidesPerView: 3,
+    });
+    const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 6
+            },
         },
-        1024: {
-            slidesPerView: 6
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
         },
-    },
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
-const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    breakpoints: {
-        640: {
-            slidesPerView: 1,
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
         },
-        768: {
-            slidesPerView: 3,
+    });
+    const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 6
+            },
         },
-        1024: {
-            slidesPerView: 6
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
         },
-    },
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    // Navigation arrows
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-});
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 
-const swiperProductSlider = new Swiper('.product-slider', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    breakpoints: {
-        640: {
-            slidesPerView: 2,
+    const swiperProductSlider = new Swiper('.product-slider', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
         },
-        768: {
-            slidesPerView: 3,
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination-slider',
+            clickable: true,
         },
-        1024: {
-            slidesPerView: 5
-        },
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination-slider',
-        clickable: true,
-    },
-});
+    });
 
-const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
-    // Optional parameters
-    loop: true,
-    cssMode: true,
-    spaceBetween: 30,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 1,
+    const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
         },
-        768: {
-            slidesPerView: 2,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 4
+            },
         },
-        1024: {
-            slidesPerView: 4
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-});
+    });
 
-const swiperProductGallery = new Swiper(".axtronic-product_variants", {
-    spaceBetween: 10,
-    slidesPerView: 4,
-    freeMode: true,
-    watchSlidesProgress: true,
-});
-const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
-    spaceBetween: 10,
-    navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-    },
-    thumbs: {
-        swiper: swiperProductGallery,
-    },
-});
+    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiperProductGallery,
+        },
+    });
 
-const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
-    // Optional parameters
-    loop: false,
-    cssMode: false,
-    spaceBetween: 30,
-    autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        640: {
-            slidesPerView: 1,
+    const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
+        // Optional parameters
+        loop: false,
+        cssMode: false,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
         },
-        768: {
-            slidesPerView: 3,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
         },
-        1024: {
-            slidesPerView: 5
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
-    },
-    // If we need pagination
-    pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-    },
-});
+    });
+}
 // Onchange Select Category Product Search Header
 function getName(select) {
     // And here we get the name

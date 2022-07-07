@@ -48,7 +48,7 @@
                         <div class="h-100 d-flex flex-column">
                             <div class="">
                                 <div class="d-flex justify-content-between ps-2 pe-2 pt-2">
-                                    <ul class="nav nav-tabs">
+                                    <ul class="nav nav-tabs m-0">
                                         <li class="nav-item" v-for="(order,index) in orders">
                                             <a class="nav-link " :class="{active:index === currentOrderIndex}" aria-current="page" href="#" @click.prevent="switchOrder(index)">{{__('Order: #')}}@{{ index + 1 }}</a>
                                         </li>
@@ -61,7 +61,7 @@
                             </div>
                             <pos-order-items :order="currentOrder" @update="updateItem" @delete="deleteProduct"></pos-order-items>
                             <hr>
-                            <pos-payment @change="changeOrder" @submit="submitOrder" :shipping_methods="shipping_methods" :order="currentOrder"></pos-payment>
+                            <pos-payment  @change="changeOrder" @submit="submitOrder" :shipping_methods="shipping_methods" :order="currentOrder"></pos-payment>
                         </div>
                     </div>
                 </div>
@@ -82,6 +82,7 @@
             },
             saving_order:'{{__("Saving Order")}}',
             order_saved:'{{__("Order saved")}}',
+            customer_created:'{{__("Customer created")}}',
         });
     </script>
     @include('global.components.pagination')
