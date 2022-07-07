@@ -31,11 +31,6 @@
         </div>
         <div class="user-cart-wishlist flex justify-end w-2/6 text-base font-medium">
             @if(!Auth::user())
-                <div class="">
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#login">
-                        <span class="flaticon-user icon {{ (isset($header_style) and $header_style == '2') ? 'text-white' : '' }}"></span>
-                    </a>
-                </div>
                 <div class="ml-5">
                     <a href="#" class="flex items-center">
                         <svg width="16" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -44,7 +39,6 @@
                         <span class="text pl-2 text-sm">{{__("My Account")}}</span>
                     </a>
                 </div>
-
             @else
                 @include('layouts.parts.header.user')
             @endif
