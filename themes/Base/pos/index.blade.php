@@ -82,6 +82,7 @@
             },
             saving_order:'{{__("Saving Order")}}',
             order_saved:'{{__("Order saved")}}',
+            customer_created:'{{__("Customer created")}}',
         });
     </script>
     @include('global.components.pagination')

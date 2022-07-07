@@ -32,6 +32,25 @@ window.BCToast = {
     </svg>`;
         this._show(icon,content,timeout,'error');
     },
+    showAjaxError:function(e){
+        var json = e.responseJSON;
+        if(typeof json !='undefined'){
+            if(typeof json.errors !='undefined'){
+                var html = '';
+                _.forEach(json.errors,function (val) {
+                    html+=val+'<br>';
+                });
+
+                return this.error(html);
+            }
+            if(json.message){
+                return this.error(json.message);
+            }
+        }
+        if(e.responseText){
+            return this.error(e.responseText);
+        }
+    },
     _show:function (icon,content,timeout,type){
         var progressBar = `<div class="toast-progressbar toast-progressbar--animated" style="animation-duration: 5000ms;opacity: 1;background: var(--bc-toast-color-${type})"></div>`;
 
