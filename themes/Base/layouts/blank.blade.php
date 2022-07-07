@@ -37,11 +37,9 @@
     @stack('head')
 </head>
 <body class="d-flex flex-column h-100 {{$body_class ?? ''}}">
-<main class="flex-shrink-0">
-    @yield('content')
-</main>
-<footer class="footer mt-auto py-3">
-
+    <main class="flex-shrink-0">
+        @yield('content')
+    </main>
     <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
     <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
     <script>
@@ -63,6 +61,5 @@
     <!-- custom scripts-->
     <script  src="{{ theme_url('Base/js/app.js') }}"></script>
     @stack('footer')
-</footer>
 </body>
 </html>

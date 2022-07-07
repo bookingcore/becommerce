@@ -35,6 +35,9 @@ class ValidOrderItems implements Rule
             return false;
         }
         foreach ($value as $k=>$item){
+            if(empty($item['product_id'])){
+                continue;
+            }
             $product = Product::find($item['product_id']);
             if(!$product){
                 $this->messages[] = __('Please select product for item :number',['number'=>$k + 1]);
