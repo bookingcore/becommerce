@@ -343,21 +343,27 @@ class ReportController extends AdminController
         ];
         $range = $request->get('range', 'last7days');
 
-        $tableQuery = Order::
-        leftJoin('core_order_items','core_orders.id','=','core_order_items.order_id')
-        ->addSelect([
-            'core_order_items.qty','core_order_items.order_id',
-            \DB::raw('count(core_orders.id) as orders'),
-            \DB::raw('sum(core_order_items.qty) as items_sold'),
-            \DB::raw('sum(core_orders.subtotal) as gross_sales'),
-            \DB::raw('sum(core_orders.total) as net_sales'),
-            \DB::raw('sum(core_orders.tax_amount) as tax_amount'),
-            \DB::raw('sum(core_orders.shipping_amount) as shipping_amount'),
-            \DB::raw('sum(core_orders.discount_amount) as discount_amount'),
-            \DB::raw('DATE_FORMAT(core_orders.order_date,"%Y-%m-%d") as order_date_format'),
-            \DB::raw('DATE_FORMAT(core_orders.order_date,"%Y-%m") as order_month_format'),
-        ])->where('core_orders.status',Order::COMPLETED)
-        ;
+
+        $orderItems = OrderItem::select(
+            'order_id',
+            \DB::raw('sum(qty) as items_sold'),
+            \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
+            \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
+        )->where('status',Order::COMPLETED)->groupBy('order_id');
+
+        $tableQuery = Order::where('status',Order::COMPLETED)
+
+            ->addSelect([
+                \DB::raw('count(core_orders.id) as orders'),
+                \DB::raw('sum(items_sold) as items_sold'),
+                \DB::raw('sum(total) as net_sales'),
+                \DB::raw('sum(subtotal) as gross_sales'),
+                \DB::raw('sum(tax_amount) as tax_amount'),
+                \DB::raw('sum(shipping_amount) as shipping_amount'),
+                \DB::raw('sum(discount_amount) as discount_amount'),
+                \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
+                \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
+            ]);
         switch ($range){
             case 'year';
                 $year = date("Y");
@@ -416,7 +422,10 @@ class ReportController extends AdminController
             case 'year';
                 $year = date("Y");
                 $currentMonth = date("m");
-                $tableQueryResult =  $tableQuery->groupBy('order_month_format')->orderBy('order_month_format','desc')->get();
+                $orderItems->whereYear('order_date',$year);
+                $tableQueryResult =  $tableQuery->whereYear('order_date',$year)->joinSub($orderItems,'order_item',function($join){
+                    $join->on('core_orders.id','=','order_item.order_id');
+                })->groupBy('order_month_format')->orderBy('order_month_format','desc')->get();
                 for ($month = 1; $month <= $currentMonth; $month++){
                     $m = date('Y-m', strtotime($year . "-" . $month));
                     $row = $tableQueryResult->where('order_month_format',$m)->first();
@@ -429,7 +438,11 @@ class ReportController extends AdminController
             break;
             case 'last-month';
                 $last_month = Date("m", strtotime("first day of previous month"));
+                $orderItems->whereMonth('order_date',$last_month);
                 $tableQueryResult  = $tableQuery->whereMonth('core_orders.order_date',$last_month)
+                    ->joinSub($orderItems,'order_item',function($join){
+                        $join->on('core_orders.id','=','order_item.order_id');
+                    })
                     ->groupBy('order_date_format')
                     ->orderBy('order_date_format','desc')
                     ->get();
@@ -444,7 +457,11 @@ class ReportController extends AdminController
                 }
             break;
             case 'this-month';
+                $orderItems->whereMonth('order_date',date('m'));
                 $tableQueryResult = $tableQuery->whereMonth('core_orders.order_date',date('m'))
+                    ->joinSub($orderItems,'order_item',function($join){
+                        $join->on('core_orders.id','=','order_item.order_id');
+                    })
                     ->groupBy('order_date_format')
                     ->orderBy('order_date_format','desc')
                     ->get();
@@ -460,7 +477,11 @@ class ReportController extends AdminController
             case 'custom';
                 $from = $request->get('from', date('Y-m-0'));
                 $to = $request->get('to', date('Y-m-d'));
+                $orderItems->whereBetween('order_date',[$from.' 00:00:00',$to.' 23:59:59']);
                 $tableQueryResult =$tableQuery->whereBetween('core_orders.order_date',[$from.' 00:00:00',$to.' 23:59:59'])
+                    ->joinSub($orderItems,'order_item',function($join){
+                        $join->on('core_orders.id','=','order_item.order_id');
+                    })
                     ->groupBy('order_date_format')
                     ->orderBy('order_date_format','desc')
                     ->get();
@@ -474,7 +495,11 @@ class ReportController extends AdminController
                 }
             break;
             default;
+                $orderItems->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()]);
                $tableQueryResult = $tableQuery->whereBetween('core_orders.order_date',[Carbon::now()->subDays(7),Carbon::now()])
+                   ->joinSub($orderItems,'order_item',function($join){
+                       $join->on('core_orders.id','=','order_item.order_id');
+                   })
                     ->groupBy('order_date_format')
                     ->orderBy('order_date_format','desc')
                     ->get();
