@@ -30,38 +30,51 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <div class="row mb-3">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label>{{ __('E-mail')}} <span class="text-danger">*</span></label>
-                                    <input type="email" required value="" placeholder="{{ __('Email')}}" name="email" class="form-control"  >
-                                </div>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <div class="form-group">
                                     <label>{{__("First name")}} <span class="text-danger">*</span></label>
-                                    <input type="text" required value="" name="first_name" placeholder="{{__("First name")}}" class="form-control">
+                                    <input type="text" required value="" v-model="first_name"  placeholder="{{__("First name")}}" class="form-control">
+                                    <div v-if="addNewValidating && !first_name" class="text-danger">{{__("First name is required")}}</div>
                                 </div>
                             </div>
                             <div class="col-md-6  mb-3">
                                 <div class="form-group">
                                     <label>{{__("Last name")}} <span class="text-danger">*</span></label>
-                                    <input type="text" required value="" name="last_name" placeholder="{{__("Last name")}}" class="form-control">
+                                    <input type="text" required value="" v-model="last_name" placeholder="{{__("Last name")}}" class="form-control">
+                                    <div v-if="addNewValidating && !last_name" class="text-danger">{{__("Last name is required")}}</div>
                                 </div>
                             </div>
-                            <div class="col-md-6 mb-3">
+                            <div class="col-md-12 mb-3">
                                 <div class="form-group">
-                                    <label>{{ __('Phone Number')}}</label>
-                                    <input type="text" value="" placeholder="{{ __('Phone')}}" name="phone" class="form-control"   >
+                                    <label>{{ __('E-mail')}} <span class="text-danger">*</span></label>
+                                    <input type="email" required value="" placeholder="{{ __('Email')}}" v-model="email" class="form-control"  >
+                                    <div v-if="addNewValidating && !email" class="text-danger">{{__("Email is required")}}</div>
+                                    <div v-if="typeof addNewErrors.email !== 'undefined'" class="text-danger">@{{addNewErrors.email.join(', ')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label>{{ __('Phone Number')}} <span class="text-danger">*</span></label>
+                                    <input type="text" value="" placeholder="{{ __('Phone')}}" v-model="phone" class="form-control"   >
+                                    <div v-if="addNewValidating && !phone" class="text-danger">{{__("Phone is required")}}</div>
+                                    <div v-if="typeof addNewErrors.phone !== 'undefined'" class="text-danger">@{{addNewErrors.phone.join(', ')}}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mb-3">
+                                <div class="form-group">
+                                    <label>{{ __('Address')}}</label>
+                                    <input type="text" value="" placeholder="{{ __('Address')}}" v-model="address" class="form-control"   >
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{__('Close')}}</button>
-                        <button type="button" class="btn btn-primary">{{__("Add new")}}</button>
+                        <button type="button" class="btn btn-primary" :disabled="addNewLoading" @click="addNewCustomer">
+                            <span v-if="!addNewLoading">{{__("Add new")}}</span>
+                            <span v-else>{{__("Saving")}}</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -80,7 +93,15 @@
                 timeout:null,
                 loading:false,
                 loaded:false,
-                addModal:null
+                addModal:null,
+                addNewLoading:false,
+                addNewValidating:false,
+                first_name:'',
+                last_name:'',
+                email:'',
+                phone:'',
+                address:'',
+                addNewErrors:{}
             }
         },
         props:{
@@ -158,6 +179,51 @@
                     })
                 }
                 this.addModal.show();
+            },
+            addNewCustomer:function (){
+                var me = this;
+                if(this.addNewLoading) return;
+                if(!this.addNewValidate()){
+                    return;
+                }
+                this.addNewLoading = true;
+                this.addNewErrors = {};
+
+                $.ajax({
+                    url:'/pos/customer/store',
+                    type:'POST',
+                    data: {
+                        first_name:this.first_name,
+                        last_name:this.last_name,
+                        email:this.email,
+                        phone:this.phone,
+                        address:this.address,
+                    },
+                    success:function(json){
+                        me.addNewLoading = false;
+                        if(json.data){
+                            BCToast.success(i18n.customer_created);
+                            me.addModal.hide();
+                        }
+                        if(!json.status){
+                            BCToast.error(json.message);
+                        }else{
+                            me.change(json.data);
+                        }
+                    },
+                    error:function(e){
+                        me.addNewLoading = false;
+                        BCToast.showAjaxError(e);
+                        if(e.responseJSON && e.responseJSON.errors){
+                            me.addNewErrors = e.responseJSON.errors;
+                        }
+                    }
+                })
+            },
+            addNewValidate:function(){
+                this.addNewValidating = true;
+                if(!this.first_name || !this.last_name || !this.email || !this.phone) return false;
+                return true;
             }
         },
     });

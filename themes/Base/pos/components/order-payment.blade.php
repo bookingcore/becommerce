@@ -12,19 +12,6 @@
                     <label >{{__("Discount")}}</label>
                     <div><input type="number" class="form-control" step="any" min="0" :max="_subtotal" v-model.number="_discount_amount"></div>
                 </div>
-                @if(\Modules\Product\Models\TaxRate::isEnable())
-                    <div class="d-flex justify-content-between">
-                        <div >
-                            {{__("Tax")}} ({{\Modules\Product\Models\TaxRate::isPriceInclude() ? __("Include") : __("Exclude")}})
-                        </div>
-                        <div >@{{ formatMoney(_tax_amount) }}</div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <label v-for="(tax,index) in tax_lists">
-                            <input type="checkbox" v-model="tax_lists[index]['active']" :value="index"> @{{ tax.name }} @{{tax.tax_rate}}%
-                        </label>
-                    </div>
-                @endif
                 <hr>
                 <div class="d-flex justify-content-between mb-2">
                     <label class="fw-bold">{{__("Total")}}</label>
@@ -67,6 +54,14 @@
             },
             changeDiscount:function (e){
                 //this.$emit('change-discount')
+            },
+            saveTaxLists:function (){
+                var tmp = this.tax_lists.map(function(tax,index){
+                    if(tax.active){
+                        return tax
+                    }
+                })
+                this.$emit('saveTaxLists',this.tmp)
             }
         },
         created:function (){
@@ -125,7 +120,8 @@
                     return subtotal * tax_percent/100;
                 }
                 return 0;
-            }
+            },
+
         }
     })
 </script>
