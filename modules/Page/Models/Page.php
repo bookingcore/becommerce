@@ -5,6 +5,7 @@ use App\BaseModel;
 use App\Traits\HasMeta;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\Template\Models\Template;
 
 class Page extends BaseModel
 {
@@ -79,7 +80,7 @@ class Page extends BaseModel
 
     public function template()
     {
-        return $this->hasOne("\\Modules\\Template\\Models\\Template", 'id', 'template_id');
+        return $this->belongsTo(Template::class, 'template_id');
     }
 
     public function getProcessedContent()
