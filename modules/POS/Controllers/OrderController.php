@@ -53,7 +53,7 @@ class OrderController extends FrontendController
         $order->save();
         $order->saveItems($request->input('items'));
 
-        $billing_address = $customer->billing_addresse;
+        $billing_address = $customer->billing_address;
         if(!$billing_address){
             $billing_address = $customer->getDefaultAddress();
         }
