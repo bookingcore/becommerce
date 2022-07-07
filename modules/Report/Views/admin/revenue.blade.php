@@ -84,6 +84,7 @@
             <div class="col-md-12">
                 <div class="panel">
                     <div class="panel-title d-flex justify-content-between align-items-center">
+                        <div></div>
                         <a href="{{route('report.admin.revenue.export',request()->all())}}" class="btn btn-warning btn-icon"><i class="icon ion-md-cloud-download"></i> {{ __("Export to excel") }}</a>
                     </div>
                     <div class="panel-body">
