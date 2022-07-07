@@ -10,6 +10,7 @@ use Modules\Order\Models\OrderItem;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductCategory;
 use Modules\Report\Exports\ProductExport;
+use Modules\Report\Exports\RevenueExport;
 
 class ReportController extends AdminController
 {
@@ -278,14 +279,8 @@ class ReportController extends AdminController
     public function productExport(Request $request)
     {
         $this->checkPermission('report_view');
-        $listProduct = $this->_productReport($request)->get();
-        return (new ProductExport($listProduct))->download('report-product-export-' . date('M-d-Y') . '.xlsx');
-    }
-    public function revenueExport(Request $request)
-    {
-        $this->checkPermission('report_view');
-        $listProduct = $this->_productReport($request)->get();
-        return (new ProductExport($listProduct))->download('report-product-export-' . date('M-d-Y') . '.xlsx');
+        $rows = $this->_productReport($request)->get();
+        return (new ProductExport($rows))->download('report-product-export-' . date('M-d-Y') . '.xlsx');
     }
 
     public function revenue(Request $request){
@@ -343,27 +338,6 @@ class ReportController extends AdminController
         ];
         $range = $request->get('range', 'last7days');
 
-
-        $orderItems = OrderItem::select(
-            'order_id',
-            \DB::raw('sum(qty) as items_sold'),
-            \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
-            \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
-        )->where('status',Order::COMPLETED)->groupBy('order_id');
-
-        $tableQuery = Order::where('status',Order::COMPLETED)
-
-            ->addSelect([
-                \DB::raw('count(core_orders.id) as orders'),
-                \DB::raw('sum(items_sold) as items_sold'),
-                \DB::raw('sum(total) as net_sales'),
-                \DB::raw('sum(subtotal) as gross_sales'),
-                \DB::raw('sum(tax_amount) as tax_amount'),
-                \DB::raw('sum(shipping_amount) as shipping_amount'),
-                \DB::raw('sum(discount_amount) as discount_amount'),
-                \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
-                \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
-            ]);
         switch ($range){
             case 'year';
                 $year = date("Y");
@@ -416,8 +390,118 @@ class ReportController extends AdminController
             'total_shipping' => array_sum($chart_data['datasets'][4]['data']),
             'coupons_used' => array_sum($chart_data['datasets'][5]['data'])
         ];
-        $rows = collect();
 
+        $data = [
+            'report_chart_data' => $chart_data,
+            'data_total' => $data_total,
+            'rows' => $this->_revenueReport($request),
+            'breadcrumbs'        => [
+                [
+                    'name'  => __('Revenue'),
+                    'class' => 'active'
+                ],
+            ],
+        ];
+        return view('Report::admin.revenue', $data);
+    }
+
+    public function revenueExport(Request $request)
+    {
+        $this->checkPermission('report_view');
+        $rows = $this->_revenueReport($request);
+        return (new RevenueExport($rows,$request))->download('report-revenue-export-' . date('M-d-Y') . '.xlsx');
+    }
+
+
+    public function orders(Request $request){
+
+        $this->checkPermission('report_view');
+
+        $data = [
+            'breadcrumbs'        => [
+                [
+                    'name'  => __('Revenue'),
+                    'class' => 'active'
+                ],
+            ],
+        ];
+        return view('Report::admin.orders', $data);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+    private function _productReport(Request $request){
+        $productTable= Product::getTableName();
+        $orderItemTable = OrderItem::getTableName();
+
+        $range = $request->get('range', 'last7days');
+        $productQuery = Product::leftJoin($orderItemTable,$productTable.'.id','=',$orderItemTable.'.object_id')
+            ->where($orderItemTable.'.status',Order::COMPLETED);
+
+        switch ($range){
+            case 'year';
+                $year = date("Y");
+                $productQuery->whereYear($orderItemTable.'.order_date',$year);
+
+            break;
+            case 'last-month';
+                $last_month = Date("m", strtotime("first day of previous month"));
+                $productQuery->whereMonth($orderItemTable.'.order_date',$last_month);
+
+            break;
+            case 'this-month';
+                $productQuery->whereMonth($orderItemTable.'.order_date',date('m'));
+            break;
+            case 'custom';
+                $from = $request->get('from', date('Y-m-0'));
+                $to = $request->get('to', date('Y-m-d'));
+                $productQuery->whereBetween($orderItemTable.'.order_date',[$from.' 00:00:00',$to.' 23:59:59']);
+            break;
+            default;
+                $productQuery->whereBetween($orderItemTable.'.order_date',[Carbon::now()->subDays(7),Carbon::now()]);
+            break;
+        }
+        return $productQuery
+            ->select([
+                $productTable.'.*',
+                $orderItemTable.'.qty',
+                \DB::raw('count('.$orderItemTable.'.object_id) as total_sold'),
+                \DB::raw('sum('.$orderItemTable.'.subtotal + '.$orderItemTable.'.shipping_amount - '.$orderItemTable.'.discount_amount) as net_sales'),
+            ])
+            ->groupBy($orderItemTable.'.id')
+            ->orderBy($orderItemTable.'.order_date','desc')
+            ->where($productTable.'.status','publish')
+            ->with('categories');
+    }
+    private function _revenueReport(Request $request){
+        $range = $request->get('range', 'last7days');
+        $orderItems = OrderItem::select(
+            'order_id',
+            \DB::raw('sum(qty) as items_sold'),
+            \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
+            \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
+        )->where('status',Order::COMPLETED)->groupBy('order_id');
+        $tableQuery = Order::where('status',Order::COMPLETED)->addSelect([
+                \DB::raw('count(core_orders.id) as orders'),
+                \DB::raw('sum(items_sold) as items_sold'),
+                \DB::raw('sum(total) as net_sales'),
+                \DB::raw('sum(subtotal) as gross_sales'),
+                \DB::raw('sum(tax_amount) as tax_amount'),
+                \DB::raw('sum(shipping_amount) as shipping_amount'),
+                \DB::raw('sum(discount_amount) as discount_amount'),
+                \DB::raw('DATE_FORMAT(order_date,"%Y-%m-%d") as order_date_format'),
+                \DB::raw('DATE_FORMAT(order_date,"%Y-%m") as order_month_format'),
+            ]);
+        $rows = collect();
         switch ($range){
             case 'year';
                 $year = date("Y");
@@ -496,10 +580,10 @@ class ReportController extends AdminController
             break;
             default;
                 $orderItems->whereBetween('order_date',[Carbon::now()->subDays(7),Carbon::now()]);
-               $tableQueryResult = $tableQuery->whereBetween('core_orders.order_date',[Carbon::now()->subDays(7),Carbon::now()])
-                   ->joinSub($orderItems,'order_item',function($join){
-                       $join->on('core_orders.id','=','order_item.order_id');
-                   })
+                $tableQueryResult = $tableQuery->whereBetween('core_orders.order_date',[Carbon::now()->subDays(7),Carbon::now()])
+                    ->joinSub($orderItems,'order_item',function($join){
+                        $join->on('core_orders.id','=','order_item.order_id');
+                    })
                     ->groupBy('order_date_format')
                     ->orderBy('order_date_format','desc')
                     ->get();
@@ -513,88 +597,7 @@ class ReportController extends AdminController
                 }
             break;
         }
-        $data = [
-            'report_chart_data' => $chart_data,
-            'data_total' => $data_total,
-            'rows' => $rows->all(),
-            'breadcrumbs'        => [
-                [
-                    'name'  => __('Revenue'),
-                    'class' => 'active'
-                ],
-            ],
-        ];
-        return view('Report::admin.revenue', $data);
-    }
-
-    public function orders(Request $request){
-
-        $this->checkPermission('report_view');
-
-        $data = [
-            'breadcrumbs'        => [
-                [
-                    'name'  => __('Revenue'),
-                    'class' => 'active'
-                ],
-            ],
-        ];
-        return view('Report::admin.orders', $data);
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-    private function _productReport(Request $request){
-        $productTable= Product::getTableName();
-        $orderItemTable = OrderItem::getTableName();
-
-        $range = $request->get('range', 'last7days');
-        $productQuery = Product::leftJoin($orderItemTable,$productTable.'.id','=',$orderItemTable.'.object_id')
-            ->where($orderItemTable.'.status',Order::COMPLETED);
-
-        switch ($range){
-            case 'year';
-                $year = date("Y");
-                $productQuery->whereYear($orderItemTable.'.order_date',$year);
-
-            break;
-            case 'last-month';
-                $last_month = Date("m", strtotime("first day of previous month"));
-                $productQuery->whereMonth($orderItemTable.'.order_date',$last_month);
-
-            break;
-            case 'this-month';
-                $productQuery->whereMonth($orderItemTable.'.order_date',date('m'));
-            break;
-            case 'custom';
-                $from = $request->get('from', date('Y-m-0'));
-                $to = $request->get('to', date('Y-m-d'));
-                $productQuery->whereBetween($orderItemTable.'.order_date',[$from.' 00:00:00',$to.' 23:59:59']);
-            break;
-            default;
-                $productQuery->whereBetween($orderItemTable.'.order_date',[Carbon::now()->subDays(7),Carbon::now()]);
-            break;
-        }
-        return $productQuery
-            ->select([
-                $productTable.'.*',
-                $orderItemTable.'.qty',
-                \DB::raw('count('.$orderItemTable.'.object_id) as total_sold'),
-                \DB::raw('sum('.$orderItemTable.'.subtotal + '.$orderItemTable.'.shipping_amount - '.$orderItemTable.'.discount_amount) as net_sales'),
-            ])
-            ->groupBy($orderItemTable.'.id')
-            ->orderBy($orderItemTable.'.order_date','desc')
-            ->where($productTable.'.status','publish')
-            ->with('categories');
+        return $rows;
     }
 
 }

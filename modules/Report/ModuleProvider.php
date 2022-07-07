@@ -34,10 +34,10 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
                         'url'   => route('report.admin.products'),
                         'title' => __('Products'),
                     ],
-//                    'revenue'=>[
-//                        'url'   => route('report.admin.revenue'),
-//                        'title' => __('Revenue'),
-//                    ],
+                    'revenue'=>[
+                        'url'   => route('report.admin.revenue'),
+                        'title' => __('Revenue'),
+                    ],
                 ]
             ],
         ];

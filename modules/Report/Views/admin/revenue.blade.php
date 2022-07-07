@@ -98,7 +98,6 @@
                                             @else
                                                 {{__("Date")}}
                                             @endif
-                                            {{__("Date")}}
                                         </th>
                                         <th>{{__('Orders')}}</th>
                                         <th>{{__('Items sold')}}</th>
