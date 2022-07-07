@@ -1,0 +1,33 @@
+/*!
+ * Vue.js v2.6.14
+ * (c) 2014-2021 Evan You
+ * Released under the MIT License.
+ */
+
+/*!
+ * drag-event-service v1.1.10
+ * (c) phphe <phphe@outlook.com> (https://github.com/phphe)
+ * Homepage: null
+ * Released under the MIT License.
+ */
+
+/*!
+ * draggable-helper v4.0.3
+ * (c) phphe <phphe@outlook.com> (https://github.com/phphe)
+ * Homepage: undefined
+ * Released under the MIT License.
+ */
+
+/*!
+ * he-tree-vue v1.2.3
+ * (c) phphe <phphe@outlook.com> (https://github.com/phphe)
+ * Homepage: https://he-tree-vue.phphe.com
+ * Released under the MIT License.
+ */
+
+/**!
+ * Sortable 1.10.2
+ * @author	RubaXa   <trash@rubaxa.org>
+ * @author	owenm    <owen23355@gmail.com>
+ * @license MIT
+ */
