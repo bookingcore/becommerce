@@ -35,4 +35,20 @@ trait HasAddress
         $add->address_type = $type;
         $add->save();
     }
+
+    public function getDefaultAddress(){
+        return [
+            'email'=>$this->email,
+            'first_name'=>$this->first_name,
+            'last_name'=>$this->last_name,
+            'phone'=>$this->phone,
+            'country'=>$this->country,
+            'address'=>$this->address,
+            'address2'=>$this->address2,
+            'state'=>$this->state,
+            'city'=>$this->city,
+            'postcode'=>$this->postcode,
+            'company'=>$this->company,
+        ];
+    }
 }

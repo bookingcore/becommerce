@@ -61,37 +61,37 @@
         <footer class="footer mt-auto py-3">
             @include('layouts.parts.footer')
             @include('product.compare.compare-modal')
+        </footer>
 
-            <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
-            <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
-            <script src="{{asset('libs/lodash.min.js')}}"></script>
-            <script>
+        <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
+        <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
+        <script src="{{asset('libs/lodash.min.js')}}"></script>
+        <script>
 
-                window.lazyLoadOptions = {
-                    elements_selector: ".lazy",
-                };
+            window.lazyLoadOptions = {
+                elements_selector: ".lazy",
+            };
 
-                window.addEventListener('LazyLoad::Initialized', function (event) {
-                    window.lazyLoadInstance = event.detail.instance;
-                }, false);
+            window.addEventListener('LazyLoad::Initialized', function (event) {
+                window.lazyLoadInstance = event.detail.instance;
+            }, false);
 
 
-            </script>
+        </script>
 
-            <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
-            <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
-            @switch(setting_item('search_driver'))
-                @case ('algolia')
+        <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
+        <script src="{{ theme_url('Base') }}/libs/owl-carousel/owl.carousel.min.js"></script>
+        <script src="{{ theme_url('Base') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ theme_url('Base') }}/libs/vue/vue.js"></script>
+        <script src="{{ theme_url('Base') }}/libs/nouislider/nouislider.min.js"></script>
+        <script src="{{ theme_url('Base') }}/libs/slick/slick.min.js"></script>
+        @switch(setting_item('search_driver'))
+            @case ('algolia')
                 <script  src="{{ theme_url('Base/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>
                 @break
-            @endswitch
-            <!-- custom scripts-->
-            <script  src="{{ theme_url('Base/js/app.js?_v='.config('app.asset_version')) }}"></script>
-            @stack('footer')
-        </footer>
+        @endswitch
+        <!-- custom scripts-->
+        <script  src="{{ theme_url('Base/js/app.js?_v='.config('app.asset_version')) }}"></script>
+        @stack('footer')
     </body>
 </html>
