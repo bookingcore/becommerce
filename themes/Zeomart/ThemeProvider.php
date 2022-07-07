@@ -38,7 +38,7 @@ class ThemeProvider extends AbstractThemeProvider
 
         BlockManager::register('about_gallery', \Themes\Zeomart\Controllers\Blocks\AboutGallery::class);
         BlockManager::register('about_editor', \Themes\Zeomart\Controllers\Blocks\AboutEditor::class);
-        BlockManager::register('banner_sliders', \Themes\Zeomart\Controllers\Blocks\BannerSlider::class);
+        BlockManager::register('banner_slider', \Themes\Zeomart\Controllers\Blocks\BannerSlider::class);
     }
 
     public function registerZone(){

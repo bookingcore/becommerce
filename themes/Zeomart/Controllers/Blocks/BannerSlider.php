@@ -69,13 +69,12 @@ class BannerSlider extends BaseBlock
     }
     public function getName()
     {
-        return __('Banner Sliders');
+        return __('Banner Slider');
     }
 
     public function content($model = [])
     {
         $style = !empty($model['style']) ? $model['style'] : 'style_1';
-        dd(1);
         return view("blocks.banner-slides.{$style}", $model);
     }
 }
