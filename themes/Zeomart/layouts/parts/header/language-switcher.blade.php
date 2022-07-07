@@ -5,7 +5,7 @@
 @if(!empty($languages) && setting_item('site_enable_multi_lang'))
     <div class="bc-language-sw zm-dropdown relative z-20">
         <button class="zm-dropdown-toggle" type="button">
-            {{ __('Language:') }} 
+            {{ __('Language:') }}
             @foreach($languages as $language)
                 @if($locale == $language->locale)
                     @if($language->flag)
@@ -21,7 +21,7 @@
         <div class="zm-dropdown-menu hidden origin-top-right absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
             @foreach($languages as $language)
                 <div class="item">
-                    <a href="{{get_lang_switcher_url($language->locale)}}" @if($locale == $language->locale) selected @endif class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">
+                    <a href="{{get_lang_switcher_url($language->locale)}}" class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100">
                         {{$language->name}}
                     </a>
                 </div>

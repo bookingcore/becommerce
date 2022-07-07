@@ -23,7 +23,9 @@
     <div class="flex items-center">
         <div class="logo w-1/6">
             <div class="text text-2xl font-bold">
-                {{ setting_item('zeomart_logo_text') }}
+                <a href="{{ home_url() }}">
+                    {{ setting_item('zeomart_logo_text') }}
+                </a>
             </div>
         </div>
         <div class="search w-4/6">
