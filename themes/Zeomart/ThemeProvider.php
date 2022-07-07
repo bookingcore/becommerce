@@ -1,14 +1,11 @@
 <?php
-
-
 namespace Themes\Zeomart;
-
 
 use Illuminate\Pagination\Paginator;
 use Modules\Core\Helpers\SettingManager;
 use Modules\Template\BlockManager;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
-use Themes\Base\Database\Seeder;
+use Themes\Zeomart\Database\Seeder;
 
 class ThemeProvider extends AbstractThemeProvider
 {

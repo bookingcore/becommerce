@@ -5,6 +5,7 @@
 @if(!empty($actives) and count($actives) > 1)
     <div class="bc-currency-sw zm-dropdown relative z-20">
         <button class="zm-dropdown-toggle" type="button">
+            {{ __("Currency:") }}
             @foreach($actives as $currency)
                 @if($current == $currency['currency_main'])
                     {{strtoupper($currency['currency_main'])}}
