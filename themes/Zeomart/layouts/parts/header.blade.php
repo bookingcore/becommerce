@@ -19,7 +19,7 @@
         </div>
     </div>
 </div>
-<div class="zm-header m-auto max-w-7xl">
+<div class="zm-header m-auto max-w-7xl mt-2 mb-2">
     <div class="flex items-center">
         <div class="logo w-1/6">
             <div class="text text-2xl font-bold">

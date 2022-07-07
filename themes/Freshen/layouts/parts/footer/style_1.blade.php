@@ -69,13 +69,13 @@
             <div class="col-md-6 col-lg-8 col-xl-9">
                 <div class="copyright-widget mb15-767">
                     <p>
-                        {!! setting_item('freshen_copyright') !!}
+                        {!! setting_item_with_lang('freshen_copyright') !!}
                     </p>
                 </div>
             </div>
             <div class="col-md-6 col-lg-4 col-xl-3">
                 <div class="payment_getway_widget text-end">
-                    {!! setting_item('freshen_footer_text_right') !!}
+                    {!! setting_item_with_lang('freshen_footer_text_right') !!}
                 </div>
             </div>
         </div>

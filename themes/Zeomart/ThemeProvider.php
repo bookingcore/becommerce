@@ -68,6 +68,11 @@ class ThemeProvider extends AbstractThemeProvider
 
                 'zeomart_topbar_text_left',
                 'zeomart_topbar_text_right',
+
+                'zeomart_footer_info_text',
+                'zeomart_list_widget_footer',
+                'zeomart_copyright',
+                'zeomart_footer_text_right',
             ],
             'filter_demo_mode'=>[
             ]
