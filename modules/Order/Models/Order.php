@@ -244,14 +244,21 @@ class Order extends BaseModel
                 $order_item->order_id = $this->id;
             }
 
+            /**
+             * @var Product $product
+             */
             $product = Product::find($item['product_id']);
+            $variation = null;
+            if($product->product_type == 'variable'){
+                $variation = $product->variations()->whereId($item['variation_id'])->first();
+            }
 
             $order_item->object_id = $product->id;
             $order_item->object_model = 'product';
-            $order_item->price = $product->price;
-            //$order_item->discount_amount = $item->discount_amount;
+            $order_item->price = $variation ? $variation->sale_price : $product->sale_price;
+
             $order_item->qty = $item['qty'];
-            $order_item->subtotal = $product->price * $item['qty'];
+            $order_item->subtotal = $order_item->price * $item['qty'];
             $order_item->status = $this->status;
             $order_item->variation_id = $item['variation_id'];
             $order_item->vendor_id = $product->author_id;
