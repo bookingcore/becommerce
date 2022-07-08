@@ -4,6 +4,12 @@
 @import "_table.css";
 @import "_media.css";
 .btn{
-    @apply rounded text-base font-medium px-4 py-3 transition duration-200
+    @apply rounded text-base font-medium px-4 py-3 transition duration-200 hover:cursor-pointer
 }
-
+.btn-sm{
+    @apply px-2 py-1
+}
+.btn-danger{
+    background: #F1416C;
+    color:white
+}
