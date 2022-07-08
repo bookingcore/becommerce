@@ -2,6 +2,7 @@
 module.exports = {
     content: [
         "../../../themes/Zeomart/**/*.blade.php",
+        "../../../modules/Product/Views/admin/product/**/*.blade.php",
         "./js/**/*.vue",
     ],
     theme: {

@@ -200,179 +200,179 @@
 	// Variation conditional engine
 	var condition_object='select, input[type="radio"]:checked, input[type="text"], input[type="hidden"], input.ot-numeric-slider-hidden-input,input[type="checkbox"]';
 
-		function init_condition_engine(){
+    function init_condition_engine(){
 
-			$('#variations').off( 'change.conditionals');
-			$('#variations').on( 'change.conditionals', condition_object, function(e) {
-				run_variations_condition_engine($(this).closest('.variation-item'));
-			});
+        $('#variations').off( 'change.conditionals');
+        $('#variations').on( 'change.conditionals', condition_object, function(e) {
+            run_variations_condition_engine($(this).closest('.variation-item'));
+        });
 
-			$('.variation-item').each(function(){
-				run_variations_condition_engine($(this));
-			})
-		}
-        function run_variations_condition_engine(parent){
-            $('[v-condition]',parent).each(function() {
-                var passed;
-                var conditions = get_match_condition( $( this ).attr( 'v-condition' ) );
-                var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
+        $('.variation-item').each(function(){
+            run_variations_condition_engine($(this));
+        })
+    }
+    function run_variations_condition_engine(parent){
+        $('[v-condition]',parent).each(function() {
+            var passed;
+            var conditions = get_match_condition( $( this ).attr( 'v-condition' ) );
+            var operator = ( $( this ).data( 'operator' ) || 'and' ).toLowerCase();
 
-                $.each( conditions, function( index, condition ) {
+            $.each( conditions, function( index, condition ) {
 
-					var target   = $( '[data-name='+ condition.check+']' ,parent);
+                var target   = $( '[data-name='+ condition.check+']' ,parent);
 
-                    var targetEl = !! target.length && target.first();
+                var targetEl = !! target.length && target.first();
 
-                    if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
-                        return;
-                    }
-
-                    var v1 = targetEl.length ? targetEl.val().toString() : '';
-                    var v2 = condition.value.toString();
-
-                    var result;
-
-                    if(targetEl.length && targetEl.attr('type')=='radio'){
-                        v1 = $( '[data-name='+ condition.check+']:checked').val();
-                    }
-                    if(targetEl.length && targetEl.attr('type')=='checkbox'){
-                        v1=targetEl.is(':checked')?v1:'';
-					}
-
-                    switch ( condition.rule ) {
-                        case 'less_than':
-                            result = ( parseInt( v1 ) < parseInt( v2 ) );
-                            break;
-                        case 'less_than_or_equal_to':
-                            result = ( parseInt( v1 ) <= parseInt( v2 ) );
-                            break;
-                        case 'greater_than':
-                            result = ( parseInt( v1 ) > parseInt( v2 ) );
-                            break;
-                        case 'greater_than_or_equal_to':
-                            result = ( parseInt( v1 ) >= parseInt( v2 ) );
-                            break;
-                        case 'contains':
-                            result = ( v1.indexOf(v2) !== -1 ? true : false );
-                            break;
-                        case 'is':
-                            result = ( v1 == v2 );
-                            break;
-                        case 'not':
-                            result = ( v1 != v2 );
-                            break;
-                    }
-
-                    if ( 'undefined' == typeof passed ) {
-                        passed = result;
-                    }
-
-                    switch ( operator ) {
-                        case 'or':
-                            passed = ( passed || result );
-                            break;
-                        case 'and':
-                        default:
-                            passed = ( passed && result );
-                            break;
-                    }
-
-                });
-
-                if ( passed ) {
-                    $(this).show();
-                } else {
-                    $(this).hide();
+                if ( ! target.length || ( ! targetEl.length && condition.value.toString() != '' ) ) {
+                    return;
                 }
 
-                passed = undefined;
+                var v1 = targetEl.length ? targetEl.val().toString() : '';
+                var v2 = condition.value.toString();
+
+                var result;
+
+                if(targetEl.length && targetEl.attr('type')=='radio'){
+                    v1 = $( '[data-name='+ condition.check+']:checked').val();
+                }
+                if(targetEl.length && targetEl.attr('type')=='checkbox'){
+                    v1=targetEl.is(':checked')?v1:'';
+                }
+
+                switch ( condition.rule ) {
+                    case 'less_than':
+                        result = ( parseInt( v1 ) < parseInt( v2 ) );
+                        break;
+                    case 'less_than_or_equal_to':
+                        result = ( parseInt( v1 ) <= parseInt( v2 ) );
+                        break;
+                    case 'greater_than':
+                        result = ( parseInt( v1 ) > parseInt( v2 ) );
+                        break;
+                    case 'greater_than_or_equal_to':
+                        result = ( parseInt( v1 ) >= parseInt( v2 ) );
+                        break;
+                    case 'contains':
+                        result = ( v1.indexOf(v2) !== -1 ? true : false );
+                        break;
+                    case 'is':
+                        result = ( v1 == v2 );
+                        break;
+                    case 'not':
+                        result = ( v1 != v2 );
+                        break;
+                }
+
+                if ( 'undefined' == typeof passed ) {
+                    passed = result;
+                }
+
+                switch ( operator ) {
+                    case 'or':
+                        passed = ( passed || result );
+                        break;
+                    case 'and':
+                    default:
+                        passed = ( passed && result );
+                        break;
+                }
+
+            });
+
+            if ( passed ) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+
+            passed = undefined;
+        });
+    }
+
+    function get_match_condition(condition){
+        var match;
+        var regex = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
+        var conditions = [];
+
+        while( match = regex.exec( condition ) ) {
+            conditions.push({
+                'check': match[1],
+                'rule':  match[2],
+                'value': match[3] || ''
             });
         }
 
-        function get_match_condition(condition){
-            var match;
-            var regex = /(.+?):(is|not|contains|less_than|less_than_or_equal_to|greater_than|greater_than_or_equal_to)\((.*?)\),?/g;
-            var conditions = [];
+        return conditions;
+    }
 
-            while( match = regex.exec( condition ) ) {
-                conditions.push({
-                    'check': match[1],
-                    'rule':  match[2],
-                    'value': match[3] || ''
-                });
-            }
-
-            return conditions;
+    $('.bc-search-box').each(function(){
+       var me = $(this);
+       var url = me.data('url');
+       var dropdown = me.find('.dropdown-menu');
+       var input  = me.find('.search-input');
+       var html = '';
+       var timeout = null;
+       var template = Handlebars.compile(document.getElementById(me.data('template')).innerHTML);
+       var first_load = true;
+       var autocomplete = function(data){
+           if(timeout) window.clearTimeout(timeout);
+           timeout = window.setTimeout(function(){
+               dropdown.show();
+            $.ajax({
+                url:url,
+                data:data,
+                method:'get',
+                type:'json',
+                success:function(json){
+                    if(json.data && json.data.length){
+                        html = '';
+                        dropdown.empty();
+                        json.data.map(function(item){
+                            var html_item = $(template(item))
+                            html_item.data('item',item);
+                            html_item.on('click',function(e){
+                                me.trigger('bc.dropdown.click',item)
+                            })
+                            dropdown.prepend(html_item);
+                        });
+                    }else{
+                        dropdown.html(me.find('.template .no-data').html());
+                    }
+                }
+            })
+           },300);
         }
 
-        $('.bc-search-box').each(function(){
-           var me = $(this);
-           var url = me.data('url');
-           var dropdown = me.find('.dropdown-menu');
-           var input  = me.find('.search-input');
-           var html = '';
-           var timeout = null;
-           var template = Handlebars.compile(document.getElementById(me.data('template')).innerHTML);
-           var first_load = true;
-           var autocomplete = function(data){
-               if(timeout) window.clearTimeout(timeout);
-               timeout = window.setTimeout(function(){
-                   dropdown.show();
-                $.ajax({
-                    url:url,
-                    data:data,
-                    method:'get',
-                    type:'json',
-                    success:function(json){
-                        if(json.data && json.data.length){
-                            html = '';
-                            dropdown.empty();
-                            json.data.map(function(item){
-                                var html_item = $(template(item))
-                                html_item.data('item',item);
-                                html_item.on('click',function(e){
-                                    me.trigger('bc.dropdown.click',item)
-                                })
-                                dropdown.prepend(html_item);
-                            });
-                        }else{
-                            dropdown.html(me.find('.template .no-data').html());
-                        }
-                    }
-                })
-               },300);
-            }
-
-           input.on('keyup',function(){
-               autocomplete({
-                   s:input.val()
-               })
-           });
-           input.on('click',function(){
-               if(!first_load) return;
-               first_load = false;
-
-               autocomplete({
-                   s:input.val()
-               })
+       input.on('keyup',function(){
+           autocomplete({
+               s:input.val()
            })
+       });
+       input.on('click',function(){
+           if(!first_load) return;
+           first_load = false;
 
-        });
-        var grouped_item_template = Handlebars.compile(document.getElementById('grouped-item-template').innerHTML);
+           autocomplete({
+               s:input.val()
+           })
+       })
 
-        $('.bc-grouped-product').on('bc.dropdown.click',function(e,data){
-            var p = $(this).closest('.form-group-item');
-            p.find('.g-items').append(grouped_item_template(data))
-        })
-        var upsell_item_template = Handlebars.compile(document.getElementById('up-sell-item-template').innerHTML);
+    });
+    var grouped_item_template = Handlebars.compile(document.getElementById('grouped-item-template').innerHTML);
 
-        $('.bc-up-sell-product').on('bc.dropdown.click',function(e,data){
-            var p = $(this).closest('.form-group-item');
-            p.find('.g-items').append(upsell_item_template(data))
-        })
-        var cross_sell_template = Handlebars.compile(document.getElementById('cross-sell-item-template').innerHTML);
+    $('.bc-grouped-product').on('bc.dropdown.click',function(e,data){
+        var p = $(this).closest('.form-group-item');
+        p.find('.g-items').append(grouped_item_template(data))
+    })
+    var upsell_item_template = Handlebars.compile(document.getElementById('up-sell-item-template').innerHTML);
 
-        $('.bc-cross-sell-product').on('bc.dropdown.click',function(e,data){
+    $('.bc-up-sell-product').on('bc.dropdown.click',function(e,data){
+        var p = $(this).closest('.form-group-item');
+        p.find('.g-items').append(upsell_item_template(data))
+    })
+    var cross_sell_template = Handlebars.compile(document.getElementById('cross-sell-item-template').innerHTML);
+
+    $('.bc-cross-sell-product').on('bc.dropdown.click',function(e,data){
             var p = $(this).closest('.form-group-item');
             p.find('.g-items').append(cross_sell_template(data))
         })

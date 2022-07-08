@@ -2,11 +2,6 @@
 @push('head')
     <script src="{{ asset('libs/tinymce/js/tinymce/tinymce.min.js') }}" ></script>
     <link rel="stylesheet" href="{{ asset('libs/select2/css/select2.min.css') }}" />
-    <style>
-        body{
-            background: #f8f9fa;
-        }
-    </style>
 @endpush
 @section('content')
     <section class="bc-items-listing">
@@ -162,5 +157,5 @@
 @push('footer')
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
     <script src="{{asset('libs/handlebars/handlebars.min.js')}}"></script>
-    <script  src="{{ theme_url('Zeomart/dist/js/vendor.js?_v='.config('app.asset_version')) }}"></script>
+    <script  src="{{ theme_url('Zeomart/dist/js/vendor/product.js?_v='.config('app.asset_version')) }}"></script>
 @endpush
