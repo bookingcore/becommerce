@@ -7,14 +7,14 @@
         <div class="my-3">
             @include('global.message')
         </div>
-        <div class="grid xl:grid-cols-12 gap-6 pb-40 border-b">
-            <div class="col-span-8">
+        <div class="grid  grid-cols-1 sm:grid-cols-12 gap-6 pb-40 border-b">
+            <div class="col-span-12 sm:col-span-8">
                 @if(\Modules\Order\Helpers\CartManager::count())
                     <div class="shopping_cart_table">
                         <form action="{{route('cart.update_cart_item')}}" method="post">
                             @csrf
                             <div class="relative overflow-x-auto sm:rounded-lg shadow-md">
-                                <table class="text-center w-full whitespace-nowrap  bg-white">
+                                <table class="text-center w-full whitespace-nowrap   bg-white">
                                     <thead class="bg-slate-100 uppercase">
                                     <tr>
                                         <th class=" py-5">{{__("PRODUCT")}}</th>
@@ -27,12 +27,12 @@
                                     <tbody class="table_body  ">
                                     @foreach(\Modules\Order\Helpers\CartManager::items() as $cartItem)
                                         <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
-                                            <td class="py-5">
-                                                <ul class="cart_list flex">
+                                            <td class="py-5 w-5/6">
+                                                <div class="flex">
                                                     @if(!empty($cartItem->model->image_id))
-                                                        <li class="list-inline-item mr-2"><a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'img-fluid w-24'])!!}</a></li>
+                                                        <a class="flex-none mx-3" href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'w-24 h-24'])!!}</a>
                                                     @endif
-                                                    <li class="list-inline-item">
+                                                    <div >
                                                         <a class="cart_title" href="{{$cartItem->getDetailUrl()}}">{{$cartItem->title}}</a>
                                                         @if($variation = $cartItem->variation and $terms = $variation->terms())
                                                             <ul class="mb-2">
@@ -44,8 +44,8 @@
                                                         @if(is_vendor_enable() and !empty($cartItem->author))
                                                             <p class="mb-0 small">{{__('Sold By:')}} {{$cartItem->author}}</p>
                                                         @endif
-                                                    </li>
-                                                </ul>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="py-5 font-bold">{{format_money($cartItem->price)}}</td>
                                             <td class="py-5"><input class="cart_count rounded-full w-24 text-center" name="cart_item[{{$cartItem->id}}][qty]" value="{{$cartItem->qty}}" type="number"></td>
@@ -106,7 +106,7 @@
                     </div>
                 @endif
             </div>
-            <div class="col-span-4">
+            <div class="col-span-12 sm:col-span-4">
                 <div class="p-6 font-medium bg-white rounded-lg border shadow-md">
                     <h6 class="font-bold text-xl mb-6">{{__("Cart Total")}}</h6>
                     <div class="flex justify-between  mb-3">

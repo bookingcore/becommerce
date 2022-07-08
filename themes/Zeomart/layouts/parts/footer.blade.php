@@ -9,7 +9,7 @@
                     <form action="{{ route('newsletter.subscribe') }}" method="post" class="subcribe-form bc-subscribe-form">
                         @csrf
                         <div class="flex justify-center">
-                            <input type="text" class="text-[15px] min-w-[400px] py-4 px-4 border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 rounded" name="email" placeholder="{{ __("Email address") }}" >
+                            <input type="text" class="text-[15px] sm:min-w-[400px] py-4 px-4 border-slate-200 placeholder-slate-400 contrast-more:border-slate-400 contrast-more:placeholder-slate-500 rounded" name="email" placeholder="{{ __("Email address") }}" >
                             <button type="submit" class="inline-flex ml-3 items-center px-8 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-[#F5C34B] text-[#041E42]">
                                 <svg class="hidden motion-reduce:hidden animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
