@@ -331,7 +331,8 @@
                             var html_item = $(template(item))
                             html_item.data('item',item);
                             html_item.on('click',function(e){
-                                me.trigger('bc.dropdown.click',item)
+                                me.trigger('bc.dropdown.click',item);
+                                dropdown.hide().addClass('hidden');
                             })
                             dropdown.prepend(html_item);
                         });

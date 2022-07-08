@@ -2,11 +2,11 @@
     <label class="control-label">{{__("Grouped Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
+            <div class="bc-grouped-product bc-search-box dropdown be-dropdown  mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input be-dropdown-toggle" data-display="static" data-{{isset($bs5) ? 'bs-' : ''}}toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="dropdown-menu be-dropdown-menu w-full w-100 hidden origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
-                <div class="d-none template">
+                <div class="d-none template hidden">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
                 </div>
             </div>
@@ -98,11 +98,11 @@
     <label class="control-label">{{__("Cross-sell Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
-            <div class="bc-cross-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
-                <input type="text" class="form-control search-input" data-display="static" data-{{isset($bs5) ? 'bs-' : ''}}toggle="dropdown" placeholder="{{__("Search product name...")}}">
+            <div class="bc-cross-sell-product bc-search-box dropdown be-dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
+                <input type="text" class="form-control search-input be-dropdown-toggle" data-display="static" data-{{isset($bs5) ? 'bs-' : ''}}toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="py-1 dropdown-menu be-dropdown-menu w-full w-100 hidden origin-top-right absolute right-0 mt-2 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
-                <div class="d-none template">
+                <div class="d-none template hidden">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
                 </div>
             </div>
