@@ -23,6 +23,13 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
             $view_paths[] = base_path('/themes/'.ucfirst($active).'/resources');
             $view_paths[] = base_path('/themes/'.ucfirst($active).'/Views');
             $view_paths[] = base_path('/themes/'.ucfirst($active));
+
+            // ChildTheme
+            $provider = ThemeManager::getProviderClass($active);
+            if($parent = $provider::getParent() and $parent != 'base'){
+                $view_paths[] = base_path('/themes/'.ucfirst($parent).'/resources');
+                $view_paths[] = base_path('/themes/'.ucfirst($parent).'/Views');
+            }
         }
 
         // Base Theme require
