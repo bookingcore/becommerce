@@ -3,7 +3,8 @@
     rounded-md
     border-gray-300
     shadow-sm
-    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
+    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+    font-size: 15px;
 }
 .form-select{
     @apply
@@ -14,6 +15,10 @@
     shadow-sm
     focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
 }
+
+.panel {
+    @apply px-7 py-8 bg-white shadow rounded-16 mb-6
+}
 .panel-title
 {
     @apply border-b border-solid border-gray-200 mb-4 py-3 -mt-8 text-base font-medium -mx-7 px-7
@@ -22,7 +27,7 @@
     @apply bg-gray-50 mt-4 py-3 -mb-8 text-base font-medium -mx-7 px-7
 }
 .control-label{
-    @apply text-sm font-medium mb-1 block
+    @apply text-base font-medium mb-1 block
 }
 
 .terms-scrollable {
@@ -40,3 +45,30 @@
     margin-bottom: 0px;
 }
 
+
+.show_tags .tag_item {
+    background: #4fa6f3;
+    display: inline-block;
+    padding: 6px 8px;
+    font-size: 86%;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+    margin-right: 5px;
+    padding-right: 0px;
+    margin-bottom: 6px;
+}
+.show_tags .tag_item [data-role=remove] {
+    margin-left: 8px;
+    padding-left: 3px;
+    cursor: pointer;
+    padding-right: 6px;
+    display: inline-block;
+    border-left: 1px solid white;
+}
+.show_tags .tag_item [data-role=remove]:after {
+    content: "x";
+    padding: 0px 2px;
+}

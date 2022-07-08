@@ -22,7 +22,7 @@
                 </div>
                 <div class="bc-section__actions">
                     @if(!empty($row->id))
-                    <a class="inline-flex items-center btn transition duration-200 bg-amber-400 hover:bg-amber-300" href="{{$row->getDetailUrl()}}" target="_blank">
+                    <a class="inline-flex items-center p-4 py-2 bg-white rounded items-center border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{$row->getDetailUrl()}}" target="_blank">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                             <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                             <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd" />
@@ -48,9 +48,9 @@
                                     @include('Product::admin.product.general')
                                 </div>
                             </div>
-                            <div class="panel product-information-tabs">
-                                <div class="panel-title d-flex justify-content-between">
-                                    <div class="d-flex justify-content-center align-items-center">
+                            <div class="panel product-information-tabs !p-0">
+                                <div class="panel-title d-flex justify-content-between px-7 py-8 !m-0">
+                                    <div class="flex items-center">
                                         <strong class="flex-shrink-0 mr-3">{{__("Product Information")}}</strong>
                                         <select @if(!is_default_lang()) readonly="" disabled @endif class="form-select" name="product_type">
                                             <optgroup label="{{__("Product Type")}}">
@@ -63,13 +63,13 @@
                                 </div>
                                 <div class="panel-body no-padding">
                                     <input type="hidden" name="tab" value="{{request('tab')}}">
-                                    <div class="row">
-                                        <div class="col-xl-2 col-nav">
-                                            <ul class="nav nav-tabs flex-column vertical-nav">
+                                    <div class="flex be-tabs">
+                                        <div class="w-1/6 bg-gray-100 shrink-0">
+                                            <ul class="nav nav-tabs flex-column vertical-nav py-2">
                                                 @php $i = 0; $active_tab = '' @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
                                                     @php if(!$i) $active_tab = $tab_id @endphp
-                                                    <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="nav-link @if(!$i) active @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
+                                                    <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="text-gray-700 text-blue-600 block px-4 py-2 text-base hover:bg-white @if(!$i) bg-white @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
                                                             @if(!empty($tab['icon']))
                                                                 <i class="nav-icon {{$tab['icon']}}"></i>
                                                             @endif
@@ -79,11 +79,11 @@
                                                 @endforeach
                                             </ul>
                                         </div>
-                                        <div class="col-xl-10 col-content">
-                                            <div class="tab-content">
+                                        <div class="w-5/6 grow">
+                                            <div class="tab-content p-4">
                                                 @php $i = 0 @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
-                                                    <div data-product-id="{{$row->id}}" class="tab-pane fade @if($active_tab == $tab_id) show active @endif" id="{{$tab_id}}">
+                                                    <div data-product-id="{{$row->id}}" class="tab-pane hidden @if($active_tab == $tab_id) block active @endif" id="{{$tab_id}}">
                                                         @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
                                                     </div>
                                                     @php $i++ @endphp
@@ -160,8 +160,7 @@
     </section>
 @endsection
 @push('footer')
-    <script src="{{ asset('libs/bootbox/bootbox.min.js') }}"></script>
     <script src="{{ asset('libs/select2/js/select2.min.js') }}" ></script>
-    <script src="{{theme_url('/Base/vendor/js/form.js')}}"></script>
-    <script src="{{asset('module/product/admin/js/product.js')}}"></script>
+    <script src="{{asset('libs/handlebars/handlebars.min.js')}}"></script>
+    <script  src="{{ theme_url('Zeomart/dist/js/vendor.js?_v='.config('app.asset_version')) }}"></script>
 @endpush
