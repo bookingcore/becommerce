@@ -6,7 +6,7 @@
         <div class="right flex justify-start">
             @if(is_vendor_enable() and !is_vendor())
                 <div class="item pl-5 pt-2.5 pb-2.5">
-                    <a href="{{route('vendor.register')}}" class="text-white mt-1 d-inline-block">{{__('Sell on Us!')}}</a>
+                    <a href="{{route('vendor.register')}}" class="mt-1 d-inline-block">{{__('Sell on Us!')}}</a>
                 </div>
             @endif
             <div class="item pl-5 pt-2.5 pb-2.5 list-none">
