@@ -7,6 +7,7 @@
 - New Role: Cashier, for POS feature
 - New Permission: pos_access
 - [System] Change all theme view path to folder themes/YourTheme/Views
+- [System] Child-theme supported
 
 ### Fixed
 - [BUG] Active Plugin reset active theme
