@@ -3,7 +3,10 @@ module.exports = {
     content: [
         "../../../themes/Zeomart/**/*.blade.php",
         "../../../modules/Product/Views/admin/product/**/*.blade.php",
-        "../Base/js/tailwind/**/*.js",
+        "../../../modules/Media/Views/**/*.blade.php",
+        "../../../modules/Media/Helpers/FileHelper.php",
+        "../../../modules/Core/Views/admin/seo-meta/**/*.blade.php",
+        "../Base/tailwind/**/*.js",
         "./js/**/*.vue",
     ],
     theme: {

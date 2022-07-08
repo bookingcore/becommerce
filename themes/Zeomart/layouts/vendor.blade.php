@@ -43,7 +43,7 @@
 <body class=" {{$body_class ?? ''}}">
 @include('layouts.vendor.header')
 
-<div class="flex gap-7  px-7">
+<div class="flex gap-7  px-7 bravo_wrap">
     <div class="w-1/6">
         @include('layouts.vendor.sidebar')
     </div>
@@ -70,6 +70,14 @@
 </script>
 
 <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('[name="csrf-token"]').attr('content'),
+            'Accept':'application/json'
+        }
+    });
+</script>
 <script  src="{{ theme_url('Zeomart/dist/js/vendor.js?_v='.config('app.asset_version')) }}"></script>
 <script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
 <!-- custom scripts-->

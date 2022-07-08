@@ -116,8 +116,8 @@ const getModalInstance = (id, instances) => {
 
 document.addEventListener('DOMContentLoaded', () => {
     let modalInstances = []
-    document.querySelectorAll('[data-be-toggle]').forEach(el => {
-        const modalId = el.getAttribute('data-be-toggle');
+    document.querySelectorAll('[data-modal-toggle]').forEach(el => {
+        const modalId = el.getAttribute('data-modal-toggle');
         const modalEl = document.getElementById(modalId);
         const placement = modalEl.getAttribute('data-modal-placement')
 

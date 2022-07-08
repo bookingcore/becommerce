@@ -31,7 +31,9 @@
             }else{
 
                 this.modalEl = new Modal(el,{
-                    show:false
+                    onShow:function(){
+                        me.reloadLists();
+                    }
                 });
             }
 

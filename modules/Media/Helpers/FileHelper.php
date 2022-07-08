@@ -247,7 +247,7 @@ class FileHelper
         ?>
         <div class="bc-upload-multiple <?php if (!empty($file))
             echo 'active' ?>" data-val="<?php echo $oldValue ?>">
-            <div class="attach-demo d-flex <?php if($is_tailwind) echo 'grid grid-cols-4 gap-4 ' ?>">
+            <div class="attach-demo  mb d-flex <?php if($is_tailwind) echo 'grid grid-cols-4 gap-4 ' ?>">
                 <?php
                 foreach ($oldIds as $id) {
                     $file = (new MediaFile())->findById($id);
@@ -257,10 +257,10 @@ class FileHelper
                 }
                 ?>
             </div>
-            <div class="upload-box" v-show="!value">
+            <div class="upload-box <?php if($is_tailwind) echo 'mt-4' ?>" v-show="!value">
                 <input type="hidden" name="<?php echo e($inputId) ?>" v-model="value" value="<?php echo htmlspecialchars($oldValue) ?>">
                 <div class="text-left">
-                    <span class="btn btn-info btn-sm btn-field-upload" @click="openUploader"><i class="fa fa-plus-circle"></i> <?php echo __("Select images") ?></span>
+                    <span class="btn btn-info btn-sm btn-field-upload text-white bg-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-700" @click="openUploader"><i class="fa fa-plus-circle"></i> <?php echo __("Select images") ?></span>
                 </div>
             </div>
         </div>

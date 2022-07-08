@@ -1,15 +1,15 @@
 <div id="cdn-browser-modal" class="modal fade @if(!empty($tailwind)) hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full @endif">
-    <div class="modal-dialog modal-xl @if(!empty($tailwind)) relative p-4 w-full max-w-2xl h-full md:h-auto @endif">
+    <div class="modal-dialog modal-xl @if(!empty($tailwind)) relative p-4 w-full max-w-7xl h-full md:h-auto @endif">
         <div class="modal-content @if(!empty($tailwind)) relative bg-white rounded-lg shadow dark:bg-gray-700 @endif">
-            <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak :class="{is_loading:isLoading}">
+            <div id="cdn-browser" class="cdn-browser d-flex flex-column flex-col flex" v-cloak :class="{is_loading:isLoading}">
                 <div class="files-nav flex-shrink-0">
-                    <div class="d-flex justify-content-between">
-                        <div class="col-left d-flex align-items-center">
+                    <div class="d-flex justify-content-between flex justify-between">
+                        <div class="col-left d-flex align-items-center flex items-center">
                             <div class="filter-item">
                                 <input type="text" placeholder="{{__("Search file name....")}}" class="form-control" v-model="filter.s" @keyup.enter="filter.page = 1;reloadLists()">
                             </div>
                             <div class="filter-item">
-                                <button class="btn btn-default" @click="filter.page = 1;reloadLists()">
+                                <button class="btn btn-default focus:outline-none border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50 focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" @click="filter.page = 1;reloadLists()">
                                     <i class="fa fa-search"></i> {{__("Search")}}</button>
                             </div>
                             <div class="filter-item">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-right">
                             <i class="fa-spin fa fa-spinner icon-loading active" v-show="isLoading"></i>
-                            <button class="btn btn-success btn-pick-files">
+                            <button class="btn btn-success btn-pick-files focus:outline-none text-white bg-green-600 hover:bg-green-800 focus:ring-2 focus:ring-green-300">
                                 <span><i class="fa fa-upload"></i> {{__("Upload")}}</span>
                                 <input :accept="accept_type" multiple type="file" name="files[]" ref="files">
                             </button>
@@ -50,7 +50,7 @@
                         </nav>
                     </div>
                 </div>
-                <div class="browser-actions d-flex justify-content-between flex-shrink-0" v-if="selected.length">
+                <div class="browser-actions d-flex justify-content-between flex-shrink-0 flex justify-between shrink-0" v-if="selected.length">
                     <div class="col-left" v-show="selected.length">
                         <div class="control-remove" v-if="selected && selected.length">
                             <button class="btn btn-danger" @click="removeFiles">{{__("Delete file")}}</button>
@@ -61,7 +61,7 @@
                         </div>
                     </div>
                     <div class="col-right" v-show="selected.length">
-                        <button class="btn btn-primary" :class="{disabled:!selected.length}" @click="sendFiles">{{__("Use file")}}</button>
+                        <button class="btn btn-primary focus:outline-none text-white bg-amber-400 hover:bg-amber-600 focus:ring-2 focus:ring-amber-400" :class="{disabled:!selected.length}" @click="sendFiles">{{__("Use file")}}</button>
                     </div>
                 </div>
             </div>

@@ -92,11 +92,17 @@
 				}
 				if(json.message){
 					//BCApp.showSuccess(json);
+                    if(typeof BCToast !== 'undefined'){
+                        BCToast.showAjaxSuccess(json)
+                    }
 				}
 			},
 			error:function (e) {
 				gr.removeClass('loading');
 				BCApp.showAjaxError(e);
+                if(typeof BCToast !== 'undefined'){
+                    BCToast.showAjaxError(e)
+                }
 			}
 		});
 	});

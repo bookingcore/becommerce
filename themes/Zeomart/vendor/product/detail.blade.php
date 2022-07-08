@@ -34,7 +34,7 @@
             </div>
             <form action="{{route('vendor.product.store',['id'=>$row->id,'lang'=>request()->query('lang')])}}" method="post">
                 @csrf
-                <div class="@if($row->id) lang-content-box text-base @endif">
+                <div class="@if($row->id) lang-content-box text-sm @endif">
                     <div class="flex gap-4">
                         <div class="w-3/4">
                             <div class="panel">
@@ -79,7 +79,7 @@
                                                 @php $i = 0 @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
                                                     <div data-product-id="{{$row->id}}" class="tab-pane  @if($active_tab == $tab_id) block active @else hidden @endif" id="{{$tab_id}}">
-                                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
+                                                        @include($tab['view'],['product'=>$product,'is_admin_page'=>1,'tailwind'=>1])
                                                     </div>
                                                     @php $i++ @endphp
                                                 @endforeach
@@ -103,7 +103,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @include("Core::admin.seo-meta.seo-meta")
+                            @include("Core::admin.seo-meta.seo-meta",['tailwind'=>1])
                         </div>
                         <div class="w-1/4">
                             <div class="panel">
