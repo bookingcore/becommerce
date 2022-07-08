@@ -1,5 +1,5 @@
 <div class="form-group mb-3">
-    <label class="control-label">{{__("Name")}} <span class="text-danger">*</span></label>
+    <label class="control-label mb-2">{{__("Name")}} <span class="text-danger">*</span></label>
     <div class="controls">
         <input type="text" required value="{{$translation->title}}" placeholder="{{__("Name of the product")}}" name="title" class="form-control">
     </div>

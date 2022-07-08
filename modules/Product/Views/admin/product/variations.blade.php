@@ -22,4 +22,4 @@
 
 </div>
 <hr class="@if(!empty($tailwind)) block mt-5 pb-4 @endif">
-<a href="#" class="btn btn-primary btn-sm btn-save-variations"><i class="fa fa-save"></i> {{__('Save variations')}}</a>
+<a href="#" class="btn btn-primary btn-sm btn-save-variations bg-amber-300 hover:bg-amber-400 focus:ring-2 focus:ring-amber-300"><i class="fa fa-save"></i> {{__('Save variations')}}</a>

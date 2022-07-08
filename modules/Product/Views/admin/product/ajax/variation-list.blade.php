@@ -1,12 +1,12 @@
 @foreach($product->variations as  $variation)
-    <div class="variation-item">
-        <div class="variation-header d-flex justify-content-between" data-target="#variation-{{$variation->id}}" >
-            <div class="d-flex align-items-center">
-                <span class="variation-id"><strong>#{{$variation->id}}</strong>:</span>
+    <div class="variation-item border @if(!empty($tailwind)) mb-4 @endif">
+        <div class="variation-header bg-slate-200 d-flex justify-content-between flex justify-between items-center px-3 py-2 cursor-pointer" data-target="#variation-{{$variation->id}}" >
+            <div class="d-flex align-items-center flex items-center">
+                <span class="variation-id mr-2"><strong>#{{$variation->id}}</strong>:</span>
                 @foreach($product->attributes_for_variation_data as $item)
-                    <div class="attr-item d-flex align-items-center">
-                        <span class="flex-shink-0">{{$item['attr']->name}}: </span>
-                        <select name="variations[{{$variation->id}}][terms][]" class="form-control">
+                    <div class="attr-item d-flex align-items-center flex items-center mr-4">
+                        <span class="flex-shink-0 shrink-0 mr-2">{{$item['attr']->name}}: </span>
+                        <select name="variations[{{$variation->id}}][terms][]" class="form-control @if(!empty($tailwind)) pt-1 pb-1 @endif">
                             @foreach($item['terms'] as $term)
                                 <option value="{{$term->id}}" @if(in_array($term->id,$variation->term_ids)) selected @endif >{{$term->name}}</option>
                             @endforeach
@@ -15,19 +15,19 @@
                 @endforeach
             </div>
             <div>
-                <span class="btn btn-warning btn-sm btn-delete-variation" data-id="{{$variation->id}}" data-toggle="tooltip" title="{{__("Delete variation")}}"><i class="fa fa-trash"></i> </span>
+                <span class="btn btn-danger btn-sm btn-delete-variation" data-id="{{$variation->id}}" data-toggle="tooltip" title="{{__("Delete variation")}}"><i class="fa fa-trash"></i> </span>
             </div>
         </div>
-        <div class="variation-body collapse" id="variation-{{$variation->id}}">
+        <div class="variation-body collapse hidden @if(!empty($tailwind)) p-3 @endif" id="variation-{{$variation->id}}">
             <div class="variation-body-inner">
                 <input type="hidden" name="variations[{{$variation->id}}][id]" value="{{$variation->id}}">
-                <div class="row">
-                    <div class="col-md-8">
+                <div class="row grid gap-4 grid-cols-12">
+                    <div class="col-md-8 col-span-8">
                         <div class="form-group mb-3 align-items-center">
                             <label class="control-label mb-2">{{__('Enabled?')}}</label>
                             <div class="controls">
-                                <label >
-                                    <input type="checkbox" value="1" @if($variation->active) checked @endif name="variations[{{$variation->id}}][active]"> {{__("Yes, I want to enable it")}}
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 mr-2" value="1" @if($variation->active) checked @endif name="variations[{{$variation->id}}][active]"> {{__("Yes, I want to enable it")}}
                                 </label>
                             </div>
                         </div>
@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4 col-span-4">
                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('variations['.$variation->id.'][image_id]',$variation->image_id) !!}
                     </div>
                 </div>

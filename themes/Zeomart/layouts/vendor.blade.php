@@ -51,6 +51,7 @@
         @yield('content')
     </main>
 </div>
+<link href="{{ asset('libs/flags/css/flag-icon.min.css') }}" rel="stylesheet">
 @include('Media::browser',['tailwind'=>1])
 <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
 <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>

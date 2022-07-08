@@ -1,5 +1,5 @@
 <div class="form-group mb-3">
-    <label>{{__("External Url")}}</label>
+    <label class="control-label mb-2">{{__("External Url")}}</label>
     <div class="controls">
         <input type="text" value="{{old('external_url',$row->external_url)}}" name="external_url" class="form-control">
     </div>

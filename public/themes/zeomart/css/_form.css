@@ -72,3 +72,11 @@
     content: "x";
     padding: 0px 2px;
 }
+body .select2-container--default .select2-selection--single{
+    @apply block w-full
+    rounded-md
+    border-gray-300
+    shadow-sm
+    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50;
+    height: auto;
+}

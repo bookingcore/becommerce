@@ -100,7 +100,7 @@ class VariationController extends AdminController
 
         if(!$product) return;
 
-        return view('Product::admin.product.ajax.variation-list',['product'=>$product]);
+        return view('Product::admin.product.ajax.variation-list',['product'=>$product,'tailwind'=>\request('tailwind')]);
     }
 
     public function ajaxAddVariation(){
