@@ -1,7 +1,6 @@
 jQuery(function () {
     $(".be-dropdown").each(function () {
-        var $this = $(this);
-        $this.on('click', '.be-dropdown-toggle', function () {
+        $(this).on('click', '.be-dropdown-toggle', function () {
             var container = $(this).closest('.be-dropdown');
             container.find('.be-dropdown-menu').toggleClass('hidden');
             container.toggleClass('z-50');
