@@ -11,7 +11,12 @@ var vendorPayout = {
             success:function (json) {
                 parent.removeClass('loading');
                 if(json.message){
-                    BCApp.showSuccess(json.message);
+                    if(typeof BCApp !== 'undefined'){
+                        BCApp.showAjaxMessage(json);
+                    }
+                    if(typeof BCToast !== 'undefined'){
+                        BCToast.showAjaxSuccess(json);
+                    }
                 }
                 if(json.status){
                     window.setTimeout(function () {
@@ -22,7 +27,12 @@ var vendorPayout = {
             error:function (e) {
                 console.log(e);
                 parent.removeClass('loading');
-                BCApp.showAjaxError(e);
+                if(typeof BCApp !== 'undefined'){
+                    BCApp.showAjaxError(e);
+                }
+                if(typeof BCToast !== 'undefined'){
+                    BCToast.showAjaxError(e);
+                }
             }
         })
     },

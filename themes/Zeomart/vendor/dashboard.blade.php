@@ -4,9 +4,9 @@
 @endpush
 @section('content')
     <section class="bc-dashboard">
-        <div class="flex justify-between mb-14">
+        <div class="flex mb-14">
             <h1 class="font-medium text-3xl">{{__("Overview")}}</h1>
-            <div class="mt-18">
+            <div class="mt-18 ml-5">
                 <form action="" method="get" >
                     <div id="reportrange" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc;">
                         <i class="fa fa-calendar"></i>&nbsp;
@@ -78,10 +78,7 @@
                                         <th width="60px" class="p-3 rounded-l-md font-medium">#</th>
                                         <th>{{__("Product")}}</th>
                                         <th width="100px">{{__("Price")}}</th>
-                                        <th width="100px">{{__("Qty")}}</th>
                                         <th width="100px">{{__("Subtotal")}}</th>
-                                        <th width="100px">{{__("Commission")}}</th>
-                                        <th width="100px">{{__("Earned")}}</th>
                                         <th width="100px">{{__("Status")}}</th>
                                         <th width="100px rounded-r-md">{{__("Created At")}}</th>
                                     </tr>
@@ -93,15 +90,12 @@
                                             <td>#{{$order->id}}</td>
                                             <td>
                                                 @if($order->product)
-                                                    <a target="_blank" href="{{$order->product->getDetailUrl()}}">{{$order->product->title}}</a>
+                                                    <a target="_blank" class="text-blue-600" href="{{$order->product->getDetailUrl()}}">{{$order->product->title}}</a>
                                                 @endif
                                             </td>
 
-                                            <td>{{format_money($order->price)}}</td>
-                                            <td>{{$order->qty}}</td>
+                                            <td>{{format_money($order->price)}} x {{$order->qty}}</td>
                                             <td>{{format_money($order->subtotal)}}</td>
-                                            <td>{{format_money($order->commission_amount)}}</td>
-                                            <td>{{format_money($order->subtotal - $order->commission_amount)}}</td>
                                             <td>
                                                 <span class="badge bg-{{$order->status_badge}}">{{$order->status_text}}</span>
                                             </td>

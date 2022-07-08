@@ -29,7 +29,7 @@
                         <tr>
                             <th class="p-3 py-4 rounded-l-md font-medium">
                                 <div class="form-check">
-                                    <input class="form-check-input check-all" type="checkbox" value="" >
+                                    <input class="form-check-input check-all border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" type="checkbox" value="" >
                                 </div>
                             </th>
                             <th>{{__('ID')}}</th>
@@ -47,21 +47,24 @@
                         <tr>
                             <td>
                                 <div class="form-check">
-                                    <input type="checkbox" class="check-item form-check-input" name="ids[]" value="{{$row->id}}">
+                                    <input type="checkbox" class="check-item form-check-input border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50" name="ids[]" value="{{$row->id}}">
                                 </div>
                             </td>
                             <td>#{{$row->id}}</td>
                             <td>
                                 <?php $product = $row->model ?>
-                                <strong>{{$product->title ?? ''}}: {{format_money($row->price)}} x {{$row->qty}}</strong>
+                                @if($product)
+                                    <a class="text-blue-800" href="{{$product->getDetailUrl()}}">{{$product->title ?? ''}}</a>
+                                @endif
+                                    : {{format_money($row->price)}} x {{$row->qty}}
                                 {{$product->sku ?? ''}}
                             </td>
                             <td>
                                 @include('order.emails.parts.order-address',['order'=>$row->order])
                             </td>
-                            <td><strong>{{format_money($row->subtotal)}}</strong>
-                            <td><strong>{{format_money($row->commission_amount)}}</strong>
-                            <td><strong>{{format_money($row->subtotal - $row->commission_amount)}}</strong>
+                            <td><span class="font-medium">{{format_money($row->subtotal)}}</span>
+                            <td><span class="font-medium">{{format_money($row->commission_amount)}}</span>
+                            <td><span class="font-medium">{{format_money($row->subtotal - $row->commission_amount)}}</span>
                             </td>
                             <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                             <td>{{display_datetime($row->created_at)}}</td>
@@ -73,7 +76,7 @@
             @if(!count($rows))
                 <div class="alert alert-warning">{{__("No data found")}}</div>
             @endif
-            <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
+            <div class="py-10">{{$rows->appends(request()->query())->links()}}</div>
         </div>
         </div>
     </section>

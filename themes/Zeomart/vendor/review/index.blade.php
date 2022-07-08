@@ -1,26 +1,26 @@
 @extends('layouts.vendor')
 @section('content')
 <section class="bc-items-listing">
-    <div class="d-flex justify-content-between mb-4">
-        <h1>{{$page_title ?? ''}}</h1>
+    <div class="flex justify-between mb-16">
+        <h1 class="text-3xl font-medium">{{$page_title ?? ''}}</h1>
     </div>
 
     @include('global.message')
 
     <div class="panel">
-        <div class="px-3">
+        <div class="py-1">
             @include('vendor.review.filter')
         </div>
         <div class="bc-section__content">
-            <div class="table-responsive">
-                <table class="table bc-table">
-                    <thead>
+            <div class="table-responsive mih-300">
+                <table class="table bc-table text-[15px] w-full" cellspacing="0" cellpadding="0">
+                    <thead class="bg-[#F3F5F6]">
                     <tr>
-                        <th>{{__('Author')}}</th>
+                        <th class="p-3 py-4 rounded-l-md font-medium">{{__('Author')}}</th>
                         <th>{{__('Review Content')}}</th>
                         <th>{{__('In Response To')}}</th>
                         <th>{{__('Status')}}</th>
-                        <th>{{__('Submitted On')}}</th>
+                        <th class="p-3 rounded-r-md font-medium">{{__('Submitted On')}}</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -38,12 +38,12 @@
                                 <strong>{{$row->title}}</strong>
                                 <p>{{$row->content}}</p>
                                 @if($row->rate_number)
-                                    <ul class="review-star left">
+                                    <ul class="review-star left flex items-center">
                                         @for( $i = 0 ; $i < 5 ; $i++ )
                                             @if($i < $row->rate_number)
-                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star text-yellow-500"></i></li>
                                             @else
-                                                <li><i class="fa fa-star-o"></i></li>
+                                                <li><i class="fa fa-star-o text-slate-300"></i></li>
                                             @endif
                                         @endfor
                                     </ul>
@@ -61,7 +61,7 @@
                                                         @if( in_array($metaReview->name , $allReviewStats))
                                                             <div class="item col-md-12 d-flex">
                                                                 <label style="margin-right: 15px;">{{$metaReview->name}}</label>
-                                                                <ul class="review-star">
+                                                                <ul class="review-star flex items-center">
                                                                     @for( $i = 0 ; $i < 5 ; $i++ )
                                                                         @if($i < $metaReview->val)
                                                                             <li><i class="fa fa-star"></i></li>

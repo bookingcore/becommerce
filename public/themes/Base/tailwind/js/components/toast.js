@@ -9,7 +9,8 @@ class BCToast{
     }
     _init(){
         this._wrap = document.createElement('div');
-        this._wrap.className = 'fixed top-0 right-0 p-4 toast-container';
+        this._wrap.className = 'fixed top-0 right-0 p-4 toast-container z-900';
+        this._wrap.style['z-index'] = '900';
         document.body.appendChild(this._wrap);
     }
     info(content,timeout){

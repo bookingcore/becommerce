@@ -34,7 +34,7 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <a class="flex items-center text-slate-800 hover:text-amber-400" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
+                                <a class="flex items-center text-blue-800 hover:text-amber-400" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
                                     <div class="mr-3">
                                         <img src="{{get_file_url($row->image_id)}}" width="60">
                                     </div>

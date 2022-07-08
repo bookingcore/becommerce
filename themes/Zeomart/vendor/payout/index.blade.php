@@ -1,15 +1,15 @@
 @extends('layouts.vendor')
 @section('content')
     <section class="bc-dashboard">
-        <div class="d-flex mb-3 align-items-center">
-            <h1 class="me-3">{{__("Payouts")}}</h1>
+        <div class="flex justify-between mb-16">
+            <h1 class="text-3xl font-medium">{{$page_title ?? ''}}</h1>
         </div>
         <div class="panel">
             <div class="panel-body">
         @if($payout_account)
-            <div class="row">
-                <div class="col-md-8">
-                    <h4 class="mb-4">{{__("Next Payout")}}</h4>
+            <div class="grid grid-cols-12 gap-4">
+                <div class="col-md-8 col-span-8 text-base">
+                    <h4 class="text-2xl mb-4 font-medium">{{__("Payout history")}}</h4>
                     @if($current_payout)
                         <p class="lead">{{format_money($current_payout->total)}}</p>
                         <p class="lead">{{__("via :method_name",['method_name'=>$current_payout->method_name])}}</p>
@@ -17,24 +17,24 @@
                         <p class="lead">{{__("You currently have :amount in earnings for next month's payout.",['amount'=>format_money($currentUser->availablePayoutAmount)])}}</p>
                     @endif
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4 col-span-4">
                     @include("vendor.payout.setup")
                 </div>
             </div>
         @else
             @include("vendor.payout.setup")
         @endif
-            <hr>
-            <h4>{{__("Payout history")}}</h4>
+            <hr class="block mt-5 pb-4">
+            <h4 class="text-2xl mb-4 font-medium">{{__("Payout history")}}</h4>
             <div class="table-responsive">
-                <table class="table table-bordered table-striped table-booking-history">
-                    <thead>
+                <table class="table bc-table text-[15px] w-full" cellspacing="0" cellpadding="0">
+                    <thead class="bg-[#F3F5F6]">
                     <tr>
-                        <th width="2%">{{__("#")}}</th>
+                        <th class="p-3 py-4 rounded-l-md font-medium" width="2%">{{__("#")}}</th>
                         <th>{{__("Amount")}}</th>
                         <th>{{__("Payout Method")}}</th>
                         <th>{{__("Date Created")}}</th>
-                        <th>{{__("Status")}}</th>
+                        <th class="rounded-r-md">{{__("Status")}}</th>
                     </tr>
                     </thead>
                     <tbody>

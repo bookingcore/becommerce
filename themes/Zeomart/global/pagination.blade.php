@@ -12,7 +12,11 @@
                 </li>
             @else
                 <li class="page-item">
-                    <a class="page-link inline-flex items-center min-w-[40px] justify-center block h-10 mr-2  text-sm font-medium rounded-full border border-transparent hover:border-gray-500" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">&lsaquo;</a>
+                    <a class="page-link inline-flex items-center min-w-[40px] justify-center block h-10 mr-2  text-sm font-medium rounded-full border border-gray-300 hover:border-gray-500" href="{{ $paginator->previousPageUrl() }}" rel="prev" aria-label="@lang('pagination.previous')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </a>
                 </li>
             @endif
 
@@ -34,7 +38,6 @@
                     @endforeach
                 @endif
             @endforeach
-
             {{-- Next Page Link --}}
             @if ($paginator->hasMorePages())
                 <li class="page-item">
@@ -46,7 +49,11 @@
                 </li>
             @else
                 <li class="page-item disabled" aria-disabled="true" aria-label="@lang('pagination.next')">
-                    <span class="page-item inline-flex items-center min-w-[40px] justify-center block h-10  text-sm font-medium" aria-hidden="true">&rsaquo;</span>
+                    <span class="page-item inline-flex items-center min-w-[40px] justify-center block h-10  text-sm font-medium" aria-hidden="true">
+                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </span>
                 </li>
             @endif
         </ul>

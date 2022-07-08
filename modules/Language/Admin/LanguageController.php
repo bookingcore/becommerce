@@ -71,6 +71,10 @@ class LanguageController extends AdminController
 
         if (!empty($request->input())) {
 
+            if(is_demo_mode()){
+                return back()->with('danger',__("DEMO MODE: You are not allowed to do this"));
+            }
+
             $this->validate($request,[
                 'name'=>'required',
                 'flag'=>'required',
@@ -108,6 +112,10 @@ class LanguageController extends AdminController
 
     public function editBulk(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do this"));
+        }
+
         $this->checkPermission('language_manage');
 
         $ids = $request->input('ids');
