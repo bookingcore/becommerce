@@ -2,15 +2,15 @@ jQuery(function (){
     $(".zm-dropdown").each(function (){
         var $this = $(this);
         $this.on('click','.zm-dropdown-toggle',function (){
-            $(".zm-dropdown .zm-dropdown-menu").addClass('hidden')
-            $this.find('.zm-dropdown-menu').toggleClass('hidden');
-            $this.toggleClass('z-50');
-            window.onclick = function(e) {
-                if (!$this.is(e.target) && $this.has(e.target).length === 0)
+            var container = $(this).closest('.zm-dropdown');
+            container.find('.zm-dropdown-menu').toggleClass('hidden');
+            container.toggleClass('z-50');
+            $(document).on('click', function (e) {
+                if (!container.is(e.target) && container.has(e.target).length === 0)
                 {
-                    $this.find('.zm-dropdown-menu').addClass('hidden');
+                    container.find('.zm-dropdown-menu').addClass('hidden');
                 }
-            }
+            });
         })
     })
     $(".bc-carousel").each(function() {
