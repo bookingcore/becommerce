@@ -13,7 +13,10 @@
     background: #E8FFF3;
     color:#50CD89;
 }
-.bg-danger{
+.bg-danger,.bg-secondary{
     background: #FFF5F8;
     color:#F1416C
+}
+.bg-primary{
+    @apply bg-blue-100 text-blue-600
 }
