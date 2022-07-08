@@ -12,6 +12,7 @@ jQuery(function () {
             $(document).on('click', function (e) {
                 if (!container.is(e.target) && container.has(e.target).length === 0) {
                     container.find('.be-dropdown-menu').addClass('hidden');
+                    container.removeClass('z-50');
                 }
             });
         })

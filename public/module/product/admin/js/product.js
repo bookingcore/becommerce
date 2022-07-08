@@ -332,7 +332,7 @@
                             html_item.data('item',item);
                             html_item.on('click',function(e){
                                 me.trigger('bc.dropdown.click',item);
-                                dropdown.hide();
+                                dropdown.hide().addClass('hidden');
                             })
                             dropdown.prepend(html_item);
                         });
