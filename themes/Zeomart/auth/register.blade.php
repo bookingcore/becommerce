@@ -1,16 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class=" bg-f1f1f1">
-        <div class="container">
-            <div class="row justify-content-center bravo-login-form-page bravo-login-page">
-                <div class="col-md-5 py-5">
-                    <div class="bg-white p-4">
-                        <h4 class="form-title mb-3">{{ __('Register') }}</h4>
-                        @include('auth.register-form',['captcha_action'=>'register_normal'])
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="py-10 px-6 lg:px-8 m-auto max-w-2xl">
+        <h3 class="mb-4 text-3xl font-medium text-gray-900 dark:text-white">{{ __("Create your account") }}</h3>
+        @include("auth.register-form")
     </div>
 @endsection
