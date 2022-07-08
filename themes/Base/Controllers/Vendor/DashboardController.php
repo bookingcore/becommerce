@@ -36,7 +36,7 @@ class DashboardController extends \Modules\FrontendController
         $total_data = OrderItem::query()->where('vendor_id',auth()->id())->selectRaw('sum(`subtotal` - `discount_amount`) as total_price , sum( `subtotal` - `discount_amount` - `commission_amount` ) AS total_earning ')->where($orderWhere)->whereIn('status',[Order::COMPLETED])->first();
         $count_bookings = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->count('id');
         $count_items = OrderItem::query()->where('vendor_id',auth()->id())->where($orderWhere)->whereIn('status',[Order::COMPLETED])->sum('qty');
-        $res[] = [
+        $res['revenue'] = [
             'size'   => 6,
             'size_md'=>3,
             'title'  => __("Revenue"),
@@ -45,7 +45,7 @@ class DashboardController extends \Modules\FrontendController
             'class'  => 'purple',
             'icon'   => 'fa fa-credit-card'
         ];
-        $res[] = [
+        $res['earning'] = [
             'size'   => 6,
             'size_md'=>3,
             'title'  => __("Earning"),
@@ -54,7 +54,7 @@ class DashboardController extends \Modules\FrontendController
             'class'  => 'pink',
             'icon'   => 'fa fa-credit-card'
         ];
-        $res[] = [
+        $res['orders'] = [
 
             'size'   => 6,
             'size_md'=>3,
@@ -64,7 +64,7 @@ class DashboardController extends \Modules\FrontendController
             'class'  => 'info',
             'icon'   => 'fa fa-basket'
         ];
-        $res[] = [
+        $res['items'] = [
             'size'   => 6,
             'size_md'=>3,
             'title'  => __("Items"),

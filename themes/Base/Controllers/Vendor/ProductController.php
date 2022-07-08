@@ -58,20 +58,8 @@ class ProductController extends FrontendController
 
     public function index(Request $request){
         $this->checkPermission('product_view');
-        $query = Product::query()->ofVendor(auth()->user());
+        $query = Product::search($request->query())->ofVendor(auth()->user());
 
-        if($s = $request->query('s'))
-        {
-            $query->where('title','like','%'.$s.'%');
-        }
-        if($s = $request->query('status'))
-        {
-            $query->where('status',$s);
-        }
-        if($s = $request->query('product_type'))
-        {
-            $query->where('product_type',$s);
-        }
         $data = [
             'rows'=>$query->with(['categories'])->orderByDesc('id')->paginate(20),
             'page_title'=>__("Manage Products"),

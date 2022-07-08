@@ -616,7 +616,11 @@ class Product extends BaseModel
 
         if (!empty($filters['s'])){
             $search = $filters['s'];
-            $query->where('products.title','LIKE',"%$search%");
+            $query->where(function($q) use ($search){
+                $q->where('products.title','LIKE',"%$search%");
+                $q->orWhere('products.sku',$search);
+                $q->orWhere('products.id',$search);
+            });
         }
 
         if(!empty($filters['is_featured']))
