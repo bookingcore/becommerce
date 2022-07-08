@@ -3,7 +3,7 @@
     $locale = session('website_locale',app()->getLocale());
 @endphp
 @if(!empty($languages) && setting_item('site_enable_multi_lang'))
-    <div class="bc-language-sw zm-dropdown relative z-20">
+    <div class="bc-language-sw zm-dropdown relative">
         <button class="zm-dropdown-toggle" type="button">
             {{ __('Language:') }}
             @foreach($languages as $language)
