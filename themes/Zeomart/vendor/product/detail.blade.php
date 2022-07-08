@@ -83,7 +83,7 @@
                                             <div class="tab-content p-4">
                                                 @php $i = 0 @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
-                                                    <div data-product-id="{{$row->id}}" class="tab-pane hidden @if($active_tab == $tab_id) block active @endif" id="{{$tab_id}}">
+                                                    <div data-product-id="{{$row->id}}" class="tab-pane  @if($active_tab == $tab_id) block active @else hidden @endif" id="{{$tab_id}}">
                                                         @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
                                                     </div>
                                                     @php $i++ @endphp
