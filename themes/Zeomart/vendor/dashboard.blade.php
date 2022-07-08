@@ -19,15 +19,32 @@
         </div>
         <div class="grid gap-4 grid-cols-4 mb-8">
             @if(!empty($top_cards))
-                @foreach($top_cards as $card)
-                    <div class=" shadow rounded-[16px] px-7 py-8 bg-white {{$card['class']}}">
-                        <div class="card-content">
-                            <div class="card-title mb-3 text-base font-medium">{{$card['title']}}</div>
-                            <div class="card-amount mb-3 text-3xl font-medium ">{{$card['amount']}}</div>
-                            <div class="card-desc text-base font-medium">{{$card['desc']}}</div>
-                        </div>
-                        <div class="card-media">
-                            <i class="{{$card['icon']}}"></i>
+                @foreach($top_cards as $key=>$card)
+                    <div class=" shadow rounded-[16px] px-7 py-8 bg-white {{$card['class']}} type-{{$key}}">
+                        <div class="flex items-center">
+                            <div class="card-content grow">
+                                <div class="card-title mb-3 text-base font-medium">{{$card['title']}}</div>
+                                <div class="card-amount mb-3 text-3xl font-medium ">{{$card['amount']}}</div>
+                                <div class="card-desc text-base font-medium">{{$card['desc']}}</div>
+                            </div>
+                            <div class="card-media shrink-0 ml-3">
+                                <span class="rounded-[16px] bg-[#F3F5F6] w-[60px] h-[60px] flex items-center justify-center">
+                                @switch($key)
+                                    @case("revenue")
+                                        <i class="flaticon flaticon-money-bag text-3xl h-[30px]"></i>
+                                    @break
+                                    @case("earning")
+                                        <i class="flaticon flaticon-money-bag text-3xl h-[30px]"></i>
+                                    @break
+                                    @case("orders")
+                                    <i class="flaticon flaticon-sent text-3xl h-[30px]"></i>
+                                    @break
+                                    @case("items")
+                                    <i class="flaticon flaticon-cash-on-delivery text-3xl h-[30px]"></i>
+                                    @break
+                                @endswitch
+                                </span>
+                            </div>
                         </div>
                     </div>
                 @endforeach

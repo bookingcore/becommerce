@@ -1,4 +1,5 @@
 @import "_form.css";
+@import "_table.css";
 @import "_media.css";
 .btn{
     @apply rounded text-base font-medium px-4 py-3 transition duration-200

@@ -12,7 +12,7 @@
         <div class="mb-5">@include('vendor.product.filter')</div>
         <div class="bc-section__content">
             <div class="table-responsive mih-300">
-                <table class="table bc-table text-base" cellspacing="0" cellpadding="0">
+                <table class="table bc-table text-[15px] w-full" cellspacing="0" cellpadding="0">
                     <thead class="bg-[#F3F5F6]">
                     <tr>
                         <th class="p-3 py-4 rounded-l-md font-medium">{{__('ID')}}</th>
@@ -20,7 +20,6 @@
                         <th>{{__('SKU')}}</th>
                         <th>{{__('Stock')}}</th>
                         <th>{{__('Price')}}</th>
-                        <th>{{__('Categories')}}</th>
                         <th>{{__('Type')}}</th>
                         <th>{{__('Status')}}</th>
                         @if(vendor_product_need_approve())
@@ -35,7 +34,7 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <a class="flex items-center text-slate-800" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
+                                <a class="flex items-center text-slate-800 hover:text-amber-400" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
                                     <div class="mr-3">
                                         <img src="{{get_file_url($row->image_id)}}" width="60">
                                     </div>
@@ -49,16 +48,15 @@
                             </td>
                             <td>
                                 @if($row->is_manage_stock and $row->quantity)
-                                    <strong class="text-success">{{__("In stock")}} ({{$row->remain_stock}})</strong>
+                                    <span class="badge bg-success">{{__("In stock")}} ({{$row->remain_stock}})</span>
 
                                 @elseif(!$row->is_manage_stock and $row->stock_status == 'in')
-                                    <strong class="text-success">{{__("In stock")}}</strong>
+                                    <span class="badge bg-success">{{__("In stock")}}</span>
                                 @else
-                                    <strong class="text-danger">{{__("Of of stock")}}</strong>
+                                    <span class="badge bg-danger">{{__("Of of stock")}}</span>
                                 @endif
                             </td>
-                            <td><strong>{{format_money($row->price)}}</strong></td>
-                            <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
+                            <td>{{format_money($row->price)}}</td>
                             <td>{{$row->type_name}}</td>
                             <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
                             @if(vendor_product_need_approve())
@@ -68,16 +66,23 @@
                             @endif
                             <td>{{display_datetime($row->created_at)}}</td>
                             <td>
-                                <div class="dropdown">
-                                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-                                        {{__("Actions")}}
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
-                                        @if(auth()->user()->hasPermission('product_delete'))
-                                            <a class="dropdown-item btn-confirm-del" href="{{route('vendor.product.delete',['id'=>$row->id])}}">{{__("Delete")}}</a>
-                                        @endif
-                                        <a class="dropdown-item" target="_blank" href="{{$row->getDetailUrl()}}">{{__("View")}}</a>
+                                <div class="zm-dropdown relative inline-block text-left">
+                                    <div>
+                                        <button class="zm-dropdown-toggle inline-flex p-3 py-1 rounded items-center border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                            {{__("Actions")}}
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="zm-dropdown-menu hidden origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                        <div class="py-1" role="none">
+                                            <a class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
+                                            @if(auth()->user()->hasPermission('product_delete'))
+                                                <a class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" href="{{route('vendor.product.delete',['id'=>$row->id])}}">{{__("Delete")}}</a>
+                                            @endif
+                                            <a class="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100" target="_blank" href="{{$row->getDetailUrl()}}">{{__("View")}}</a>
+                                        </div>
                                     </div>
                                 </div>
                             </td>
