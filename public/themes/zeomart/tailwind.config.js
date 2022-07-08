@@ -3,6 +3,7 @@ module.exports = {
     content: [
         "../../../themes/Zeomart/**/*.blade.php",
         "../../../modules/Product/Views/admin/product/**/*.blade.php",
+        "../Base/js/tailwind/**/*.js",
         "./js/**/*.vue",
     ],
     theme: {

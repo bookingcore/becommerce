@@ -51,7 +51,7 @@
         @yield('content')
     </main>
 </div>
-@include('Media::browser',['bs'=>5])
+@include('Media::browser',['tailwind'=>1])
 <script src="{{asset('libs/lazy-load/intersection-observer.js')}}"></script>
 <script async src="{{asset('libs/lazy-load/lazyload.min.js')}}"></script>
 <script src="{{asset('libs/lodash.min.js')}}"></script>
@@ -70,9 +70,8 @@
 </script>
 
 <script src="{{ theme_url('Base') }}/js/jquery.min.js"></script>
-<script src="{{ theme_url('Base') }}/js/condition.js"></script>
-<script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
 <script  src="{{ theme_url('Zeomart/dist/js/vendor.js?_v='.config('app.asset_version')) }}"></script>
+<script src="{{ asset('module/media/js/browser.js?_ver='.config('app.asset_version')) }}"></script>
 <!-- custom scripts-->
 @stack('footer')
 </body>

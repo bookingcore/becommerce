@@ -1,6 +1,6 @@
-<div id="cdn-browser-modal" class="modal fade">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+<div id="cdn-browser-modal" class="modal fade @if(!empty($tailwind)) hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full @endif">
+    <div class="modal-dialog modal-xl @if(!empty($tailwind)) relative p-4 w-full max-w-2xl h-full md:h-auto @endif">
+        <div class="modal-content @if(!empty($tailwind)) relative bg-white rounded-lg shadow dark:bg-gray-700 @endif">
             <div id="cdn-browser" class="cdn-browser d-flex flex-column" v-cloak :class="{is_loading:isLoading}">
                 <div class="files-nav flex-shrink-0">
                     <div class="d-flex justify-content-between">

@@ -24,9 +24,16 @@
         mounted(){
             let me = this;
             var el = document.getElementById('cdn-browser-modal');
-            this.modalEl = new bootstrap.Modal(el,{
-                show:false
-            })
+            if(typeof bootstrap !== 'undefined'){
+                this.modalEl = new bootstrap.Modal(el,{
+                    show:false
+                });
+            }else{
+
+                this.modalEl = new Modal(el,{
+                    show:false
+                });
+            }
 
             el.addEventListener('show.bs.modal',function () {
                 me.reloadLists();

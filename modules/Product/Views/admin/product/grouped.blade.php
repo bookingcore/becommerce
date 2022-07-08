@@ -24,7 +24,7 @@
                     @foreach($row->children as $stt=>$product)
                         <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="children[{{$stt}}]" value="{{$product->id}}">
-                            <div class="row">
+                            <div class="row grid grid-cols-12 gap-4">
                                 <div class="col-md-1 col-span-1">#{{$product->id}}</div>
                                 <div class="col-md-1 col-span-1">
                                     @if($product->image_id)
@@ -72,7 +72,7 @@
                     @foreach($row->up_sell as $stt=>$product)
                         <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="up_sell[{{$stt}}]" value="{{$product->id}}">
-                            <div class="row grid-cols-12">
+                            <div class="row grid  grid-cols-12 gap-4">
                                 <div class="col-md-1 col-span-1">#{{$product->id}}</div>
                                 <div class="col-md-1 col-span-1">
                                     @if($product->image_id)
@@ -120,7 +120,7 @@
                     @foreach($row->cross_sell as $stt=>$product)
                         <div class="item" data-number="{{$stt}}">
                             <input type="hidden" name="cross_sell[{{$stt}}]" value="{{$product->id}}">
-                            <div class="row grid  grid-cols-12 gap-4 px-3 py-2 hover:bg-gray-100 flex items-center">
+                            <div class="row grid  grid-cols-12 gap-4">
                                 <div class="col-md-1 col-span-1">#{{$product->id}}</div>
                                 <div class="col-md-1 col-span-1">
                                     @if($product->image_id)
