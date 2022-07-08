@@ -8,39 +8,39 @@
 @endpush
 @section('content')
     <section class="bc-items-listing">
-        <div class="d-flex justify-content-between mb-4">
-            <h1>{{$page_title ?? ''}}</h1>
+        <div class="flex justify-between mb-16">
+            <h1 class="text-3xl font-medium">{{$page_title ?? ''}}</h1>
         </div>
 
         @include('global.message')
         <div class="panel">
-            <div class="px-3">
-                <div class="row">
-                    <div class="col-md-6">
+            <div class="  py-3">
+                <div class="grid gap-4 grid-cols-12">
+                    <div class="col-md-6 col-span-4">
                         @include('vendor.order.actions')
                     </div>
-                    <div class="col-md-6">@include('vendor.order.filter')</div>
+                    <div class="col-md-6 col-span-8">@include('vendor.order.filter')</div>
                 </div>
             </div>
             <div class="bc-section__content">
             <div class="table-responsive">
-                <table class="table bc-table">
-                    <thead>
-                    <tr>
-                        <th>
-                            <div class="form-check">
-                                <input class="form-check-input check-all" type="checkbox" value="" >
-                            </div>
-                        </th>
-                        <th>{{__('ID')}}</th>
-                        <th>{{__('Product Name')}}</th>
-                        <th>{{__('Customer')}}</th>
-                        <th>{{__('Revenue')}}</th>
-                        <th>{{__('Fee')}}</th>
-                        <th>{{__('Net')}}</th>
-                        <th>{{__('Status')}}</th>
-                        <th>{{__('Date')}}</th>
-                    </tr>
+                <table class="table bc-table text-[15px] w-full" cellspacing="0" cellpadding="0">
+                    <thead class="bg-[#F3F5F6]">
+                        <tr>
+                            <th class="p-3 py-4 rounded-l-md font-medium">
+                                <div class="form-check">
+                                    <input class="form-check-input check-all" type="checkbox" value="" >
+                                </div>
+                            </th>
+                            <th>{{__('ID')}}</th>
+                            <th>{{__('Product Name')}}</th>
+                            <th>{{__('Customer')}}</th>
+                            <th>{{__('Revenue')}}</th>
+                            <th>{{__('Fee')}}</th>
+                            <th>{{__('Net')}}</th>
+                            <th>{{__('Status')}}</th>
+                            <th class="p-3 rounded-r-md font-medium"></th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach($rows as $row)

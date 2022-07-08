@@ -10,12 +10,19 @@ class Modal {
         this._targetEl = targetEl
         this._options = { ...Default, ...options }
         this._isHidden = true
-        this._init()
+        this._bindEvents();
     }
 
     _init() {
         this._getPlacementClasses().map(c => {
             this._targetEl.classList.add(c)
+        })
+    }
+
+    _bindEvents(){
+        var me = this;
+        this._targetEl.querySelector('[data-dismiss-modal]').addEventListener('click',function () {
+            me.hide();
         })
     }
 
@@ -88,6 +95,7 @@ class Modal {
 
         // callback function
         this._options.onShow(this)
+        console.log(this)
     }
 
     hide() {

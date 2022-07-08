@@ -1,5 +1,5 @@
 <li class=" group be-dropdown relative">
-    <a href="#" data-bs-toggle="dropdown" class="zm-dropdown-toggle login nav-link text-white">
+    <a href="#" data-bs-toggle="dropdown" class="be-dropdown-toggle login nav-link text-white">
         <div class="w-[50px] h-[50px] overflow-hidden rounded-[16px]">
             <img src="{{$user->avatar_url}}" alt="{{$user->display_name}}" class="">
         </div>
