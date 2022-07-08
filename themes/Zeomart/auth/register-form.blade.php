@@ -38,6 +38,7 @@
     </button>
     <div class="error message-error invalid-feedback fz14"></div>
     <div class="text-sm font-medium text-center">
-        {{ __("Already have an account?") }} <a href="#"  data-modal-toggle="be-register" class="hover:underline font-bold">{{ __("Log In") }}</a>
+        {{ __("Already have an account?") }}
+        <a href="#"  data-modal-toggle="be-register" class="hover:underline font-bold">{{ __("Log In") }}</a>
     </div>
 </form>
