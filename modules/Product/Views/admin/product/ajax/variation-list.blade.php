@@ -26,8 +26,8 @@
                         <div class="form-group mb-3 align-items-center">
                             <label class="control-label mb-2">{{__('Enabled?')}}</label>
                             <div class="controls">
-                                <label >
-                                    <input type="checkbox" value="1" @if($variation->active) checked @endif name="variations[{{$variation->id}}][active]"> {{__("Yes, I want to enable it")}}
+                                <label class="inline-flex items-center">
+                                    <input type="checkbox" class="border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 mr-2" value="1" @if($variation->active) checked @endif name="variations[{{$variation->id}}][active]"> {{__("Yes, I want to enable it")}}
                                 </label>
                             </div>
                         </div>

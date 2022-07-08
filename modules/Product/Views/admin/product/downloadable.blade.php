@@ -5,10 +5,10 @@ if(setting_item('product_disable_downloadable') or !is_default_lang()) return;
     <div class="panel-title"><strong>{{__("Downloadable")}}</strong></div>
     <div class="panel-body">
         <div class="form-group mb-3">
-            <label class="font-weight-bold"><input type="checkbox" name="downloadable" value="1" @if(old('downloadable',$row->downloadable ?? '')) checked @endif> {{__('Enable downloadable')}}</label>
+            <label class="font-weight-bold inline-flex items-center"><input class="border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 mr-2" type="checkbox" name="downloadable" value="1" @if(old('downloadable',$row->downloadable ?? '')) checked @endif> {{__('Enable downloadable')}}</label>
         </div>
         <div class="form-group mb-3" data-condition="downloadable:is(1)">
-            <label for="">{{__("Download expiry")}}</label>
+            <label class="control-label mb-2">{{__("Download expiry")}}</label>
             <input type="number" min="0" class="form-control" placeholder="{{__("Never expired")}}" value="{{old('download_expiry_days',$row->download_expiry_days)}}">
             <p><i>{{__('Number of days before a download link expires. Leave bank for unlimited')}}</i></p>
         </div>

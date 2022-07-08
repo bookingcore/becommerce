@@ -4,8 +4,7 @@
             <div class="form-group mb-3">
                 <label class="control-label mb-2" >{{$attribute->name}}</label>
                 <div class="controls">
-                    <label class="block mb-3" data-condition="product_type:is(variable)"><input type="checkbox" name="attributes_for_variation[]" @if(!empty($product->attributes_for_variation) and in_array($attribute->id,$product->attributes_for_variation)) checked @endif value="{{$attribute->id}}"> {{__("Used for variations")}}</label>
-                    <div class="">
+                    <label class="block mb-3 inline-flex items-center" data-condition="product_type:is(variable)"><input type="checkbox" class="border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50 mr-2" name="attributes_for_variation[]" @if(!empty($product->attributes_for_variation) and in_array($attribute->id,$product->attributes_for_variation)) checked @endif value="{{$attribute->id}}"> {{__("Used for variations")}}</label>                    <div class="">
                         @php $options = ["width"=>"100%","placeholder"=>__("-- Please select --")]; @endphp
                         <select data-options='{!! json_encode($options) !!}' name="terms[]" class="bc-select2" multiple>
                             @foreach($attribute->terms as $term)

@@ -59,7 +59,7 @@
                                 <div class="panel-body no-padding">
                                     <input type="hidden" name="tab" value="{{request('tab')}}">
                                     <div class="flex be-tabs">
-                                        <div class="w-1/6 bg-gray-100 shrink-0">
+                                        <div class="w-1/6 bg-gray-100 shrink-0 rounded-bl-16">
                                             <ul class="nav nav-tabs flex-column vertical-nav py-2">
                                                 @php $i = 0; $active_tab = '' @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
@@ -117,6 +117,15 @@
                                                 <option value="publish">{{__("Publish")}}</option>
                                                 <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>
                                             </select>
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            <div class="controls">
+                                                <label class="mb-0 inline-flex items-center" data-toggle="tooltip" data-placement="top" title="{{__("Virtual product does not need shipping")}}">
+                                                    <input type="checkbox" class=" rounded
+                          border-gray-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 focus:ring-opacity-50                          mr-2
+                        " name="is_virtual" @if($row->is_virtual) checked @endif value="1"> {{__("This is a virtual product")}}
+                                                </label>
+                                            </div>
                                         </div>
                                     @endif
                                 </div>
