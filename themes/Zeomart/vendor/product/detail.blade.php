@@ -29,7 +29,7 @@
             @include('global.message')
             <div class="mb-5">
                 @if($row->id)
-                    @include('Language::admin.navigation')
+                    @include('vendor.language.navigation')
                 @endif
             </div>
             <form action="{{route('vendor.product.store',['id'=>$row->id,'lang'=>request()->query('lang')])}}" method="post">
