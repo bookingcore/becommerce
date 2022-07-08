@@ -1,5 +1,4 @@
 jQuery(function () {
-    console.log("xxx");
     $(".be-dropdown").each(function () {
         var $this = $(this);
         $this.on('click', '.be-dropdown-toggle', function () {
