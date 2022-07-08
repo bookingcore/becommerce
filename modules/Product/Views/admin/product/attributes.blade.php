@@ -16,7 +16,7 @@
                     <div class="input-group mb-3 mt-3 ajax-add-term flex" data-attr-id="{{$attribute->id}}">
                         <input type="text" class="form-control grow !rounded-r-none" placeholder="{{$attribute->name}}" >
                         <div class="input-group-append shrink-0">
-                            <button class="!rounded-l-none h-full btn btn-info bg-blue-700 hover:bg-blue-800 focus:ring-blue-500 text-white" type="button" ><i class="fa fa-plus"></i> {{__('Add :name',['name'=>$attribute->name])}}</button>
+                            <button class="!rounded-l-none h-full btn btn-info bg-blue-600 hover:bg-blue-800 focus:ring-2 focus:ring-blue-500 text-white" type="button" ><i class="fa fa-plus"></i> {{__('Add :name',['name'=>$attribute->name])}}</button>
                         </div>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
             <hr class="@if(!empty($tailwind)) block mt-5 pb-4 @endif">
         @endforeach
         <div>
-            <a href="#" class="btn btn-primary btn-save-attributes bg-amber-300 hover:bg-amber-400 focus:ring-4 focus:ring-amber-300"><i class="fa fa-save"></i> {{__('Save attributes')}}</a>
+            <a href="#" class="btn btn-primary btn-save-attributes bg-amber-300 hover:bg-amber-400 focus:ring-2 focus:ring-amber-300"><i class="fa fa-save"></i> {{__('Save attributes')}}</a>
         </div>
     @else
         <div class="alert alert-warning">

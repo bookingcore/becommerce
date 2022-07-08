@@ -33,14 +33,15 @@
     }
 	// Product Variations
 	$("[href='#variations']").on('shown.bs.tab', function (e) {
-		reloadVariations();
-	});
+	}).on('click',function(){
+        reloadVariations();
+    });
 
 	function reloadVariations() {
 		var p = $('#variations');
 		var gr = p.closest('.product-information-tabs');
 		gr.addClass('loading');
-		p.find('.variation-list').load(BC.url+'/admin/module/product/ajaxVariationList/'+p.data('product-id'),function(){
+		p.find('.variation-list').load(BC.url+'/admin/module/product/ajaxVariationList/'+p.data('product-id')+'?tailwind='+p.data('tailwind'),function(){
 			gr.removeClass('loading');
 			init_condition_engine();
 		});
@@ -65,11 +66,17 @@
 				}
 				if(json.message){
 					//BCApp.showSuccess(json);
+                    if(typeof BCToast !== 'undefined'){
+                        BCToast.showAjaxSuccess(json)
+                    }
 				}
 			},
 			error:function (e) {
 				gr.removeClass('loading');
 				BCApp.showAjaxError(e);
+                if(typeof BCToast !== 'undefined'){
+                    BCToast.showAjaxError(e)
+                }
 			}
 		});
 	});
@@ -109,7 +116,7 @@
 
 	$(document).on('click','.variation-header',function(e){
 		if($(e.target).hasClass('variation-header')){
-			$($(this).data('target')).collapse('toggle');
+			$($(this).data('target')).slideToggle('fast');
 		}
 	});
 	$(document).on('click','.btn-delete-variation',function(){
@@ -133,10 +140,16 @@
 						}
 						if(json.message){
 							BCApp.showSuccess(json);
+                            if(typeof BCToast !== 'undefined'){
+                                BCToast.showAjaxSuccess(json)
+                            }
 						}
 					},
 					error:function (e) {
 						BCApp.showAjaxError(e);
+                        if(typeof BCToast !== 'undefined'){
+                            BCToast.showAjaxError(e)
+                        }
 					}
 				});
 			}
@@ -172,11 +185,17 @@
 				}
 				if(json.message){
 					BCApp.showSuccess(json);
+                    if(typeof BCToast !== 'undefined'){
+                        BCToast.showAjaxSuccess(json)
+                    }
 				}
 			},
 			error:function (e) {
 				gr.removeClass('loading');
 				BCApp.showAjaxError(e);
+                if(typeof BCToast !== 'undefined'){
+                    BCToast.showAjaxError(e)
+                }
 			}
 		});
 	}
@@ -193,10 +212,16 @@
 				}
 				if(json.message){
 					BCApp.showSuccess(json);
+                    if(typeof BCToast !== 'undefined'){
+                        BCToast.showAjaxSuccess(json)
+                    }
 				}
 			},
 			error:function (e) {
 				BCApp.showAjaxError(e);
+                if(typeof BCToast !== 'undefined'){
+                    BCToast.showAjaxError(e)
+                }
 			}
 		});
 	}

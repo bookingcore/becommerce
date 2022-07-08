@@ -10,7 +10,7 @@
                 <div class="">
                     <h2 class="text-3xl font-medium">{{$page_title ?? ''}}</h2>
                     @if($row->slug)
-                        <p class="item-url-demo mt-2">{{__("Permalink")}}: {{ url('product' ) }}/<a href="#" class="open-edit-input" data-name="slug">{{$row->slug}}</a>
+                        <p class="item-url-demo mt-2">{{__("Permalink")}}: {{ url('product' ) }}/<a href="#" class="open-edit-input text-blue-800" data-name="slug">{{$row->slug}}</a>
                             <input type="hidden" name="slug" value="{{$row->slug}}">
                         </p>
                     @endif
@@ -64,7 +64,7 @@
                                                 @php $i = 0; $active_tab = '' @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
                                                     @php if(!$i) $active_tab = $tab_id @endphp
-                                                    <li class="nav-item" @if(!empty($tab['condition'])) data-condition="{{$tab['condition']}}" @endif><a class="text-gray-700 text-blue-600 block px-4 py-2 text-base hover:bg-white @if(!$i) bg-white @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
+                                                    <li class="nav-item" @if(!empty($tab['condition']))  data-condition="{{$tab['condition']}}" @endif><a class="text-gray-700 text-blue-600 block px-4 py-2 text-base hover:bg-white @if(!$i) bg-white @endif"  href="#{{$tab_id}}" data-bs-toggle="tab">
                                                             @if(!empty($tab['icon']))
                                                                 <i class="nav-icon {{$tab['icon']}}"></i>
                                                             @endif
@@ -78,7 +78,7 @@
                                             <div class="tab-content p-4">
                                                 @php $i = 0 @endphp
                                                 @foreach($tabs as $tab_id=>$tab)
-                                                    <div data-product-id="{{$row->id}}" class="tab-pane  @if($active_tab == $tab_id) block active @else hidden @endif" id="{{$tab_id}}">
+                                                    <div data-product-id="{{$row->id}}" data-tailwind="1" class="tab-pane  @if($active_tab == $tab_id) block active @else hidden @endif" id="{{$tab_id}}">
                                                         @include($tab['view'],['product'=>$product,'is_admin_page'=>1,'tailwind'=>1])
                                                     </div>
                                                     @php $i++ @endphp
@@ -88,6 +88,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @include('Product::admin.product.downloadable')
                             <div class="panel">
                                 <div class="panel-title"><strong>{{__("Short Desc & Gallery")}}</strong></div>
                                 <div class="panel-body">
@@ -120,7 +121,7 @@
                                     @endif
                                 </div>
                                 <div class="panel-footer rounded-b-16">
-                                    <button class="btn bg-amber-300 hover:bg-amber-400 inline-flex items-center" type="submit">
+                                    <button class="btn bg-amber-300 hover:bg-amber-400 inline-flex items-center focus:ring-4 focus:ring-amber-200" type="submit">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
                                             <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
                                         </svg>

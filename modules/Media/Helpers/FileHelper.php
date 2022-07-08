@@ -275,11 +275,11 @@ class FileHelper
         ob_start();
         ?>
         <div class="bc-upload-file">
-            <div class="input-group mb-3 lists_<?php echo e($type) ?>">
+            <div class="input-group mb-3 lists_<?php echo e($type) ?> flex items-center">
                 <input type="hidden" class="input_hidden" <?php echo e($nameAttr);?>="<?php echo e($inputId) ?>" value="<?php echo e($oldValue) ?>">
-                <input type="text" class="form-control input_file_name mb-0" placeholder="<?php echo e(__("File url...")) ?>" value="<?php if(isset($file)) echo e($file->file_path) ?>" readonly >
-                <div class="input-group-append">
-                    <button class="btn btn-default btn-field-upload" data-type="<?php echo e($type) ?>" type="button" ><i class="fa fa-plus-circle"></i> <?php echo e(__("Select File")) ?></button>
+                <input type="text" class="form-control input_file_name mb-0 !rounded-r-none grow !mb-0" placeholder="<?php echo e(__("File url...")) ?>" value="<?php if(isset($file)) echo e($file->file_path) ?>" readonly >
+                <div class="input-group-append shrink-0">
+                    <button class="!rounded-l-none btn btn-default btn-field-upload border border-gray-300 shadow-sm text-gray-700 hover:bg-gray-50" data-type="<?php echo e($type) ?>" type="button" ><i class="fa fa-plus-circle"></i> <?php echo e(__("Select File")) ?></button>
                 </div>
             </div>
         </div>

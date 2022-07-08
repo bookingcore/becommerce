@@ -73,7 +73,7 @@ $product_types = get_product_types();
                                         <div class="tab-content">
                                             @php $i = 0 @endphp
                                             @foreach($tabs as $tab_id=>$tab)
-                                                <div data-product-id="{{$row->id}}" class="tab-pane fade @if($active_tab == $tab_id) show active @endif" id="{{$tab_id}}">
+                                                <div data-product-id="{{$row->id}}" data-tailwind="0" class="tab-pane fade @if($active_tab == $tab_id) show active @endif" id="{{$tab_id}}">
                                                     @include($tab['view'],['product'=>$product,'is_admin_page'=>1])
                                                 </div>
                                                 @php $i++ @endphp
