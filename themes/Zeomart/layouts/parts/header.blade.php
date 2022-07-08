@@ -1,4 +1,4 @@
-<div class="zm-topbar m-auto max-w-7xl">
+<div class="zm-topbar m-auto max-w-7xl relative z-50">
     <div class="flex justify-between">
         <div class="left flex justify-start">
             {!! setting_item_with_lang('zeomart_topbar_text_left') !!}

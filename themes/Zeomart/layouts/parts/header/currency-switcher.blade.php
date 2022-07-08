@@ -3,7 +3,7 @@
     $current = \App\Currency::getCurrent('currency_main');
 @endphp
 @if(!empty($actives) and count($actives) > 1)
-    <div class="bc-currency-sw zm-dropdown relative z-20">
+    <div class="bc-currency-sw zm-dropdown relative">
         <button class="zm-dropdown-toggle" type="button">
             {{ __("Currency:") }}
             @foreach($actives as $currency)

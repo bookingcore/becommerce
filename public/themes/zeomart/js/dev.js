@@ -2,13 +2,16 @@ jQuery(function (){
     $(".zm-dropdown").each(function (){
         var $this = $(this);
         $this.on('click','.zm-dropdown-toggle',function (){
+            $(".zm-dropdown .zm-dropdown-menu").addClass('hidden')
             $this.find('.zm-dropdown-menu').toggleClass('hidden');
-        })
-        window.onclick = function(e) {
-            if (!e.target.matches('.zm-dropdown')) {
-                //$this.find('.zm-dropdown-menu').removeClass('active');
+            $this.toggleClass('z-50');
+            window.onclick = function(e) {
+                if (!$this.is(e.target) && $this.has(e.target).length === 0)
+                {
+                    $this.find('.zm-dropdown-menu').addClass('hidden');
+                }
             }
-        }
+        })
     })
     $(".bc-carousel").each(function() {
         var elelemnt = $(this),
