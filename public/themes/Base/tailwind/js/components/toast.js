@@ -119,9 +119,9 @@ class ToastItem{
             },this._options.delay)
         }
         // Event
-        const btn = this._el.querySelectorAll('[data-close]');
-        if(btn.length){
-            btn[0].addEventListener('click',function () {
+        const btn = this._el.querySelector('[data-close]');
+        if(btn){
+            btn.addEventListener('click',function () {
                 me.hide();
             })
         }
