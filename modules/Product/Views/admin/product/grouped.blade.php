@@ -1,5 +1,5 @@
 <div class="form-group mb-3" data-condition="product_type:is(grouped)">
-    <label>{{__("Grouped Products")}}</label>
+    <label class="control-label">{{__("Grouped Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
             <div class="bc-grouped-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
@@ -12,10 +12,10 @@
             </div>
 
             <div class="g-items-header">
-                <div class="row">
-                    <div class="col-md-1">{{__("ID")}}</div>
-                    <div class="col-md-10 text-left">{{__("Product")}}</div>
-                    <div class="col-md-1"></div>
+                <div class="row flex gap-4">
+                    <div class="col-md-1 w-1/6">{{__("ID")}}</div>
+                    <div class="col-md-10 text-left w-4/6">{{__("Product")}}</div>
+                    <div class="col-md-1 w-1/6"></div>
                 </div>
             </div>
             <div class="g-items">
@@ -47,23 +47,23 @@
     </div>
 </div>
 <div class="form-group mb-3" >
-    <label>{{__("Up-sell Products")}}</label>
+    <label class="control-label">{{__("Up-sell Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
             <div class="bc-up-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
                 <input type="text" class="form-control search-input" data-display="static" data-{{isset($bs5) ? 'bs-' : ''}}toggle="dropdown" placeholder="{{__("Search product name...")}}">
                 <div class="dropdown-menu w-100" style="right:0px" aria-labelledby="dropdownMenuLink">
                 </div>
-                <div class="d-none template">
+                <div class="d-none hidden template">
                     <div class="no-data"><div class="alert alert-warning m-2">{{__("No result found")}}</div></div>
                 </div>
             </div>
 
             <div class="g-items-header">
-                <div class="row">
-                    <div class="col-md-1">{{__("ID")}}</div>
-                    <div class="col-md-10 text-left">{{__("Product")}}</div>
-                    <div class="col-md-1"></div>
+                <div class="row flex gap-4">
+                    <div class="col-md-1 w-1/6">{{__("ID")}}</div>
+                    <div class="col-md-10 text-left w-4/6">{{__("Product")}}</div>
+                    <div class="col-md-1 w-1/6"></div>
                 </div>
             </div>
             <div class="g-items">
@@ -95,7 +95,7 @@
     </div>
 </div>
 <div class="form-group mb-3" >
-    <label>{{__("Cross-sell Products")}}</label>
+    <label class="control-label">{{__("Cross-sell Products")}}</label>
     <div class="controls">
         <div class="form-group-item">
             <div class="bc-cross-sell-product bc-search-box dropdown mb-3" data-url="{{route('product.admin.getForSelect2',['need'=>['price'],'not_in_ids'=>[$row->id]])}}" data-template="product-item-template">
