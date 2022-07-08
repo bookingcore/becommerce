@@ -6,6 +6,7 @@
 - POS (Point of Sale) module
 - New Role: Cashier, for POS feature
 - New Permission: pos_access
+- [System] Change all theme view path to folder themes/YourTheme/Views
 
 ### Fixed
 - [BUG] Active Plugin reset active theme

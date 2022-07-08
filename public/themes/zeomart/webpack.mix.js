@@ -10,7 +10,7 @@ mix.browserSync({
     host:'becommerce.test',
     open:"external",
     files: [
-        '../../../themes/Zeomart/**/*.blade.php',
+        '../../../themes/Zeomart/Views/**/*.blade.php',
     ]
 })
 mix.options({

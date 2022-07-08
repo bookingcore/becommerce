@@ -16,17 +16,19 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         //	 load Theme overwrite
 	    $active = ThemeManager::current();
 
+        $view_paths = [];
+
 	    if(strtolower($active) != "base"){
 
-            $view_paths = config('view.paths');
-            array_unshift($view_paths,base_path('/themes/'.ucfirst($active).'/resources'));
-            config()->set('view.paths',$view_paths);
-
-            View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($active)));
+            $view_paths[] = base_path('/themes/'.ucfirst($active).'/resources');
+            $view_paths[] = base_path('/themes/'.ucfirst($active).'/Views');
+            $view_paths[] = base_path('/themes/'.ucfirst($active));
         }
 
         // Base Theme require
-        View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
+        $view_paths[] = base_path('/themes/Base/Views');
+
+        config()->set('view.paths',array_merge($view_paths,config('view.paths')));
 
     }
 

@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        "../../../themes/Zeomart/**/*.blade.php",
+        "../../../themes/Zeomart/Views/**/*.blade.php",
         "../../../modules/Product/Views/admin/product/**/*.blade.php",
         "../../../modules/Media/Views/**/*.blade.php",
         "../../../modules/Media/Helpers/FileHelper.php",
