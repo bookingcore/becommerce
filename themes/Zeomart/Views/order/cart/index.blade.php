@@ -13,20 +13,20 @@
                     <div class="shopping_cart_table">
                         <form action="{{route('cart.update_cart_item')}}" method="post">
                             @csrf
-                            <div class="relative overflow-x-auto sm:rounded-lg shadow-md">
-                                <table class="text-center w-full whitespace-nowrap   bg-white">
-                                    <thead class="bg-slate-100 uppercase">
+                            <div class="relative overflow-x-auto sm:rounded-lg">
+                                <table class="text-center w-full whitespace-nowrap border border-slate-200  bg-white">
+                                    <thead class="bg-slate-100 uppercase text-sm ">
                                     <tr>
-                                        <th class=" py-5">{{__("PRODUCT")}}</th>
-                                        <th class=" py-5">{{__('PRICE')}}</th>
-                                        <th class=" py-5">{{__('QUANTITY')}}</th>
-                                        <th class=" py-5">{{__('SUBTOTAL')}}</th>
-                                        <th class="py-5">{{__('REMOVE')}}</th>
+                                        <th class=" py-5 px-4 font-medium">{{__("PRODUCT")}}</th>
+                                        <th class=" py-5 px-4 font-medium">{{__('PRICE')}}</th>
+                                        <th class=" py-5 px-4 font-medium">{{__('QUANTITY')}}</th>
+                                        <th class=" py-5 px-4 font-medium">{{__('SUBTOTAL')}}</th>
+                                        <th class="py-5 px-4 font-medium">{{__('REMOVE')}}</th>
                                     </tr>
                                     </thead>
                                     <tbody class="table_body  ">
                                     @foreach(\Modules\Order\Helpers\CartManager::items() as $cartItem)
-                                        <tr class="border-b dark:bg-gray-800 dark:border-gray-700">
+                                        <tr class="border-b dark:bg-gray-800 dark:border-gray-700 text-base">
                                             <td class="py-5 w-5/6">
                                                 <div class="flex">
                                                     @if(!empty($cartItem->model->image_id))
@@ -47,10 +47,16 @@
                                                     </div>
                                                 </div>
                                             </td>
-                                            <td class="py-5 font-bold">{{format_money($cartItem->price)}}</td>
-                                            <td class="py-5"><input class="cart_count rounded-full w-24 text-center" name="cart_item[{{$cartItem->id}}][qty]" value="{{$cartItem->qty}}" type="number"></td>
-                                            <td class="py-5 font-bold">{{format_money($cartItem->sub_total)}}</td>
-                                            <td class="py-5"><a class="close_img bc_delete_cart_item inline-block" data-bs-toggle="tooltip" data-id="{{$cartItem->id}}" data-remove="tr" title="{{__('Remove')}}" href="#"><img src="{{theme_url("Freshen/images/shop/close.png")}}" alt=""></a></td>
+                                            <td class="py-5 font-medium ">{{format_money($cartItem->price)}}</td>
+                                            <td class="py-5"><input class="cart_count rounded-full w-24 text-center border-slate-200" name="cart_item[{{$cartItem->id}}][qty]" value="{{$cartItem->qty}}" type="number"></td>
+                                            <td class="py-5 font-medium">{{format_money($cartItem->sub_total)}}</td>
+                                            <td class="py-5">
+                                                <a class="close_img bc_delete_cart_item inline-block rounded-full hover:bg-gray-300 transition duration-200 p-3" data-bs-toggle="tooltip" data-id="{{$cartItem->id}}" data-remove="tr" title="{{__('Remove')}}" href="#">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                    </svg>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -91,8 +97,8 @@
                                     </div>
                                     <div class="col-span-6">
                                         <div class=" flex flex-row space-x-4 ">
-                                            <a class="rounded font-medium inline-block w-full  py-4 text-center border border-transparent hover:border-yellow-400" href="{{route('product.index')}}">{{__('Continue Shopping')}} </a>
-                                            <button class="rounded font-medium inline-block w-full  py-4 text-center bg-yellow-400 hover:bg-yellow-500" type="submit">{{__('Update cart')}} </button>
+                                            <a class="rounded font-medium  text-base inline-block w-full  py-4 text-center border-2 border-yellow-400 hover:bg-yellow-400 transition duration-200" href="{{route('product.index')}}">{{__('Continue Shopping')}} </a>
+                                            <button class="rounded  text-base font-medium inline-block w-full  py-4 text-center bg-yellow-400 hover:bg-yellow-500 transition duration-200 focus:ring-4 focus:ring-yellow-400" type="submit">{{__('Update cart')}} </button>
                                         </div>
                                     </div>
                                 </div>
