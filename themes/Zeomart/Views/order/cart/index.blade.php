@@ -13,9 +13,9 @@
                     <div class="shopping_cart_table">
                         <form action="{{route('cart.update_cart_item')}}" method="post">
                             @csrf
-                            <div class="relative overflow-x-auto sm:rounded-lg">
-                                <table class="text-center w-full whitespace-nowrap border border-slate-200  bg-white">
-                                    <thead class="bg-slate-100 uppercase text-sm ">
+                            <div class="relative overflow-x-auto border rounded-lg  bg-white">
+                                <table class="text-center w-full whitespace-nowrap">
+                                    <thead class="bg-slate-100 uppercase text-sm border-b">
                                     <tr>
                                         <th class=" py-5 px-4 font-medium">{{__("PRODUCT")}}</th>
                                         <th class=" py-5 px-4 font-medium">{{__('PRICE')}}</th>
@@ -26,13 +26,13 @@
                                     </thead>
                                     <tbody class="table_body  ">
                                     @foreach(\Modules\Order\Helpers\CartManager::items() as $cartItem)
-                                        <tr class="border-b dark:bg-gray-800 dark:border-gray-700 text-base">
-                                            <td class="py-5 w-5/6">
-                                                <div class="flex">
+                                        <tr class="border-b dark:bg-gray-800 dark:border-gray-700 text-base last:border-0">
+                                            <td>
+                                                <div class="flex flex-wrap items-center justify-center lg:justify-start p-3">
                                                     @if(!empty($cartItem->model->image_id))
-                                                        <a class="flex-none mx-3" href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'w-24 h-24'])!!}</a>
+                                                        <a class="lg:flex-none mx-3" href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id ?? '','thumb',['class'=>'w-24 h-24'])!!}</a>
                                                     @endif
-                                                    <div >
+                                                    <div class="text-left">
                                                         <a class="cart_title" href="{{$cartItem->getDetailUrl()}}">{{$cartItem->title}}</a>
                                                         @if($variation = $cartItem->variation and $terms = $variation->terms())
                                                             <ul class="mb-2">
@@ -41,6 +41,7 @@
                                                                 @endforeach
                                                             </ul>
                                                         @endif
+
                                                         @if(is_vendor_enable() and !empty($cartItem->author))
                                                             <p class="mb-0 small">{{__('Sold By:')}} {{$cartItem->author}}</p>
                                                         @endif
@@ -97,7 +98,7 @@
                                     </div>
                                     <div class="col-span-6">
                                         <div class=" flex flex-row space-x-4 ">
-                                            <a class="rounded font-medium  text-base inline-block w-full  py-4 text-center border-2 border-yellow-400 hover:bg-yellow-400 transition duration-200" href="{{route('product.index')}}">{{__('Continue Shopping')}} </a>
+                                            <a class="rounded text-base font-medium  inline-block w-full  py-4 text-center border-2 border-yellow-400 hover:bg-yellow-400 transition duration-200" href="{{route('product.index')}}">{{__('Continue Shopping')}} </a>
                                             <button class="rounded  text-base font-medium inline-block w-full  py-4 text-center bg-yellow-400 hover:bg-yellow-500 transition duration-200 focus:ring-4 focus:ring-yellow-400" type="submit">{{__('Update cart')}} </button>
                                         </div>
                                     </div>
