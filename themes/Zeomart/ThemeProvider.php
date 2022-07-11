@@ -41,6 +41,7 @@ class ThemeProvider extends AbstractThemeProvider
         BlockManager::register('banner_slider', \Themes\Zeomart\Controllers\Blocks\BannerSlider::class);
         BlockManager::register('featured_icon', \Themes\Zeomart\Controllers\Blocks\FeaturedIcon::class);
         BlockManager::register("list_category",\Themes\Zeomart\Controllers\Blocks\ListCategory::class);
+        BlockManager::register("promotion",\Themes\Zeomart\Controllers\Blocks\Promotion::class);
 
     }
 
