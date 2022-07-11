@@ -11,17 +11,17 @@
             </div>
     @else
         @if(!empty($row->display_sale_price))
-            <p class="price has-sale m-0 c-f30 fs-16">
+            <div class="price has-sale m-0">
                 <span class="text-lg font-medium">
                     <span class="amount">{{$row->display_price}}</span>
                 </span>
-                <span class="c-000000 pe-1 text-gray-500">
+                <span class="text-sm color-[#626974]">
                     <span class="amount">{{$row->display_sale_price}}</span>
                 </span>
                 @if(!empty($row->discount_percent) && !empty($show_discount_percent))
-                    <span class="sale sale-1">(-{{$row->discount_percent}})</span>
+                    <span class="sale color-[#443297]">(-{{$row->discount_percent}})</span>
                 @endif
-            </p>
+            </div>
         @else
             <div class="text-lg font-medium">
                 <ins><span class="amount">{{format_money($row->price)}}</span></ins>

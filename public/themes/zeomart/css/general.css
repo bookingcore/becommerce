@@ -15,3 +15,26 @@ body{
 .be-dropdown-menu{
     @apply transition duration-200 group-hover:visible group-hover:opacity-100
 }
+.bc-list-products .bc-carousel .owl-stage{ display: flex }
+
+.bc-carousel .owl-dots span{
+    background: #112137 !important;
+    position: relative;
+    height: 5px !important;
+    width: 5px !important;
+    border-radius: 50% !important;
+}
+.bc-carousel .owl-dots{
+    margin: 30px 0 !important;
+}
+.bc-carousel .owl-dots .active span:before{
+    content: "";
+    width: 19px !important;
+    height: 19px !important;
+    display: block;
+    position: absolute;
+    border: solid 2px;
+    top: -7px;
+    left: -7px;
+    border-radius: 50%;
+}
