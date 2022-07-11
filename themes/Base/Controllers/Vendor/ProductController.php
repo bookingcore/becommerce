@@ -224,4 +224,20 @@ class ProductController extends FrontendController
         }
         return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
     }
+
+    public function search(Request $request){
+
+        $filters = $request->query();
+
+        $rows = Product::search([
+
+        ]);
+
+        $data = [
+            'page_title'=>__("Search for products"),
+            'rows'=>!empty($filters) ? $rows->paginate(20) : []
+        ];
+
+        return view('vendor.product.search',$data);
+    }
 }

@@ -3,9 +3,7 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Http\Request;
 use Modules\Core\Models\Term;
 use Modules\Product\Traits\HasStockValidation;
 
