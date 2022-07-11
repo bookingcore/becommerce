@@ -3,7 +3,7 @@
         <div class="max-w-7xl m-auto">
             <div class="mb-8 flex justify-between items-center">
                 <h3 class="font-[500] text-3xl">{{ $title }}</h3>
-                <a class="font-[500] text-base relative pb-1 before:content-[''] before:border-b-2 before:w-4/6 before:block before:absolute before:bottom-0 before:left-0 before:border-[#041E42]" href="{{ route('product.index') }}">
+                <a class="font-[500] text-base relative pb-1 before:content-[''] before:border-b-2 before:w-[35px] before:block before:absolute before:bottom-0 before:left-0 before:border-[#041E42]" href="{{ route('product.index') }}">
                     {{ __("View All") }}
                 </a>
             </div>
