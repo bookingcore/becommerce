@@ -1,5 +1,6 @@
 @extends('layouts.vendor')
 @section('content')
+<?php $vendor_mode = auth()->user()->getVendorMode(); ?>
 <section class="bc-items-listing">
     <div class="d-flex justify-content-between mb-4">
         <h1>{{$page_title ?? ''}}</h1>
@@ -9,13 +10,16 @@
                     {{__('Add new')}}
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    @if(auth()->user())
+                    @if($vendor_mode != 'only_exists')
                     <li>
-                        <a class="btn btn-primary" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('New Product')}}</a>
+                        <a class="dropdown-item" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('Create Product')}}</a>
                     </li>
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    @endif
+                    @if($vendor_mode != 'only_new')
+                    <li>
+                        <a class="dropdown-item" href="{{route('vendor.product.search')}}"><i class="icon icon-plus mr-2"></i>{{__('Sell exist Product')}}</a>
+                    </li>
+                    @endif
                 </ul>
             </div>
         </div>

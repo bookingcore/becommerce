@@ -6,12 +6,12 @@ namespace Modules\Product\Models\Vendor;
 
 use Modules\Product\Models\ProductVariation;
 
-class ProductVendor extends ProductVariation
+class ProductVendorVariation extends ProductVariation
 {
 
     protected $fillable = [
         'vendor_id',
-        'product_id'
+        'variation_id'
     ];
-    protected $table = 'product_vendors';
+    protected $table = 'product_vendor_variations';
 }

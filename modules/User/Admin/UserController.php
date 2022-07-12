@@ -103,7 +103,22 @@ class UserController extends AdminController
         $row = User::find($id);
         $data  = [
             'row'=>$row,
-            'currentUser'=>Auth::user()
+            'currentUser'=>Auth::user(),
+
+            'breadcrumbs'=>[
+                [
+                    'name'=>__("Users"),
+                    'url'=>'admin/module/user'
+                ],
+                [
+                    'name'=>__("Edit User: #:id",['id'=>$row->id]),
+                    'url'=>route('user.admin.edit',['id'=>$row->id])
+                ],
+                [
+                    'name'=>__("Change password"),
+                    'class' => 'active'
+                ],
+            ]
         ];
         if (empty($row)) {
             return redirect('admin/module/user');
@@ -248,6 +263,7 @@ class UserController extends AdminController
 
             switch ($user_type){
                 case "vendor":
+                default:
                     $metaKeys[] = 'vendor_mode';
                     break;
             }
