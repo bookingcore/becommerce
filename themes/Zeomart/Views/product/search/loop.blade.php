@@ -35,7 +35,7 @@ $score_total = $reviewData['score_total'];
         @endif
         <div class="card-price flex items-center">
             @include('product.details.price')
-            <div class="ml-3 mt-1 text-[#443297]">
+            <div class="ml-3 text-[#443297]">
                 @if($row->stock_status == "in")
                     @if(!empty($row->discount_percent))
                         <div class="badge">{{$row->discount_percent}}{{ __("% Off") }}</div>
