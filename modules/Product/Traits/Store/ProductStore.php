@@ -7,6 +7,7 @@ namespace Modules\Product\Traits\Store;
 use Illuminate\Http\Request;
 use Modules\Media\Models\MediaFile;
 use Modules\Product\Models\Downloadable\DownloadFile;
+use Modules\Product\Models\Location\LocationStock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductTag;
 
@@ -119,6 +120,22 @@ trait ProductStore
             DownloadFile::query()->where('product_id',$row->id)->whereNotIn('file_id',$file_ids)->delete();
         }else{
             DownloadFile::query()->where('product_id',$row->id)->delete();
+        }
+
+    }
+    public function saveLocationStocks(Product $row,Request $request){
+
+        $location_stocks = $request->input('location_stocks',[]);
+
+        if(!empty($location_stocks)) {
+            foreach ($location_stocks as $location_id=>$data) {
+                $stock = LocationStock::firstOrNew([
+                    'location_id'=>$location_id,
+                    'product_id'=>$row->id
+                ]);
+                $stock->quantity = $data['quantity'] ?? 0;
+                $stock->save();
+            }
         }
 
     }

@@ -12,6 +12,8 @@
     + Allow only add new product
     + Allow vendor sell exist product - Multiple VENDOR
     + Both add new and sell exist
+- Store Locations
+
 
 ### Fixed
 - [BUG] Active Plugin reset active theme

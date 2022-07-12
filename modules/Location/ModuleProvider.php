@@ -3,6 +3,7 @@ namespace Modules\Location;
 
 use Illuminate\Support\ServiceProvider;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Location\Settings\LocationSetting;
 use Modules\ModuleServiceProvider;
 
 class ModuleProvider extends ModuleServiceProvider
@@ -20,6 +21,7 @@ class ModuleProvider extends ModuleServiceProvider
     public function register()
     {
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(LocationSetting::class);
     }
 
 

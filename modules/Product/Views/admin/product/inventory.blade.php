@@ -31,3 +31,4 @@
         </div>
     </div>
 @endif
+@includeWhen(setting_item('product_enable_stock_management') and is_location_inventory_enable(),'Product::admin.product.location.inventory')

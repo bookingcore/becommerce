@@ -10,13 +10,15 @@ Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.
 Route::post('/product/compare','ProductController@compare')->name('product.compare');
 Route::post('/product/remove_compare','ProductController@remove_compare')->name('product.remove.compare');
 
-
-
 Route::group(['prefix'=>'news'],function(){
     Route::get('/','NewsController@index')->name('news');
     Route::get('/{slug}','NewsController@detail')->name('news.detail');
     Route::get('/category/{slug}','NewsController@category')->name('news.category');
     Route::get('/tag/{slug}','NewsController@tag')->name('news.tag');
+});
+
+Route::name('location.')->prefix('location')->group(function(){
+    Route::get('set/{location}','LocationController@set')->name('set');
 });
 
 Route::group(['prefix'=>'user','middleware'=>['auth','verified']],function(){

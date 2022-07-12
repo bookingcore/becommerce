@@ -239,6 +239,7 @@ class ProductController extends AdminController
                 $this->saveTerms($row, $request);
                 $this->saveGroupedProducts($row, $request);
                 $this->saveDownloadable($row, $request);
+                $this->saveLocationStocks($row, $request);
             }
 
             do_action(Hook::AFTER_SAVING,$row);
@@ -340,7 +341,7 @@ class ProductController extends AdminController
         if($s = $request->query('s') or $s = $request->query('q')){
             $query->where('title','like','%'.$s.'%');
         }
-        
+
         if($s = $request->query('not_in_ids',[])){
             $query->whereNotIn('id',$s);
         }

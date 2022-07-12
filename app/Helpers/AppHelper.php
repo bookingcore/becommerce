@@ -1334,3 +1334,6 @@ function getNotify(): array
     $countUnread = $checkNotify->where('read_at', null)->count();
     return [$notifications,$countUnread];
 }
+function is_location_inventory_enable(){
+    return (bool) setting_item('location_inventory_enable',0);
+}

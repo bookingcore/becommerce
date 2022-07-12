@@ -25,6 +25,7 @@ use Modules\Product\Resources\CategoryResource;
 use Modules\Product\Traits\HasDownloadable;
 use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
+use Modules\Product\Traits\Location\HasLocationStock;
 use Modules\Product\Traits\Vendor\HasProductVendor;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
@@ -40,6 +41,7 @@ class Product extends BaseModel
     use HasObjectModel;
     use HasDownloadable;
     use HasProductVendor;
+    use HasLocationStock;
 
     protected $table = 'products';
     public $type = 'product';
