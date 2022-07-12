@@ -12,7 +12,10 @@
     + Allow only add new product
     + Allow vendor sell exist product - Multiple VENDOR
     + Both add new and sell exist
-- Store Locations
+- [Exclusive] Store Locations
+    + Multi Locations
+    + GEO Ip to nearest location
+    + Inventory per Locations
 
 
 ### Fixed
