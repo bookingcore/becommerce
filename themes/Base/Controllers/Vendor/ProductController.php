@@ -313,6 +313,7 @@ class ProductController extends FrontendController
             'sku'=>$request->input('sku'),
             'image_id'=>$request->input('image_id'),
             'quantity'=>$request->input('quantity'),
+            'variation_type'=>ProductVariation::TYPE_VENDOR
         ];
         /**
          * @var ProductVendor $product_vendor
@@ -340,7 +341,8 @@ class ProductController extends FrontendController
                         'image_id'=>$input_variation['image_id'] ?? '',
                         'active'=>$input_variation['active'] ?? '',
                         'quantity'=>$input_variation['quantity'] ?? 0,
-                        'product_id'=>$product->id
+                        'product_id'=>$product->id,
+                        'variation_type'=>ProductVariation::TYPE_VENDOR_VARIATION
                     ];
                     $vendor_variation->fillByAttr(array_keys($data),$data);
                     $vendor_variation->save();

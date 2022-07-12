@@ -20,7 +20,7 @@ $old = old('variations',[]);
                 <?php
                 $vendor_variation = \Modules\Product\Models\Vendor\ProductVendorVariation::firstOrNew([
                    'vendor_id'=>auth()->id(),
-                   'variation_id'=>$variation->id
+                   'parent_id'=>$variation->id
                 ]);
                 ?>
                 <tr>

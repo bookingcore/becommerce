@@ -14,7 +14,6 @@ class ProductVendor extends ProductVariation
         'vendor_id',
         'product_id'
     ];
-    protected $table = 'product_vendors';
 
     public function delete()
     {

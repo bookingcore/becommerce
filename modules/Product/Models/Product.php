@@ -412,7 +412,7 @@ class Product extends BaseModel
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
     }
     public function variations(){
-    	return $this->hasMany(ProductVariation::class,'product_id');
+    	return $this->hasMany(ProductVariation::class,'product_id')->where('variation_type',ProductVariation::TYPE_PRODUCT);
     }
 
     /**

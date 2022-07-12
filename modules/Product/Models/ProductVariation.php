@@ -12,7 +12,8 @@ class ProductVariation extends BaseModel
     use HasStockValidation;
 
     const TYPE_PRODUCT = 0;
-    const TYPE_VENDOR_VARIATION = 1;
+    const TYPE_VENDOR = 1;
+    const TYPE_VENDOR_VARIATION = 2;
 
     protected $table = 'product_variations';
     public $type = 'product_variation';
