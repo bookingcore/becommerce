@@ -29,6 +29,7 @@
         protected $translation_class = LocationTranslation::class;
         public $table_translation = 'location_translations';
 
+        protected static $_cached = [];
 
         public static function getModelName()
         {
@@ -52,31 +53,9 @@
             return $url ? $url : '';
         }
 
+        public static function getActive(){
+            if(isset(static::$_cached['all'])) return static::$_cached['all'];
 
-        public function getDetailUrl($locale = false)
-        {
-
+            return static::$_cached['all'] = parent::query()->where('status','publish')->get();
         }
-
-        public static function search(Request $request)
-        {
-            $query = parent::query()->select("bc_locations.*");
-            if(!empty( $service_name = $request->query("service_name") )){
-                if( setting_item('site_enable_multi_lang') && setting_item('site_locale') != app()->getLocale() ){
-                    $query->leftJoin('bc_location_translations', function ($join) {
-                        $join->on('bc_locations.id', '=', 'bc_location_translations.origin_id');
-                    });
-                    $query->where('bc_location_translations.name', 'LIKE', '%' . $service_name . '%');
-
-                }else{
-                    $query->where('bc_locations.name', 'LIKE', '%' . $service_name . '%');
-                }
-            }
-            $query->orderBy("id", "desc");
-            $query->groupBy("bc_locations.id");
-            $limit = min(20,$request->query('limit',9));
-            return $query->with(['translations']);
-        }
-
-
     }

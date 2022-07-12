@@ -70,6 +70,7 @@
                                 </select>
                             </div>
                         </div>
+                        @includeWhen(setting_item('product_enable_stock_management') and is_location_inventory_enable(),'Product::admin.product.ajax.inventory')
                     </div>
                     <div class="col-md-4 col-span-4">
                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('variations['.$variation->id.'][image_id]',$variation->image_id) !!}

@@ -131,7 +131,8 @@ trait ProductStore
             foreach ($location_stocks as $location_id=>$data) {
                 $stock = LocationStock::firstOrNew([
                     'location_id'=>$location_id,
-                    'product_id'=>$row->id
+                    'product_id'=>$row->id,
+                    'stock_type'=>$row->location_stock_type
                 ]);
                 $stock->quantity = $data['quantity'] ?? 0;
                 $stock->save();

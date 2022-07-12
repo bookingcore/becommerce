@@ -19,6 +19,7 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Models\Location\LocationStock;
 use Modules\Product\Models\Vendor\ProductVendor;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
@@ -78,6 +79,8 @@ class Product extends BaseModel
     protected $attributes = [
         'stock_status'=>'in'
     ];
+
+    public $location_stock_type = LocationStock::TYPE_PRODUCT;
 
     /**
      * @var Review
