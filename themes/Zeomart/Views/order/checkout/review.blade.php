@@ -1,19 +1,18 @@
-<div class="order-box">
-    <h4 class="title">{{__('Your Order')}}</h4>
-    <table class="table">
-        <thead class="">
+<div class="order-box rounded border border-gray-200 p-8 mb-3">
+    <h4 class="title font-semibold mb-3 text-lg">{{__('Your Order')}}</h4>
+    <table class="table w-full ">
+        <thead class="text-left">
         <tr class="">
             <th><strong>{{__('Product')}}</strong></th>
-            <th width="25%" class="text-center"><strong>{{__('Quality')}}</strong></th>
-            <th width="25%" class="text-end"><strong>{{__('Subtotal')}}</strong></th>
+            <th width="25%" class=""><strong>{{__('Quality')}}</strong></th>
+            <th width="25%" class=""><strong>{{__('Subtotal')}}</strong></th>
         </tr>
         </thead>
         <tbody>
         @foreach($items as $cartItem)
         <tr class="cart-item">
-            <td class="product-name">
+            <td class="product-name py-3">
                 {{$cartItem->title}}
-
                 @if($variation = $cartItem->variation and $terms = $variation->terms())
                     &mdash;
                     @foreach($terms as $k=>$term)
@@ -22,7 +21,7 @@
                     @endforeach
 
                 @endif
-                @if(!empty($cartItem->meta['package']))
+            @if(!empty($cartItem->meta['package']))
                     <div class="mt-3">{{__('Package: ')}} {{package_key_to_name($cartItem->meta['package'])}} ({{format_money($cartItem->price)}})</div>
                 @endif
                 @if(!empty($cartItem->meta['extra_prices']))
@@ -41,7 +40,7 @@
         </tbody>
         <tfoot>
         @include ('order.checkout.shipping-method')
-        <tr v-if="discount_amount > 0">
+        <tr class="border-t border-gray-200 py-3" v-if="discount_amount > 0">
             <td class="font-weight-bold">{{__('Discount')}}</td>
             <td></td>
             <td class="text-end">
@@ -50,7 +49,7 @@
                 </span>
             </td>
         </tr>
-        <tr v-if="tax_amount > 0">
+        <tr class="border-t border-gray-200 py-2" v-if="tax_amount > 0">
             <td class="font-weight-bold">
                 {{__('Tax')}} <span v-if="prices_include_tax == 'yes'">({{ __("include") }})</span>
             </td>
@@ -61,8 +60,8 @@
                 </span>
             </td>
         </tr>
-        <tr class="order-total ">
-            <td class="font-weight-bold">{{__('Total')}}</td>
+        <tr class="order-total border-t border-gray-200 mt-3">
+            <td class="font-bold py-2">{{__('Total')}}</td>
             <td></td>
             <td class="text-end">
                 <span class="amount">
