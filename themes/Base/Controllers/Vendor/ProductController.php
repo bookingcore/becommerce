@@ -60,10 +60,15 @@ class ProductController extends FrontendController
 
     public function index(Request $request){
         $this->checkPermission('product_view');
-        $query = Product::search($request->query())->ofVendor(auth()->user());
+        $filters = $request->query();
+        $filters['vendor'] = auth()->user();
+
+        $query = Product::search(
+            $filters
+        );
 
         $data = [
-            'rows'=>$query->with(['categories'])->orderByDesc('id')->paginate(20),
+            'rows'=>$query->with(['categories','current_product_vendor'])->orderByDesc('id')->paginate(20),
             'page_title'=>__("Manage Products"),
             'page_subtitle'=>__('Product Listings')
         ];
@@ -105,6 +110,12 @@ class ProductController extends FrontendController
 
     public function create(Request $request){
         $this->checkPermission('product_create');
+
+        $user = auth()->user();
+        if($user->getVendorMode() == Vendor::MODE_EXIST_ONLY){
+            return redirect(route('vendor.product'))->with('danger',  __('You are only available to sell exist products') );
+        }
+
         $user_id = Auth::id();
         $row = new Product();
         $translation = new ProductTranslation();
@@ -135,6 +146,12 @@ class ProductController extends FrontendController
         if(is_demo_mode()){
             return back()->with('danger',  __('DEMO Mode: You can not do this') );
         }
+
+        $user = auth()->user();
+        if($user->getVendorMode() == Vendor::MODE_EXIST_ONLY){
+            return redirect(route('vendor.product'))->with('danger',  __('You are only available to sell exist products') );
+        }
+
         $request->validate([
             'title'=>'required'
         ]);
@@ -220,9 +237,15 @@ class ProductController extends FrontendController
     public function delete($id)
     {
         $this->checkPermission('product_delete');
-        $query = Product::where("author_id", auth()->id())->where("id", $id)->first();
-        if (!empty($query)) {
-            $query->delete();
+        $query = Product::query()->where("id", $id)->first();
+        if($query->author_id == auth()->id()) {
+            if (!empty($query)) {
+                $query->delete();
+            }
+        }else{
+            if($query->current_product_vendor){
+                $query->current_product_vendor->delete();
+            }
         }
         return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
     }
@@ -251,7 +274,7 @@ class ProductController extends FrontendController
         if($user->getVendorMode() == Vendor::MODE_NEW_ONLY){
             return redirect(route('vendor.product'))->with('danger',__("Only allow add new product"));
         }
-        if(!in_array($product->product_type,['simple','variable'])){
+        if(!in_array($product->product_type,['simple','variable']) or $product->author_id == auth()->id()){
             return redirect(route('vendor.product'))->with('danger',__("This product type are not allowed to sell"));
         }
 
@@ -273,7 +296,7 @@ class ProductController extends FrontendController
         if($user->getVendorMode() == Vendor::MODE_NEW_ONLY){
             return redirect(route('vendor.product'))->with('danger',__("Only allow add new product"));
         }
-        if(!in_array($product->product_type,['simple','variable'])){
+        if(!in_array($product->product_type,['simple','variable']) or $product->author_id == auth()->id()){
             return redirect(route('vendor.product'))->with('danger',__("This product type are not allowed to sell"));
         }
 
@@ -290,6 +313,7 @@ class ProductController extends FrontendController
             'sku'=>$request->input('sku'),
             'image_id'=>$request->input('image_id'),
             'quantity'=>$request->input('quantity'),
+            'variation_type'=>ProductVariation::TYPE_VENDOR
         ];
         /**
          * @var ProductVendor $product_vendor
@@ -309,7 +333,7 @@ class ProductController extends FrontendController
                     $input_variation  = $input_variations[$variation->id] ?? [];
                     $vendor_variation = \Modules\Product\Models\Vendor\ProductVendorVariation::firstOrNew([
                         'vendor_id'=>auth()->id(),
-                        'variation_id'=>$variation->id
+                        'parent_id'=>$variation->id
                     ]);
                     $data = [
                         'price'=>$input_variation['price'] ?? 0,
@@ -317,7 +341,8 @@ class ProductController extends FrontendController
                         'image_id'=>$input_variation['image_id'] ?? '',
                         'active'=>$input_variation['active'] ?? '',
                         'quantity'=>$input_variation['quantity'] ?? 0,
-                        'product_id'=>$product->id
+                        'product_id'=>$product->id,
+                        'variation_type'=>ProductVariation::TYPE_VENDOR_VARIATION
                     ];
                     $vendor_variation->fillByAttr(array_keys($data),$data);
                     $vendor_variation->save();

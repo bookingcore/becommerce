@@ -19,13 +19,18 @@ use Modules\Media\Helpers\FileHelper;
 use Modules\Order\Models\Order;
 use Modules\Order\Models\OrderItem;
 use Modules\Product\Events\ProductDeleteEvent;
+use Modules\Product\Models\Location\LocationStock;
+use Modules\Product\Models\Vendor\ProductVendor;
 use Modules\Product\Resources\BrandResource;
 use Modules\Product\Resources\CategoryResource;
 use Modules\Product\Traits\HasDownloadable;
 use Modules\Product\Traits\HasObjectModel;
 use Modules\Product\Traits\HasStockValidation;
+use Modules\Product\Traits\Location\HasLocationStock;
+use Modules\Product\Traits\Vendor\HasProductVendor;
 use Modules\Review\Models\Review;
 use Modules\User\Models\UserWishList;
+use Modules\Vendor\Models\Vendor;
 use mysql_xdevapi\Exception;
 use Themes\Base\Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute as AttributeCasts;
@@ -36,6 +41,8 @@ class Product extends BaseModel
     use BCSearchable;
     use HasObjectModel;
     use HasDownloadable;
+    use HasProductVendor;
+    use HasLocationStock;
 
     protected $table = 'products';
     public $type = 'product';
@@ -72,6 +79,8 @@ class Product extends BaseModel
     protected $attributes = [
         'stock_status'=>'in'
     ];
+
+    public $location_stock_type = LocationStock::TYPE_PRODUCT;
 
     /**
      * @var Review
@@ -408,7 +417,7 @@ class Product extends BaseModel
     	return $this->belongsTo(ProductBrand::class,'brand_id')->withDefault();
     }
     public function variations(){
-    	return $this->hasMany(ProductVariation::class,'product_id');
+    	return $this->hasMany(ProductVariation::class,'product_id')->where('variation_type',ProductVariation::TYPE_PRODUCT);
     }
 
     /**
@@ -467,6 +476,11 @@ class Product extends BaseModel
         return $st;
     }
 
+    /**
+     * @param int $qty
+     * @param null $variant_id
+     * @throws \Exception
+     */
     public function addToCartValidate($qty=1, $variant_id=null)
     {
         if($this->status != 'publish'){
@@ -477,12 +491,11 @@ class Product extends BaseModel
         switch ($this->product_type){
             case 'variable':
                 if(!empty($variant_id)){
-                    $variation = $this->variations()->where('id',$variant_id)->first();
-                    if(!$variation){
+                    $variant = $this->variations()->where('id',$variant_id)->first();
+                    if(!$variant){
                         throw  new \Exception('Variation not found..',405);
                     }
                 }
-                $variant = $this->variations()->where('id',$variant_id)->first();
                 if(!empty($variant)){
                     if(!empty($this->check_manage_stock())){
                         if(!empty($this->quantity)){
@@ -632,6 +645,30 @@ class Product extends BaseModel
         {
             $query->where('products.author_id',$filters['vendor_id']);
         }
+
+        if(!empty($filters['vendor']))
+        {
+            switch ($vendor_mode = $filters['vendor']->getVendorMode()){
+                case Vendor::MODE_NEW_ONLY:
+                    $query->where('products.author_id',$filters['vendor']->id);
+                break;
+                default:
+                    $product_vendor = new ProductVendor();
+                    $query->join($product_vendor->getTable(),function($join) use ($filters,$product_vendor){
+                        $join->on($product_vendor->qualifyColumn('product_id'),'=','products.id');
+                        $join->where($product_vendor->qualifyColumn('vendor_id'),'=',$filters['vendor']->id);
+                    },'','',$vendor_mode == Vendor::MODE_EXIST_ONLY ? 'inner' : 'left');
+
+                    $query->where(function($query) use($filters,$product_vendor){
+                        $query->where('products.author_id',$filters['vendor']->id);
+                        $query->orWhere($product_vendor->qualifyColumn('vendor_id'),$filters['vendor']->id);
+                    });
+
+                    break;
+
+            }
+        }
+
         if(!empty($filters['not_vendor_id']))
         {
             $query->where('products.author_id','!=',$filters['not_vendor_id']);

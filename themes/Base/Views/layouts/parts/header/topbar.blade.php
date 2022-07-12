@@ -6,6 +6,7 @@
             </div>
             <div class="topbar-right">
                 <ul class="topbar-items nav">
+                    @include('layouts.parts.header.location')
                     @include('layouts.parts.header.currency-switcher')
                     @include('layouts.parts.header.language-switcher')
                     @if(is_vendor_enable() and !is_vendor())

@@ -10,6 +10,7 @@ namespace Modules\Product\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Modules\AdminController;
+use Modules\Product\Models\Location\LocationStock;
 use Modules\Product\Models\Product;
 use Modules\Product\Models\ProductVariation;
 use Modules\Product\Models\VariableProduct;
@@ -192,6 +193,7 @@ class VariationController extends AdminController
             $variation->save();
 
             $this->saveTerms($variation,$data);
+            $this->saveLocationStocks($variation,$data);
         }
         $product->updateMinMaxPrice();
         $product->save();
@@ -212,6 +214,29 @@ class VariationController extends AdminController
                 ]);
             }
             $this->product_variation_term::where('variation_id', $variation->id)->whereNotIn('term_id', $term_ids)->delete();
+        }
+    }
+    protected function saveLocationStocks($variation, $data)
+    {
+        if(!is_location_inventory_enable()) return;
+        $location_stocks = $data['location_stocks'] ?? [];
+
+        if(!empty($location_stocks)) {
+            foreach ($location_stocks as $location_id=>$data) {
+                $data_compare = [
+                    'location_id'=>$location_id,
+                    'product_id'=>$variation->product_id,
+                    'stock_type'=>$variation->location_stock_type,
+                    'variation_id'=>$variation->id,
+                ];
+                $stock = LocationStock::query()->where($data_compare)->first();
+                if(!$stock){
+                    $stock = new LocationStock();
+                    $stock->fillByAttr(array_keys($data_compare),$data_compare);
+                }
+                $stock->quantity = $data['quantity'] ?? 0;
+                $stock->save();
+            }
         }
     }
 

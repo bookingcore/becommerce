@@ -1,16 +1,5 @@
 <?php
-$checkNotify = \Modules\Core\Models\NotificationPush::query();
-if(is_admin()){
-    $checkNotify->where(function($query){
-        $query->where('data', 'LIKE', '%"for_admin":1%');
-        $query->orWhere('notifiable_id', Auth::id());
-    });
-}else{
-    $checkNotify->where('data', 'LIKE', '%"for_admin":0%');
-    $checkNotify->where('notifiable_id', Auth::id());
-}
-$notifications = $checkNotify->orderBy('created_at', 'desc')->limit(5)->get();
-$countUnread = $checkNotify->where('read_at', null)->count();
+[$notifications, $countUnread] = getNotify();
 ?>
 <li class="dropdown-notifications dropdown p-0">
     <a href="#" data-bs-toggle="dropdown" class="is_login nav-link text-white position-relative">

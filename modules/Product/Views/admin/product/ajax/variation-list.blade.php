@@ -21,7 +21,7 @@
         <div class="variation-body collapse hidden @if(!empty($tailwind)) p-3 @endif" id="variation-{{$variation->id}}">
             <div class="variation-body-inner">
                 <input type="hidden" name="variations[{{$variation->id}}][id]" value="{{$variation->id}}">
-                <div class="row grid gap-4 grid-cols-12">
+                <div class="row grid @if(!empty($tailwind)) gap-4 @endif grid-cols-12">
                     <div class="col-md-8 col-span-8">
                         <div class="form-group mb-3 align-items-center">
                             <label class="control-label mb-2">{{__('Enabled?')}}</label>
@@ -70,6 +70,7 @@
                                 </select>
                             </div>
                         </div>
+                        @includeWhen(setting_item('product_enable_stock_management') and is_location_inventory_enable(),'Product::admin.product.ajax.inventory')
                     </div>
                     <div class="col-md-4 col-span-4">
                         {!! \Modules\Media\Helpers\FileHelper::fieldUpload('variations['.$variation->id.'][image_id]',$variation->image_id) !!}

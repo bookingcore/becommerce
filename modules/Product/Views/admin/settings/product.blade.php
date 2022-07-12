@@ -68,7 +68,7 @@
         </div>
     </div>
 @endif
-
+<hr>
 @include('Product::admin.settings.product.downloadable')
 <hr>
 <div class="row">

@@ -38,6 +38,7 @@ $categories = \Modules\Product\Models\ProductCategory::getAll();
                         @endforeach
                     </select>
                 </div>
+                @if(empty($hide_status))
                 <div class="me-3">
                     <select class="form-select" name="status">
                         <option value="">{{__('-- Status --')}}</option>
@@ -46,6 +47,7 @@ $categories = \Modules\Product\Models\ProductCategory::getAll();
                         <option @if(request('status') == 'draft') selected @endif value="draft">{{__("Draft")}}</option>
                     </select>
                 </div>
+                @endif
                 <div>
                     <button class="btn btn-default" type="submit"><i class="icon icon-funnel mr-2"></i>{{__('Filter')}}</button>
                 </div>

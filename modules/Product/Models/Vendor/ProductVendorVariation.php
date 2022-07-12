@@ -8,10 +8,8 @@ use Modules\Product\Models\ProductVariation;
 
 class ProductVendorVariation extends ProductVariation
 {
-
     protected $fillable = [
         'vendor_id',
-        'variation_id'
+        'parent_id'
     ];
-    protected $table = 'product_vendor_variations';
 }
