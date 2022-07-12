@@ -8,7 +8,8 @@ trait VendorUser
 {
 
     public function getVendorMode(){
-        return $this->vendor_mode != 'default' ? setting_item('vendor_mode') : $this->vendor_mode;
+        $meta = $this->getMeta('vendor_mode');
+        return !$meta ? setting_item('vendor_mode') : $meta;
     }
 
 }

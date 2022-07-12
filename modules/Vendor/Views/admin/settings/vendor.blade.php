@@ -29,6 +29,7 @@
                             </div>
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group" data-condition="vendor_enable:is(1)">
                         <label>{{__('Commission Type')}}</label>
                         <div class="form-controls">
