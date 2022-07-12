@@ -40,6 +40,8 @@
     <script>
         var BC  = {
             url:'{{url('/')}}',
+            map_provider:'{{setting_item('map_provider')}}',
+            map_gmap_key:'{{setting_item('map_gmap_key')}}',
             csrf:'{{csrf_token()}}',
             date_format:'{{get_moment_date_format()}}',
             markAsRead:'{{route('core.admin.notification.markAsRead')}}',
