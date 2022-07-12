@@ -41,11 +41,11 @@ class NotificationController extends Controller
         $notify = NotificationPush::query();
         if(is_admin()){
             $notify->where(function($q){
-                $q->where('data', 'LIKE', '%"for_admin":1%');
+                $q->where('for_admin', 1);
                 $q->orWhere('notifiable_id', Auth::id());
             });
         }else{
-            $notify->where('data', 'LIKE', '%"for_admin":0%');
+            $notify->where('for_admin', 0);
             $notify->where('notifiable_id', Auth::id());
         }
         $notify->where('read_at', null)
@@ -62,11 +62,11 @@ class NotificationController extends Controller
 
         if(is_admin()){
             $query->where(function($q){
-                $q->where('data', 'LIKE', '%"for_admin":1%');
+                $q->where('for_admin', 1);
                 $q->orWhere('notifiable_id', Auth::id());
             });
         }else{
-            $query->where('data', 'LIKE', '%"for_admin":0%');
+            $query->where('for_admin', 0);
             $query->where('notifiable_id', Auth::id());
         }
 

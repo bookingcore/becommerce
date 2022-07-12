@@ -4,11 +4,8 @@ namespace App\Notifications;
 
 use App\Events\PusherNotificationAdminEvent;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Auth;
-use Modules\Core\Models\NotificationPush;
 
 class AdminChannelServices extends Notification
 {
@@ -33,7 +30,7 @@ class AdminChannelServices extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return [DatabaseChannel::class];
     }
 
     /**

@@ -1,13 +1,6 @@
 <?php
 $user = Auth::user();
-$checkNotify = \Modules\Core\Models\NotificationPush::query()
-    ->where(function($query){
-        $query->where('data', 'LIKE', '%"for_admin":1%');
-        $query->orWhere('notifiable_id', Auth::id());
-    });
-
-$notifications = $checkNotify->orderBy('created_at', 'desc')->limit(5)->get();
-$countUnread = $checkNotify->where('read_at', null)->count();
+[$notifications, $countUnread] = getNotify();
 
 $languages = \Modules\Language\Models\Language::getActive();
 $locale = App::getLocale();

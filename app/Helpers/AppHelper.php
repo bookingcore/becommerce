@@ -1316,3 +1316,21 @@ function get_search_engine(){
 function is_vendor_page(){
     return request()->segment(1) == 'vendor';
 }
+
+
+function getNotify(): array
+{
+    $checkNotify = \Modules\Core\Models\NotificationPush::query();
+    if(is_admin()){
+        $checkNotify->where(function($query){
+            $query->where('for_admin',1);
+            $query->orWhere('notifiable_id', Auth::id());
+        });
+    }else{
+        $checkNotify->where('for_admin',0);
+        $checkNotify->where('notifiable_id', Auth::id());
+    }
+    $notifications = $checkNotify->orderBy('created_at', 'desc')->limit(5)->get();
+    $countUnread = $checkNotify->where('read_at', null)->count();
+    return [$notifications,$countUnread];
+}

@@ -29,11 +29,11 @@ class NotificationController extends AdminController
         $notify = NotificationPush::query();
         if(is_admin()){
             $notify->where(function($q){
-                $q->where('data', 'LIKE', '%"for_admin":1%');
+                $q->where('for_admin', 1);
                 $q->orWhere('notifiable_id', Auth::id());
             });
         }else{
-            $notify->where('data', 'LIKE', '%"for_admin":0%');
+            $notify->where('for_admin', 0);
             $notify->where('notifiable_id', Auth::id());
         }
         $notify->where('read_at', null)
@@ -49,7 +49,7 @@ class NotificationController extends AdminController
         $query  = \Modules\Core\Models\NotificationPush::query();
 
         $query->where(function($q){
-            $q->where('data', 'LIKE', '%"for_admin":1%');
+            $q->where('for_admin', 1);
             $q->orWhere('notifiable_id', Auth::id());
         });
 
