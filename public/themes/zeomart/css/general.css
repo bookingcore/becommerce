@@ -38,3 +38,19 @@ body{
     left: -7px;
     border-radius: 50%;
 }
+.bc-icon-star-o{
+    background-image: url("/themes/zeomart/images/star-o.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}
+.bc-icon-star{
+    background-image: url("/themes/zeomart/images/star.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+}

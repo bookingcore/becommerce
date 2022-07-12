@@ -19,7 +19,9 @@ use Modules\Product\Models\ProductTagRelation;
 use Modules\Product\Models\ProductTerm;
 use Modules\Product\Models\ProductTranslation;
 use Modules\Product\Models\ProductVariation;
+use Modules\Product\Models\Vendor\ProductVendor;
 use Modules\Product\Traits\Store\ProductStore;
+use Modules\Vendor\Models\Vendor;
 use Modules\Vendor\VendorMenuManager;
 use Themes\Base\Controllers\FrontendController;
 
@@ -223,5 +225,41 @@ class ProductController extends FrontendController
             $query->delete();
         }
         return redirect(route('vendor.product'))->with('success', __('Delete product success!'));
+    }
+
+    public function search(Request $request){
+
+        $filters = $request->query();
+
+        $rows = Product::search([
+
+        ]);
+
+        $data = [
+            'page_title'=>__("Search for products to start"),
+            'rows'=>!empty($filters) ? $rows->paginate(20) : []
+        ];
+
+        return view('vendor.product.search',$data);
+    }
+
+    public function sell(Product $product){
+        $user = auth()->user();
+        if(!$user->getVendorMode() == Vendor::MODE_NEW_ONLY){
+            return redirect(route('vendor.product.index'))->with('danger',__("Only allow add new product"));
+        }
+
+        $product_vendor = ProductVendor::query()->firstOrNew([
+            'vendor_id'=>$user->id,
+            'product_id'=>$product->id
+        ]);
+
+        $data = [
+            'page_title'=>__("Sell product :name",['name'=>$product->title]),
+            'row'=>$product,
+            'product_vendor'=>$product_vendor
+        ];
+
+        return view('vendor.product.sell',$data);
     }
 }

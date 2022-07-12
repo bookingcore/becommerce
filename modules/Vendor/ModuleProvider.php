@@ -66,7 +66,8 @@ class ModuleProvider extends ModuleServiceProvider
                 'vendor_register_captcha',
                 'vendor_payout_methods',
                 'disable_payout',
-                'vendor_product_need_approve'
+                'vendor_product_need_approve',
+                'vendor_mode'
             ],
             'html_keys' => [
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Updaters\Updater110;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
@@ -22,45 +23,8 @@ class MigrationTools
     {
         if(strpos($request->path(),'install') === false and is_installed()){
 
-            $this->migrateTo110();
+            Updater110::run();
         }
         return $next($request);
-    }
-
-    protected function migrateTo110(){
-        $check = '1.2';
-        if(version_compare(setting_item('migration_110_schema'),$check,'>=')) return;
-
-        Artisan::call('migrate --force');
-
-        Schema::table('products',function (Blueprint $table){
-            if(!Schema::hasColumn('products','is_virtual')){
-                $table->tinyInteger('is_virtual')->nullable()->default(0);
-            }
-        });
-
-        // POS Feature
-        $cashier = \Modules\User\Models\Role::firstOrCreate([
-            'code'=>'cashier',
-            'name'=>'Cashier',
-        ]);
-        $cashier->givePermission([
-            'product_view',
-            'pos_access',
-        ]);
-        $vendor = Role::find('vendor');
-        if($vendor){
-            $vendor->givePermission([
-                'pos_access',
-            ]);
-        }
-        $admin = Role::find('admin');
-        if($admin){
-            $admin->givePermission([
-                'pos_access',
-            ]);
-        }
-
-        setting_update_item('migration_110_schema',$check);
     }
 }

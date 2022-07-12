@@ -17,6 +17,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="form-controls">
+                            <div class="form-group">
+                                <label >{{__("Vendor Mode")}}</label>
+                                <select name="vendor_mode" class="form-control">
+                                    <option value="">{{__("Vendor can add brand new AND sell exist product")}}</option>
+                                    <option value="only_new" @if(setting_item('vendor_mode') == 'only_new') selected @endif>{{__('Only allow add new')}}</option>
+                                    <option value="only_exists" @if(setting_item('vendor_mode') == 'only_exists') selected @endif>{{__('Only allow sell exist product')}}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
                     <div class="form-group" data-condition="vendor_enable:is(1)">
                         <label>{{__('Commission Type')}}</label>
                         <div class="form-controls">
