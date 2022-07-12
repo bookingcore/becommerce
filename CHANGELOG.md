@@ -8,6 +8,10 @@
 - New Permission: pos_access
 - [System] Change all theme view path to folder themes/YourTheme/Views
 - [System] Child-theme supported
+- [Exclusive] VENDOR MODE
+    + Allow only add new product
+    + Allow vendor sell exist product - Multiple VENDOR
+    + Both add new and sell exist
 
 ### Fixed
 - [BUG] Active Plugin reset active theme
