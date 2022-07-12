@@ -15,8 +15,6 @@ class EventServiceProvider extends \Illuminate\Foundation\Support\Providers\Even
     protected $listen = [
         ProductDeleteEvent::class=>[
             DeleteCampaignProduct::class,
-            DeleteVariation::class,
-            DeleteProductTerm::class,
         ]
     ];
 }

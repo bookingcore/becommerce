@@ -16,7 +16,7 @@
                     <span class="amount">{{$row->display_price}}</span>
                 </span>
                 <span class="text-sm color-[#626974]">
-                    <span class="amount">{{$row->display_sale_price}}</span>
+                    <span class="line-through">{{$row->display_sale_price}}</span>
                 </span>
                 @if(!empty($row->discount_percent) && !empty($show_discount_percent))
                     <span class="sale color-[#443297]">(-{{$row->discount_percent}})</span>

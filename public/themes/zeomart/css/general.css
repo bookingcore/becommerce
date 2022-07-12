@@ -15,7 +15,6 @@ body{
 .be-dropdown-menu{
     @apply transition duration-200 group-hover:visible group-hover:opacity-100
 }
-.bc-list-products .bc-carousel .owl-stage{ display: flex }
 
 .bc-carousel .owl-dots span{
     background: #112137 !important;
@@ -37,6 +36,32 @@ body{
     top: -7px;
     left: -7px;
     border-radius: 50%;
+}
+.bc-carousel .owl-nav{
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+}
+.bc-carousel .owl-nav .owl-prev,
+.bc-carousel .owl-nav .owl-next{
+    background: url(/themes/zeomart/images/owl-next.png) !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    width: 40px;
+    height: 40px;
+    display: block;
+    transform: rotate(180deg);
+    margin-left: -20px;
+    opacity: 1 !important;
+}
+.bc-carousel .owl-nav .owl-next{
+    transform: rotate(0deg);
+    margin-left: auto;
+    margin-right: -20px;
 }
 .bc-icon-star-o{
     background-image: url("/themes/zeomart/images/star-o.svg");

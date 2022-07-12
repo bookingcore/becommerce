@@ -36,6 +36,14 @@ return new class extends Migration
                 $table->boolean('for_admin',30)->default(0)->nullable();
             }
         });
+        Schema::table('product_variations',function (Blueprint $table){
+            if(!Schema::hasColumn('product_variations','variation_type')){
+                $table->tinyInteger('variation_type')->nullable()->default(0);
+                $table->bigInteger('vendor_id')->nullable();
+                $table->bigInteger('parent_id')->nullable();
+            }
+        });
+
     }
 
     /**
