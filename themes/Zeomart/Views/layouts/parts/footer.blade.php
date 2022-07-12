@@ -1,8 +1,8 @@
-<div class="bc-newsletter mt-5">
+<div class="bc-newsletter mt-5 mb-5">
     <div class="max-w-7xl m-auto">
         <div class="bc-form-newsletter">
             <div class="text-center">
-                <div class="w-full text-[28px] mb-3">
+                <div class="w-full text-[28px] mb-5">
                     {{ __("Subscribe and get 20% discount.") }}
                 </div>
                 <div class="w-full">

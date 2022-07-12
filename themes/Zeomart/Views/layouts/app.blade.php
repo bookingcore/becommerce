@@ -58,7 +58,7 @@
             @include('layouts.parts.header')
             @yield('content')
         </main>
-        <footer class="footer mt-auto py-3">
+        <footer class="footer mt-5 py-5 border-t">
             @include('layouts.parts.footer')
             @include('product.compare.compare-modal')
 
