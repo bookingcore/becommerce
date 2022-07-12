@@ -12,12 +12,12 @@
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     @if($vendor_mode != 'only_exists')
                     <li>
-                        <a class="dropdown-item" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('Create Product')}}</a>
+                        <a class="dropdown-item" href="{{route('vendor.product.create')}}"><i class="icon icon-plus mr-2"></i>{{__('Create new product')}}</a>
                     </li>
                     @endif
                     @if($vendor_mode != 'only_new')
                     <li>
-                        <a class="dropdown-item" href="{{route('vendor.product.search')}}"><i class="icon icon-plus mr-2"></i>{{__('Sell exist Product')}}</a>
+                        <a class="dropdown-item" href="{{route('vendor.product.search')}}"><i class="icon icon-plus mr-2"></i>{{__('Sell exist product')}}</a>
                     </li>
                     @endif
                 </ul>
@@ -55,7 +55,12 @@
                         <tr>
                             <td>#{{$row->id}}</td>
                             <td>
-                                <a class="text-slate-800" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
+                                @if($row->author_id == auth()->id())
+                                    <a class="text-slate-800" href="{{route('vendor.product.edit',['id'=>$row->id])}}">
+                                @else
+                                    <a class="text-slate-800" href="{{route('vendor.product.sell',['product'=>$row])}}">
+                                @endif
+
                                 <span class="d-flex">
                                     <div class="me-3">
                                         <img src="{{get_file_url($row->image_id)}}" width="60">
@@ -79,10 +84,25 @@
                                     <strong class="text-danger">{{__("Of of stock")}}</strong>
                                 @endif
                             </td>
-                            <td><strong>{{format_money($row->price)}}</strong></td>
+                            <td>
+                                <strong>{{format_money($row->price)}}</strong>
+                                @if($row->author_id != auth()->id())
+                                    <div>{{__("Your price: ")}} {{ format_money($row->current_product_vendor->price) }}</div>
+                                @endif
+                            </td>
                             <td>{{$row->categories ? $row->categories->pluck('name')->join(', ') : ''}}</td>
                             <td>{{$row->type_name}}</td>
-                            <td><span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span></td>
+                            <td>
+                                <span class="badge bg-{{$row->status_badge}}">{{$row->status_text}}</span>
+                                @if($row->author_id != auth()->id())
+                                    <br> {{__("Your status:")}}
+                                    @if($row->current_product_vendor->active)
+                                        <span class="badge bg-success">{{__("Publish")}}</span>
+                                    @else
+                                        <span class="badge bg-secondary">{{__("Draft")}}</span>
+                                    @endif
+                                @endif
+                            </td>
                             @if(vendor_product_need_approve())
                                 <td >
                                     <span class="badge bg-{{ $row->is_approved ? 'success' : 'secondary' }}">{{ $row->is_approved  ? __("Approved") : '' }}</span>
@@ -95,7 +115,11 @@
                                         {{__("Actions")}}
                                     </button>
                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
+                                        @if($row->author_id == auth()->id())
+                                            <a class="dropdown-item" href="{{route('vendor.product.edit',['id'=>$row->id])}}">{{__("Edit")}}</a>
+                                        @else
+                                            <a class="dropdown-item" href="{{route('vendor.product.sell',['product'=>$row])}}">{{__("Manage Price")}}</a>
+                                        @endif
                                         @if(auth()->user()->hasPermission('product_delete'))
                                             <a class="dropdown-item btn-confirm-del" href="{{route('vendor.product.delete',['id'=>$row->id])}}">{{__("Delete")}}</a>
                                         @endif

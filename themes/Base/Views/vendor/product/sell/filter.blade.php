@@ -30,14 +30,6 @@ $categories = \Modules\Product\Models\ProductCategory::getAll();
                         @endphp
                     </select>
                 </div>
-                <div class="me-3">
-                    <select class="form-select" name="product_type">
-                        <option value="">{{__("-- Product Type--")}}</option>
-                        @foreach(get_product_types() as $type_id=>$type)
-                            <option @if($type_id == request('product_type')) selected @endif value="{{$type_id}}">{{$type::getTypeName()}}</option>
-                        @endforeach
-                    </select>
-                </div>
                 @if(empty($hide_status))
                 <div class="me-3">
                     <select class="form-select" name="status">
