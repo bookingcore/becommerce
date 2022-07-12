@@ -632,6 +632,10 @@ class Product extends BaseModel
         {
             $query->where('products.author_id',$filters['vendor_id']);
         }
+        if(!empty($filters['not_vendor_id']))
+        {
+            $query->where('products.author_id','!=',$filters['not_vendor_id']);
+        }
 
         if(setting_item('product_hide_products_out_of_stock'))
         {
@@ -647,6 +651,11 @@ class Product extends BaseModel
                     $query->where('price','>',0);
                     break;
             }
+        }
+
+        if(!empty($filters['type_in']) and is_array($filters['type_in']))
+        {
+            $query->whereIn('product_type',$filters['type_in']);
         }
 
         if(!empty($filters['type_not_in']) and is_array($filters['type_not_in']))

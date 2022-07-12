@@ -28,15 +28,16 @@
             @include('global.message')
             <form action="{{route('vendor.product.sell.store',['product'=>$row])}}" method="post">
                 @csrf
-                <div class="@if($row->id) lang-content-box @endif">
+                <div >
                     <div class="row">
                         <div class="col-md-9">
                             <div class="panel">
-                                <div class="panel-title"><strong>{{__("General Information")}}</strong></div>
+                                <div class="panel-title"><strong>{{$row->title}}</strong></div>
                                 <div class="panel-body">
-                                    @include('Product::admin.product.general')
+                                    @include('vendor.product.sell.form')
                                 </div>
                             </div>
+                            @include('vendor.product.sell.variations')
                         </div>
                         <div class="col-md-3">
                             <div class="panel">
@@ -44,18 +45,10 @@
                                 <div class="panel-body">
                                     <div class="form-group">
                                         <label class="control-label mb-2">{{__('Status')}}</label>
-                                        <select name="status" class="custom-select form-select">
-                                            <option value="publish">{{__("Publish")}}</option>
-                                            <option @if($row->status=='draft') selected @endif value="draft">{{__("Draft")}}</option>
+                                        <select name="active" class="custom-select form-select">
+                                            <option value="">{{__("Draft")}}</option>
+                                            <option @if(old('active',$product_vendor->active)) selected @endif value="1">{{__("Publish")}}</option>
                                         </select>
-                                    </div>
-                                    <hr>
-                                    <div class="form-group">
-                                        <div class="controls">
-                                            <label class="mb-0" aata-toggle="tooltip" data-placement="top" title="{{__("Virtual product does not need shipping")}}">
-                                                <input type="checkbox" name="is_virtual" @if($row->is_virtual) checked @endif value="1"> {{__("This is a virtual product")}}
-                                            </label>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="panel-footer">
@@ -64,18 +57,10 @@
                             </div>
                             @if(is_default_lang())
                                 <div class="panel">
-                                    <div class="panel-title"> <strong>{{ __('Category')}}</strong></div>
-                                    <div class="panel-body">
-                                        <div class="form-group">
-                                            @include('Product::admin.product.categories')
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="panel">
                                     <div class="panel-title"> <strong>{{ __('Feature Image')}}</strong></div>
                                     <div class="panel-body">
                                         <div class="form-group">
-                                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',$row->image_id) !!}
+                                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('image_id',old('image_id',$product_vendor->image_id)) !!}
 
                                         </div>
                                     </div>

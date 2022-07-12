@@ -12,7 +12,7 @@
             <div class="px-3">@include('vendor.product.filter')</div>
             @if($rows)
             <div class="bc-section__content">
-                <div class="table-responsive mih-300">
+                <div class="table-responsive">
                     <table class="table bc-table" cellspacing="0" cellpadding="0">
                         <thead>
                         <tr>
@@ -59,10 +59,12 @@
                     </table>
                 </div>
                 @if(!count($rows))
-                    <div class="m-3 alert alert-warning">{{__("No data found")}}</div>
+                    <div class="m-3 alert alert-warning">{{__("No product found")}}</div>
                 @endif
                 <div class="p-3">{{$rows->appends(request()->query())->links()}}</div>
             </div>
+            @else
+                <div class="alert alert-info">{{__("Search for product to start selling")}}</div>
             @endif
 
         </div>

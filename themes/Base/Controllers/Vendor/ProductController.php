@@ -232,21 +232,27 @@ class ProductController extends FrontendController
         $filters = $request->query();
 
         $rows = Product::search([
-
+            'type_in'=>[
+                'simple','variable'
+            ],
+            'not_vendor_id'=>auth()->id()
         ]);
 
         $data = [
-            'page_title'=>__("Search for products to start"),
+            'page_title'=>__("Search for products to start selling"),
             'rows'=>!empty($filters) ? $rows->paginate(20) : []
         ];
 
-        return view('vendor.product.search',$data);
+        return view('vendor.product.sell.search',$data);
     }
 
     public function sell(Product $product){
         $user = auth()->user();
-        if(!$user->getVendorMode() == Vendor::MODE_NEW_ONLY){
-            return redirect(route('vendor.product.index'))->with('danger',__("Only allow add new product"));
+        if($user->getVendorMode() == Vendor::MODE_NEW_ONLY){
+            return redirect(route('vendor.product'))->with('danger',__("Only allow add new product"));
+        }
+        if(!in_array($product->product_type,['simple','variable'])){
+            return redirect(route('vendor.product'))->with('danger',__("This product type are not allowed to sell"));
         }
 
         $product_vendor = ProductVendor::query()->firstOrNew([
@@ -260,6 +266,66 @@ class ProductController extends FrontendController
             'product_vendor'=>$product_vendor
         ];
 
-        return view('vendor.product.sell',$data);
+        return view('vendor.product.sell.detail',$data);
+    }
+    public function sellStore(Product $product,Request $request){
+        $user = auth()->user();
+        if($user->getVendorMode() == Vendor::MODE_NEW_ONLY){
+            return redirect(route('vendor.product'))->with('danger',__("Only allow add new product"));
+        }
+        if(!in_array($product->product_type,['simple','variable'])){
+            return redirect(route('vendor.product'))->with('danger',__("This product type are not allowed to sell"));
+        }
+
+        $rules = [
+            'price'=>'required',
+            'quantity'=>'required|min:0',
+        ];
+
+        $request->validate($rules);
+
+        $data = [
+            'price'=>$request->input('price'),
+            'active'=>$request->input('active'),
+            'sku'=>$request->input('sku'),
+            'image_id'=>$request->input('image_id'),
+            'quantity'=>$request->input('quantity'),
+        ];
+        /**
+         * @var ProductVendor $product_vendor
+         */
+        $product_vendor = ProductVendor::query()->firstOrNew([
+            'vendor_id'=>$user->id,
+            'product_id'=>$product->id
+        ]);
+
+        $product_vendor->fillByAttr(array_keys($data),$data);
+        $product_vendor->save();
+
+        switch ($product->product_type){
+            case "variable":
+                $input_variations = $request->input('variations',[]);
+                foreach ($product->variations as $variation){
+                    $input_variation  = $input_variations[$variation->id] ?? [];
+                    $vendor_variation = \Modules\Product\Models\Vendor\ProductVendorVariation::firstOrNew([
+                        'vendor_id'=>auth()->id(),
+                        'variation_id'=>$variation->id
+                    ]);
+                    $data = [
+                        'price'=>$input_variation['price'] ?? 0,
+                        'sku'=>$input_variation['sku'] ?? '',
+                        'image_id'=>$input_variation['image_id'] ?? '',
+                        'active'=>$input_variation['active'] ?? '',
+                        'quantity'=>$input_variation['quantity'] ?? 0,
+                        'product_id'=>$product->id
+                    ];
+                    $vendor_variation->fillByAttr(array_keys($data),$data);
+                    $vendor_variation->save();
+                }
+                break;
+        }
+
+
+        return back()->with('success',__("Data saved"));
     }
 }
