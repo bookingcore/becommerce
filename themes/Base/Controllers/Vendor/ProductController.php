@@ -332,7 +332,7 @@ class ProductController extends FrontendController
                     $input_variation  = $input_variations[$variation->id] ?? [];
                     $vendor_variation = \Modules\Product\Models\Vendor\ProductVendorVariation::firstOrNew([
                         'vendor_id'=>auth()->id(),
-                        'variation_id'=>$variation->id
+                        'parent_id'=>$variation->id
                     ]);
                     $data = [
                         'price'=>$input_variation['price'] ?? 0,

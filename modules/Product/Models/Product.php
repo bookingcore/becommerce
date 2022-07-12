@@ -471,7 +471,12 @@ class Product extends BaseModel
         return $st;
     }
 
-    public function addToCartValidate($qty=1, $variant_id=null,$vendor_id = null)
+    /**
+     * @param int $qty
+     * @param null $variant_id
+     * @throws \Exception
+     */
+    public function addToCartValidate($qty=1, $variant_id=null)
     {
         if($this->status != 'publish'){
 
@@ -481,12 +486,11 @@ class Product extends BaseModel
         switch ($this->product_type){
             case 'variable':
                 if(!empty($variant_id)){
-                    $variation = $this->variations()->where('id',$variant_id)->first();
-                    if(!$variation){
+                    $variant = $this->variations()->where('id',$variant_id)->first();
+                    if(!$variant){
                         throw  new \Exception('Variation not found..',405);
                     }
                 }
-                $variant = $this->variations()->where('id',$variant_id)->first();
                 if(!empty($variant)){
                     if(!empty($this->check_manage_stock())){
                         if(!empty($this->quantity)){

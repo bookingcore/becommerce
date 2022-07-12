@@ -28,6 +28,14 @@ return new class extends Migration
                 $table->tinyInteger('is_virtual')->nullable()->default(0);
             }
         });
+        Schema::table('product_variations',function (Blueprint $table){
+            if(!Schema::hasColumn('product_variations','variation_type')){
+                $table->tinyInteger('variation_type')->nullable()->default(0);
+                $table->bigInteger('vendor_id')->nullable();
+                $table->bigInteger('parent_id')->nullable();
+            }
+        });
+
     }
 
     /**
@@ -37,15 +45,5 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('core_orders', function (Blueprint $table) {
-            if(Schema::hasColumn('core_orders','channel')){
-                $table->dropColumn('channel');
-            }
-        });
-        Schema::table('products', function (Blueprint $table) {
-            if(Schema::hasColumn('products','downloadable')){
-                $table->dropColumn('downloadable');
-            }
-        });
     }
 };

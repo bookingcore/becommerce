@@ -4,6 +4,7 @@
 namespace Themes\Base\Controllers\Order;
 
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
@@ -65,7 +66,6 @@ class CartController extends FrontendController
         $quantity = $request->input('quantity');
         $service_id = $request->input('object_id');
         $variation_id = $request->input('variation_id');
-        $vendor_id = $request->input('vendor_id');
 
         $allServices = get_services();
         if (empty($allServices[$service_type])) {
@@ -78,7 +78,7 @@ class CartController extends FrontendController
             $cartItem = $this->cart_manager::findItem($service,$variation_id);
             $is_group_product = false;
 
-            $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id,$vendor_id);
+            $service->addToCartValidate($request->input('quantity') + ($cartItem->qty ?? 0),$variation_id);
 
             switch($service->product_type){
                 case 'grouped':
