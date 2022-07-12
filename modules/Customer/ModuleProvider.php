@@ -3,6 +3,7 @@ namespace Modules\Customer;
 
 use App\User;
 use Modules\Core\Helpers\AdminMenuManager;
+use Modules\Customer\Setting\CustomerSetting;
 use Modules\ModuleServiceProvider;
 use Modules\Customer\Providers\RouterServiceProvider;
 
@@ -21,6 +22,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
 
         $this->app->register(RouterServiceProvider::class);
+        $this->app->register(CustomerSetting::class);
 
     }
 

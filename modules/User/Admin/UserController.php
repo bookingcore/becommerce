@@ -16,6 +16,7 @@ use Modules\User\Events\VendorApproved;
 use Modules\User\Exports\UserExport;
 use Modules\User\Models\Role;
 use Modules\User\Resources\UserResource;
+use function League\Flysystem\Local\delete;
 
 class UserController extends AdminController
 {
@@ -102,7 +103,22 @@ class UserController extends AdminController
         $row = User::find($id);
         $data  = [
             'row'=>$row,
-            'currentUser'=>Auth::user()
+            'currentUser'=>Auth::user(),
+
+            'breadcrumbs'=>[
+                [
+                    'name'=>__("Users"),
+                    'url'=>'admin/module/user'
+                ],
+                [
+                    'name'=>__("Edit User: #:id",['id'=>$row->id]),
+                    'url'=>route('user.admin.edit',['id'=>$row->id])
+                ],
+                [
+                    'name'=>__("Change password"),
+                    'class' => 'active'
+                ],
+            ]
         ];
         if (empty($row)) {
             return redirect('admin/module/user');
@@ -157,6 +173,8 @@ class UserController extends AdminController
             return back()->with('danger',  __('DEMO Mode: You can not do this') );
         }
 
+        $user_type = $request->input('user_type');
+
         if($id and $id>0){
             $row = User::find($id);
             if(empty($row)){
@@ -169,8 +187,7 @@ class UserController extends AdminController
             $this->checkPermission('user_manage');
             $row = new User();
         }
-
-        $request->validate([
+        $rules = [
             'first_name'              => 'required|max:255',
             'last_name'              => 'required|max:255',
             'business_name'              => 'required|max:255',
@@ -182,25 +199,53 @@ class UserController extends AdminController
                 'max:255',
                 $id > 0 ? Rule::unique('users')->ignore($row->id) : Rule::unique('users')
             ],
-        ],[
+        ];
+        switch ($user_type){
+            case "vendor":
+                unset($rules['role_id']);
+                break;
+        }
+
+        $request->validate($rules,[
             'business_name.required'=>__("Display name is a required field")
         ]);
 
+        $data = [
+            'first_name'=>$request->input('first_name'),
+            'last_name'=>$request->input('last_name'),
+            'phone'=>$request->input('phone'),
+            'birthday'=>$request->input('birthday') ? date("Y-m-d", strtotime($request->input('birthday'))) : null,
+            'bio'=>$request->input('bio'),
+            'status'=>$request->input('status'),
+            'avatar_id'=>$request->input('avatar_id'),
+            'email'=>$request->input('email'),
+            'business_name'=>$request->input('business_name'),
+        ];
 
-        $row->first_name = $request->input('first_name');
-        $row->last_name = $request->input('last_name');
-        $row->phone = $request->input('phone');
-        $row->birthday = date("Y-m-d", strtotime($request->input('birthday')));
-        $row->bio = clean($request->input('bio'));
-        $row->status = $request->input('status');
-        $row->avatar_id = $request->input('avatar_id');
-        $row->email = $request->input('email');
-        $row->business_name = $request->input('business_name');
-        $row->commission_type = $request->input('commission_type');
-        $row->commission = $request->input('commission');
+        switch ($user_type){
+            case "vendor":
+            default:
+                $data['commission_type'] = $request->input('commission_type');
+                $data['commission'] = $request->input('commission');
+                break;
+        }
 
         if($this->hasPermission('user_manage')) {
-            $row->role_id = $request->input('role_id');
+            switch ($user_type){
+                case "vendor":
+                    if(!$row->id) {
+                        $row->role_id = setting_item('vendor_role');
+                    }
+                    break;
+                case "customer":
+                    if(!$row->id) {
+                        $row->role_id = setting_item('customer_role');
+                    }
+                    break;
+                default:
+                    $row->role_id = $request->input('role_id');
+                    break;
+            }
             if($request->input('is_email_verified')){
                 if(!$row->email_verified_at) $row->email_verified_at = date('Y-m-d H:i:s');
             }else{
@@ -208,7 +253,25 @@ class UserController extends AdminController
             }
         }
 
+        $row->fillByAttr(array_keys($data),$data);
+
         if ($row->save()) {
+
+            $metaKeys = [
+
+            ];
+
+            switch ($user_type){
+                case "vendor":
+                default:
+                    $metaKeys[] = 'vendor_mode';
+                    break;
+            }
+
+            foreach ($metaKeys as $key){
+                $row->addMeta($key,$request->input($key));
+            }
+
             if($id > 0){
                 return back()->with('success', __('User updated'));
             }else{

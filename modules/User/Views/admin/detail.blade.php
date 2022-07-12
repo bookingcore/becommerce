@@ -2,7 +2,7 @@
 
 @section('content')
     <form action="{{url('admin/module/user/store/'.($row->id ?? -1))}}" method="post" class="needs-validation" novalidate>
-        <input type="hidden" name="user_type" value="{{ request()->input("user_type") }}">
+        <input type="hidden" name="user_type" value="{{ request()->get("user_type",$user_type ?? '') }}">
         @csrf
         <div class="container-fluid">
             <div class="d-flex justify-content-between mb20">
@@ -77,15 +77,17 @@
                                 </select>
                             </div>
                             @if(is_admin())
-                            <div class="form-group">
-                                <label>{{__('Role')}} <span class="text-danger">*</span></label>
-                                <select required class="form-control" name="role_id">
-                                    <option value="">{{ __('-- Select --')}}</option>
-                                    @foreach($roles as $role)
-                                        <option value="{{$role->id}}" @if(old('role_id',$row->role_id) == $role->id) selected @elseif(old('role_id')  == $role->id ) selected @elseif(request()->input("user_type")  == strtolower($role->name) ) selected @endif >{{ucfirst($role->name)}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                                @if(empty($user_type) or $user_type != 'vendor')
+                                    <div class="form-group">
+                                        <label>{{__('Role')}} <span class="text-danger">*</span></label>
+                                        <select required class="form-control" name="role_id">
+                                            <option value="">{{ __('-- Select --')}}</option>
+                                            @foreach($roles as $role)
+                                                <option value="{{$role->id}}" @if(old('role_id',$row->role_id) == $role->id) selected @elseif(old('role_id')  == $role->id ) selected @elseif(request()->input("user_type")  == strtolower($role->name) ) selected @endif >{{ucfirst($role->name)}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
                             <div class="form-group">
                                 <label>{{__('Email Verified?')}}</label>
                                 <select  class="form-control" name="is_email_verified">
@@ -100,9 +102,22 @@
                             </div>
                         </div>
                     </div>
+                    @if(empty($user_type) or $user_type == 'vendor')
+                    <input type="hidden" name="is_vendor_form" value="1">
                     <div class="panel">
                         <div class="panel-title"><strong>{{ __('For Vendor')}}</strong></div>
                         <div class="panel-body">
+                            <?php $meta = $row->getMeta('vendor_mode') ?>
+                            <div class="form-group">
+                                <label >{{__("Vendor Mode")}}</label>
+                                <select name="vendor_mode" class="form-control">
+                                    <option value="">{{__("-- Global Option --")}}</option>
+                                    <option value="both" @if($meta == 'both') selected @endif>{{__("Vendor can add brand new AND sell exist product")}}</option>
+                                    <option value="only_new" @if($meta == 'only_new') selected @endif>{{__('Only allow add new')}}</option>
+                                    <option value="only_exists" @if($meta == 'only_exists') selected @endif>{{__('Only allow sell exist product')}}</option>
+                                </select>
+                            </div>
+                            <hr>
                             <div class="form-group">
                                 <label>{{ __('Commission Type')}}</label>
                                 <select class="form-control" name="commission_type">
@@ -117,6 +132,7 @@
                             </div>
                         </div>
                     </div>
+                    @endif
                     <div class="panel">
                         <div class="panel-title"><strong>{{ __('Avatar')}}</strong></div>
                         <div class="panel-body">

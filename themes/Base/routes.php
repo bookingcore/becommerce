@@ -49,11 +49,18 @@ Route::group(['prefix'=>'vendor'],function(){
 
 Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
    Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
-   Route::get('/product','Vendor\ProductController@index')->name('vendor.product');
-   Route::get('/product/create','Vendor\ProductController@create')->name('vendor.product.create');
-   Route::get('/product/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
-   Route::post('/product/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
-   Route::get('/product/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
+
+   Route::group(['prefix'=>'product'],function(){
+       Route::get('/','Vendor\ProductController@index')->name('vendor.product');
+       Route::get('/create','Vendor\ProductController@create')->name('vendor.product.create');
+       Route::get('/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
+       Route::post('/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
+       Route::get('/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
+
+       Route::get('/search','Vendor\ProductController@search')->name('vendor.product.search');
+       Route::get('/sell/{product}','Vendor\ProductController@sell')->name('vendor.product.sell');
+       Route::post('/sell/{product}/store','Vendor\ProductController@sellStore')->name('vendor.product.sell.store');
+   });
 
    Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
    Route::post('/order/bulkEdit','Vendor\OrderController@bulkEdit')->name('vendor.order.bulkEdit');

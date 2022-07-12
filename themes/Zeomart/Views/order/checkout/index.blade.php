@@ -38,7 +38,7 @@
                                 <p class="alert mt-1" v-show=" message.content" v-html="message.content" :class="{'alert-danger':!message.type,'alert-success':message.type}"></p>
 
                                 <div class="ui_kit_button payment_widget_btn">
-                                    <button type="button" class="btn btn-thm btn-block" @click="doCheckout">{{__('PLACE ORDER')}}
+                                    <button type="button" class="rounded font-medium inline-block w-full mt-4 py-4 text-center bg-yellow-400 hover:bg-yellow-500" @click="doCheckout">{{__('PLACE ORDER')}}
                                         <i class="fa fa-spin fa-spinner" v-show="onSubmit"></i>
                                     </button>
                                 </div>
