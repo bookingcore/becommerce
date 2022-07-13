@@ -33,7 +33,7 @@ return new class extends Migration
 
         Schema::table(NotificationPush::getTableName(),function (Blueprint $table){
             if(!Schema::hasColumn(NotificationPush::getTableName(),'for_admin')){
-                $table->boolean('for_admin',30)->default(0)->nullable();
+                $table->boolean('for_admin')->default(0)->nullable();
             }
         });
         Schema::table('product_variations',function (Blueprint $table){
@@ -53,15 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('core_orders', function (Blueprint $table) {
-            if(Schema::hasColumn('core_orders','channel')){
-                $table->dropColumn('channel');
-            }
-        });
-        Schema::table('products', function (Blueprint $table) {
-            if(Schema::hasColumn('products','downloadable')){
-                $table->dropColumn('downloadable');
-            }
-        });
+
     }
 };
