@@ -20,7 +20,7 @@ $menus = \Modules\Vendor\VendorMenuManager::menus();
         <a href="{{$user->getStoreUrl()}}" class="btn btn-light"><i class="fa fa-shopping-basket"></i> {{__("View my store")}}</a>
     </div>
     <ul class="d-flex flex-shrink-0 mb-0  list-unstyled">
-        @include('layouts.parts.header.notification')
+        @include('layouts.vendor.parts.header.notification')
         @include('layouts.parts.header.user')
     </ul>
 </header>
