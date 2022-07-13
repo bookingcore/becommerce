@@ -152,8 +152,11 @@
             </ul>
         </div>
     </div>
-    <div class="right-menu w-4/12">
-        xxxx
+    <div class="right-menu w-4/12 flex items-center justify-end py-2 pt-4 pb-4 font-medium text-base">
+        <a href="" class="ml-4">Deal of the Day</a>
+        <a href="" class="ml-4">Hot Deals</a>
+        <a href="" class="ml-4">Best Sellers</a>
+        <a href="" class="ml-4">New Arrivals</a>
     </div>
 </div>
 
