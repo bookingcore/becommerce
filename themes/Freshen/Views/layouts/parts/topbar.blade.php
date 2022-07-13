@@ -23,6 +23,7 @@
                                 <a href="{{route('vendor.register')}}" class="text-white mt-1 d-inline-block">{{__('Sell on Us!')}}</a>
                             </li>
                         @endif
+                        @include('layouts.parts.header.location')
                         @include('layouts.parts.header.language-switcher')
                         @include('layouts.parts.header.currency-switcher')
                     </ul>

@@ -1,6 +1,7 @@
 <?php
 namespace Themes\Freshen\Controllers\Blocks;
 
+use Illuminate\Support\Facades\View;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
@@ -79,6 +80,6 @@ class Promotion extends BaseBlock
             'col' => $model['col'] ?? 4,
             'style' => $model['style'] ?? "style_1",
         ];
-        return view("blocks.promotion.".$data['style'], $data);
+        return View::exists("blocks.promotion.".$data['style']) ? view("blocks.promotion.".$data['style'], $data) : null;
     }
 }
