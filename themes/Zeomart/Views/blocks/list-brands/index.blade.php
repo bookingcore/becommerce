@@ -1,5 +1,5 @@
 <div class="zm-list-brands  py-10">
-    <div class="max-w-7xl m-auto">
+    <div class="container">
         <div class="text-center text-base pb-8">
             {{ $title }}
         </div>

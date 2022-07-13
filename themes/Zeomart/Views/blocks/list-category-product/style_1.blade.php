@@ -1,7 +1,7 @@
 @if(!empty($categories))
     @php $id = rand() @endphp
     <div class="zm-list-category-product py-10">
-        <div class="max-w-7xl m-auto">
+        <div class="container">
             <div class="mb-8 flex justify-between items-center">
                 <h3 class="font-[500] text-3xl">{{ $title }}</h3>
                 <div class="flex" data-tabs-toggle="#zm-tab-toggle-{{ $id }}">

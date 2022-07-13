@@ -1,6 +1,6 @@
 @if(!empty($list_items))
     <div class="zm-icon-features py-10 border-t border-b pb-6">
-        <div class="max-w-7xl m-auto">
+        <div class="container">
             <div class="flex">
                 @foreach($list_items as $item)
                     <div class="w-1/4 mb-4">

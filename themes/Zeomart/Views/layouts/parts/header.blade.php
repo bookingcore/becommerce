@@ -1,4 +1,4 @@
-<div class="zm-topbar m-auto max-w-7xl relative z-50">
+<div class="zm-topbar container relative z-50">
     <div class="flex justify-between">
         <div class="left flex justify-start">
             {!! setting_item_with_lang('zeomart_topbar_text_left') !!}
@@ -19,19 +19,19 @@
         </div>
     </div>
 </div>
-<div class="zm-header m-auto max-w-7xl mt-2 mb-2">
+<div class="zm-header container mt-2 mb-2">
     <div class="flex items-center">
-        <div class="logo w-1/6">
+        <div class="logo w-2/12">
             <div class="text text-2xl font-bold">
                 <a href="{{ home_url() }}">
                     {{ setting_item('zeomart_logo_text') }}
                 </a>
             </div>
         </div>
-        <div class="search w-4/6">
+        <div class="search w-6/12">
             @include('layouts.parts.header.search')
         </div>
-        <div class="user-cart-wishlist flex justify-end w-2/6 text-base font-medium">
+        <div class="user-cart-wishlist flex justify-end w-4/12 text-base font-medium">
             @if(!Auth::user())
                 <div class="ml-5">
                     <a href="#" class="flex items-center" data-modal-toggle="be-login">
@@ -82,7 +82,80 @@
         </div>
     </div>
 </div>
-
+<div class="line-color flex mt-6">
+    <div class="w-1/5 border border-[#F5C34B]"></div>
+    <div class="w-1/5 border border-[#6BD68D]"></div>
+    <div class="w-1/5 border border-[#EC752F]"></div>
+    <div class="w-1/5 border border-[#F5C34B]"></div>
+    <div class="w-1/5 border border-[#6BD68D]"></div>
+</div>
+<div class="zm-menus flex container border-b">
+    <div class="category-menu w-2/12">
+        <button data-dropdown-toggle="mega-menu-dropdown" class="flex items-center w-full py-2 pr-4 pt-4 pb-4 font-medium text-base">
+            <svg class="mr-2" width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="5" y="6" width="15" height="2" fill="#041E42"/>
+                <rect y="14" width="20" height="2" fill="#041E42"/>
+                <rect y="22" width="15" height="2" fill="#041E42"/>
+            </svg>
+            {{ __("Browse Categories") }}
+        </button>
+        <div id="mega-menu-dropdown" class="absolute z-10 hidden min-w-[200px] p-5 text-sm bg-white border border-gray-100 rounded-b shadow-md">
+            <ul class="space-y-4">
+                <li>
+                    <a href="#" class="hover:text-blue-600">
+                        About Us 111
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="hover:text-blue-600">
+                        About Us 222
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="hover:text-blue-600">
+                        About Us 333
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="main-menu w-6/12">
+        <div id="mega-menu" class="items-center justify-between w-full text-sm md:flex md:w-auto md:order-1">
+            <ul class="flex flex-col font-medium md:flex-row space-x-5 text-base -ml-2">
+                <li>
+                    <a href="#" class="block py-2 pl-3 pr-4 pt-4 pb-4 text-blue-600">Home</a>
+                </li>
+                <li>
+                    <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 pt-4 pb-4 font-medium">
+                        Company <svg aria-hidden="true" class="w-5 h-5 ml-1 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <div id="mega-menu-dropdown" class="absolute z-10 hidden min-w-[200px] p-5 text-sm bg-white border border-gray-100 rounded-b shadow-md">
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#" class="hover:text-blue-600">
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-600">
+                                    About Us
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:text-blue-600">
+                                    About Us
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="right-menu w-4/12">
+        xxxx
+    </div>
+</div>
 
 <!-- Main Header Nav For Mobile -->
 <div id="page" class="stylehome1 h0 bc-main-header-mobile " style="display:none">

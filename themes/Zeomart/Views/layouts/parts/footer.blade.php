@@ -1,5 +1,5 @@
 <div class="bc-newsletter mt-5 mb-5">
-    <div class="max-w-7xl m-auto">
+    <div class="container">
         <div class="bc-form-newsletter">
             <div class="text-center">
                 <div class="w-full text-[28px] mb-5">
@@ -25,7 +25,7 @@
         </div>
     </div>
 </div>
-<div class="max-w-7xl m-auto">
+<div class="container">
     <div class="py-10">
         <div class="flex flex-wrap">
             <div class="w-1/4">

@@ -5,7 +5,7 @@
                 <div class="item relative" data-background="{{ get_file_url($slide['image']?? false,'full') }}">
                     <img class="img-fluid" src="{{ get_file_url($slide['image'] ?? false,'full') }}" alt="{{strip_tags($slide['title'])}}">
                     <div class="bc-banner-content absolute top-0 left-0 bottom-0 right-0 ">
-                        <div class="flex items-center h-full m-auto max-w-7xl">
+                        <div class="flex items-center h-full container">
                             <div>
                                 <h5 class="text-sm p-1 px-2 bg-[#86F1DF] inline rounded mb-1">{{ $slide['sub_title'] }}</h5>
                                 <h3 class="text-5xl py-5 leading-tight">{!! clean($slide['title']) !!}</h3>

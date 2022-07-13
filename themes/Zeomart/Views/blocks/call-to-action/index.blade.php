@@ -1,5 +1,5 @@
 <div class="zm-call-to-action  py-10">
-    <div class="max-w-7xl m-auto">
+    <div class="container">
         <div class="relative">
             <div class="thumb">
                 <img src="{{ get_file_url($image , "full") }}" alt="{{ $title }}">

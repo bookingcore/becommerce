@@ -1,6 +1,6 @@
 @if(!empty($list_items))
     <section class="bc-promotions py-10">
-        <div class="max-w-7xl m-auto">
+        <div class="container">
             <div class="flex -ml-3.5 -mr-3.5">
                 @foreach($list_items as $key => $item)
                     <div class="w-2/6 pl-3.5 pr-3.5">

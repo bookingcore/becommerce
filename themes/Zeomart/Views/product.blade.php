@@ -9,7 +9,7 @@
     ?>
      @include('global.breadcrumb')
     <div class="bc-page--shop" id="shop-sidebar">
-        <div class="m-auto max-w-7xl">
+        <div class="container">
             @includeWhen(View::exists('product.layouts.layout-'.$layout), 'product.layouts.layout-'.$layout)
         </div>
     </div>
