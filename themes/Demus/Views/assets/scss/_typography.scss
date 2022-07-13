@@ -322,16 +322,14 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
     font-weight: 600;
     border: 1px solid var(--primary);
     background-color: var(--primary);
-    &:hover{
+    &:hover,&:focus{
         color: var(--primary);
-        background-color: #ffffff;
+        background-color: var(--background);
         border-color: var(--primary);
-    }
-    &:focus{
         box-shadow: none;
     }
     &.button-hover{
-        background-color: #ffffff;
+        background-color: var(--background);
         color: var(--primary);
         &:hover{
             background-color: var(--primary);
@@ -344,6 +342,7 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
     &.btn-small{
         padding: 8px 16px;
     }
+
 }
 
 .primary-color{

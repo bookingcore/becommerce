@@ -58,14 +58,14 @@ window.bc_number_format = function (number, decimals, dec_point, thousands_sep) 
             .join('0');
     }
     return s.join(dec);
-}
+};
 // dropdown
 $('.bc-dropdown .bc-dropdown-btn').on('click',function(){
     $(this).parent().closest('.bc-dropdown').toggleClass('show');
-})
+});
 $('.bc-dropdown .bc-close').on('click',function(){
     $(this).parent().closest('.bc-dropdown').removeClass('show');
-})
+});
 function ajax_error_to_string(e){
     if(typeof e.responseJSON !== 'undefined'){
         if(e.responseJSON.errors){
@@ -82,7 +82,7 @@ function ajax_error_to_string(e){
         }
     }
 }
-$('.bc-form-login').on('submit',function (e) {
+$('.axtronic-form-login').on('submit',function (e) {
     e.preventDefault();
     var form = $(this);
     var data = form.serialize()
@@ -133,10 +133,10 @@ $('.bc-form-login').on('submit',function (e) {
     });
     return false;
 });
-$('.bc-form-register').on('submit',function (e) {
+$('.axtronic-form-register').on('submit',function (e) {
     e.preventDefault();
     let form = $(this);
-    var data = form.serialize()
+    var data = form.serialize();
     $.ajax({
         'url':  BC.routes.register,
         'data': data,
@@ -147,7 +147,7 @@ $('.bc-form-register').on('submit',function (e) {
             form.find('.icon-loading').css("display", 'inline-block');
         },
         success: function (data) {
-            form.removeClass('loading')
+            form.removeClass('loading');
             form.find('.icon-loading').hide();
             if(typeof data =='undefined') return;
             if (data.error === true) {
@@ -174,13 +174,13 @@ window.bravo_handle_error_response = function(e){
     switch (e.status) {
         case 401:
             // not logged in
-            $('#login').modal('show');
+            $('.site-user-side').toggleClass('active');
             break;
     }
 };
 // Cart
 
-$('.bc_form_add_to_cart').on('submit',function(e){
+$('.axtronic_form_add_to_cart').on('submit',function(e){
     e.preventDefault();
     var me = $(this);
     me.addClass('loading');
@@ -196,9 +196,10 @@ $('.bc_form_add_to_cart').on('submit',function(e){
                     $(k).html(json.fragments[k]);
                 }
             }
-            if(json.url){
+            if(json.status === 1){
                 window.location.href = json.url;
             }
+            console.log(json);
             if(json.message){
                 BCApp.showAjaxMessage(json);
             }
@@ -208,8 +209,8 @@ $('.bc_form_add_to_cart').on('submit',function(e){
             me.removeClass('loading');
         }
     })
-})
-$(document).on('click','.bc_delete_cart_item',function(e){
+});
+$(document).on('click','.axtronic_delete_cart_item',function(e){
     e.preventDefault();
     var c = confirm("Do you want to delete this cart item?");
     if(!c) return;
@@ -242,7 +243,6 @@ $(document).on('click','.bc_delete_cart_item',function(e){
             if(typeof removeElement !='undefined'){
                 me.closest(removeElement).remove();
             }
-
         },
         error:function(err){
             bravo_handle_error_response(err);
@@ -365,7 +365,7 @@ jQuery(function ($) {
 
     var onSubmitSubscribe = false;
     //Subscribe box
-    $('.bc-subscribe-form').submit(function (e) {
+    $('.axtronic-subscribe-form').submit(function (e) {
         e.preventDefault();
 
         if (onSubmitSubscribe) return;
@@ -393,7 +393,7 @@ jQuery(function ($) {
 
             },
             error: function (e) {
-                console.log(e);
+                // console.log(e);
                 onSubmitSubscribe = false;
                 me.removeClass('loading');
 
@@ -410,7 +410,7 @@ jQuery(function ($) {
         return false;
     });
 
-    $('.bc-product-quick-view').on('click',function (e) {
+    $('.axtronic-product-quick-view').on('click',function (e) {
         e.preventDefault();
         let $this = $(this);
         let product = $(this).data('product');
@@ -434,73 +434,9 @@ jQuery(function ($) {
         })
     });
 
-    $(".bc_form_filter input[type=checkbox],.bc_form_filter select[name=sort]").change(function () {
-        $(this).closest(".bc_form_filter").submit();
+    $(".axtronic_form_filter input[type=checkbox],.axtronic_form_filter select[name=sort]").change(function () {
+        $(this).closest(".axtronic_form_filter").submit();
     });
-
-    $(".bc-carousel").each(function() {
-        var elelemnt = $(this),
-            dataAuto = elelemnt.data('owl-auto'),
-            dataLoop = elelemnt.data('owl-loop'),
-            dataSpeed = elelemnt.data('owl-speed'),
-            dataGap = elelemnt.data('owl-gap'),
-            dataNav = elelemnt.data('owl-nav'),
-            dataDots = elelemnt.data('owl-dots'),
-            dataAnimateIn = elelemnt.data('owl-animate-in') ? elelemnt.data('owl-animate-in') : '',
-            dataAnimateOut = elelemnt.data('owl-animate-out') ? elelemnt.data('owl-animate-out') : '',
-            dataDefaultItem = elelemnt.data('owl-item'),
-            dataItemXS = elelemnt.data('owl-item-xs'),
-            dataItemSM = elelemnt.data('owl-item-sm'),
-            dataItemMD = elelemnt.data('owl-item-md'),
-            dataItemLG = elelemnt.data('owl-item-lg'),
-            dataItemXL = elelemnt.data('owl-item-xl'),
-            dataNavLeft = elelemnt.data('owl-nav-left') ? elelemnt.data('owl-nav-left') : '<i class="fa fa-angle-left"></i>',
-            dataNavRight = elelemnt.data('owl-nav-right') ? elelemnt.data('owl-nav-right') : '<i class="fa fa-angle-right"></i>',
-            duration = elelemnt.data('owl-duration'),
-            datamouseDrag = elelemnt.data('owl-mousedrag') == 'on' ? true : false;
-
-        elelemnt.addClass('owl-carousel').owlCarousel({
-            animateIn: dataAnimateIn,
-            animateOut: dataAnimateOut,
-            margin: dataGap,
-            autoplay: dataAuto,
-            autoplayTimeout: dataSpeed,
-            autoplayHoverPause: true,
-            loop: dataLoop,
-            nav: dataNav,
-            mouseDrag: datamouseDrag,
-            touchDrag: true,
-            autoplaySpeed: duration,
-            navSpeed: duration,
-            dotsSpeed: duration,
-            dragEndSpeed: duration,
-            navText: [dataNavLeft, dataNavRight],
-            dots: dataDots,
-            items: dataDefaultItem,
-            rtl: false,
-            responsive: {
-                0: {
-                    items: dataItemXS,
-                },
-                480: {
-                    items: dataItemSM,
-                },
-                768: {
-                    items: dataItemMD,
-                },
-                992: {
-                    items: dataItemLG,
-                },
-                1200: {
-                    items: dataItemXL,
-                },
-                1680: {
-                    items: dataDefaultItem,
-                },
-            },
-        });
-    });
-
 
     var nonLinearSlider = document.getElementById('nonlinear');
     if (typeof nonLinearSlider != 'undefined' && nonLinearSlider != null) {
@@ -520,15 +456,14 @@ jQuery(function ($) {
         });
 
         nonLinearSlider.noUiSlider.on('update', function(values, handle) {
-            $(".bc-slider-price .slider-min").html(  Math.round(values[0]) );
-            $(".bc-slider-price .slider-max").html(  Math.round(values[1]) );
-            $(".bc-slider-price input[name=min_price]").val(  Math.round(values[0]) );
-            $(".bc-slider-price input[name=max_price]").val(  Math.round(values[1]) );
+            $(".axtronic-slider-price .slider-min").html(  Math.round(values[0]) );
+            $(".axtronic-slider-price .slider-max").html(  Math.round(values[1]) );
+            $(".axtronic-slider-price input[name=min_price]").val(  Math.round(values[0]) );
+            $(".axtronic-slider-price input[name=max_price]").val(  Math.round(values[1]) );
         });
     }
 
-    $(document).on("click",".service-wishlist",function(e){
-        e.preventDefault();
+    $(document).on("click",".service-wishlist",function(){
         var $this = $(this);
         $.ajax({
             url:  BC.url+'/user/wishlist',
@@ -544,6 +479,8 @@ jQuery(function ($) {
             success: function (res) {
                 if(res.status){
                     $this.toggleClass('active');
+                    $this.removeClass("loading");
+                    // $('.site-wishlist-side').toggleClass('active');
                 }
                 if(res.fragments){
                     for(var k in res.fragments){
@@ -553,7 +490,7 @@ jQuery(function ($) {
             },
             error:function (e) {
                 if(e.status === 401){
-                    $('#login').modal('show');
+                    $('.site-user-side').toggleClass('active');
                 }
             }
         })
@@ -561,76 +498,8 @@ jQuery(function ($) {
 
 });
 
-$('.bc-product-detail').each(function () {
-    var product = $(this);
-    var primary = product.find('.bc-product_gallery'),
-        second = product.find('.bc-product_variants'),
-        vertical = product
-            .find('.bc-product_thumbnail')
-            .data('vertical');
-    primary.slick({
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        asNavFor: '.bc-product_variants',
-        fade: true,
-        dots: false,
-        infinite: false,
-        arrows: primary.data('arrow'),
-        prevArrow: "<a href='#'><i class='fa fa-angle-left'></i></a>",
-        nextArrow: "<a href='#'><i class='fa fa-angle-right'></i></a>",
-    });
-    second.slick({
-        slidesToShow: second.data('item'),
-        slidesToScroll: 1,
-        infinite: false,
-        arrows: second.data('arrow'),
-        focusOnSelect: true,
-        prevArrow: "<a href='#'><i class='fa fa-angle-up'></i></a>",
-        nextArrow: "<a href='#'><i class='fa fa-angle-down'></i></a>",
-        asNavFor: '.bc-product_gallery',
-        vertical: vertical,
-        responsive: [
-            {
-                breakpoint: 1200,
-                settings: {
-                    arrows: second.data('arrow'),
-                    slidesToShow: 4,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    arrows: second.data('arrow'),
-                    slidesToShow: 4,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-            {
-                breakpoint: 480,
-                settings: {
-                    slidesToShow: 3,
-                    vertical: false,
-                    prevArrow:
-                        "<a href='#'><i class='fa fa-angle-left'></i></a>",
-                    nextArrow:
-                        "<a href='#'><i class='fa fa-angle-right'></i></a>",
-                },
-            },
-        ],
-    });
-})
-
 //Review
-$('.review-form .review-items .rates .fa').each(function () {
+$('.review-form .review-items .rates i').each(function () {
     var list = $(this).parent(),
         listItems = list.children(),
         itemIndex = $(this).index(),
@@ -638,7 +507,7 @@ $('.review-form .review-items .rates .fa').each(function () {
     $(this).hover(function () {
         for (var i = 0; i < listItems.length; i++) {
             if (i <= itemIndex) {
-                $(listItems[i]).addClass('c-main');
+                $(listItems[i]).addClass('primary-color');
             } else {
                 break;
             }
@@ -646,15 +515,15 @@ $('.review-form .review-items .rates .fa').each(function () {
         $(this).on('click',function () {
             for (var i = 0; i < listItems.length; i++) {
                 if (i <= itemIndex) {
-                    $(listItems[i]).addClass('c-fcb800');
+                    $(listItems[i]).addClass('primary-color-hover');
                 } else {
-                    $(listItems[i]).removeClass('c-fcb800');
+                    $(listItems[i]).removeClass('primary-color-hover');
                 }
             }
             parentItem.children('.review_stats').val(itemIndex + 1);
         });
     }, function () {
-        listItems.removeClass('c-main');
+        listItems.removeClass('primary-color');
     });
 });
 
@@ -669,7 +538,7 @@ jQuery(function ($) {
         return html;
     }
     var onSubmitContact = false;
-    $('.bc-contact-block').submit(function(e) {
+    $('.axtronic-contact-block').submit(function(e) {
         e.preventDefault();
         if (onSubmitContact)
             return;
@@ -693,7 +562,7 @@ jQuery(function ($) {
                 }
             },
             error: function(e) {
-                console.log(e);
+                // console.log(e);
                 onSubmitContact = false;
                 me.removeClass('loading');
                 if (parseErrorMessage(e)) {
@@ -706,9 +575,6 @@ jQuery(function ($) {
         return false;
     });
 
-
-
-
     var compare_box = $('.bravo_compare_box').modal();
 
     var compare_count = $('.bc-compare-count .number');
@@ -720,7 +586,7 @@ jQuery(function ($) {
         compare_box.modal("hide");
     });
 
-    $(document).on('click','.bc-compare',function (e) {
+    $(document).on('click','.axtronic-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
@@ -742,7 +608,7 @@ jQuery(function ($) {
             })
         }
     })
-    $(document).on('click','.bc-remove-compare',function (e) {
+    $(document).on('click','.axtronic-remove-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
@@ -763,34 +629,34 @@ jQuery(function ($) {
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
-
-    $(document).on('click','.bc-product-variations .item-disable',function (e) {
-        $('.bc-product-variations input').prop('checked', false);
-        $(this).find('input').prop('checked', true);
-        $('.bc-product-variations .item-disable').removeClass("item-disable");
-        $('.bc-product-variations input').trigger('change');
     });
 
-    $('.bc-product-variations input').on('change', function() {
+    $(document).on('click','.axtronic-product-variations .item-disable',function (e) {
+        $('.axtronic-product-variations input').prop('checked', false);
+        $(this).find('input').prop('checked', true);
+        $('.axtronic-product-variations .item-disable').removeClass("item-disable");
+        $('.axtronic-product-variations input').trigger('change');
+    });
 
-        $('.bc-product-variations .item').removeClass("item-active");
+    $('.axtronic-product-variations input').on('change', function() {
+
+        $('.axtronic-product-variations .axtronic-checkbox').removeClass("item-active");
         var list_attribute_selected = [];
-        $('.item-attribute:checked', '.bc-product-variations').each(function () {
+        $('.item-attribute:checked', '.axtronic-product-variations').each(function () {
             list_attribute_selected.push( parseInt( $(this).val() ));
-            $(this).closest(".item").addClass("item-active");
+            $(this).closest(".axtronic-checkbox").addClass("item-active");
         });
 
         // Find variation ID
-        var list_variations = JSON.parse( $('.bc_variations').val() );
+        var list_variations = JSON.parse( $('.axtronic_variations').val() );
         var variation_id = '';
         var variation_selected = '';
         for (var id in list_variations){
             var variation = list_variations[id];
             var terms = [];
-             for(var id2 in variation['terms']){
+            for(var id2 in variation['terms']){
                 var term = variation['terms'][id2];
-                 terms.push( term.id );
+                terms.push( term.id );
             }
             let intersection = terms.filter(x => !list_attribute_selected.includes(x));
             if(intersection == ""){
@@ -798,31 +664,29 @@ jQuery(function ($) {
                 variation_selected = variation['variation'];
             }
         }
-        console.log("Variation_id:" + variation_id);
-        $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
+        $('.axtronic-product-variations input[name=variation_id]').attr("value",variation_id);
         // For show SKU PRICE IMAGE
         if(variation_selected !== ""){
-            $('.bc-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
-            $('.bc-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
+            $('.axtronic-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
+            $('.axtronic-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
             if(variation_selected.is_manage_stock){
-                $('.bc-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
-                $(".bc_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
-                if($(".bc_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
-                    $(".bc_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
+                $('.axtronic-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+                $(".axtronic_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
+                if($(".axtronic_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
+                    $(".axtronic_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
                 }
             }else{
-                $('.bc-product-variations .quantity').addClass("d-none");
-                $(".bc_form_add_to_cart input[name=quantity]").removeAttr('max');
+                $('.axtronic-product-variations .quantity').addClass("d-none");
             }
             if(variation_selected.image){
-                var old = $(".bc-product_thumbnail .item-0 img").attr("src");
-                $(".bc-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
+                var old = $(".axtronic-product_thumbnail .item-0 img").attr("src");
+                $(".axtronic-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
             }
         }else{
-            if($(".bc-product_thumbnail .item-0 img").attr("data-old")){
-                $(".bc-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
+            if($(".axtronic-product_thumbnail .item-0 img").attr("data-old")){
+                $(".axtronic-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
             }
-            $('.bc-product-variations .price,.bc-product-variations .sku,.bc-product-variations .quantity').addClass('d-none');
+            $('.axtronic-product-variations .price,.axtronic-product-variations .sku,.axtronic-product-variations .quantity').addClass('d-none');
         }
         // Check show - hidden attribute
         var list_atttributes = [];
@@ -838,7 +702,7 @@ jQuery(function ($) {
                 list_atttributes = list_atttributes.concat(cache);
             }
         }
-        $('.bc-product-variations .item-attribute').each(function () {
+        $('.axtronic-product-variations .item-attribute').each(function () {
             var check = false;
             for ( var id in list_atttributes ){
                 if(  $(this).val() == list_atttributes[id] ){
@@ -846,7 +710,7 @@ jQuery(function ($) {
                 }
             }
             if(!check){
-                $(this).closest(".item").addClass("item-disable");
+                $(this).closest(".axtronic-checkbox").addClass("item-disable");
             }
         });
     });
@@ -856,5 +720,418 @@ jQuery(function ($) {
         if(!c){
             return false;
         }
+    });
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        var sPageURL = window.location.search.substring(1),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+            }
+        }
+        return false;
+    };
+
+    let param = getUrlParameter('layout');
+    if (param === 'list'){
+        $('.axtronic-products').addClass('product-lists');
+        $('.axtronic-products').removeClass('products');
+        $('.gridlist-toggle .list').addClass('active');
+        $('.gridlist-toggle .grid').removeClass('active');
+    }else {
+        $('.gridlist-toggle .grid').addClass('active');
+        $('.gridlist-toggle .list').removeClass('active');
+    }
+
+    // lấy đường dẫn
+    var url = window.location.href;
+    // lấy chuỗi biến
+    var str = url.split('?');
+
+    if (str.length === 1) // không có biến active mặc định
+    {
+    }
+    else {
+        var arrBien = str[1].split('&');
+        for (var i = 0; i < arrBien.length ; i++) {
+            // tên biến
+            var TenBien = arrBien[i].split('=')[0];
+            // giá trị
+            var Bien = arrBien[i].split('=')[1];
+
+            if (TenBien === 'tag') {
+                $('.wiget-tag a').removeClass("active");
+                $('.wiget-tag a[data-tag=' + Bien + ']').addClass("active");
+            }
+        }
+    }
+
+    // Show/Hide Canvas right
+    $(document).on('click','.cart-contents',function (e) {
+        e.preventDefault();
+        $('.site-cart-side').toggleClass('active');
+    });
+    $('.close-cart-side,.cart-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-cart-side').removeClass('active');
+    });
+
+    $(document).on('click','.user-contents',function (e) {
+        e.preventDefault();
+        $('.site-user-side').toggleClass('active');
     })
+    $('.close-user-side,.user-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-user-side').removeClass('active');
+    });
+
+    $(document).on('click','.wishlist-contents',function (e) {
+        e.preventDefault();
+        $('.site-wishlist-side').toggleClass('active');
+    })
+    $('.close-wishlist-side,.wishlist-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-wishlist-side').removeClass('active');
+    });
+
+    $(document).on('click','.menu-mobile-nav-button',function (e) {
+        e.preventDefault();
+        $('.site-menu-side').toggleClass('active');
+    });
+    $('.close-menu-side,.menu-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-menu-side').removeClass('active');
+    });
+
+    $(document).on('click','.notifications-contents',function (e) {
+        e.preventDefault();
+        $('.site-notifications-side').toggleClass('active');
+    })
+    $('.close-notifications-side,.notifications-side-overlay').on('click', function (e) {
+        e.preventDefault();
+        $('.site-notifications-side').removeClass('active');
+    });
+
+
+    var $container = $('.side-account-form-wrap');
+    $('.register-link', $container).on('click', function(e){
+        e.preventDefault();
+        $container.find('.form-register').addClass('active');
+        $container.find('.form-login').removeClass('active');
+        $container.find('.form-lost-password').removeClass('active');
+    });
+    $('.lostpass-link', $container).on('click', function(e){
+        e.preventDefault();
+        $container.find('.form-lost-password').addClass('active');
+        $container.find('.form-login').removeClass('active');
+        $container.find('.form-register').removeClass('active');
+    });
+    $('.login-link', $container).on('click', function(e){
+        e.preventDefault();
+        $container.find('.form-login').addClass('active');
+        $container.find('.form-lost-password').removeClass('active');
+        $container.find('.form-register').removeClass('active');
+    });
+
+    $('.mobile-nav-tabs li').on('click', function () {
+        if ($(this).hasClass('active')) return;
+        var menuName = $(this).data('menu');
+        $(this).parent().find('.active').removeClass('active');
+        $(this).addClass('active');
+        $('.mobile-menu-tab').removeClass('active');
+        $('.mobile-' + menuName + '-menu').addClass('active');
+    });
+
+
 });
+
+/// Home page Slider Swiper
+if(typeof Swiper !== 'undefined') {
+    const swiperBannerSlider = new Swiper('.banner-slider', {
+        // Optional parameters
+        loop: true,
+        effect: "fade",
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: true,
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+
+        // Navigation arrowsss
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    const swiperSliderIcon = new Swiper('.swiper-slider-icon-1', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 16,
+        autoplay: false,
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 6
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+    const swiperSliderIcon2 = new Swiper('.swiper-slider-icon-2', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 16,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 6
+            },
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+
+    });
+    const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 1,
+            },
+            1024: {
+                slidesPerView: 3
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    const swiperSliderNews = new Swiper('.swiper-slider-news', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            768: {
+                slidesPerView: 1,
+            },
+            1024: {
+                slidesPerView: 3
+            },
+        },
+        // If we need pagination
+        pagination: {
+            clickable: true,
+            el: '.swiper-pagination',
+
+        },
+    });
+    const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 6
+            },
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 6
+            },
+        },
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        // Navigation arrows
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+
+    const swiperProductSlider = new Swiper('.product-slider', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination-slider',
+            clickable: true,
+        },
+    });
+
+    const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
+        // Optional parameters
+        loop: true,
+        cssMode: true,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 4
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+
+    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+        spaceBetween: 10,
+        slidesPerView: 4,
+        freeMode: true,
+        watchSlidesProgress: true,
+    });
+    const swiperProductthumbs = new Swiper(".swiper-product-gallery", {
+        spaceBetween: 10,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        thumbs: {
+            swiper: swiperProductGallery,
+        },
+    });
+
+    const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
+        // Optional parameters
+        loop: false,
+        cssMode: false,
+        spaceBetween: 30,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 3,
+            },
+            1024: {
+                slidesPerView: 5
+            },
+        },
+        // If we need pagination
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+        },
+    });
+}
+// Onchange Select Category Product Search Header
+function getName(select) {
+    // And here we get the name
+    var selectedOption = select.options[select.selectedIndex];
+    document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
+}
+var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
+if(name && name !== 'undefined'){
+    $('#product-cat-name').html(name)
+}else {
+    $('#product-cat-name').html('All Category')
+}
+

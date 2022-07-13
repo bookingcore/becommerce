@@ -59,14 +59,14 @@
 				}
 				$class.=' depth-'.($depth);
 				printf('<li class="nav-item %s">', $class);
-				$class_link = "nav-link ps-0 pe-4 ";
+				$class_link = "nav-link ";
 				if ($depth != 0) {
                     $class_link = "dropdown-item ";
 				}
                 if (!empty($item['children'])) {
                     $class_link .= "dropdown-toggle ";
                 }
-				printf('<a class="%s c-000000 py-2" target="%s" href="%s" %s>%s </a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
+				printf('<a class="%s" target="%s" href="%s" %s><span>%s</span></a>',$class_link, e($item['target']), e($url) , $toggle , clean($item['name']));
 				if (!empty($item['children'])) {
 					echo '<ul class="dropdown-menu">';
 					echo $html;

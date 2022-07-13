@@ -17,8 +17,9 @@
                         <label>{{__("Header Style")}}</label>
                         <div class="form-controls">
                             <select name="demus_header_style" class="form-control">
-                                <option @if("1" == (setting_item('demus_header_style') ?? '') ) selected @endif value="1">{{__("Style 1")}}</option>
-                                <option @if("2" == (setting_item('demus_header_style') ?? '') ) selected @endif value="2">{{__("Style 2")}}</option>
+                                <option @if("normal" == (setting_item('demus_header_style') ?? '') ) selected @endif value="normal">{{__("Normal")}}</option>
+                                <option @if("style_1" == (setting_item('demus_header_style') ?? '') ) selected @endif value="style_1">{{__("Style 1")}}</option>
+                                <option @if("style_2" == (setting_item('demus_header_style') ?? '') ) selected @endif value="style_2">{{__("Style 2")}}</option>
                             </select>
                         </div>
                     </div>

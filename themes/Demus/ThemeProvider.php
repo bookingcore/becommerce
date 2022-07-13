@@ -45,6 +45,9 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         if($request->input('save_header_style')){
             $row->addMeta("header_style",$request->input('header_style'));
         }
+        if($request->input('save_header_width')){
+            $row->addMeta("header_width",$request->input('header_width'));
+        }
         if($request->input('save_footer_style')){
             $row->addMeta("footer_style",$request->input('footer_style'));
         }
@@ -76,6 +79,7 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
             "keys"      => [
                 'demus_logo_dark',
                 'demus_header_style',
+                'demus_header_width',
                 'demus_footer_style',
                 'demus_footer_bg_image',
                 'demus_hotline_contact',
