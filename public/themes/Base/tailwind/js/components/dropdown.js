@@ -19,7 +19,8 @@ class Dropdown {
 
     _init() {
         if (this._triggerEl) {
-            this._triggerEl.addEventListener('click', () => {
+            this._triggerEl.addEventListener('click', (event) => {
+                event.preventDefault()
                 this.toggle()
             })
         }
