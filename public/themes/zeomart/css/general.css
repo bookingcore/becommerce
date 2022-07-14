@@ -79,3 +79,6 @@ body{
     height: 10px;
     display: inline-block;
 }
+input,select{
+    box-shadow: none !important;
+}

@@ -9,7 +9,7 @@ if(!isset($current_cat)) $current_cat = null;
         <form action="{{route('product.index')}}" method="get" class="form-search bg-[#F5F8FA] rounded-full overflow-hidden ">
             <div class="flex">
                 <div class="w-3/5">
-                    <input name="s" class="w-full border-0 bg-transparent padding pl-8 pr-5 py-3 text-sm" type="text" placeholder="{{ __("Search products ...") }}" value="{{ request()->input("s") }}">
+                    <input name="s" class="w-full border-0 bg-transparent padding pl-8 pr-5 py-3 text-sm !shadow-transparent" type="text" placeholder="{{ __("Search products ...") }}" value="{{ request()->input("s") }}">
                 </div>
                 <div class="w-2/5 flex items-center justify-end">
                     <div class="line w-px h-3/5 bg-slate-300 mt-1 mb-1"></div>

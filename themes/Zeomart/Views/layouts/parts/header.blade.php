@@ -28,10 +28,10 @@
                 </a>
             </div>
         </div>
-        <div class="search w-6/12">
+        <div class="search w-7/12 ">
             @include('layouts.parts.header.search')
         </div>
-        <div class="user-cart-wishlist flex justify-end w-4/12 text-base font-medium">
+        <div class="user-cart-wishlist flex justify-end w-3/12 text-base font-medium">
             @if(!Auth::user())
                 <div class="ml-5">
                     <a href="#" class="flex items-center" data-modal-toggle="be-login">
@@ -89,46 +89,22 @@
     <div class="w-1/5 border border-[#F5C34B]"></div>
     <div class="w-1/5 border border-[#6BD68D]"></div>
 </div>
-<div class="zm-menus flex container border-b">
-    <div class="category-menu w-2/12">
-        <button data-dropdown-toggle="mega-menu-dropdown" class="flex items-center w-full py-2 pr-4 pt-4 pb-4 font-medium text-base">
-            <svg class="mr-2" width="25" height="25" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="5" y="6" width="15" height="2" fill="#041E42"/>
-                <rect y="14" width="20" height="2" fill="#041E42"/>
-                <rect y="22" width="15" height="2" fill="#041E42"/>
-            </svg>
-            {{ __("Browse Categories") }}
-        </button>
-        <div id="mega-menu-dropdown" class="absolute z-10 hidden min-w-[200px] p-5 text-sm bg-white border border-gray-100 rounded-b shadow-md">
-            <ul class="space-y-4">
-                <li>
-                    <a href="#" class="block hover:text-blue-600">
-                        About Us 111
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="hover:text-blue-600">
-                        About Us 222
-                    </a>
-                </li>
-                <li>
-                    <a href="#" class="hover:text-blue-600">
-                        About Us 333
-                    </a>
-                </li>
-            </ul>
+<div class="zm-menus border-b">
+    <div class="container flex">
+        <div class="category-menu w-2/12">
+            @include('layouts.parts.header.department')
         </div>
-    </div>
-    <div class="main-menu w-6/12">
-        <div class="items-center justify-between w-full text-sm md:flex md:w-auto md:order-1">
-            @php generate_menu('primary',['walker'=>'\\Themes\\Zeomart\\Walkers\\MenuWalker','id'=>'zeomart-menu-mobile']) @endphp
+        <div class="main-menu w-6/12">
+            <div class="items-center justify-between w-full text-sm md:flex md:w-auto md:order-1">
+                @php generate_menu('primary',['walker'=>'\\Themes\\Zeomart\\Walkers\\MenuWalker','id'=>'zeomart-menu-mobile']) @endphp
+            </div>
         </div>
-    </div>
-    <div class="right-menu w-4/12 flex items-center justify-end py-2 pt-4 pb-4 font-medium text-base">
-        <a href="" class="ml-4">Deal of the Day</a>
-        <a href="" class="ml-4">Hot Deals</a>
-        <a href="" class="ml-4">Best Sellers</a>
-        <a href="" class="ml-4">New Arrivals</a>
+        <div class="right-menu w-4/12 flex items-center justify-end py-2 pt-4 pb-4 font-medium text-base">
+            <a href="" class="ml-4">Deal of the Day</a>
+            <a href="" class="ml-4">Hot Deals</a>
+            <a href="" class="ml-4">Best Sellers</a>
+            <a href="" class="ml-4">New Arrivals</a>
+        </div>
     </div>
 </div>
 
