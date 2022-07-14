@@ -4,9 +4,6 @@
             @include("product.sidebar")
         </div>
         <div class="w-full lg:w-3/4">
-            <div class="border-slate-300 border-b pt-5 pb-5">
-                <h1 class="text-3xl">{{__("Product")}}</h1>
-            </div>
             @include("product.search.header")
             <div class="mt-6 grid lg:grid-cols-4 border border-slate-200 border-r-0 border-b-0">
                 @if($rows->total())

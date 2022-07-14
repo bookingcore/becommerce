@@ -3,7 +3,7 @@ $translation = $row->translate();
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="bc-loop-product relative border h-full p-4 {{$class ?? ""}} group overflow-hidden">
+<div class="bc-loop-product relative h-full {{$class ?? ""}} group overflow-hidden">
     <div class="mb-5">
         <a href="{{$row->getDetailUrl()}}" class="mi-h-230 relative overflow-hidden block">
             {!! get_image_tag($row->image_id,'medium',['alt'=>$translation->title,'class'=>'w-full']) !!}

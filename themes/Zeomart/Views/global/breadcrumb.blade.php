@@ -1,5 +1,6 @@
 @if(!empty($breadcrumbs))
     <!-- Breadcrumb -->
+    <div class="container">
     <nav class="bc-breadcrumb flex px-5 py-3 " aria-label="Breadcrumb">
         <ol class="inline-flex items-center space-x-1 md:space-x-3">
             <li class="inline-flex items-center">
@@ -23,5 +24,6 @@
             @endforeach
         </ol>
     </nav>
+    </div>
 @endif
 
