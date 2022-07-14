@@ -1,22 +1,25 @@
-<div class="rounded border border-gray-200 p-8 mb-3">
-
-    <ul id="gatewayList" class="list-unstyled">
+@if(!empty($gateways))
+    <div id="accordion-collapse" data-accordion="collapse" class="border border-gray-200 rounded p-8" data-active-classes="bg-none">
+        <h2 class="title font-semibold mb-3 text-lg bg-none">{{__("Payment information")}}</h2>
         @foreach($gateways as $k=>$gateway)
-            <li>
-                <div class="radio-option radio-box">
-                    <input type="radio" name="payment_gateway" value="{{$k}}" id="payment-{{$k}}">
-                    <label for="payment-{{$k}}" data-bs-toggle="collapse" data-bs-target="#paymentHtml{{$k}}" aria-expanded="false" aria-controls="#paymentHtml{{$k}}">
-                        @if($logo = $gateway->getDisplayLogo())
-                            <img src="{{$logo}}" alt="{{$gateway->getDisplayName()}}">
-                        @endif
-                        {{$gateway->getDisplayName()}}
+            <div class="accordion-item border-0 border-b border-gray-200 last:border-b-0">
+                <div class="flex items-center">
+                    <input id="{{$k}}" name="payment_gateway" value="{{$k}}" type="radio" class="form-check-input mr-2 " required="">
+                    <label id="accordion-collapse-heading-{{$k}}" class="form-check-label  w-full  py-5 font-medium text-left text-gray-500    hover:cursor-pointer"
+                           data-accordion-target="#accordion-collapse-body-{{$k}}" aria-controls="accordion-collapse-body-{{$k}}" for="{{$k}}">
+                        <span>{{$gateway->getDisplayName() ?? ''}}</span>
                     </label>
-                    <div id="paymentHtml{{$k}}" class="gateway_html collapse" data-bs-parent="#gatewayList">
+                </div>
+
+                <div id="accordion-collapse-body-{{$k}}" class="hidden" aria-labelledby="accordion-collapse-heading-{{$k}}">
+                    <div class="py-3">
+                        Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.
                         {!! $gateway->getDisplayHtml() !!}
                     </div>
                 </div>
-            </li>
+            </div>
         @endforeach
-    </ul>
-    <span class="input-error payment_gateway"></span>
-</div>
+    </div>
+    <div class="input-error text-red-400 my-3 payment_gateway">
+    </div>
+@endif

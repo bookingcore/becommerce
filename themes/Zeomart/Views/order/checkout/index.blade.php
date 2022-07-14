@@ -19,12 +19,11 @@
                         <div class="payment-box">
                             <div class="payment-options">
                                 @include ('order.checkout.payment')
-                                <hr>
                                 @php
                                     $term_conditions = setting_item('booking_term_conditions');
                                 @endphp
 
-                                <div class="form-group mb-4">
+                                <div class="form-group my-4">
                                     <label class="term-conditions-checkbox">
                                         <input type="checkbox" name="term_conditions"> {{__('I have read and accept the')}}  <a target="_blank" href="{{get_page_url($term_conditions)}}">{{__('terms and conditions')}}</a>
                                     </label>
@@ -35,7 +34,7 @@
                                     </div>
                                 @endif
                                 <div class="html_before_actions"></div>
-                                <p class="alert mt-1" v-show=" message.content" v-html="message.content" :class="{'alert-danger':!message.type,'alert-success':message.type}"></p>
+                                <p class="alert text-red-400 mt-1" v-show=" message.content" v-html="message.content" :class="{'alert-danger':!message.type,'alert-success':message.type}"></p>
 
                                 <div class="ui_kit_button payment_widget_btn">
                                     <button type="button" class="rounded font-medium inline-block w-full mt-4 py-4 text-center bg-yellow-400 hover:bg-yellow-500" @click="doCheckout">{{__('PLACE ORDER')}}
