@@ -102,7 +102,7 @@
         <div id="mega-menu-dropdown" class="absolute z-10 hidden min-w-[200px] p-5 text-sm bg-white border border-gray-100 rounded-b shadow-md">
             <ul class="space-y-4">
                 <li>
-                    <a href="#" class="hover:text-blue-600">
+                    <a href="#" class="block hover:text-blue-600">
                         About Us 111
                     </a>
                 </li>
@@ -120,36 +120,8 @@
         </div>
     </div>
     <div class="main-menu w-6/12">
-        <div id="mega-menu" class="items-center justify-between w-full text-sm md:flex md:w-auto md:order-1">
-            <ul class="flex flex-col font-medium md:flex-row space-x-5 text-base -ml-2">
-                <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 pt-4 pb-4 text-blue-600">Home</a>
-                </li>
-                <li>
-                    <button id="mega-menu-dropdown-button" data-dropdown-toggle="mega-menu-dropdown" class="flex items-center justify-between w-full py-2 pl-3 pr-4 pt-4 pb-4 font-medium">
-                        Company <svg aria-hidden="true" class="w-5 h-5 ml-1 md:w-4 md:h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                    </button>
-                    <div id="mega-menu-dropdown" class="absolute z-10 hidden min-w-[200px] p-5 text-sm bg-white border border-gray-100 rounded-b shadow-md">
-                        <ul class="space-y-4">
-                            <li>
-                                <a href="#" class="hover:text-blue-600">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-blue-600">
-                                    About Us
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#" class="hover:text-blue-600">
-                                    About Us
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
+        <div class="items-center justify-between w-full text-sm md:flex md:w-auto md:order-1">
+            @php generate_menu('primary',['walker'=>'\\Themes\\Zeomart\\Walkers\\MenuWalker','id'=>'zeomart-menu-mobile']) @endphp
         </div>
     </div>
     <div class="right-menu w-4/12 flex items-center justify-end py-2 pt-4 pb-4 font-medium text-base">
