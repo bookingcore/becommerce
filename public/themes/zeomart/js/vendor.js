@@ -1,8 +1,8 @@
-import Modal from '../../Base/tailwind/js/components/modal'
-import Tab from '../../Base/tailwind/js/components/tab'
-import BCToast from '../../Base/tailwind/js/components/toast'
-import Dismiss from '../../Base/tailwind/js/components/dismiss'
-import Accordion from '../../Base/tailwind/js/components/accordion'
+import Modal from '../tailwind/js/components/modal'
+import Tab from '../tailwind/js/components/tab'
+import BCToast from '../tailwind/js/components/toast'
+import Dismiss from '../tailwind/js/components/dismiss'
+import Accordion from '../tailwind/js/components/accordion'
 
 require('../../../js/condition');
 require('./_tab');
