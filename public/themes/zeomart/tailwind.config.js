@@ -6,8 +6,9 @@ module.exports = {
         "../../../modules/Media/Views/**/*.blade.php",
         "../../../modules/Media/Helpers/FileHelper.php",
         "../../../modules/Core/Views/admin/seo-meta/**/*.blade.php",
-        "../Base/tailwind/**/*.js",
+        "./tailwind/**/*.js",
         "./js/**/*.vue",
+        "../../../themes/Zeomart/Walkers/DepartmentMenuWalker.php"
     ],
     theme: {
         extend: {

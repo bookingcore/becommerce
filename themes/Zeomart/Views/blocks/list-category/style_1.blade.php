@@ -15,12 +15,12 @@
                             $translate = $item_cat->translate(app()->getLocale());
                             $page_search = $item_cat->getDetailUrl();
                         @endphp
-                        <div class="item flex items-center justify-center">
+                        <div class="item flex items-center justify-center group">
                             <a href="{{ $page_search }}">
                                 <div class="iconbox">
                                     <div class="icon w-[150px] h-[150px] bg-[#F3F5F6] flex items-center justify-center rounded-full">
                                         @if(!empty($image_url))
-                                            <img src="{{$image_url}}" class="!w-auto" alt="{{ $translate->name }}">
+                                            <img src="{{$image_url}}" class="!w-auto group-hover:scale-110 duration-300" alt="{{ $translate->name }}">
                                         @endif
                                     </div>
                                     <div class="text-center mt-5">

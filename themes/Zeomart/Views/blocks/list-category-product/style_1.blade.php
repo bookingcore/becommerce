@@ -22,7 +22,9 @@
                 <div class="hidden" id="zm-tab-all-{{$id}}"  role="tabpanel">
                     <div class="bc-carousel owl-theme owl-slider" data-owl-auto="true" data-owl-loop="false" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="false" data-owl-item="5" data-owl-item-xs="1" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
                         @foreach($rows as $row)
-                            @include('product.search.loop')
+                            <div class="p-5 border-slate-200 border -mr-[1px] border-solid">
+                                @include('product.search.loop')
+                            </div>
                         @endforeach
                     </div>
                 </div>
@@ -32,7 +34,9 @@
                         <div class="bc-carousel owl-theme owl-slider" data-owl-auto="true" data-owl-loop="false" data-owl-speed="5000" data-owl-gap="0" data-owl-nav="false" data-owl-dots="false" data-owl-item="5" data-owl-item-xs="1" data-owl-item-sm="3" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="5" data-owl-duration="1000" data-owl-mousedrag="on">
                             @if(!empty($list_items))
                                 @foreach($list_items as $row)
-                                    @include('product.search.loop',['row'=>$row])
+                                    <div class="p-5 border-slate-200 border -mr-[1px] border-solid">
+                                        @include('product.search.loop',['row'=>$row])
+                                    </div>
                                 @endforeach
                             @endif
                         </div>
