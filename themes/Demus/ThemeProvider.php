@@ -2,14 +2,17 @@
 namespace Themes\Demus;
 
 use Modules\Core\Helpers\SettingManager;
+use Modules\Template\BlockManager;
+use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
-use Modules\Vendor\VendorMenuManager;
+use Themes\Demus\Controllers\Blocks\BannerSlider;
+use Themes\Demus\Controllers\Blocks\Gap;
 use Themes\Demus\Database\Seeder;
 use Modules\Page\Hook;
 use Modules\Page\Models\Page;
 use Illuminate\Http\Request;
 
-class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
+class ThemeProvider extends AbstractThemeProvider
 {
 
     public static $name = "Demus";
@@ -34,6 +37,11 @@ class ThemeProvider extends \Modules\Theme\Abstracts\AbstractThemeProvider
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
         add_action(Hook::AFTER_SAVING,[$this,'__save_header_style']);
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_footer_style']);
+
+        BlockManager::register([
+            ["gap", Gap::class],
+            ["slider", BannerSlider::class],
+        ]);
     }
     public function __show_header_style(Page $row){
         echo view('admin.page.header_style',['row'=>$row]);

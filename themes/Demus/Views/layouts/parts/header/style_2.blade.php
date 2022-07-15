@@ -31,6 +31,6 @@
     </div>
 </div>
 
-<div class="main-menu">
+<div class="main-menu  d-none d-lg-block">
     @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
 </div>

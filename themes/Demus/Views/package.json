@@ -1,6 +1,6 @@
 {
-    "name": "axtronic-theme",
-    "slug": "axtronic-theme",
+    "name": "demus-theme",
+    "slug": "demus-theme",
     "homepage": "https://elementor.com/",
     "description": "A sample theme for Elementor.",
     "version": "1.0.0",
@@ -20,6 +20,7 @@
         "susy": "2.2.14"
     },
     "dependencies": {
-        "swiper": "^8.0.6"
+        "animate.css": "^4.1.1",
+        "swiper": "^8.3.1"
     }
 }

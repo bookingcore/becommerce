@@ -20,6 +20,7 @@
                                 <option @if("normal" == (setting_item('demus_header_style') ?? '') ) selected @endif value="normal">{{__("Normal")}}</option>
                                 <option @if("style_1" == (setting_item('demus_header_style') ?? '') ) selected @endif value="style_1">{{__("Style 1")}}</option>
                                 <option @if("style_2" == (setting_item('demus_header_style') ?? '') ) selected @endif value="style_2">{{__("Style 2")}}</option>
+                                <option @if("style_3" == (setting_item('demus_header_style') ?? '') ) selected @endif value="style_3">{{__("Transparent")}}</option>
                             </select>
                         </div>
                     </div>

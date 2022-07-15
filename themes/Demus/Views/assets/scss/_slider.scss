@@ -1,0 +1,211 @@
+.swiper-container{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+}
+.banner-slider {
+    .swiper-wrapper{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: 1;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-transition-property: -webkit-transform;
+        transition-property: -webkit-transform;
+        -o-transition-property: transform;
+        transition-property: transform, -webkit-transform;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+        .swiper-slide {
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            &.swiper-slide-active{
+                .slide-content{
+                    .slide-layers{
+                        transform: translateY(0);
+                        opacity: 1;
+                        visibility: visible;
+                        transition: all 0.6s cubic-bezier(0.1, 0.2, 0.7, 1);
+                    }
+                }
+
+                .slide-bg-wrap {
+                    transform: scale(1);
+                    transition: transform 5s cubic-bezier(0.1, 0.2, 0.7, 1);
+                }
+
+            }
+            .slide-bg-wrap{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                -webkit-transform: scale(1.3);
+                transform: scale(1.3);
+                backface-visibility: hidden;
+                .slide-bg{
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    background-color: #111;
+                }
+            }
+            .slide-content{
+                display: flex;
+                justify-content: start;
+                align-items: center;
+                text-align: start;
+                height: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                &.left{
+                    justify-content: start;
+                }
+                &.right{
+                    justify-content: end;
+                }
+                &.center{
+                    justify-content: center;
+                    text-align: center;
+                    padding-top: 100px;
+                    align-items: start;
+                }
+                .slide-layers{
+                    max-width: 680px;
+                    opacity: 0;
+                    visibility: hidden;
+                    transform: translateY(30px);
+                    transition: all 0.1s;
+                    transition-delay: 0.2s;
+                    flex-direction: column;
+                    h4.sub-title{
+                        color: var(--text);
+                        font-size: 18px;
+                        line-height: 1;
+                        letter-spacing: -1px;
+                        text-transform: uppercase;
+                        font-weight: 400;
+                        animation-name: bounceInUp;
+                        animation-duration: 1s;
+                        animation-timing-function: ease-in;
+                        animation-fill-mode: backwards;
+                        animation-iteration-count: initial;
+                    }
+                    h2.title{
+                        color: var(--accent);
+                        font-size: 60px;
+                        line-height: 72px;
+                        margin-bottom: 40px;
+                        font-weight: 800;
+                        animation-name: bounceInUp;
+                        animation-duration: 2.2s;
+                        animation-timing-function: ease-in;
+                        animation-fill-mode: backwards;
+                        animation-iteration-count: initial;
+                    }
+                    p.desc{
+                        font-weight: 700;
+                        font-size: 24px;
+                        line-height: 32px;
+                        color: var(--text);
+                        margin-bottom: 0;
+                        animation-name: bounceInUp;
+                        animation-duration: 2.8s;
+                        animation-timing-function: ease-in;
+                        animation-fill-mode: backwards;
+                        animation-iteration-count: initial;
+                        span{
+                            color: var(--primary);
+                        }
+                    }
+                    .slider-button{
+                        display: inline-block;
+                        background-color: transparent;
+                        color: var(--accent);
+                        padding: 18px 40px;
+                        margin-top: 50px;
+                        font-weight: 700;
+                        font-size: var(--font-size-base);
+                        text-transform: uppercase;
+                        position: relative;
+                        transition: all .2s ease;
+                        animation-name: bounceInUp;
+                        animation-duration: 3.4s;
+                        animation-timing-function: ease-in;
+                        animation-fill-mode: backwards;
+                        animation-iteration-count: initial;
+                        &:before{
+                            content: "";
+                            position: absolute;
+                            width: 50%;
+                            height: 100%;
+                            border: 1px solid var(--primary);
+                            background-color: var(--primary);
+                            left: 0;
+                            top: 0;
+                            transition: width .2s ease;
+                            z-index: -1;
+                        }
+                        &:hover{
+                            &:before{
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+        .demus-box{
+            height: 100vh;
+            overflow: hidden;
+            display: block;
+            .demus-box-inner {
+                max-width: var(--container);
+                margin: 0 auto;
+                height: 100%;
+            }
+
+        }
+    }
+    &:hover{
+        .swiper-button-prev, .swiper-button-next{
+            opacity: 1;
+        }
+    }
+    .swiper-button-prev, .swiper-button-next{
+        transition: all .3s ease-in-out 0s;
+        margin-top: -40px;
+        width: 70px;
+        height: 80px;
+        background-color: #fff;
+        opacity: 0;
+        color: var(--accent);
+        &:after{
+            font-size: 24px;
+        }
+        &.swiper-button-disabled{
+            cursor: no-drop;
+        }
+        &:hover, &:focus{
+            outline: 0;
+            box-shadow: none;
+            color: #fff;
+            background-color: var(--primary);
+            opacity: 1;
+        }
+    }
+}

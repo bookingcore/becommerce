@@ -785,7 +785,7 @@ jQuery(function ($) {
     $(document).on('click','.user-contents',function (e) {
         e.preventDefault();
         $('.site-user-side').toggleClass('active');
-    })
+    });
     $('.close-user-side,.user-side-overlay').on('click', function (e) {
         e.preventDefault();
         $('.site-user-side').removeClass('active');
@@ -794,11 +794,16 @@ jQuery(function ($) {
     $(document).on('click','.wishlist-contents',function (e) {
         e.preventDefault();
         $('.site-wishlist-side').toggleClass('active');
-    })
+    });
     $('.close-wishlist-side,.wishlist-side-overlay').on('click', function (e) {
         e.preventDefault();
         $('.site-wishlist-side').removeClass('active');
     });
+
+    $(document).on('click','.search-contents',function (e) {
+        $('.search-form').slideToggle(300);
+    });
+
 
     $(document).on('click','.menu-mobile-nav-button',function (e) {
         e.preventDefault();
@@ -853,18 +858,13 @@ jQuery(function ($) {
 
 /// Home page Slider Swiper
 if(typeof Swiper !== 'undefined') {
-    const swiperBannerSlider = new Swiper('.banner-slider', {
+    const swiperBannerSlider = new Swiper('.demus-slider-1', {
         // Optional parameters
         loop: true,
         effect: "fade",
         autoplay: {
-            delay: 4000,
+            delay: 5000,
             disableOnInteraction: true,
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
         },
 
         // Navigation arrowsss
@@ -873,208 +873,27 @@ if(typeof Swiper !== 'undefined') {
             prevEl: '.swiper-button-prev',
         },
     });
-    const swiperSliderIcon = new Swiper('.swiper-slider-icon-1', {
+    const swiperBannerSlider2 = new Swiper('.demus-slider-2', {
         // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 16,
-        autoplay: false,
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 6
-            },
+        loop: false,
+        effect: "fade",
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: true,
         },
         // If we need pagination
         pagination: {
             el: '.swiper-pagination',
-            clickable: true,
+            type: 'custom',
+            renderCustom: function (swiper, current, total) {
+                return current + '-' + (total - 1);
+            }
         },
-    });
-    const swiperSliderIcon2 = new Swiper('.swiper-slider-icon-2', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 16,
-        autoplay: {
-            delay: 4000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 6
-            },
-        },
-        // Navigation arrows
+
+        // Navigation arrowsss
         navigation: {
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
-        },
-
-    });
-    const swiperSliderTestimonial = new Swiper('.swiper-slider-testimonial', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 1,
-            },
-            1024: {
-                slidesPerView: 3
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-    const swiperSliderNews = new Swiper('.swiper-slider-news', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            768: {
-                slidesPerView: 1,
-            },
-            1024: {
-                slidesPerView: 3
-            },
-        },
-        // If we need pagination
-        pagination: {
-            clickable: true,
-            el: '.swiper-pagination',
-
-        },
-    });
-    const swiperSliderBrands = new Swiper('.swiper-slider-brands', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 6
-            },
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-    const swiperSliderBrandsStyle2 = new Swiper('.swiper-slider-brands-2', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 6
-            },
-        },
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        // Navigation arrows
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-    });
-
-    const swiperProductSlider = new Swiper('.product-slider', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        breakpoints: {
-            640: {
-                slidesPerView: 2,
-            },
-            768: {
-                slidesPerView: 3,
-            },
-            1024: {
-                slidesPerView: 5
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination-slider',
-            clickable: true,
-        },
-    });
-
-    const swiperProductSliderBestSelling = new Swiper('.product-slider-bestselling', {
-        // Optional parameters
-        loop: true,
-        cssMode: true,
-        spaceBetween: 30,
-        autoplay: {
-            delay: 5000,
-            disableOnInteraction: false,
-        },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-            },
-            768: {
-                slidesPerView: 2,
-            },
-            1024: {
-                slidesPerView: 4
-            },
-        },
-        // If we need pagination
-        pagination: {
-            el: '.swiper-pagination',
-            clickable: true,
         },
     });
 

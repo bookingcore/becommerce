@@ -15,7 +15,7 @@
                 </a>
             @endif
         </div>
-        <div class="header-center col">
+        <div class="header-center col  d-none d-lg-block">
             <div class="main-menu">
                 @php generate_menu('primary',['class'=>'me-auto mb-2 mb-lg-0']) @endphp
             </div>

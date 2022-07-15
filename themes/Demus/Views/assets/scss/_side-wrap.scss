@@ -272,38 +272,31 @@
             }
         }
         .btn{
-            color: #ffffff;
-            font-size: 16px;
-            font-weight: 600;
-            text-transform: capitalize;
-            line-height: 24px;
-            background-color: var( --primary );
-            border-radius: 8px 8px 8px 8px;
             padding: 12px 30px;
             &.facebook{
                 background-color: #4267B2;
-                background-image: none;
+                border-color:#4267B2;
                 &:hover{
                     opacity: 0.7;
                 }
             }
             &.google {
                 background-color: #DB4437;
-                background-image: none;
+                border-color: #DB4437;
                 &:hover{
                     opacity: 0.7;
                 }
             }
             &.twitter {
                 background-color: #1DA1F2;
-                background-image: none;
+                border-color: #1DA1F2;
                 &:hover{
                     opacity: 0.7;
                 }
             }
             &.instagram {
                 background-color: #4267B2;
-                background-image: none;
+                border-color: #4267B2;
                 &:hover{
                     opacity: 0.7;
                 }

@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Zeomart\Controllers\Blocks;
+namespace Themes\Demus\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
@@ -20,6 +20,10 @@ class BannerSlider extends BaseBlock
                             'value'   => 'style_1',
                             'name' => __("Style 1")
                         ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ]
                     ],
                 ],
                 [
@@ -37,19 +41,41 @@ class BannerSlider extends BaseBlock
                         [
                             'id'        => 'sub_title',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Sub Title')
                         ],
+                    [
+                        'id'        => 'desc',
+                        'type'      => 'input',
+                        'inputType' => 'text',
+                        'label'     => __('Description')
+                    ],
                         [
                             'id'    => 'image',
                             'type'  => 'uploader',
                             'label' => __('Image Uploader')
                         ],
                         [
-                            'id'        => 'sub_text',
-                            'type'      => 'input',
-                            'inputType' => 'text',
-                            'label'     => __('Sub Text')
+                            'id'            => 'position',
+                            'type'          => 'select',
+                            'label'         => __('Position'),
+                            'values'        => [
+                                [
+                                    'id'   => 'left',
+                                    'name' => __("Left")
+                                ],
+                                [
+                                    'id'   => 'right',
+                                    'name' => __("Right")
+                                ],
+                                [
+                                    'id'   => 'center',
+                                    'name' => __("Center")
+                                ],
+                            ],
+                            "selectOptions"=> [
+                                'hideNoneSelectedText' => "true"
+                            ]
                         ],
                         [
                             'id'        => 'btn_shop_now',
@@ -69,12 +95,12 @@ class BannerSlider extends BaseBlock
     }
     public function getName()
     {
-        return __('Banner Slider');
+        return __('Slider');
     }
 
     public function content($model = [])
     {
         $style = !empty($model['style']) ? $model['style'] : 'style_1';
-        return view("blocks.banner-slides.{$style}", $model);
+        return view("blocks.banner-slider.{$style}", $model);
     }
 }

@@ -21,14 +21,22 @@
     --media-handheld: 568px;
     --e-global-color-accent:#13172B;
     --e-global-color-border: #E8E8E8;
+    --font-size-base: 16;
+    --menu-color: #54504f;
+    --menu-hover-color: #54504f;
+    --menu-font-size: 16px;
+    --header-color: #333333;
+    --body-color: #54504f;
 }
 
 body {
+    font-size: var(--font-size-base);
     -ms-word-wrap: break-word;
     word-wrap: break-word;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--background);
+    font-family: var(--base-font);
     //cursor: none!important;
 
     //*{
@@ -41,7 +49,7 @@ body,
 button,
 input,
 textarea {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     color: var(--text);
     font-family: var(--base-font);
     line-height: 1.6666667;
@@ -287,9 +295,9 @@ a {
 .axtronic-cute * {
     font-family: 'Comic Sans MS', sans-serif;
 }
-input[type=text], input[type=number], input[type=email], input[type=tel], input[type=url], input[type=password], input[type=search], textarea, .input-text{
+input[type=text], input[type=number], input[type=email], input[type=tel], input[type=url], input[type=password], input[type=search], textarea, .input-text,.form-control{
     padding: 12px 1em;
-    background-color: var(--background);
+    background-color: #ffffff;
     color: var(--text);
     border-width: 1px;
     border-style: solid;
@@ -297,11 +305,11 @@ input[type=text], input[type=number], input[type=email], input[type=tel], input[
     -webkit-appearance: none;
     box-sizing: border-box;
     font-weight: 400;
-    border-radius: 8px;
     outline: 0;
     transition: all ease-in-out .3s;
     font-size: 15px;
     line-height: 24px;
+    border-radius: 0;
     &:focus{
         border-color: var(--accent);
         box-shadow: none;
@@ -322,7 +330,8 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
     font-weight: 600;
     border: 1px solid var(--primary);
     background-color: var(--primary);
-    &:hover,&:focus{
+    border-radius: 0;
+    &:hover,&:focus,&:active, &:active:focus, &:checked+&:focus, &.active:focus{
         color: var(--primary);
         background-color: var(--background);
         border-color: var(--primary);
@@ -356,4 +365,5 @@ textarea{
     overflow: auto;
     vertical-align: top;
     width: 100%;
+    border-radius: 0;
 }
