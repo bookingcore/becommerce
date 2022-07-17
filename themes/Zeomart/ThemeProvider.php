@@ -45,6 +45,7 @@ class ThemeProvider extends AbstractThemeProvider
         BlockManager::register("list_category_product",\Themes\Zeomart\Controllers\Blocks\ListCategoryProduct::class );
         BlockManager::register("call_to_action",\Themes\Zeomart\Controllers\Blocks\CallToAction::class );
         BlockManager::register("list_brands",\Themes\Zeomart\Controllers\Blocks\ListBrands::class );
+        BlockManager::register("breadcrumb",\Themes\Zeomart\Controllers\Blocks\Breadcrumb::class );
 
     }
 

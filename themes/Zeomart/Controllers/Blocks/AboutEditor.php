@@ -20,6 +20,16 @@ class AboutEditor extends BaseBlock
                     'type'        => 'editor',
                     'label'       => __('Content Editor')
                 ],
+                [
+                    'id'          => 'our_mission',
+                    'type'        => 'editor',
+                    'label'       => __('Our Mission')
+                ],
+                [
+                    'id'          => 'our_vision',
+                    'type'        => 'editor',
+                    'label'       => __('Our Vision')
+                ],
             ],
             'category'=>__("Other")
         ]);
@@ -34,6 +44,8 @@ class AboutEditor extends BaseBlock
     {
         $data = [
             'content'  =>  $model['content'] ?? '',
+            'our_mission'  =>  $model['our_mission'] ?? '',
+            'our_vision'  =>  $model['our_vision'] ?? '',
             'title'  =>  $model['title'] ?? ''
         ];
 
