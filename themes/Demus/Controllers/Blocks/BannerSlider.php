@@ -44,16 +44,22 @@ class BannerSlider extends BaseBlock
                             'inputType' => 'text',
                             'label'     => __('Sub Title')
                         ],
-                    [
-                        'id'        => 'desc',
-                        'type'      => 'input',
-                        'inputType' => 'text',
-                        'label'     => __('Description')
-                    ],
+                        [
+                            'id'        => 'desc',
+                            'type'      => 'input',
+                            'inputType' => 'text',
+                            'label'     => __('Description')
+                        ],
                         [
                             'id'    => 'image',
                             'type'  => 'uploader',
                             'label' => __('Image Uploader')
+                        ],
+                        [
+                            'type'      => "checkbox",
+                            'label'     =>__("Color title dark?"),
+                            'id'        => "is_dark",
+                            'default'   => false
                         ],
                         [
                             'id'            => 'position',

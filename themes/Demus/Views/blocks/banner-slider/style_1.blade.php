@@ -19,7 +19,7 @@
                             <div class="slide-bg-wrap demus-image">
                                 <div class="slide-bg image" style="background-image: url('{{ get_file_url($slide['image']?? false,'full') }}')"></div>
                             </div>
-                            <div class="slide-content {{$slide['position'] }}">
+                            <div class="slide-content {{$slide['position'] }} {{ !empty($slide['is_dark']) ? 'dark' : 'light' }}">
                                 <div class="slide-layers  d-flex justify-content-center">
                                     @if($slide['sub_title'])
                                         <h4 class="sub-title ">{{ $slide['sub_title'] }}</h4>

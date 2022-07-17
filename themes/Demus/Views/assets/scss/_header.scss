@@ -124,9 +124,14 @@ header{
         background-color: transparent;
         + .page-template-content{
             .banner-slider{
-                .swiper-wrapper .swiper-slide .slide-content.center{
-                    align-items: start;
-                    padding-top: 200px;
+                .swiper-wrapper {
+                    .swiper-slide .slide-content.center{
+                        align-items: start;
+                        padding-top: 200px;
+                    }
+                    .demus-box{
+                        height: 100%;
+                    }
                 }
             }
         }

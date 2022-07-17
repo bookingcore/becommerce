@@ -7,6 +7,7 @@ use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
 use Themes\Demus\Controllers\Blocks\BannerSlider;
 use Themes\Demus\Controllers\Blocks\Gap;
+use Themes\Demus\Controllers\Blocks\ListProduct;
 use Themes\Demus\Database\Seeder;
 use Modules\Page\Hook;
 use Modules\Page\Models\Page;
@@ -20,6 +21,8 @@ class ThemeProvider extends AbstractThemeProvider
     public static $version = '1.1';
 
     public static $seeder = Seeder::class;
+
+    public static $screenshot = "/themes/Demus/screenshot.png";
 
     public static function info()
     {
@@ -41,6 +44,8 @@ class ThemeProvider extends AbstractThemeProvider
         BlockManager::register([
             ["gap", Gap::class],
             ["slider", BannerSlider::class],
+            ["productlist", ListProduct::class],
+
         ]);
     }
     public function __show_header_style(Page $row){

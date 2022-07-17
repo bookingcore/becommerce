@@ -875,7 +875,7 @@ if(typeof Swiper !== 'undefined') {
     });
     const swiperBannerSlider2 = new Swiper('.demus-slider-2', {
         // Optional parameters
-        loop: false,
+        loop: true,
         effect: "fade",
         autoplay: {
             delay: 5000,
@@ -886,7 +886,7 @@ if(typeof Swiper !== 'undefined') {
             el: '.swiper-pagination',
             type: 'custom',
             renderCustom: function (swiper, current, total) {
-                return current + '-' + (total - 1);
+                return '<span class="current">0'+current+ '</span><span class="total">0' + (total)+ '</span>';
             }
         },
 
