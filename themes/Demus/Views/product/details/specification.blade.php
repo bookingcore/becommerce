@@ -1,26 +1,14 @@
-<div class="bc-product_specification mb-2 fs-14">
-    @if($row->sku and $row->product_type != "variable")
-        <p class="mb-0"><strong>{{__("SKU: ")}}</strong> {{$row->sku}}</p>
-    @endif
-    @if($row->quantity and $row->remain_stock and in_array($row->product_type,["simple","variable"]) and $row->check_manage_stock())
-        <p class="mb-0"><strong>{{__("Quantity: ")}}</strong> {{$row->remain_stock}} {{__("in stock")}}</p>
-    @endif
-    @if(!empty($row->categories))
-        <p class="categories mb-0">
-            <strong> {{__("Categories:")}}</strong>
-            @foreach($row->categories as $k=>$category)
-                @if($k) ,
-                @endif
-                <a class="c-main" href="{{$category->getDetailUrl()}}">{{$category->name}}</a>
-            @endforeach
-        </p>
-    @endif
+@if($row->quantity and in_array($row->product_type,["simple","variable"]) and $row->is_manage_stock)
+    <p class="mb-0"><span>{{__("Quantity: ")}}</span> {{$row->quantity}} {{__("in stock")}}</p>
+@endif
+
+<div class="demus-product_specification demus-product_meta ">
     @if(!empty($row->tags))
         <p class="tags mb-0">
-            <strong> {{ __("Tags") }}</strong>
-            @foreach($row->tags as $k=>$category)
+            <span> {{ __("Tags") }}: </span>
+            @foreach($row->tags as $k=>$tag)
                 @if($k) , @endif
-                <a class="initial" href="{{ route('product.index')."?tag=$category->slug" }}">{{$category->name}}</a>
+                <a class="initial" href="{{ route('product.index')."?tag=$tag->slug" }}">{{$tag->name}}</a>
             @endforeach
         </p>
     @endif

@@ -3,31 +3,39 @@
         $list_variations = $data_variations["variations"];
         $list_attributes = $data_variations['attributes'];
     @endphp
-    <div class="bc-product-variations mb-2">
-        <input type="hidden" class="bc_variations" value="{{ json_encode($list_variations) }}">
+    <div class="demus-product-variations mb-2">
+        <input type="hidden" class="demus_variations" value="{{ json_encode($list_variations) }}">
         <input type="hidden" name="variation_id" class="variation_id" value="">
         @if(!empty($list_attributes))
             @foreach($list_attributes as $name=>$values)
                 <div class="variation d-flex mb-3">
                     <div class="name me-3 f-w-10">{{ $name }}: </div>
-                    <div class="values d-flex flex-wrap">
+                    <div class=" d-flex flex-wrap">
                         @foreach($values as $id => $value )
-                            <div class="item mr-2 me-2 border rounded border-dark">
-                                <input class="d-none item-attribute" type="radio" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
-                                @switch($value['type'])
-                                    @case("color")
-                                        <label style="background-color: {{$value['color']}};" class="miw-30px mih-30px d-flex align-items-center pe-2 ps-2 justify-content-center" for="attribute_{{$id}}">
-                                        </label>
-                                    @break
-                                    @default
+                            @switch($value['type'])
+                                @case("color")
+                                    <div class="widget-attribute-color">
+                                        <div class="demus-checkbox">
+                                            <input type="radio" class="item-attribute" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
+                                            <label for="attribute_{{$id}}" style="background-color: {{$value['color']}}"></label>
+                                        </div>
+                                    </div>
+
+                                @break
+                                @default
+                                <div class="widget-attribute-check">
+                                    <div class="demus-checkbox">
+                                        <input type="radio" class="item-attribute" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
                                         <label class="miw-30px mih-30px d-flex align-items-center pe-2 ps-2 justify-content-center" for="attribute_{{$id}}">
                                             {{$value['name']}}
                                         </label>
-                                @endswitch
-                            </div>
+                                    </div>
+                                </div>
+                            @endswitch
                         @endforeach
                     </div>
                 </div>
+
             @endforeach
         @endif
         <div class="mb-2">

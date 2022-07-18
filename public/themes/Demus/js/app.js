@@ -82,7 +82,7 @@ function ajax_error_to_string(e){
         }
     }
 }
-$('.axtronic-form-login').on('submit',function (e) {
+$('.demus-form-login').on('submit',function (e) {
     e.preventDefault();
     var form = $(this);
     var data = form.serialize()
@@ -133,7 +133,7 @@ $('.axtronic-form-login').on('submit',function (e) {
     });
     return false;
 });
-$('.axtronic-form-register').on('submit',function (e) {
+$('.demus-form-register').on('submit',function (e) {
     e.preventDefault();
     let form = $(this);
     var data = form.serialize();
@@ -180,7 +180,7 @@ window.bravo_handle_error_response = function(e){
 };
 // Cart
 
-$('.axtronic_form_add_to_cart').on('submit',function(e){
+$('.demus_form_add_to_cart').on('submit',function(e){
     e.preventDefault();
     var me = $(this);
     me.addClass('loading');
@@ -199,7 +199,7 @@ $('.axtronic_form_add_to_cart').on('submit',function(e){
             if(json.status === 1){
                 window.location.href = json.url;
             }
-            console.log(json);
+            // console.log(json);
             if(json.message){
                 BCApp.showAjaxMessage(json);
             }
@@ -210,7 +210,7 @@ $('.axtronic_form_add_to_cart').on('submit',function(e){
         }
     })
 });
-$(document).on('click','.axtronic_delete_cart_item',function(e){
+$(document).on('click','.demus_delete_cart_item',function(e){
     e.preventDefault();
     var c = confirm("Do you want to delete this cart item?");
     if(!c) return;
@@ -365,7 +365,7 @@ jQuery(function ($) {
 
     var onSubmitSubscribe = false;
     //Subscribe box
-    $('.axtronic-subscribe-form').submit(function (e) {
+    $('.demus-subscribe-form').submit(function (e) {
         e.preventDefault();
 
         if (onSubmitSubscribe) return;
@@ -410,7 +410,7 @@ jQuery(function ($) {
         return false;
     });
 
-    $('.axtronic-product-quick-view').on('click',function (e) {
+    $('.demus-product-quick-view').on('click',function (e) {
         e.preventDefault();
         let $this = $(this);
         let product = $(this).data('product');
@@ -434,8 +434,8 @@ jQuery(function ($) {
         })
     });
 
-    $(".axtronic_form_filter input[type=checkbox],.axtronic_form_filter select[name=sort]").change(function () {
-        $(this).closest(".axtronic_form_filter").submit();
+    $(".demus_form_filter input[type=checkbox],.demus_form_filter select[name=sort]").change(function () {
+        $(this).closest(".demus_form_filter").submit();
     });
 
     var nonLinearSlider = document.getElementById('nonlinear');
@@ -456,10 +456,10 @@ jQuery(function ($) {
         });
 
         nonLinearSlider.noUiSlider.on('update', function(values, handle) {
-            $(".axtronic-slider-price .slider-min").html(  Math.round(values[0]) );
-            $(".axtronic-slider-price .slider-max").html(  Math.round(values[1]) );
-            $(".axtronic-slider-price input[name=min_price]").val(  Math.round(values[0]) );
-            $(".axtronic-slider-price input[name=max_price]").val(  Math.round(values[1]) );
+            $(".demus-slider-price .slider-min").html(  Math.round(values[0]) );
+            $(".demus-slider-price .slider-max").html(  Math.round(values[1]) );
+            $(".demus-slider-price input[name=min_price]").val(  Math.round(values[0]) );
+            $(".demus-slider-price input[name=max_price]").val(  Math.round(values[1]) );
         });
     }
 
@@ -538,7 +538,7 @@ jQuery(function ($) {
         return html;
     }
     var onSubmitContact = false;
-    $('.axtronic-contact-block').submit(function(e) {
+    $('.demus-contact-block').submit(function(e) {
         e.preventDefault();
         if (onSubmitContact)
             return;
@@ -586,7 +586,7 @@ jQuery(function ($) {
         compare_box.modal("hide");
     });
 
-    $(document).on('click','.axtronic-compare',function (e) {
+    $(document).on('click','.demus-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
@@ -608,7 +608,7 @@ jQuery(function ($) {
             })
         }
     })
-    $(document).on('click','.axtronic-remove-compare',function (e) {
+    $(document).on('click','.demus-remove-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
         let id = $this.attr('data-id');
@@ -631,24 +631,24 @@ jQuery(function ($) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
 
-    $(document).on('click','.axtronic-product-variations .item-disable',function (e) {
-        $('.axtronic-product-variations input').prop('checked', false);
+    $(document).on('click','.demus-product-variations .item-disable',function (e) {
+        $('.demus-product-variations input').prop('checked', false);
         $(this).find('input').prop('checked', true);
-        $('.axtronic-product-variations .item-disable').removeClass("item-disable");
-        $('.axtronic-product-variations input').trigger('change');
+        $('.demus-product-variations .item-disable').removeClass("item-disable");
+        $('.demus-product-variations input').trigger('change');
     });
 
-    $('.axtronic-product-variations input').on('change', function() {
+    $('.demus-product-variations input').on('change', function() {
 
-        $('.axtronic-product-variations .axtronic-checkbox').removeClass("item-active");
+        $('.demus-product-variations .demus-checkbox').removeClass("item-active");
         var list_attribute_selected = [];
-        $('.item-attribute:checked', '.axtronic-product-variations').each(function () {
+        $('.item-attribute:checked', '.demus-product-variations').each(function () {
             list_attribute_selected.push( parseInt( $(this).val() ));
-            $(this).closest(".axtronic-checkbox").addClass("item-active");
+            $(this).closest(".demus-checkbox").addClass("item-active");
         });
 
         // Find variation ID
-        var list_variations = JSON.parse( $('.axtronic_variations').val() );
+        var list_variations = JSON.parse( $('.demus_variations').val() );
         var variation_id = '';
         var variation_selected = '';
         for (var id in list_variations){
@@ -664,29 +664,29 @@ jQuery(function ($) {
                 variation_selected = variation['variation'];
             }
         }
-        $('.axtronic-product-variations input[name=variation_id]').attr("value",variation_id);
+        $('.demus-product-variations input[name=variation_id]').attr("value",variation_id);
         // For show SKU PRICE IMAGE
         if(variation_selected !== ""){
-            $('.axtronic-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
-            $('.axtronic-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
+            $('.demus-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
+            $('.demus-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
             if(variation_selected.is_manage_stock){
-                $('.axtronic-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
-                $(".axtronic_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
-                if($(".axtronic_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
-                    $(".axtronic_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
+                $('.demus-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+                $(".demus_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
+                if($(".demus_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
+                    $(".demus_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
                 }
             }else{
-                $('.axtronic-product-variations .quantity').addClass("d-none");
+                $('.demus-product-variations .quantity').addClass("d-none");
             }
             if(variation_selected.image){
-                var old = $(".axtronic-product_thumbnail .item-0 img").attr("src");
-                $(".axtronic-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
+                var old = $(".demus-product_thumbnail .item-0 img").attr("src");
+                $(".demus-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
             }
         }else{
-            if($(".axtronic-product_thumbnail .item-0 img").attr("data-old")){
-                $(".axtronic-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
+            if($(".demus-product_thumbnail .item-0 img").attr("data-old")){
+                $(".demus-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
             }
-            $('.axtronic-product-variations .price,.axtronic-product-variations .sku,.axtronic-product-variations .quantity').addClass('d-none');
+            $('.demus-product-variations .price,.demus-product-variations .sku,.demus-product-variations .quantity').addClass('d-none');
         }
         // Check show - hidden attribute
         var list_atttributes = [];
@@ -702,7 +702,7 @@ jQuery(function ($) {
                 list_atttributes = list_atttributes.concat(cache);
             }
         }
-        $('.axtronic-product-variations .item-attribute').each(function () {
+        $('.demus-product-variations .item-attribute').each(function () {
             var check = false;
             for ( var id in list_atttributes ){
                 if(  $(this).val() == list_atttributes[id] ){
@@ -710,7 +710,7 @@ jQuery(function ($) {
                 }
             }
             if(!check){
-                $(this).closest(".axtronic-checkbox").addClass("item-disable");
+                $(this).closest(".demus-checkbox").addClass("item-disable");
             }
         });
     });
@@ -740,8 +740,8 @@ jQuery(function ($) {
 
     let param = getUrlParameter('layout');
     if (param === 'list'){
-        $('.axtronic-products').addClass('product-lists');
-        $('.axtronic-products').removeClass('products');
+        $('.demus-products').addClass('product-lists');
+        $('.demus-products').removeClass('products');
         $('.gridlist-toggle .list').addClass('active');
         $('.gridlist-toggle .grid').removeClass('active');
     }else {
@@ -897,7 +897,7 @@ if(typeof Swiper !== 'undefined') {
         },
     });
 
-    const swiperProductGallery = new Swiper(".axtronic-product_variants", {
+    const swiperProductGallery = new Swiper(".demus-product_variants", {
         spaceBetween: 10,
         slidesPerView: 4,
         freeMode: true,
@@ -914,7 +914,7 @@ if(typeof Swiper !== 'undefined') {
         },
     });
 
-    const swiperProductRelated = new Swiper('.axtronic-swiper-relate', {
+    const swiperProductRelated = new Swiper('.demus-swiper-relate', {
         // Optional parameters
         loop: false,
         cssMode: false,

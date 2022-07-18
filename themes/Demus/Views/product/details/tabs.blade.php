@@ -1,11 +1,15 @@
-<div class="bc-tab-root">
-    <ul class="nav nav-tabs bc-tab-list">
+<?php
+$reviewData = $row->getScoreReview();
+$score_total = $reviewData['score_total'];
+?>
+<div class="demus-tab-root">
+    <ul class="nav nav-tabs demus-tab-list">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
                 @php $tab_name = $tab['name'] @endphp
                 @if($tab['id'] == 'review')
                     @php
-                        $count = $row->review_list_count ?? 0;
+                        $count = (!empty($review_list)) ? $review_list->total() : 0;
                         $tab_name = $tab['name']." ($count)";
                     @endphp
                 @endif
@@ -18,7 +22,7 @@
     <div class="tab-content">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
-                <div class="tab-pane border rounded p-3 @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
+                <div class="tab-pane  @if(!$k) active @endif" id="tab_{{$k}}" role="tabpanel">
                     @if(!empty($tab['content']))
                         {!! clean($tab['content']) !!}
                     @elseif(isset($tab['id']) and view()->exists('product.details.tabs.'.$tab['id']))

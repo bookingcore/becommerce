@@ -1,11 +1,8 @@
 <div class="modal bravo_compare_box" tabindex="-1">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog ">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">{{ __("Compare") }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
             <div class="modal-body">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><i class="demus-icon-times"></i></button>
                 <div class="table-responsive">
                     <table class="table table-striped compare-list">
                         @if($compare = get_compare_details())

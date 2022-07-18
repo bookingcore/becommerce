@@ -1,3 +1,3 @@
-<div class="bc-document">
+<div class="demus-document">
     {!! clean($row->content) !!}
 </div>

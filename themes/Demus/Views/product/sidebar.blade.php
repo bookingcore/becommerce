@@ -1,6 +1,6 @@
 @if(!empty($categories))
-<div class="widget widget_shop bg-f1f1f1 c-000000 p-3 pb-2 rounded">
-    <h4 class="widget-title fs-22 mb-2">{{__('Categories')}}</h4>
+<aside class="widget">
+    <h3 class="widget_title">{{__('Categories')}}</h3>
     <ul class="list-unstyled ps-0 mt-3">
         @php
             $traverse = function ($categories, $prefix = '') use (&$traverse) {
@@ -8,17 +8,21 @@
                     $translate = $category->translate(app()->getLocale());
                     $has_children = count($category->children);
                     if(empty($prefix)){
-                        echo '<li class="mb-1 cat-item mb-1 d-flex justify-content-between flex-wrap '.($has_children ? 'menu-item-has-children' : '').'">';
-                        echo '<a class="c-000000 mb-2" href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        if(!empty($has_children)){
+                            echo '<li class="cat-item menu-item-has-children" >';
+                            echo '<a data-bs-toggle="collapse" data-bs-target="#cat-'.$category->id.'" aria-expanded="true" href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        }
+                        else{
+                            echo '<li class="cat-item ">';
+                            echo '<a href="'.$category->getDetailUrl().'">'.e($translate->name).'</a>';
+                        }
                     }else{
-                        echo '<li class="cat-item mb-1 d-flex justify-content-between flex-wrap">';
-                        echo '<a class="c-000000" href="'.$category->getDetailUrl().'">'.$translate->name.'</a>';
+                        echo '<li class="cat-item ">';
+                        echo '<a href="'.$category->getDetailUrl().'">'.$translate->name.'</a>';
                     }
+
                     if($has_children){
-                        echo '<span class="sub-toggle"  data-bs-toggle="collapse" data-bs-target="#cat-'.$category->id.'" aria-expanded="true"><i class="fa fa-angle-down"></i></span>';
-                    }
-                    if($has_children){
-                        echo '<ul class="collapse w-100" id="cat-'.$category->id.'">';
+                        echo '<ul class="collapse w-100 sub-cat" id="cat-'.$category->id.'">';
                             $traverse($category->children, 1);
                         echo '</ul>';
                     }
@@ -28,11 +32,20 @@
             $traverse($categories);
         @endphp
     </ul>
-</div>
+</aside>
 @endif
-<div class="widget widget_shop bg-f1f1f1 c-000000 p-3 pb-2 rounded">
-    @include('product.filter.brand')
+<aside class="widget widget_shop">
     @include('product.filter.price')
+</aside>
+<aside class="widget">
+    @include('product.filter.brand')
+</aside>
+<aside class="widget">
     @include('product.filter.review')
+</aside>
+<aside class="widget widget-attributes">
     @include('product.filter.attributes')
-</div>
+</aside>
+<aside class="widget widget-tags mb-4">
+    @include('product.filter.tags')
+</aside>
