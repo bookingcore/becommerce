@@ -11,7 +11,6 @@ class ModuleProvider extends ModuleServiceProvider
 
     public function boot(){
         $this->loadMigrationsFrom(__DIR__ . '/Database/Migrations');
-        AdminMenuManager::register("location",[$this,'getAdminMenu']);
     }
     /**
      * Register bindings in the container.
