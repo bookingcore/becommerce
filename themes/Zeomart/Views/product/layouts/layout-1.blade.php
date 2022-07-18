@@ -23,7 +23,7 @@
                     </div>
                 @endif
             </div>
-            <div class="bc-pagination">
+            <div class="bc-pagination mt-5">
                 {{$rows->withQueryString()->links()}}
             </div>
         </div>

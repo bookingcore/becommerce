@@ -1,5 +1,5 @@
 @if(!empty($categories))
-<div class="widget widget_shop bg-f1f1f1 c-000000 p-3 pb-2 rounded">
+<div class="widget widget_shop bg-f1f1f1 c-000000 pb-2 rounded">
     <h4 class="widget-title fs-22 mb-2">{{__('Categories')}}</h4>
     <ul class="list-unstyled ps-0 mt-3">
         @php
@@ -30,9 +30,7 @@
     </ul>
 </div>
 @endif
-<div class="widget widget_shop bg-f1f1f1 c-000000 p-3 pb-2 rounded">
-    @include('product.filter.brand')
-    @include('product.filter.price')
-    @include('product.filter.review')
+<div class="widget widget_shop bg-f1f1f1 c-000000 pb-2 rounded">
     @include('product.filter.attributes')
+    @include('product.filter.review')
 </div>
