@@ -30,6 +30,7 @@ class ThemeProvider extends AbstractThemeProvider
 
         SettingManager::registerZone('zeomart_theme',[$this,'registerZone']);
         SettingManager::register("zeomart_general",[$this,'registerGeneralSetting'],1,'zeomart_theme');
+        SettingManager::register("zeomart_vendor",[$this,'registerVendorSetting'],2,'zeomart_theme');
         //SettingManager::register("zeomart_product",[$this,'registerProductSetting'],1,'zeomart_theme');
         //SettingManager::register("zeomart_style",[$this,'registerStyleSetting'],1,'zeomart_theme');
         if(!is_admin_dashboard()){
@@ -79,6 +80,22 @@ class ThemeProvider extends AbstractThemeProvider
                 'zeomart_list_widget_footer',
                 'zeomart_copyright',
                 'zeomart_footer_text_right',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerVendorSetting(){
+        return [
+            'id'   => 'zeomart_theme',
+            'title' => __("Vendor Settings"),
+            'position'=>81,
+            'view'      => "admin.settings.vendor",
+            "keys"      => [
+                'zeomart_vendor_enable_review',
+                'zeomart_vendor_review_approved',
+                'zeomart_vendor_review_verification_required',
+                'zeomart_vendor_review_number_per_page',
             ],
             'filter_demo_mode'=>[
             ]
