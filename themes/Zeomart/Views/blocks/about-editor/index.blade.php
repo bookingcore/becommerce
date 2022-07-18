@@ -9,7 +9,7 @@
         @if($our_mission || $our_vision)
             <div class="flex flex-wrap">
                 @if($our_mission)
-                    <div class="w-1/2 w-full pr-7 mb-7">
+                    <div class="lg:w-1/2 w-full pr-7 mb-7">
                         <h3 class="text-xl font-medium mb-6">{{ __("Our Mission") }}</h3>
                         <div>
                             {!! $our_mission !!}
@@ -17,7 +17,7 @@
                     </div>
                 @endif
                 @if($our_vision)
-                    <div class="w-1/2 w-full mb-7">
+                    <div class="lg:w-1/2 w-full mb-7">
                         <h3 class="text-xl font-medium mb-6">{{ __("Our Vision") }}</h3>
                         <div>
                             {!! $our_vision !!}
