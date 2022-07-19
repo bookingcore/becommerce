@@ -410,7 +410,19 @@ class GeneralSeeder extends Seeder
 
 
 
+        DB::table('media_files')->insert([
+            ['file_name' => 'about-gallery-1', 'file_path' => 'zeomart/general/about-gallery-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'about-gallery-2', 'file_path' => 'zeomart/general/about-gallery-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'about-gallery-3', 'file_path' => 'zeomart/general/about-gallery-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'about-gallery-4', 'file_path' => 'zeomart/general/about-gallery-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'about-gallery-5', 'file_path' => 'zeomart/general/about-gallery-5.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'about-gallery-6', 'file_path' => 'zeomart/general/about-gallery-6.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
 
+            ['file_name' => 'team-member-1', 'file_path' => 'zeomart/general/team-member-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'team-member-2', 'file_path' => 'zeomart/general/team-member-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'team-member-3', 'file_path' => 'zeomart/general/team-member-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+            ['file_name' => 'team-member-4', 'file_path' => 'zeomart/general/team-member-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+        ]);
         //Page About Seeder
         $about_template_content = [
             [
@@ -420,30 +432,154 @@ class GeneralSeeder extends Seeder
                     'list_items' => [
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-1')->id,
+                            'image' => MediaFile::findMediaByName('about-gallery-1')->id,
                         ],
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-2')->id
+                            'image' => MediaFile::findMediaByName('about-gallery-2')->id
                         ],
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-3')->id
+                            'image' => MediaFile::findMediaByName('about-gallery-3')->id
                         ],
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                            'image' => MediaFile::findMediaByName('about-gallery-4')->id
                         ],
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                            'image' => MediaFile::findMediaByName('about-gallery-5')->id
                         ],
                         [
                             '_active' => false,
-                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                            'image' => MediaFile::findMediaByName('about-gallery-6')->id
                         ]
                     ]
                 ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'about_editor',
+                'name' => 'About Editor',
+                'model' =>[
+                    'title' => 'About Our Store',
+                    'content' => '<h5>Since 1985, we&rsquo;re creating the awesome products &amp; promise to give high quality in the eCommerce market for all our customers residing any part of the world.</h5>
+<p>Ut enim nunc, luctus vel nulla id, lacinia ultrices libero. Maecenas quis interdum nibh. Suspendisse purus nibh, vestibulum porttitor orci et, egestas maximus ligula. Proin pharetra convallis est, ut aliquam nisl consequat cursus. Donec ut finibus dui. felis urna, feugiat ac auctor in, euismod ut sapien. Cras nulla felis, faucibus sit amet aliquet a, vestibulum vitae turpis. Sed a interdum lectus, in varius purus. Cras maximus nulla in felis semper hendrerit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.Quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>',
+                    'our_mission' => '<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>',
+                    'our_vision' => '<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>',
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'separator',
+                'name' => 'Separator',
+                'model' =>[],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'counter',
+                'name' => 'Counter',
+                'model' => [
+                    'list_items' => [
+                        [
+                            '_active' => false,
+                            'number' => '120',
+                            'unit' => '+',
+                            'label' => 'Stores around the world'
+                        ],
+                        [
+                            '_active' => false,
+                            'number' => '15',
+                            'unit' => 'M',
+                            'label' => 'Products sold till date'
+                        ],
+                        [
+                            '_active' => false,
+                            'number' => '200',
+                            'unit' => 'K',
+                            'label' => 'Registered users'
+                        ],
+                        [
+                            '_active' => false,
+                            'number' => '300',
+                            'unit' => '+',
+                            'label' => 'Brands available in store'
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'separator',
+                'name' => 'Separator',
+                'model' =>[],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'team_member',
+                'name' => 'Team Member',
+                'model' => [
+                    'list_members' => [
+                        [
+                            '_active' => false,
+                            'avatar' => MediaFile::findMediaByName('team-member-1')->id,
+                            'name' => 'Annette Black',
+                            'position' => 'CEO Founder',
+                            'facebook' => '#',
+                            'twitter' => '#',
+                            'instagram' => '#',
+                            'linkedin' => '#'
+                        ],
+                        [
+                            '_active' => false,
+                            'avatar' => MediaFile::findMediaByName('team-member-2')->id,
+                            'name' => 'Theresa Webb',
+                            'position' => 'CEO Founder',
+                            'facebook' => '#',
+                            'twitter' => '#',
+                            'instagram' => '#',
+                            'linkedin' => '#'
+                        ],
+                        [
+                            '_active' => false,
+                            'avatar' => MediaFile::findMediaByName('team-member-3')->id,
+                            'name' => 'Eleanor Pena',
+                            'position' => 'CEO Founder',
+                            'facebook' => '#',
+                            'twitter' => '#',
+                            'instagram' => '#',
+                            'linkedin' => '#'
+                        ],
+                        [
+                            '_active' => false,
+                            'avatar' => MediaFile::findMediaByName('team-member-4')->id,
+                            'name' => 'Jane Cooper',
+                            'position' => 'CEO Founder',
+                            'facebook' => '#',
+                            'twitter' => '#',
+                            'instagram' => '#',
+                            'linkedin' => '#'
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'separator',
+                'name' => 'Separator',
+                'model' =>[],
                 'component' => 'RegularBlock',
                 'open' => true,
                 'is_container' => false,
