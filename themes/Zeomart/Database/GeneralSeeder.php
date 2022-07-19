@@ -404,6 +404,71 @@ class GeneralSeeder extends Seeder
             ]
         );
 
+
+
+
+
+
+
+
+        //Page About Seeder
+        $about_template_content = [
+            [
+                'type' => 'about_gallery',
+                'name' => 'About Gallery',
+                'model' =>[
+                    'list_items' => [
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-1')->id,
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-2')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-3')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('banner-1-4')->id
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ]
+        ];
+        $about_template_id = DB::table('core_templates')->insertGetId(
+            [
+                'title' =>  'Zeomart About Us',
+                'content'   =>  json_encode($about_template_content),
+                'create_user' => '1',
+                'created_at' =>  date("Y-m-d H:i:s")
+            ]
+        );
+        // Freshen home page 2
+        $about_page_id = DB::table('core_pages')->insertGetId([
+            'title'       => 'About Us',
+            'slug'        => 'about-us',
+            'template_id' => $about_template_id,
+            'show_template' => 1,
+            'author_id' => 1,
+            'create_user' => '1',
+            'status'      => 'publish',
+            'created_at'  => date("Y-m-d H:i:s")
+        ]);
+
     }
 
     public function generalMenuDepartment($locale = ''){

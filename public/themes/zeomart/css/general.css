@@ -82,9 +82,9 @@ body{
 input,select{
     box-shadow: none !important;
 }
-.zm-about-editor h5{
+.zm-block--about-editor h5{
     @apply text-xl font-medium mb-6
 }
-.zm-about-editor p{
+.zm-block--about-editor p{
     @apply text-base
 }

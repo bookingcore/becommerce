@@ -1,5 +1,5 @@
 @if($list_items)
-    <div class="zm-block-about-gallery mb-5 lg:mb-7 pt-2.5">
+    <div class="zm-block--about-gallery mb-5 lg:mb-7 pt-2.5">
         <div class="container mx-auto">
             <div class="flex flex-wrap -ml-2.5 -mr-2.5 lg:-ml-3.5 lg:-mr-3.5">
                 <div class="w-1/2 md:w-1/4 pl-2.5 pr-2.5 lg:pl-3.5 lg:pr-3.5">
