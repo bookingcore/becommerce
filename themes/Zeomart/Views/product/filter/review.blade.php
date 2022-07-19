@@ -5,17 +5,19 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
         </svg>
     </div>
-
-    @for ($number = 5 ;$number >= 1 ; $number--)
-        <div class="bc-checkbox">
-            <input name="review_score[]" id="review-{{$number}}" type="checkbox" value="{{$number}}" @if(  in_array($number , request()->query('review_score',[])) )  checked @endif>
-            <label for="review-{{$number}}">
+    <div class="item-content">
+        @for ($number = 5 ;$number >= 1 ; $number--)
+            <div class="bc-checkbox">
+                <input name="review_score[]" id="review-{{$number}}" type="checkbox" value="{{$number}}" @if(  in_array($number , request()->query('review_score',[])) )  checked @endif>
+                <label for="review-{{$number}}">
                 <span>
                     @for ($review_score = 1 ;$review_score <= 5 ; $review_score++)
                         <i class="ml-1  @if($review_score <= $number) bc-icon-star @else bc-icon-star-o  @endif"></i>
                     @endfor
                 </span>
-            </label>
-        </div>
-    @endfor
+                </label>
+            </div>
+        @endfor
+    </div>
+
 </div>

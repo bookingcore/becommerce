@@ -14,6 +14,6 @@
         </div>
     </div>
 @endsection
-@push('head')
+@push('footer')
     <script  src="{{ theme_url('Zeomart/dist/js/vendor/product-list.js?_v='.config('app.asset_version')) }}"></script>
 @endpush
