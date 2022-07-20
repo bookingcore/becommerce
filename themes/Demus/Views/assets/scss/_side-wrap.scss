@@ -480,20 +480,18 @@
     }
 }
 .site-notifications-side{
-.axtronic-notifications-bottom{
-    padding-top: 3em;
-    margin: 0;
-    border-top: 2px dashed;
-    border-top-color: var(--border);
-    a.button{
-        font-size: 14px;
-        display: block;
-        text-align: center;
+    .axtronic-notifications-bottom{
+        padding-top: 3em;
+        margin: 0;
+        border-top: 2px dashed;
+        border-top-color: var(--border);
+        a.button{
+            font-size: 14px;
+            display: block;
+            text-align: center;
+        }
     }
-}
-.axtronic-notifications-content{
 
-}
 }
 
 .side-wrap-content {

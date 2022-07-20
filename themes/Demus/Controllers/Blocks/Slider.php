@@ -4,7 +4,7 @@ namespace Themes\Demus\Controllers\Blocks;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Media\Helpers\FileHelper;
 
-class BannerSlider extends BaseBlock
+class Slider extends BaseBlock
 {
     function __construct()
     {
@@ -107,6 +107,6 @@ class BannerSlider extends BaseBlock
     public function content($model = [])
     {
         $style = !empty($model['style']) ? $model['style'] : 'style_1';
-        return view("blocks.banner-slider.{$style}", $model);
+        return view("blocks.slider.{$style}", $model);
     }
 }

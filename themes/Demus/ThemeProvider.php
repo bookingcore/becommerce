@@ -3,9 +3,11 @@ namespace Themes\Demus;
 
 use Modules\Core\Helpers\SettingManager;
 use Modules\Template\BlockManager;
+use Themes\Demus\Controllers\Blocks\FeaturedIcon;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
-use Themes\Demus\Controllers\Blocks\BannerSlider;
+use Themes\Demus\Controllers\Blocks\Banner;
+use Themes\Demus\Controllers\Blocks\Slider;
 use Themes\Demus\Controllers\Blocks\Gap;
 use Themes\Demus\Controllers\Blocks\ListProduct;
 use Themes\Demus\Database\Seeder;
@@ -43,8 +45,11 @@ class ThemeProvider extends AbstractThemeProvider
 
         BlockManager::register([
             ["gap", Gap::class],
-            ["slider", BannerSlider::class],
+            ["slider", Slider::class],
             ["productlist", ListProduct::class],
+            ["featured_icon", FeaturedIcon::class],
+            ["banner", Banner::class],
+
 
         ]);
     }

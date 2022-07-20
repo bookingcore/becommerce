@@ -15,15 +15,15 @@ class ListProduct extends BaseBlock
                     'id'            => 'style_list',
                     'type'          => 'radios',
                     'label'         => __('Style Item'),
-                    'value'         => '',
+                    'value'         => 'normail',
                     'values'        => [
                         [
-                            'value'   => '',
-                            'name' => __("Style Normal 3"),
+                            'value'   => 'normal',
+                            'name' => __("Style Normal"),
                         ],
                         [
-                            'value'   => 'slide',
-                            'name' => __("Style Slide")
+                            'value'   => 'fluid_width',
+                            'name' => __("Style Fluid Width")
                         ]
                     ]
                 ],
@@ -32,6 +32,12 @@ class ListProduct extends BaseBlock
                     'type'      => 'input',
                     'inputType' => 'text',
                     'label'     => __('Title')
+                ],
+                [
+                    'id'        => 'sub_title',
+                    'type'      => 'input',
+                    'inputType' => 'text',
+                    'label'     => __('Sub Title')
                 ],
                 [
                     'id'      => 'cat_ids',
@@ -123,6 +129,7 @@ class ListProduct extends BaseBlock
         $data = [
             'rows'              => $list,
             'title'             => $model['title'] ?? "",
+            'sub_title'         => $model['sub_title'] ?? "",
             'categories'        => $categories ?? [],
             'style_list'        => !empty($model['style_list']) ? $model['style_list'] : "normal",
         ];

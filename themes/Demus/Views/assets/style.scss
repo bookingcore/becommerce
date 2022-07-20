@@ -14,7 +14,7 @@
 // Susy grid system. See: http://oddbird.net/susy/docs/
 @import 'susy';
 
-@import 'animate.min.css';
+//@import 'animate.min.css';
 // Vendors
 // External libraries and frameworks.
 @import 'scss/vendors/modular-scale';
@@ -35,3 +35,5 @@
 @import "scss/responsive";
 @import "scss/side-wrap";
 @import "scss/slider";
+@import "scss/promotion";
+@import "scss/banner";

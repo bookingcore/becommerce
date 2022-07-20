@@ -1,0 +1,89 @@
+.demus-promotions{
+    padding-bottom: 45px;
+    margin-bottom: 70px;
+    .style-4{
+        .item-content{
+            padding: 40px;
+        }
+    }
+    .style-3{
+        .item-content{
+            padding: 20px;
+        }
+    }
+    .promotions-item{
+        position: relative;
+        overflow: hidden;
+        &:hover{
+            .item-bg{
+                -ms-transform: scale(1.2);
+                -o-transform: scale(1.2);
+                -moz-transform: scale(1.2);
+                -webkit-transform: scale(1.2);
+                transform: scale(1.2);
+            }
+        }
+    }
+    .item-content{
+        min-height: 334px;
+        padding: 60px;
+        position: relative;
+        z-index: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        -webkit-transition: all .3s ease-in-out 0s;
+        -o-transition: all .3s ease-in-out 0s;
+        transition: all .3s ease-in-out 0s;
+
+        &.left{
+            align-items: start;
+        }
+        &.right{
+            align-items: end;
+        }
+        &.center{
+            align-items: center;
+        }
+        .sub-title{
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            text-transform: uppercase;
+            color: var(--text);
+            margin-bottom: calc(var(--bs-gutter-x));
+        }
+        h3.title{
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 40px;
+            color: var(--accent);
+            letter-spacing: -1px;
+        }
+        p{
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 24px;
+            color: var(--text);
+            margin-bottom: 0;
+        }
+        a.btn-link-outline{
+            margin-top: 48px;
+        }
+    }
+    .item-bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        transition: transform calc(700ms * 1.5) cubic-bezier(0.19, 1, 0.22, 1);
+        -webkit-background-size: cover;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 1;
+        transition-duration: 300ms;
+    }
+}

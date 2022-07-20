@@ -36,26 +36,7 @@ class Promotion extends BaseBlock
                         [
                             'value'   => '3',
                             'name' => __("4 Item")
-                        ],
-                        [
-                            'value'   => 'grid',
-                            'name' => __("Gird")
                         ]
-                    ]
-                ],
-                [
-                    'id'            => 'style',
-                    'type'          => 'radios',
-                    'label'         => __('Style'),
-                    'values'        => [
-                        [
-                            'value'   => '',
-                            'name' => __("Style 1")
-                        ],
-                        [
-                            'value'   => 'style_2',
-                            'name' => __("Style 2")
-                        ],
                     ]
                 ],
                 [
@@ -92,51 +73,27 @@ class Promotion extends BaseBlock
                             'label' => __('Image Uploader')
                         ],
                         [
+                            'type'      => "checkbox",
+                            'label'     =>__("Color title dark?"),
+                            'id'        => "is_dark",
+                            'default'   => false
+                        ],
+                        [
                             'id'            => 'position',
                             'type'          => 'select',
                             'label'         => __('Position'),
                             'values'        => [
                                 [
-                                    'id'   => 'top_left',
-                                    'name' => __("Top Left")
+                                    'id'   => 'left',
+                                    'name' => __("Left")
                                 ],
                                 [
-                                    'id'   => 'top_right',
-                                    'name' => __("Top Right")
+                                    'id'   => 'right',
+                                    'name' => __("Right")
                                 ],
                                 [
-                                    'id'   => 'bottom_left',
-                                    'name' => __("Bottom Left")
-                                ],
-                                [
-                                    'id'   => 'bottom_right',
-                                    'name' => __("Right Left")
-                                ],
-                                [
-                                    'id'   => 'center_right',
-                                    'name' => __("Right Center")
-                                ],
-                                [
-                                    'id'   => 'center_left',
-                                    'name' => __("Left center")
-                                ]
-                            ],
-                            "selectOptions"=> [
-                                'hideNoneSelectedText' => "true"
-                            ]
-                        ],
-                        [
-                            'id'            => 'style_color',
-                            'type'          => 'select',
-                            'label'         => __('Color Text'),
-                            'values'        => [
-                                [
-                                    'id'   => 'dark',
-                                    'name' => __("Dark")
-                                ],
-                                [
-                                    'id'   => 'light',
-                                    'name' => __("Light")
+                                    'id'   => 'center',
+                                    'name' => __("Center")
                                 ],
                             ],
                             "selectOptions"=> [
@@ -163,12 +120,11 @@ class Promotion extends BaseBlock
             $model['position'] = 'top_left';
         }
         $data = [
-            'title'  =>  $model['title'] ?? '',
-            'sub_title'  =>  $model['sub_title'] ?? '',
-            'list_items'  =>  $model['list_items'] ?? '',
-            'col' => $model['col'] ?? 3,
-            'style_color' => $model['style_color'] ?? 'light',
+            'title'         =>  $model['title'] ?? '',
+            'sub_title'     =>  $model['sub_title'] ?? '',
+            'list_items'    =>  $model['list_items'] ?? '',
+            'col'           => $model['col'] ?? 3,
         ];
-        return view('blocks.promotion.'.$model['style'], $data);
+        return view('blocks.promotion.index', $data);
     }
 }

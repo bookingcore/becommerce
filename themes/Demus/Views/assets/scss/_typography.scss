@@ -10,12 +10,12 @@
     --border: #E6E2E0;
     --background: #EFEFED;
     --background2: #F0E1C6;
-    --container: 1440px;
-    --grid-gutter: 24px;
-    --heading-weight: 600;
+    --container: 1430px;
+    --grid-gutter: 40px;
+    --heading-weight: 700;
     --base-font: "Sen", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
     --heading-font: "Sen", 'HelveticaNeue-Light', 'Helvetica Neue Light', 'Helvetica Neue', Helvetica, Arial, 'Lucida Grande', sans-serif;
-    --media-desktop: 1440px;
+    --media-desktop: 1430px;
     --media-laptop: 1024px;
     --media-tablet: 758px;
     --media-handheld: 568px;
@@ -28,6 +28,9 @@
     --header-color: #333333;
     --body-color: #54504f;
     --bs-body-bg: #fff;
+    --sale: #F57E7E;
+    --out-stock: #A49F9C;
+    --in-stock: #54C154;
 }
 
 body {
@@ -38,11 +41,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--bs-body-bg);
     font-family: var(--base-font);
-    //cursor: none!important;
-
-    //*{
-    //    cursor: none!important;
-    //}
 }
 
 
@@ -81,8 +79,7 @@ h6 {
     color: var(--accent);
     font-family: var(--heading-font);
     font-weight: var(--heading-weight);
-    line-height: 1.3;
-
+    letter-spacing: -1.5px;
     .comment-body .comment-text & {
         padding: 1em 0 0;
     }
@@ -90,30 +87,41 @@ h6 {
 
 h1,
 .alpha {
-    font-size: ms(5);
+    font-size: 48px;
+    line-height: 50px;
 }
 
 h2,
 .beta {
-    font-size: 2em;
+    font-size: 40px;
+    line-height: 48px;
 }
 
 h3,
 .gamma {
-    font-size: 26px;
+    font-size: 32px;
+    line-height: 40px;
 }
 
 h4,
 .delta {
-    font-size: 22px;
+    font-size: 30px;
+    line-height: 40px;
 }
 
 h5 {
-    font-size: 20px;
+    font-size: 24px;
+    line-height: 32px;
 }
 
 h6 {
     font-size: 18px;
+    line-height: 24px;
+}
+.sub-heading{
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
 }
 
 .alpha,
@@ -277,7 +285,7 @@ img {
 }
 
 a {
-    &:not(.button) {
+    &:not(.button), &:not(.btn) , &:not(.btn-link-outline) {
         color: var(--primary);
 
         &:hover {
@@ -316,7 +324,7 @@ input[type=text], input[type=number], input[type=email], input[type=tel], input[
         box-shadow: none;
     }
 }
-button, input[type=button], input[type=reset], input[type=submit], .button, button.btn, a.btn, .btn-primary{
+button, input[type=button], input[type=reset], input[type=submit], .button, button.btn, .btn-primary{
     color: #fff;
     cursor: pointer;
     padding: 8px 24px;
@@ -355,6 +363,44 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
 
 }
 
+button.btn-link, a.btn-link{
+    display: inline-block;
+    font-weight: 700;
+    line-height: 1.5;
+    color: var(--accent);
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    border-radius: 0;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+a.btn-link-outline{
+    border-bottom: 2px solid var(--primary);
+    position: relative;
+    color: var(--accent);
+    display: inline-block;
+    &:before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent);
+        transition: width .3s ease-in-out;
+    }
+    &:hover{
+        &:before {
+            width: 100%;
+        }
+    }
+}
 .primary-color{
     color: var(--primary);
 }

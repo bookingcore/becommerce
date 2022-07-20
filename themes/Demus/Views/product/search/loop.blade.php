@@ -7,9 +7,9 @@ $score_total = $reviewData['score_total'];
     <div class="product-labels">
         @if($row->stock_status == "in")
             @if(!empty($row->discount_percent))
-                <span class="onsale product-label">{{__('Sale')}}</span>
+                <span class="onsale">{{__('Sale')}}</span>
             @else
-                <span class="product-label featured">{{__('Hot')}}</span>
+                <span class="featured">{{__('Hot')}}</span>
             @endif
         @else
             <span class="out-stock">{{__('Out Of Stock')}}</span>

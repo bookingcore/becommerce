@@ -1,5 +1,4 @@
 @charset "UTF-8";
-@import 'animate.min.css';
 @font-face {
   font-family: "axtronic-icon";
   src: url("./fonts/axtronic-icon.eot?zmkabw");
@@ -1162,12 +1161,12 @@ th {
   --border: #E6E2E0;
   --background: #EFEFED;
   --background2: #F0E1C6;
-  --container: 1440px;
-  --grid-gutter: 24px;
-  --heading-weight: 600;
+  --container: 1430px;
+  --grid-gutter: 40px;
+  --heading-weight: 700;
   --base-font: "Sen", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif ;
   --heading-font: "Sen", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  --media-desktop: 1440px;
+  --media-desktop: 1430px;
   --media-laptop: 1024px;
   --media-tablet: 758px;
   --media-handheld: 568px;
@@ -1180,6 +1179,9 @@ th {
   --header-color: #333333;
   --body-color: #54504f;
   --bs-body-bg: #fff;
+  --sale: #F57E7E;
+  --out-stock: #A49F9C;
+  --in-stock: #54C154;
 }
 
 body {
@@ -1227,7 +1229,7 @@ h6 {
   color: var(--accent);
   font-family: var(--heading-font);
   font-weight: var(--heading-weight);
-  line-height: 1.3;
+  letter-spacing: -1.5px;
 }
 .comment-body .comment-text h1,
 .comment-body .comment-text h2,
@@ -1240,30 +1242,42 @@ h6 {
 
 h1,
 .alpha {
-  font-size: 11.0901703293em;
+  font-size: 48px;
+  line-height: 50px;
 }
 
 h2,
 .beta {
-  font-size: 2em;
+  font-size: 40px;
+  line-height: 48px;
 }
 
 h3,
 .gamma {
-  font-size: 26px;
+  font-size: 32px;
+  line-height: 40px;
 }
 
 h4,
 .delta {
-  font-size: 22px;
+  font-size: 30px;
+  line-height: 40px;
 }
 
 h5 {
-  font-size: 20px;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 h6 {
   font-size: 18px;
+  line-height: 24px;
+}
+
+.sub-heading {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
 }
 
 .alpha,
@@ -1436,11 +1450,11 @@ img {
   display: block;
 }
 
-a:not(.button) {
+a:not(.button), a:not(.btn), a:not(.btn-link-outline) {
   color: var(--primary);
   text-decoration: none;
 }
-a:not(.button):hover {
+a:not(.button):hover, a:not(.btn):hover, a:not(.btn-link-outline):hover {
   color: var(--primary_hover);
 }
 
@@ -1473,7 +1487,7 @@ input[type=text]:focus, input[type=number]:focus, input[type=email]:focus, input
   box-shadow: none;
 }
 
-button, input[type=button], input[type=reset], input[type=submit], .button, button.btn, a.btn, .btn-primary {
+button, input[type=button], input[type=reset], input[type=submit], .button, button.btn, .btn-primary {
   color: #fff;
   cursor: pointer;
   padding: 8px 24px;
@@ -1490,25 +1504,63 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
   background-color: var(--primary);
   border-radius: 0;
 }
-button:hover, button:focus, button:active, button:active:focus, button:checked + button:focus, button.active:focus, input[type=button]:hover, input[type=button]:focus, input[type=button]:active, input[type=button]:active:focus, button:checked + input[type=button]:focus, input[type=button].active:focus, input[type=reset]:hover, input[type=reset]:focus, input[type=reset]:active, input[type=reset]:active:focus, button:checked + input[type=reset]:focus, input[type=reset].active:focus, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active, input[type=submit]:active:focus, button:checked + input[type=submit]:focus, input[type=submit].active:focus, .button:hover, .button:focus, .button:active, .button:active:focus, button:checked + .button:focus, .button.active:focus, button.btn:hover, button.btn:focus, button.btn:active, button.btn:active:focus, button:checked + button.btn:focus, button.btn.active:focus, a.btn:hover, a.btn:focus, a.btn:active, a.btn:active:focus, button:checked + a.btn:focus, a.btn.active:focus, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus, button:checked + .btn-primary:focus, .btn-primary.active:focus, input[type=button]:checked + button:focus, input[type=button]:checked + input[type=button]:focus, input[type=button]:checked + input[type=reset]:focus, input[type=button]:checked + input[type=submit]:focus, input[type=button]:checked + .button:focus, input[type=button]:checked + button.btn:focus, input[type=button]:checked + a.btn:focus, input[type=button]:checked + .btn-primary:focus, input[type=reset]:checked + button:focus, input[type=reset]:checked + input[type=button]:focus, input[type=reset]:checked + input[type=reset]:focus, input[type=reset]:checked + input[type=submit]:focus, input[type=reset]:checked + .button:focus, input[type=reset]:checked + button.btn:focus, input[type=reset]:checked + a.btn:focus, input[type=reset]:checked + .btn-primary:focus, input[type=submit]:checked + button:focus, input[type=submit]:checked + input[type=button]:focus, input[type=submit]:checked + input[type=reset]:focus, input[type=submit]:checked + input[type=submit]:focus, input[type=submit]:checked + .button:focus, input[type=submit]:checked + button.btn:focus, input[type=submit]:checked + a.btn:focus, input[type=submit]:checked + .btn-primary:focus, .button:checked + button:focus, .button:checked + input[type=button]:focus, .button:checked + input[type=reset]:focus, .button:checked + input[type=submit]:focus, .button:checked + .button:focus, .button:checked + button.btn:focus, .button:checked + a.btn:focus, .button:checked + .btn-primary:focus, button.btn:checked + button:focus, button.btn:checked + input[type=button]:focus, button.btn:checked + input[type=reset]:focus, button.btn:checked + input[type=submit]:focus, button.btn:checked + .button:focus, button.btn:checked + button.btn:focus, button.btn:checked + a.btn:focus, button.btn:checked + .btn-primary:focus, a.btn:checked + button:focus, a.btn:checked + input[type=button]:focus, a.btn:checked + input[type=reset]:focus, a.btn:checked + input[type=submit]:focus, a.btn:checked + .button:focus, a.btn:checked + button.btn:focus, a.btn:checked + a.btn:focus, a.btn:checked + .btn-primary:focus, .btn-primary:checked + button:focus, .btn-primary:checked + input[type=button]:focus, .btn-primary:checked + input[type=reset]:focus, .btn-primary:checked + input[type=submit]:focus, .btn-primary:checked + .button:focus, .btn-primary:checked + button.btn:focus, .btn-primary:checked + a.btn:focus, .btn-primary:checked + .btn-primary:focus {
+button:hover, button:focus, button:active, button:active:focus, button:checked + button:focus, button.active:focus, input[type=button]:hover, input[type=button]:focus, input[type=button]:active, input[type=button]:active:focus, button:checked + input[type=button]:focus, input[type=button].active:focus, input[type=reset]:hover, input[type=reset]:focus, input[type=reset]:active, input[type=reset]:active:focus, button:checked + input[type=reset]:focus, input[type=reset].active:focus, input[type=submit]:hover, input[type=submit]:focus, input[type=submit]:active, input[type=submit]:active:focus, button:checked + input[type=submit]:focus, input[type=submit].active:focus, .button:hover, .button:focus, .button:active, .button:active:focus, button:checked + .button:focus, .button.active:focus, button.btn:hover, button.btn:focus, button.btn:active, button.btn:active:focus, button:checked + button.btn:focus, button.btn.active:focus, .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:active:focus, button:checked + .btn-primary:focus, .btn-primary.active:focus, input[type=button]:checked + button:focus, input[type=button]:checked + input[type=button]:focus, input[type=button]:checked + input[type=reset]:focus, input[type=button]:checked + input[type=submit]:focus, input[type=button]:checked + .button:focus, input[type=button]:checked + button.btn:focus, input[type=button]:checked + .btn-primary:focus, input[type=reset]:checked + button:focus, input[type=reset]:checked + input[type=button]:focus, input[type=reset]:checked + input[type=reset]:focus, input[type=reset]:checked + input[type=submit]:focus, input[type=reset]:checked + .button:focus, input[type=reset]:checked + button.btn:focus, input[type=reset]:checked + .btn-primary:focus, input[type=submit]:checked + button:focus, input[type=submit]:checked + input[type=button]:focus, input[type=submit]:checked + input[type=reset]:focus, input[type=submit]:checked + input[type=submit]:focus, input[type=submit]:checked + .button:focus, input[type=submit]:checked + button.btn:focus, input[type=submit]:checked + .btn-primary:focus, .button:checked + button:focus, .button:checked + input[type=button]:focus, .button:checked + input[type=reset]:focus, .button:checked + input[type=submit]:focus, .button:checked + .button:focus, .button:checked + button.btn:focus, .button:checked + .btn-primary:focus, button.btn:checked + button:focus, button.btn:checked + input[type=button]:focus, button.btn:checked + input[type=reset]:focus, button.btn:checked + input[type=submit]:focus, button.btn:checked + .button:focus, button.btn:checked + button.btn:focus, button.btn:checked + .btn-primary:focus, .btn-primary:checked + button:focus, .btn-primary:checked + input[type=button]:focus, .btn-primary:checked + input[type=reset]:focus, .btn-primary:checked + input[type=submit]:focus, .btn-primary:checked + .button:focus, .btn-primary:checked + button.btn:focus, .btn-primary:checked + .btn-primary:focus {
   color: var(--primary);
   background-color: var(--background);
   border-color: var(--primary);
   box-shadow: none;
 }
-button.button-hover, input[type=button].button-hover, input[type=reset].button-hover, input[type=submit].button-hover, .button.button-hover, button.btn.button-hover, a.btn.button-hover, .btn-primary.button-hover {
+button.button-hover, input[type=button].button-hover, input[type=reset].button-hover, input[type=submit].button-hover, .button.button-hover, button.btn.button-hover, .btn-primary.button-hover {
   background-color: var(--background);
   color: var(--primary);
 }
-button.button-hover:hover, input[type=button].button-hover:hover, input[type=reset].button-hover:hover, input[type=submit].button-hover:hover, .button.button-hover:hover, button.btn.button-hover:hover, a.btn.button-hover:hover, .btn-primary.button-hover:hover {
+button.button-hover:hover, input[type=button].button-hover:hover, input[type=reset].button-hover:hover, input[type=submit].button-hover:hover, .button.button-hover:hover, button.btn.button-hover:hover, .btn-primary.button-hover:hover {
   background-color: var(--primary);
   color: #fff;
 }
-button.btn-large, input[type=button].btn-large, input[type=reset].btn-large, input[type=submit].btn-large, .button.btn-large, button.btn.btn-large, a.btn.btn-large, .btn-primary.btn-large {
+button.btn-large, input[type=button].btn-large, input[type=reset].btn-large, input[type=submit].btn-large, .button.btn-large, button.btn.btn-large, .btn-primary.btn-large {
   padding: 18px 40px;
 }
-button.btn-small, input[type=button].btn-small, input[type=reset].btn-small, input[type=submit].btn-small, .button.btn-small, button.btn.btn-small, a.btn.btn-small, .btn-primary.btn-small {
+button.btn-small, input[type=button].btn-small, input[type=reset].btn-small, input[type=submit].btn-small, .button.btn-small, button.btn.btn-small, .btn-primary.btn-small {
   padding: 8px 16px;
+}
+
+button.btn-link, a.btn-link {
+  display: inline-block;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--accent);
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  user-select: none;
+  background-color: transparent;
+  border: 1px solid transparent;
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  border-radius: 0;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+a.btn-link-outline {
+  border-bottom: 2px solid var(--primary);
+  position: relative;
+  color: var(--accent);
+  display: inline-block;
+}
+a.btn-link-outline:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  display: block;
+  width: 0;
+  height: 2px;
+  background-color: var(--accent);
+  transition: width 0.3s ease-in-out;
+}
+a.btn-link-outline:hover:before {
+  width: 100%;
 }
 
 .primary-color {
@@ -1683,7 +1735,7 @@ textarea {
   margin-right: calc(var(--grid-gutter) / -2);
 }
 
-[class*=" column-"], [class^=column-] {
+[class*=" col-"], [class^=col-] {
   padding-left: calc(var(--grid-gutter) / 2);
   padding-right: calc(var(--grid-gutter) / 2);
 }
@@ -2648,6 +2700,11 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   font-weight: 600;
 }
 
+.demus-list-products {
+  padding-bottom: 45px;
+  margin-bottom: 70px;
+}
+
 .star-rating {
   display: flex;
   font-size: 14px;
@@ -2681,6 +2738,21 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   margin-bottom: var(--grid-gutter);
 }
 
+.product-list-full .product-item .product-caption {
+  padding: 30px 10px;
+}
+.product-list-full .demus-content {
+  background-color: #f9f9f9;
+}
+.product-list-full .demus-content .row {
+  margin-right: calc(-.5 * var(--bs-gutter-x));
+  margin-left: calc(-.5 * var(--bs-gutter-x));
+}
+.product-list-full .demus-content .border {
+  margin-left: -1px;
+  margin-bottom: -1px;
+}
+
 .product-item {
   position: relative;
   transition: all 0.4s ease-in-out;
@@ -2703,6 +2775,9 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 .product-item:hover .product-caption h2 a:before {
   left: 0;
 }
+.product-item:hover .product-labels span:before {
+  width: 100%;
+}
 .product-item .product-labels {
   position: absolute;
   top: 12px;
@@ -2712,21 +2787,33 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   flex-direction: column;
   align-items: flex-start;
 }
-.product-item .product-label {
+.product-item .product-labels span {
   padding: 1px 10px;
   text-transform: uppercase;
   font-size: 11px;
-  color: #fff;
+  color: var(--accent);
   margin-bottom: 8px;
-  line-height: 22px;
-  min-width: 38px;
-  border-radius: 10px;
+  position: relative;
 }
-.product-item .product-label.onsale {
-  background: #ef4914;
+.product-item .product-labels span.onsale:before {
+  background-color: var(--sale);
 }
-.product-item .product-label.featured {
-  background: var(--secondary);
+.product-item .product-labels span.featured:before {
+  background-color: var(--in-stock);
+}
+.product-item .product-labels span.out-stock:before {
+  background-color: var(--out-stock);
+}
+.product-item .product-labels span:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 22px;
+  height: 100%;
+  display: block;
+  transition: width 0.2s ease;
+  z-index: -1;
 }
 .product-item .product-transition {
   overflow: hidden;
@@ -2801,6 +2888,8 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   transition: all 0.3s ease;
 }
 .product-item .product-transition .demus_form_add_to_cart .btn-addtocart {
+  display: block;
+  text-align: center;
   width: 100%;
   background-color: var(--accent);
   color: #ffffff;
@@ -2827,6 +2916,7 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
 }
 .product-item .product-caption h2 {
   margin-bottom: 0;
+  line-height: 1;
 }
 .product-item .product-caption h2 a {
   color: var(--accent);
@@ -2839,6 +2929,7 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   overflow: hidden;
   position: relative;
   display: inline-block;
+  margin-bottom: 0;
 }
 .product-item .product-caption h2 a:before {
   content: "";
@@ -2849,6 +2940,30 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   background: var(--accent);
   left: -100%;
   transition: all 0.3s ease;
+}
+
+a.btn--viewall {
+  color: var(--accent);
+  font-weight: 700;
+}
+a.btn--viewall:hover {
+  color: var(--accent);
+}
+
+.heading-title {
+  font-size: 40px;
+  line-height: 48px;
+  letter-spacing: -1.5px;
+  margin-bottom: 0;
+  color: var(--accent);
+}
+
+p.sub-title {
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 24px;
+  letter-spacing: -1px;
+  color: var(--text);
 }
 
 .widget {
@@ -3961,6 +4076,7 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   display: block;
   text-align: center;
 }
+
 .side-wrap-content {
   margin-bottom: 0;
   position: relative;
@@ -4218,7 +4334,8 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   opacity: 1;
 }
 .banner-slider.demus-slider-2 {
-  margin: 0 100px;
+  margin-left: 100px;
+  margin-right: 100px;
   position: relative;
 }
 .banner-slider.demus-slider-2 .swiper-button-next {
@@ -4264,6 +4381,125 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+
+.demus-promotions {
+  padding-bottom: 45px;
+  margin-bottom: 70px;
+}
+.demus-promotions .style-4 .item-content {
+  padding: 40px;
+}
+.demus-promotions .style-3 .item-content {
+  padding: 20px;
+}
+.demus-promotions .promotions-item {
+  position: relative;
+  overflow: hidden;
+}
+.demus-promotions .promotions-item:hover .item-bg {
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -webkit-transform: scale(1.2);
+  transform: scale(1.2);
+}
+.demus-promotions .item-content {
+  min-height: 334px;
+  padding: 60px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  -o-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+.demus-promotions .item-content.left {
+  align-items: start;
+}
+.demus-promotions .item-content.right {
+  align-items: end;
+}
+.demus-promotions .item-content.center {
+  align-items: center;
+}
+.demus-promotions .item-content .sub-title {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  text-transform: uppercase;
+  color: var(--text);
+  margin-bottom: calc(var(--bs-gutter-x));
+}
+.demus-promotions .item-content h3.title {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: var(--accent);
+  letter-spacing: -1px;
+}
+.demus-promotions .item-content p {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--text);
+  margin-bottom: 0;
+}
+.demus-promotions .item-content a.btn-link-outline {
+  margin-top: 48px;
+}
+.demus-promotions .item-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  transition: transform calc(700ms * 1.5) cubic-bezier(0.19, 1, 0.22, 1);
+  -webkit-background-size: cover;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition-duration: 300ms;
+}
+
+.demus-banner {
+  padding: 120px 0;
+  margin-bottom: 120px;
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.demus-banner p span {
+  color: var(--primary);
+}
+.demus-banner a {
+  margin-top: 50px;
+  text-transform: uppercase;
+}
+.demus-banner .item-content {
+  align-items: start;
+}
+.demus-banner .item-content.light h1, .demus-banner .item-content.light p, .demus-banner .item-content.light a {
+  color: #ffffff;
+}
+.demus-banner .row.justify-content-center .item-content {
+  align-items: center;
+}
+
+.demus-site-features {
+  margin-bottom: 60px;
+}
+.demus-site-features .item-features {
+  padding: 60px 0;
+}
+.demus-site-features .item-features .item-content h4 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
 }
 
 /*# sourceMappingURL=style.css.map */
