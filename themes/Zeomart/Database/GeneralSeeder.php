@@ -422,9 +422,35 @@ class GeneralSeeder extends Seeder
             ['file_name' => 'team-member-2', 'file_path' => 'zeomart/general/team-member-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
             ['file_name' => 'team-member-3', 'file_path' => 'zeomart/general/team-member-3.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
             ['file_name' => 'team-member-4', 'file_path' => 'zeomart/general/team-member-4.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg'],
+
+            ['file_name' => 'about-icon-1', 'file_path' => 'zeomart/general/about-icon-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-icon-2', 'file_path' => 'zeomart/general/about-icon-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-icon-3', 'file_path' => 'zeomart/general/about-icon-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+
+            ['file_name' => 'about-brand-1', 'file_path' => 'zeomart/general/about-brand-1.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-brand-2', 'file_path' => 'zeomart/general/about-brand-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-brand-3', 'file_path' => 'zeomart/general/about-brand-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-brand-4', 'file_path' => 'zeomart/general/about-brand-4.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-brand-5', 'file_path' => 'zeomart/general/about-brand-5.png', 'file_type' => 'image/png', 'file_extension' => 'png']
         ]);
         //Page About Seeder
         $about_template_content = [
+            [
+                'type' => 'breadcrumb',
+                'name' => 'Breadcrumb',
+                'model' => [
+                    'list_items' => [
+                        [
+                            '_active' => false,
+                            'name' => 'About',
+                            'url' => '',
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
             [
                 'type' => 'about_gallery',
                 'name' => 'About Gallery',
@@ -486,6 +512,7 @@ class GeneralSeeder extends Seeder
                 'type' => 'counter',
                 'name' => 'Counter',
                 'model' => [
+                    'title' => 'We Reached So Far',
                     'list_items' => [
                         [
                             '_active' => false,
@@ -584,7 +611,121 @@ class GeneralSeeder extends Seeder
                 'component' => 'RegularBlock',
                 'open' => true,
                 'is_container' => false,
-            ]
+            ],
+            [
+                'type' => 'team_two_columns',
+                'name' => 'About Two Columns',
+                'model' => [
+                    'title' => 'In in mattis erat, eu mattis libero. Donec volutpat faucibus elit cursus interdum',
+                    'content' => '<p>Nullam accumsan nulla in arcu condimentum imperdiet. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur lacinia purus vitae lorem porttitor fermentum. In in mattis erat, eu mattis libero.</p>
+<p>ociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur lacinia purus vitae lorem porttitor fermentum. In in mattis erat, eu mattis libero. Donec volutpat faucibus elit cursus interdum.</p>',
+                    'button_name' => 'Shop Now',
+                    'button_url' => '#',
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'separator',
+                'name' => 'Separator',
+                'model' =>[],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'list_icon_text',
+                'name' => 'List Icon Text',
+                'model' => [
+                    'title' => 'Why Should You Choose Us',
+                    'list_items' => [
+                        [
+                            '_active' => false,
+                            'icon_image' => MediaFile::findMediaByName('about-icon-1')->id,
+                            'name' => 'Money Guarantee',
+                            'desc' => 'Within 30 days for an exchange.'
+                        ],
+                        [
+                            '_active' => false,
+                            'icon_image' => MediaFile::findMediaByName('about-icon-2')->id,
+                            'name' => 'Online Support',
+                            'desc' => '24 hours a day, 7 days a week'
+                        ],
+                        [
+                            '_active' => false,
+                            'icon_image' => MediaFile::findMediaByName('about-icon-3')->id,
+                            'name' => 'Flexible Payment',
+                            'desc' => 'Pay with Multiple Credit Cards'
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'testimonials',
+                'name' => 'Testimonials',
+                'model' => [
+                    'title' => 'The review are in',
+                    'list_testimonials' => [
+                        [
+                            '_active' => false,
+                            'name' => 'Ali Tufan',
+                            'position' => 'Fashion Designer',
+                            'review' => 'Sallum dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu lorem dolor ipsum.',
+                            'stars' => 5,
+                        ],
+                        [
+                            '_active' => false,
+                            'name' => 'Ali Jason',
+                            'position' => 'Shopify Dev',
+                            'review' => 'Sallum dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu lorem dolor ipsum.',
+                            'stars' => 4,
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
+            [
+                'type' => 'list_brands',
+                'name' => 'List Brand(s)',
+                'model' => [
+                    'title' => 'Trusted by the world’s best',
+                    'list_items' => [
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-1')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-2')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-3')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-4')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-5')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-3')->id
+                        ]
+                    ]
+                ],
+                'component' => 'RegularBlock',
+                'open' => true,
+                'is_container' => false,
+            ],
         ];
         $about_template_id = DB::table('core_templates')->insertGetId(
             [

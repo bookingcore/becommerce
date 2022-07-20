@@ -89,5 +89,8 @@ input,select{
     @apply text-base
 }
 .zm-block--about-two-columns p{
-    @apply mb-4 text-base
+    @apply mb-5 text-base
+}
+.be-button-outline{
+    @apply inline-block rounded-md border-2 border-solid border-[#F5C34B] px-9 py-3.5 font-medium duration-500 text-[15px] hover:bg-[#F5C34B] hover:text-white
 }

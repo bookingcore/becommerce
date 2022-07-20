@@ -4,13 +4,13 @@
             <h2 class="text-[28px] font-medium lg:mb-7 mb-5">{{ $title }}</h2>
         @endif
         @if($list_members)
-            <div class="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 md:gap-7 gap-0">
+            <div class="grid md:grid-cols-4 grid-cols-2 md:gap-7 gap-5">
                 @foreach($list_members as $member)
-                    <div class="group member-item">
+                    <div class="group member-item md:mb-0 mb-4">
                         <div class="relative rounded-lg overflow-hidden">
                             <img src="{{ get_file_url($member['avatar'] ?? '', 'full') }}" class="w-full" alt="" />
                             @if($member['facebook'] || $member['twitter'] || $member['instagram'] || $member['linkedin'])
-                            <div class="overlay w-full h-full bg-[#f5c34be6] absolute left-0 top-0 opacity-0 duration-500 flex items-center justify-center group-hover:opacity-100">
+                            <div class="overlay w-full h-full bg-[#f5c34be6] absolute left-0 top-0 opacity-0 duration-500 flex items-center justify-center p-5 group-hover:opacity-100">
                                 <ul class="list-none inline-flex items-center">
                                     @if($member['facebook'])
                                         <li>

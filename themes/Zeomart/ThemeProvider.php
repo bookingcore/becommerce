@@ -51,6 +51,8 @@ class ThemeProvider extends AbstractThemeProvider
         BlockManager::register("separator",\Themes\Zeomart\Controllers\Blocks\Separator::class );
         BlockManager::register("team_member",\Themes\Zeomart\Controllers\Blocks\TeamMember::class );
         BlockManager::register("team_two_columns",\Themes\Zeomart\Controllers\Blocks\AboutTwoColumns::class );
+        BlockManager::register("list_icon_text",\Themes\Zeomart\Controllers\Blocks\ListIconText::class );
+        BlockManager::register("testimonials",\Themes\Zeomart\Controllers\Blocks\Testimonials::class );
 
     }
 
