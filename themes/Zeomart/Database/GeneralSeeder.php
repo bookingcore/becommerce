@@ -529,6 +529,7 @@ class GeneralSeeder extends Seeder
                 'type' => 'team_member',
                 'name' => 'Team Member',
                 'model' => [
+                    'title' => 'Meet Our Leaders',
                     'list_members' => [
                         [
                             '_active' => false,
