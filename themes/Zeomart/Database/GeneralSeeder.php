@@ -431,7 +431,8 @@ class GeneralSeeder extends Seeder
             ['file_name' => 'about-brand-2', 'file_path' => 'zeomart/general/about-brand-2.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
             ['file_name' => 'about-brand-3', 'file_path' => 'zeomart/general/about-brand-3.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
             ['file_name' => 'about-brand-4', 'file_path' => 'zeomart/general/about-brand-4.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
-            ['file_name' => 'about-brand-5', 'file_path' => 'zeomart/general/about-brand-5.png', 'file_type' => 'image/png', 'file_extension' => 'png']
+            ['file_name' => 'about-brand-5', 'file_path' => 'zeomart/general/about-brand-5.png', 'file_type' => 'image/png', 'file_extension' => 'png'],
+            ['file_name' => 'about-brand-6', 'file_path' => 'zeomart/general/about-brand-6.png', 'file_type' => 'image/png', 'file_extension' => 'png']
         ]);
         //Page About Seeder
         $about_template_content = [
@@ -715,6 +716,10 @@ class GeneralSeeder extends Seeder
                         [
                             '_active' => false,
                             'image' => MediaFile::findMediaByName('about-brand-5')->id
+                        ],
+                        [
+                            '_active' => false,
+                            'image' => MediaFile::findMediaByName('about-brand-6')->id
                         ],
                         [
                             '_active' => false,
