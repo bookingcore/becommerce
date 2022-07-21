@@ -94,3 +94,43 @@ input,select{
 .be-button-outline{
     @apply inline-block rounded-md border-2 border-solid border-[#F5C34B] px-9 py-3.5 font-medium duration-500 text-[15px] hover:bg-[#F5C34B] hover:text-white
 }
+.zm-testimonials-carousel .owl-nav button.owl-prev,
+.zm-testimonials-carousel .owl-nav button.owl-next{
+    background: #FFFFFF;
+    border: 1px solid #EAEAEA;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: 0;
+    transition: all 0.3s;
+}
+.zm-testimonials-carousel .owl-nav button.owl-prev.disabled,
+.zm-testimonials-carousel .owl-nav button.owl-next.disabled{
+    opacity: 0.5;
+    cursor: default;
+}
+.zm-testimonials-carousel .owl-nav button.owl-prev:not(.disabled):hover,
+.zm-testimonials-carousel .owl-nav button.owl-next:not(.disabled):hover{
+    background: #112137;
+    border-color: #112137;
+}
+.zm-testimonials-carousel .owl-nav button.owl-prev:not(.disabled):hover svg path,
+.zm-testimonials-carousel .owl-nav button.owl-next:not(.disabled):hover svg path{
+    fill: white;
+}
+.zm-testimonials-carousel .owl-nav button.owl-next{
+    left: auto;
+    right: 0;
+}
+
+@media(max-width: 767px){
+    .zm-testimonials-carousel .owl-nav button.owl-prev,
+    .zm-testimonials-carousel .owl-nav button.owl-next{
+        width: 35px;
+        height: 35px;
+    }
+}

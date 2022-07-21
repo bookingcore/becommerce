@@ -82,7 +82,7 @@ class Testimonials extends BaseBlock
     {
         $data = [
             'title' => $model['title'] ?? '',
-            'list_members'  =>  $model['list_members'] ?? []
+            'list_testimonials'  =>  $model['list_testimonials'] ?? []
         ];
 
         return view("blocks.list-testimonials.index", $data);
