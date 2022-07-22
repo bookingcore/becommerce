@@ -7,9 +7,12 @@ use Themes\Demus\Controllers\Blocks\FeaturedIcon;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
 use Themes\Demus\Controllers\Blocks\Banner;
+use Themes\Demus\Controllers\Blocks\Instagram;
+use Themes\Demus\Controllers\Blocks\NewsList;
 use Themes\Demus\Controllers\Blocks\Slider;
 use Themes\Demus\Controllers\Blocks\Gap;
 use Themes\Demus\Controllers\Blocks\ListProduct;
+use Themes\Demus\Controllers\Blocks\Title;
 use Themes\Demus\Database\Seeder;
 use Modules\Page\Hook;
 use Modules\Page\Models\Page;
@@ -49,6 +52,9 @@ class ThemeProvider extends AbstractThemeProvider
             ["productlist", ListProduct::class],
             ["featured_icon", FeaturedIcon::class],
             ["banner", Banner::class],
+            ["title", Title::class],
+            ["instagram", Instagram::class],
+            ["news", NewsList::class],
 
 
         ]);

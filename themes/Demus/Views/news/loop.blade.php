@@ -3,7 +3,7 @@ $translation = $row->translate();
 ?>
 <div class="bc-post post">
     <div class="post-header mb-4">
-        <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" class="c-333333">{{$translation->title}}</a></h2>
+        <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" >{{$translation->title}}</a></h2>
         <ul class="post-meta list-unstyled d-flex m-0">
             <li><i class="fa fa-calendar"></i> {{display_date($row->created_at)}}</li>
             @if($row->tags->count())

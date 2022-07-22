@@ -2,9 +2,9 @@
 <div class="demus-promotions">
     <div class="container">
         @if(!empty($title))
-            <div class="product-box-title text-center mb-xl-3 pb-4">
+            <div class="box-heading-title text-center mb-xl-3 pb-4">
                 <h2 class="heading-title ">{!! clean($title) !!}</h2>
-                <p class="sub-title">{!! clean($sub_title) !!}</p>
+                <p class="sub-heading">{!! clean($sub_title) !!}</p>
             </div>
         @endif
         <div class="row mt-4">

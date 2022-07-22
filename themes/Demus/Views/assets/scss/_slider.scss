@@ -207,15 +207,16 @@
         margin-left:100px;
         margin-right:100px;
         position: relative;
+        padding-bottom: 0;
         .swiper-button-next{
             top: 100%;
-            margin-top: -130px;
+            margin-top: -80px;
             right: 0;
             opacity: 1;
         }
         .swiper-button-prev{
             top: 100%;
-            margin-top: -130px;
+            margin-top: -80px;
             right: 70px;
             left: auto;
             opacity: 1;

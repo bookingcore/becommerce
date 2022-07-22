@@ -896,6 +896,31 @@ if(typeof Swiper !== 'undefined') {
             prevEl: '.swiper-button-prev',
         },
     });
+    const swiperInstagram = new Swiper('.instagram-slider', {
+        // Optional parameters
+        loop: true,
+        slidesPerView: 1,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 2,
+            },
+            768: {
+                slidesPerView: 4,
+            },
+            1024: {
+                slidesPerView: 6,
+            },
+        },
+        // Navigation arrowsss
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
 
     const swiperProductGallery = new Swiper(".demus-product_variants", {
         spaceBetween: 10,

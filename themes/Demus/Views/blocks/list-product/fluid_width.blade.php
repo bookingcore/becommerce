@@ -9,10 +9,12 @@ if (!empty($bg_content)){
     <div class="demus-list-products product-list-full">
         <div class="container-full">
             <div class="product-box">
-                <div class="product-box-title text-center mb-xl-3 pb-4">
-                    <h2 class="heading-title ">{!! clean($title) !!}</h2>
-                    <p class="sub-title">{!! clean($sub_title) !!}</p>
-                </div>
+                @if(!empty($title))
+                    <div class="box-heading-title text-center mb-xl-3 pb-4">
+                        <h2 class="heading-title ">{!! clean($title) !!}</h2>
+                        <p class="sub-heading">{!! clean($sub_title) !!}</p>
+                    </div>
+                @endif
                 <div class="demus-content">
                     <div class="row g-0 row-cols-1 row-cols-md-2 row-cols-lg-4 row-cols-xxl-4">
                         @if(!empty($rows))

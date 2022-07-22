@@ -18,33 +18,10 @@ class FeaturedIcon extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
-                    'id'    => 'style',
-                    'type'  => 'radios',
-                    'label' => __('Style'),
-                    'std'   => 'style_1',
-                    'values' => [
-                        [
-                            'value'     => 'style_1',
-                            'name'      => __("Style 1")
-                        ],
-                        [
-                            'value'     => 'style_2',
-                            'name'      => __("Style 2")
-                        ]
-                    ],
-                ],
-                [
-                    'id'    => 'image',
-                    'type'  => 'uploader',
-                    'label' => __('Banner Image '),
-                    'conditions' => ['style' => 'style_1']
-                ],
-                [
                     'id'        => 'bg_color',
                     'type'      => 'input',
                     'inputType' => 'text',
-                    'label'     => __('Background Color'),
-                    'conditions' => ['style' => 'style_2']
+                    'label'     => __('Background Color')
                 ],
                 [
                     'id'          => 'list_items',
@@ -55,13 +32,13 @@ class FeaturedIcon extends BaseBlock
                         [
                             'id'        => 'title',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Title')
                         ],
                         [
                             'id'        => 'sub_title',
                             'type'      => 'input',
-                            'inputType' => 'textArea',
+                            'inputType' => 'text',
                             'label'     => __('Sub Title')
                         ],
                         [
