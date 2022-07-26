@@ -9,7 +9,22 @@ class Separator extends BaseBlock
     {
         $this->setOptions([
             'settings' => [
-
+                [
+                    'id'      => 'size',
+                    'type'    => 'select',
+                    'label'   => __('Social'),
+                    'values'  => [
+                        [
+                            'id'   => 'small',
+                            'name' => __("Small")
+                        ],
+                        [
+                            'id'   => 'medium',
+                            'name' => __("Medium")
+                        ]
+                    ],
+                    'default' => 'small'
+                ],
             ],
             'category'=>__("Other")
         ]);
@@ -22,6 +37,9 @@ class Separator extends BaseBlock
 
     public function content($model = [])
     {
-        return view("global.separator");
+        $data = [
+            'size' => $model['size'] ?? 'small'
+        ];
+        return view("global.separator", $data);
     }
 }

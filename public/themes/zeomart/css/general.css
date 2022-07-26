@@ -92,7 +92,10 @@ input,select{
     @apply mb-5 text-base
 }
 .be-button-outline{
-    @apply inline-block rounded-md border-2 border-solid border-[#F5C34B] px-9 py-3.5 font-medium duration-500 text-[15px] hover:bg-[#F5C34B] hover:text-white
+    @apply inline-block rounded-md border-2 border-solid border-[#F5C34B] px-9 py-3 font-medium duration-500 text-[15px] hover:bg-[#F5C34B] hover:text-white
+}
+.be-button-primary{
+    @apply inline-block rounded-md border-2 bg-[#F5C34B] border-solid border-[#F5C34B] px-9 py-3 font-medium duration-500 text-[15px] hover:bg-[#E8B336]
 }
 .zm-testimonials-carousel .owl-nav button.owl-prev,
 .zm-testimonials-carousel .owl-nav button.owl-next{
@@ -132,6 +135,14 @@ input,select{
 .zm-block--map-iframe iframe{
     width: 100%;
     height: 100%;
+}
+.text-color{
+    color: #041E42;
+}
+.form-mess .text-danger{
+    display: block;
+    padding-top: 20px;
+    color: #c40000;
 }
 
 @media(max-width: 767px){

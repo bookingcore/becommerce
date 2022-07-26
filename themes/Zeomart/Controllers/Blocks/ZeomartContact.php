@@ -1,4 +1,5 @@
 <?php
+
 namespace Themes\Zeomart\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
@@ -52,24 +53,24 @@ class ZeomartContact extends BaseBlock
                     'title_field' => __('Social'),
                     'settings'    => [
                         [
-                            'id'    => 'social',
-                            'type'  => 'select',
-                            'label' => __('Social'),
-                            'values' => [
+                            'id'      => 'social',
+                            'type'    => 'select',
+                            'label'   => __('Social'),
+                            'values'  => [
                                 [
-                                    'id' => 'facebook',
+                                    'id'   => 'facebook',
                                     'name' => __("Facebook")
                                 ],
                                 [
-                                    'id' => 'twitter',
+                                    'id'   => 'twitter',
                                     'name' => __("Twitter")
                                 ],
                                 [
-                                    'id' => 'instagram',
+                                    'id'   => 'instagram',
                                     'name' => __("Instagram")
                                 ],
                                 [
-                                    'id' => 'linkedin',
+                                    'id'   => 'linkedin',
                                     'name' => __("Linkedin")
                                 ]
                             ],
@@ -94,6 +95,15 @@ class ZeomartContact extends BaseBlock
 
     public function content($model = [])
     {
-        return view('blocks.contact.index', $model);
+        $data = [
+            'title'       => $model['title'] ?? '',
+            'desc'        => $model['desc'] ?? '',
+            'open_hours'  => $model['open_hours'] ?? '',
+            'phone'       => $model['phone'] ?? '',
+            'email_title' => $model['email_title'] ?? '',
+            'email'       => $model['email'] ?? '',
+            'socials'     => $model['socials'] ?? '',
+        ];
+        return view('blocks.contact.index', $data);
     }
 }
