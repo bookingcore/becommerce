@@ -2,8 +2,8 @@
 $reviewData = $row->getScoreReview();
 $score_total = $reviewData['score_total'];
 ?>
-<div class="demus-tab-root">
-    <ul class="nav nav-tabs demus-tab-list">
+<div class="bc-tab-root">
+    <ul class="nav nav-tabs bc-tab-list">
         @if(!empty($row->tabs))
             @foreach($row->tabs as $k=>$tab)
                 @php $tab_name = $tab['name'] @endphp

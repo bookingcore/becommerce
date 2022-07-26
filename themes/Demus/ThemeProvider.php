@@ -8,6 +8,7 @@ use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
 use Themes\Demus\Controllers\Blocks\Banner;
 use Themes\Demus\Controllers\Blocks\Instagram;
+use Themes\Demus\Controllers\Blocks\ListCategoryProduct;
 use Themes\Demus\Controllers\Blocks\NewsList;
 use Themes\Demus\Controllers\Blocks\Slider;
 use Themes\Demus\Controllers\Blocks\Gap;
@@ -55,6 +56,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["title", Title::class],
             ["instagram", Instagram::class],
             ["news", NewsList::class],
+            ["product_tab", ListCategoryProduct::class],
 
 
         ]);

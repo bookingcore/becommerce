@@ -39,8 +39,8 @@ $items = \Modules\User\Models\UserWishList::query()
 
             </div>
         </div>
-        <div class="axtronic-wishlist-bottom">
-            <a class="button" href="/user/wishlist">{{__('Wishlist page')}}</a>
+        <div class="axtronic-wishlist-bottom d-grid">
+            <a class="btn" href="/user/wishlist"><span>{{__('Wishlist page')}}</span></a>
         </div>
     </div>
 </div>

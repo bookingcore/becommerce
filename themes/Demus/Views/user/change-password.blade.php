@@ -31,7 +31,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group mb-3 submit">
-                                    <button class="btn btn-primary">{{__('Save changes')}}</button>
+                                    <button class="btn btn-primary"><span>{{__('Save changes')}}</span></button>
                                 </div>
                             </div>
 

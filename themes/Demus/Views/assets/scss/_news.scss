@@ -1,0 +1,61 @@
+.demus-news{
+    padding-bottom: 50px;
+    margin-bottom: 70px;
+}
+.img-whp{
+    width: 100%;
+}
+.entry-content{
+    .entry-meta{
+        font-size: calc(var(--font-size-base) - 4px);
+        line-height: var(--font-size-base);
+        color: var(--body-color-light);
+        position: relative;
+        .meta-categories{
+            a{
+                color: var(--body-color-light);
+                &:hover{
+                    color: var(--primary);
+                }
+            }
+        }
+        >div:not(:last-child):after{
+            content: "-";
+            display: inline-block;
+            padding-left: 5px;
+            margin-right: 5px;
+            position: relative;
+            top: -1px;
+        }
+    }
+    .entry-title{
+        a{
+            color: var(--accent);
+            &:hover{
+                color: var(--primary);
+            }
+        }
+    }
+}
+
+.demus-slider-news{
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    .swiper-button-prev{
+        left: -40px;
+    }
+    .swiper-button-next{
+        right: -40px;
+    }
+    &:hover{
+        .swiper-button-prev{
+            left: 15px;
+        }
+        .swiper-button-next{
+            right: 15px;
+        }
+    }
+}

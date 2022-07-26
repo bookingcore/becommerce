@@ -41,7 +41,7 @@
                     public_key:'{{setting_item($driver.'_public',config('scount.algolia.public'))}}'
                 }
                 @endif
-            }
+            };
             var i18n = {
                 warning:"{{__("Warning")}}",
                 success:"{{__("Success")}}",
@@ -80,11 +80,9 @@
         </script>
 
         <script src="{{ theme_url('Demus') }}/js/jquery.min.js"></script>
-        <script src="{{ theme_url('Demus') }}/libs/owl-carousel/owl.carousel.min.js"></script>
         <script src="{{ theme_url('Demus') }}/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="{{ theme_url('Demus') }}/libs/vue/vue.js"></script>
         <script src="{{ theme_url('Demus') }}/libs/nouislider/nouislider.min.js"></script>
-        <script src="{{ theme_url('Demus') }}/libs/slick/slick.min.js"></script>
         @switch(setting_item('search_driver'))
             @case ('algolia')
                 <script  src="{{ theme_url('Demus/dist/module/search/algolia.js?_v='.config('app.asset_version')) }}"></script>

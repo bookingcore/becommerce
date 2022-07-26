@@ -26,7 +26,7 @@ $score_total = $reviewData['score_total'];
             <button class="btn-tooltips btn-quickview demus-product-quick-view" data-product="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-expand-alt"></i></button>
         </div>
 
-        <form class="demus_form_add_to_cart" action="{{route('cart.addToCart')}}">
+        <form class="bc_form_add_to_cart" action="{{route('cart.addToCart')}}">
             @csrf
             <input type="hidden" name="object_model" value="product">
             <input type="hidden" name="object_id" value="{{$row->id}}">

@@ -3,9 +3,9 @@
     @csrf
     <div class="{{$inner_class ?? ''}}">
         <div class="">
-            @if(!empty($form_title))
-                <h5>{{$form_title}}</h5>
-            @endif
+            {{--@if(!empty($form_title))--}}
+                {{--<h5>{{$form_title}}</h5>--}}
+            {{--@endif--}}
             <div class="form-group mb-3">
                 <input class="form-control" type="email" name="email" placeholder="{{__('Email address')}}">
                 <p class="error-email"></p>
@@ -30,11 +30,16 @@
 
             @include("admin.message")
             <div class="form-group mb-3  d-grid">
-                <button class="btn btn-primary btn-lg">{{__('Login')}}
-                    <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                <button class="btn">
+                    <span>{{__('Login')}}</span>
                 </button>
             </div>
         </div>
         @include("auth.social")
     </div>
 </form>
+<a href="#" class="lostpass-link" title="Lost your password?">{{__("Lost your password?")}}</a>
+<div class="login-form-bottom">
+    <span class="create-account-text">{{__("No account yet?")}}</span>
+    <a class="register-link" href="#" title="Register">{{__("Create an Account")}}</a>
+</div>

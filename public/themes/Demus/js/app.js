@@ -180,7 +180,7 @@ window.bravo_handle_error_response = function(e){
 };
 // Cart
 
-$('.demus_form_add_to_cart').on('submit',function(e){
+$('.bc_form_add_to_cart').on('submit',function(e){
     e.preventDefault();
     var me = $(this);
     me.addClass('loading');
@@ -921,8 +921,41 @@ if(typeof Swiper !== 'undefined') {
             prevEl: '.swiper-button-prev',
         },
     });
+    const swiperNews = new Swiper('.demus-slider-news', {
+        // Optional parameters
+        loop: true,
+        spaceBetween: 40,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: true,
+        },
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+            },
+            768: {
+                slidesPerView: 2,
+            },
+            1024: {
+                slidesPerView: 3,
+            },
+        },
+        // Navigation arrowsss
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+    });
+    const swiperTestimonial = new Swiper('.demus-testimonial', {
+        // Optional parameters
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: true,
+        },
+    });
 
-    const swiperProductGallery = new Swiper(".demus-product_variants", {
+    const swiperProductGallery = new Swiper(".bc-product_variants", {
         spaceBetween: 10,
         slidesPerView: 4,
         freeMode: true,
@@ -939,11 +972,12 @@ if(typeof Swiper !== 'undefined') {
         },
     });
 
-    const swiperProductRelated = new Swiper('.demus-swiper-relate', {
+    const swiperProductRelated = new Swiper('.bc-swiper-relate', {
         // Optional parameters
-        loop: false,
-        cssMode: false,
-        spaceBetween: 30,
+        loop: true,
+        cssMode: true,
+        spaceBetween: 40,
+        slidesPerView: 2,
         autoplay: {
             delay: 5000,
             disableOnInteraction: false,
@@ -956,7 +990,7 @@ if(typeof Swiper !== 'undefined') {
                 slidesPerView: 3,
             },
             1024: {
-                slidesPerView: 5
+                slidesPerView: 4
             },
         },
         // If we need pagination

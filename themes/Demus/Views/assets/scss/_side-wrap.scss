@@ -5,7 +5,7 @@
     overflow: hidden;
     overflow-y: auto;
     width: 300px;
-    background-color: var(--background);
+    background-color: var(--bs-body-bg);
     transition: transform .25s ease;
     display: flex;
     flex-direction: column;
@@ -136,6 +136,38 @@
                 }
             }
 
+        }
+    }
+    .product-transition{
+        flex: 0 0 80px;
+        border: none;
+        margin-right: 15px;
+        .product-img-wrap{
+            border: 2px dashed var(--border);
+            overflow: hidden;
+            padding: 5px;
+        }
+        .bc_form_add_to_cart, .shop-action{
+            display: none;
+        }
+    }
+    .product-caption{
+        padding-top: 0;
+        text-align: left;
+    }
+    .axtronic-loop-product{
+        .shop-action{
+            display: none;
+        }
+    }
+    .product-item .product-labels{
+        top: 6px;
+        left: 6px;
+        .product-label.onsale{
+            padding: 0 8px;
+            font-size: 7px;
+            color: #fff;
+            min-width: auto;
         }
     }
 }
@@ -358,24 +390,6 @@
                     }
                 }
             }
-            .product-caption{
-                h2.product__title a{
-                    font-size: 14px;
-                    color: var(--accent);
-                    font-weight: 600;
-                    margin-bottom: 3px;
-                    line-height: 22px;
-                    &:hover{
-                        color: var(--primary);
-                    }
-                }
-            }
-            .item-price{
-                .quantity{
-                    color: var(--accent);
-                    font-size: 17px;
-                }
-            }
         }
     }
 
@@ -406,25 +420,14 @@
             flex-direction: row;
             justify-content: flex-start;
             align-items: stretch;
-            a.button{
+            a.btn{
                 flex-basis: 50%;
-                border-radius: 0;
-                font-weight: 500;
-                text-transform: capitalize;
-                padding: 12px;
-                font-size: 16px;
-                &:hover{
-                    opacity: 0.7;
-                }
                 &:first-child{
                     background: var(--accent);
                     color: #fff;
                     margin: 0;
                 }
-                &.checkout{
-                    margin-top: 0;
-                    background: var(--primary);
-                }
+
             }
         }
     }
@@ -448,35 +451,7 @@
         right: 15px;
         bottom: 0;
         left: 0;
-        .product-transition{
-            flex: 0 0 80px;
-            border: none;
-            margin-right: 15px;
-            .product-img-wrap{
-                border: 2px dashed var(--border);
-                border-radius: 15px;
-                overflow: hidden;
-                padding: 5px;
-            }
-        }
-        .product-caption{
-            padding-top: 0;
-        }
-        .axtronic-loop-product{
-            .shop-action{
-                display: none;
-            }
-        }
-        .product-item .product-labels{
-            top: 6px;
-            left: 6px;
-            .product-label.onsale{
-                padding: 0 8px;
-                font-size: 7px;
-                color: #fff;
-                min-width: auto;
-            }
-        }
+
     }
 }
 .site-notifications-side{

@@ -20,7 +20,7 @@
                                     @include("user.address.billing-form",['type'=>$type])
                                 </div>
                                 <div class="form-group submit">
-                                    <button class="btn btn-success">{{__('Update')}}</button>
+                                    <button class="btn" ><span>{{__('Update')}}</span></button>
                                 </div>
                             </div>
                         </form>

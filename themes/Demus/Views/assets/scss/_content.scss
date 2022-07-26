@@ -17,6 +17,23 @@
         }
     }
 }
+.h-75px {
+    height: 75px;
+}
+.w-75px {
+    width: 75px;
+}
+.circle {
+    border-radius: 50%;
+    overflow: hidden;
+}
+.c-main {
+    color: #ffb627;
+}
+.c-d2d2d2 {
+    color: var(--text);
+    opacity: 0.25;
+}
 .demus-title{
     figure{
         position: relative;
@@ -187,5 +204,23 @@
                 transform: scale(1.1);
             }
         }
+    }
+}
+
+.swiper-button-next,.swiper-button-prev{
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    padding: 0;
+    color: #fff;
+    border: 0;
+    background-color: var(--primary);
+    font-size: 0;
+    transition: all .3s ease;
+    &:after{
+        font-size: 20px;
+    }
+    &:hover{
+        background-color: var(--secondary);
     }
 }

@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="form-group mb-3 submit">
-                                <button class="btn btn-primary">{{__('Save Changes')}}</button>
+                                <button class="btn"><span>{{__('Save Changes')}}</span></button>
                             </div>
                         </form>
                     </div>

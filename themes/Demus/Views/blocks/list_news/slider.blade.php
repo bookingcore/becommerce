@@ -6,10 +6,15 @@
  * Time: 1:25 AM
  */
 ?>
-<div class="axtronic-news">
+<div class="demus-news ">
     <div class="container">
-        <h2 class="heading-title mb-4 {{ $style_title }}">{{ $title }}</h2>
-        <div class="swiper-slider-news swiper-container">
+        @if(!empty($title))
+            <div class="box-heading-title text-center mb-xl-3 pb-4 ">
+                <h2 class="heading-title ">{!! clean($title) !!}</h2>
+                <p class="sub-heading">{!! clean($sub_title) !!}</p>
+            </div>
+        @endif
+        <div class=" demus-slider-news">
             <div class="swiper-wrapper">
                 @foreach($rows as $k=>$row)
                     <div class="swiper-slide">
@@ -17,8 +22,8 @@
                     </div>
                 @endforeach
             </div>
-            <!-- If we need pagination -->
-            <div class="swiper-pagination"></div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
         </div>
     </div>
 </div>

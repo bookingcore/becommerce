@@ -27,7 +27,7 @@
                                                 </p>
                                             </address>
                                         @endif
-                                        <a class="btn btn-primary btn--sm" href="{{route('user.address.detail',['type'=>'billing'])}}">{{__('Edit')}}</a>
+                                        <a class="btn" href="{{route('user.address.detail',['type'=>'billing'])}}"><span>{{__('Edit')}}</span></a>
                                     </div>
                                 </figure>
                             </div>
@@ -44,7 +44,7 @@
                                                 </p>
                                             </address>
                                         @endif
-                                        <a class="btn btn-primary btn--sm" href="{{route('user.address.detail',['type'=>'shipping'])}}">{{__('Edit')}}</a>
+                                        <a class="btn " href="{{route('user.address.detail',['type'=>'shipping'])}}"><span>{{__('Edit')}}</span></a>
                                     </div>
                                 </figure>
                             </div>

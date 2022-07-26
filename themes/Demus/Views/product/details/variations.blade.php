@@ -3,8 +3,8 @@
         $list_variations = $data_variations["variations"];
         $list_attributes = $data_variations['attributes'];
     @endphp
-    <div class="demus-product-variations mb-2">
-        <input type="hidden" class="demus_variations" value="{{ json_encode($list_variations) }}">
+    <div class="bc-product-variations mb-2">
+        <input type="hidden" class="bc_variations" value="{{ json_encode($list_variations) }}">
         <input type="hidden" name="variation_id" class="variation_id" value="">
         @if(!empty($list_attributes))
             @foreach($list_attributes as $name=>$values)
@@ -15,7 +15,7 @@
                             @switch($value['type'])
                                 @case("color")
                                     <div class="widget-attribute-color">
-                                        <div class="demus-checkbox">
+                                        <div class="bc-checkbox">
                                             <input type="radio" class="item-attribute" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
                                             <label for="attribute_{{$id}}" style="background-color: {{$value['color']}}"></label>
                                         </div>
@@ -24,7 +24,7 @@
                                 @break
                                 @default
                                 <div class="widget-attribute-check">
-                                    <div class="demus-checkbox">
+                                    <div class="bc-checkbox">
                                         <input type="radio" class="item-attribute" id="attribute_{{$id}}" name="attribute_{{$name}}" value="{{$id}}">
                                         <label class="miw-30px mih-30px d-flex align-items-center pe-2 ps-2 justify-content-center" for="attribute_{{$id}}">
                                             {{$value['name']}}

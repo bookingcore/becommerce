@@ -1,7 +1,7 @@
 @if($products_related->count())
-    <div class="demus-products-related">
+    <div class="bc-products-related">
         <h3 class="related-title mt-5 mb-4 pb-2 border-bottom-1">{{ __('Related products') }}</h3>
-        <div class="demus-swiper-relate  swiper-container">
+        <div class="bc-swiper-relate  swiper-container">
             <div class="swiper-wrapper">
                 @foreach($products_related as $row)
                     <div class="swiper-slide">

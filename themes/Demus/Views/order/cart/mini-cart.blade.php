@@ -14,22 +14,22 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                         @foreach(\Modules\Order\Helpers\CartManager::items() as $cart_item_id => $cartItem)
                             <li class="list-item product-item">
                                 @if($cartItem->model)
-                                    <div class="product-transition mx-2">
-                                        <div class="product-img-wrap">
-                                            <a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a>
+                                    <div class=" product-item">
+                                        <div class="product-transition">
+                                            <div class="product-img-wrap">
+                                                <a href="{{$cartItem->getDetailUrl()}}">{!! get_image_tag($cartItem->model->image_id,'thumb',['class'=>'img-fluid w-75px','lazy'=>false])!!} </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="product-caption">
-                                        <h2 class="product__title">
-                                            <a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->model->title}}</a>
-                                        </h2>
-                                        <div class="price">
-                                            <div class="axtronic-product-price">
+                                        <div class="product-caption">
+                                            <h2 class="product__title">
+                                                <a href="{{$cartItem->getDetailUrl()}}">{{$cartItem->model->title}}</a>
+                                            </h2>
+                                            <div class="bc-product-price">
                                                 <p class="price has-sale m-0">
-                                                @if(is_vendor_enable() and !empty($cartItem->author))
-                                                    <small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small>
-                                                @endif
-                                                <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
+                                                    @if(is_vendor_enable() and !empty($cartItem->author))
+                                                        <small>{{__('Sold By:')}}<strong> {{$cartItem->author}}</strong></small>
+                                                    @endif
+                                                    <small> {{__(':qty x :price',['qty'=>$cartItem->qty,'price'=>format_money($cartItem->price)])}}</small>
                                                 </p>
                                             </div>
                                         </div>
@@ -68,8 +68,8 @@ $countCart = \Modules\Order\Helpers\CartManager::count();
                 <strong>{{__('Subtotal')}}:</strong> <span class="amount"><bdi>{{format_money(\Modules\Order\Helpers\CartManager::subtotal())}}</bdi></span>
             </p>
             <p class="card-bottom-button">
-                <a class="button wc-forward" href="{{route('cart')}}">{{__('View Cart')}}</a>
-                <a class="button checkout wc-forward" href="{{route('checkout')}}">{{__("Checkout")}}</a>
+                <a class="btn wc-forward" href="{{route('cart')}}"><span>{{__('View Cart')}}</span></a>
+                <a class="btn btn-success wc-forward" href="{{route('checkout')}}"><span>{{__("Checkout")}}</span></a>
             </p>
         </div>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="bc-page--my-account bg-f1f1f1">
+    <div class="bc-page--my-account">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-6 py-5 ">

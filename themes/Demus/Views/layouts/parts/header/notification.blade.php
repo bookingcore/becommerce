@@ -88,8 +88,8 @@ $countUnread = $checkNotify->where('read_at', null)->count();
                 @endif
             </div>
         </div>
-        <div class="axtronic-notifications-bottom">
-            <a class="button" href="{{route('user.notification')}}">{{__('View More')}}</a>
+        <div class="axtronic-notifications-bottom d-grid">
+            <a class="btn" href="{{route('user.notification')}}"><span>{{__('View More')}}</span></a>
         </div>
     </div>
 </div>

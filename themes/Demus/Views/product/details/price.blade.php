@@ -1,4 +1,4 @@
-<div class="demus-product-price">
+<div class="bc-product-price">
     @if($row->product_type=='variable')
         <p class="price variable-price m-0">
             @if($row->min_price == $row->max_price)

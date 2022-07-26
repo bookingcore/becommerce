@@ -22,7 +22,7 @@
     --media-handheld: 568px;
     --e-global-color-accent:#13172B;
     --e-global-color-border: #E8E8E8;
-    --font-size-base: 16;
+    --font-size-base: 16px;
     --menu-color: #54504f;
     --menu-hover-color: #54504f;
     --menu-font-size: 16px;
@@ -325,7 +325,7 @@ input[type=text], input[type=number], input[type=email], input[type=tel], input[
         box-shadow: none;
     }
 }
-button, input[type=button], input[type=reset], input[type=submit], .button, button.btn, .btn-primary{
+input[type=button], input[type=reset], input[type=submit], .btn-primary{
     color: #fff;
     cursor: pointer;
     padding: 8px 24px;
@@ -363,22 +363,28 @@ button, input[type=button], input[type=reset], input[type=submit], .button, butt
     }
 
 }
-
-button.btn-link, a.btn-link{
-    display: inline-block;
-    font-weight: 700;
-    line-height: 1.5;
+a.btn-link{
+    position: relative;
     color: var(--accent);
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    user-select: none;
-    background-color: transparent;
-    border: 1px solid transparent;
-    padding: 0.6rem 1rem;
-    font-size: 1rem;
-    border-radius: 0;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    display: inline-block;
+    text-transform: uppercase;
+    &:before{
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        display: block;
+        width: 0;
+        height: 2px;
+        background-color: var(--accent);
+        transition: width .3s ease-in-out;
+    }
+    &:hover{
+        color: var(--accent);
+        &:before {
+            width: 100%;
+        }
+    }
 }
 a.btn-link-outline{
     border-bottom: 2px solid var(--primary);
@@ -403,6 +409,55 @@ a.btn-link-outline{
         }
     }
 }
+.btn{
+    color: var(--bs-body-bg);
+    border-color: var(--accent);
+    background-color: var(--accent);
+    padding: 8px 25px;
+    font-size: var(--font-size-base);
+    border-radius: 0;
+    position: relative;
+    span{
+        position: relative;
+        color: var(--bs-body-bg);
+    }
+    &:before{
+        content: "";
+        position: absolute;
+        left: -1px;
+        top: -1px;
+        height: calc(100% + 2px);
+        width: 0;
+        display: block;
+        border: 0 solid var(--primary);
+        background-color: var(--primary);
+        transition: all .3s ease;
+    }
+
+    &.btn-success{
+        margin-top: 0;
+        border-color: var(--primary);
+        background-color: var(--primary);
+        &:hover{
+            border-color: var(--accent);
+        }
+        &:before{
+            border-color: var(--accent);
+            background-color: var(--accent);
+        }
+    }
+    &:hover, &:focus{
+        box-shadow: none;
+        span{
+            color: #ffffff;
+        }
+        &:before{
+            width: calc(100% + 2px);
+            border-width: 1px;
+        }
+    }
+}
+
 .primary-color{
     color: var(--primary);
 }

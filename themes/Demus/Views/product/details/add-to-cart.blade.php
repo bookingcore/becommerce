@@ -1,6 +1,6 @@
 
     <div class="demus-product_shopping mb-4 pb-4 d-flex">
-        <form class="demus_form_add_to_cart d-flex flex-column" action="{{route('cart.addToCart')}}">
+        <form class="bc_form_add_to_cart d-flex flex-column" action="{{route('cart.addToCart')}}">
             @csrf
             <input type="hidden" name="object_model" value="product">
             <input type="hidden" name="object_id" value="{{$row->id}}">
@@ -72,11 +72,9 @@
                     </button>
                 @endif
                 <button class="service-wishlist btn {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
-                    <i class="demus-icon-heart"></i>
+                    <i class="axtronic-icon-heart"></i>
                 </button>
             </div>
-
-
         </form>
         {{--<button class="service-compare btn" data-id="{{$row->id}}">--}}
             {{--<i class="demus-icon-sync"></i>--}}

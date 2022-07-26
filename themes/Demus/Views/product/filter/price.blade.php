@@ -1,4 +1,4 @@
-<div class="demus-slider-price">
+<div class="bc-slider-price">
     @php
     $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
     $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );

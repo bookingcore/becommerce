@@ -456,11 +456,21 @@ header{
             margin-left: 0;
         }
         .dropdown-menu{
+            .dropdown-divider{
+                margin: 0;
+            }
             a{
                 color: var(--accent);
                 padding: 8px;
-                &:hover, &:focus{
-                    color: var(--primary);
+                display: flex;
+                align-items: center;
+                justify-content: start;
+                i{
+                    margin-right: 5px;
+                }
+                &:hover, &:focus, &:active, &.active{
+                    color: var(--bs-body-bg);
+                    background-color: var(--secondary);
                 }
             }
         }
