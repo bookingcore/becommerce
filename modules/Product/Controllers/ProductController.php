@@ -177,8 +177,7 @@ class ProductController extends Controller
     }
 
     //tomorow fix
-    public function quick_view(Request $request){
-        $id = (!empty($request->id)) ? $request->id : '';
+    public function quick_view(Request $request,$id){
         $product = Product::where('id',$id)->first();
         $translation = $product->translate(app()->getLocale());
         $product_variations = $this->product_variations($product);

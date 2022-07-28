@@ -4,6 +4,7 @@ use \Illuminate\Support\Facades\Route;
 Route::get('/','HomeController@index')->name('home');
 Route::post('/contact/store','ContactController@store')->name("contact.store");
 Route::get('/product','ProductController@index')->name('product.index');
+Route::post('/quick_view/{id}','ProductController@quick_view')->name('product.quick_view');
 Route::get('/product/{slug}','ProductController@detail')->name('product.detail');
 Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.category.index');
 
