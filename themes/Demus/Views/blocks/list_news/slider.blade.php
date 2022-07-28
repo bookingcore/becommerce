@@ -6,7 +6,7 @@
  * Time: 1:25 AM
  */
 ?>
-<div class="demus-news ">
+<section class="demus-news ">
     <div class="container">
         @if(!empty($title))
             <div class="box-heading-title text-center mb-xl-3 pb-4 ">
@@ -26,4 +26,4 @@
             <div class="swiper-button-prev"></div>
         </div>
     </div>
-</div>
+</section>

@@ -210,7 +210,7 @@ $('.bc_form_add_to_cart').on('submit',function(e){
         }
     })
 });
-$(document).on('click','.demus_delete_cart_item',function(e){
+$(document).on('click','.bc_delete_cart_item',function(e){
     e.preventDefault();
     var c = confirm("Do you want to delete this cart item?");
     if(!c) return;
@@ -249,12 +249,12 @@ $(document).on('click','.demus_delete_cart_item',function(e){
             console.log(err)
         }
     })
-})
+});
 $(document).on('click','.cart-item-qty .up',function (e) {
-    e.preventDefault()
-    let me = $(this)
+    e.preventDefault();
+    let me = $(this);
     let parent = me.closest('.cart-item-qty');
-    let input = parent.find('input[type=number]')
+    let input = parent.find('input[type=number]');
     let value = input.val();
     const min = input.attr('min');
     const max = input.attr('max');
@@ -268,10 +268,10 @@ $(document).on('click','.cart-item-qty .up',function (e) {
     input.val(value);
 })
 $(document).on('click','.cart-item-qty .down',function (e) {
-    e.preventDefault()
-    let me = $(this)
+    e.preventDefault();
+    let me = $(this);
     let parent = me.closest('.cart-item-qty');
-    let input = parent.find('input[type=number]')
+    let input = parent.find('input[type=number]');
     let value = input.val();
     const min = input.attr('min');
     const max = input.attr('max');

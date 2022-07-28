@@ -7,7 +7,7 @@
  */
 ?>
 <div class="{{(!empty($style) ? $style : "") }}">
-    <div class="demus-banner" style="background-image: url('{{ get_file_url( $image ?? false,'full') }}')">
+    <section class="demus-banner" style="background-image: url('{{ get_file_url( $image ?? false,'full') }}')">
         <div class="container">
             <div class="row {{$position}}">
                 <div class="col-12 col-md-6">
@@ -28,6 +28,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 

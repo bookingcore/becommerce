@@ -6,7 +6,7 @@ if (!empty($bg_content)){
 ?>
 
 @if(!empty($rows->count()))
-    <div class="demus-list-products product-list-full">
+    <section class="demus-list-products product-list-full">
         <div class="container-full">
             <div class="product-box">
                 @if(!empty($title))
@@ -32,6 +32,6 @@ if (!empty($bg_content)){
             </div>
 
         </div>
-    </div>
+    </section>
 @endif
 

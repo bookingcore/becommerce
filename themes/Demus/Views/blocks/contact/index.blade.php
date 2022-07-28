@@ -1,4 +1,4 @@
-<div class="bc-contact-block {{ $class ?? '' }} my-5 fz14">
+<section class="bc-contact-block {{ $class ?? '' }} my-5 fz14">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-12">
@@ -106,4 +106,4 @@
             </div>
         </div>
     </div>
-</div>
+</section>

@@ -40,6 +40,7 @@
         display: block;
         text-align: center;
         color: var(--accentm);
+        overflow: hidden;
         &:after{
             background: #fff;
             width: 100%;

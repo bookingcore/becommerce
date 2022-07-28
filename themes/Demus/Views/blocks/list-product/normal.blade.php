@@ -6,7 +6,7 @@
 ?>
 
 @if(!empty($rows->count()))
-    <div class="demus-list-products demus-normal">
+    <section class="demus-list-products demus-normal">
         <div class="container">
             <div class="product-box">
                 @if(!empty($title))
@@ -32,6 +32,6 @@
             </div>
 
         </div>
-    </div>
+    </section>
 @endif
 

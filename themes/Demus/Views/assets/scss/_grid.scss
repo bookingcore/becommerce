@@ -82,8 +82,7 @@
     margin-left: calc(var(--grid-gutter) / -2);
     margin-right: calc(var(--grid-gutter) / -2);
 }
-
-[class*=" col-"], [class^="col-"] {
+.row > *, [class*="col-"], [class^="col-"] {
     padding-left: calc(var(--grid-gutter) / 2);
     padding-right: calc(var(--grid-gutter) / 2);
 }

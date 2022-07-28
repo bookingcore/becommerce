@@ -13,6 +13,7 @@ use Themes\Demus\Controllers\Blocks\NewsList;
 use Themes\Demus\Controllers\Blocks\Slider;
 use Themes\Demus\Controllers\Blocks\Gap;
 use Themes\Demus\Controllers\Blocks\ListProduct;
+use Themes\Demus\Controllers\Blocks\Testimonial;
 use Themes\Demus\Controllers\Blocks\Title;
 use Themes\Demus\Database\Seeder;
 use Modules\Page\Hook;
@@ -57,8 +58,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["instagram", Instagram::class],
             ["news", NewsList::class],
             ["product_tab", ListCategoryProduct::class],
-
-
+            ["testimonial", Testimonial::class],
         ]);
     }
     public function __show_header_style(Page $row){

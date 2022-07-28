@@ -6,7 +6,7 @@
  * Time: 1:24 AM
  */
 ?>
-<div class="demus-news">
+<section class="demus-news">
     <div class="container">
         @if(!empty($title))
             <div class="box-heading-title text-center mb-xl-3 pb-4 ">
@@ -22,4 +22,4 @@
             @endforeach
         </div>
     </div>
-</div>
+</section>

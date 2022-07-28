@@ -17,12 +17,18 @@
 @media (min-width: 1025px) and (max-width: 1200px) {
 
 }
-@media (max-width: 1024px) {
-
-}
 @media (min-width: 1024px) {
 
 }
+@media (max-width: 1024px) {
+    .demus-site-features{
+        margin-top: 30px;
+        .item-features{
+            padding: 30px 0;
+        }
+    }
+}
+
 
 @media (max-width: 767px) {
     header {
@@ -36,6 +42,7 @@
             margin-right: 20px;
         }
     }
+
 
 }
 @media (max-width: 450px) {

@@ -1,5 +1,5 @@
 {{--Demus promotions--}}
-<div class="demus-promotions">
+<section class="demus-promotions">
     <div class="container">
         @if(!empty($title))
             <div class="box-heading-title text-center mb-xl-3 pb-4">
@@ -35,5 +35,5 @@
             @endforeach
         </div>
     </div>
-</div>
+</section>
 
