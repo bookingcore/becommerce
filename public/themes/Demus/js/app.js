@@ -82,7 +82,7 @@ function ajax_error_to_string(e){
         }
     }
 }
-$('.demus-form-login').on('submit',function (e) {
+$('.bc-form-login').on('submit',function (e) {
     e.preventDefault();
     var form = $(this);
     var data = form.serialize()
@@ -133,7 +133,7 @@ $('.demus-form-login').on('submit',function (e) {
     });
     return false;
 });
-$('.demus-form-register').on('submit',function (e) {
+$('.bc-form-register').on('submit',function (e) {
     e.preventDefault();
     let form = $(this);
     var data = form.serialize();
@@ -365,7 +365,7 @@ jQuery(function ($) {
 
     var onSubmitSubscribe = false;
     //Subscribe box
-    $('.demus-subscribe-form').submit(function (e) {
+    $('.bc-subscribe-form').submit(function (e) {
         e.preventDefault();
 
         if (onSubmitSubscribe) return;
@@ -410,13 +410,13 @@ jQuery(function ($) {
         return false;
     });
 
-    $('.demus-product-quick-view').on('click',function (e) {
+    $('.bc-product-quick-view').on('click',function (e) {
         e.preventDefault();
         let $this = $(this);
         let product = $(this).data('product');
         let quickView = $('.mf-quick-view-modal');
         $.ajax({
-            url: BC.url + '/product/quick_view/' + product.id,
+            url: BC.url + '/product/quick_view/' + product,
             method:'POST',
             beforeSend: function () {
                 $this.tooltip('hide');
@@ -434,8 +434,8 @@ jQuery(function ($) {
         })
     });
 
-    $(".demus_form_filter input[type=checkbox],.demus_form_filter select[name=sort]").change(function () {
-        $(this).closest(".demus_form_filter").submit();
+    $(".bc_form_filter input[type=checkbox],.bc_form_filter select[name=sort]").change(function () {
+        $(this).closest(".bc_form_filter").submit();
     });
 
     var nonLinearSlider = document.getElementById('nonlinear');
@@ -456,10 +456,10 @@ jQuery(function ($) {
         });
 
         nonLinearSlider.noUiSlider.on('update', function(values, handle) {
-            $(".demus-slider-price .slider-min").html(  Math.round(values[0]) );
-            $(".demus-slider-price .slider-max").html(  Math.round(values[1]) );
-            $(".demus-slider-price input[name=min_price]").val(  Math.round(values[0]) );
-            $(".demus-slider-price input[name=max_price]").val(  Math.round(values[1]) );
+            $(".bc-slider-price .slider-min").html(  Math.round(values[0]) );
+            $(".bc-slider-price .slider-max").html(  Math.round(values[1]) );
+            $(".bc-slider-price input[name=min_price]").val(  Math.round(values[0]) );
+            $(".bc-slider-price input[name=max_price]").val(  Math.round(values[1]) );
         });
     }
 
@@ -538,7 +538,7 @@ jQuery(function ($) {
         return html;
     }
     var onSubmitContact = false;
-    $('.demus-contact-block').submit(function(e) {
+    $('.bc-contact-block').submit(function(e) {
         e.preventDefault();
         if (onSubmitContact)
             return;
@@ -607,7 +607,7 @@ jQuery(function ($) {
                 }
             })
         }
-    })
+    });
     $(document).on('click','.demus-remove-compare',function (e) {
         e.preventDefault();
         let $this = $(this);
@@ -632,15 +632,15 @@ jQuery(function ($) {
     });
 
     $(document).on('click','.demus-product-variations .item-disable',function (e) {
-        $('.demus-product-variations input').prop('checked', false);
+        $('.bc-product-variations input').prop('checked', false);
         $(this).find('input').prop('checked', true);
-        $('.demus-product-variations .item-disable').removeClass("item-disable");
-        $('.demus-product-variations input').trigger('change');
+        $('.bc-product-variations .item-disable').removeClass("item-disable");
+        $('.bc-product-variations input').trigger('change');
     });
 
-    $('.demus-product-variations input').on('change', function() {
+    $('.bc-product-variations input').on('change', function() {
 
-        $('.demus-product-variations .demus-checkbox').removeClass("item-active");
+        $('.bc-product-variations .demus-checkbox').removeClass("item-active");
         var list_attribute_selected = [];
         $('.item-attribute:checked', '.demus-product-variations').each(function () {
             list_attribute_selected.push( parseInt( $(this).val() ));
@@ -648,7 +648,7 @@ jQuery(function ($) {
         });
 
         // Find variation ID
-        var list_variations = JSON.parse( $('.demus_variations').val() );
+        var list_variations = JSON.parse( $('.bc_variations').val() );
         var variation_id = '';
         var variation_selected = '';
         for (var id in list_variations){
@@ -664,29 +664,29 @@ jQuery(function ($) {
                 variation_selected = variation['variation'];
             }
         }
-        $('.demus-product-variations input[name=variation_id]').attr("value",variation_id);
+        $('.bc-product-variations input[name=variation_id]').attr("value",variation_id);
         // For show SKU PRICE IMAGE
         if(variation_selected !== ""){
-            $('.demus-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
-            $('.demus-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
+            $('.bc-product-variations .price').removeClass("d-none").find(".value").html(variation_selected.price);
+            $('.bc-product-variations .sku').removeClass("d-none").find(".value").html(variation_selected.sku);
             if(variation_selected.is_manage_stock){
-                $('.demus-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
-                $(".demus_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
-                if($(".demus_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
+                $('.bc-product-variations .quantity').removeClass("d-none").find(".value").html(variation_selected.quantity);
+                $(".bc_form_add_to_cart input[name=quantity]").attr('max',variation_selected.quantity);
+                if($(".bc_form_add_to_cart input[name=quantity]").val() > variation_selected.quantity && variation_selected.quantity != null){
                     $(".demus_form_add_to_cart input[name=quantity]").val(variation_selected.quantity);
                 }
             }else{
                 $('.demus-product-variations .quantity').addClass("d-none");
             }
             if(variation_selected.image){
-                var old = $(".demus-product_thumbnail .item-0 img").attr("src");
-                $(".demus-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
+                var old = $(".bc-product_thumbnail .item-0 img").attr("src");
+                $(".bc-product_thumbnail .item-0 img").attr("data-old",old).attr('src',variation_selected.image).click();
             }
         }else{
-            if($(".demus-product_thumbnail .item-0 img").attr("data-old")){
-                $(".demus-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
+            if($(".bc-product_thumbnail .item-0 img").attr("data-old")){
+                $(".bc-product_thumbnail .item-0 img").attr('src',$(".bc-product_thumbnail .item-0 img").attr("data-old"));
             }
-            $('.demus-product-variations .price,.demus-product-variations .sku,.demus-product-variations .quantity').addClass('d-none');
+            $('.bc-product-variations .price,.bc-product-variations .sku,.bc-product-variations .quantity').addClass('d-none');
         }
         // Check show - hidden attribute
         var list_atttributes = [];
@@ -702,7 +702,7 @@ jQuery(function ($) {
                 list_atttributes = list_atttributes.concat(cache);
             }
         }
-        $('.demus-product-variations .item-attribute').each(function () {
+        $('.bc-product-variations .item-attribute').each(function () {
             var check = false;
             for ( var id in list_atttributes ){
                 if(  $(this).val() == list_atttributes[id] ){
@@ -710,7 +710,7 @@ jQuery(function ($) {
                 }
             }
             if(!check){
-                $(this).closest(".demus-checkbox").addClass("item-disable");
+                $(this).closest(".bc-checkbox").addClass("item-disable");
             }
         });
     });
@@ -740,8 +740,8 @@ jQuery(function ($) {
 
     let param = getUrlParameter('layout');
     if (param === 'list'){
-        $('.demus-products').addClass('product-lists');
-        $('.demus-products').removeClass('products');
+        $('.bc-products').addClass('product-lists');
+        $('.bc-products').removeClass('products');
         $('.gridlist-toggle .list').addClass('active');
         $('.gridlist-toggle .grid').removeClass('active');
     }else {
@@ -1001,15 +1001,3 @@ if(typeof Swiper !== 'undefined') {
     });
 }
 // Onchange Select Category Product Search Header
-function getName(select) {
-    // And here we get the name
-    var selectedOption = select.options[select.selectedIndex];
-    document.getElementById("product-cat-name").innerHTML =  selectedOption.getAttribute('data-name');
-}
-var name = $('select[name=cat_slug]').find(":selected").attr('data-name');
-if(name && name !== 'undefined'){
-    $('#product-cat-name').html(name)
-}else {
-    $('#product-cat-name').html('All Category')
-}
-

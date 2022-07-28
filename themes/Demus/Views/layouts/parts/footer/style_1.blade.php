@@ -12,21 +12,21 @@
         <div class="row">
             <div class="col-xl-3 col-sm-12">
                 <aside class="address">
-                    @if($logo_id = setting_item("axtronic_logo_light"))
+                    @if($logo_id = setting_item("demus_logo_dark"))
                         <?php $logo = get_file_url($logo_id,'full') ?>
                         <a href="{{ home_url() }}">
                             <img src="{{$logo}}" alt="{{setting_item("site_title")}}">
                         </a>
                     @endif
                     <div class="content">
-                        {!! clean(setting_item('axtronic_footer_info_text')) !!}
+                        {!! clean(setting_item('demus_footer_info_text')) !!}
                     </div>
                 </aside>
             </div>
             <div class="col-xl-6 col-sm-12">
                 <div class="widget-footer">
                     <div class="row">
-                        @if($list_widget_footers = setting_item_with_lang("axtronic_list_widget_footer"))
+                        @if($list_widget_footers = setting_item_with_lang("demus_list_widget_footer"))
                             @php $list_widget_footers = json_decode($list_widget_footers); @endphp
                             @foreach($list_widget_footers as $key=>$item)
                                 <div class="col-sm-{{ $item->size }} col-md-{{ $item->size }} col-lg-{{ $item->size }} col-xl-{{ $item->size }}">
@@ -41,14 +41,14 @@
                 </div>
             </div>
             <div class="col-xl-3 col-sm-12">
-                <div class="axtronic-form-newsletter">
+                <div class="demus-form-newsletter">
                     <div class="">
                         <div class="align-content-center align-items-center">
                             <div class="">
-                                {!! setting_item("axtronic_footer_text_subscribe") !!}
+                                {!! setting_item("demus_footer_text_subscribe") !!}
                             </div>
                             <div class="form-newsletter">
-                                <form action="{{ route('newsletter.subscribe') }}" method="post" class="suaxtronicribe-form axtronic-subscribe-form">
+                                <form action="{{ route('newsletter.subscribe') }}" method="post" class="subscribe-form bc-subscribe-form ">
                                     @csrf
                                     <div class="input-group">
                                         <input type="text" class="form-control" name="email" placeholder="{{ __("Email address") }}" >

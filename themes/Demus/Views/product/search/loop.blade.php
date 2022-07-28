@@ -23,7 +23,7 @@ $score_total = $reviewData['score_total'];
         </div>
         <div class="shop-action">
             <a href="javascript:void(0)"  class="btn-tooltips btn-wishlist {{$row->isWishList()}} service-wishlist is_loop" data-id="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-heart"></i></a>
-            <button class="btn-tooltips btn-quickview demus-product-quick-view" data-product="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-expand-alt"></i></button>
+            <button class="btn-tooltips btn-quickview bc-product-quick-view" data-product="{{$row->id}}" data-type="{{$row->type}}"><i class="axtronic-icon-expand-alt"></i></button>
         </div>
 
         <form class="bc_form_add_to_cart" action="{{route('cart.addToCart')}}">

@@ -9,7 +9,7 @@
 <section class="demus-testimonial">
     <div class="container">
         <div class="swiper-wrapper  ">
-            @foreach($sliders as $slide)
+            @foreach($list_testimonial as $slide)
                 <div class="swiper-slide">
                     <div class="testimonial__avatar mb-4">
                         <div class="avata d-inline-block">
