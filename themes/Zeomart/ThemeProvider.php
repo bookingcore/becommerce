@@ -55,6 +55,8 @@ class ThemeProvider extends AbstractThemeProvider
         BlockManager::register("testimonials",\Themes\Zeomart\Controllers\Blocks\Testimonials::class );
         BlockManager::register("map_iframe",\Themes\Zeomart\Controllers\Blocks\MapIframe::class );
         BlockManager::register("contact_block",\Themes\Zeomart\Controllers\Blocks\ZeomartContact::class );
+        BlockManager::register("list_offices",\Themes\Zeomart\Controllers\Blocks\ListOffices::class );
+        BlockManager::register("list_faqs",\Themes\Zeomart\Controllers\Blocks\ListFAQs::class );
 
     }
 

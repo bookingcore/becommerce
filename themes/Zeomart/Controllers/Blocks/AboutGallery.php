@@ -13,7 +13,6 @@ class AboutGallery extends BaseBlock
                     'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('List Images'),
-                    'title_field' => __('Image'),
                     'settings'    => [
                         [
                             'id'    => 'image',

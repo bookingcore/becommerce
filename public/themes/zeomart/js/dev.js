@@ -6,6 +6,7 @@ require('./appear');
 require('./_dropdown');
 require('./_carousel');
 require('./_counter');
+require('./_faq');
 export default {
     Modal,
     Tab,

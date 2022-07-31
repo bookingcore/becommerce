@@ -144,7 +144,16 @@ input,select{
     padding-top: 20px;
     color: #c40000;
 }
-
+.faq-item .svg-line, .faq-content{
+    @apply hidden
+}
+.faq-item.active .svg-plus{
+    @apply hidden
+}
+.faq-item.active .svg-line,
+.faq-item.active .faq-content{
+    @apply block
+}
 @media(max-width: 767px){
     .zm-testimonials-carousel .owl-nav button.owl-prev,
     .zm-testimonials-carousel .owl-nav button.owl-next{

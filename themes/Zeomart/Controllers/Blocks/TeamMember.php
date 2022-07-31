@@ -19,7 +19,7 @@ class TeamMember extends BaseBlock
                     'id'          => 'list_members',
                     'type'        => 'listItem',
                     'label'       => __('List Members'),
-                    'title_field' => __('Member'),
+                    'title_field' => 'name',
                     'settings'    => [
                         [
                             'id'    => 'avatar',

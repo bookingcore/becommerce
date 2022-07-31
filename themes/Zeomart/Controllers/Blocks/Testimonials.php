@@ -19,7 +19,7 @@ class Testimonials extends BaseBlock
                     'id'          => 'list_testimonials',
                     'type'        => 'listItem',
                     'label'       => __('List Testimonials'),
-                    'title_field' => __('Testimonial'),
+                    'title_field' => 'name',
                     'settings'    => [
                         [
                             'id'    => 'name',

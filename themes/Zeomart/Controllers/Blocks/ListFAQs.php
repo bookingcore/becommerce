@@ -3,7 +3,7 @@ namespace Themes\Zeomart\Controllers\Blocks;
 
 use Modules\Template\Blocks\BaseBlock;
 
-class Counter extends BaseBlock
+class ListFAQs extends BaseBlock
 {
     function __construct()
     {
@@ -16,28 +16,21 @@ class Counter extends BaseBlock
                     'label' => __("Title")
                 ],
                 [
-                    'id'          => 'list_items',
+                    'id'          => 'list_faqs',
                     'type'        => 'listItem',
-                    'label'       => __('List Items'),
-                    'title_field' => 'label',
+                    'label'       => __('List FAQs'),
+                    'title_field' => 'question',
                     'settings'    => [
                         [
-                            'id'    => 'number',
-                            'type'  => 'input',
-                            'inputType' => 'number',
-                            'label' => __('Number')
-                        ],
-                        [
-                            'id'    => 'unit',
+                            'id'    => 'question',
                             'type'  => 'input',
                             'inputType' => 'text',
-                            'label' => __('Unit')
+                            'label' => __('Question')
                         ],
                         [
-                            'id'    => 'label',
-                            'type'  => 'input',
-                            'inputType' => 'text',
-                            'label' => __('Label')
+                            'id'    => 'answer',
+                            'type'  => 'textArea',
+                            'label' => __('Answer')
                         ]
                     ]
                 ],
@@ -48,16 +41,16 @@ class Counter extends BaseBlock
 
     public function getName()
     {
-        return __('Counter');
+        return __('List FAQs');
     }
 
     public function content($model = [])
     {
         $data = [
             'title' => $model['title'] ?? '',
-            'list_items'  =>  $model['list_items'] ?? []
+            'list_faqs'  =>  $model['list_faqs'] ?? []
         ];
 
-        return view("blocks.counter.index", $data);
+        return view("blocks.list-faqs.index", $data);
     }
 }

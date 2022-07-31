@@ -10,16 +10,32 @@ class ListIconText extends BaseBlock
         $this->setOptions([
             'settings' => [
                 [
+                    'id'            => 'style',
+                    'type'          => 'radios',
+                    'label'         => __('Style'),
+                    'values'        => [
+                        [
+                            'value'   => 'style_1',
+                            'name' => __("Style 1")
+                        ],
+                        [
+                            'value'   => 'style_2',
+                            'name' => __("Style 2")
+                        ],
+                    ]
+                ],
+                [
                     'id' => 'title',
                     'type' => 'input',
                     'inputType' => 'text',
-                    'label' => __("Title")
+                    'label' => __("Title"),
+                    'conditions' => ['style' => 'style_1']
                 ],
                 [
                     'id'          => 'list_items',
                     'type'        => 'listItem',
                     'label'       => __('List Items'),
-                    'title_field' => __('Item'),
+                    'title_field' => 'name',
                     'settings'    => [
                         [
                             'id'    => 'icon_image',
@@ -53,6 +69,7 @@ class ListIconText extends BaseBlock
     public function content($model = [])
     {
         $data = [
+            'style' => $model['style'] ?? 'style_1',
             'title' => $model['title'] ?? '',
             'list_items'  =>  $model['list_items'] ?? []
         ];
