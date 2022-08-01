@@ -118,13 +118,15 @@ class CategoryController extends AdminController
         }
         if ($action == "delete") {
             foreach ($ids as $id) {
-                $query = ProductCategory::where("id", $id);
-                $query->first()->delete();
+                $find = ProductCategory::find($id);
+                if($find){
+                    $find->delete();
+                }
             }
         } else {
             foreach ($ids as $id) {
-                $query = ProductCategory::where("id", $id);
-                $query->update(['status' => $action]);
+                $query = ProductCategory::find($id);
+                if($query) $query->update(['status' => $action]);
             }
         }
         return redirect()->back()->with('success', __('Updated success!'));
