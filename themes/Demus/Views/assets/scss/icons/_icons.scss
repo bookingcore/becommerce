@@ -1,0 +1,623 @@
+@mixin themecustom-icon{
+	font-family: "axtronic-icon";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	vertical-align: middle;
+}
+
+[class*="axtronic-icon-"] {
+    @include themecustom-icon;
+}
+
+@function themecustom-char($filename) {
+    $char: "";
+
+@if $filename == airpods {
+$char: "\E001";
+}
+@if $filename == angle-down {
+$char: "\E002";
+}
+@if $filename == angle-left {
+$char: "\E003";
+}
+@if $filename == angle-right {
+$char: "\E004";
+}
+@if $filename == angle-up {
+$char: "\E005";
+}
+@if $filename == arrow-circle-down {
+$char: "\E006";
+}
+@if $filename == arrow-circle-left {
+$char: "\E007";
+}
+@if $filename == arrow-circle-right {
+$char: "\E008";
+}
+@if $filename == arrow-circle-up {
+$char: "\E009";
+}
+@if $filename == arrow-down {
+$char: "\E00A";
+}
+@if $filename == arrow-left {
+$char: "\E00B";
+}
+@if $filename == arrow-right {
+$char: "\E00C";
+}
+@if $filename == arrow-up {
+$char: "\E00D";
+}
+@if $filename == buliding {
+$char: "\E00E";
+}
+@if $filename == call-calling {
+$char: "\E00F";
+}
+@if $filename == call-calling2 {
+$char: "\E010";
+}
+@if $filename == circle-phone {
+$char: "\E011";
+}
+@if $filename == discount-shape {
+$char: "\E012";
+}
+@if $filename == electricity {
+$char: "\E013";
+}
+@if $filename == eye {
+$char: "\E014";
+}
+@if $filename == gameboy {
+$char: "\E015";
+}
+@if $filename == glass {
+$char: "\E016";
+}
+@if $filename == grid {
+$char: "\E017";
+}
+@if $filename == group {
+$char: "\E018";
+}
+@if $filename == heart-circle {
+$char: "\E019";
+}
+@if $filename == heart {
+$char: "\E01A";
+}
+@if $filename == house-2 {
+$char: "\E01B";
+}
+@if $filename == list {
+$char: "\E01C";
+}
+@if $filename == medal-star {
+$char: "\E01D";
+}
+@if $filename == menu-right-1 {
+$char: "\E01E";
+}
+@if $filename == minus-square {
+$char: "\E01F";
+}
+@if $filename == mobile {
+$char: "\E020";
+}
+@if $filename == monitor-mobbile {
+$char: "\E021";
+}
+@if $filename == plus-square {
+$char: "\E022";
+}
+@if $filename == search {
+$char: "\E023";
+}
+@if $filename == shopping-cart {
+$char: "\E024";
+}
+@if $filename == sms {
+$char: "\E025";
+}
+@if $filename == square-check {
+$char: "\E026";
+}
+@if $filename == star-sharp {
+$char: "\E027";
+}
+@if $filename == tablet {
+$char: "\E028";
+}
+@if $filename == trash {
+$char: "\E029";
+}
+@if $filename == user {
+$char: "\E02A";
+}
+@if $filename == wallet {
+$char: "\E02B";
+}
+@if $filename == watch {
+$char: "\E02C";
+}
+@if $filename == 360 {
+$char: "\E02D";
+}
+@if $filename == bars {
+$char: "\E02E";
+}
+@if $filename == calendar {
+$char: "\E02F";
+}
+@if $filename == cart-empty {
+$char: "\E030";
+}
+@if $filename == check {
+$char: "\E031";
+}
+@if $filename == cloud-download-alt {
+$char: "\E032";
+}
+@if $filename == comment {
+$char: "\E033";
+}
+@if $filename == comments {
+$char: "\E034";
+}
+@if $filename == credit-card {
+$char: "\E035";
+}
+@if $filename == edit {
+$char: "\E036";
+}
+@if $filename == envelope {
+$char: "\E037";
+}
+@if $filename == expand-alt {
+$char: "\E038";
+}
+@if $filename == external-link-alt {
+$char: "\E039";
+}
+@if $filename == facebook {
+$char: "\E03A";
+}
+@if $filename == file-alt {
+$char: "\E03B";
+}
+@if $filename == file-archive {
+$char: "\E03C";
+}
+@if $filename == folder-open {
+$char: "\E03D";
+}
+@if $filename == folder {
+$char: "\E03E";
+}
+@if $filename == frown {
+$char: "\E03F";
+}
+@if $filename == gift {
+$char: "\E040";
+}
+@if $filename == google-plus {
+$char: "\E041";
+}
+@if $filename == history {
+$char: "\E042";
+}
+@if $filename == home {
+$char: "\E043";
+}
+@if $filename == info-circle {
+$char: "\E044";
+}
+@if $filename == instagram {
+$char: "\E045";
+}
+@if $filename == linkedin {
+$char: "\E046";
+}
+@if $filename == map-marker-check {
+$char: "\E047";
+}
+@if $filename == meh {
+$char: "\E048";
+}
+@if $filename == minus {
+$char: "\E049";
+}
+@if $filename == money-bill {
+$char: "\E04A";
+}
+@if $filename == moon {
+$char: "\E04B";
+}
+@if $filename == pencil-alt {
+$char: "\E04C";
+}
+@if $filename == pinterest-p {
+$char: "\E04D";
+}
+@if $filename == plus {
+$char: "\E04E";
+}
+@if $filename == quote {
+$char: "\E04F";
+}
+@if $filename == random {
+$char: "\E050";
+}
+@if $filename == reply-all {
+$char: "\E051";
+}
+@if $filename == reply {
+$char: "\E052";
+}
+@if $filename == router {
+$char: "\E053";
+}
+@if $filename == sign-out-alt {
+$char: "\E054";
+}
+@if $filename == smile {
+$char: "\E055";
+}
+@if $filename == spinner {
+$char: "\E056";
+}
+@if $filename == square {
+$char: "\E057";
+}
+@if $filename == star {
+$char: "\E058";
+}
+@if $filename == store {
+$char: "\E059";
+}
+@if $filename == sun {
+$char: "\E05A";
+}
+@if $filename == sync {
+$char: "\E05B";
+}
+@if $filename == tachometer-alt {
+$char: "\E05C";
+}
+@if $filename == tag {
+$char: "\E05D";
+}
+@if $filename == thumbtack {
+$char: "\E05E";
+}
+@if $filename == times-circle {
+$char: "\E05F";
+}
+@if $filename == times {
+$char: "\E060";
+}
+@if $filename == truck {
+$char: "\E061";
+}
+@if $filename == twitter {
+$char: "\E062";
+}
+@if $filename == video {
+$char: "\E063";
+}
+
+@return $char;
+}
+
+@mixin axtronic-icon($filename, $insert: before) {
+&:#{$insert} {
+    content: themecustom-char($filename);
+}
+}
+
+.axtronic-icon-airpods {
+    @include axtronic-icon(airpods);
+}
+.axtronic-icon-angle-down {
+    @include axtronic-icon(angle-down);
+}
+.axtronic-icon-angle-left {
+    @include axtronic-icon(angle-left);
+}
+.axtronic-icon-angle-right {
+    @include axtronic-icon(angle-right);
+}
+.axtronic-icon-angle-up {
+    @include axtronic-icon(angle-up);
+}
+.axtronic-icon-arrow-circle-down {
+    @include axtronic-icon(arrow-circle-down);
+}
+.axtronic-icon-arrow-circle-left {
+    @include axtronic-icon(arrow-circle-left);
+}
+.axtronic-icon-arrow-circle-right {
+    @include axtronic-icon(arrow-circle-right);
+}
+.axtronic-icon-arrow-circle-up {
+    @include axtronic-icon(arrow-circle-up);
+}
+.axtronic-icon-arrow-down {
+    @include axtronic-icon(arrow-down);
+}
+.axtronic-icon-arrow-left {
+    @include axtronic-icon(arrow-left);
+}
+.axtronic-icon-arrow-right {
+    @include axtronic-icon(arrow-right);
+}
+.axtronic-icon-arrow-up {
+    @include axtronic-icon(arrow-up);
+}
+.axtronic-icon-buliding {
+    @include axtronic-icon(buliding);
+}
+.axtronic-icon-call-calling {
+    @include axtronic-icon(call-calling);
+}
+.axtronic-icon-call-calling2 {
+    @include axtronic-icon(call-calling2);
+}
+.axtronic-icon-circle-phone {
+    @include axtronic-icon(circle-phone);
+}
+.axtronic-icon-discount-shape {
+    @include axtronic-icon(discount-shape);
+}
+.axtronic-icon-electricity {
+    @include axtronic-icon(electricity);
+}
+.axtronic-icon-eye {
+    @include axtronic-icon(eye);
+}
+.axtronic-icon-gameboy {
+    @include axtronic-icon(gameboy);
+}
+.axtronic-icon-glass {
+    @include axtronic-icon(glass);
+}
+.axtronic-icon-grid {
+    @include axtronic-icon(grid);
+}
+.axtronic-icon-group {
+    @include axtronic-icon(group);
+}
+.axtronic-icon-heart-circle {
+    @include axtronic-icon(heart-circle);
+}
+.axtronic-icon-heart {
+    @include axtronic-icon(heart);
+}
+.axtronic-icon-house-2 {
+    @include axtronic-icon(house-2);
+}
+.axtronic-icon-list {
+    @include axtronic-icon(list);
+}
+.axtronic-icon-medal-star {
+    @include axtronic-icon(medal-star);
+}
+.axtronic-icon-menu-right-1 {
+    @include axtronic-icon(menu-right-1);
+}
+.axtronic-icon-minus-square {
+    @include axtronic-icon(minus-square);
+}
+.axtronic-icon-mobile {
+    @include axtronic-icon(mobile);
+}
+.axtronic-icon-monitor-mobbile {
+    @include axtronic-icon(monitor-mobbile);
+}
+.axtronic-icon-plus-square {
+    @include axtronic-icon(plus-square);
+}
+.axtronic-icon-search {
+    @include axtronic-icon(search);
+}
+.axtronic-icon-shopping-cart {
+    @include axtronic-icon(shopping-cart);
+}
+.axtronic-icon-sms {
+    @include axtronic-icon(sms);
+}
+.axtronic-icon-square-check {
+    @include axtronic-icon(square-check);
+}
+.axtronic-icon-star-sharp {
+    @include axtronic-icon(star-sharp);
+}
+.axtronic-icon-tablet {
+    @include axtronic-icon(tablet);
+}
+.axtronic-icon-trash {
+    @include axtronic-icon(trash);
+}
+.axtronic-icon-user {
+    @include axtronic-icon(user);
+}
+.axtronic-icon-wallet {
+    @include axtronic-icon(wallet);
+}
+.axtronic-icon-watch {
+    @include axtronic-icon(watch);
+}
+.axtronic-icon-360 {
+    @include axtronic-icon(360);
+}
+.axtronic-icon-bars {
+    @include axtronic-icon(bars);
+}
+.axtronic-icon-calendar {
+    @include axtronic-icon(calendar);
+}
+.axtronic-icon-cart-empty {
+    @include axtronic-icon(cart-empty);
+}
+.axtronic-icon-check {
+    @include axtronic-icon(check);
+}
+.axtronic-icon-cloud-download-alt {
+    @include axtronic-icon(cloud-download-alt);
+}
+.axtronic-icon-comment {
+    @include axtronic-icon(comment);
+}
+.axtronic-icon-comments {
+    @include axtronic-icon(comments);
+}
+.axtronic-icon-credit-card {
+    @include axtronic-icon(credit-card);
+}
+.axtronic-icon-edit {
+    @include axtronic-icon(edit);
+}
+.axtronic-icon-envelope {
+    @include axtronic-icon(envelope);
+}
+.axtronic-icon-expand-alt {
+    @include axtronic-icon(expand-alt);
+}
+.axtronic-icon-external-link-alt {
+    @include axtronic-icon(external-link-alt);
+}
+.axtronic-icon-facebook {
+    @include axtronic-icon(facebook);
+}
+.axtronic-icon-file-alt {
+    @include axtronic-icon(file-alt);
+}
+.axtronic-icon-file-archive {
+    @include axtronic-icon(file-archive);
+}
+.axtronic-icon-folder-open {
+    @include axtronic-icon(folder-open);
+}
+.axtronic-icon-folder {
+    @include axtronic-icon(folder);
+}
+.axtronic-icon-frown {
+    @include axtronic-icon(frown);
+}
+.axtronic-icon-gift {
+    @include axtronic-icon(gift);
+}
+.axtronic-icon-google-plus {
+    @include axtronic-icon(google-plus);
+}
+.axtronic-icon-history {
+    @include axtronic-icon(history);
+}
+.axtronic-icon-home {
+    @include axtronic-icon(home);
+}
+.axtronic-icon-info-circle {
+    @include axtronic-icon(info-circle);
+}
+.axtronic-icon-instagram {
+    @include axtronic-icon(instagram);
+}
+.axtronic-icon-linkedin {
+    @include axtronic-icon(linkedin);
+}
+.axtronic-icon-map-marker-check {
+    @include axtronic-icon(map-marker-check);
+}
+.axtronic-icon-meh {
+    @include axtronic-icon(meh);
+}
+.axtronic-icon-minus {
+    @include axtronic-icon(minus);
+}
+.axtronic-icon-money-bill {
+    @include axtronic-icon(money-bill);
+}
+.axtronic-icon-moon {
+    @include axtronic-icon(moon);
+}
+.axtronic-icon-pencil-alt {
+    @include axtronic-icon(pencil-alt);
+}
+.axtronic-icon-pinterest-p {
+    @include axtronic-icon(pinterest-p);
+}
+.axtronic-icon-plus {
+    @include axtronic-icon(plus);
+}
+.axtronic-icon-quote {
+    @include axtronic-icon(quote);
+}
+.axtronic-icon-random {
+    @include axtronic-icon(random);
+}
+.axtronic-icon-reply-all {
+    @include axtronic-icon(reply-all);
+}
+.axtronic-icon-reply {
+    @include axtronic-icon(reply);
+}
+.axtronic-icon-router {
+    @include axtronic-icon(router);
+}
+.axtronic-icon-sign-out-alt {
+    @include axtronic-icon(sign-out-alt);
+}
+.axtronic-icon-smile {
+    @include axtronic-icon(smile);
+}
+.axtronic-icon-spinner {
+    @include axtronic-icon(spinner);
+}
+.axtronic-icon-square {
+    @include axtronic-icon(square);
+}
+.axtronic-icon-star {
+    @include axtronic-icon(star);
+}
+.axtronic-icon-store {
+    @include axtronic-icon(store);
+}
+.axtronic-icon-sun {
+    @include axtronic-icon(sun);
+}
+.axtronic-icon-sync {
+    @include axtronic-icon(sync);
+}
+.axtronic-icon-tachometer-alt {
+    @include axtronic-icon(tachometer-alt);
+}
+.axtronic-icon-tag {
+    @include axtronic-icon(tag);
+}
+.axtronic-icon-thumbtack {
+    @include axtronic-icon(thumbtack);
+}
+.axtronic-icon-times-circle {
+    @include axtronic-icon(times-circle);
+}
+.axtronic-icon-times {
+    @include axtronic-icon(times);
+}
+.axtronic-icon-truck {
+    @include axtronic-icon(truck);
+}
+.axtronic-icon-twitter {
+    @include axtronic-icon(twitter);
+}
+.axtronic-icon-video {
+    @include axtronic-icon(video);
+}

@@ -32,3 +32,5 @@ composer.phar
 resources/lang
 !resources/lang/default.json
 storage/app/bc.php
+
+themes/Axtronic/views/node_modules

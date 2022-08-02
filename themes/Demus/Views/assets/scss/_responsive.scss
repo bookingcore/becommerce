@@ -1,0 +1,177 @@
+@media (min-width: 1441px) and (max-width: 99999px) {
+    .site-header-menu{
+        display: none;
+    }
+}
+@media (max-width: 1440px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                flex: 0 0 calc(100%/3)!important;
+                max-width: calc(100%/3)!important;
+            }
+        }
+    }
+}
+@media (max-width: 1365px) {
+    ul.axtronic-products-special{
+        grid-template-columns: none;
+        li.product-item{
+            margin-bottom: var(--grid-gutter);
+            &:first-child{
+                grid-column: 1;
+            }
+        }
+    }
+    .product-box-title{
+        flex-direction: column;
+        h2{
+            display: block;
+        }
+        ul.list-category-name{
+            display: inline-block;
+            li{
+                display: inline-block;
+            }
+        }
+    }
+}
+@media (min-width: 1201px) and (max-width: 1440px) {
+    .site-header-menu{
+        display: none;
+    }
+}
+@media (max-width: 1200px) {
+    #masthead {
+        .header-wrap {
+            .site-branding{
+                width: calc(100% - 400px);
+            }
+            .site-member{
+                width: 400px;
+            }
+        }
+        .header__content-bottom .vertical-navigation-header{
+            display: none;
+        }
+    }
+
+}
+@media (min-width: 1025px) and (max-width: 1200px) {
+    .site-navigation{
+        display: none;
+    }
+}
+@media (max-width: 1024px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                padding-left: calc(16px/2);
+                padding-right: calc(16px/2);
+            }
+        }
+    }
+    #masthead {
+        .header-wrap .site-navigation{
+            display: none;
+        }
+    }
+    .axtronic-site-features {
+        .features-grid {
+            .feature-item{
+                margin-bottom: 30px;
+                &:first-child{
+                    grid-column-start: 1;
+                    grid-column-end: 4;
+                    grid-row-start: 1;
+                    grid-row-end: 3;
+                }
+                &:nth-child(2n){
+
+                    text-align: left;
+                    justify-content: start;
+                    .box{
+                        flex-direction: revert;
+                    }
+                    .item-content{
+                        margin-right: 0;
+                        margin-left: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (min-width: 1024px) {
+    .comments-area{
+        .comment-list {
+            .comment-body{
+                padding-left: 75px;
+            }
+            .comment-meta {
+                .avatar{
+                    position: absolute;
+                    left: -75px;
+                    top: 0;
+                }
+            }
+        }
+    }
+    .review-box-top{
+        >div{
+            width: calc(100%/3);
+            &:not(:last-child){
+                border-right: 1px solid;
+                border-right-color: var(--border);
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    ul.axtronic-products{
+        &.products {
+            li.product{
+                flex: 0 0 calc(100%/2)!important;
+                max-width: calc(100%/2)!important;
+                padding-left: calc(10px/2);
+                padding-right: calc(10px/2);
+            }
+        }
+    }
+    #masthead {
+        .header-wrap {
+            .site-branding {
+                width: 215px;
+            }
+            .site-member {
+                width: calc(100% - 215px);
+
+                ul.topbar-items {
+                    justify-content: end;
+
+                    li:not(.site-header-menu) {
+                        display: none;
+                    }
+                }
+            }
+
+            .site-navigation {
+                display: none;
+            }
+        }
+        .header__content-bottom .product-cat, .vertical-navigation, p{
+            display: none;
+        }
+        .header__content-bottom input{
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 8px;
+        }
+    }
+
+}
+@media (max-width: 450px) {
+    .axtronic-site-features .features-grid{
+        display: block;
+    }
+}

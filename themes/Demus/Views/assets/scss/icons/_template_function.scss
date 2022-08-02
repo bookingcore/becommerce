@@ -1,0 +1,36 @@
+@mixin themecustom-icon{
+	font-family: "<%= fontName %>";
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	display: inline-block;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: normal;
+	line-height: 1;
+	vertical-align: middle;
+}
+
+[class*="<%= cssClass %>-"] {
+    @include themecustom-icon;
+}
+
+@function themecustom-char($filename) {
+    $char: "";
+<% _.each(glyphs, function(glyph) { %>
+@if $filename == <%= glyph.fileName %> {
+$char: "\<%= glyph.codePoint %>";
+}<% }); %>
+
+@return $char;
+}
+
+@mixin <%= cssClass%>($filename, $insert: before) {
+&:#{$insert} {
+    content: themecustom-char($filename);
+}
+}
+
+<% _.each(glyphs, function(glyph) { %>.<%= cssClass%>-<%= glyph.fileName %> {
+    @include <%= cssClass%>(<%= glyph.fileName %>);
+}
+<% }); %>

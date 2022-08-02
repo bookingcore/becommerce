@@ -1,0 +1,25 @@
+.bc-form{
+    .fa-spinner{
+        display: none;
+    }
+    &.loading{
+        .fa-spinner{
+            display: inline-block;
+        }
+    }
+}
+
+.no-border{
+    border: none !important;
+}
+.bootbox-confirm{
+    .close {
+        float: right;
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1;
+        color: #000;
+        text-shadow: 0 1px 0 #fff;
+        opacity: .5;
+    }
+}

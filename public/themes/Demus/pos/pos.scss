@@ -1,0 +1,70 @@
+@import "../libs/toast/toast";
+:root{
+    --main-color: #28afb1;
+}
+body{
+    font-size: 14px;
+}
+.fw-700 {
+    font-weight: 700;
+}
+
+.c-000000 {
+    color: black;
+}
+.fs-33 {
+    font-size: 33px;
+}
+.bg-main {
+    background: var(--main-color);
+}
+.border-1 {
+    border-width: 1px;
+    border-style: solid;
+}
+.border-e1e1e1 {
+    border-color: #e1e1e1;
+}
+.bg-f1f1f1 {
+    background: #f1f1f1;
+}
+.absolute {
+    position: absolute;
+}
+.relative {
+    position: relative;
+}
+
+.top-0 {
+    top: 0px;
+}
+
+.left-0 {
+    left: 0px;
+}
+
+.right-0 {
+    right: 0px;
+}
+
+.bottom-0 {
+    bottom: 0px;
+}
+.bg-dark-75 {
+    background: rgba(0, 0, 0, 0.75);
+}
+.c-white {
+    color: white;
+}
+.modal-backdrop{
+    display: block;
+}
+.topbar-items{
+    .bc-user-header{
+        >.login{
+            color:white;
+            display: block;
+            padding: 0.5rem 1rem;
+        }
+    }
+}
