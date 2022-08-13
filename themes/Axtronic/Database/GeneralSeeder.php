@@ -1,5 +1,5 @@
 <?php
-namespace Themes\Axtronic\Database;
+namespace Themes\Demus\Database;
 use App\User;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;

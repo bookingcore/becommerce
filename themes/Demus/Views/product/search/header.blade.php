@@ -1,34 +1,35 @@
-@php
-    $product_image = setting_item('product_image');
-
-@endphp
-@if($product_image)
-@php
-    $file = (new \Modules\Media\Models\MediaFile())->findById($product_image);
-@endphp
-<div class="mb-4">
-    <img src="{{asset('uploads/'.$file['file_path'])}}" alt="">
-</div>
-@endif
-
-@if($rows->total())
-    <div class="demus-shopping__header d-flex justify-content-between align-items-center">
-        <h2> {{ setting_item('product_page_search_title') }}</h2>
-        <p>{{ __("Showing :from - :to of :total",["from"=>$rows->firstItem(),"to"=>$rows->lastItem(),"total"=>$rows->total()]), "results"}}  </p>
-    </div>
-    <div class="demus-shopping__actions">
-        <div class="demus-ordering">
-            <label for="soft"> {{ __('Soft By') }} </label>
-            <select name="sort" data-placeholder="{{ __("Sort Items") }}">
-                <option value="">{{ __("Sort by latest") }}</option>
-                <option @if(request('sort') == 'rate') selected @endif value="rate">{{ __("Sort by average rating") }}</option>
-                <option @if(request('sort') == 'price_asc') selected @endif value="price_asc">{{ __("Sort by price: low to high") }}</option>
-                <option @if(request('sort') == 'price_desc') selected @endif value="price_desc">{{ __("Sort by price: high to low") }}</option>
-            </select>
+<?php
+$listing_list_style = request()->query('list_style');
+;?>
+<div class="row">
+        <div class="listing_filter_row dif db-767">
+            <div class="col-md-4">
+                <div class="left_area tac-sm mb30-767">
+                    <p class="heading-color fz14">{{$rows->total()}}</strong> {{__('Products found')}}</p>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="listing_list_style tac-767">
+                    <ul class="mb0">
+                        <li class="list-inline-item">
+                            <a id="open2" class="filter_open_btn style2 @if(empty($show_filter))dn db-lg @endif" href="#"><span class="flaticon-setting-lines mr10"></span> {{__("Filters")}}</a>
+                        </li>
+                        <li class="list-inline-item">
+                            <div class="shop_default_listing htlw_form_select bc-shopping__actions">
+                                <select name="sort" class="custom_select_dd" id="selectbox_default_list">
+                                    <option value="">{{ __("Default sorting") }}</option>
+                                    <option @if(request('sort') == 'rate') selected @endif value="rate">{{ __("Average rating") }}</option>
+                                    <option @if(request('sort') == 'price_asc') selected @endif value="price_asc">{{ __("Price: low to high") }}</option>
+                                    <option @if(request('sort') == 'price_desc') selected @endif value="price_desc">{{ __("Price: high to low") }}</option>
+                                </select>
+                            </div>
+                        </li>
+                        <li class="list-inline-item gird {{$listing_list_style!='list'?'active':''}}"><a href="{{request()->fullUrlWithQuery(['list_style'=>''])}}"><span class="fa fa-th-large"></span></a></li>
+                        <li class="list-inline-item list {{$listing_list_style=='list'?'active':''}}"><a href="{{request()->fullUrlWithQuery(['list_style'=>'list'])}}"><span class="fa fa-th-list"></span></a></li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="gridlist-toggle desktop-hide-down">
-            <a href="?layout=grid" class="grid  active" title="{{__('Grid View')}}"><i class="demus-icon-grid"></i></a>
-            <a href="?layout=list" class="list  " title="{{__('List View')}}"><i class="demus-icon-list"></i></a>
-        </div>
     </div>
-@endif
+
+

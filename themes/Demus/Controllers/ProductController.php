@@ -51,6 +51,9 @@ class ProductController extends Controller
             'body_class'        => 'full_width',
             "seo_meta"           => $this->product::getSeoMetaForPageList()
         ];
+        $data['layout'] = $request->query('layout',setting_item('fs_search_layout','left-sidebar'));
+        $data['listing_list_style'] = request()->query('list_style',setting_item('fs_search_item_layout'));
+
 
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
@@ -142,10 +145,9 @@ class ProductController extends Controller
         return view('product-detail', $data);
     }
 
-    public function quick_view(Request $request){
-        $id = (!empty($request->id)) ? $request->id : '';
-        $product = $this->product::find('id',$id);
-        $translation = $product->translateOrOrigin(app()->getLocale());
+    public function quick_view(Request $request, $id){
+        $product = $this->product::find($id);
+        $translation = $product->translate(app()->getLocale());
         $product_variations = $this->product_variations($product);
 
         $data = [

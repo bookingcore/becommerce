@@ -17,16 +17,7 @@ if(is_admin()){
 $notifications = $checkNotify->orderBy('created_at', 'desc')->limit(5)->get();
 $countUnread = $checkNotify->where('read_at', null)->count();
 ?>
-<li class="notifications-item">
-    <div class="site-header-notifications">
-        <a class="notifications-contents is_login" href="#">
-            <span class="group-icon-action">
-                <i class="axtronic-icon-envelope"></i>
-                <span class="count">{{$countUnread}}</span>
-            </span>
-        </a>
-    </div>
-</li>
+
 <div class="site-notifications-side side-wrap">
     <a href="#" class="close-notifications-side close-side"><span class="screen-reader-text">{{__('Close')}}</span></a>
     <div class="cart-side-heading side-heading">

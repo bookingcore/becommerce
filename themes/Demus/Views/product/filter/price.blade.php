@@ -1,4 +1,4 @@
-<div class="bc-slider-price">
+<div class="bc-slider-price widget">
     @php
     $price_min = $pri_from = floor ( ($product_min_max_price[0]) );
     $price_max = $pri_to = ceil ( ($product_min_max_price[1]) );
@@ -10,7 +10,7 @@
     }
     $currency = App\Currency::getCurrency(setting_item('currency_main'));
     @endphp
-    <h3 class="widget_title">{{ __("By Price") }}</h3>
+    <h6 class="widget_title">{{__($widget['title'])}}</h6>
     <div class="p-2">
         <div id="nonlinear" class="nonlinear" data-from="{{$pri_from}}" data-to="{{$pri_to}}" data-min="{{$price_min}}" data-max="{{$price_max}}"></div>
     </div>
@@ -26,5 +26,5 @@
     </div>
     <input type="text" name="min_price" class="d-none" value="{{$price_min}}">
     <input type="text" name="max_price" class="d-none" value="{{$price_max}}">
-    <input type="submit" class="btn " title="{{__('APPLY')}}" value="{{__('APPLY')}}">
+    <button type="submit" class="btn " title="{{__('APPLY')}}" ><span>{{__('APPLY')}}</span></button>
 </div>

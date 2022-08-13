@@ -1,5 +1,5 @@
 @if(!empty($breadcrumbs))
-    <div class="axtronic-breadcrumb">
+    <div class="bc-breadcrumb">
         <div class="container">
             <ol class="breadcrumb mb-0" itemscope itemtype="https://schema.org/BreadcrumbList">
                 <li class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="{{url('/')}}"><span itemprop="name">{{__("Home")}}</span></a></li>

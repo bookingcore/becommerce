@@ -23,7 +23,7 @@
                         store:'{{route('media.store')}}',
                         getLists:'{{route('media.getLists')}}',
                     },
-                    groups:{!! json_encode(config('bc.media.groups')) !!}
+                    groups: {!! json_encode(config('bc.media.groups')) !!},
                 }
             }
             var i18n = {

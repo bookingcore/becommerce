@@ -28,7 +28,18 @@
         }
     }
 }
-
+@media (min-width: 992px) {
+    .sidebarleft {
+        .collection-content{
+            padding-left: var(--bs-gutter-x);
+            position: relative;
+            border-left: 1px solid var(--border);
+        }
+        .sidebar-left{
+            padding-right: var(--bs-gutter-x);
+        }
+    }
+}
 
 @media (max-width: 767px) {
     header {

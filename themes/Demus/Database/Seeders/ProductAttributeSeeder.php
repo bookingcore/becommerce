@@ -28,32 +28,82 @@ class ProductAttributeSeeder extends Seeder
             'create_user'=>     '1',
             'status'=>'publish'
         ]);
+        $attr['material'] = DB::table('core_attrs')->insertGetId([
+            'name'      =>      'Material',
+            'display_type'=>    'text',
+            'slug'      =>      'material',
+            'service'   =>      'product',
+            'create_user'=>     '1',
+            'status'=>'publish'
+        ]);
 
         //create term
         $term_list = [
             [
-                'name'      =>      'Red',
-                'content'   =>      '#FF0000',
-                'attr_id'   =>      $attr['color'],
-                'slug'      =>      'red'
-            ],
-            [
                 'name'      =>      'Black',
-                'content'   =>      '#000000',
+                'content'   =>      'black',
                 'attr_id'   =>      $attr['color'],
                 'slug'      =>      'black'
             ],
             [
-                'name'      =>      'Blue',
-                'content'   =>      '#0000FF',
+                'name'      =>      'Bisque',
+                'content'   =>      'bisque',
                 'attr_id'   =>      $attr['color'],
-                'slug'      =>      'blue'
+                'slug'      =>      'bisque'
             ],
             [
-                'name'      =>      'Gray',
-                'content'   =>      '#808080',
+                'name'      =>      'BurlyWood',
+                'content'   =>      'burlywood',
                 'attr_id'   =>      $attr['color'],
-                'slug'      =>      'gray'
+                'slug'      =>      'burlywood'
+            ],
+            [
+                'name'      =>      'Chocolate',
+                'content'   =>      'chocolate',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'chocolate'
+            ],
+            [
+                'name'      =>      'DarkSeaGreen',
+                'content'   =>      'darkseagreen',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'darkseagreen'
+            ],
+            [
+                'name'      =>      'LightBlue',
+                'content'   =>      'lightblue',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'lightblue'
+            ],
+            [
+                'name'      =>      'LightSalmon',
+                'content'   =>      'lightsalmon',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'lightsalmon'
+            ],
+            [
+                'name'      =>      'NavajoWhite',
+                'content'   =>      'navajowhite',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'navajowhite'
+            ],
+            [
+                'name'      =>      'SlateGray',
+                'content'   =>      'slategray',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'slategray'
+            ],
+            [
+                'name'      =>      'Tan',
+                'content'   =>      'tan',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'tan'
+            ],
+            [
+                'name'      =>      'Wheat',
+                'content'   =>      'wheat',
+                'attr_id'   =>      $attr['color'],
+                'slug'      =>      'wheat'
             ],
             [
                 'name'      =>      'S',
@@ -84,6 +134,36 @@ class ProductAttributeSeeder extends Seeder
                 'content'   =>      'XXL',
                 'attr_id'   =>      $attr['size'],
                 'slug'      =>      'Xl'
+            ],
+            [
+                'name'      =>      'Any',
+                'content'   =>      'Any',
+                'attr_id'   =>      $attr['material'],
+                'slug'      =>      'any'
+            ],
+            [
+                'name'      =>      'Ceramic',
+                'content'   =>      'Ceramic',
+                'attr_id'   =>      $attr['material'],
+                'slug'      =>      'ceramic'
+            ],
+            [
+                'name'      =>      'Fabric',
+                'content'   =>      'Fabric',
+                'attr_id'   =>      $attr['material'],
+                'slug'      =>      'fabric'
+            ],
+            [
+                'name'      =>      'Metal',
+                'content'   =>      'Metal',
+                'attr_id'   =>      $attr['material'],
+                'slug'      =>      'metal'
+            ],
+            [
+                'name'      =>      'Wood',
+                'content'   =>      'Wood',
+                'attr_id'   =>      $attr['material'],
+                'slug'      =>      'wood'
             ],
         ];
         $term = [];

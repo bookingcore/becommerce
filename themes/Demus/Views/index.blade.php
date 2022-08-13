@@ -1,4 +1,4 @@
-@extends("layouts.app")
+@extends("layouts.app",['header_style'=>$row->getMeta('header_style'), 'footer_style'=>$row->getMeta('footer_style')])
 @section('content')
     @if($row->template_id)
         @php

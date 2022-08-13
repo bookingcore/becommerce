@@ -42,23 +42,23 @@ class GeneralSeeder extends Seeder
                         "model_name" => "Custom",
                         "is_removed" => true
                     ],
-                    [
-                        "name" => "Category Layout",
-                        "url" => "/category/clothing-apparel",
-                        "item_model" => "custom",
-                        "_open" => false,
-                        "model_name" => "Custom",
-                        "is_removed" => true
-                    ],
+//                    [
+//                        "name" => "Category Layout",
+//                        "url" => "/category/clothing-apparel",
+//                        "item_model" => "custom",
+//                        "_open" => false,
+//                        "model_name" => "Custom",
+//                        "is_removed" => true
+//                    ],
 
-                    [
-                        "name" => "Product Detail",
-                        "url" => "/product/mens-sports-runnning-swim-board-shorts",
-                        "item_model" => "custom",
-                        "_open" => false,
-                        "model_name" => "Custom",
-                        "is_removed" => true
-                    ],
+//                    [
+//                        "name" => "Product Detail",
+//                        "url" => "/product/mens-sports-runnning-swim-board-shorts",
+//                        "item_model" => "custom",
+//                        "_open" => false,
+//                        "model_name" => "Custom",
+//                        "is_removed" => true
+//                    ],
                 ]
             ],
             [

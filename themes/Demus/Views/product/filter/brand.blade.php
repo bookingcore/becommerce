@@ -2,7 +2,7 @@
     @php
         $selected = (array) Request::query('brand');
     @endphp
-        <h3 class="widget_title">{{__("By Brands")}}</h3>
+        <h6 class="widget_title">{{__($widget['title'])}}</h6>
         <div class="bc-checkbox-brands">
             @foreach($brands as $item=>$brand)
                 @php $translate = $brand->translate(app()->getLocale()) @endphp

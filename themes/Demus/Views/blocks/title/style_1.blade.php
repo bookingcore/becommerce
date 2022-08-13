@@ -16,7 +16,9 @@
             </div>
         @endif
         <figure >
+            @if(!empty($image))
             <img src="{{ get_file_url( $image ?? false,'full') }}" alt="{{$title_content}}">
+            @endif
             @if(!empty($title_content))
                 <figcaption>
                     <h2>{!! clean($title_content) !!}</h2>

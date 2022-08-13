@@ -1,9 +1,11 @@
 <section class="featured-product pt0">
     <div class="container">
-        @if(!empty($title))
+
             <div class=" d-flex justify-content-between align-items-end flex-wrap mb-4 pb-3 pb-lg-4">
-                <h2 class="heading-title m-0">{!! clean($title) !!}</h2>
-                @if(!empty($rows) && count($categories) > 1 && !empty($categories))
+                @if(!empty($title))
+                    <h2 class="heading-title m-0">{!! clean($title) !!}</h2>
+                @endif
+                @if(count($categories) > 1 && !empty($categories))
                     <div class="nav nav-tabs" role="tablist">
                         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">{{__('All')}}</button>
                         @foreach($categories as $item)
@@ -14,7 +16,7 @@
                     </div>
                 @endif
             </div>
-        @endif
+
         <div class="tab-content" id="nav-tabContent">
                 @if(!empty($rows) && count($categories) > 1)
                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">

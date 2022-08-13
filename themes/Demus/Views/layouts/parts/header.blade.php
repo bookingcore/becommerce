@@ -1,13 +1,14 @@
 @php $languages = \Modules\Language\Models\Language::getActive();
-if(!isset($current_cat)) $current_cat = null;
-$header_style = isset($header_style) && !empty($header_style) ? $header_style : 'normal';
+    if(!isset($current_cat)) $current_cat = null;
+    $header_style = isset($header_style) && !empty($header_style) ? $header_style : 'normal';
+    $sticky = setting_item('demus_enable_header_scroll');
 @endphp
 
-<header id="masthead" class="header {{ 'header-'.$header_style }}">
+<header id="masthead" class="header {{ 'header-'.$header_style }} {{ !empty($sticky) ? 'sticky-top' : ''  }}">
     @if(Auth::id())
         @include('layouts.parts.header.topbar')
     @endif
-    <div class="{{ ($header_style == 'style_2') ? 'container' : 'container-fluid' }} ">
+    <div class="{{ ($header_style == 'style_2') ? 'container' : 'container-fluid' }}  ">
         @if($header_style == 'style_1')
             @include('layouts.parts.header.style_1')
         @elseif($header_style =='style_2')

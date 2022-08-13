@@ -5,6 +5,14 @@ header{
     a:not(.button) {
         color: var(--accent);
     }
+    &.sticky-top{
+        transition: transform .15s ease-out;
+        will-change: transform;
+        z-index: 9;
+        &.animate{
+            box-shadow: 0 .5rem 1rem #00000026;
+        }
+    }
     &.header-style_1{
         .main-menu{
             margin-left: 0;

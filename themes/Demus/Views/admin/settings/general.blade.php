@@ -40,21 +40,15 @@
             <div class="panel-body">
                 @if(is_default_lang())
                     <div class="form-group">
-                        <label for="demus_hotline_text" class="">{{__("Hotline Text")}}</label>
-                        <div class="form-controls">
-                            <input type="text" id="demus_hotline_text" class="form-control" name="demus_hotline_text" value="{{setting_item('demus_hotline_text')}}">
+                        <label>{{__("Logo Footer")}}</label>
+                        <div class="form-controls form-group-image">
+                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('demus_logo_footer',setting_item('demus_logo_footer') ?? '') !!}
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="demus_hotline_contact" class="">{{__("Hotline")}}</label>
+                        <label for="demus_footer_bg_color" class="">{{__("Footer Background Color")}}</label>
                         <div class="form-controls">
-                            <input type="text" id="demus_hotline_contact" class="form-control" name="demus_hotline_contact" value="{{setting_item('demus_hotline_contact')}}">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="demus_email_contact" class="">{{__("Email Contact")}}</label>
-                        <div class="form-controls">
-                            <input type="text" id="demus_email_contact" class="form-control" name="demus_email_contact" value="{{setting_item('demus_email_contact')}}">
+                            <input type="color" id="demus_footer_bg_color" class="form-control" name="demus_footer_bg_color" value="{{setting_item('demus_footer_bg_color')}}">
                         </div>
                     </div>
                     <div class="form-group">
@@ -66,6 +60,7 @@
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label>{{__("Footer Text Subscribe")}}</label>
                         <div class="form-controls">
@@ -73,12 +68,7 @@
                             <textarea class="d-none" name="demus_footer_text_subscribe" > {{ setting_item_with_lang('demus_footer_text_subscribe') }} </textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>{{__("Footer Background Image Subscribe")}}</label>
-                        <div class="form-controls form-group-image">
-                            {!! \Modules\Media\Helpers\FileHelper::fieldUpload('demus_footer_bg_image',setting_item('demus_footer_bg_image') ?? '') !!}
-                        </div>
-                    </div>
+
                 @endif
                 <div class="form-group">
                     <label>{{__("Footer List Widget")}}</label>
@@ -161,15 +151,15 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Copyright")}}</label>
+                    <label for="demus_copyright">{{__("Copyright")}}</label>
                     <div class="form-controls">
-                        <input name="demus_copyright" class="form-control" value="{{setting_item_with_lang('demus_copyright',request()->query('lang')) }}">
+                        <input id="demus_copyright" name="demus_copyright" class="form-control" value="{{setting_item_with_lang('demus_copyright',request()->query('lang')) }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label>{{__("Footer Text Right")}}</label>
+                    <label for="demus_footer_text_right">{{__("Footer Text Right")}}</label>
                     <div class="form-controls">
-                        <textarea name="demus_footer_text_right" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('demus_footer_text_right',request()->query('lang')) }}</textarea>
+                        <textarea id="demus_footer_text_right" name="demus_footer_text_right" class="d-none has-tinymce" cols="30" rows="10">{{setting_item_with_lang('demus_footer_text_right',request()->query('lang')) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -193,4 +183,10 @@
             });
         })(jQuery)
     </script>
+
 @endpush
+<style>
+    input[type="color"]{
+        height: 40px;
+    }
+</style>

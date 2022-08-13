@@ -416,7 +416,7 @@ jQuery(function ($) {
         let product = $(this).data('product');
         let quickView = $('.mf-quick-view-modal');
         $.ajax({
-            url: BC.url + '/product/quick_view/' + product,
+            url: BC.url + '/quick_view/' + product,
             method:'POST',
             beforeSend: function () {
                 $this.tooltip('hide');
@@ -853,7 +853,6 @@ jQuery(function ($) {
         $('.mobile-' + menuName + '-menu').addClass('active');
     });
 
-
 });
 
 /// Home page Slider Swiper
@@ -1001,3 +1000,8 @@ if(typeof Swiper !== 'undefined') {
     });
 }
 // Onchange Select Category Product Search Header
+
+
+
+
+

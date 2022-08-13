@@ -42,6 +42,9 @@ class ThemeProvider extends AbstractThemeProvider
         $active = ThemeManager::current();
         if(strtolower($active) == "demus"){
             SettingManager::register("demus_advance",[$this,'registerAdvanceSetting'],1,'demus_theme');
+            SettingManager::register("demus_product",[$this,'registerProductSetting'],1,'demus_theme');
+            SettingManager::register("demus_style",[$this,'registerStyleSetting'],1,'demus_theme');
+            SettingManager::register("demus_social",[$this,'registerSocialSetting'],1,'demus_theme');
             SettingManager::registerZone('demus_theme',[$this,'registerZone']);
         }
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
@@ -105,19 +108,66 @@ class ThemeProvider extends AbstractThemeProvider
             "keys"      => [
                 'demus_logo_dark',
                 'demus_header_style',
-                'demus_header_width',
                 'demus_footer_style',
-                'demus_footer_bg_image',
-                'demus_hotline_contact',
-                'demus_email_contact',
                 'demus_list_widget_footer',
                 'demus_footer_info_text',
                 'demus_footer_text_right',
                 'demus_copyright',
-                'demus_hotline_text',
                 'demus_footer_text_subscribe',
+                'demus_footer_bg_color',
+                'demus_logo_footer',
             ],
             'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerProductSetting(){
+
+        return [
+            'id'        => 'demus_product',
+            'title'     => __("Product Settings"),
+            'position'  =>80,
+            'view'      => "admin.settings.product",
+            "keys"      => [
+                'demus_product_gallery',
+                'fs_search_layout',
+                'fs_search_item_layout',
+                'fs_products_sidebar',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerStyleSetting(){
+        return [
+            'id'   => 'demus_style',
+            'title' => __("Style Settings"),
+            'position'=>80,
+            'view'      => "admin.settings.style",
+            "keys"      => [
+                'demus_enable_scroll',
+                'demus_enable_header_scroll',
+            ],
+            'filter_demo_mode'=>[
+
+            ]
+        ];
+    }
+    public function registerSocialSetting(){
+        return [
+            'id'        => 'demus_social',
+            'title'     => __("Social Settings"),
+            'position'  =>80,
+            'view'      => "admin.settings.social",
+            "keys"      => [
+                'demus_social_facebook',
+                'demus_social_twitter',
+                'demus_social_instagram',
+                'demus_social_linkedin',
+                'demus_social_pinterest',
+            ],
+            'filter_demo_mode'=>[
+
             ]
         ];
     }

@@ -74,7 +74,7 @@ class Title extends BaseBlock
                 [
                     'id'        => 'bg_color',
                     'type'      => 'input',
-                    'inputType' => 'text',
+                    'inputType' => 'color',
                     'label'     => __('Background Color'),
                     'conditions' => ['style' => 'style_2']
                 ],
