@@ -9,6 +9,7 @@
 namespace Themes\Demus\Controllers\Blocks;
 
 
+use Modules\Product\Models\Product;
 use Modules\Template\Blocks\BaseBlock;
 use Modules\Product\Models\ProductCategory;
 
@@ -31,36 +32,32 @@ class CategoryProductList extends BaseBlock
                     'label'     => __('Sub Title')
                 ],
                 [
-                    'id'    => 'style',
-                    'type'  => 'radios',
-                    'label' => __('Style'),
-                    'std' => 'style_1',
-                    'values' => [
+                    'id'          => 'list_items',
+                    'type'        => 'listItem',
+                    'label'       => __('List Items'),
+                    'title_field' => 'title',
+                    'settings'    => [
                         [
-                            'value'   => 'style_1',
-                            'name' => __("Style 1")
+                            'id'      => 'category_id',
+                            'type'    => 'select2',
+                            'label'   => __('Select Category'),
+                            'select2' => [
+                                'ajax'  => [
+                                    'url'      => route('product.admin.category.getForSelect2'),
+                                    'dataType' => 'json'
+                                ],
+                                'width' => '100%',
+                                'allowClear' => 'true',
+                                'placeholder' => __('-- Select --')
+                            ],
+                            'pre_selected'=>route('product.admin.category.getForSelect2',['pre_selected'=>1])
                         ],
                         [
-                            'value'   => 'style_2',
-                            'name' => __("Style 2")
+                            'id'    => 'image_id',
+                            'type'  => 'uploader',
+                            'label' => __('Icon Image')
                         ]
-                    ],
-                ],
-                [
-                    'id'      => 'cat_ids',
-                    'type'    => 'select2',
-                    'label'   => __('Select Categories'),
-                    'select2' => [
-                        'ajax'  => [
-                            'url'      => route("product.admin.category.getForSelect2"),
-                            'dataType' => 'json'
-                        ],
-                        'width' => '100%',
-                        'allowClear' => 'true',
-                        'multiple' => '1',
-                        'placeholder' => __('-- Select --')
-                    ],
-                    'pre_selected'=>route("product.admin.category.getForSelect2",['pre_selected'=>"1"])
+                    ]
                 ],
             ],
             'category'=>__("Product")
@@ -74,16 +71,24 @@ class CategoryProductList extends BaseBlock
 
     public function content($model = [])
     {
-        if(!empty($category_ids = $model['cat_ids'] )) {
-            $categories = ProductCategory::select('name','id','slug','image_id')->whereIn('id', $category_ids)->get();
+        $list_product_cat = [];
+        if(!empty($model['list_items'])){
+            $ids = collect($model['list_items'])->pluck('category_id');
+            $categories = ProductCategory::query()->whereIn("id",$ids)->get();
+            $model['categories'] = $categories;
+            foreach ($categories as $item){
+                $model['cat_ids'] = [$item->id];
+                $list_product_cat[$item->id] = Product::search($model)->get();
+            }
         }
 
         $data = [
+            'list_product_cat'      => $list_product_cat,
             'title'                 => $model['title'] ?? "",
             'sub_title'             => $model['sub_title'] ?? "",
             'categories'            => $categories ?? [],
+            'list_items'            => $model['list_items'],
         ];
-        $style = !empty($model['style']) ? $model['style'] : 'style_1';
         return view("blocks.category-product.index", $data);
     }
 }

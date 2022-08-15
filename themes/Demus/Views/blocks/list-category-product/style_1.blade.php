@@ -21,7 +21,7 @@
             @if(!empty($rows) && count($categories) > 1)
                 <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                     <div class="row g-3 g-md-4 g-xl-5 align-items-stretch">
-                        <div class="col-12 col-lg-6 tabs-collecitons__image">
+                        <div class="col-12 col-lg-6 collection-effect__image">
                             <figure>
                                 <img src="{{ get_file_url( $image ?? false,'full') }}" alt="{{__("All")}}">
                                 <figcaption>
@@ -31,12 +31,17 @@
                             </figure>
                         </div>
                         <div class="col-12 col-lg-6 tabs-collecitons__wrapper">
-                            <div class="row g-3 g-md-4 g-xl-5 row-cols-2 row-cols-ms-1 row-cols-md-2 row-cols-lg-2">
-                                @foreach($rows as $row)
-                                    <div class="col">
-                                        @include('product.search.loop')
-                                    </div>
-                                @endforeach
+                            <div class="swiper swiper-cate">
+                                <div class="swiper-wrapper">
+                                    @if(!empty($rows))
+                                        @foreach($rows as $row)
+                                            <div class="swiper-slide">
+                                                @include('product.search.loop',['row'=>$row])
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </div>
+                                <div class="swiper-pagination"></div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +51,7 @@
                 <div class="tab-pane fade {{count($categories) < 2 ? 'show active' : ''}} " id="nav-cat-{{ $item->id }}" role="tabpanel" aria-labelledby="nav-cat-{{ $item->id }}-tab">
                     @php $list_items = $list_product_cat[ $item->id ] ?? [] @endphp
                     <div class="row g-3 g-md-4 g-xl-5">
-                        <div class="col-12 col-lg-6 tabs-collecitons__image">
+                        <div class="col-12 col-lg-6 collection-effect__image">
                             <figure>
                                 <img src="{{  get_file_url($item->image_id ?? "", 'full') }}" alt=" {{ $item->translate()->name }}">
                                 <figcaption>

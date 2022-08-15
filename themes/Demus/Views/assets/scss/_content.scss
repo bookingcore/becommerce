@@ -1,3 +1,11 @@
+section{
+    padding-bottom: 50px;
+    margin-bottom: 70px;
+    &.demus-title{
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+}
 .box-heading-title{
     .heading-title{
         margin-bottom: 0.5rem;
