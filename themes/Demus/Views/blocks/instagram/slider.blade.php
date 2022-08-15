@@ -31,6 +31,7 @@
                     </div>
                 @endforeach
             </div>
+            <div class="swiper-pagination light"></div>
         </div>
     </section>
 @endif

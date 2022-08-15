@@ -4940,6 +4940,10 @@ section.demus-title {
   margin-top: 2rem;
 }
 
+.demus-instagram {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
 .demus-instagram .gallery_item {
   overflow: hidden;
   position: relative;
@@ -5030,6 +5034,43 @@ section.demus-title {
   background-color: var(--secondary);
 }
 
+.section-newsletter.style_1 {
+  padding: 80px 0;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.section-newsletter.style_1 .mailchimp_widget {
+  width: 70%;
+  background-color: rgba(255, 255, 255, 0.9);
+  margin: 40px auto;
+  padding: 80px 40px;
+}
+
+.bc-subscribe-form.loading .text {
+  display: none;
+}
+.bc-subscribe-form.loading .icon-loading {
+  display: block !important;
+}
+.bc-subscribe-form .icon-loading {
+  margin-left: 15px;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  width: 12px;
+  height: 12px;
+}
+.swiper-pagination .swiper-pagination-bullet:hover, .swiper-pagination .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: var(--accent);
+}
+.swiper-pagination.light .swiper-pagination-bullet {
+  background-color: #fff;
+}
+.swiper-pagination.light .swiper-pagination-bullet:hover, .swiper-pagination.light .swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background-color: #ffffff;
+}
+
 .demus-news {
   padding-bottom: 50px;
   margin-bottom: 70px;
@@ -5086,6 +5127,41 @@ section.demus-title {
   right: 15px;
 }
 
+.demus-breadcrumb-news {
+  background-color: var(--background);
+  margin: 0 auto 60px;
+}
+.demus-breadcrumb-news ol.breadcrumb {
+  padding: 20px 0;
+  margin-bottom: 0;
+  color: var(--body-color);
+}
+.demus-breadcrumb-news ol.breadcrumb a {
+  color: var(--accent);
+}
+
+button.blog-search__btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+  height: 48px;
+  padding: 0;
+  line-height: 42px;
+  border-radius: 0;
+  transition: color 0.3s ease;
+  color: var(--accent);
+}
+button.blog-search__btn:hover {
+  color: var(--primary);
+}
+
+@media (min-width: 1230px) {
+  .demus-breadcrumb-news .container-fluid {
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
 @media (max-width: 1024px) {
   .demus-site-features {
     margin-top: 30px;

@@ -1,10 +1,22 @@
 @extends('layouts.app')
 @section('content')
     <div class="bc-page-blog py-4">
+        <nav aria-label="breadcrumb" class="demus-breadcrumb-news">
+            <div class="container-fluid">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">{{__('Home')}}</a></li>
+                    <li class="breadcrumb-item"><a href="/news">{{__('News')}}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{$translation->title}}</li>
+                </ol>
+            </div>
+        </nav>
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
                     <div class="bc-post-detail">
+                        <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
+                            {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
+                        </a>
                         <div class="post-header mb-4">
                             <h2 class="post-title"><a href="{{$row->getDetailUrl()}}" class="c-333333">{{$translation->title}}</a></h2>
                             <ul class="post-meta list-unstyled d-flex m-0">
@@ -20,9 +32,7 @@
                                 @endif
                             </ul>
                         </div>
-                        <a class="ratio ratio-16x9 d-block post-review mb-4" href="{{$row->getDetailUrl()}}">
-                            {!! get_image_tag($row->image_id,'large',['class'=>'object-cover']) !!}
-                        </a>
+
                         <div class="bc-post_content">
                             {!! clean($translation->content) !!}
                         </div>

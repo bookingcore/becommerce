@@ -13,6 +13,7 @@ use Themes\Demus\Controllers\Blocks\NewsList;
 use Themes\Demus\Controllers\Blocks\Slider;
 use Themes\Demus\Controllers\Blocks\Gap;
 use Themes\Demus\Controllers\Blocks\ListProduct;
+use Themes\Demus\Controllers\Blocks\Subscribe;
 use Themes\Demus\Controllers\Blocks\Testimonial;
 use Themes\Demus\Controllers\Blocks\Title;
 use Themes\Demus\Database\Seeder;
@@ -62,6 +63,7 @@ class ThemeProvider extends AbstractThemeProvider
             ["product_tab", ListCategoryProduct::class],
             ["testimonial", Testimonial::class],
             ["category", CategoryProductList::class],
+            ["subcribe", Subscribe::class],
         ]);
     }
     public function __show_header_style(Page $row){

@@ -10,8 +10,13 @@
 @media (min-width: 1201px) and (max-width: 1440px) {
 
 }
-@media (max-width: 1200px) {
-
+@media (min-width: 1230px) {
+    .demus-breadcrumb-news{
+        .container-fluid{
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+    }
 
 }
 @media (min-width: 1025px) and (max-width: 1200px) {

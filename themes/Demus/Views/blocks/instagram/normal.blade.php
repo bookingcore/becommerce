@@ -18,7 +18,7 @@
             <div class="container-fluid">
                 <div class="row g-0 row-cols-2 row-cols-ms-3 row-cols-md-3 row-cols-lg-6">
                     @foreach($list_items as $key => $item)
-                        <div class="col ">
+                        <div class="col p-0">
                             <a  class="gallery_item" href="{{ get_file_url($item['image_icon'] ?? '' , "full") }}">
                                 @if(!empty($item['image_icon']))
                                     <img class="img-fluid img-circle-rounded w100" src="{{ get_file_url($item['image_icon'] ?? '' , "full") }}" alt="Instagram">

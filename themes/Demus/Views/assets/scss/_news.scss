@@ -59,3 +59,33 @@
         }
     }
 }
+
+.demus-breadcrumb-news{
+    background-color: var(--background);
+    margin: 0 auto 60px;
+    ol.breadcrumb{
+        padding: 20px 0;
+        margin-bottom: 0;
+        color: var(--body-color);
+        a{
+            color: var(--accent);
+
+        }
+    }
+}
+button.blog-search__btn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px;
+    height: 48px;
+    padding: 0;
+    line-height: 42px;
+    border-radius: 0;
+    transition: color .3s ease;
+    color: var(--accent);
+    &:hover{
+        color: var(--primary);
+    }
+
+}

@@ -141,6 +141,8 @@ section{
     }
 }
 .demus-instagram{
+    margin-bottom: 0;
+    padding-bottom: 0;
     .gallery_item{
         overflow: hidden;
         position: relative;
@@ -231,5 +233,54 @@ section{
     }
     &:hover{
         background-color: var(--secondary);
+    }
+}
+
+.section-newsletter{
+    &.style_1{
+        padding: 80px 0;
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        .mailchimp_widget{
+            width: 70%;
+            background-color: rgba(255,255,255,0.9);
+            margin: 40px auto;
+            padding: 80px 40px;
+        }
+    }
+}
+
+.bc-subscribe-form{
+    &.loading{
+        .text{
+            display: none;
+        }
+        .icon-loading{
+            display: block !important;
+        }
+    }
+    .icon-loading{
+        margin-left: 15px;
+    }
+}
+
+.swiper-pagination{
+    .swiper-pagination-bullet{
+        width: 12px;
+        height: 12px;
+        &:hover, &.swiper-pagination-bullet-active{
+            background-color: var(--accent);
+        }
+
+    }
+    &.light{
+        .swiper-pagination-bullet {
+            background-color: #fff;
+
+            &:hover, &.swiper-pagination-bullet-active {
+                background-color: #ffffff;
+            }
+        }
     }
 }

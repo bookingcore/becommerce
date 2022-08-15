@@ -978,15 +978,14 @@ if(typeof Swiper !== 'undefined') {
                 slidesPerView: 6,
             },
         },
-        // Navigation arrowsss
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
         },
     });
     const swiperNews = new Swiper('.demus-slider-news', {
         // Optional parameters
-        loop: true,
+        loop: false,
         spaceBetween: 40,
         autoplay: {
             delay: 5000,
@@ -1064,7 +1063,7 @@ if(typeof Swiper !== 'undefined') {
     });
 
 
-    var swiperCateProduct = new Swiper('.swiper-cate', {
+    const swiperCateProduct = new Swiper('.swiper-cate', {
         // Optional parameters
         loop: false,
         slidesPerView: 2,
