@@ -254,3 +254,17 @@
         }
     }
 }
+
+.bc-carousel{
+    .item{
+        position: relative;
+        .bc-banner-content{
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            text-align: center;
+            left: 0;
+            right: 0;
+        }
+    }
+}

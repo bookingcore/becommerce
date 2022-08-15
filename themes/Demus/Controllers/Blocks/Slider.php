@@ -27,6 +27,12 @@ class Slider extends BaseBlock
                     ],
                 ],
                 [
+                    'type'      => "checkbox",
+                    'label'     =>__("Show pagination?"),
+                    'id'        => "is_pagination",
+                    'default'   => true
+                ],
+                [
                     'id'          => 'sliders',
                     'type'        => 'listItem',
                     'label'       => __('Slider Items'),

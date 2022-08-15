@@ -2869,6 +2869,7 @@ ul.list-product-items .product-item .product-list-wrap .product-caption .item-ti
   display: flex;
   flex-direction: column;
   text-align: center;
+  height: auto;
 }
 .product-item .product-caption h2 {
   margin-bottom: 0;
@@ -3687,6 +3688,10 @@ a.btn--viewall:hover {
   -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
   transition: opacity 0.35s, transform 0.35s;
 }
+.featured-product .tabs-collecitons__image figure img {
+  width: 100%;
+  height: 100%;
+}
 .featured-product .tabs-collecitons__image figure figcaption {
   position: absolute;
   bottom: 30px;
@@ -3768,6 +3773,23 @@ a.btn--viewall:hover {
 .widget-tags a:hover, .widget-tags a.active {
   color: #fff;
   background: linear-gradient(225deg, var(--primary) 0%, var(--primary_hover) 100%);
+}
+
+.swiper-cate {
+  width: 100%;
+  height: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.swiper-cate .swiper-wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto auto;
+  grid-auto-flow: column;
+  transition-duration: 0ms;
+}
+.swiper-cate .swiper-slide {
+  height: fit-content;
 }
 
 .side-wrap {
@@ -4569,6 +4591,18 @@ a.btn--viewall:hover {
   left: 0;
   right: 0;
   margin: 0 auto;
+}
+
+.bc-carousel .item {
+  position: relative;
+}
+.bc-carousel .item .bc-banner-content {
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  text-align: center;
+  left: 0;
+  right: 0;
 }
 
 .demus-promotions {

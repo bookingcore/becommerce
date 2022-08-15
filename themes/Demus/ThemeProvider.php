@@ -3,10 +3,10 @@ namespace Themes\Demus;
 
 use Modules\Core\Helpers\SettingManager;
 use Modules\Template\BlockManager;
+use Themes\Demus\Controllers\Blocks\CategoryProductList;
 use Themes\Demus\Controllers\Blocks\FeaturedIcon;
 use Modules\Theme\Abstracts\AbstractThemeProvider;
 use Modules\Theme\ThemeManager;
-use Themes\Demus\Controllers\Blocks\Banner;
 use Themes\Demus\Controllers\Blocks\Instagram;
 use Themes\Demus\Controllers\Blocks\ListCategoryProduct;
 use Themes\Demus\Controllers\Blocks\NewsList;
@@ -56,12 +56,12 @@ class ThemeProvider extends AbstractThemeProvider
             ["slider", Slider::class],
             ["productlist", ListProduct::class],
             ["featured_icon", FeaturedIcon::class],
-            ["banner", Banner::class],
             ["title", Title::class],
             ["instagram", Instagram::class],
             ["news", NewsList::class],
             ["product_tab", ListCategoryProduct::class],
             ["testimonial", Testimonial::class],
+            ["category", CategoryProductList::class],
         ]);
     }
     public function __show_header_style(Page $row){

@@ -114,7 +114,7 @@ class ListProduct extends BaseBlock
 
     public function getName()
     {
-        return __('Product: List item');
+        return __('Product Listing');
     }
 
     public function content($model = [])

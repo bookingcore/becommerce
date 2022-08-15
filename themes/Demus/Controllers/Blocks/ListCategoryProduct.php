@@ -123,7 +123,6 @@ class ListCategoryProduct extends BaseBlock
         $model['order_by'] = $model['order_by'] ?? "desc";
         $model['limit'] = $model['number'] ?? 5;
         $list = Product::search($model)->paginate($model['limit']);
-
         $list_product_cat = [];
         if(!empty($category_ids = $model['cat_ids'] )) {
             $categories = ProductCategory::select('name','id','slug','image_id')->whereIn('id', $category_ids)->get();

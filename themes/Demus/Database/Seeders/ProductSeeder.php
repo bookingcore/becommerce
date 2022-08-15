@@ -20,8 +20,8 @@ class ProductSeeder extends Seeder
         $this->seedSettings();
 
         $productImage = [
-            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'demus/shop/product-1.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
-            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-2', 'file_path' => 'demus/shop/product-2.jpg', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-1'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-1', 'file_path' => 'demus/shop/product-10.png', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
+            'image-2'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-2', 'file_path' => 'demus/shop/product-12.png', 'file_type' => 'image/jpeg', 'file_extension' => 'jpg']),
             'image-3'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-3', 'file_path' => 'demus/shop/product-3.png', 'file_type' => 'image/png', 'file_extension' => 'png']),
             'image-4'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-4', 'file_path' => 'demus/shop/product-4.png', 'file_type' => 'image/png', 'file_extension' => 'png']),
             'image-5'   =>  DB::table('media_files')->insertGetId( ['file_name' => 'product-image-5', 'file_path' => 'demus/shop/product-5.png', 'file_type' => 'image/png', 'file_extension' => 'png']),
