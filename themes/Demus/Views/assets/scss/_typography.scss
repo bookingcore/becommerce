@@ -6,10 +6,11 @@
     --text: #54504F;
     --accent: #161311;;
     --light: #A49F9C;
+    --white: #FFFFFF;
     --dark: #031424;
     --border: #E6E2E0;
     --background: #EFEFED;
-    --background2: #F0E1C6;
+    --background2: #fbf7f4;
     --container: 1430px;
     --grid-gutter: 40px;
     --bs-gutter-x: 20px;
@@ -32,6 +33,7 @@
     --sale: #F57E7E;
     --out-stock: #A49F9C;
     --in-stock: #54C154;
+
 }
 
 body {
@@ -378,7 +380,7 @@ a.btn-link-outline{
     font-size: var(--font-size-base);
     border-radius: 0;
     position: relative;
-    span{
+    span, i{
         position: relative;
         color: var(--bs-body-bg);
     }
@@ -409,7 +411,7 @@ a.btn-link-outline{
     }
     &:hover, &:focus{
         box-shadow: none;
-        span{
+        span, i{
             color: #ffffff;
         }
         &:before{
@@ -422,6 +424,8 @@ a.btn-link-outline{
     }
     &.btn-small{
         padding: 8px 16px;
+        font-size: 12px;
+        line-height: 16px;
     }
 }
 

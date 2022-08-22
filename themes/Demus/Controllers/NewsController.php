@@ -20,7 +20,13 @@ class NewsController extends FrontendController
             "seo_meta" => News::getSeoMetaForPageList(),
             'page_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : false,
             'header_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',false,__("News")),
-            'news_description' => setting_item_with_lang('news_page_description')
+            'news_description' => setting_item_with_lang('news_page_description'),
+            'show_breadcrumb'    => 0,
+            'breadcrumbs'=>[
+                [
+                    ['name' => __('News'), 'url' => route('news')],
+                ]
+            ],
         ];
         return view('news',$data);
     }
@@ -38,6 +44,7 @@ class NewsController extends FrontendController
         $translation = $category->translate();
         $data = [
             'rows'=>$model_News->with(['cat','cat.translation','translation'])->paginate(12),
+            'show_breadcrumb'    => 0,
             'breadcrumbs' => [
                 ['name' => __('News'), 'url' => route('news')],
                 ['name' => $translation->name,'class' => 'active'],

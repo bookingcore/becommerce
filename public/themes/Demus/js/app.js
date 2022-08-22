@@ -835,7 +835,19 @@ jQuery(function ($) {
             }
         }
     }
-
+    // const url_cat = new URL(url);
+    var link = url.split("/");
+    var str_cat = link[4].split('?');
+    var active = str_cat[0];
+    console.log(active);
+    $('.cat-item').each(function () {
+        // xóa class active
+        $(this).removeClass("active")
+        // thêm class active vào thẻ có data-slug trùng với url
+        if (url.indexOf($(this).attr("data-slug")) != -1) {
+            $(this).addClass("active")
+        }
+    });
     // Show/Hide Canvas right
     $(document).on('click','.cart-contents',function (e) {
         e.preventDefault();
@@ -915,6 +927,73 @@ jQuery(function ($) {
         $(this).addClass('active');
         $('.mobile-menu-tab').removeClass('active');
         $('.mobile-' + menuName + '-menu').addClass('active');
+    });
+    $('.custom_select_dd').each(function () {
+        // Cache the number of options
+        var $this = $(this),
+            numberOfOptions = $(this).children('option').length;
+
+        // Hides the select element
+        $this.addClass('s-hidden');
+
+        // Wrap the select element in a div
+        $this.wrap('<div class="select"></div>');
+
+        // Insert a styled div to sit over the top of the hidden select element
+        $this.after('<div class="styledSelect"></div>');
+
+        // Cache the styled div
+        var $styledSelect = $this.next('div.styledSelect');
+
+        // Show the first select option in the styled div
+
+        var tmp_text =  $this.find('option:selected').text();
+        if(tmp_text == ""){
+            tmp_text = $this.children('option').eq(0).text();
+        }
+        $styledSelect.text(tmp_text);
+
+        // Insert an unordered list after the styled div and also cache the list
+        var $list = $('<ul />', {
+            'class': 'options'
+        }).insertAfter($styledSelect);
+
+        // Insert a list item into the unordered list for each select option
+        for (var i = 0; i < numberOfOptions; i++) {
+            $('<li />', {
+                text: $this.children('option').eq(i).text(),
+                rel: $this.children('option').eq(i).val()
+            }).appendTo($list);
+        }
+
+        // Cache the list items
+        var $listItems = $list.children('li');
+
+        // Show the unordered list when the styled div is clicked (also hides it if the div is clicked again)
+        $styledSelect.on('click', function (e) {
+            e.stopPropagation();
+            $('div.styledSelect.active').each(function () {
+                $(this).removeClass('active').next('ul.options').hide();
+            });
+            $(this).toggleClass('active').next('ul.options').toggle();
+        });
+
+        // Hides the unordered list when a list item is clicked and updates the styled div to show the selected list item
+        // Updates the select element to have the value of the equivalent option
+        $listItems.on('click', function (e) {
+            e.stopPropagation();
+            $styledSelect.text($(this).text()).removeClass('active');
+            $this.val($(this).attr('rel'));
+            $this.trigger('change');
+            $list.hide();
+            /* alert($this.val()); Uncomment this for demonstration! */
+        });
+
+        // Hides the unordered list when clicking outside of it
+        $(document).on('click', function () {
+            $styledSelect.removeClass('active');
+            $list.hide();
+        });
     });
 
 });

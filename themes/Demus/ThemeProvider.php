@@ -124,7 +124,6 @@ class ThemeProvider extends AbstractThemeProvider
         ];
     }
     public function registerProductSetting(){
-
         return [
             'id'        => 'demus_product',
             'title'     => __("Product Settings"),

@@ -3,7 +3,7 @@ $recent_posts = \Modules\News\Models\News::search()->take(5)->orderByDesc('id')-
 if(!count($recent_posts)) return;
 ?>
 <aside class="widget widget-recent-post">
-    <h3 class="widget_title">{{__('Recent Posts')}}</h3>
+    <h6 class="widget_title">{{ $widget['title']?? __('Recent Posts') }}</h6>
     <div class="widget_content">
         @foreach($recent_posts as $post)
             <?php $translation = $post->translate() ?>

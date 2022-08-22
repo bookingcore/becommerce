@@ -3,7 +3,7 @@ $tags = \Modules\News\Models\Tag::search()->withCount(['news'])->orderByDesc('ne
 if(!count($tags)) return;
 ?>
 <aside class="widget widget-tags">
-    <h3 class="widget_title">{{__('Tags')}}</h3>
+    <h6 class="widget_title">{{ $widget['title']?? __('Tags') }}</h6>
     <div class="widget_content">
         @foreach($tags as $tag)
             <a href="{{$tag->getDetailUrl()}}">{{$tag->name}}</a>

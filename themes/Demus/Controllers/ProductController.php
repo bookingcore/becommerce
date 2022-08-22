@@ -93,7 +93,8 @@ class ProductController extends Controller
             'current_cat'=>$category,
             'translation'=>$translation
         ];
-
+        $data['layout'] = $request->query('layout',setting_item('fs_search_layout','left-sidebar'));
+        $data['listing_list_style'] = request()->query('list_style',setting_item('fs_search_item_layout'));
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
         return view('product', $data);
@@ -116,9 +117,9 @@ class ProductController extends Controller
         $cats = $row->categories;
         if ($cats->count()){
             $breadcrumbs[] = [
-                    'name' => $cats[0]->name,
-                    'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
-                ];
+                'name' => $cats[0]->name,
+                'url'  => route('product.category.index', ['slug'=>$cats[0]->slug])
+            ];
         }
         $breadcrumbs[] = [
             'class'=>'active',

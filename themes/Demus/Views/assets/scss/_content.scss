@@ -284,3 +284,129 @@ section{
         }
     }
 }
+
+.bc-breadcrumb{
+    margin-bottom: 60px;
+    padding: 60px 0;
+    text-align: center;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: var(--background2);
+    h1{
+        margin-bottom: 0;
+    }
+    ol.breadcrumb{
+        justify-content: center;
+    }
+}
+.htlw_form_select .s-hidden, .htcw_form_select .s-hidden, .checkout_country_form .s-hidden, .actegory .s-hidden{
+    visibility: hidden;
+    padding: 8px;
+}
+.htlw_form_select .select, .htcw_form_select .select, .checkout_country_form .select, .actegory .select{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    text-align: left;
+}
+.shop_default_listing {
+    .styledSelect{
+        color: var(--accent);
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 16px;
+        letter-spacing: -0.5px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: transparent;
+        padding: 8px 15px;
+        cursor: pointer;
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        &:after{
+            right: 10px;
+            top: 17px;
+            border: 5px solid ;
+            border-color: #121212 transparent transparent transparent;
+            content: "";
+            height: 0;
+            position: absolute;
+            width: 0;
+        }
+    }
+    .options{
+        background-color: #fff;
+        border: 1px solid #ebebeb;
+        border-radius: 4px;
+        display: none;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 30px;
+        width: 100%;
+        z-index: 999;
+        -webkit-box-shadow: 0 4px 10px rgb(0 0 0 / 5%);
+        -moz-box-shadow: 0 4px 10px rgba(0,0,0,.05);
+        -o-box-shadow: 0 4px 10px rgba(0,0,0,.05);
+        box-shadow: 0 4px 10px rgb(0 0 0 / 5%);
+        padding-top: 5px;
+        li{
+            padding: 0 15px;
+            &:hover{
+                background-color: #f4f4f4;
+            }
+        }
+    }
+}
+.listing_list_style{
+    li{
+        a{
+            color: var(--light);
+            &:hover{
+                color: var(--accent);
+            }
+        }
+        &.active{
+            a{
+                color: var(--accent);
+            }
+        }
+    }
+}
+.axtronic-icons-list{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-left: -1em;
+    margin-right: -1em;
+    .glyph {
+        display: inline-block;
+        width: 9em;
+        margin: 0 1em 2em;
+        text-align: center;
+        vertical-align: top;
+        border: 1px solid #eee;
+        background-color: #f7f7f7;
+
+    }
+    [class*=axtronic-icon] {
+        padding: 20px;
+        display: block;
+        font-size: 36px;
+        line-height: 1;
+        color: #223645;
+        background: #fff;
+    }
+    .class-name {
+        color: #223645;
+        padding: 10px;
+    }
+}

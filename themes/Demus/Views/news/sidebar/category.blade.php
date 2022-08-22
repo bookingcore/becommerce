@@ -4,7 +4,7 @@ if(!$categories) return;
 if(!isset($current_cat)) $current_cat = null;
 ?>
 <aside class="widget widget-categories">
-    <h3 class="widget_title">{{__('Categories')}}</h3>
+    <h6 class="widget_title">{{ $widget['title'] }}</h6>
     <div class="widget_content">
         <ul class="list-unstyled">
             @php

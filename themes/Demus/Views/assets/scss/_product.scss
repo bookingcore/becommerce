@@ -67,6 +67,7 @@ ul.list-product-items{
             }
         }
     }
+
 }
 .bc-list-products{
     padding-bottom: 45px;
@@ -321,6 +322,25 @@ ul.list-product-items{
             }
         }
     }
+    &.product-item-list{
+        display: flex;
+        border: none;
+        padding: 15px 20px;
+        flex-direction: row;
+        margin-top: var(--bs-gutter-x);
+        .product-transition{
+            max-width: 250px;
+        }
+        .product-caption{
+            padding-left: var(--bs-gutter-x);
+            text-align: left;
+            padding-top: 0;
+            h2 a{
+                font-size: 24px;
+                line-height: 1;
+            }
+        }
+    }
 }
 a.btn--viewall{
     color: var(--accent);
@@ -340,7 +360,7 @@ a.btn--viewall{
         border-bottom: 1px solid var(--border);
     }
     .widget_title{
-        color: var(--heading-color);
+        color: var(--accent);
         position: relative;
         padding-top: 8px;
     }
@@ -360,7 +380,7 @@ a.btn--viewall{
                     font-weight: 400;
                     line-height: 1;
                     vertical-align: middle;
-                    content: themecustom-char(angle-down);
+                    content: themecustom-char(plus);
                     float: right;
                     color: var(--accent);
                     margin-left: auto;
@@ -380,6 +400,31 @@ a.btn--viewall{
                 margin-top: calc(var(--grid-gutter) / 2);
                 margin-left: calc(var(--grid-gutter) / 2);
             }
+            &.cat-item{
+                position: relative;
+                padding-left: 30px;
+
+                &:before{
+                    @include themecustom-icon;
+                    content: themecustom-char(square);
+                    position: absolute;
+                    top: 4px;
+                    left: 0;
+                    width: 1em;
+                    color: var(--text);
+                }
+                &:hover, &.active{
+                    a{
+                        color: var(--accent);
+                    }
+                    &:before{
+                        content: themecustom-char(square-check);
+                        vertical-align: middle;
+                        color: var(--accent);
+                        opacity: 1;
+                    }
+                }
+            }
         }
     }
     .slider-meta{
@@ -387,10 +432,6 @@ a.btn--viewall{
         .slider-value{
             color: var(--primary);
         }
-    }
-    button.btn{
-        margin-top: 20px;
-        width: 100%;
     }
     &:not(.widget-attribute-color){
         .bc-checkbox{
@@ -405,7 +446,8 @@ a.btn--viewall{
             &:hover, &.item-active{
                 label{
                     border-color: var(--accent);
-                    color: var(--accent);
+                    color: var(--white);
+                    background-color: var(--accent);
                 }
             }
         }
@@ -493,6 +535,11 @@ a.btn--viewall{
                         }
                     }
 
+                }
+                .swiper-product-gallery{
+                    img{
+                        width: 100%;
+                    }
                 }
             }
         }
@@ -1190,11 +1237,8 @@ a.btn--viewall{
         font-size: .7em;
         display: block;
         border: 0;
-        background-color: var(--accent);
-        border-top-left-radius: 1em;
-        border-top-right-radius: 1em;
-        border-bottom-left-radius: 1em;
-        border-bottom-right-radius: 1em;
+        background-color: var(--primary);
+        border-radius: 1em;
     }
     .noUi-horizontal {
         border-radius: 5px;
@@ -1217,7 +1261,7 @@ a.btn--viewall{
             margin-top: -6px;
             margin-left: auto;
             opacity: 1;
-            border: 3px solid var(--accent);
+            border: 3px solid var(--primary);
             right: -6px !important;
             &:hover{
                 box-shadow: 0 0 0 0.236em rgb(0 0 0 / 10%);

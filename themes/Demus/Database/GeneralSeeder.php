@@ -180,9 +180,15 @@ class GeneralSeeder extends Seeder
         setting_update_item('menu_locations','{"primary":'.$menu_id.',"department":'.$department_id.'}');
 
         $logo_dark = MediaFile::updateOrCreate(['file_name' => 'demus-logo', 'file_path' => 'demus/logo.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'demus-logo-dark']);
+        $favicon = MediaFile::updateOrCreate(['file_name' => 'demus-favicon', 'file_path' => 'demus/favicon.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'demus-favicon']);
         $logo_footer = MediaFile::updateOrCreate(['file_name' => 'demus-logo-footer', 'file_path' => 'demus/logo.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'demus-logo']);
+        $bg_product = MediaFile::updateOrCreate(['file_name' => 'demus-bg-breadcrumb', 'file_path' => 'demus/image_bg.png', 'file_type' => 'image/png', 'file_extension' => 'png'],['file_name' => 'demus-logo']);
         setting_update_items(
             [
+                [
+                    'name'  => 'site_favicon',
+                    'val'   => $favicon->id,
+                ],
                 [
                     'name'  => 'demus_logo_dark',
                     'val'   => $logo_dark->id,
@@ -242,11 +248,43 @@ class GeneralSeeder extends Seeder
                 ],
                 [
                     'name'  => 'demus_enable_scroll',
-                    'val'   => false,
+                    'val'   => true,
                 ],
                 [
                     'name'  => 'demus_enable_header_scroll',
                     'val'   => true,
+                ],
+                [
+                    'name'  => 'demus_social_facebook',
+                    'val'   => '#',
+                ],
+                [
+                    'name'  => 'demus_social_twitter',
+                    'val'   => '#',
+                ],
+                [
+                    'name'  => 'demus_social_instagram',
+                    'val'   => '#',
+                ],
+                [
+                    'name'  => 'demus_social_linkedin',
+                    'val'   => '#',
+                ],
+                [
+                    'name'  => 'demus_social_pinterest',
+                    'val'   => '#',
+                ],
+                [
+                    'name'  => 'product_image',
+                    'val'   => $bg_product->id,
+                ],
+                [
+                    'name'  => 'product_page_search_title',
+                    'val'   => 'Product',
+                ],
+                [
+                    'name'  => 'news_page_list_title',
+                    'val'   => 'News',
                 ],
             ]
         );

@@ -1,7 +1,7 @@
 <?php
 $translation = $row->translate();
 ?>
-<div class="axtronic-post post">
+<div class="bc-post post">
     <div class="post-thumbnail mb-3 mb-lg-4 pb-1">
         <a href="{{$row->getDetailUrl()}}" class="d-block">
             {!! get_image_tag($row->image_id,'large',['class'=>'object-cover img-whp ','alt'=>$translation->title]) !!}

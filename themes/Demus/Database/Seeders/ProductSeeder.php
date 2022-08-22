@@ -95,6 +95,8 @@ class ProductSeeder extends Seeder
             "Yann oak base",
         ];
 
+        $short_desc = 'Embodying the raw, wayward spirit of rock ‘n’ roll, the Kilburn portable active stereo speaker takes the unmistakable look and sound of Marshall the show on the road.';
+
         $productBrand = ProductBrand::factory()->count(count($brandName))->sequence(function ($sequent)use ($brandName){
             return ['name'=>$brandName[$sequent->index]];
         })->create();
@@ -103,7 +105,7 @@ class ProductSeeder extends Seeder
 
         Product::factory()
             ->times(count($productName))
-            ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery){
+            ->sequence(function ($sequent)use($productName,$productBrand,$productImage,$productGallery,$short_desc){
                 $product_type = ['simple','variable'][rand(0,1)];
                 if($sequent->index == 0){
                     $product_type = 'simple';
@@ -119,6 +121,7 @@ class ProductSeeder extends Seeder
                     'image_id'=> \Arr::random($productImage),
                     'gallery'     => implode(',',$productGallery),
                     'product_type'=> $product_type,
+                    'short_desc' => $short_desc,
                 ];
             })
             ->create();
