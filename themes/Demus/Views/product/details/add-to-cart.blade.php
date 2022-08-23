@@ -22,13 +22,13 @@
                         </div>
                     </figure>
                     <button type="submit" class="btn btn-add-to-cart bc_add_to_cart">
-                        {{ __('Add to cart') }}
+                        <span>{{ __('Add to cart') }}</span>
                     </button>
                 @endif
 
                 @if($row->product_type == 'external')
                     <button type="button" class="btn btn-add-to-cart" onclick="window.location='{{ $row->external_url }}'">
-                        {{ (!empty($row->button_text) )? $row->button_text : 'Buy now' }}
+                        <span>{{ (!empty($row->button_text) )? $row->button_text : 'Buy now' }}</span>
                     </button>
                 @endif
                 </div>
@@ -67,13 +67,13 @@
                             </ul>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-add-to-cart bc_add_to_cart">
-                        {{ __('Add to cart') }}
+                    <button type="submit" class="btn btn-add-to-cart bc_add_to_cart ">
+                        <span>{{ __('Add to cart') }}</span>
                     </button>
                 @endif
-                <button class="service-wishlist btn {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">
-                    <i class="axtronic-icon-heart"></i>
-                </button>
+                {{--<button class="service-wishlist btn {{$row->isWishList()}}" data-id="{{$row->id}}" data-type="{{$row->type}}">--}}
+                    {{--<i class="axtronic-icon-heart"></i>--}}
+                {{--</button>--}}
             </div>
         </form>
         {{--<button class="service-compare btn" data-id="{{$row->id}}">--}}

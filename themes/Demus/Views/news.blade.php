@@ -11,22 +11,68 @@
             </div>
         </div>
         <div class="container">
-            <div class="row mt-5 pb-5">
-                <div class="col-lg-8">
-                    @if(count($rows))
-                        @foreach($rows as $k=>$row)
-                            @include('news.loop')
-                        @endforeach
-                    @else
-                        <div class="alert alert-warning">{{__("No posts found")}}</div>
-                    @endif
-                    <div class="bc-pagination">
-                        {{$rows->withQueryString()->links()}}
+
+            <div class="row g-4 g-xl-5">
+                @if(setting_item('demus_news_layout') == 'no-sidebar')
+                    <div class="col-12">
+                        @if(count($rows))
+                            @php
+                                switch (setting_item('demus_news_item_layout') ?? '2'){
+                                   case '1': $classPosition = "col-lg-12 col-md-6"; break;
+                                   case '2': $classPosition = "col-md-6 col-12"; break;
+                                   case '3': $classPosition = "col-lg-4 col-md-6 col-12"; break;
+                                   case '4': $classPosition = "col-lg-3 col-md-6  col-12"; break;
+                                   case '6': $classPosition = "col-lg-2 col-md-6  col-12"; break;
+                                   default: $classPosition = "col-lg-12";
+                               }
+                            @endphp
+                            <div class="row">
+                                @foreach($rows as $k=>$row)
+                                    <div class="col {{$classPosition}}">
+                                        @include('news.loop')
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        @else
+                            <div class="alert alert-warning">{{__("No posts found")}}</div>
+                        @endif
+                        <div class="bc-pagination">
+                            {{$rows->withQueryString()->links()}}
+                        </div>
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    @include('news.sidebar')
-                </div>
+                @else
+                    <div class="col-12 col-xl-9 main-blog__inner @if(setting_item('demus_news_layout')== 'left-sidebar') order-1 @endif">
+                        @if(count($rows))
+                            @php
+                                switch (setting_item('demus_news_item_layout') ?? '2'){
+                                   case '1': $classPosition = "col-lg-12 col-md-6"; break;
+                                   case '2': $classPosition = "col-md-6 col-12"; break;
+                                   case '3': $classPosition = "col-lg-4 col-md-6 col-12"; break;
+                                   case '4': $classPosition = "col-lg-3 col-md-6  col-12"; break;
+                                   case '6': $classPosition = "col-lg-2 col-md-6  col-12"; break;
+                                   default: $classPosition = "col-lg-12";
+                               }
+                            @endphp
+                            <div class="row">
+                                @foreach($rows as $k=>$row)
+                                    <div class="col {{$classPosition}}">
+                                        @include('news.loop')
+                                    </div>
+                                @endforeach
+                            </div>
+
+                        @else
+                            <div class="alert alert-warning">{{__("No posts found")}}</div>
+                        @endif
+                        <div class="bc-pagination">
+                            {{$rows->withQueryString()->links()}}
+                        </div>
+                    </div>
+                    <div class="col-12 col-xl-3 ">
+                        @include('news.sidebar')
+                    </div>
+                @endif
             </div>
         </div>
     </div>

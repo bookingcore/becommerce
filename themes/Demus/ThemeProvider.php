@@ -46,6 +46,7 @@ class ThemeProvider extends AbstractThemeProvider
             SettingManager::register("demus_product",[$this,'registerProductSetting'],1,'demus_theme');
             SettingManager::register("demus_style",[$this,'registerStyleSetting'],1,'demus_theme');
             SettingManager::register("demus_social",[$this,'registerSocialSetting'],1,'demus_theme');
+            SettingManager::register("demus_news",[$this,'registerNewsSetting'],1,'demus_theme');
             SettingManager::registerZone('demus_theme',[$this,'registerZone']);
         }
         add_action(Hook::FORM_AFTER_DISPLAY_TYPE,[$this,'__show_header_style']);
@@ -133,7 +134,20 @@ class ThemeProvider extends AbstractThemeProvider
                 'demus_product_gallery',
                 'fs_search_layout',
                 'fs_search_item_layout',
-                'fs_products_sidebar',
+            ],
+            'filter_demo_mode'=>[
+            ]
+        ];
+    }
+    public function registerNewsSetting(){
+        return [
+            'id'        => 'demus_news',
+            'title'     => __("News Settings"),
+            'position'  =>80,
+            'view'      => "admin.settings.news",
+            "keys"      => [
+                'demus_news_layout',
+                'demus_news_item_layout',
             ],
             'filter_demo_mode'=>[
             ]

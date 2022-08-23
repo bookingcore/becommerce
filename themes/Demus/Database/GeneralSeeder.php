@@ -286,6 +286,14 @@ class GeneralSeeder extends Seeder
                     'name'  => 'news_page_list_title',
                     'val'   => 'News',
                 ],
+                [
+                    'name'  => 'demus_news_layout',
+                    'val'   => 'left-sidebar',
+                ],
+                [
+                    'name'  => 'demus_news_item_layout',
+                    'val'   => '2',
+                ],
             ]
         );
 

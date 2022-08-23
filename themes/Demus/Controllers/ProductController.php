@@ -54,7 +54,6 @@ class ProductController extends Controller
         $data['layout'] = $request->query('layout',setting_item('fs_search_layout','left-sidebar'));
         $data['listing_list_style'] = request()->query('list_style',setting_item('fs_search_item_layout'));
 
-
         $data['attributes'] = ProductAttr::search()->with('terms.translation')->get();
         $data['brands']  = ProductBrand::with(['translation'])->where('status', 'publish')->get();
 

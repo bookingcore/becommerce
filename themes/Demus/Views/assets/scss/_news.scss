@@ -37,6 +37,35 @@
         }
     }
 }
+.widget-categories{
+    ul{
+        li{
+            a{
+                color: var(--accent);
+                position: relative;
+                display: block;
+                padding: 5px 0 5px 23px;
+                line-height: calc(var(--font-size-base) + 7px);
+                font-size: calc(var(--font-size-base) - 1px);
+                text-decoration: none;
+                &:before{
+                    content: "";
+                    position: absolute;
+                    top: 12px;
+                    left: 0;
+                    display: block;
+                    width: 5px;
+                    height: 5px;
+                    border-radius: 50%;
+                    background: var(--accent);
+                    -webkit-transition: all .45s ease;
+                    -o-transition: all .45s ease;
+                    transition: all .45s ease;
+                }
+            }
+        }
+    }
+}
 .bc-page-blog{
     .post{
         margin-bottom: var(--grid-gutter);
@@ -63,9 +92,11 @@
         }
     }
 }
-
+.breadcrumb-item+.breadcrumb-item:before{
+    content: var(--bs-breadcrumb-divider, ">");
+}
 .demus-breadcrumb-news{
-    background-color: var(--background);
+    background-color: var(--background2);
     margin: 0 auto 60px;
     ol.breadcrumb{
         padding: 20px 0;
@@ -91,7 +122,14 @@ button.blog-search__btn{
     &:hover{
         color: var(--primary);
     }
-
+}
+.bc-read-more a.btn-link-outline{
+    text-transform: initial;
+    font-weight: 700;
+    color: var(--primary);
+    &:hover{
+        color: var(--accent);
+    }
 }
 .widget-recent-post{
     .post-content{
@@ -114,7 +152,16 @@ button.blog-search__btn{
         .post-title{
             a{
                 color: var(--accent);
-                font-weight: 700;
+                display: block;
+                margin: 0 0 5px;
+                font-size: calc(var(--font-size-base) - 1px);
+                line-height: 20px;
+                transition: color .3s ease;
+            }
+            time{
+                font-size: calc(var(--font-size-base) - 4px);
+                display: block;
+                color: var(--light);
             }
         }
         .recent-posts-info{

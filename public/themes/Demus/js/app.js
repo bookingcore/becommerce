@@ -835,19 +835,16 @@ jQuery(function ($) {
             }
         }
     }
-    // const url_cat = new URL(url);
-    var link = url.split("/");
-    var str_cat = link[4].split('?');
-    var active = str_cat[0];
-    console.log(active);
+
     $('.cat-item').each(function () {
         // xóa class active
-        $(this).removeClass("active")
+        $(this).removeClass("active");
         // thêm class active vào thẻ có data-slug trùng với url
         if (url.indexOf($(this).attr("data-slug")) != -1) {
             $(this).addClass("active")
         }
     });
+
     // Show/Hide Canvas right
     $(document).on('click','.cart-contents',function (e) {
         e.preventDefault();

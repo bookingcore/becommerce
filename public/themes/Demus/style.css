@@ -3156,12 +3156,10 @@ a.btn--viewall:hover {
 .cart-item-qty {
   position: relative;
   margin-right: 10px;
-  margin-top: 10px;
   border: 2px solid var(--border);
   display: flex;
   align-items: center;
   width: 100px;
-  border-radius: 8px;
   height: 48px;
 }
 .cart-item-qty button {
@@ -3824,7 +3822,6 @@ a.btn--viewall:hover {
   display: inline-block;
   margin: 3px 3px 3px 0;
   color: var(--text);
-  border-radius: 5px;
 }
 .widget-tags a:hover, .widget-tags a.active {
   color: #fff;
@@ -5278,6 +5275,30 @@ section.demus-title {
   color: var(--primary);
 }
 
+.widget-categories ul li a {
+  color: var(--accent);
+  position: relative;
+  display: block;
+  padding: 5px 0 5px 23px;
+  line-height: calc(var(--font-size-base) + 7px);
+  font-size: calc(var(--font-size-base) - 1px);
+  text-decoration: none;
+}
+.widget-categories ul li a:before {
+  content: "";
+  position: absolute;
+  top: 12px;
+  left: 0;
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  -webkit-transition: all 0.45s ease;
+  -o-transition: all 0.45s ease;
+  transition: all 0.45s ease;
+}
+
 .bc-page-blog .post {
   margin-bottom: var(--grid-gutter);
 }
@@ -5302,8 +5323,12 @@ section.demus-title {
   right: 15px;
 }
 
+.breadcrumb-item + .breadcrumb-item:before {
+  content: var(--bs-breadcrumb-divider, ">");
+}
+
 .demus-breadcrumb-news {
-  background-color: var(--background);
+  background-color: var(--background2);
   margin: 0 auto 60px;
 }
 .demus-breadcrumb-news ol.breadcrumb {
@@ -5331,6 +5356,15 @@ button.blog-search__btn:hover {
   color: var(--primary);
 }
 
+.bc-read-more a.btn-link-outline {
+  text-transform: initial;
+  font-weight: 700;
+  color: var(--primary);
+}
+.bc-read-more a.btn-link-outline:hover {
+  color: var(--accent);
+}
+
 .widget-recent-post .post-content {
   display: flex;
   align-items: stretch;
@@ -5351,7 +5385,16 @@ button.blog-search__btn:hover {
 }
 .widget-recent-post .post-content .post-title a {
   color: var(--accent);
-  font-weight: 700;
+  display: block;
+  margin: 0 0 5px;
+  font-size: calc(var(--font-size-base) - 1px);
+  line-height: 20px;
+  transition: color 0.3s ease;
+}
+.widget-recent-post .post-content .post-title time {
+  font-size: calc(var(--font-size-base) - 4px);
+  display: block;
+  color: var(--light);
 }
 .widget-recent-post .post-content .recent-posts-info {
   flex: 1 1 auto;

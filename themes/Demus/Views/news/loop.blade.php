@@ -24,7 +24,7 @@ $translation = $row->translate();
             <a href="{{$row->getDetailUrl()}}" >{{$translation->title}}</a>
         </h5>
         <p class="card-text">{!! \Illuminate\Support\Str::words(strip_tags($translation->content), 15, ' ...') !!}</p>
-        <div class="axtronic-read-more">
+        <div class="bc-read-more">
             <a href="{{ $row->getDetailUrl() }}" class="btn-link-outline ">
                 {{ __('Read More') }}
             </a>

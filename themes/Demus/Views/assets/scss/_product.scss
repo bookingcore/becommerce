@@ -585,12 +585,10 @@ a.btn--viewall{
 .cart-item-qty{
     position: relative;
     margin-right: 10px;
-    margin-top: 10px;
     border: 2px solid var(--border);
     display: flex;
     align-items: center;
     width: 100px;
-    border-radius: 8px;
     height: 48px;
     button{
         color: #000;
@@ -1282,7 +1280,6 @@ a.btn--viewall{
         display: inline-block;
         margin: 3px 3px 3px 0;
         color: var(--text);
-        border-radius: 5px;
         &:hover, &.active{
             color: #fff;
             background: linear-gradient(225deg,var(--primary) 0%,var(--primary_hover) 100%);

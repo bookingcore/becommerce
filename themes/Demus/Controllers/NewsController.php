@@ -16,17 +16,18 @@ class NewsController extends FrontendController
             's'=>$request->query('s')
         ]);
         $data = [
-            'rows'=>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->withCount(['comments'])->paginate(12),
-            "seo_meta" => News::getSeoMetaForPageList(),
-            'page_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : false,
-            'header_title'=>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',false,__("News")),
+            'rows'          =>$model_News->groupBy('core_news.id')->with(['cat','cat.translation','translation'])->withCount(['comments'])->paginate(12),
+            "seo_meta"      => News::getSeoMetaForPageList(),
+            'page_title'    =>$s ? __('Search result for ":key"',['key'=>$s]) : false,
+            'header_title'  =>$s ? __('Search result for ":key"',['key'=>$s]) : setting_item_with_lang('news_page_list_title',false,__("News")),
             'news_description' => setting_item_with_lang('news_page_description'),
             'show_breadcrumb'    => 0,
-            'breadcrumbs'=>[
+            'breadcrumbs'       =>[
                 [
                     ['name' => __('News'), 'url' => route('news')],
                 ]
             ],
+            'layout' => $request->query('layout',setting_item('demus_news_layout','left-sidebar')),
         ];
         return view('news',$data);
     }
@@ -54,6 +55,7 @@ class NewsController extends FrontendController
             'header_title'=>$translation->name,
             'current_cat'=>$category,
             'page_title'=>$translation->name,
+            'layout' => $request->query('layout',setting_item('demus_news_layout','left-sidebar')),
         ];
         return view('news',$data);
     }
@@ -81,6 +83,7 @@ class NewsController extends FrontendController
             'translation'=>$translation,
             'page_title'=>$translation->name,
             'header_title'=>$translation->name,
+            'layout' => $request->query('layout',setting_item('demus_news_layout','left-sidebar')),
         ];
         return view('news',$data);
     }
