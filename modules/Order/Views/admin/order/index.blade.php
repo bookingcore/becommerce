@@ -80,32 +80,43 @@
                             <input type="checkbox" class="check-item" name="ids[]" value="{{$row->id}}">#{{$row->id}}
                         </td>
                         <td width="25%">
-                            @if(!empty($items = $row->items))
-                            @foreach($items as $item)
-                            @php
-                            $model = $item->model;
-                            @endphp
-                            @if(!empty($model->id))
-                                <ul class="list-unstyled order-list">
-                                    <li>
-                                        <div class="media">
-                                            @if($model->image_id)
-                                            <div class="media-left" style="padding-right: 10px">
-                                                <div class="thumb" style="width: 50px;">
-                                                    <img src="{{get_file_url($model->image_id)}}" width="50px" alt="">
-                                                </div>
-                                            </div>
-                                            @endif
-                                            <div class="media-body">
-                                                <a target="_blank" href="{{ route('product.detail',['slug'=>$model->slug])}}">{{ $model->title }} x {{ $item->qty }}</a>
+                            @if(!empty($items = $row->items) and count($items) > 0)
+                                @php
+                                    $firstItem = $items->first()->model;
+                                @endphp
+                                <div class="media">
+                                    @if($firstItem->image_id)
+                                        <div class="media-left" style="padding-right: 10px">
+                                            <div class="thumb" style="width: 50px;">
+                                                <img src="{{get_file_url($firstItem->image_id)}}" width="50px" alt="">
                                             </div>
                                         </div>
-                                    </li>
-                                </ul>
-                            @else
-                                {{ __("[Item Deleted]") }}
-                            @endif
-                            @endforeach
+                                    @endif
+                                    <div class="media-body">
+                                        <a target="_blank" href="{{ route('product.detail',['slug'=>$firstItem->slug])}}">{{ $firstItem->title }} x {{ $firstItem->qty }}</a>
+                                        @if(count($items)>1)
+                                        <div class="btn-group">
+                                            <button type="button" class="btn border rounded-pill dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                {{__("+:number more",['number'=>(count($items) -1 )])}}</button>
+                                            <div class="dropdown-menu">
+                                                @foreach($items as $item)
+                                                    @php
+                                                        $model = $item->model
+                                                    @endphp
+                                                    @if(!$loop->first)
+                                                        <a target="_blank" class="dropdown-item" href="{{ route('product.detail',['slug'=>$model->slug])}}">
+                                                            @if($model->image_id)
+                                                                <img src="{{get_file_url($model->image_id)}}" class="mr-1 img-fluid" width="35px" alt="">
+                                                            @endif
+                                                            {{ $model->title }} x {{ $item->qty }}
+                                                        </a>
+                                                    @endif
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                            @endif
+                                    </div>
+                                </div>
                             @endif
                         </td>
                         <td>

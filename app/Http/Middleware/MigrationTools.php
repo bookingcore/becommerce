@@ -2,8 +2,12 @@
 
 namespace App\Http\Middleware;
 
+use App\Updaters\Updater110;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
+use Modules\User\Models\Role;
 
 class MigrationTools
 {
@@ -19,17 +23,8 @@ class MigrationTools
     {
         if(strpos($request->path(),'install') === false and is_installed()){
 
-            $this->migrateTo110();
+            Updater110::run();
         }
         return $next($request);
-    }
-
-    protected function migrateTo110(){
-        $check = '1.0';
-        if(version_compare(setting_item('migration_110_schema'),$check,'>=')) return;
-
-        Artisan::call('migrate --force');
-
-        setting_update_item('migration_110_schema',$check);
     }
 }

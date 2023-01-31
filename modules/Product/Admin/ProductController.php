@@ -212,7 +212,8 @@ class ProductController extends AdminController
             'external_url',
             'is_approved',
             'downloadable',
-            'download_expiry_days'
+            'download_expiry_days',
+            'is_virtual',
         ];
         if($this->hasPermission('product_manage_others')){
             $dataKeys[] = 'author_id';
@@ -238,6 +239,7 @@ class ProductController extends AdminController
                 $this->saveTerms($row, $request);
                 $this->saveGroupedProducts($row, $request);
                 $this->saveDownloadable($row, $request);
+                $this->saveLocationStocks($row, $request);
             }
 
             do_action(Hook::AFTER_SAVING,$row);
@@ -336,7 +338,7 @@ class ProductController extends AdminController
     public function getForSelect2(Request $request){
         $query = Product::query()->orderBy('title')->where('status','publish');
 
-        if($s = $request->query('s')){
+        if($s = $request->query('s') or $s = $request->query('q')){
             $query->where('title','like','%'.$s.'%');
         }
 

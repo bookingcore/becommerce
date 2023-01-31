@@ -142,8 +142,7 @@ class ProductController extends Controller
         return view('product-detail', $data);
     }
 
-    public function quick_view(Request $request){
-        $id = (!empty($request->id)) ? $request->id : '';
+    public function quick_view(Request $request,$id){
         $product = $this->product::find('id',$id);
         $translation = $product->translateOrOrigin(app()->getLocale());
         $product_variations = $this->product_variations($product);

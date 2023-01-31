@@ -1,7 +1,7 @@
 <?php
 namespace Plugins\PaymentMollie\Gateway;
 
-use GuzzleHttp\Client;
+use Dotenv\Util\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Http;
@@ -29,7 +29,7 @@ class MollieGateway extends BaseGateway
                 'type'  => 'input',
                 'id'    => 'name',
                 'label' => __('Custom Name'),
-                'std'   => __("Razorpay Checkout"),
+                'std'   => __("Mollie Checkout"),
                 'multi_lang' => "1"
             ],
             [
@@ -60,9 +60,11 @@ class MollieGateway extends BaseGateway
                 'label' => __('Profile Id'),
             ],
             [
-                'type'  => 'checkbox',
-                'id'    => 'enable_sandbox',
-                'label' => __('Enable Sandbox Mode'),
+                'type'  => 'input',
+                'id'    => 'webhook',
+                'label' => __('Webhook url'),
+                'readonly'=>true,
+                'value'=>$this->getWebhookUrl()
             ],
 
         ];
@@ -100,7 +102,11 @@ class MollieGateway extends BaseGateway
             }else{
                 throw new Exception(__("Payment Failed!"));
             }
-        }else{
+        }elseif($client->failed()){
+            $response = $client->json();
+            throw new \Exception($response['detail']??"Payment Failed!");
+        }
+        else{
             throw new Exception(__("Payment Failed!"));
         }
     }
@@ -116,71 +122,51 @@ class MollieGateway extends BaseGateway
 
         $order = Order::find($c);
         if (!empty($order) ) {
-
             if($order->isExpired()){
                 $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
                 $order->updateStatus(Order::FAILED);
                 return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
             }
-
             if(in_array($order->status, [Order::ON_HOLD])){
                 $getPayment = $this->getPayment($order);
                 if($getPayment->successful()){
                     $response = $getPayment->json();
                     $status = $response['status'];
                     switch ($status){
-                        case 'paid':
-                            return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
-                        break;
-                        case 'authorized':
-                            $this->capturePayment($order,$response);
-                        break;
                         case 'canceled':
                         case 'expired':
                         case 'failed':
                             $request->merge(['oid'=>$order->id]);
                             $this->cancelPayment($request);
                         break;
+                        case 'paid':
+                            $order->pay_date = Carbon::now();
+                            $order->updateStatus(Order::PROCESSING);
+                            return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
+                        break;
+                        default:
+                            return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
                     }
-
                 }
-//
-//                $actualSignature = hash_hmac('sha256', $payload, $keySecret);
-//                if ($actualSignature != $request->signature) {
-//
-//                    $order->addPaymentLog($request->all());
-//                    $order->updateStatus($order::FAILED);
-//                    return redirect($order->getDetailUrl())->with('error', __("Payment Failed"));
-//
-//                } else {
-//                    $order->addPaymentLog($request->all());
-//                    $order->paid = $order->total;
-//                    if($order->isExpired()){
-//                        $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
-//                        $order->updateStatus(Order::FAILED);
-//                        return redirect($order->getDetailUrl())->with("success", __("Payment was success but Order has been expired"));
-//                    }else{
-//                        $order->pay_date = Carbon::now();
-//                        $order->updateStatus(Order::PROCESSING);
-//                        return redirect($order->getDetailUrl())->with("success", __("Your order has been processed successfully"));
-//                    }
-//                }
             }
         } else {
             return redirect(url('/'));
         }
+        return redirect($order->getDetailUrl())->with("error", __("Payment Failed"));
+
     }
 
     public function cancelPayment(Request $request)
     {
-        $oid = $request->query('oid');
+        $oid = $request->input('oid');
         $order = Order::find($oid);
-
         if (!empty($order) and in_array($order->status, [Order::ON_HOLD])) {
-
             if ($order) {
                 $order->addPaymentLog(['customer_cancel' => 1]);
                 $order->updateStatus(Order::CANCELLED);
+            }
+            if($request->ajax()){
+                return response()->json(['status'=>0,'url'=>$order->getDetailUrl(),'message'=>"You cancelled the payment"]);
             }
             return redirect($order->getDetailUrl())->with("error", __("You cancelled the payment"));
         }
@@ -192,27 +178,60 @@ class MollieGateway extends BaseGateway
         }
     }
 
+
+    public function callbackPayment(Request $request)
+    {
+        $translationId = $request->id;
+        $order = Order::where('gateway_transaction_id',$translationId)->first();
+        if (!empty($order) ) {
+            if($order->isExpired()){
+                $order->addNote(OrderNote::ORDER_EXPIRED,__("Payment was success but Order has been expired"));
+                $order->updateStatus(Order::FAILED);
+                return response()->json(['url'=>$order->getDetailUrl(),'message'=>'Payment was success but Order has been expired']);
+            }
+            if(in_array($order->status, [Order::ON_HOLD])){
+                $getPayment = $this->getPayment($order);
+                if($getPayment->successful()){
+                    $response = $getPayment->json();
+                    $status = $response['status'];
+                    switch ($status){
+                        case 'canceled':
+                        case 'expired':
+                        case 'failed':
+                            $request->merge(['oid'=>$order->id]);
+                            $this->cancelPayment($request);
+                        break;
+                        case 'paid':
+                            $order->pay_date = Carbon::now();
+                            $order->updateStatus(Order::PROCESSING);
+                            return response()->json(['url'=>$order->getDetailUrl(),'message'=>'Your order has been processed successfully']);
+                        break;
+                        default:
+                            return response()->json(['url'=>$order->getDetailUrl(),'message'=>'Your order has been processed successfully']);
+                    }
+                }
+            }
+        } else {
+            return response()->json(['url'=>home_url(),'message'=>'Your order not found']);
+        }
+    }
+
     public function handlePurchaseData($data, $request, &$order = null)
     {
 
-        if($order)
-        {
-            $order->total = ((float)$data['amount']);
-        }
-        $data['cart_order_id'] = $order->id;
         $data['amount'] = [
-            'value'=>((float)$order->total * 100),
-            'currency'=>setting_item('currency_main')
+            'value'=>(string)(number_format((float)$order->total, 2, '.', ' ')),
+            'currency'=>\Str::upper(setting_item('currency_main'))
         ];
         $data['description'] = setting_item("site_title")." - #".$order->id;
         $data['redirectUrl'] = $this->getReturnUrl() . '?oid=' . $order->id;
-        $data['cancel_url'] = $this->getCancelUrl() . '?oid=' . $order->id;
         $data['locale'] = app()->getLocale();
         $data['metadata']=[
             'order_id'=>$order->id
         ];
-        $data['profileId'] = $this->getOption('profile_id');
-        $data['testmode'] = $this->getOption("enable_sandbox");
+//        $data['profileId'] = $this->getOption('profile_id');
+//        $data['testmode'] = $this->getOption("enable_sandbox");
+        $data['method'] = "creditcard";
         return $data;
     }
 
@@ -220,7 +239,6 @@ class MollieGateway extends BaseGateway
     {
         return $this->getOption('html', '');
     }
-
 
     public function createPayment($order): \GuzzleHttp\Promise\PromiseInterface|\Illuminate\Http\Client\Response
     {
@@ -238,13 +256,5 @@ class MollieGateway extends BaseGateway
         return Http::withToken($this->getOption('api_key'))->get($url);
     }
 
-    public function capturePayment($order,$payment)
-    {
-        /**
-         * @var Order $order
-         */
-        $url = $this->end_point.'/payments/'.$order->gateway_transaction_id;
-        return Http::withToken($this->getOption('api_key'))->get($url);
-    }
 
 }

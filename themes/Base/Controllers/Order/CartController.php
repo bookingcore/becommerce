@@ -4,6 +4,7 @@
 namespace Themes\Base\Controllers\Order;
 
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;

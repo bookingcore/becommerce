@@ -15,35 +15,6 @@ class GeneralSeeder extends Seeder
      */
     public function run()
     {
-        //  User
-        $user = new User([
-            'first_name' => 'Axtronic',
-            'last_name' => 'Admin',
-            'email' => 'admin@axtronic.test',
-            'password' => bcrypt('admin123'),
-            'phone'   => '112 666 888',
-            'status'   => 'publish',
-            'created_at' =>  date("Y-m-d H:i:s"),
-            'bio'=> 'We\'re designers who have fallen in love with creating spaces for others to reflect, reset, and create. We split our time between two deserts (the Mojave, and the Sonoran). We love the way the heat sinks into our bones, the vibrant sunsets, and the wildlife we get to call our neighbors.',
-        ]);
-        $user->email_verified_at = date('Y-m-d H:i:s');
-        $user->need_update_pw = 1;
-        $user->save();
-        $user->assignRole('admin');
-
-        $user = new User([
-            'first_name' => 'Customer',
-            'email' => 'customer@axtronic.test',
-            'password' => bcrypt('admin123'),
-            'phone'   => '112 666 888',
-            'status'   => 'publish',
-            'created_at' =>  date("Y-m-d H:i:s"),
-        ]);
-        $user->email_verified_at = date('Y-m-d H:i:s');
-        $user->need_update_pw = 1;
-        $user->save();
-        $user->assignRole('customer');
-
         $primary_menu = [
             [
                 "id"            => 1,
@@ -281,7 +252,7 @@ class GeneralSeeder extends Seeder
                 ],
                 [
                     'name'  => 'axtronic_email_contact',
-                    'val'   => 'order@axtronic.com',
+                    'val'   => 'order@axtronic.test',
                 ],
                 [
                     'name'  => 'axtronic_footer_style',

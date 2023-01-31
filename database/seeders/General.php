@@ -343,5 +343,7 @@ namespace Database\Seeders;
 
                 ]
             );
+
+            setting_update_item('customer_role',2);
         }
 }

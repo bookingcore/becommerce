@@ -4,19 +4,22 @@ use \Illuminate\Support\Facades\Route;
 Route::get('/','HomeController@index')->name('home');
 Route::post('/contact/store','ContactController@store')->name("contact.store");
 Route::get('/product','ProductController@index')->name('product.index');
+Route::get('/quick_view/{id}','ProductController@quick_view')->name('product.quick_view');
 Route::get('/product/{slug}','ProductController@detail')->name('product.detail');
 Route::get('/category/{slug}','ProductController@categoryIndex')->name('product.category.index');
 
 Route::post('/product/compare','ProductController@compare')->name('product.compare');
 Route::post('/product/remove_compare','ProductController@remove_compare')->name('product.remove.compare');
 
-
-
 Route::group(['prefix'=>'news'],function(){
     Route::get('/','NewsController@index')->name('news');
     Route::get('/{slug}','NewsController@detail')->name('news.detail');
     Route::get('/category/{slug}','NewsController@category')->name('news.category');
     Route::get('/tag/{slug}','NewsController@tag')->name('news.tag');
+});
+
+Route::name('location.')->prefix('location')->group(function(){
+    Route::get('set/{location}','LocationController@set')->name('set');
 });
 
 Route::group(['prefix'=>'user','middleware'=>['auth','verified']],function(){
@@ -49,11 +52,18 @@ Route::group(['prefix'=>'vendor'],function(){
 
 Route::group(['prefix'=>'vendor','middleware'=>['auth','verified']],function(){
    Route::get('/dashboard','Vendor\DashboardController@index')->name('vendor.dashboard');
-   Route::get('/product','Vendor\ProductController@index')->name('vendor.product');
-   Route::get('/product/create','Vendor\ProductController@create')->name('vendor.product.create');
-   Route::get('/product/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
-   Route::post('/product/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
-   Route::get('/product/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
+
+   Route::group(['prefix'=>'product'],function(){
+       Route::get('/','Vendor\ProductController@index')->name('vendor.product');
+       Route::get('/create','Vendor\ProductController@create')->name('vendor.product.create');
+       Route::get('/edit/{id}','Vendor\ProductController@edit')->name('vendor.product.edit');
+       Route::post('/store/{id?}','Vendor\ProductController@store')->name('vendor.product.store');
+       Route::get('/delete/{id?}','Vendor\ProductController@delete')->name('vendor.product.delete');
+
+       Route::get('/search','Vendor\ProductController@search')->name('vendor.product.search');
+       Route::get('/sell/{product}','Vendor\ProductController@sell')->name('vendor.product.sell');
+       Route::post('/sell/{product}/store','Vendor\ProductController@sellStore')->name('vendor.product.sell.store');
+   });
 
    Route::get('/order','Vendor\OrderController@index')->name('vendor.order');
    Route::post('/order/bulkEdit','Vendor\OrderController@bulkEdit')->name('vendor.order.bulkEdit');
@@ -105,6 +115,7 @@ Route::group(['prefix'=>config('order.order_route_prefix')],function(){
     Route::match(['get','post'],'/callback/{gateway}','Order\OrderController@callbackPayment')->name('order.callback');
     Route::get('/{code}','Order\OrderController@detail')->name('order.detail');
     Route::get('/modal/{code}','Order\OrderController@modal')->name('order.modal')->middleware('auth');
+    Route::match(['get','post'],'/gateway_callback/{gateway}','Order\OrderController@callbackPayment')->name('order.gateway.webhook');
 });
 
 
@@ -115,7 +126,7 @@ Route::post('register','User\RegisterController@store')->name('register.store');
 Route::post('newsletter/subscribe','UserController@subscribe')->name('newsletter.subscribe');
 
 Route::group(['prefix'=>'pos','middleware'=>['auth','verified']],function(){
-    //Route::get('/','POSController@index')->name('pos');
+    Route::get('/','POSController@index')->name('pos');
 });
 
 

@@ -106,7 +106,7 @@ class PageController extends AdminController
         if (empty($row)) {
             return redirect(route('page.admin.index'));
         }
-        if(!$row->template_id){
+        if(!$row->template){
             $temp = new Template(
                 [
                     'title'=>$row->title

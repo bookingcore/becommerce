@@ -9,20 +9,28 @@ use Illuminate\Support\Facades\Storage;
 class StorageConfig
 {
 
-    protected static $_data = [
-        'BC_ACTIVE_THEME'=>'base'
+    protected static $_keys = [
+        'BC_ACTIVE_THEME',
+        'BC_ACTIVE_PLUGINS'
     ];
 
     public static function save($k,$v = null){
-        if(is_array($k)) static::$_data = array_merge(static::$_data,$k);
-        else static::$_data[$k] = $v;
+        $data = [];
+        foreach (static::$_keys as $key){
+            $data[$key] = defined($key) ? constant($key) : '';
+        }
 
-        return static::storeFile();
+        if(is_array($k)){
+            $data = array_merge($data,$k);
+        }
+        else $data[$k] = $v;
+
+        return static::storeFile($data);
     }
 
-    public static function storeFile(){
+    public static function storeFile($data){
         $str = '<?php'.PHP_EOL;
-        foreach (static::$_data as $k=>$v){
+        foreach ($data as $k=>$v){
             if(is_array($v)){
                 if(!empty($v)) $str .= 'define("'.$k.'",["'.implode('","',$v).'"]);'.PHP_EOL;
             }else{

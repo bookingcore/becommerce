@@ -62,7 +62,8 @@ class VendorController extends UserController
                     'name'=>__("Create new Vendor"),
                 ],
             ],
-            'page_title'=>__("Create new Vendor")
+            'page_title'=>__("Create new Vendor"),
+            'user_type'=>'vendor',
         ];
         return view('User::admin.detail', $data);
     }
@@ -89,7 +90,8 @@ class VendorController extends UserController
                     'class' => 'active'
                 ],
             ],
-            'page_title'=>__("Edit Vendor: #:id",['id'=>$row->id])
+            'page_title'=>__("Edit Vendor: #:id",['id'=>$row->id]),
+            'user_type'=>'vendor',
         ];
         return view('User::admin.detail', $data);
     }

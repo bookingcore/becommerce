@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Modules\Core\Models\NotificationPush;
 
 return new class extends Migration
 {
@@ -24,7 +25,25 @@ return new class extends Migration
                 $table->tinyInteger('downloadable')->nullable()->default(0);
                 $table->tinyInteger('download_expiry_days')->nullable()->default(0);
             }
+            if(!Schema::hasColumn('products','is_virtual')){
+                $table->tinyInteger('is_virtual')->nullable()->default(0);
+            }
         });
+
+
+        Schema::table(NotificationPush::getTableName(),function (Blueprint $table){
+            if(!Schema::hasColumn(NotificationPush::getTableName(),'for_admin')){
+                $table->boolean('for_admin')->default(0)->nullable();
+            }
+        });
+        Schema::table('product_variations',function (Blueprint $table){
+            if(!Schema::hasColumn('product_variations','variation_type')){
+                $table->tinyInteger('variation_type')->nullable()->default(0);
+                $table->bigInteger('vendor_id')->nullable();
+                $table->bigInteger('parent_id')->nullable();
+            }
+        });
+
     }
 
     /**
@@ -34,15 +53,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('core_orders', function (Blueprint $table) {
-            if(Schema::hasColumn('core_orders','channel')){
-                $table->dropColumn('channel');
-            }
-        });
-        Schema::table('products', function (Blueprint $table) {
-            if(Schema::hasColumn('products','downloadable')){
-                $table->dropColumn('downloadable');
-            }
-        });
+
     }
 };

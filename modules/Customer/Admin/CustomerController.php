@@ -51,7 +51,8 @@ class CustomerController extends UserController
                 [
                     'name'=>__("Create new User"),
                 ],
-            ]
+            ],
+            'user_type'=>'customer'
         ];
         return view('User::admin.detail', $data);
     }
@@ -73,7 +74,8 @@ class CustomerController extends UserController
                     'name'=>__("Edit User: #:id",['id'=>$row->id]),
                     'class' => 'active'
                 ],
-            ]
+            ],
+            'user_type'=>'customer'
         ];
         return view('User::admin.detail', $data);
     }

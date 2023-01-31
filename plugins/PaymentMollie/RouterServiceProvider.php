@@ -35,7 +35,6 @@ class RouterServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
         $this->mapWebRoutes();
-        $this->mapAdminRoutes();
         $this->mapLanguageRoutes();
     }
 
@@ -51,20 +50,6 @@ class RouterServiceProvider extends ServiceProvider
         Route::middleware('web')->namespace($this->moduleNamespace)->group(__DIR__ . '/Routes/web.php');
     }
 
-    /**
-     * Define the "admin" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
-     */
-    protected function mapAdminRoutes()
-    {
-        Route::middleware([
-            'web',
-            'dashboard'
-        ])->namespace($this->adminModuleNamespace)->prefix('admin/module/PaymentRazorPay')->group(__DIR__ . '/Routes/admin.php');
-    }
 
     /**
      * Define the "lang" routes for the application.

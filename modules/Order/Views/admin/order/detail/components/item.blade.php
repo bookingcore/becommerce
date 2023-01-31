@@ -113,7 +113,19 @@
                     if(!data.is_manage_stock && data.stock_status == 'in'){
                         this.remain_stock = null;
                     }
-                }else{
+                }else if(data.product_type == 'variable'){
+                    let variation_id = this.item.variation_id;
+                    var find = this.variations.find(function(item){
+                        return item.id == variation_id;
+                    })
+                    if(find){
+                        this.item.price = find.price;
+                        this.remain_stock = find.remain_stock;
+                        if(!find.is_manage_stock && find.stock_status == 'in'){
+                            this.remain_stock = null;
+                        }
+                    }
+                } else{
                     this.item.price = 0;
                     this.remain_stock = 0;
                 }

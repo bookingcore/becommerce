@@ -38,6 +38,9 @@ class OrderController extends FrontendController
         $request->validate([
             'ids'=>'required|array',
             'action'=>'required'
+        ],[
+            'ids.required' => 'No items selected!',
+            'action.required' => 'Please select an action!'
         ]);
 
         $ids = $request->input('ids',[]);

@@ -128,6 +128,7 @@
 
                 }
 
+
                 return $this->processOrderPayment($order,$gatewayObj);
 
             }catch (\Throwable $throwable){
@@ -193,6 +194,7 @@
             $order->addMeta('billing',$billing_data);
             $order->addMeta('shipping',$shipping_data);
             $order->addMeta('shipping_method',$this->cart_manager::cart()->shipping_method);
+            $order->addMeta('need_shipping',$order->needShipping());
         }
 
         public function processOrderPayment(Order $order,BaseGateway $gatewayObj){
@@ -252,7 +254,7 @@
                 'billing_country'    => 'required',
                 'billing_address'    => 'required',
             ];
-            if (!$request->input('shipping_same_address')) {
+            if (!$request->input('shipping_same_address') and $cart->needShipping()) {
                 $rules = array_merge($rules, [
                     'shipping_first_name' => 'required|string|max:255',
                     'shipping_last_name'  => 'required|string|max:255',

@@ -52,6 +52,7 @@ class ModuleProvider extends ModuleServiceProvider
     {
         $this->app->register(RouterServiceProvider::class);
         $this->app->register(RepositoryServiceProvider::class);
+        $this->app->register(EventServiceProvider::class);
 
         $this->app->singleton('be.channel_manager',function(){
             return new ChannelManager();

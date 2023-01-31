@@ -70,6 +70,7 @@
         methods:{
             addNew(){
                 // this.fakeModel['_index'] =
+                if(typeof this.value !== 'object') this.value = [];
                 this.value.push(Object.assign({},this.fakeModel));
             },
             deleteItem(k){

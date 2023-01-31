@@ -36,6 +36,9 @@ class PluginsController extends AdminController
     }
 
     public function active(Request $request,$plugin){
+        if(is_demo_mode()){
+            return back()->with("danger",__("DEMO MODE: You can not do it"));
+        }
         $active = $request->input('active');
 
         if($active){
@@ -55,6 +58,9 @@ class PluginsController extends AdminController
     }
     public function bulkEdit(Request $request)
     {
+        if(is_demo_mode()){
+            return back()->with("danger",__("DEMO MODE: You can not do it"));
+        }
         $this->checkPermission('plugin_manage');
         $ids = $request->input('ids');
         $action = $request->input('action');

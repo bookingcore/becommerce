@@ -88,6 +88,10 @@ class TranslationsController extends AdminController
     public function store(Request $request, $id)
     {
 
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do this"));
+        }
+
         $this->checkPermission('language_translation');
         $lang = Language::find($id);
         if (empty($lang)) {
@@ -115,6 +119,9 @@ class TranslationsController extends AdminController
 
     public function build($id)
     {
+        if(is_demo_mode()){
+            return back()->with('danger',__("DEMO MODE: You are not allowed to do this"));
+        }
         $this->checkPermission('language_translation');
         $back = url('admin/module/language/translations');
 

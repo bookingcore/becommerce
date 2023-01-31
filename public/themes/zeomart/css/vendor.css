@@ -1,6 +1,16 @@
 @import "_form.css";
+@import "_form_product.css";
+@import "_form_group.css";
+@import "_table.css";
 @import "_media.css";
+@import "../../Base/tailwind/vendor/css/browser.css";
 .btn{
-    @apply rounded text-base font-medium px-4 py-3 transition duration-200
+    @apply rounded px-3 py-2 transition duration-200 hover:cursor-pointer
 }
-
+.btn-sm{
+    @apply px-2 py-1
+}
+.btn-danger{
+    background: #F1416C;
+    color:white
+}

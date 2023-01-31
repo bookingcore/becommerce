@@ -65,6 +65,9 @@ trait HasTranslations
      * @param false $locale
      */
     public function translate($locale = false){
+        if(!is_enable_multi_lang()){
+            return $this;
+        }
         if(empty($locale)) $locale = app()->getLocale();
 
         $class = $this->getTranslationModelNameDefault();

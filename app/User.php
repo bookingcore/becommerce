@@ -21,6 +21,7 @@
     use Modules\Vendor\Models\VendorRequest;
     use Illuminate\Database\Eloquent\SoftDeletes;
     use Modules\Vendor\Traits\HasPayout;
+    use Modules\Vendor\Traits\VendorUser;
 
     class User extends Authenticatable implements MustVerifyEmail
     {
@@ -31,6 +32,7 @@
         use HasPayout;
         use HasSlug;
         use HasMeta;
+        use VendorUser;
 
         protected $meta_parent_key = 'user_id';
         protected $metaClass = UserMeta::class;
@@ -281,10 +283,6 @@
                 }
             );
 
-        }
-
-        public function department(){
-            return $this->belongsTo(Department::class, 'department_id');
         }
 
         public function fillByAttr($attributes , $input)

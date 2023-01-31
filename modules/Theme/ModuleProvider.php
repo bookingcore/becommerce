@@ -14,19 +14,29 @@ class ModuleProvider extends \Modules\ModuleServiceProvider
         if(!is_installed() || strpos($request->path(), 'install') !== false) return false;
 
         //	 load Theme overwrite
-	    $active = ThemeManager::current();
+        $active = ThemeManager::current();
 
-	    if(strtolower($active) != "base"){
+        $view_paths = [];
 
-            $view_paths = config('view.paths');
-            array_unshift($view_paths,base_path('/themes/'.ucfirst($active).'/resources'));
-            config()->set('view.paths',$view_paths);
+        if(strtolower($active) != "base"){
 
-            View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($active)));
+            $view_paths[] = base_path('/themes/'.ucfirst($active).'/Views/resources');
+
+            // ChildTheme
+            $provider = ThemeManager::getProviderClass($active);
+            if($parent = $provider::getParent() and $parent != 'base'){
+                $view_paths[] = base_path('/themes/'.ucfirst($parent).'/Views/resources');
+            }
+            config()->set('view.paths',array_merge($view_paths,config('view.paths')));
+
+            View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($active).DIRECTORY_SEPARATOR.'Views'));
+            if($parent = $provider::getParent() and $parent != 'base'){
+                View::addLocation(base_path("themes".DIRECTORY_SEPARATOR.ucfirst($parent).DIRECTORY_SEPARATOR.'Views'));
+            }
         }
-
         // Base Theme require
-        View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base"));
+        View::addLocation(base_path(DIRECTORY_SEPARATOR."themes".DIRECTORY_SEPARATOR."Base".DIRECTORY_SEPARATOR.'Views'));
+
 
     }
 

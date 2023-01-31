@@ -46,4 +46,9 @@ abstract class AbstractThemeProvider extends ServiceProvider
 
         static::updateLastSeederRun();
     }
+
+    /**
+     * Get parent Theme name
+     */
+    public static function getParent(){}
 }

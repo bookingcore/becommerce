@@ -3,18 +3,25 @@
 namespace Modules\Product\Models;
 
 use App\BaseModel;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Database\Eloquent\Casts\Attribute;
-use Illuminate\Http\Request;
 use Modules\Core\Models\Term;
+use Modules\Product\Models\Location\LocationStock;
 use Modules\Product\Traits\HasStockValidation;
+use Modules\Product\Traits\Location\HasLocationVariationStock;
 
 class ProductVariation extends BaseModel
 {
     use HasStockValidation;
+    use HasLocationVariationStock;
+
+    const TYPE_PRODUCT = 0;
+    const TYPE_VENDOR = 1;
+    const TYPE_VENDOR_VARIATION = 2;
 
     protected $table = 'product_variations';
     public $type = 'product_variation';
+
+    public $location_stock_type = LocationStock::TYPE_PRODUCT_VARIATION;
 
     protected $fillable = [
         'title',
